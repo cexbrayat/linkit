@@ -1,4 +1,4 @@
 # Application dependencies
 
 require:
-    - play
+    - play -> less 0.3
