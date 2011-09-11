@@ -4,3 +4,4 @@ require:
     - play 
     - play -> less 0.3
     - play -> gravatar 1.0.1
+    - play -> cloudbees 0.2.2
