@@ -1,37 +1,11 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
-
-<div class="topbar">
-  <div class="fill">
-    <div class="container">
-       <h3><a href="#">Mix-it</a></h3>
-       <ul class="nav">
-          <li class="active"><a href="#">Accueil</a></li>
-          <li><a href="#speakers">Speakers</a></li>
-          <li><a href="#staff">Staff</a></li>
-          <li><a href="#sponsors">Sponsors</a></li>
-       </ul>
-     </div>
-  </div>
-</div>
+#{set title:'Accueil' /}
 
 <div class="container">
-  <div class="hero-unit">
-     <h2>Cédric Exbrayat</h2>
-     #{gravatar.img 'cexbrayat@gmail.com', size:120, default:'mm', rating:'pg', secure:true/}
-     <p>JUG Leader</p>
-     <a class="btn primary large">Follow</a>
-  </div>
-
-  <div class="row">
-    <div class="span6">
-    <h2>Ma vie</h2>
-    <p>Etiam porta sem malesuada magna mollis euismod. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-    <p><a class="btn" href="#">Voir mon site</a></p>
-  </div>
-</div>
-        
-  <footer>
-    <p>Mix-it 2012</p>
-  </footer>
-</div>
+	<div class="hero-unit">
+		<h1>Mix-it</h1> 
+		<h2>Des idées pour tout de suite !</h2>
+		<p>X Avril 2012</p>
+		<a class="btn primary large" href="@{Application.register()}">S'inscrire</a>
+	</div>
+</div><!-- /container --> 
