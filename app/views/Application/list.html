@@ -1,9 +1,15 @@
 #{extends 'main.html' /}
 #{set title:'Liste' /}
+<script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
+<script >
+  $(function() {
+    $("table#sortMember").tablesorter({ sortList: [[1,0]] });
+  });
+</script>
 </br>
 </br>
 <div class="container">
-	<table class="zebra-striped"> 
+	<table class="zebra-striped" id="sortMember"> 
         <thead> 
           <tr> 
             <th>Prénom</th> 
