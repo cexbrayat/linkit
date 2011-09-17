@@ -18,7 +18,7 @@ public class Application extends Controller {
     	render("Application/register.html");
     }
 
-    public static void endRegistration(@Required String firstname, @Required String lastname, @Required @Email String email, @Required String description) {
+    public static void endRegistration(@Required String firstname, @Required String lastname, @Required @Email String email, @Required String description, @Required String login, @Required String password) {
      	Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "}, email {" + email + "}");
 	    if (validation.hasErrors()) {
 	    	Logger.error(validation.errors().toString());
@@ -26,7 +26,7 @@ public class Application extends Controller {
 	    }
     	Member member = Member.find("byEmail", email).first();
     	if(member == null){
-	    	member = new Member(firstname, lastname, email, description);
+	    	member = new Member(firstname, lastname, email, description, login, password);
    	    	member.save();
    	    	flash.success("Profil enregistré!");
    	    	Logger.info("Profil enregistré");
@@ -39,8 +39,8 @@ public class Application extends Controller {
     	render("Application/list.html", members);
     }
     
-    public static void showMember(String email){
-    	Member member = Member.find("byEmail", email).first();
+    public static void showMember(String login){
+    	Member member = Member.find("byLogin", login).first();
     	render("Application/profile.html", member);
     }
 
