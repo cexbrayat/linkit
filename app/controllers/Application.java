@@ -36,6 +36,7 @@ public class Application extends Controller {
     
     public static void showMembers(){
     	List<Member> members = Member.findAll();
+    	Logger.info(Member.count() + " membres");
     	render("Application/list.html", members);
     }
     
