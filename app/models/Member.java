@@ -26,7 +26,7 @@ public class Member extends Model {
     
     public static boolean connect(String login, String password){
     	Member member = Member.find("byLogin", login).first();
-    	return (member != null && !member.password.equals(password));
+    	return (member != null && member.password.equals(password));
     }
  
 }
