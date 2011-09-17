@@ -1,13 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'Profil' /}
 <div class="container">
-  #{if flash.success}
-    <div class="alert-message success">${flash.success}</div>
-  #{/if}
-  #{if flash.error}
-    <div class="alert-message error">${flash.error}</div>
-  #{/if}
   <div class="hero-unit">
+     #{if flash.success}
+     <div class="alert-message success">${flash.success}</div>
+     #{/if}
+     #{if flash.error}
+     <div class="alert-message error">${flash.error}</div>
+     #{/if}
      <h2>${member.firstname} ${member.lastname}</h2>
      #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
      <p>${member.description}</p>
