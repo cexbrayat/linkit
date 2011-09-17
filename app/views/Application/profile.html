@@ -16,7 +16,7 @@
      #{/if}
      <h3>${member.links.size()} links</h3>
      #{list items:member.links, as:'link'}
-     #{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}
+     <a href="@{Application.showMember(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
      #{/list}
   </div>
 
