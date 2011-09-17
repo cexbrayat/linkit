@@ -11,25 +11,32 @@
         #{get 'moreScripts' /}
     </head>
     <body>
-    	<div class="topbar">
-			<div class="fill">
-				<div class="container">
-					<h3><a href="@{Application.index()}">Mix-it</a></h3>
-					<ul class="nav">
-						<li class="active"><a href="@{Application.index()}">Accueil</a></li>
-						<li><a href="#speakers">Speakers</a></li>
-						<li><a href="#staff">Staff</a></li>
-						<li><a href="#sponsors">Sponsors</a></li>
-						<li><a href="@{Application.showMembers()}">Participants</a></li>						
-					</ul>
-				</div>
-			</div>
-		</div>
+        <div class="topbar">
+            <div class="fill">
+                <div class="container">
+                    <h3><a href="@{Application.index()}">Mix-it</a></h3>
+                    <ul class="nav">
+                        <li class="active"><a href="@{Application.index()}">Accueil</a></li>
+                        <li><a href="#speakers">Speakers</a></li>
+                        <li><a href="#staff">Staff</a></li>
+                        <li><a href="#sponsors">Sponsors</a></li>
+                        <li><a href="@{Application.showMembers()}">Participants</a></li>                        
+                        #{if session.get("username") == null} 
+                        <li><a href="@{Secure.login()}">Se connecter</a></li>
+                        #{/if}
+                        #{else}
+                        <li><a href="@{Application.showMember(session.get("username"))}">Mon profil</a></li>
+                        <li><a href="@{Secure.logout()}">Se deconnecter</a></li>
+                        #{/else}
+                    </ul>
+                </div>
+            </div>
+        </div>
         #{doLayout /}
-		<footer>
-  		  	<div class="container">
-				<p>Mix-it 2012</p>
-  		    </div>
-		</footer>
+        <footer>
+            <div class="container">
+                <p>Mix-it 2012</p>
+            </div>
+        </footer>
     </body>
 </html>

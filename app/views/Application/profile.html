@@ -4,11 +4,20 @@
   #{if flash.success}
     <div class="alert-message success">${flash.success}</div>
   #{/if}
+  #{if flash.error}
+    <div class="alert-message error">${flash.error}</div>
+  #{/if}
   <div class="hero-unit">
      <h2>${member.firstname} ${member.lastname}</h2>
      #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
      <p>${member.description}</p>
-     <a class="btn primary large">Link</a>
+     #{if !session.get("username").equals(member.login)} 
+     <a class="btn primary large" href="@{Application.link(session.get("username"), member.login)}">Link</a>
+     #{/if}
+     <h3>${member.links.size()} links</h3>
+     #{list items:member.links, as:'link'}
+     #{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}
+     #{/list}
   </div>
 
   <div class="row">

@@ -14,6 +14,8 @@ public class Member extends Model {
     public String description;
     public String login;
     public String password;
+    @OneToMany
+    public List<Member> links = new ArrayList<Member>();
     
     public Member(String firstname, String lastname, String email, String description, String login, String password) {
         this.email = email;
@@ -25,8 +27,19 @@ public class Member extends Model {
     }
     
     public static boolean connect(String login, String password){
-    	Member member = Member.find("byLogin", login).first();
-    	return (member != null && member.password.equals(password));
+        Member member = Member.find("byLogin", login).first();
+        return (member != null && member.password.equals(password));
+    }
+    
+    public static void addLink(String login, String loginToLink){
+        Member member = Member.find("byLogin", login).first();
+        Member memberToLink = Member.find("byLogin", loginToLink).first();
+        member.links.add(memberToLink);
+        member.save();
+    }
+    
+    public String toString(){
+    	return "login {" + login + "}, links {" + links.size() + "}";
     }
  
 }
