@@ -25,5 +25,15 @@ public class BasicTest extends UnitTest {
         Member.addLink("bob","ced");
         assertEquals(1, bob.links.size());
     }
+    
+    @Test
+    public void isLinkedTo() {
+        Member bob = Member.find("byLogin","bob").first();
+        assertEquals(0, bob.links.size());
+        assertEquals(false, Member.isLinkedTo("bob","ced"));
+        Member.addLink("bob","ced");
+        assertEquals(1, bob.links.size());
+        assertEquals(true, Member.isLinkedTo("bob","ced"));
+    }
 
 }

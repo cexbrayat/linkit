@@ -41,18 +41,27 @@ public class Application extends Controller {
     }
     
     public static void showMember(String login){
-    	Logger.info("Profil " + login);
+        Logger.info("Profil " + login);
         Member member = Member.find("byLogin", login).first();
-      	Logger.info("Profil " + member.toString());
+        Logger.info("Profil " + member);
         render("Application/profile.html", member);
     }
     
     public static void link(String login, String loginToLink) {
-    	if(login == null || login.isEmpty()){
-    		redirect("/secure/login");
-    	}
+        if(login == null || login.isEmpty()){
+            redirect("/secure/login");
+        }
         Member.addLink(login, loginToLink);
         flash.success("Link ajouté!");
+        showMember(loginToLink);
+    }
+    
+    public static void unlink(String login, String loginToLink) {
+        if(login == null || login.isEmpty()){
+            redirect("/secure/login");
+        }
+        Member.removeLink(login, loginToLink);
+        flash.success("Link supprimé!");
         showMember(loginToLink);
     }
 }

@@ -2,7 +2,8 @@ package models;
  
 import java.util.*;
 import javax.persistence.*;
- 
+
+import play.Logger; 
 import play.db.jpa.*;
  
 @Entity
@@ -38,8 +39,21 @@ public class Member extends Model {
         member.save();
     }
     
+    public static void removeLink(String login, String loginToLink){
+        Member member = Member.find("byLogin", login).first();
+        Member memberToLink = Member.find("byLogin", loginToLink).first();
+        member.links.remove(memberToLink);
+        member.save();
+    }
+    
+    public static boolean isLinkedTo(String login, String loginToLink){
+        Member member = Member.find("byLogin", login).first();
+        Member memberToLink = Member.find("byLogin", loginToLink).first();
+        return member.links.contains(memberToLink);
+    }
+    
     public String toString(){
-    	return "login {" + login + "}, links {" + links.size() + "}";
+        return "login {" + login + "}, links {" + links.size() + "}";
     }
  
 }
