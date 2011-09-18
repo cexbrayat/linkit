@@ -2,6 +2,7 @@ tmp/
 modules/
 precompiled/
 conf/*.bees
+logs/
 test-result/
 nbproject/
 *.iml
@@ -9,3 +10,4 @@ nbproject/
 .project
 .settings/
 eclipse/
+*.DS_Store
