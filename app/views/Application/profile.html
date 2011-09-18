@@ -11,7 +11,7 @@
      <h2>${member.firstname} ${member.lastname}</h2>
      #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
      <p>${member.description}</p>
-     #{if !session.get("username").equals(member.login)}
+     #{if session.get("username") != null && !session.get("username").equals(member.login)}
      #{if !models.Member.isLinkedTo(session.get("username"), member.login)}
      <a class="btn primary large" href="@{Application.link(session.get("username"), member.login)}">Link</a>
      #{/if}
