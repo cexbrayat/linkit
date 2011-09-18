@@ -3,3 +3,9 @@ modules/
 precompiled/
 conf/*.bees
 test-result/
+nbproject/
+*.iml
+.classpath
+.project
+.settings/
+eclipse/
