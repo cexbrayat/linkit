@@ -19,10 +19,20 @@
      <a class="btn primary large" href="@{Application.unlink(session.get("username"), member.login)}">Unlink</a>
      #{/else}
      #{/if}
-     <h3>${member.links.size()} links</h3>
-     #{list items:member.links, as:'link'}
-     <a href="@{Application.showMember(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
-     #{/list}
+     <div class="row">
+       <div class="span3">
+         <h3>${member.links.size()} links</h3>
+         #{list items:member.links, as:'link'}       
+         <a href="@{Application.showMember(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+         #{/list}
+       </div>
+       <div class="span3">
+         <h3>${member.linkers().size()} linkers</h3>
+         #{list items:member.linkers(), as:'link'}
+         <a href="@{Application.showMember(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+         #{/list}
+      </div>
+    </div>
   </div>
 
   <div class="row">

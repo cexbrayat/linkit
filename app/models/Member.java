@@ -51,6 +51,10 @@ public class Member extends Model {
         Member memberToLink = Member.find("byLogin", loginToLink).first();
         return member.links.contains(memberToLink);
     }
+
+    public List<Member> linkers(){
+        return Member.find("select m from Member m, in (m.links) as l where l.id = ?", id).fetch();
+    }
     
     public String toString(){
         return "login {" + login + "}, links {" + links.size() + "}";
