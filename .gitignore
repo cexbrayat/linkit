@@ -2,4 +2,12 @@ tmp/
 modules/
 precompiled/
 conf/*.bees
+logs/
 test-result/
+nbproject/
+*.iml
+.classpath
+.project
+.settings/
+eclipse/
+*.DS_Store
