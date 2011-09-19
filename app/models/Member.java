@@ -15,7 +15,7 @@ public class Member extends Model {
     public String description;
     public String login;
     public String password;
-    @OneToMany
+    @ManyToMany
     public List<Member> links = new ArrayList<Member>();
     
     public Member(String firstname, String lastname, String email, String description, String login, String password) {

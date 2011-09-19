@@ -11,3 +11,5 @@ nbproject/
 .settings/
 eclipse/
 *.DS_Store
+.idea/
+out/
