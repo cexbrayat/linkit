@@ -1,0 +1,15 @@
+Member(cedric) :
+    firstname: Cédric
+    lastname: Exbrayat
+    login: cedric
+    password: ced
+    email: cexbrayat@gmail.com
+    description: JUG Leader
+    
+Member(ju) :
+    firstname: Julien
+    lastname: Ripault
+    login: julien
+    password: ju
+    email: tluapir@gmail.com
+    description: JUG Leader

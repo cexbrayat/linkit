@@ -1,14 +1,38 @@
 #{extends 'main.html' /}
 #{set title:'Profil' /}
 <div class="container">
-  #{if flash.success}
-    <div class="alert-message success">${flash.success}</div>
-  #{/if}
   <div class="hero-unit">
+     #{if flash.success}
+     <div class="alert-message success">${flash.success}</div>
+     #{/if}
+     #{if flash.error}
+     <div class="alert-message error">${flash.error}</div>
+     #{/if}
      <h2>${member.firstname} ${member.lastname}</h2>
      #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
      <p>${member.description}</p>
-     <a class="btn primary large">Link</a>
+     #{if session.get("username") != null && !session.get("username").equals(member.login)}
+     #{if !models.Member.isLinkedTo(session.get("username"), member.login)}
+     <a class="btn primary large" href="@{Application.link(session.get("username"), member.login)}">Link</a>
+     #{/if}
+     #{else}
+     <a class="btn primary large" href="@{Application.unlink(session.get("username"), member.login)}">Unlink</a>
+     #{/else}
+     #{/if}
+     <div class="row">
+       <div class="span3">
+         <h3>${member.links.size()} links</h3>
+         #{list items:member.links, as:'link'}       
+         <a href="@{Application.showMember(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+         #{/list}
+       </div>
+       <div class="span3">
+         <h3>${member.linkers().size()} linkers</h3>
+         #{list items:member.linkers(), as:'link'}
+         <a href="@{Application.showMember(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+         #{/list}
+      </div>
+    </div>
   </div>
 
   <div class="row">

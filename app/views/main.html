@@ -8,26 +8,44 @@
         #{get 'moreStyles' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
         <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/twipsy.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script> 
+            $(function () {
+              $("a[rel=twipsy]").twipsy({
+                live: true,
+                placement: 'below'
+              })
+            })
+          </script> 
         #{get 'moreScripts' /}
     </head>
     <body>
-    	<div class="topbar">
-			<div class="fill">
-				<div class="container">
-					<h3><a href="@{Application.index()}">Mix-it</a></h3>
-					<ul class="nav">
-						<li class="active"><a href="@{Application.index()}">Accueil</a></li>
-						<li><a href="#speakers">Speakers</a></li>
-						<li><a href="#staff">Staff</a></li>
-						<li><a href="#sponsors">Sponsors</a></li>
-						<li><a href="@{Application.showMembers()}">Participants</a></li>						
-					</ul>
-				</div>
-			</div>
-		</div>
+        <div class="topbar">
+            <div class="fill">
+                <div class="container">
+                    <h3><a href="@{Application.index()}">Mix-it</a></h3>
+                    <ul class="nav">
+                        <li class="active"><a href="@{Application.index()}">Accueil</a></li>
+                        <li><a href="#speakers">Speakers</a></li>
+                        <li><a href="#staff">Staff</a></li>
+                        <li><a href="#sponsors">Sponsors</a></li>
+                        <li><a href="@{Application.showMembers()}">Participants</a></li>                        
+                        #{if session.get("username") == null} 
+                        <li><a href="@{Secure.login()}">Se connecter</a></li>
+                        #{/if}
+                        #{else}
+                        <li><a href="@{Application.showMember(session.get("username"))}">Mon profil</a></li>
+                        <li><a href="@{Secure.logout()}">Se deconnecter</a></li>
+                        #{/else}
+                    </ul>
+                </div>
+            </div>
+        </div>
         #{doLayout /}
-		<footer>
-			<p>Mix-it 2012</p>
-		</footer>
+        <footer>
+            <div class="container">
+                <p>Mix-it 2012 - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
+            </div>
+        </footer>
     </body>
 </html>
