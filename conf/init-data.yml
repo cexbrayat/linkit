@@ -13,3 +13,11 @@ Member(ju) :
     password: ju
     email: tluapir@gmail.com
     description: JUG Leader
+    
+Member(agnes) :
+    firstname: Agnès
+    lastname: Crépet
+    login: agnes
+    password: agnes
+    email: agnes.crepet@gmail.com
+    description: JUG Leader
