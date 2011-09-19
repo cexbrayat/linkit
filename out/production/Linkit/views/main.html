@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>#{get 'title' /}</title>
+        <meta charset="${_response_encoding}">
+        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/bootstrap.less'}">
+        #{get 'moreStyles' /}
+        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        #{get 'moreScripts' /}
+    </head>
+    <body>
+    	<div class="topbar">
+			<div class="fill">
+				<div class="container">
+					<h3><a href="@{Application.index()}">Mix-it</a></h3>
+					<ul class="nav">
+						<li class="active"><a href="@{Application.index()}">Accueil</a></li>
+						<li><a href="#speakers">Speakers</a></li>
+						<li><a href="#staff">Staff</a></li>
+						<li><a href="#sponsors">Sponsors</a></li>
+						<li><a href="@{Application.showMembers()}">Participants</a></li>						
+					</ul>
+				</div>
+			</div>
+		</div>
+        #{doLayout /}
+		<footer>
+			<p>Mix-it 2012</p>
+		</footer>
+    </body>
+</html>
