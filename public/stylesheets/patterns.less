@@ -506,6 +506,7 @@ input[type=submit].btn {
 }
 
 
+
 // ERROR STYLES
 // ------------
 
@@ -817,3 +818,16 @@ input[type=submit].btn {
     }
   }
 }
+
+// PATTERN ANIMATIONS
+// ------------------
+
+.fade {
+  .transition(opacity .15s linear);
+  opacity: 0;
+  &.in {
+    opacity: 1;
+  }
+}
+
+
