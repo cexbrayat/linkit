@@ -1,41 +1,46 @@
 package models;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
 /**
- * An OAuth account on a third-party authentication provider
+ * An account on an authentication provider
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public class Account extends Model {
+@DiscriminatorValue("provider")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+public abstract class Account extends Model {
     
     @Required
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     public Member member;
 
     // Authentication provider : linkit, twitter, google, ...
     @Required
-    public String provider;
+    @Enumerated(EnumType.STRING)
+    public ProviderType provider; 
     
-    public Long userId;
-    public String login;
-    
-    /** For basic (Link-IT) authentication */
-    public String password;
-
-    /** For OAuth authentication */
-    public String secret;
-    public String token;
-
-    public Account(String provider) {
+    public Account(ProviderType provider) {
         this.provider = provider;
     }
     
+    public static Account find(ProviderType provider, String login) {
+        return Account.find("from Account a where a.provider=?1 and a.member.login=?2", provider, login).first();
+    }
+
     @Override
     public String toString(){
-        return "provider {" + provider + "}, login {" + login + "}";
+        return "provider {" + provider + "}";
     }
 }

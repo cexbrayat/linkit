@@ -13,9 +13,13 @@ public class Application extends Controller {
     public static void index() {
         render();
     }
-    
+   
+    public static void register(Member membre) {
+        render(membre);
+    }
+
     public static void register() {
-        render("Application/register.html");
+        render();
     }
 
     // FIXME Manage Link-IT/Twitter/Google account
@@ -23,16 +27,27 @@ public class Application extends Controller {
         Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "}, email {" + email + "}");
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
-            render("Application/register.html");            
+            register();            
         }
-        Member member = Member.find("byEmail", email).first();
+        Member member = Member.find("byLogin", login).first();
+        // FIXME Separate profile edition (without login/password) from registration (first and only typing of login/password for LinkIt authentication)
         if(member == null){
-            member = new Member(firstname, lastname, email, description, login, password);
-            member.save();
-            flash.success("Profil enregistré!");
-            Logger.info("Profil enregistré");
+            LinkItAccount account = new LinkItAccount();
+            account.password = password;
+            member = new Member(login, account);
+            session.put("username", login);
         }
-        render("Application/profile.html", member);
+        member.firstname = firstname;
+        member.description = description;
+        member.email = email;
+        member.lastname = lastname;
+        member.login = login;
+        
+        member.save();
+        flash.success("Profil enregistré!");
+        Logger.info("Profil enregistré");
+        
+        showMember(member.login);
     }
     
     public static void showMembers(){

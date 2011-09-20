@@ -1,3 +1,4 @@
+import controllers.Security;
 import org.junit.*;
 import play.test.*;
 import models.*;
@@ -7,7 +8,7 @@ public class BasicTest extends UnitTest {
     @Before
     public void setUp() {
         Fixtures.deleteAllModels();
-        Fixtures.loadYaml("data.yml");
+        Fixtures.loadModels("data.yml");
     }
 
     @After
@@ -17,9 +18,9 @@ public class BasicTest extends UnitTest {
     
     @Test
     public void connect() {
-        assertNull(Member.connect("bob", "bob"));
-        assertNull(Member.connect("ced", "bob"));
-        assertNotNull(Member.connect("bob", "secret"));
+        assertFalse(Security.authenticate("bob", "bob"));
+        assertFalse(Security.authenticate("ced", "bob"));
+        assertTrue(Security.authenticate("bob", "secret"));
     }
     
     @Test

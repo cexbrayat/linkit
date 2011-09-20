@@ -1,14 +1,14 @@
 package controllers.oauth;
 
-import models.Account;
+import models.OAuthAccount;
 import play.libs.OAuth.ServiceInfo;
 
 /**
  *
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public interface Provider {
+public interface OAuthProvider {
     
     ServiceInfo getServiceInfo();
-    Account getUserAccount(String token, String secret);
+    OAuthAccount getUserAccount(String token, String secret);
 }

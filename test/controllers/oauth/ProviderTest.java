@@ -1,5 +1,6 @@
 package controllers.oauth;
 
+import models.ProviderType;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 import play.test.UnitTest;
@@ -12,7 +13,7 @@ public class ProviderTest extends UnitTest {
     
     @Test
     public void testProviderTwitter() {
-        Provider twitter = ProviderFactory.getProvider("twitter");
+        OAuthProvider twitter = OAuthProviderFactory.getProvider(ProviderType.Twitter);
         assertNotNull(twitter);
         assertFalse(StringUtils.isBlank(twitter.getServiceInfo().accessTokenURL));
         assertFalse(StringUtils.isBlank(twitter.getServiceInfo().authorizationURL));
@@ -22,7 +23,7 @@ public class ProviderTest extends UnitTest {
     }
     
     @Test
-    public void testProviderUnknown() {
-        assertNull(ProviderFactory.getProvider("abcd"));
+    public void testProviderNotOAuth() {
+        assertNull(OAuthProviderFactory.getProvider(ProviderType.LinkIt));
     }
 }

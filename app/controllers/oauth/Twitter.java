@@ -1,7 +1,9 @@
 package controllers.oauth;
 
 import com.google.gson.JsonElement;
-import models.Account;
+import models.OAuthAccount;
+import models.ProviderType;
+import models.TwitterAccount;
 import play.libs.OAuth.ServiceInfo;
 import play.libs.WS;
 
@@ -12,23 +14,22 @@ import play.libs.WS;
 public class Twitter extends AbstractProvider {
 
     static private ServiceInfo serviceInfo;
-    
-    static private final String PROVIDER_ID = "twitter";
 
     public ServiceInfo getServiceInfo() {
         if (serviceInfo == null) {
-            serviceInfo = getServiceInfo(PROVIDER_ID);
+            serviceInfo = getServiceInfo(ProviderType.Twitter.name());
         }
         return serviceInfo;
     }
 
-    public Account getUserAccount(String token, String secret) {
-        Account account = new Account(PROVIDER_ID);
-        account.token = token;
-        account.secret = secret;
+    public OAuthAccount getUserAccount(String token, String secret) {
         
         JsonElement response = WS.url("http://api.twitter.com/1/account/verify_credentials.json").oauth(getServiceInfo(), token, secret).get().getJson();
-        account.login = getStringPropertyFromJson(response, "screen_name");
+        
+        TwitterAccount account = new TwitterAccount();
+        account.token = token;
+        account.secret = secret;
+        account.screenName = getStringPropertyFromJson(response, "screen_name");
         account.userId = getLongPropertyFromJson(response, "id");
         return account;
     }

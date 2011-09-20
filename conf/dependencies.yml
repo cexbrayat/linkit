@@ -6,4 +6,4 @@ require:
     - play -> gravatar 1.0.1
     - play -> cloudbees 0.2.2
     - play -> secure
-    - org.scribe -> scribe 1.2.2
+#   - org.scribe -> scribe 1.2.2

@@ -1,9 +1,11 @@
 package controllers;
 
-import controllers.oauth.Provider;
-import controllers.oauth.ProviderFactory;
+import controllers.oauth.OAuthProvider;
+import controllers.oauth.OAuthProviderFactory;
 import models.Account;
 import models.Member;
+import models.OAuthAccount;
+import models.ProviderType;
 import play.Logger;
 import play.data.validation.Required;
 import play.libs.OAuth;
@@ -25,32 +27,38 @@ public class Login extends Controller {
     public static void login(@Required String provider) {
         // getUser() is a method returning the current user 
         
-        Provider prov = ProviderFactory.getProvider(provider);
+        ProviderType providerType = ProviderType.valueOf(provider);
+        OAuthProvider oauthProvider = OAuthProviderFactory.getProvider(providerType);
         
         if (OAuth.isVerifierResponse()) {
             // We got the verifier; 
             // now get the access tokens using the request tokens
             final String token = flash.get(TOKEN_KEY);
             final String secret = flash.get(SECRET_KEY);
-            OAuth.Response resp = OAuth.service(prov.getServiceInfo()).retrieveAccessToken(token, secret);
+            OAuth.Response resp = OAuth.service(oauthProvider.getServiceInfo()).retrieveAccessToken(token, secret);
             if (resp != null && resp.error == null) {
                 session.put(TOKEN_KEY, resp.token);
                 session.put(SECRET_KEY, resp.secret);
                 
-                // Retrieve user account
-                Account account = prov.getUserAccount(resp.token, resp.secret);
-                // Retrieve Link-IT member from profile
-                Member membre = Member.connectFromAccount(account);
+                // Retrieve user oAuthAccount
+                OAuthAccount oAuthAccount = oauthProvider.getUserAccount(resp.token, resp.secret);
+                // Retrieve Link-IT oAuthAccount from profile
+                OAuthAccount account = (OAuthAccount) OAuthAccount.find(providerType, oAuthAccount.getOAuthLogin());
 
                 // FIXME : ne pas s'enregister automatiquement mais diriger vers l'enregistrement
-                if (membre == null) {
-                    membre = new Member(account);
+                if (account == null) {
+                    // Pas d'account correspondant.
+                    // Si on n'autorise pas de connexions par un provider différent, cela veut dire qu'il n'existe pas de membre correspondant.
+                    
+                    // On crée un nouveau membre, qu'on invitera à renseigner son profil vierge
+                    Member membre = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount);
+                    membre.save();
+                    Application.register(membre);
                 } else {
-                    membre.account = account;
+                    session.put("username", account.member.login);
                 }
-                membre.save();
                 
-                Application.showMember(membre.login);
+                Application.showMember(account.member.login);
             } else {
                 Logger.error("Authentification impossible");
                 if (resp != null) {
@@ -61,7 +69,7 @@ public class Login extends Controller {
             }
         }
         
-        OAuth twitt = OAuth.service(prov.getServiceInfo());
+        OAuth twitt = OAuth.service(oauthProvider.getServiceInfo());
         OAuth.Response resp = twitt.retrieveRequestToken();
         if (resp != null && resp.error == null) {
             // We received the unauthorized tokens 

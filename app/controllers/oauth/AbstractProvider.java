@@ -7,7 +7,7 @@ import play.libs.OAuth.ServiceInfo;
  *
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public abstract class AbstractProvider implements Provider {
+public abstract class AbstractProvider implements OAuthProvider {
 
     static protected ServiceInfo getServiceInfo(String provider) {
         final String requestTokenURL = Play.configuration.getProperty(provider+".requestTokenUrl");
