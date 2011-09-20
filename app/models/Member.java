@@ -16,6 +16,9 @@ public class Member extends Model {
 
     @ManyToMany
     public List<Member> links = new ArrayList<Member>();
+
+    @OneToOne(mappedBy="member", cascade= CascadeType.ALL)
+    public Account account;
     
     public Member(String login, Account account) {
         this.login = login;

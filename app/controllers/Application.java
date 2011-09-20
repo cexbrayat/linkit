@@ -35,7 +35,6 @@ public class Application extends Controller {
             LinkItAccount account = new LinkItAccount();
             account.password = password;
             member = new Member(login, account);
-            session.put("username", login);
         }
         member.firstname = firstname;
         member.description = description;
@@ -43,6 +42,7 @@ public class Application extends Controller {
         member.lastname = lastname;
         member.login = login;
         
+        session.put("username", login);
         member.save();
         flash.success("Profil enregistré!");
         Logger.info("Profil enregistré");

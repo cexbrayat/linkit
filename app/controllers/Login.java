@@ -45,7 +45,6 @@ public class Login extends Controller {
                 // Retrieve Link-IT oAuthAccount from profile
                 OAuthAccount account = (OAuthAccount) OAuthAccount.find(providerType, oAuthAccount.getOAuthLogin());
 
-                // FIXME : ne pas s'enregister automatiquement mais diriger vers l'enregistrement
                 if (account == null) {
                     // Pas d'account correspondant.
                     // Si on n'autorise pas de connexions par un provider différent, cela veut dire qu'il n'existe pas de membre correspondant.

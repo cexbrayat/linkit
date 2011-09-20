@@ -16,5 +16,13 @@ public class Security extends Secure.Security {
         LinkItAccount account = (LinkItAccount) Account.find(ProviderType.LinkIt, username);
         return (account != null && account.password.equals(password));
     }
+    
+    static void onDisconnected() {
+        Application.index();
+    }
+    
+    static void onAuthenticated() {
+        Application.showMember(connected());
+    }
 }
    
