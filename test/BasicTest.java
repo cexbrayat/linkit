@@ -7,10 +7,15 @@ public class BasicTest extends UnitTest {
 
     @Before
     public void setUp() {
-        Fixtures.deleteAll();
-        Fixtures.load("data.yml");
+        Fixtures.deleteAllModels();
+        Fixtures.loadYaml("data.yml");
     }
 
+    @After
+    public void tearDown() {
+        Fixtures.deleteAllModels();
+    }
+    
     @Test
     public void connect() {
         assertEquals(false, Member.connect("bob", "bob"));

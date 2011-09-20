@@ -3,7 +3,6 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import play.Logger; 
 import play.db.jpa.*;
  
 @Entity
@@ -27,9 +26,17 @@ public class Member extends Model {
         this.password = password;
     }
     
-    public static boolean connect(String login, String password){
+    public static Member connect(String login, String password) {
+        Member authenticated = null;
         Member member = Member.find("byLogin", login).first();
-        return (member != null && member.password.equals(password));
+        if ((member != null) && member.password.equals(password)) {
+            authenticated = member;
+        }
+        return authenticated;
+    }
+    
+    public static Member connect(String login) {
+        return Member.find("byLogin", login).first();
     }
     
     public static void addLink(String login, String loginToLink){
@@ -56,6 +63,7 @@ public class Member extends Model {
         return Member.find("select m from Member m, in (m.links) as l where l.id = ?", id).fetch();
     }
     
+    @Override
     public String toString(){
         return "login {" + login + "}, links {" + links.size() + "}";
     }

@@ -16,7 +16,7 @@ import models.*;
 public class Security extends Secure.Security {
     
     public static boolean authenticate(String username, String password) {
-        return Member.connect(username, password);
+        return (Member.connect(username, password) != null);
     }
 }
    
