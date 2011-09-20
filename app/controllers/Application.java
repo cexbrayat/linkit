@@ -18,7 +18,8 @@ public class Application extends Controller {
         render("Application/register.html");
     }
 
-    public static void endRegistration(@Required String firstname, @Required String lastname, @Required @Email String email, @Required String description, @Required String login, @Required String password) {
+    // FIXME Manage Link-IT/Twitter/Google account
+    public static void endRegistration(@Required String firstname, @Required String lastname, @Required @Email String email, @Required String description, String login, String password) {
         Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "}, email {" + email + "}");
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());

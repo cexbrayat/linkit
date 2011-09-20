@@ -17,6 +17,10 @@ public class Member extends Model {
     @ManyToMany
     public List<Member> links = new ArrayList<Member>();
     
+    // FIXME Refactor to @OneToMany Map<String provider, Account> 
+    @OneToOne(mappedBy="member", cascade=CascadeType.ALL)
+    public Account account;
+    
     public Member(String firstname, String lastname, String email, String description, String login, String password) {
         this.email = email;
         this.firstname = firstname;
@@ -24,6 +28,12 @@ public class Member extends Model {
         this.description = description;
         this.login = login;
         this.password = password;
+    }
+    
+    public Member(Account account) {
+        this.login = account.login;
+        this.account = account;
+        this.account.member = this;
     }
     
     public static Member connect(String login, String password) {
@@ -35,8 +45,8 @@ public class Member extends Model {
         return authenticated;
     }
     
-    public static Member connect(String login) {
-        return Member.find("byLogin", login).first();
+    public static Member connectFromAccount(Account account) {
+        return Member.find("account.provider=?1 and login=?2", account.provider, account.login).first();
     }
     
     public static void addLink(String login, String loginToLink){

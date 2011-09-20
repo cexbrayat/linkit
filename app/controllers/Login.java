@@ -1,7 +1,10 @@
 package controllers;
 
+import controllers.oauth.Provider;
+import controllers.oauth.ProviderFactory;
+import models.Account;
+import models.Member;
 import play.Logger;
-import play.Play;
 import play.data.validation.Required;
 import play.libs.OAuth;
 import play.mvc.Controller;
@@ -20,20 +23,34 @@ public class Login extends Controller {
     }
     
     public static void login(@Required String provider) {
-        // TWITTER is a OAuth.ServiceInfo object
         // getUser() is a method returning the current user 
+        
+        Provider prov = ProviderFactory.getProvider(provider);
+        
         if (OAuth.isVerifierResponse()) {
             // We got the verifier; 
             // now get the access tokens using the request tokens
             final String token = flash.get(TOKEN_KEY);
             final String secret = flash.get(SECRET_KEY);
-            OAuth.Response resp = OAuth.service(Providers.TWITTER).retrieveAccessToken(
-                    token, secret);
-            // let's store them and go back to index
+            OAuth.Response resp = OAuth.service(prov.getServiceInfo()).retrieveAccessToken(token, secret);
             if (resp != null && resp.error == null) {
                 session.put(TOKEN_KEY, resp.token);
                 session.put(SECRET_KEY, resp.secret);
-                Application.index();
+                
+                // Retrieve user account
+                Account account = prov.getUserAccount(resp.token, resp.secret);
+                // Retrieve Link-IT member from profile
+                Member membre = Member.connectFromAccount(account);
+
+                // FIXME : ne pas s'enregister automatiquement mais diriger vers l'enregistrement
+                if (membre == null) {
+                    membre = new Member(account);
+                } else {
+                    membre.account = account;
+                }
+                membre.save();
+                
+                Application.showMember(membre.login);
             } else {
                 Logger.error("Authentification impossible");
                 if (resp != null) {
@@ -44,7 +61,7 @@ public class Login extends Controller {
             }
         }
         
-        OAuth twitt = OAuth.service(Providers.TWITTER);
+        OAuth twitt = OAuth.service(prov.getServiceInfo());
         OAuth.Response resp = twitt.retrieveRequestToken();
         if (resp != null && resp.error == null) {
             // We received the unauthorized tokens 
@@ -61,19 +78,4 @@ public class Login extends Controller {
             flash.error("Authentification impossible");
         }
     }
-    
-    static public class Providers {
-
-        public static final OAuth.ServiceInfo TWITTER = loadConfiguration("twitter");
-
-        static OAuth.ServiceInfo loadConfiguration(final String provider) {
-            final String requestTokenURL = Play.configuration.getProperty(provider+".requestTokenUrl");
-            final String accessTokenURL = Play.configuration.getProperty(provider+".accessTokenUrl");
-            final String authorizeURL = Play.configuration.getProperty(provider+".authorizeUrl");
-            final String consumerKey = Play.configuration.getProperty(provider+".consumerKey");
-            final String consumerSecret = Play.configuration.getProperty(provider+".consumerSecret");
-            return new OAuth.ServiceInfo(requestTokenURL, accessTokenURL, authorizeURL, consumerKey, consumerSecret);
-        }
-    }
-
 }
