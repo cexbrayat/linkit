@@ -22,7 +22,8 @@ public class Member extends Model {
     
     public Member(String login, Account account) {
         this.login = login;
-        account.member = this;
+        this.account = account;
+        this.account.member = this;
     }
     
     public static void addLink(String login, String loginToLink){
