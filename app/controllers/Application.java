@@ -13,25 +13,42 @@ public class Application extends Controller {
     public static void index() {
         render();
     }
-    
-    public static void register() {
-        render("Application/register.html");
+   
+    public static void register(Member member) {
+        render(member);
     }
 
-    public static void endRegistration(@Required String firstname, @Required String lastname, @Required @Email String email, @Required String description, @Required String login, @Required String password) {
+    public static void register() {
+        render();
+    }
+
+    // FIXME Manage Link-IT/Twitter/Google account
+    public static void endRegistration(@Required String firstname, @Required String lastname, @Required @Email String email, @Required String description, @Required String login, String password) {
         Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "}, email {" + email + "}");
+        Member member = Member.find("byLogin", login).first();
+        // FIXME Separate profile edition (without login/password) from registration (first and only typing of login/password for LinkIt authentication)
+        if(member == null){
+            LinkItAccount account = new LinkItAccount();
+            account.password = password;
+            member = new Member(login, account);
+        }
+        member.firstname = firstname;
+        member.description = description;
+        member.email = email;
+        member.lastname = lastname;
+        member.login = login;
+
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
-            render("Application/register.html");            
+            render("Application/register.html", member);            
         }
-        Member member = Member.find("byEmail", email).first();
-        if(member == null){
-            member = new Member(firstname, lastname, email, description, login, password);
-            member.save();
-            flash.success("Profil enregistré!");
-            Logger.info("Profil enregistré");
-        }
-        render("Application/profile.html", member);
+        
+        session.put("username", login);
+        member.save();
+        flash.success("Profil enregistré!");
+        Logger.info("Profil enregistré");
+        
+        showMember(member.login);
     }
     
     public static void showMembers(){

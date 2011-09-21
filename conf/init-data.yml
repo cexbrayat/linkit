@@ -2,10 +2,14 @@ Member(cedric) :
     firstname: Cédric
     lastname: Exbrayat
     login: cedric
-    password: ced
     email: cexbrayat@gmail.com
     description: JUG Leader
-    
+
+LinkItAccount(cedAccount):
+    provider: LinkIt
+    member: cedric
+    password: ced
+
 Member(ju) :
     firstname: Julien
     lastname: Ripault
@@ -13,6 +17,11 @@ Member(ju) :
     password: ju
     email: tluapir@gmail.com
     description: JUG Leader
+
+LinkItAccount(juAccount):
+    provider: LinkIt
+    member: ju
+    password: ju
     
 Member(agnes) :
     firstname: Agnès
@@ -21,3 +30,8 @@ Member(agnes) :
     password: agnes
     email: agnes.crepet@gmail.com
     description: JUG Leader
+
+LinkItAccount(agnesAccount):
+    provider: LinkIt
+    member: agnes
+    password: agnes

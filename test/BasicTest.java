@@ -1,5 +1,5 @@
+import controllers.Security;
 import org.junit.*;
-import java.util.*;
 import play.test.*;
 import models.*;
 
@@ -7,15 +7,20 @@ public class BasicTest extends UnitTest {
 
     @Before
     public void setUp() {
-        Fixtures.deleteAll();
-        Fixtures.load("data.yml");
+        Fixtures.deleteAllModels();
+        Fixtures.loadModels("data.yml");
     }
 
+    @After
+    public void tearDown() {
+        Fixtures.deleteAllModels();
+    }
+    
     @Test
     public void connect() {
-        assertEquals(false, Member.connect("bob", "bob"));
-        assertEquals(false, Member.connect("ced", "bob"));
-        assertEquals(true, Member.connect("bob", "secret"));
+        assertFalse(Security.authenticate("bob", "bob"));
+        assertFalse(Security.authenticate("ced", "bob"));
+        assertTrue(Security.authenticate("bob", "secret"));
     }
     
     @Test
