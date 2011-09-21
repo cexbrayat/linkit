@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.logging.Level;
 import play.*;
 import play.mvc.*;
 import play.data.validation.*;
@@ -31,6 +32,8 @@ public class Application extends Controller {
             flash.success("Profil enregistré!");
             Logger.info("Profil enregistré");
         }
+        
+
         render("Application/profile.html", member);
     }
     

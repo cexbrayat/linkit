@@ -3,7 +3,6 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import play.Logger; 
 import play.db.jpa.*;
  
 @Entity
