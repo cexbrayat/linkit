@@ -59,7 +59,7 @@ public class Member extends Model {
 
     public Member addInterests(String... interests) {
         for (String name : interests) {
-            this.interests.add(Interest.findOrCreateByName(name));
+                this.interests.add(Interest.findOrCreateByName(name));
         }
         return this;
     }
