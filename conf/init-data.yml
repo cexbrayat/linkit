@@ -1,3 +1,24 @@
+Interest(play):
+    name:           Play
+ 
+Interest(java):
+    name:           Java
+ 
+Interest(tdd):
+    name:           TDD
+ 
+Interest(hadoop):
+    name:           Hadoop
+
+Interest(javascript):
+    name:           Javascript
+
+Interest(spring):
+    name:           Spring
+
+Interest(nodejs):
+    name:           NodeJS  
+    
 Member(cedric) :
     firstname: Cédric
     lastname: Exbrayat
@@ -5,6 +26,11 @@ Member(cedric) :
     password: ced
     email: cexbrayat@gmail.com
     description: JUG Leader
+    interests:           
+         - java
+         - hadoop
+         - nodejs
+         - javascript
     
 Member(ju) :
     firstname: Julien
@@ -13,6 +39,10 @@ Member(ju) :
     password: ju
     email: tluapir@gmail.com
     description: JUG Leader
+    interests:           
+         - java
+         - play
+         - javascript
     
 Member(agnes) :
     firstname: Agnès
@@ -21,3 +51,10 @@ Member(agnes) :
     password: agnes
     email: agnes.crepet@gmail.com
     description: JUG Leader
+    interests:           
+         - java
+         - spring
+         - tdd
+         - play
+    
+    
