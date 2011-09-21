@@ -9,7 +9,9 @@
      <div class="alert-message error">${flash.error}</div>
      #{/if}
      <h2>${member.firstname} ${member.lastname}</h2>
-     #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
+     #{if member.email}
+        #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
+     #{/if}
      <p>${member.description}</p>
      #{if session.get("username") != null && !session.get("username").equals(member.login)}
      #{if !models.Member.isLinkedTo(session.get("username"), member.login)}

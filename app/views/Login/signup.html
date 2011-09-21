@@ -1,0 +1,75 @@
+#{extends 'main.html' /}
+#{set title:'Enregistrement sur Link-IT' /}
+
+<div class="container">
+    <div class="hero-unit">
+
+        <h1>S'enregistrer sur Link-IT</h1>
+
+        #{if flash.success}
+        <div class="alert-message success">${flash.success}</div>
+        #{/if}
+        #{if flash.error}
+        <div class="alert-message error">${flash.error}</div>
+        #{/if}
+
+        <div class="row">
+            <div class="span6">
+                <h2>Saisissez votre login/mot de passe</h1>
+                #{form @signup()}
+                <fieldset>
+                    
+                    #{ifErrors}
+                        <p class="error">
+                            Please correct these errors.
+                        </p>
+                    #{/ifErrors}
+
+                    #{field 'login'}
+                    <div class="clearfix">
+                        <label for="${field.name}">Login :</label>
+                        <div class="input">
+                          <input type="text" name="${field.name}" 
+                            value="${login}" class="${field.errorClass}" />
+                        </div>
+                    </div>
+                    #{/field}
+
+                    #{field 'password'}
+                    <div class="clearfix">
+                        <label for="${field.name}">Mot de passe :</label>
+                        <div class="input">
+                          <input type="password" name="${field.name}" 
+                            value="${password}" class="${field.errorClass}" />
+                        </div>
+                    </div>
+                    #{/field}
+
+                    #{field 'remember'}
+                    <div class="clearfix">
+                        <label for="${field.name}">Se souvenir de moi :</label>
+                        <div class="input">
+                          <input type="checkbox" name="${field.name}" 
+                            value="${remember}" class="${field.errorClass}" />
+                        </div>
+                    </div>
+                    #{/field}
+                
+                    <div class="actions">
+                        <input type="submit" class="btn primary" value="S'enregistrer"/>
+                    </div>
+                </fieldset>
+                #{/form}
+            </div>
+
+            <div class="span6">
+                <h2>avec un de vos comptes existant</h1>
+                <p>
+                <a href="@{loginWith('Twitter')}">
+                    <img src="https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png" />
+                </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div><!-- /container --> 

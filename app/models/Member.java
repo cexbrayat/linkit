@@ -13,24 +13,18 @@ public class Member extends Model {
     public String lastname;
     public String description;
     public String login;
-    public String password;
     @ManyToMany
     public List<Member> links = new ArrayList<Member>();
+    @OneToOne(mappedBy="member", cascade= CascadeType.ALL)
+    public Account account;
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
 
-    public Member(String firstname, String lastname, String email, String description, String login, String password) {
-        this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.description = description;
+    
+    public Member(String login, Account account) {
         this.login = login;
-        this.password = password;
-    }
-
-    public static boolean connect(String login, String password) {
-        Member member = Member.find("byLogin", login).first();
-        return (member != null && member.password.equals(password));
+        this.account = account;
+        this.account.member = this;
     }
 
     public static void addLink(String login, String loginToLink) {
@@ -56,6 +50,7 @@ public class Member extends Model {
     public List<Member> linkers() {
         return Member.find("select m from Member m, in (m.links) as l where l.id = ?", id).fetch();
     }
+
 
     public Member addInterest(String interest) {
         interests.add(Interest.findOrCreateByName(interest));

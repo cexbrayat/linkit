@@ -1,29 +1,28 @@
 Interest(play):
-    name:           Play
+    name: Play
  
 Interest(java):
-    name:           Java
+    name: Java
  
 Interest(tdd):
-    name:           TDD
+    name: TDD
  
 Interest(hadoop):
-    name:           Hadoop
+    name: Hadoop
 
 Interest(javascript):
-    name:           Javascript
+    name: Javascript
 
 Interest(spring):
-    name:           Spring
+    name: Spring
 
 Interest(nodejs):
-    name:           NodeJS  
+    name: NodeJS  
     
 Member(cedric) :
     firstname: Cédric
     lastname: Exbrayat
     login: cedric
-    password: ced
     email: cexbrayat@gmail.com
     description: JUG Leader
     interests:           
@@ -31,7 +30,12 @@ Member(cedric) :
          - hadoop
          - nodejs
          - javascript
-    
+
+LinkItAccount(cedAccount):
+    provider: LinkIt
+    member: cedric
+    password: ced
+
 Member(ju) :
     firstname: Julien
     lastname: Ripault
@@ -43,6 +47,11 @@ Member(ju) :
          - java
          - play
          - javascript
+
+LinkItAccount(juAccount):
+    provider: LinkIt
+    member: ju
+    password: ju
     
 Member(agnes) :
     firstname: Agnès
@@ -56,5 +65,8 @@ Member(agnes) :
          - spring
          - tdd
          - play
-    
-    
+
+LinkItAccount(agnesAccount):
+    provider: LinkIt
+    member: agnes
+    password: agnes

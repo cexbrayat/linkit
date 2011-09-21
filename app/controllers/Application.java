@@ -15,35 +15,39 @@ public class Application extends Controller {
         render();
     }
 
-    public static void register() {
+    public static void register(Member member) {
         List<Interest> interests = Interest.findAll();
-        render("Application/register.html", interests);
+        render("Application/register.html", member, interests);
     }
 
-    public static void endRegistration(@Required String firstname, @Required String lastname, @Required @Email String email, @Required String description, @Required String login, @Required String password,
+    public static void endRegistration(@Required String login, @Required String firstname, @Required String lastname, @Required @Email String email, @Required String description,
             String[] checkedInterests, String newInterests) {
-        Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "},"
+        Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
+
+        Member member = Member.find("byLogin", login).first();
+        member.firstname = firstname;
+        member.description = description;
+        member.email = email;
+        member.lastname = lastname;
+        member.login = login;
+
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
-            register();
+            List<Interest> interests = Interest.findAll();
+            render("Application/register.html", member, interests);
         }
-        Member member = Member.find("byEmail", email).first();
-        if (member == null) {
-            member = new Member(firstname, lastname, email, description, login, password);
-            if (checkedInterests != null) {
-                member.addInterests(checkedInterests);
-            }
-            if (newInterests != null) {
-                member.addInterests(newInterests.split(","));
-            }
-            member.save();
-            flash.success("Profil enregistré!");
-            Logger.info("Profil enregistré");
+        if (checkedInterests != null) {
+            member.addInterests(checkedInterests);
         }
+        if (newInterests != null) {
+            member.addInterests(newInterests.split(","));
+        }
+        member.save();
+        flash.success("Profil enregistré!");
+        Logger.info("Profil enregistré");
 
-
-        render("Application/profile.html", member);
+        showMember(member.login);
     }
 
     public static void showMembers() {

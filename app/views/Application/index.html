@@ -7,8 +7,7 @@
 		<h2>Des idées pour tout de suite !</h2>
 		<p>X Avril 2012</p>
 		#{if session.get("username") == null} 
-		<a class="btn primary large" href="@{Application.register()}">S'inscrire</a> 
-		<a class="btn primary large" href="@{Secure.login()}">Se connecter</a>
+		<a class="btn primary large" href="@{Login.index()}">Se connecter</a>
 		#{/if}
 		#{else}  
 		<a class="btn primary large" href="@{Application.showMember(session.get("username"))}">Mon profil</a>
