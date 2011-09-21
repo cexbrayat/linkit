@@ -19,8 +19,6 @@ public class Member extends Model {
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
 
-    ;
-    
     public Member(String firstname, String lastname, String email, String description, String login, String password) {
         this.email = email;
         this.firstname = firstname;
@@ -59,10 +57,18 @@ public class Member extends Model {
         return Member.find("select m from Member m, in (m.links) as l where l.id = ?", id).fetch();
     }
 
-    public Member addInterest(String name) {
-        interests.add(Interest.findOrCreateByName(name));
+    public Member addInterest(String interest) {
+        interests.add(Interest.findOrCreateByName(interest));
         return this;
     }
+
+    public Member addInterests(String... interests) {
+        for (String name : interests) {
+            this.interests.add(Interest.findOrCreateByName(name));
+        }
+        return this;
+    }
+
 
     public static List<Member> findMembersInterestedBy(String interest) {
         return Member.find(

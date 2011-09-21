@@ -14,7 +14,7 @@ import play.db.jpa.Model;
 public class Interest extends Model implements Comparable<Interest> {
 
     public String name;
-
+    
     private Interest(String name) {
         this.name = name;
     }
