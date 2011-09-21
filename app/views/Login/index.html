@@ -1,0 +1,26 @@
+#{extends 'main.html' /}
+#{set title:'Connexion à Link-IT' /}
+
+<div class="container">
+    <div class="hero-unit">
+
+        #{if flash.success}
+        <div class="alert-message success">${flash.success}</div>
+        #{/if}
+        #{if flash.error}
+        <div class="alert-message error">${flash.error}</div>
+        #{/if}
+
+        <p>
+        <a href="@{login('Twitter')}">
+            <img src="https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png" />
+        </a>
+        </p>
+        
+        <p>
+        <a href="@{Secure.login()}">
+            Avec un compte Link-IT
+        </a>
+        </p>
+    </div>
+</div><!-- /container --> 

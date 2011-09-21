@@ -3,7 +3,6 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
-import play.Logger; 
 import play.db.jpa.*;
  
 @Entity
@@ -14,22 +13,17 @@ public class Member extends Model {
     public String lastname;
     public String description;
     public String login;
-    public String password;
+
     @ManyToMany
     public List<Member> links = new ArrayList<Member>();
+
+    @OneToOne(mappedBy="member", cascade= CascadeType.ALL)
+    public Account account;
     
-    public Member(String firstname, String lastname, String email, String description, String login, String password) {
-        this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.description = description;
+    public Member(String login, Account account) {
         this.login = login;
-        this.password = password;
-    }
-    
-    public static boolean connect(String login, String password){
-        Member member = Member.find("byLogin", login).first();
-        return (member != null && member.password.equals(password));
+        this.account = account;
+        this.account.member = this;
     }
     
     public static void addLink(String login, String loginToLink){
@@ -56,6 +50,7 @@ public class Member extends Model {
         return Member.find("select m from Member m, in (m.links) as l where l.id = ?", id).fetch();
     }
     
+    @Override
     public String toString(){
         return "login {" + login + "}, links {" + links.size() + "}";
     }
