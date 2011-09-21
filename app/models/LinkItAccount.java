@@ -11,8 +11,9 @@ public class LinkItAccount extends Account {
 
     public String password;
 
-    public LinkItAccount() {
+    public LinkItAccount(String password) {
         super(ProviderType.LinkIt);
+        this.password = password;
     }
     
     @Override

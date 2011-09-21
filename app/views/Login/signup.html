@@ -1,10 +1,10 @@
 #{extends 'main.html' /}
-#{set title:'Connexion à Link-IT' /}
+#{set title:'Enregistrement sur Link-IT' /}
 
 <div class="container">
     <div class="hero-unit">
 
-        <h1>Se connecter à Link-IT</h1>
+        <h1>S'enregistrer sur Link-IT</h1>
 
         #{if flash.success}
         <div class="alert-message success">${flash.success}</div>
@@ -14,9 +14,9 @@
         #{/if}
 
         <div class="row">
-            <div class="span8">
-                <h2>avec login/mot de passe</h1>
-                #{form @loginLinkIt()}
+            <div class="span6">
+                <h2>Saisissez votre login/mot de passe</h1>
+                #{form @signup()}
                 <fieldset>
                     
                     #{ifErrors}
@@ -56,16 +56,14 @@
                     #{/field}
                 
                     <div class="actions">
-                        <input type="submit" class="btn primary" value="Se connnecter"/>
-                        &nbsp;
-                        <input type="submit" formaction="@{signup()}" class="btn" value="S'enregistrer">
+                        <input type="submit" class="btn primary" value="S'enregistrer"/>
                     </div>
                 </fieldset>
                 #{/form}
             </div>
 
             <div class="span6">
-                <h2>avec un compte existant</h2>
+                <h2>avec un de vos comptes existant</h1>
                 <p>
                 <a href="@{loginWith('Twitter')}">
                     <img src="https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png" />
