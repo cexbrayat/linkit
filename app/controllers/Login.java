@@ -2,12 +2,13 @@ package controllers;
 
 import controllers.oauth.OAuthProvider;
 import controllers.oauth.OAuthProviderFactory;
-import models.Account;
+import models.LinkItAccount;
 import models.Member;
 import models.OAuthAccount;
 import models.ProviderType;
 import play.Logger;
 import play.data.validation.Required;
+import play.data.validation.Validation;
 import play.libs.OAuth;
 import play.mvc.Controller;
 
@@ -24,8 +25,7 @@ public class Login extends Controller {
         render();
     }
     
-    public static void login(@Required String provider) {
-        // getUser() is a method returning the current user 
+    public static void loginWith(@Required String provider) {
         
         ProviderType providerType = ProviderType.valueOf(provider);
         OAuthProvider oauthProvider = OAuthProviderFactory.getProvider(providerType);
@@ -48,15 +48,18 @@ public class Login extends Controller {
                 if (account == null) {
                     // Pas d'account correspondant.
                     // Si on n'autorise pas de connexions par un provider différent, cela veut dire qu'il n'existe pas de member correspondant.
-                    
+
                     // On crée un nouveau member, qu'on invitera à renseigner son profil vierge
                     Member member = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount);
+                    
+                    // FIXME Fetch available profile data from OAuth account
+                    
                     member.save();
+                    session.put("username", oAuthAccount.member.login);
                     Application.register(member);
-                } else {
-                    session.put("username", account.member.login);
                 }
                 
+                session.put("username", account.member.login);
                 Application.showMember(account.member.login);
             } else {
                 Logger.error("Authentification impossible");
@@ -84,5 +87,19 @@ public class Login extends Controller {
             }
             flash.error("Authentification impossible");
         }
+    }
+    
+    public static void loginLinkIt(@Required String login, @Required String password) throws Throwable {
+        Secure.authenticate(login, password, true);
+    }
+    
+    public static void signup(@Required String login, @Required String password) {
+        if (Validation.hasErrors()) {
+            render(login, password);
+        }
+        Member member = new Member(login, new LinkItAccount(password));
+        member.save();
+        session.put("username", member.login);
+        Application.register(member);
     }
 }
