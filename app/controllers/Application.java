@@ -23,12 +23,8 @@ public class Application extends Controller {
     }
 
     // FIXME Manage Link-IT/Twitter/Google account
-    public static void endRegistration(@Required String firstname, @Required String lastname, @Required @Email String email, @Required String description, String login, String password) {
+    public static void endRegistration(@Required String firstname, @Required String lastname, @Required @Email String email, @Required String description, @Required String login, String password) {
         Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "}, email {" + email + "}");
-        if (validation.hasErrors()) {
-            Logger.error(validation.errors().toString());
-            register();            
-        }
         Member member = Member.find("byLogin", login).first();
         // FIXME Separate profile edition (without login/password) from registration (first and only typing of login/password for LinkIt authentication)
         if(member == null){
@@ -41,6 +37,11 @@ public class Application extends Controller {
         member.email = email;
         member.lastname = lastname;
         member.login = login;
+
+        if (validation.hasErrors()) {
+            Logger.error(validation.errors().toString());
+            render("Application/register.html", member);            
+        }
         
         session.put("username", login);
         member.save();
