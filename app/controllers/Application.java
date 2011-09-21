@@ -14,8 +14,8 @@ public class Application extends Controller {
         render();
     }
    
-    public static void register(Member membre) {
-        render(membre);
+    public static void register(Member member) {
+        render(member);
     }
 
     public static void register() {

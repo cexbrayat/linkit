@@ -47,12 +47,12 @@ public class Login extends Controller {
 
                 if (account == null) {
                     // Pas d'account correspondant.
-                    // Si on n'autorise pas de connexions par un provider différent, cela veut dire qu'il n'existe pas de membre correspondant.
+                    // Si on n'autorise pas de connexions par un provider différent, cela veut dire qu'il n'existe pas de member correspondant.
                     
-                    // On crée un nouveau membre, qu'on invitera à renseigner son profil vierge
-                    Member membre = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount);
-                    membre.save();
-                    Application.register(membre);
+                    // On crée un nouveau member, qu'on invitera à renseigner son profil vierge
+                    Member member = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount);
+                    member.save();
+                    Application.register(member);
                 } else {
                     session.put("username", account.member.login);
                 }
