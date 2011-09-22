@@ -49,12 +49,9 @@
     <div class="span5">
       <h2>Intérêts</h2>
       <p>
-        <a class="btn primary" href="#">Java</a>
-        <a class="btn primary" href="#">TDD</a>
-        <a class="btn primary" href="#">Hadoop</a>
-        <a class="btn success" href="#">NodeJS</a>
-        <a class="btn success" href="#">Javascript</a>
-        <a class="btn danger" href="#">Spring</a>
+            #{list items:member.interests, as:'interest'}
+                <a class="btn primary" href="@{Application.showMembersbyInterest(interest.name)}">${interest}</a>
+            #{/list}
       </p>
     </div>
     <div class="span4">
