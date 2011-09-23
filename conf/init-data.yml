@@ -25,6 +25,9 @@ Member(cedric) :
     login: cedric
     email: cexbrayat@gmail.com
     description: JUG Leader
+    displayName: CédriX
+    twitterName: cedric_exbrayat
+    googlePlusId: 108783492614745057153
     interests:           
          - java
          - hadoop
@@ -43,6 +46,9 @@ Member(ju) :
     password: ju
     email: tluapir@gmail.com
     description: JUG Leader
+    displayName: tluapir
+    twitterName: julien_ripault
+    googlePlusId: 105928763613547015053
     interests:           
          - java
          - play
@@ -60,6 +66,9 @@ Member(agnes) :
     password: agnes
     email: agnes.crepet@gmail.com
     description: JUG Leader
+    displayName: Gnès
+    twitterName: agnes_crepet
+    googlePlusId: 116189330666769817164
     interests:           
          - java
          - spring

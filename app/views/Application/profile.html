@@ -2,17 +2,17 @@
 #{set title:'Profil' /}
 <div class="container">
   <div class="hero-unit">
-     #{if flash.success}
-     <div class="alert-message success">${flash.success}</div>
-     #{/if}
-     #{if flash.error}
-     <div class="alert-message error">${flash.error}</div>
-     #{/if}
-     <h2>${member.firstname} ${member.lastname}</h2>
+     <h2>${member.displayName} #{if session.get("username")?.equals(member.login)}(${member.firstname} ${member.lastname})#{/if} <a class="btn danger" href="@{Application.deleteMember(member.login)}">Supprimer mon compte (sans confirmation pour le moment!)</a></h2>
      #{if member.email}
         #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
      #{/if}
      <p>${member.description}</p>
+     #{if member.twitterName}
+         <p><a href="http://www.twitter.com/${member.twitterName}" target="_new">@${member.twitterName}</a></p>
+     #{/if}
+     #{if member.googlePlusId}
+        <p><a href="http://plus.google.com/${member.googlePlusId}" target="_new">Google+</a></p>
+     #{/if}
      #{if session.get("username") != null && !session.get("username").equals(member.login)}
      #{if !models.Member.isLinkedTo(session.get("username"), member.login)}
      <a class="btn primary large" href="@{Application.link(session.get("username"), member.login)}">Link</a>
@@ -46,7 +46,7 @@
       <p>Une brève description suivie des n liens sociaux (twitter, viadeo, linkedin, blog, etc)</p>
       <p><a class="btn" href="#">Voir mon site</a></p>
     </div>
-    <div class="span5">
+    <div class="span6">
       <h2>Intérêts</h2>
       <p>
             #{list items:member.interests, as:'interest'}

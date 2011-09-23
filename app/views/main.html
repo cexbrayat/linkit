@@ -41,7 +41,16 @@
                 </div>
             </div>
         </div>
+        
+        #{if flash.success}
+        <div class="alert-message success">${flash.success}</div>
+        #{/if}
+        #{if flash.error}
+        <div class="alert-message error">${flash.error}</div>
+        #{/if}
+        
         #{doLayout /}
+        
         <footer>
             <div class="container">
                 <p>Mix-it 2012 - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
