@@ -15,6 +15,8 @@ public class Member extends Model {
     public String login;
     @ManyToMany
     public List<Member> links = new ArrayList<Member>();
+    
+    // FIXME : refactor to OneToMany (several accounts per member)
     @OneToOne(mappedBy="member", cascade= CascadeType.ALL)
     public Account account;
     @ManyToMany(cascade = CascadeType.PERSIST)
