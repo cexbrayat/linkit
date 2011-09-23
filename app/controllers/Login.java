@@ -71,15 +71,15 @@ public class Login extends Controller {
             }
         }
         
-        OAuth twitt = OAuth.service(oauthProvider.getServiceInfo());
-        OAuth.Response resp = twitt.retrieveRequestToken();
+        OAuth service = OAuth.service(oauthProvider.getServiceInfo());
+        OAuth.Response resp = service.retrieveRequestToken();
         if (resp != null && resp.error == null) {
             // We received the unauthorized tokens 
             // we need to store them before continuing
             flash.put(TOKEN_KEY, resp.token);
             flash.put(SECRET_KEY, resp.secret);
             // Redirect the user to the authorization page
-            redirect(twitt.redirectUrl(resp.token));
+            redirect(service.redirectUrl(resp.token));
         } else {
             Logger.error("Authentification impossible");
             if (resp != null) {
