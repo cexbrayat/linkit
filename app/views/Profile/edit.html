@@ -13,20 +13,13 @@
         </div> 
         <div class="span12 columns"> 
             #{form @Profile.save(member.login)} 
-            #{ifErrors}
-            <fieldset> 
-                <div class="alert-message error">
-                    <p>Tous les champs sont nécessaires.</p>
-                </div>
-            </fieldset> 
-            #{/ifErrors}
             <fieldset> 
                 <legend>Profil</legend>
                 #{field 'lastname'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" />
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.lastname}" />
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -34,7 +27,7 @@
                 #{/}
 
                 #{field 'firstname'}
-                <div class="clearfix"> 
+                <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.firstname}" /> 
@@ -45,7 +38,7 @@
                 #{/}
 
                 #{field 'displayName'}
-                <div class="clearfix"> 
+                <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.displayName}" /> 
@@ -56,7 +49,7 @@
                 #{/}
 
                 #{field 'email'}
-                <div class="clearfix"> 
+                <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="email" value="${member?.email}" /> 
@@ -67,7 +60,7 @@
                 #{/}
 
                 #{field 'description'}
-                <div class="clearfix"> 
+                <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.description}" /> 
@@ -78,7 +71,7 @@
                 #{/}
 
                 #{field 'twitterName'}
-                <div class="clearfix">
+                <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.twitterName}" /> 
@@ -89,7 +82,7 @@
                 #{/}
 
                 #{field 'googlePlusId'}
-                <div class="clearfix">
+                <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.googlePlusId}" /> 
@@ -103,27 +96,32 @@
             </fieldset>
             <fieldset>
                 <legend>Intérêts</legend>
-                <div class="clearfix"> 
-                    <span class="help-block"> 
-                        <strong>Note:</strong> Ces intérêts seront affichés sur votre profil et nous serviront à vous proposer de nouvelles connaissances.
-                    </span> 
+
+                #{field 'checkedInterests'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <ul class="inputs-list">
                             #{list items:interests, as:'interest'}
-                            <li><label><input type="checkbox" name="checkedInterests" value="${interest}" /> <span>${interest}</span></label></li>
+                            <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${checkedInterests?.contains(interest.name)?'checked':''} /> <span>${interest.name}</span></label></li>
                             #{/list}
                         </ul>
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
                     </div>
                 </div><!-- /clearfix -->
-                <div class="clearfix"> 
-                    <label for="xlInput">Autres Intérêts:</label>
+                #{/}
+
+                #{field 'newInterests'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="newInterests" name="newInterests" size="200" type="text" /> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="200" type="text" value="${newInterests}" /> 
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
                     </div> 
-                    <span class="help-block"> 
-                        Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
-                    </span>
                 </div><!-- /clearfix -->
+                #{/}
             </fieldset>
             <input type="submit" class="btn primary large" value="S'inscrire"/>
             #{/form}

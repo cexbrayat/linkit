@@ -34,7 +34,7 @@ public class Profile extends Controller {
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
             List<Interest> interests = Interest.findAll();
-            render("Profile/edit.html", member, interests);
+            render("Profile/edit.html", member, interests, checkedInterests, newInterests);
         }
         if (checkedInterests != null) {
             member.addInterests(checkedInterests);
