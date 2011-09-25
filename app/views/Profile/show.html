@@ -2,7 +2,17 @@
 #{set title:'Profil' /}
 <div class="container">
   <div class="hero-unit">
-     <h2>${member.displayName} #{if session.get("username")?.equals(member.login)}(${member.firstname} ${member.lastname})#{/if} <a class="btn danger" href="@{Application.deleteMember(member.login)}">Supprimer mon compte (sans confirmation pour le moment!)</a></h2>
+     #{if session.get("username")?.equals(member.login)}
+        <h2>${member.displayName} (${member.firstname} ${member.lastname})</h2>
+        <p>
+        <a class="btn primary" href="@{Profile.edit(member.login)}">Editer mon profil</a>
+        <a class="btn danger" href="@{Profile.delete(member.login)}">Supprimer mon compte (sans confirmation pour le moment!)</a>
+        </p>
+     #{/if}
+     #{else}
+        <h2>${member.displayName}</h2>
+     #{/else}
+
      #{if member.email}
         #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
      #{/if}
@@ -15,10 +25,10 @@
      #{/if}
      #{if session.get("username") != null && !session.get("username").equals(member.login)}
      #{if !models.Member.isLinkedTo(session.get("username"), member.login)}
-     <a class="btn primary large" href="@{Application.link(session.get("username"), member.login)}">Link</a>
+     <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
      #{/if}
      #{else}
-     <a class="btn primary large" href="@{Application.unlink(session.get("username"), member.login)}">Unlink</a>
+     <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>
      #{/else}
      #{/if}
      <div class="row">
@@ -27,14 +37,14 @@
                 #{else} link${member.links.size().pluralize()} #{/else}
          </h3>
          #{list items:member.links, as:'link'}       
-         <a href="@{Application.showMember(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+         <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
          #{/list}
        </div>
        <div class="span3">
          <h3>${member.linkers().size()} #{if member.linkers().size()<=1} linker #{/if}
                  #{else} linker${member.linkers().size().pluralize()} #{/else}</h3>
          #{list items:member.linkers(), as:'link'}
-         <a href="@{Application.showMember(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+         <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
          #{/list}
       </div>
     </div>

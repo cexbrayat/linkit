@@ -57,11 +57,11 @@ public class Login extends Controller {
      
                     member.save();
                     session.put("username", member.login);
-                    Application.register(member);
+                    render("Profile/edit.html", member);
                 }
                 
                 session.put("username", account.member.login);
-                Application.showMember(account.member.login);
+                Profile.show(account.member.login);
             } else {
                 Logger.error("Authentification impossible");
                 if (resp != null) {
@@ -101,6 +101,6 @@ public class Login extends Controller {
         Member member = new Member(login, new LinkItAccount(password));
         member.save();
         session.put("username", member.login);
-        Application.register(member);
+        render("Profile/edit.html", member);
     }
 }

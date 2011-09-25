@@ -34,7 +34,7 @@
                         <li><a href="@{Login.index()}">Se connecter</a></li>
                         #{/if}
                         #{else}
-                        <li><a href="@{Application.showMember(session.get("username"))}">Mon profil</a></li>
+                        <li><a href="@{Profile.show(session.get("username"))}">Mon profil</a></li>
                         <li><a href="@{Secure.logout()}">Se deconnecter</a></li>
                         #{/else}
                     </ul>
