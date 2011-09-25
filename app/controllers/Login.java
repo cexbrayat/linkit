@@ -49,18 +49,19 @@ public class Login extends Controller {
                     // Pas d'account correspondant.
                     // Si on n'autorise pas de connexions par un provider différent, cela veut dire qu'il n'existe pas de member correspondant.
 
-                    // On crée un nouveau member, qu'on invitera à renseigner son profil vierge
+                    // On crée un nouveau member, qu'on invitera à renseigner son profil
                     Member member = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount);
                     
-                    // FIXME Fetch available profile data from OAuth account
-                    
+                    // On préinitialise son profil avec les données récupérées du compte OAuth
+                    oAuthAccount.initMemberProfile();
+     
                     member.save();
-                    session.put("username", oAuthAccount.member.login);
-                    Application.register(member);
+                    session.put("username", member.login);
+                    render("Profile/edit.html", member);
                 }
                 
                 session.put("username", account.member.login);
-                Application.showMember(account.member.login);
+                Profile.show(account.member.login);
             } else {
                 Logger.error("Authentification impossible");
                 if (resp != null) {
@@ -100,6 +101,6 @@ public class Login extends Controller {
         Member member = new Member(login, new LinkItAccount(password));
         member.save();
         session.put("username", member.login);
-        Application.register(member);
+        render("Profile/edit.html", member);
     }
 }

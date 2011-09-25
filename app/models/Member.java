@@ -3,22 +3,36 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
+import org.apache.commons.lang.StringUtils;
 import play.db.jpa.*;
 
 @Entity
 public class Member extends Model {
 
+    /** Internal login */
+    public String login;
+    
     public String email;
     public String firstname;
     public String lastname;
+    
+    /** Name under which he wants to be displayed */
+    public String displayName;
     public String description;
-    public String login;
+    
+    /** Twitter account interet */
+    public String twitterName;
+    
+    /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumberInsteadOfABetterId} as seen on Google+' profile link */
+    public String googlePlusId;
+
     @ManyToMany
     public List<Member> links = new ArrayList<Member>();
     
     // FIXME : refactor to OneToMany (several accounts per member)
     @OneToOne(mappedBy="member", cascade= CascadeType.ALL)
     public Account account;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
 
@@ -55,14 +69,22 @@ public class Member extends Model {
 
 
     public Member addInterest(String interest) {
-        interests.add(Interest.findOrCreateByName(interest));
+        if (StringUtils.isNotBlank(interest)) {
+            interests.add(Interest.findOrCreateByName(interest));
+        }
         return this;
     }
 
     public Member addInterests(String... interests) {
-        for (String name : interests) {
-                this.interests.add(Interest.findOrCreateByName(name));
+        for (String interet : interests) {
+            addInterest(interet);
         }
+        return this;
+    }
+
+    public Member updateInterests(String... interests) {
+        this.interests.clear();
+        addInterests(interests);
         return this;
     }
 
