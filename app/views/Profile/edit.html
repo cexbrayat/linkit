@@ -1,0 +1,131 @@
+#{extends 'main.html' /}
+#{set title:'Editer mon profil' /}
+</br>
+</br>
+<div class="container">
+    <div class="page-header"> 
+        <h1>Inscription</h1> 
+    </div>
+    <div class="row"> 
+        <div class="span4 columns"> 
+            <h2>Informations</h2> 
+            <p>Informations générales sur votre profil, vos réseaux sociaux et vos intérêts.</p> 
+        </div> 
+        <div class="span12 columns"> 
+            #{form @Profile.save(member.login)} 
+            <fieldset> 
+                <legend>Profil</legend>
+                #{field 'lastname'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.lastname}" />
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
+                </div>
+                #{/}
+
+                #{field 'firstname'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.firstname}" /> 
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div> 
+                </div><!-- /clearfix -->
+                #{/}
+
+                #{field 'displayName'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.displayName}" /> 
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div> 
+                </div><!-- /clearfix -->
+                #{/}
+
+                #{field 'email'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="email" value="${member?.email}" /> 
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div> 
+                </div><!-- /clearfix -->
+                #{/}
+
+                #{field 'description'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.description}" /> 
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div> 
+                </div><!-- /clearfix -->
+                #{/}
+
+                #{field 'twitterName'}
+                <div class="clearfix ${field.error?'error':''}">
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.twitterName}" /> 
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div> 
+                </div><!-- /clearfix -->
+                #{/}
+
+                #{field 'googlePlusId'}
+                <div class="clearfix ${field.error?'error':''}">
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.googlePlusId}" /> 
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
+
+                </div><!-- /clearfix -->
+                #{/}
+
+            </fieldset>
+            <fieldset>
+                <legend>Intérêts</legend>
+
+                #{field 'interests'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <ul class="inputs-list">
+                            #{list items:models.Interest.findAll(), as:'interest'}
+                            <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
+                            #{/list}
+                        </ul>
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
+                </div><!-- /clearfix -->
+                #{/}
+
+                #{field 'newInterests'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="200" type="text" value="${newInterests}" /> 
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div> 
+                </div><!-- /clearfix -->
+                #{/}
+            </fieldset>
+            <input type="submit" class="btn primary large" value="Enregistrer"/>
+            <a href="@{Profile.show(member.login)}" class="btn large">Annuler</a>
+            #{/form}
+        </div>
+    </div>
+</div>

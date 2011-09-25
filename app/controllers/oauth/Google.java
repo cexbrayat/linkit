@@ -9,28 +9,28 @@ import play.libs.OAuth.ServiceInfo;
 import play.libs.WS;
 
 /**
- *
+ * 
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class Google extends AbstractProvider {
+public class Google extends AbstractOAuthProviderImpl {
 
-    static private ServiceInfo serviceInfo;
+    static private final ServiceInfo serviceInfo = getServiceInfo(ProviderType.Google.name());
 
     public ServiceInfo getServiceInfo() {
-        if (serviceInfo == null) {
-            serviceInfo = getServiceInfo(ProviderType.Google.name());
-        }
         return serviceInfo;
     }
 
     public OAuthAccount getUserAccount(String token, String secret) {
         
-        // FIXME Google profile information
-        JsonElement response = WS.url("https://www.googleapis.com/oauth2/v1/userinfo?alt=json").oauth(getServiceInfo(), token, secret).get().getJson();
+        JsonElement response = WS.url("https://www.googleapis.com/oauth2/v1/userinfo?alt=json")
+                .oauth(getServiceInfo(), token, secret)
+                .get()
+                .getJson();
         JsonObject object = response.getAsJsonObject();
 
-        GoogleAccount account = new GoogleAccount();
+        GoogleAccount account = new GoogleAccount(token,secret);
         account.googleId = getStringPropertyFromJson(object, "id");
+        account.email = getStringPropertyFromJson(object, "email");
         account.name = getStringPropertyFromJson(object, "name");
         account.givenName = getStringPropertyFromJson(object, "given_name");
         account.familyName = getStringPropertyFromJson(object, "family_name");
@@ -39,7 +39,7 @@ public class Google extends AbstractProvider {
         account.gender = getStringPropertyFromJson(object, "gender");
         account.birthday = getStringPropertyFromJson(object, "birthday");
         account.locale = getStringPropertyFromJson(object, "locale");
-       
+ 
         return account;
     }
 }
