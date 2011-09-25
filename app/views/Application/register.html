@@ -23,27 +23,45 @@
             <fieldset> 
                 <legend>Profil</legend>
                 <div class="clearfix"> 
-                    <label for="xlInput">Nom</label> 
+                    <label for="lastname">Nom</label> 
                     <div class="input"> 
                         <input class="xlarge" id="lastname" name="lastname" size="30" type="text" value="${member?.lastname}" /> 
                     </div> 
                 </div><!-- /clearfix --> 
                 <div class="clearfix"> 
-                    <label for="xlInput">Prénom</label> 
+                    <label for="firstname">Prénom</label> 
                     <div class="input"> 
                         <input class="xlarge" id="firstname" name="firstname" size="30" type="text" value="${member?.firstname}" /> 
                     </div> 
                 </div><!-- /clearfix --> 
                 <div class="clearfix"> 
-                    <label for="xlInput">Email</label> 
+                    <label for="displayName">Surnom (affiché)</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="displayName" name="displayName" size="30" type="text" value="${member?.displayName}" /> 
+                    </div> 
+                </div><!-- /clearfix --> 
+                <div class="clearfix"> 
+                    <label for="email">Email</label> 
                     <div class="input"> 
                         <input class="xlarge" id="email" name="email" size="30" type="email" value="${member?.email}" /> 
                     </div> 
                 </div><!-- /clearfix -->
                 <div class="clearfix"> 
-                    <label for="xlInput">Description</label> 
+                    <label for="description">Description</label> 
                     <div class="input"> 
                         <input class="xlarge" id="description" name="description" size="30" type="text" value="${member?.description}" /> 
+                    </div> 
+                </div><!-- /clearfix -->
+                <div class="clearfix"> 
+                    <label for="twitterName">Twitter</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="twitterName" name="twitterName" size="30" type="text" value="${member?.twitterName}" /> 
+                    </div> 
+                </div><!-- /clearfix -->
+                <div class="clearfix"> 
+                    <label for="googlePlusId">Google+ ID</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="googlePlusId" name="googlePlusId" size="30" type="text" value="${member?.googlePlusId}" /> 
                     </div> 
                 </div><!-- /clearfix -->
             </fieldset>

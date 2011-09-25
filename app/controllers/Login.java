@@ -49,13 +49,14 @@ public class Login extends Controller {
                     // Pas d'account correspondant.
                     // Si on n'autorise pas de connexions par un provider différent, cela veut dire qu'il n'existe pas de member correspondant.
 
-                    // On crée un nouveau member, qu'on invitera à renseigner son profil vierge
+                    // On crée un nouveau member, qu'on invitera à renseigner son profil
                     Member member = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount);
                     
-                    // FIXME Fetch available profile data from OAuth account
-                    
+                    // On préinitialise son profil avec les données récupérées du compte OAuth
+                    oAuthAccount.initMemberProfile();
+     
                     member.save();
-                    session.put("username", oAuthAccount.member.login);
+                    session.put("username", member.login);
                     Application.register(member);
                 }
                 
@@ -71,15 +72,15 @@ public class Login extends Controller {
             }
         }
         
-        OAuth twitt = OAuth.service(oauthProvider.getServiceInfo());
-        OAuth.Response resp = twitt.retrieveRequestToken();
+        OAuth service = OAuth.service(oauthProvider.getServiceInfo());
+        OAuth.Response resp = service.retrieveRequestToken();
         if (resp != null && resp.error == null) {
             // We received the unauthorized tokens 
             // we need to store them before continuing
             flash.put(TOKEN_KEY, resp.token);
             flash.put(SECRET_KEY, resp.secret);
             // Redirect the user to the authorization page
-            redirect(twitt.redirectUrl(resp.token));
+            redirect(service.redirectUrl(resp.token));
         } else {
             Logger.error("Authentification impossible");
             if (resp != null) {

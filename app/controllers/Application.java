@@ -20,7 +20,7 @@ public class Application extends Controller {
         render("Application/register.html", member, interests);
     }
 
-    public static void endRegistration(@Required String login, @Required String firstname, @Required String lastname, @Required @Email String email, @Required String description,
+    public static void endRegistration(@Required String login, String firstname, String lastname, @Required @Email String email, @Required String displayName, @Required String description, String twitterName, String googlePlusId,
             String[] checkedInterests, String newInterests) {
         Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
@@ -31,6 +31,9 @@ public class Application extends Controller {
         member.email = email;
         member.lastname = lastname;
         member.login = login;
+        member.displayName = displayName;
+        member.twitterName = twitterName;
+        member.googlePlusId = googlePlusId;
 
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
@@ -67,6 +70,15 @@ public class Application extends Controller {
         Member member = Member.find("byLogin", login).first();
         Logger.info("Profil " + member);
         render("Application/profile.html", member);
+    }
+
+    public static void deleteMember(String login) throws Throwable {
+        Logger.info("Delete Profile " + login);
+        Member member = Member.find("byLogin", login).first();
+        member.delete();
+        Logger.info("Delete Profile " + login);
+        flash.success("Votre compte a été supprimé");
+        Secure.logout();
     }
 
     public static void link(String login, String loginToLink) {

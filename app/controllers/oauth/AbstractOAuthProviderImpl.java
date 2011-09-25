@@ -1,5 +1,7 @@
 package controllers.oauth;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import play.Play;
 import play.libs.OAuth.ServiceInfo;
 
@@ -7,7 +9,7 @@ import play.libs.OAuth.ServiceInfo;
  *
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public abstract class AbstractProvider implements OAuthProvider {
+public abstract class AbstractOAuthProviderImpl implements OAuthProvider {
 
     static protected ServiceInfo getServiceInfo(String provider) {
         final String requestTokenURL = Play.configuration.getProperty(provider+".requestTokenUrl");
@@ -17,4 +19,21 @@ public abstract class AbstractProvider implements OAuthProvider {
         final String consumerSecret = Play.configuration.getProperty(provider+".consumerSecret");
         return new ServiceInfo(requestTokenURL, accessTokenURL, authorizeURL, consumerKey, consumerSecret);
     }
+        
+    static String getStringPropertyFromJson(JsonElement response, String property) {
+        return response.getAsJsonObject().get(property).getAsString();
+    }
+        
+    static String getStringPropertyFromJson(JsonObject object, String property) {
+        return object.get(property).getAsString();
+    }
+    
+    static Long getLongPropertyFromJson(JsonElement response, String property) {
+        return response.getAsJsonObject().get(property).getAsLong();
+    }
+    
+    static Long getLongPropertyFromJson(JsonObject object, String property) {
+        return object.get(property).getAsLong();
+    }
+
 }

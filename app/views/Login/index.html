@@ -6,13 +6,6 @@
 
         <h1>Se connecter à Link-IT</h1>
 
-        #{if flash.success}
-        <div class="alert-message success">${flash.success}</div>
-        #{/if}
-        #{if flash.error}
-        <div class="alert-message error">${flash.error}</div>
-        #{/if}
-
         <div class="row">
             <div class="span8">
                 <h2>avec login/mot de passe</h1>
@@ -67,9 +60,16 @@
             <div class="span6">
                 <h2>avec un compte existant</h2>
                 <p>
-                <a href="@{loginWith('Twitter')}">
-                    <img src="https://si0.twimg.com/images/dev/buttons/sign-in-with-twitter-l.png" />
-                </a>
+                    <a href="@{loginWith('Twitter')}" class="btn large primary">Twitter</a>
+                </p>
+                <p>
+                    #{if (!play.id)}
+                        <div class="alert-message warning">
+                          <a class="close" href="#">×</a>
+                          <p><strong>Google</strong> ne fonctionnera pas en DEV (localhost non accepté).</p>
+                        </div>
+                    #{/if}
+                    <a href="@{loginWith('Google')}" class="btn large primary ${play.id ? '' : 'disabled'}">Google</a>
                 </p>
             </div>
         </div>

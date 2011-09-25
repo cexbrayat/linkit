@@ -8,15 +8,30 @@ import play.db.jpa.*;
 @Entity
 public class Member extends Model {
 
+    /** Internal login */
+    public String login;
+    
     public String email;
     public String firstname;
     public String lastname;
+    
+    /** Name under which he wants to be displayed */
+    public String displayName;
     public String description;
-    public String login;
+    
+    /** Twitter account name */
+    public String twitterName;
+    
+    /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumberInsteadOfABetterId} as seen on Google+' profile link */
+    public String googlePlusId;
+
     @ManyToMany
     public List<Member> links = new ArrayList<Member>();
+    
+    // FIXME : refactor to OneToMany (several accounts per member)
     @OneToOne(mappedBy="member", cascade= CascadeType.ALL)
     public Account account;
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
 
