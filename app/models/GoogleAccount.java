@@ -1,7 +1,6 @@
 package models;
 
 import javax.persistence.Entity;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * A Google account
@@ -10,7 +9,8 @@ import org.apache.commons.lang.StringUtils;
 @Entity
 public class GoogleAccount extends OAuthAccount {
     
-    public String googleId;     // 123344...
+    public String googleId;     // 114128610730314333831
+    public String email;        // cyril.lacote@gmail.com
     public String name;         // Cyril Lacôte
     public String givenName;    // Cyril
     public String familyName;   // Lacôte
@@ -20,8 +20,8 @@ public class GoogleAccount extends OAuthAccount {
     public String birthday;     // 0000-03-26 (yes, 0000 for me?!)
     public String locale;       // en
     
-    public GoogleAccount() {
-        super(ProviderType.Google);
+    public GoogleAccount(String token, String secret) {
+        super(ProviderType.Google, token, secret);
     }
     
     @Override
@@ -31,6 +31,17 @@ public class GoogleAccount extends OAuthAccount {
 
     @Override
     public String getOAuthLogin() {
-        return StringUtils.substringAfterLast(link, "/");
+        return email;
+    }
+
+    @Override
+    public void initMemberProfile() {
+        if (member != null) {
+            member.googlePlusId = this.googleId;
+            member.email = this.email;
+            member.firstname = this.givenName;
+            member.lastname = this.familyName;
+            member.displayName = this.name;
+        }
     }
 }

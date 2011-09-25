@@ -9,7 +9,7 @@ import play.libs.OAuth.ServiceInfo;
  *
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public abstract class AbstractProvider implements OAuthProvider {
+public abstract class AbstractOAuthProviderImpl implements OAuthProvider {
 
     static protected ServiceInfo getServiceInfo(String provider) {
         final String requestTokenURL = Play.configuration.getProperty(provider + ".requestTokenUrl");
@@ -44,6 +44,14 @@ public abstract class AbstractProvider implements OAuthProvider {
         } else {
             return null;
         }
-
     }
+    
+    static Long getLongPropertyFromJson(JsonObject object, String property) {
+        if (object.get(property) != null) {
+            return object.get(property).getAsLong();
+        } else {
+            return null;
+        }
+    }
+
 }

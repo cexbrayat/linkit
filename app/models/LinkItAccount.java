@@ -20,4 +20,9 @@ public class LinkItAccount extends Account {
     public String toString(){
         return "provider {" + provider + "}";
     }
+
+    @Override
+    public void initMemberProfile() {
+        // Nothing to initialize;
+    }
 }
