@@ -22,7 +22,7 @@ public class Security extends Secure.Security {
     }
     
     static void onAuthenticated() {
-        Application.showMember(connected());
+        Profile.show(connected());
     }
 }
    

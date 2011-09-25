@@ -12,7 +12,7 @@
             <p>Informations générales sur votre profil, vos réseaux sociaux et vos intérêts.</p> 
         </div> 
         <div class="span12 columns"> 
-            #{form @Application.endRegistration(member.login)} 
+            #{form @Profile.save(member.login)} 
             #{ifErrors}
             <fieldset> 
                 <div class="alert-message error">
