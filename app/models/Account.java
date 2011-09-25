@@ -35,6 +35,11 @@ public abstract class Account extends Model {
         this.provider = provider;
     }
     
+    /**
+     * Initialize member profile from account data
+     */
+    public abstract void initMemberProfile();
+    
     public static Account find(ProviderType provider, String login) {
         return Account.find("from Account a where a.provider=?1 and a.member.login=?2", provider, login).first();
     }

@@ -1,3 +1,24 @@
 # You can specialize this file for each language.
-# For example, for French create a messages.fr file
+# For example, for English create a messages.en file
 #
+lastname=Nom
+lastname.note=Il restera confidentiel (ou pas)
+firstname=Prénom
+firstname.note=Il restera confidentiel (ou pas)
+displayName=Pseudonyme
+displayName.note=Nom sous lequel vous voulez apparaître sur le site
+email=Email
+email.note=
+description=Description
+description.note=Une courte biographie (ou ce que vous voulez raconter de vous), qui sera visible de tous
+twitterName=Twitter
+twitterName.note=Votre compte twitter si vous en avez un (ex : mix_it).
+googlePlusId=Google+
+googlePlusId.note=Votre ID Google+ si vous en avez un, i.e celui numérique affiché sur https://plus.google.com/{ID}
+interests=Intérets existants
+interests.note=Ces intérêts seront affichés sur votre profil et nous serviront à vous proposer de nouvelles connaissances.
+newInterests=Autres intérêts
+newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
+
+validation.required=obligatoire
+validation.email=Saisir un email valide

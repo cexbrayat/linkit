@@ -9,11 +9,17 @@ import javax.persistence.Entity;
 @Entity
 public class TwitterAccount extends OAuthAccount {
     
-    public Long userId;
-    public String screenName;
+    public Long userId;         // 217990448
+    public String screenName;   // clacote
+    public String lang;         // en
+    public String name;         // Cyril Lacôte
+    public String location;     // In the bright side
+    public String profileImageUrl;  // http://a2.twimg.com/profile_images/1171939364/image_normal.jpg
+    public Long statusesCount;  // 491
+    public Long friendsCount;   // 159
 
-    public TwitterAccount() {
-        super(ProviderType.Twitter);
+    public TwitterAccount(String token, String secret) {
+        super(ProviderType.Twitter, token, secret);
     }
     
     @Override
@@ -24,5 +30,13 @@ public class TwitterAccount extends OAuthAccount {
     @Override
     public String getOAuthLogin() {
         return screenName;
+    }
+
+    @Override
+    public void initMemberProfile() {
+        if (member != null) {
+            member.twitterName = this.screenName;
+            member.displayName = this.name;
+        }
     }
 }

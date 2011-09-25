@@ -9,11 +9,13 @@ import javax.persistence.Entity;
 @Entity
 public abstract class OAuthAccount extends Account {
 
-    public String secret;
     public String token;
+    public String secret;
 
-    public OAuthAccount(ProviderType provider) {
+    public OAuthAccount(ProviderType provider, String token, String secret) {
         super(provider);
+        this.token = token;
+        this.secret = secret;
     }
 
     /**

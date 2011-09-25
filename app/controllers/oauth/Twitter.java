@@ -12,26 +12,32 @@ import play.libs.WS;
  * A Twitter account
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class Twitter extends AbstractProvider {
+public class Twitter extends AbstractOAuthProviderImpl {
 
-    static private ServiceInfo serviceInfo;
+    static private final ServiceInfo serviceInfo = getServiceInfo(ProviderType.Twitter.name());
 
     public ServiceInfo getServiceInfo() {
-        if (serviceInfo == null) {
-            serviceInfo = getServiceInfo(ProviderType.Twitter.name());
-        }
         return serviceInfo;
     }
 
     public OAuthAccount getUserAccount(String token, String secret) {
         
-        JsonElement response = WS.url("http://api.twitter.com/1/account/verify_credentials.json").oauth(getServiceInfo(), token, secret).get().getJson();
+        JsonElement response = WS.url("http://api.twitter.com/1/account/verify_credentials.json")
+                .oauth(getServiceInfo(), token, secret)
+                .get()
+                .getJson();
         JsonObject object = response.getAsJsonObject();
-        TwitterAccount account = new TwitterAccount();
-        account.token = token;
-        account.secret = secret;
+        
+        TwitterAccount account = new TwitterAccount(token, secret);
         account.screenName = getStringPropertyFromJson(object, "screen_name");
         account.userId = getLongPropertyFromJson(object, "id");
+        account.lang = getStringPropertyFromJson(object, "lang");
+        account.name = getStringPropertyFromJson(object, "name");
+        account.location = getStringPropertyFromJson(object, "location");
+        account.profileImageUrl = getStringPropertyFromJson(object, "profile_image_url");
+        account.statusesCount = getLongPropertyFromJson(object, "statuses_count");
+        account.friendsCount = getLongPropertyFromJson(object, "friends_count");
+        
         return account;
     }
 }
