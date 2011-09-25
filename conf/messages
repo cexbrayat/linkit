@@ -15,8 +15,8 @@ twitterName=Twitter
 twitterName.note=Votre compte twitter si vous en avez un (ex : mix_it).
 googlePlusId=Google+
 googlePlusId.note=Votre ID Google+ si vous en avez un, i.e celui numérique affiché sur https://plus.google.com/{ID}
-checkedInterests=Intérets déjà saisis
-checkedInterests.note=Ces intérêts seront affichés sur votre profil et nous serviront à vous proposer de nouvelles connaissances.
+interests=Intérets existants
+interests.note=Ces intérêts seront affichés sur votre profil et nous serviront à vous proposer de nouvelles connaissances.
 newInterests=Autres intérêts
 newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 

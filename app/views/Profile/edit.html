@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Inscription' /}
+#{set title:'Editer mon profil' /}
 </br>
 </br>
 <div class="container">
@@ -97,13 +97,13 @@
             <fieldset>
                 <legend>Intérêts</legend>
 
-                #{field 'checkedInterests'}
+                #{field 'interests'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <ul class="inputs-list">
-                            #{list items:interests, as:'interest'}
-                            <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${checkedInterests?.contains(interest.name)?'checked':''} /> <span>${interest.name}</span></label></li>
+                            #{list items:models.Interest.findAll(), as:'interest'}
+                            <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
                             #{/list}
                         </ul>
                         <span class="help-inline">${field.error}</span>
@@ -123,7 +123,8 @@
                 </div><!-- /clearfix -->
                 #{/}
             </fieldset>
-            <input type="submit" class="btn primary large" value="S'inscrire"/>
+            <input type="submit" class="btn primary large" value="Enregistrer"/>
+            <a href="@{Profile.show(member.login)}" class="btn large">Annuler</a>
             #{/form}
         </div>
     </div>

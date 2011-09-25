@@ -11,13 +11,15 @@ import org.apache.commons.lang.StringUtils;
 
 public class Profile extends Controller {
 
-    public static void edit(Member member) {
-        List<Interest> interests = Interest.findAll();
-        render(member, interests);
+    public static void edit(@Required String login) {
+        Logger.info("Profil " + login);
+        Member member = Member.find("byLogin", login).first();
+        Logger.info("Edition du profil " + member);
+        render(member);
     }
 
     public static void save(@Required String login, String firstname, String lastname, @Required @Email String email, @Required String displayName, @Required String description, String twitterName, String googlePlusId,
-            String[] checkedInterests, String newInterests) {
+            String[] interests, String newInterests) {
         Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
 
@@ -30,18 +32,19 @@ public class Profile extends Controller {
         member.displayName = displayName;
         member.twitterName = twitterName;
         member.googlePlusId = googlePlusId;
+        if (interests != null) {
+            member.updateInterests(interests);
+        }
 
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
-            List<Interest> interests = Interest.findAll();
-            render("Profile/edit.html", member, interests, checkedInterests, newInterests);
+            render("Profile/edit.html", member, newInterests);
         }
-        if (checkedInterests != null) {
-            member.addInterests(checkedInterests);
-        }
+
         if (newInterests != null) {
             member.addInterests( StringUtils.splitByWholeSeparator(newInterests, ","));
         }
+
         member.save();
         flash.success("Profil enregistré!");
         Logger.info("Profil enregistré");

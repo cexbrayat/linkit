@@ -2,7 +2,17 @@
 #{set title:'Profil' /}
 <div class="container">
   <div class="hero-unit">
-     <h2>${member.displayName} #{if session.get("username")?.equals(member.login)}(${member.firstname} ${member.lastname})#{/if} <a class="btn danger" href="@{Profile.delete(member.login)}">Supprimer mon compte (sans confirmation pour le moment!)</a></h2>
+     #{if session.get("username")?.equals(member.login)}
+        <h2>${member.displayName} (${member.firstname} ${member.lastname})</h2>
+        <p>
+        <a class="btn primary" href="@{Profile.edit(member.login)}">Editer mon profil</a>
+        <a class="btn danger" href="@{Profile.delete(member.login)}">Supprimer mon compte (sans confirmation pour le moment!)</a>
+        </p>
+     #{/if}
+     #{else}
+        <h2>${member.displayName}</h2>
+     #{/else}
+
      #{if member.email}
         #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
      #{/if}

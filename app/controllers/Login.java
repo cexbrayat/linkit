@@ -57,7 +57,7 @@ public class Login extends Controller {
      
                     member.save();
                     session.put("username", member.login);
-                    Profile.edit(member);
+                    render("Profile/edit.html", member);
                 }
                 
                 session.put("username", account.member.login);
@@ -101,6 +101,6 @@ public class Login extends Controller {
         Member member = new Member(login, new LinkItAccount(password));
         member.save();
         session.put("username", member.login);
-        Profile.edit(member);
+        render("Profile/edit.html", member);
     }
 }
