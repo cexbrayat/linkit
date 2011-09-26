@@ -1,6 +1,8 @@
 package models;
 
 import javax.persistence.Entity;
+import org.apache.commons.lang.StringUtils;
+import play.data.validation.Required;
 
 /**
  * A Google account
@@ -10,6 +12,7 @@ import javax.persistence.Entity;
 public class GoogleAccount extends OAuthAccount {
     
     public String googleId;     // 114128610730314333831
+    @Required
     public String email;        // cyril.lacote@gmail.com
     public String name;         // Cyril Lacôte
     public String givenName;    // Cyril
@@ -37,11 +40,16 @@ public class GoogleAccount extends OAuthAccount {
     @Override
     public void initMemberProfile() {
         if (member != null) {
-            member.googlePlusId = this.googleId;
-            member.email = this.email;
-            member.firstname = this.givenName;
-            member.lastname = this.familyName;
-            member.displayName = this.name;
+            if (StringUtils.isBlank(member.googlePlusId)) member.googlePlusId = this.googleId;
+            if (StringUtils.isBlank(member.email)) member.email = this.email;
+            if (StringUtils.isBlank(member.firstname)) member.firstname = this.givenName;
+            if (StringUtils.isBlank(member.lastname)) member.lastname = this.familyName;
+            if (StringUtils.isBlank(member.displayName)) member.displayName = this.name;
         }
+    }
+
+    @Override
+    public Member findCorrespondingMember() {
+        return Member.find("byEmail", getOAuthLogin()).first();
     }
 }

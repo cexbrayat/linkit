@@ -13,7 +13,7 @@ public class Profile extends Controller {
 
     public static void edit(@Required String login) {
         Logger.info("Profil " + login);
-        Member member = Member.find("byLogin", login).first();
+        Member member = Member.findByLogin(login);
         Logger.info("Edition du profil " + member);
         render(member);
     }
@@ -23,7 +23,7 @@ public class Profile extends Controller {
         Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
 
-        Member member = Member.find("byLogin", login).first();
+        Member member = Member.findByLogin(login);
         member.firstname = firstname;
         member.description = description;
         member.email = email;
@@ -54,14 +54,14 @@ public class Profile extends Controller {
 
     public static void show(String login) {
         Logger.info("Profil " + login);
-        Member member = Member.find("byLogin", login).first();
+        Member member = Member.findByLogin(login);
         Logger.info("Profil " + member);
         render(member);
     }
 
     public static void delete(String login) throws Throwable {
         Logger.info("Delete Profile " + login);
-        Member member = Member.find("byLogin", login).first();
+        Member member = Member.findByLogin(login);
         member.delete();
         Logger.info("Delete Profile " + login);
         flash.success("Votre compte a été supprimé");

@@ -24,12 +24,12 @@ public class Login extends Controller {
     public static void index() {
         render();
     }
-    
+
     public static void loginWith(@Required String provider) {
-        
+
         ProviderType providerType = ProviderType.valueOf(provider);
         OAuthProvider oauthProvider = OAuthProviderFactory.getProvider(providerType);
-        
+
         if (OAuth.isVerifierResponse()) {
             // We got the verifier; 
             // now get the access tokens using the request tokens
@@ -39,29 +39,19 @@ public class Login extends Controller {
             if (resp != null && resp.error == null) {
                 session.put(TOKEN_KEY, resp.token);
                 session.put(SECRET_KEY, resp.secret);
-                
+
                 // Fetch user oAuthAccount
                 OAuthAccount oAuthAccount = oauthProvider.getUserAccount(resp.token, resp.secret);
                 // Retrieve existing oAuthAccount from profile
                 OAuthAccount account = (OAuthAccount) OAuthAccount.find(providerType, oAuthAccount.getOAuthLogin());
 
-                if (account == null) {
-                    // Pas d'account correspondant.
-                    // Si on n'autorise pas de connexions par un provider différent, cela veut dire qu'il n'existe pas de member correspondant.
-
-                    // On crée un nouveau member, qu'on invitera à renseigner son profil
-                    Member member = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount);
-                    
-                    // On préinitialise son profil avec les données récupérées du compte OAuth
-                    oAuthAccount.initMemberProfile();
-     
-                    member.save();
-                    session.put("username", member.login);
-                    render("Profile/edit.html", member);
+                if (account != null) {
+                    session.put("username", account.member.login);
+                    Profile.show(account.member.login);
                 }
-                
-                session.put("username", account.member.login);
-                Profile.show(account.member.login);
+
+                // Pas d'account correspondant : new way of authentication
+                manageNewAuthenticationFrom(oAuthAccount);
             } else {
                 Logger.error("Authentification impossible");
                 if (resp != null) {
@@ -71,7 +61,7 @@ public class Login extends Controller {
                 index();
             }
         }
-        
+
         OAuth service = OAuth.service(oauthProvider.getServiceInfo());
         OAuth.Response resp = service.retrieveRequestToken();
         if (resp != null && resp.error == null) {
@@ -89,11 +79,32 @@ public class Login extends Controller {
             flash.error("Authentification impossible");
         }
     }
-    
+
+    protected static void manageNewAuthenticationFrom(OAuthAccount oAuthAccount) {
+
+        Member member = oAuthAccount.findCorrespondingMember();
+        if (member == null) {
+            // On crée un nouveau member, qu'on invitera à renseigner son profil
+            member = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount);
+
+            member.save();
+            session.put("username", member.login);
+            render("Profile/edit.html", member);
+        } else {
+            // Un membre existant s'est connecté avec un nouveau provider
+            // On se contente de lui ajouter le nouvel account utilisé
+            member.addAccount(oAuthAccount);
+            // On valorise les éventuels données de son profil que 
+            member.save();
+            session.put("username", member.login);
+            Profile.show(member.login);
+        }
+    }
+
     public static void loginLinkIt(@Required String login, @Required String password) throws Throwable {
         Secure.authenticate(login, password, true);
     }
-    
+
     public static void signup(@Required String login, @Required String password) {
         if (Validation.hasErrors()) {
             render(login, password);
