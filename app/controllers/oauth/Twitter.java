@@ -5,27 +5,21 @@ import com.google.gson.JsonObject;
 import models.OAuthAccount;
 import models.ProviderType;
 import models.TwitterAccount;
-import play.libs.OAuth.ServiceInfo;
-import play.libs.WS;
 
 /**
- * A Twitter account
+ * Twitter OAuth provider
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class Twitter extends AbstractOAuthProviderImpl {
 
-    static private final ServiceInfo serviceInfo = getServiceInfo(ProviderType.Twitter.name());
-
-    public ServiceInfo getServiceInfo() {
-        return serviceInfo;
+    public Twitter() {
+        super(ProviderType.Twitter);
     }
 
     public OAuthAccount getUserAccount(String token, String secret) {
         
-        JsonElement response = WS.url("http://api.twitter.com/1/account/verify_credentials.json")
-                .oauth(getServiceInfo(), token, secret)
-                .get()
-                .getJson();
+        final String url = getConfigString("userProfileJsonUrl");
+        JsonElement response = get(url, token, secret).getJson();
         JsonObject object = response.getAsJsonObject();
         
         TwitterAccount account = new TwitterAccount(token, secret);
