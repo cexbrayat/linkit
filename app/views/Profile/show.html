@@ -16,7 +16,7 @@
      #{if member.email}
         #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
      #{/if}
-     <p>${member.description}</p>
+     <p>${member.description.markdown().raw()}</p>
      #{if member.twitterName}
          <p><a href="http://www.twitter.com/${member.twitterName}" target="_new">@${member.twitterName}</a></p>
      #{/if}
