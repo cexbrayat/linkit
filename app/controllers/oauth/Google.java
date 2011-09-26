@@ -5,27 +5,21 @@ import com.google.gson.JsonObject;
 import models.GoogleAccount;
 import models.OAuthAccount;
 import models.ProviderType;
-import play.libs.OAuth.ServiceInfo;
-import play.libs.WS;
 
 /**
- * 
+ * Google OAuth provider
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class Google extends AbstractOAuthProviderImpl {
 
-    static private final ServiceInfo serviceInfo = getServiceInfo(ProviderType.Google.name());
-
-    public ServiceInfo getServiceInfo() {
-        return serviceInfo;
+    public Google() {
+        super(ProviderType.Google);
     }
 
     public OAuthAccount getUserAccount(String token, String secret) {
         
-        JsonElement response = WS.url("https://www.googleapis.com/oauth2/v1/userinfo?alt=json")
-                .oauth(getServiceInfo(), token, secret)
-                .get()
-                .getJson();
+        final String url = getConfigString("userProfileJsonUrl");
+        JsonElement response = get(url, token, secret).getJson();
         JsonObject object = response.getAsJsonObject();
 
         GoogleAccount account = new GoogleAccount(token,secret);

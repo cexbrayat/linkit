@@ -40,9 +40,9 @@ public class Login extends Controller {
                 session.put(TOKEN_KEY, resp.token);
                 session.put(SECRET_KEY, resp.secret);
                 
-                // Retrieve user oAuthAccount
+                // Fetch user oAuthAccount
                 OAuthAccount oAuthAccount = oauthProvider.getUserAccount(resp.token, resp.secret);
-                // Retrieve Link-IT oAuthAccount from profile
+                // Retrieve existing oAuthAccount from profile
                 OAuthAccount account = (OAuthAccount) OAuthAccount.find(providerType, oAuthAccount.getOAuthLogin());
 
                 if (account == null) {
