@@ -18,6 +18,8 @@ public class Member extends Model {
     
     /** Name under which he wants to be displayed */
     public String displayName;
+
+    /** User-defined description, potentially as MarkDown */
     public String description;
     
     /** Twitter account interet */

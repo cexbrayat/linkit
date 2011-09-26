@@ -63,7 +63,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.description}" /> 
+                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="30" rows="3">${member?.description}</textarea>
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 

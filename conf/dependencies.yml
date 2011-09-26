@@ -7,3 +7,4 @@ require:
     - play -> cloudbees 0.2.2
     - play -> secure
 #   - org.scribe -> scribe 1.2.2
+    - play -> markdown 1.1
