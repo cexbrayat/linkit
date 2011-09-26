@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.Entity;
+import play.data.validation.Required;
 
 /**
  * An OAuth account on a third-party authentication provider
@@ -9,7 +10,9 @@ import javax.persistence.Entity;
 @Entity
 public abstract class OAuthAccount extends Account {
 
+    @Required
     public String token;
+    @Required
     public String secret;
 
     public OAuthAccount(ProviderType provider, String token, String secret) {
@@ -23,4 +26,10 @@ public abstract class OAuthAccount extends Account {
      * @return Account property value to use as login for Link-IT
      */
     public abstract String getOAuthLogin();
+
+    /**
+     * Find an existing member wich could own this account
+     * @return Corresponding member found, null if not
+     */
+    public abstract Member findCorrespondingMember();
 }
