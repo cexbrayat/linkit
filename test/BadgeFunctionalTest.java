@@ -11,14 +11,6 @@ import models.*;
 public class BadgeFunctionalTest extends FunctionalTest {
 
     @Test
-    public void testThatIndexPageWorks() {
-        Response response = GET("/");
-        assertIsOk(response);
-        assertContentType("text/html", response);
-        assertCharset(play.Play.defaultWebEncoding, response);
-    }
-
-    @Test
     public void testIconUrl() {
         for (Badge b : Badge.values()) {
             assertNotNull(b.getIconUrl());
