@@ -1,5 +1,5 @@
 Interest(play):
-    name: Play
+    name: Play!
  
 Interest(java):
     name: Java
@@ -11,7 +11,7 @@ Interest(hadoop):
     name: Hadoop
 
 Interest(javascript):
-    name: Javascript
+    name: JavaScript
 
 Interest(spring):
     name: Spring
@@ -19,7 +19,7 @@ Interest(spring):
 Interest(nodejs):
     name: NodeJS  
     
-Member(cedric) :
+Staff(cedric) :
     firstname: Cédric
     lastname: Exbrayat
     login: cedric
@@ -33,13 +33,16 @@ Member(cedric) :
          - hadoop
          - nodejs
          - javascript
+    badges:           
+         - Staff
+         - Attendee
 
 LinkItAccount(cedAccount):
     provider: LinkIt
     member: cedric
     password: ced
 
-Member(ju) :
+Staff(ju) :
     firstname: Julien
     lastname: Ripault
     login: julien
@@ -52,6 +55,8 @@ Member(ju) :
          - java
          - play
          - javascript
+    badges:           
+         - Staff
 
 LinkItAccount(juAccount):
     provider: LinkIt
@@ -67,13 +72,35 @@ Member(agnes) :
     displayName: Gnès
     twitterName: agnes_crepet
     googlePlusId: 116189330666769817164
-    interests:           
+    interests:
          - java
          - spring
          - tdd
          - play
+    badges:           
+         - Sponsor
+         - Speaker
+         - Attendee
 
 LinkItAccount(agnesAccount):
     provider: LinkIt
     member: agnes
     password: agnes
+    
+Speaker(nmartignole) :
+    firstname: Nicolas
+    lastname: Martignole
+    login: nmartignole
+    email: nicolas@touilleur-express.fr
+    description: Star internationale
+    displayName: "Le Touilleur"
+    twitterName: nmartignole
+    googlePlusId: 112895425540987915280
+    badges:
+         - Speaker
+         - Sponsor
+
+LinkItAccount(nmartignoleAccount):
+    provider: LinkIt
+    member: nmartignole
+    password: nicolas
