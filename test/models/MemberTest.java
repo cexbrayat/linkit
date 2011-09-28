@@ -1,9 +1,9 @@
 package models;
 
-
 import java.util.List;
 import java.util.Map;
 
+import org.h2.util.StringUtils;
 import org.junit.*;
 import play.test.*;
 
@@ -32,6 +32,14 @@ public class MemberTest extends UnitTest {
 
     @Test public void findByLoginNotFound() {
         assertNull(Member.findByLogin("toto"));
+    }
+    
+    @Test
+    public void saveWithBigDescription() {
+        Member bob = Member.findByLogin("bob");
+        String description = StringUtils.pad("testwith4000char", 4000, "a" , true);
+        bob.description = description;
+        bob.save();
     }
     
     @Test
