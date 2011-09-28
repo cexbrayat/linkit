@@ -1,7 +1,7 @@
 package models;
 
 /**
- * A badge rewarding some king of awesome activity on LinkIT
+ * A badge rewarding some kind of awesome activity on LinkIT
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public enum Badge {
