@@ -35,6 +35,7 @@ public class Member extends Model {
     public String displayName;
 
     /** User-defined description, potentially as MarkDown */
+    @Lob
     public String description;
     
     /** Twitter account name */
