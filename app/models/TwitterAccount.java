@@ -1,15 +1,19 @@
 package models;
 
 import javax.persistence.Entity;
+import org.apache.commons.lang.StringUtils;
+import play.data.validation.Required;
 
 /**
- * An OAuth account on a third-party authentication provider
+ * A Twitter account
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
 public class TwitterAccount extends OAuthAccount {
     
+    @Required
     public Long userId;         // 217990448
+    @Required
     public String screenName;   // clacote
     public String lang;         // en
     public String name;         // Cyril Lacôte
@@ -35,8 +39,13 @@ public class TwitterAccount extends OAuthAccount {
     @Override
     public void initMemberProfile() {
         if (member != null) {
-            member.twitterName = this.screenName;
-            member.displayName = this.name;
+            if (StringUtils.isBlank(member.twitterName)) member.twitterName = this.screenName;
+            if (StringUtils.isBlank(member.displayName)) member.displayName = this.name;
         }
+    }
+
+    @Override
+    public Member findCorrespondingMember() {
+        return Member.find("byTwitterName", screenName).first();
     }
 }

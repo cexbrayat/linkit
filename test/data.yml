@@ -11,12 +11,12 @@ LinkItAccount(bobAccount):
     member: bob
     password: secret
     
-Member(ced):
-    email: ced@gmail.com
+Staff(ced):
     firstname: Ced
     lastname: Name
     login: ced
     description: is ced
+    twitterName: cedric_exbrayat
 
 LinkItAccount(cedAccount):
     provider: LinkIt

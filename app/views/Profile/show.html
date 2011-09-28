@@ -16,7 +16,7 @@
      #{if member.email}
         #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
      #{/if}
-     <p>${member.description}</p>
+     <p>${member.description.markdown().raw()}</p>
      #{if member.twitterName}
          <p><a href="http://www.twitter.com/${member.twitterName}" target="_new">@${member.twitterName}</a></p>
      #{/if}
@@ -60,13 +60,17 @@
       <h2>Intérêts</h2>
       <p>
             #{list items:member.interests, as:'interest'}
-                <a class="btn primary" href="@{Application.showMembersbyInterest(interest.name)}">${interest}</a>
+                <a class="btn primary" href="@{Application.membersByInterest(interest.name)}">${interest}</a>
             #{/list}
       </p>
     </div>
     <div class="span4">
       <h2>Badges</h2>
-      <p>Les badges gagnés par le participant</p>
+      <p>
+         #{list items:member.badges, as:'badge'}
+            #{badge badge:badge /}
+         #{/list}
+      </p>
     </div>
   </div>
 </div>
