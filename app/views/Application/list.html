@@ -2,32 +2,38 @@
 #{set title:'Liste' /}
 <script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
 <script >
-  $(function() {
-    $("table#sortMember").tablesorter({ sortList: [[1,0]] });
-  });
+    $(function() {
+        $("table#sortMember").tablesorter({ sortList: [[1,0]] });
+    });
 </script>
 </br>
 </br>
-     #{if interest}
-        <div class="alert-message success">Voici les participants ayant choisi l'intérêt ${interest}</div>
-     #{/if}
+#{if interest}
+<div class="alert-message success">Voici les participants ayant choisi l'intérêt ${interest}</div>
+#{/if}
 <div class="container">
-	<table class="zebra-striped" id="sortMember"> 
+    <table class="zebra-striped" id="sortMember"> 
         <thead> 
-          <tr> 
-            <th>Prénom</th> 
-            <th>Nom</th> 
-            <th>Profil</th>
-          </tr> 
+            <tr> 
+                <th>Prénom</th> 
+                <th>Nom</th> 
+                <th>Profil</th>
+                <th>Badges</th>
+            </tr> 
         </thead> 
         <tbody>        
-        #{list items:members, as:'member'}
-			  <tr>
-				  <td>${member.firstname}</td> 
-    	          <td>${member.lastname}</td>
-    	          <td><a href="@{Profile.show(member.login)}">Profil</a></td>
-    	      </tr>
-		#{/list}
-		</tbody> 
-      </table>
+            #{list items:members, as:'member'}
+            <tr>
+                <td>${member.firstname}</td> 
+                <td>${member.lastname}</td>
+                <td><a href="@{Profile.show(member.login)}">Profil</a></td>
+                <td>
+                    #{list items:member.badges, as:'badge'}
+                        #{badge badge:badge /}
+                    #{/list}
+                </td>
+            </tr>
+            #{/list}
+        </tbody> 
+    </table>
 </div><!-- /container --> 
