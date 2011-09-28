@@ -10,7 +10,12 @@ import org.hibernate.annotations.IndexColumn;
 import play.data.validation.Required;
 import play.db.jpa.*;
 
+/**
+ * A LinkIT member.
+ * @author Sryl <cyril.lacote@gmail.com>
+ */
 @Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @NamedQueries({
     @NamedQuery(name="MemberByLogin", query="from Member m where m.login=:login")
 })
@@ -46,7 +51,10 @@ public class Member extends Model {
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
-    
+   
+    @ElementCollection
+    public Set<Badge> badges = new HashSet<Badge>();
+            
     public Member(String login, Account account) {
         this.login = login;
         addAccount(account);
@@ -133,6 +141,10 @@ public class Member extends Model {
         return Member.find(
                 "select distinct m from Member m join m.interests as i "
                 + "where i.name in (:interests) group by m having count(i.id) = :size").bind("interests", interests).bind("size", interests.length).fetch();
+    }
+    
+    public void addBadge(Badge badge) {
+        this.badges.add(badge);
     }
 
     @Override

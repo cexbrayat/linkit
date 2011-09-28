@@ -11,7 +11,7 @@ LinkItAccount(bobAccount):
     member: bob
     password: secret
     
-Member(ced):
+Staff(ced):
     firstname: Ced
     lastname: Name
     login: ced
