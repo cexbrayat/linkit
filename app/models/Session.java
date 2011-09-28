@@ -2,6 +2,7 @@ package models;
 
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import play.db.jpa.Model;
 
@@ -16,6 +17,7 @@ public class Session extends Model {
     String summary;
     
     /** Markdown enabled */
+    @Lob
     String description;
     
     @ManyToMany
