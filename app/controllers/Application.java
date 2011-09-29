@@ -36,10 +36,10 @@ public class Application extends Controller {
         Logger.info(members.size() + " sponsors");
         render("Application/list.html", members);
     }
-    
+
     public static void membersByInterest(String interest) {
         List<Member> members = Member.findMembersInterestedBy(interest);
-        Logger.info(Member.count() + " membres interested by "+interest);
-        render("Application/list.html", members,interest);
+        Logger.info(Member.count() + " membres interested by " + interest);
+        render("Application/list.html", members, interest);
     }
 }
