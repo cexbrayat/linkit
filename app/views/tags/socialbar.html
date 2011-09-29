@@ -1,0 +1,22 @@
+*{ Display a social bar with thrid-parties sharing button : Tweet, +1, Like, ... }*
+
+*{ Tweet button : https://dev.twitter.com/docs/tweet-button }*
+<script src="//platform.twitter.com/widgets.js" type="text/javascript"></script>
+<a href="https://twitter.com/share" class="twitter-share-button"
+  data-via="MixIT_Lyon"
+  data-related="LyonJUG:Lyon Java User Group,cara_lyon:Club Agile Rhône-Alpes de Lyon,cast_it:Le podcast Cast-IT"
+>Tweet</a>
+
+*{ +1 button with asynchronous loading : https://developers.google.com/+/plugins/+1button/ }*
+<g:plusone size="medium"></g:plusone>
+<script type="text/javascript">
+  window.___gcfg = {
+    lang: 'fr_FR'
+  };
+
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>

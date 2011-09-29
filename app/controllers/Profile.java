@@ -54,7 +54,7 @@ public class Profile extends Controller {
 
     public static void show(String login) {
         Logger.info("Profil " + login);
-        Member member = Member.findByLogin(login);
+        Member member = Member.fetchForProfile(login);
         Logger.info("Profil " + member);
         render(member);
     }

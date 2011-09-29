@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Profil' /}
+#{set title:member.displayName + ' - Mix-IT' /}
 #{set 'moreScripts'}
 <script src="http://widgets.twimg.com/j/2/widget.js"></script>
 #{/set}
@@ -15,37 +15,64 @@
         #{else}
         <h2>${member.displayName}</h2>
         #{/else}
+
         <div class="row">
             <div class="span8">
                 <!-- profil -->
                 #{if member.email}
                 #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
                 #{/if}
-                <p>${member.description.markdown().raw()}</p>
-                #{if member.twitterName}
-                <p><a href="http://www.twitter.com/${member.twitterName}" target="_new">@${member.twitterName}</a></p>
-                #{/if}
+                <p>${member.description?.markdown().raw()}</p>
                 #{if member.googlePlusId}
-                <p><a href="http://plus.google.com/${member.googlePlusId}" target="_new">Google+</a></p>
+                <p>
+                    <a rel="author" href="https://profiles.google.com/${member.googlePlusId}" target="_new">
+                      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+                    </a>
+                <p>
                 #{/if}
                 #{if session.get("username") != null && !session.get("username").equals(member.login)}
-                #{if !models.Member.isLinkedTo(session.get("username"), member.login)}
+                #{if !member.hasForLinker(session.get("username"))}
                 <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
                 #{/if}
                 #{else}
                 <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>
                 #{/else}
                 #{/if}
+                </p>
+                <div class="row">
+                    <div class="span3">
+                        <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
+                            #{else} link${member.links.size().pluralize()} #{/else}
+                        </h3>
+                        #{list items:member.links, as:'link'}       
+                        <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                        #{/list}
+                    </div>
+                    <div class="span3">
+                        <h3>${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
+                            #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
+                        #{list items:member.linkers, as:'link'}
+                        <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                        #{/list}
+                    </div>
+                </div>
+                
+                <p>
+                    #{socialbar/}
+                </p>
+                
             </div>
+            
+            #{if member.twitterName}
             <div class="span6"> <!-- timeline twitter -->
                 <script>
                     new TWTR.Widget({
                         version: 2,
                         type: 'profile',
                         rpp: 7,
-                        interval: 2000,
+                        interval: 1000,
                         width: 'auto',
-                        height: '200',
+                        height: '300',
                         //                        theme: {
                         //                            shell: {
                         //                                background: '#736F6E',
@@ -69,28 +96,8 @@
                     }).render().setUser('${member.twitterName}').start();
                 </script>
             </div>
+            #{/if}
         </div>
-        <div class="row">
-            <div class="span3">
-                <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
-                    #{else} link${member.links.size().pluralize()} #{/else}
-                </h3>
-                #{list items:member.links, as:'link'}       
-                <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
-                #{/list}
-            </div>
-            <div class="span3">
-                <h3>${member.linkers().size()} #{if member.linkers().size()<=1} linker #{/if}
-                    #{else} linker${member.linkers().size().pluralize()} #{/else}</h3>
-                #{list items:member.linkers(), as:'link'}
-                <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
-                #{/list}
-            </div>
-
-        </div>
-
-
-
     </div>
 
     <div class="row">
