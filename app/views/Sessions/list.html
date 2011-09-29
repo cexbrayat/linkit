@@ -18,6 +18,7 @@
                 <th>track</th> 
                 <th>title</th> 
                 <th>speaker(s)</th>
+                <th>Actions</th>
             </tr> 
         </thead> 
         <tbody>        
@@ -27,8 +28,13 @@
                 <td>${talk.title}</td>
                 <td>
                     #{list items:talk.speakers, as:'speaker'}
-                        <a href="@{Profile.show(speaker.login)}">${speaker.displayName}</a>
+                        <a href="@{Profile.show(speaker.login)}">${speaker.displayName}</a>#{if !speaker_isLast}, #{/if}
                     #{/list}
+                </td>
+                <td>
+                    #{secure.check models.Role.ADMIN_SESSION}
+                        <a class="btn" href="@{Sessions.edit(talk.id)}">Editer</a>
+                    #{/secure.check} 
                 </td>
             </tr>
             #{/list}

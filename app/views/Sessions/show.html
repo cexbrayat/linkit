@@ -1,0 +1,12 @@
+#{extends 'main.html' /}
+#{set title:'Session ' + talk.title + ' - Mix-IT' /}
+
+<div class="container">
+    <div class="hero-unit">
+        <h1>${talk.title}</h1>
+        <small>${talk.summary}</small>
+    </div>
+    <div class="content">
+        ${talk.description.markdown().raw()}
+    </div>
+</div>

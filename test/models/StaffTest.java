@@ -26,7 +26,7 @@ public class StaffTest extends UnitTest {
     @Test public void load() {
         final String login = "ced";
         
-        Staff staffMember = Staff.find("byLogin", login).first();
+        Staff staffMember = Staff.findByLogin(login);
         assertNotNull(staffMember);
         
         assertNotNull(staffMember.badges);
@@ -35,13 +35,13 @@ public class StaffTest extends UnitTest {
         staffMember.addBadge(Badge.Sponsor);
         staffMember.save();
         
-        staffMember = Staff.find("byLogin", login).first();
+        staffMember = Staff.findByLogin(login);
         assertEquals(originalNbBadges+1, staffMember.badges.size());
         
         // Adding same badge twice : no consequences
         staffMember.addBadge(Badge.Sponsor);
         staffMember.save();
-        staffMember = Staff.find("byLogin", login).first();
+        staffMember = Staff.findByLogin(login);
         assertEquals(originalNbBadges+1, staffMember.badges.size());
     }
     
