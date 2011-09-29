@@ -7,8 +7,6 @@ import java.util.*;
 import models.Session;
 import models.Speaker;
 import models.Track;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
 import play.data.validation.Required;
 
 public class Sessions extends Controller {
