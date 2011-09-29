@@ -17,7 +17,11 @@ Staff(ced):
     login: ced
     description: is ced
     twitterName: cedric_exbrayat
-
+    links:           
+         - bob
+    badges:           
+         - Staff
+         - Attendee
 LinkItAccount(cedAccount):
     provider: LinkIt
     member: ced

@@ -22,7 +22,7 @@
                 #{if member.email}
                 #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
                 #{/if}
-                <p>${member.description.markdown().raw()}</p>
+                <p>${member.description?.markdown().raw()}</p>
                 #{if member.googlePlusId}
                 <p>
                     <a rel="author" href="https://profiles.google.com/${member.googlePlusId}" target="_new">
@@ -31,7 +31,7 @@
                 <p>
                 #{/if}
                 #{if session.get("username") != null && !session.get("username").equals(member.login)}
-                #{if !models.Member.isLinkedTo(session.get("username"), member.login)}
+                #{if !member.hasForLinker(session.get("username"))}
                 <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
                 #{/if}
                 #{else}
@@ -49,9 +49,9 @@
                         #{/list}
                     </div>
                     <div class="span3">
-                        <h3>${member.linkers().size()} #{if member.linkers().size()<=1} linker #{/if}
-                            #{else} linker${member.linkers().size().pluralize()} #{/else}</h3>
-                        #{list items:member.linkers(), as:'link'}
+                        <h3>${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
+                            #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
+                        #{list items:member.linkers, as:'link'}
                         <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>

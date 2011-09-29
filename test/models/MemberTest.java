@@ -33,6 +33,20 @@ public class MemberTest extends UnitTest {
     @Test public void findByLoginNotFound() {
         assertNull(Member.findByLogin("toto"));
     }
+
+    @Test public void fetchForProfileOK() {
+        Member ced = Member.fetchForProfile("ced");
+        assertNotNull(ced);
+        // FIXME How to close the current Hibernate session to ensure and test eager fetching of associated data?
+        ced.links.toArray();
+        ced.linkers.toArray();
+        ced.badges.toArray();
+        ced.interests.toArray();
+    }
+
+    @Test public void fetchForProfileNotFound() {
+        assertNull(Member.fetchForProfile("toto"));
+    }
     
     @Test
     public void saveWithBigDescription() {
@@ -45,19 +59,27 @@ public class MemberTest extends UnitTest {
     @Test
     public void addLink() {
         Member bob = Member.findByLogin("bob");
-        assertEquals(0, bob.links.size());
+        final int originalLinksNb = bob.links.size();
         Member.addLink("bob", "ced");
-        assertEquals(1, bob.links.size());
+        assertEquals(originalLinksNb+1, bob.links.size());
     }
 
     @Test
     public void isLinkedTo() {
         Member bob = Member.findByLogin("bob");
-        assertEquals(0, bob.links.size());
-        assertEquals(false, Member.isLinkedTo("bob", "ced"));
+        assertFalse(bob.isLinkedTo("ced"));
         Member.addLink("bob", "ced");
-        assertEquals(1, bob.links.size());
-        assertEquals(true, Member.isLinkedTo("bob", "ced"));
+        assertTrue(bob.isLinkedTo("ced"));
+    }
+
+    @Test
+    public void hasForLinker() {
+        Member ced = Member.findByLogin("ced");
+        final int originalLinkersNb = ced.linkers.size();
+        assertFalse(ced.hasForLinker("bob"));
+        Member.addLink("bob", "ced");
+        assertEquals(originalLinkersNb+1, ced.linkers.size());
+        assertTrue(ced.hasForLinker("bob"));
     }
 
     @Test
