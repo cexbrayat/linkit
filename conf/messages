@@ -1,6 +1,11 @@
 # You can specialize this file for each language.
 # For example, for English create a messages.en file
 #
+
+# Member fields
+
+# FIXME conflict with (Member.)description and (Session.)description : needs a deep refactoring
+
 lastname=Nom
 lastname.note=Il restera confidentiel (ou pas)
 firstname=Prénom
@@ -20,5 +25,18 @@ interests.note=Ces intérêts seront affichés sur votre profil et nous serviron
 newInterests=Autres intérêts
 newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 
+# Session fields
+title=Titre
+title.note=Un court titre pour votre session
+summary=Résumé
+summary.note=Un résumé de votre session
+description=Description
+description.note=La description complète de votre session.<br/><strong>MarkDown</strong> accepté.
+speakers=Speaker(s)
+speakers.note=Choisissez le ou les speakers
+track=Track Mix-IT
+track.note=
+
+# Validation errors
 validation.required=obligatoire
 validation.email=Saisir un email valide
