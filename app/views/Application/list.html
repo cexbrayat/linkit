@@ -19,6 +19,7 @@
                 <th>Nom</th> 
                 <th>Profil</th>
                 <th>Badges</th>
+                <th>Actions</th>
             </tr> 
         </thead> 
         <tbody>        
@@ -31,6 +32,13 @@
                     #{list items:member.badges, as:'badge'}
                         #{badge badge:badge /}
                     #{/list}
+                </td>
+                <td>
+                    #{if member instanceof models.Speaker}
+                        #{secure.check models.Role.ADMIN_SESSION}
+                            <a class="btn" href="@{Sessions.create(member.login)}">Créer une session</a>
+                        #{/secure.check} 
+                   #{/if}
                 </td>
             </tr>
             #{/list}

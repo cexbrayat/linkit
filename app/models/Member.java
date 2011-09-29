@@ -39,15 +39,17 @@ public class Member extends Model {
     @Required
     public String login;
     
+    @Required
     public String email;
     public String firstname;
     public String lastname;
     
     /** Name under which he wants to be displayed */
+    @Required
     public String displayName;
 
     /** User-defined description, potentially as MarkDown */
-    @Lob
+    @Lob @Required
     public String description;
     
     /** Twitter account name */
@@ -76,7 +78,7 @@ public class Member extends Model {
    
     @ElementCollection
     public Set<Badge> badges = new HashSet<Badge>();
-            
+    
     public Member(String login, Account account) {
         this.login = login;
         addAccount(account);
@@ -97,10 +99,10 @@ public class Member extends Model {
      * @param login Login to find
      * @return Member found, null if none.
      */
-    public static Member findByLogin(final String login) {
-        Member member = null;
+    public static <M extends Member> M findByLogin(final String login) {
+        M member = null;
         try {
-            member = (Member) em()
+            member = (M) em()
                     .createNamedQuery(QUERY_BYLOGIN)
                     .setParameter("login", login)
                     .getSingleResult();
@@ -113,10 +115,10 @@ public class Member extends Model {
     /**
      * Fetch a Member with all associated data for Profile display
      */
-    public static Member fetchForProfile(final String login) {
-        Member member = null;
+    public static <M extends Member> M fetchForProfile(final String login) {
+        M member = null;
         try {
-            member = (Member) em()
+            member = (M) em()
                     .createNamedQuery(QUERY_FORPROFILE)
                     .setParameter("login", login)
                     .getSingleResult();
@@ -235,5 +237,9 @@ public class Member extends Model {
     @Override
     public String toString() {
         return "login {" + login + "}, displayName {" + displayName + "}";
+    }
+    
+    public boolean hasRole(String profile) {
+        return false;
     }
 }

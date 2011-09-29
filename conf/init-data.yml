@@ -17,7 +17,7 @@ Interest(spring):
     name: Spring
 
 Interest(nodejs):
-    name: NodeJS  
+    name: NodeJS
     
 Staff(cedric) :
     firstname: Cédric
@@ -104,3 +104,32 @@ LinkItAccount(nmartignoleAccount):
     provider: LinkIt
     member: nmartignole
     password: nicolas
+    
+Speaker(rguy) :
+    firstname: Romain
+    lastname: Guy
+    login: rguy
+    email: rguy@google.com
+    description: Star internationale 2
+    displayName: Romain Guy
+    twitterName: romainguy
+    googlePlusId: 111962077049890418486
+    badges:
+         - Speaker
+    
+Session(sessionplayframework):
+    title: Play! Framework for dummies
+    track: Techy
+    summary: Intro sur le framework de la mort qui déchire tout!
+    description : Si vous êtes neuneu en Play! cette sesion est faite pour vous!
+    speakers:
+           - nmartignole
+    
+Session(sessionhadoop):
+    title: Hadoop c'est Hype!
+    track: Trendy
+    summary: Hadoop c'est un nom pourri mais c'est de la balle!
+    description : Votre vie ne sera plus la même après avoir découvert Hadoop! Cette session sera spéciale, vous apprendrez à danser en même temps!
+    speakers:
+           - nmartignole
+           - rguy

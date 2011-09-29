@@ -15,7 +15,6 @@
         #{else}
         <h2>${member.displayName}</h2>
         #{/else}
-
         <div class="row">
             <div class="span8">
                 <!-- profil -->
@@ -26,18 +25,18 @@
                 #{if member.googlePlusId}
                 <p>
                     <a rel="author" href="https://profiles.google.com/${member.googlePlusId}" target="_new">
-                      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+                        <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
                     </a>
                 <p>
-                #{/if}
-                #{if session.get("username") != null && !session.get("username").equals(member.login)}
-                #{if !member.hasForLinker(session.get("username"))}
-                <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
-                #{/if}
-                #{else}
-                <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>
-                #{/else}
-                #{/if}
+                    #{/if}
+                    #{if session.get("username") != null && !session.get("username").equals(member.login)}
+                    #{if !member.hasForLinker(session.get("username"))}
+                    <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
+                    #{/if}
+                    #{else}
+                    <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>
+                    #{/else}
+                    #{/if}
                 </p>
                 <div class="row">
                     <div class="span3">
@@ -56,13 +55,13 @@
                         #{/list}
                     </div>
                 </div>
-                
+
                 <p>
                     #{socialbar/}
                 </p>
-                
+
             </div>
-            
+
             #{if member.twitterName}
             <div class="span6"> <!-- timeline twitter -->
                 <script>

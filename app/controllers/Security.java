@@ -17,6 +17,13 @@ public class Security extends Secure.Security {
         return (account != null && account.password.equals(password));
     }
     
+        
+    public static boolean check(String profile) {
+        Member user = Member.findByLogin(connected());
+        return user.hasRole(profile);
+    }
+
+    
     static void onDisconnected() {
         Application.index();
     }
