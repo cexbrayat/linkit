@@ -1,0 +1,37 @@
+#{extends 'main.html' /}
+#{set title:'Liste' /}
+<script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
+<script >
+    $(function() {
+        $("table#sortSession").tablesorter({ sortList: [[1,0]] });
+    });
+</script>
+</br>
+</br>
+#{if interest}
+<div class="alert-message success">Voici les sessions portant sur l'intérêt ${interest}</div>
+#{/if}
+<div class="container">
+    <table class="zebra-striped" id="sortSession"> 
+        <thead> 
+            <tr> 
+                <th>track</th> 
+                <th>title</th> 
+                <th>speaker(s)</th>
+            </tr> 
+        </thead> 
+        <tbody>        
+            #{list items:sessions, as:'talk'}
+            <tr>
+                <td>${talk.track}</td> 
+                <td>${talk.title}</td>
+                <td>
+                    #{list items:talk.speakers, as:'speaker'}
+                        <a href="@{Profile.show(speaker.login)}">${speaker.displayName}</a>
+                    #{/list}
+                </td>
+            </tr>
+            #{/list}
+        </tbody> 
+    </table>
+</div><!-- /container --> 

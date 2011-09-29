@@ -39,15 +39,17 @@ public class Member extends Model {
     @Required
     public String login;
     
+    @Required
     public String email;
     public String firstname;
     public String lastname;
     
     /** Name under which he wants to be displayed */
+    @Required
     public String displayName;
 
     /** User-defined description, potentially as MarkDown */
-    @Lob
+    @Lob @Required
     public String description;
     
     /** Twitter account name */
