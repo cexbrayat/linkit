@@ -3,6 +3,8 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -17,10 +19,20 @@ import play.db.jpa.*;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @NamedQueries({
-    @NamedQuery(name="MemberByLogin", query="from Member m where m.login=:login")
+    @NamedQuery(name=Member.QUERY_BYLOGIN, query="from Member m where m.login=:login"),
+    @NamedQuery(name=Member.QUERY_FORPROFILE,
+        query="select m from Member m "
+                + "left outer join fetch m.links "
+                + "left outer join fetch m.linkers "
+                + "left outer join fetch m.badges "
+                + "left outer join fetch m.interests "
+                + "where m.login=:login")
 })
 public class Member extends Model {
 
+    static final String QUERY_BYLOGIN = "MemberByLogin";
+    static final String QUERY_FORPROFILE = "MemberForProfile";
+    
     /** Internal login : functional key */
     @Column(nullable = false, unique = true, updatable = false)
     @IndexColumn(name = "login_UK_IDX", nullable = false)
@@ -44,9 +56,18 @@ public class Member extends Model {
     /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumberInsteadOfABetterId} as seen on Google+' profile link */
     public String googlePlusId;
 
-    @ManyToMany
-    public List<Member> links = new ArrayList<Member>();
-    
+    /**
+     * Members he follows
+     */
+    @ManyToMany()
+    public Set<Member> links = new HashSet<Member>();
+
+    /**
+     * Members who follow him : reverse-mapping of {@link Member#links}
+     */
+    @ManyToMany(mappedBy="links")
+    public Set<Member> linkers = new HashSet<Member>();
+
     @OneToMany(mappedBy="member", cascade=CascadeType.ALL, orphanRemoval=true)
     public Set<Account> accounts = new HashSet<Account>();
 
@@ -80,7 +101,23 @@ public class Member extends Model {
         Member member = null;
         try {
             member = (Member) em()
-                    .createNamedQuery("MemberByLogin")
+                    .createNamedQuery(QUERY_BYLOGIN)
+                    .setParameter("login", login)
+                    .getSingleResult();
+        } catch (NoResultException ex) {
+            member = null;
+        }
+        return member;
+    }
+
+    /**
+     * Fetch a Member with all associated data for Profile display
+     */
+    public static Member fetchForProfile(final String login) {
+        Member member = null;
+        try {
+            member = (Member) em()
+                    .createNamedQuery(QUERY_FORPROFILE)
                     .setParameter("login", login)
                     .getSingleResult();
         } catch (NoResultException ex) {
@@ -89,29 +126,55 @@ public class Member extends Model {
         return member;
     }
     
+    public void addLink(Member linked) {
+        if (linked != null) {
+            links.add(linked);
+            linked.linkers.add(this);
+        }
+    }
+    
+    public void removeLink(Member memberToUnlink) {
+        if (memberToUnlink != null) {
+            links.remove(memberToUnlink);
+            memberToUnlink.linkers.remove(this);
+        }
+    }
+    
     public static void addLink(String login, String loginToLink) {
         Member member = Member.findByLogin(login);
         Member memberToLink = Member.findByLogin(loginToLink);
-        member.links.add(memberToLink);
+        member.addLink(memberToLink);
         member.save();
     }
 
-    public static void removeLink(String login, String loginToLink) {
+    public static void removeLink(String login, String loginToUnlink) {
         Member member = Member.findByLogin(login);
-        Member memberToLink = Member.findByLogin(loginToLink);
-        member.links.remove(memberToLink);
+        Member memberToUnlink = Member.findByLogin(loginToUnlink);
+        member.removeLink(memberToUnlink);
         member.save();
     }
 
-    public static boolean isLinkedTo(String login, String loginToLink) {
-        Member member = Member.findByLogin(login);
-        Member memberToLink = Member.findByLogin(loginToLink);
-        return member.links.contains(memberToLink);
+    public boolean isLinkedTo(final String loginToLink) {
+        return CollectionUtils.exists(links, new Predicate() {
+            public boolean evaluate(Object o) {
+                Member linked = (Member) o;
+                return loginToLink.equals(linked.login);
+            }
+        });
     }
 
-    public List<Member> linkers() {
-        return Member.find("select m from Member m, in (m.links) as l where l.id = ?", id).fetch();
+    public boolean hasForLinker(final String loginToLink) {
+        return CollectionUtils.exists(linkers, new Predicate() {
+            public boolean evaluate(Object o) {
+                Member linked = (Member) o;
+                return loginToLink.equals(linked.login);
+            }
+        });
     }
+//    Deprecated since bidirectionnal mapping linkers - links
+//    public List<Member> linkers() {
+//        return Member.find("select m from Member m, in (m.links) as l where l.id = ?", id).fetch();
+//    }
 
     public Member addInterest(String interest) {
         if (StringUtils.isNotBlank(interest)) {
