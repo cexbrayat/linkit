@@ -123,8 +123,10 @@
                 </div><!-- /clearfix -->
                 #{/}
             </fieldset>
-            <input type="submit" class="btn primary large" value="Enregistrer"/>
-            <a href="@{Profile.show(member.login)}" class="btn large">Annuler</a>
+            <div class="actions">
+                <input type="submit" class="btn primary large" value="Enregistrer"/>
+                <a href="@{Profile.show(member.login)}" class="btn large">Annuler</a>
+            </div>
             #{/form}
         </div>
     </div>
