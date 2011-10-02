@@ -4,9 +4,24 @@
 <div class="container">
     <div class="hero-unit">
         <h1>${talk.title}</h1>
-        <small>${talk.summary}</small>
+        <p>${talk.summary}</p>
     </div>
     <div class="content">
-        ${talk.description.markdown().raw()}
+        <div class="row">
+            <div class="span2">
+                #{list items:talk.speakers, as:'speaker'}
+                    <p>
+                        <a href="@{Profile.show(speaker.login)}">${speaker.displayName}</a>
+                        <br/>
+                        #{if speaker.email}
+                        <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                        #{/if}
+                    </p>
+                #{/list}
+            </div>
+            <div class="span14">
+                ${talk.description.markdown().raw()}
+            </div>
+        </div>
     </div>
 </div>
