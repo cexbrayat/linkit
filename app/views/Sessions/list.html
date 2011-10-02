@@ -23,7 +23,7 @@
         </thead> 
         <tbody>        
             #{list items:sessions, as:'talk'}
-            <tr>
+            <tr onclick="document.location.href='@{Sessions.show(talk.id)}';">
                 <td>${talk.track}</td> 
                 <td>${talk.title}</td>
                 <td>
