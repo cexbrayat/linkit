@@ -15,7 +15,7 @@ displayName.note=Nom sous lequel vous voulez apparaître sur le site
 email=Email
 email.note=
 description=Description
-description.note=Une courte biographie (ou ce que vous voulez raconter de vous), qui sera visible de tous.<br/><strong>MarkDown</strong> accepté.
+description.note=Une courte biographie (ou ce que vous voulez raconter de vous), qui sera visible de tous.<br/><a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
 twitterName=Twitter
 twitterName.note=Votre compte twitter si vous en avez un (ex : mix_it).
 googlePlusId=Google+
@@ -26,17 +26,19 @@ newInterests=Autres intérêts
 newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 
 # Session fields
-title=Titre
-title.note=Un court titre pour votre session
-summary=Résumé
-summary.note=Un résumé de votre session
-description=Description
-description.note=La description complète de votre session.<br/><strong>MarkDown</strong> accepté.
-speakers=Speaker(s)
-speakers.note=Choisissez le ou les speakers
-track=Track Mix-IT
-track.note=
+talk.title=Titre
+talk.title.note=Un court titre pour votre session
+talk.summary=Résumé
+talk.summary.note=Un résumé de votre session
+talk.description=Description
+talk.description.note=La description complète de votre session.<br/><a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
+talk.speakers=Speaker(s)
+talk.speakers.note=Choisissez le ou les speakers
+talk.track=Track Mix-IT
+talk.track.note=
 
 # Validation errors
-validation.required=obligatoire
+validation.required=La saisie du champ %s est obligatoire
 validation.email=Saisir un email valide
+validation.minSize=Le nombre maximum de %s est %d.
+validation.maxSize=Le nombre maximum de %s est %d
