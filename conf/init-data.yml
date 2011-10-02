@@ -18,6 +18,36 @@ Interest(spring):
 
 Interest(nodejs):
     name: NodeJS
+
+Interest(stripes):
+    name: Stripes
+
+Interest(cdi):
+    name: CDI
+    
+Interest(javaee):
+    name: JavaEE
+    
+Interest(cloud):
+    name: Cloud
+    
+Interest(html5):
+    name: HTML5
+    
+Interest(git):
+    name: Git
+    
+Interest(jquery):
+    name: JQuery
+    
+Interest(devops):
+    name: DevOps
+    
+Interest(scrum):
+    name: Scrum
+    
+Interest(kanban):
+    name: Kanban
     
 Staff(cedric) :
     firstname: Cédric
@@ -76,6 +106,7 @@ Staff(cedric) :
          - hadoop
          - nodejs
          - javascript
+         - kanban
     badges:           
          - Staff
          - Attendee
@@ -141,6 +172,7 @@ Staff(ju) :
          - java
          - play
          - javascript
+         - kanban
     badges:           
          - Staff
 
@@ -268,6 +300,9 @@ Speaker(nmartignole) :
     displayName: "Le Touilleur"
     twitterName: nmartignole
     googlePlusId: 112895425540987915280
+    interests:
+         - scrum
+         - java
     badges:
          - Speaker
          - Sponsor
@@ -329,6 +364,8 @@ Speaker(rguy) :
     displayName: Romain Guy
     twitterName: romainguy
     googlePlusId: 111962077049890418486
+    interests:
+         - java
     badges:
          - Speaker
     

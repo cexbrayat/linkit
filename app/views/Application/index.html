@@ -1,16 +1,69 @@
 #{extends 'main.html' /}
 #{set title:'Accueil' /}
+#{set 'moreStyles'}
+<link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/jqcloud.css'}">
+#{/set}
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/jqcloud-0.2.4.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script type="text/javascript" >
+    /*!
+     * Create an array of objects to be passed to jQCloud, each representing a word in the cloud and specifying
+     * the following mandatory attributes:
+     *
+     * text: a string containing the word(s)
+     * weight: a number (integer or float) defining the relative importance of the word
+     *         (such as the number of occurrencies, etc.). The range of values is arbitrary, as they will
+     *         be linearly mapped to a discrete scale from 1 to 10.
+     *
+     * You can also specify the following optional attributes:
+     * EX : {text: "Ipsum", weight: 9, url: "http://jquery.com/", title: "jQuery Rocks!"},
+     * url: a URL to which the word will be linked. It will be used as the href attribute of an HTML anchor.
+     * title: an HTML title for the <span> that will contain the word(s)
+     */
+    var word_list = [
+        #{list items:tags, as:'tag'}
+            %{
+            Map<String, Object> args = new HashMap<String, Object>();
+            args.put("interest", tag.get('interest'));
+            String url = play.mvc.Router.getFullUrl("Application.membersByInterest",args);
+            url = java.net.URLDecoder.decode(url, "UTF-8");
+        }%
+            {text: "${tag.get('interest')}", url: "${url}", weight: ${tag.get('pound')} }      
+        #{if !tag_isLast} , #{/if} 
+        #{/list}
+    ];
+    $(document).ready(function() {
+        // Call jQCloud on a jQuery object passing the word list as the first argument. Chainability of methods is maintained.
+        $("#wordcloud").jQCloud(word_list);
+    });
+</script>
+#{/set}
 
 <div class="container">
-	<div class="hero-unit">
-		<h1>Mix-it</h1> 
-		<h2>Des idées pour tout de suite !</h2>
-		<p>X Avril 2012</p>
-		#{if session.get("username") == null} 
-		<a class="btn primary large" href="@{Login.index()}">Se connecter</a>
-		#{/if}
-		#{else}  
-		<a class="btn primary large" href="@{Profile.show(session.get("username"))}">Mon profil</a>
-		#{/else}  
-	</div>
+
+
+    <div class="hero-unit">
+        <div class="row">
+
+            <div class="span7">
+                <br/> <br />
+                <h1>Mix-it</h1> 
+                <h2>Des idées pour tout de suite !</h2>
+                <p>X Avril 2012</p>
+                #{if session.get("username") == null} 
+                <a class="btn primary large" href="@{Login.index()}">Se connecter</a>
+                #{/if}
+                #{else}  
+                <a class="btn primary large" href="@{Profile.show(session.get("username"))}">Mon profil</a>
+                #{/else}
+            </div>
+            <div class="span7"> 
+                <!-- You must explicitly specify the dimensions of the container element -->
+                <div id="wordcloud" style="width: 250px; height: 250px; position: relative;"></div>
+            </div>
+
+
+        </div>
+    </div>
+
 </div><!-- /container --> 
