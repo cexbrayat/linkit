@@ -5,6 +5,9 @@
     <div class="hero-unit">
         <h1>${talk.title}</h1>
         <p>${talk.summary}</p>
+        #{if talk.comments?.size() > 0}
+        <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+        #{/if}
     </div>
     <div class="content">
         <div class="row">
@@ -22,6 +25,53 @@
             <div class="span14">
                 ${talk.description.markdown().raw()}
             </div>
+        </div>
+        <hr/>
+        <div class="row">
+
+            #{if talk.comments}
+                <section id="comments">
+                <ul>
+                #{list items:talk.comments, as:"comment"}
+                    <li>
+                        <h4>${comment}</h4>
+                        <p>${comment.content.markdown().raw()}</p>
+                    </li>
+                #{/list}
+                </ul>
+                </section>
+            #{/if}
+
+            #{if session.username}
+                <h3>Post a comment</h3>
+
+                #{form @Sessions.postComment(talk.id, session.username)}
+
+                    #{field 'content'}
+                    <div class="clearfix ${field.error?'error':''}"> 
+                        <label for="${field.name}">&{field.name}</label> 
+                        <div class="input"> 
+                            <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
+                            <span class="help-inline">${field.error}</span>
+                            <span class="help-block">&{field.name+".note"}</span>
+                        </div>
+                    </div>
+                    #{/}
+                    #{field 'code'}
+                    <div class="clearfix ${field.error?'error':''}"> 
+                        <label for="${field.name}">&{field.name}</label> 
+                        <img src="@{Sessions.captcha(randomID)}" />
+                        <div class="input"> 
+                            <input class="large" id="${field.id}" name="${field.name}" type="text" />
+                            <span class="help-inline">${field.error}</span>
+                            <span class="help-block">&{field.name+".note"}</span>
+                        </div>
+                        <input type="hidden" name="randomID" value="${randomID}" />
+                    </div>
+                    <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
+                    #{/}
+                #{/form}
+            #{/if}
         </div>
     </div>
 </div>

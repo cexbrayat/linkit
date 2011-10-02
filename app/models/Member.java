@@ -236,7 +236,7 @@ public class Member extends Model {
 
     @Override
     public String toString() {
-        return "login {" + login + "}, displayName {" + displayName + "}";
+        return displayName;
     }
     
     public boolean hasRole(String profile) {
