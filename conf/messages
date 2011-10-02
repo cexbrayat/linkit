@@ -26,17 +26,19 @@ newInterests=Autres intérêts
 newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 
 # Session fields
-title=Titre
-title.note=Un court titre pour votre session
-summary=Résumé
-summary.note=Un résumé de votre session
-description=Description
-description.note=La description complète de votre session.<br/><strong>MarkDown</strong> accepté.
-speakers=Speaker(s)
-speakers.note=Choisissez le ou les speakers
-track=Track Mix-IT
-track.note=
+talk.title=Titre
+talk.title.note=Un court titre pour votre session
+talk.summary=Résumé
+talk.summary.note=Un résumé de votre session
+talk.description=Description
+talk.description.note=La description complète de votre session.<br/><strong>MarkDown</strong> accepté.
+talk.speakers=Speaker(s)
+talk.speakers.note=Choisissez le ou les speakers
+talk.track=Track Mix-IT
+talk.track.note=
 
 # Validation errors
-validation.required=obligatoire
+validation.required=La saisie du champ %s est obligatoire
 validation.email=Saisir un email valide
+validation.minSize=Le nombre maximum de %s est %d.
+validation.maxSize=Le nombre maximum de %s est %d

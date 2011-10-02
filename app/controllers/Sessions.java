@@ -8,6 +8,8 @@ import models.Session;
 import models.Speaker;
 import models.Track;
 import play.data.validation.Required;
+import play.data.validation.Valid;
+import play.data.validation.Validation;
 
 public class Sessions extends Controller {
 
@@ -34,27 +36,10 @@ public class Sessions extends Controller {
         render(talk);
     }
 
-    public static void save(Long id, @Required String title, @Required String summary, @Required String description,
-            @Required Long[] speakers, @Required Track track) {
-        Logger.info("Tentative d'enregistrement de la session " + title);
-        Session talk;
-        if (id == null) {
-            talk = new Session();
-        } else {
-            talk = Session.findById(id);
-        }
-        talk.title = title;
-        talk.summary = summary;
-        talk.description = description;
-        talk.track = track;
-        Set<Speaker> speakerEntities = new HashSet<Speaker>(speakers.length);
-        for (Long speakerId : speakers) {
-            Speaker speakerEntity = Speaker.findById(speakerId);
-            speakerEntities.add(speakerEntity);
-        }
-        talk.updateSpeakers(speakerEntities);
-        if (validation.hasErrors()) {
-            Logger.error(validation.errors().toString());
+    public static void save(@Valid Session talk) {
+        Logger.info("Tentative d'enregistrement de la session " + talk);
+        if (Validation.hasErrors()) {
+            Logger.error(Validation.errors().toString());
             render("Sessions/edit.html", talk);
         }
         talk.save();
