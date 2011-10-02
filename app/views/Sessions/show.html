@@ -50,8 +50,8 @@
         </div>
         #{/if}
 
-        #{if session.username}
         <hr/>
+        #{if session.username}
         <div class="row">
             #{form @Sessions.postComment(talk.id, session.username)}
 
@@ -83,5 +83,8 @@
             #{/form}
         </div>
         #{/if}
+        #{else}
+        <a href="@{Login.index()}">Connectez-vous pour pouvoir commenter cette session</a>
+        #{/else}
     </div>
 </div>
