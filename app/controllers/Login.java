@@ -20,13 +20,22 @@ public class Login extends Controller {
 
     private static final String TOKEN_KEY = "token";
     private static final String SECRET_KEY = "secret";
+    private static final String RETURN_URL = "return";
 
-    public static void index() {
+    /**
+     * Displays available authentication methods
+     * @param url Optional URL to return to after successful login 
+     */
+    public static void index(String url) {
+        if (url != null) {
+            flash.put(RETURN_URL, url);
+        }
         render();
     }
 
     public static void loginWith(@Required String provider) {
 
+        flash.keep(RETURN_URL);
         ProviderType providerType = ProviderType.valueOf(provider);
         OAuthProvider oauthProvider = OAuthProviderFactory.getProvider(providerType);
 
@@ -37,8 +46,6 @@ public class Login extends Controller {
             final String secret = flash.get(SECRET_KEY);
             OAuth.Response resp = OAuth.service(oauthProvider.getServiceInfo()).retrieveAccessToken(token, secret);
             if (resp != null && resp.error == null) {
-                session.put(TOKEN_KEY, resp.token);
-                session.put(SECRET_KEY, resp.secret);
 
                 // Fetch user oAuthAccount
                 OAuthAccount oAuthAccount = oauthProvider.getUserAccount(resp.token, resp.secret);
@@ -46,8 +53,7 @@ public class Login extends Controller {
                 OAuthAccount account = (OAuthAccount) OAuthAccount.find(providerType, oAuthAccount.getOAuthLogin());
 
                 if (account != null) {
-                    session.put("username", account.member.login);
-                    Profile.show(account.member.login);
+                    onSuccessfulAuthentication(account.member.login);
                 }
 
                 // Pas d'account correspondant : new way of authentication
@@ -58,7 +64,7 @@ public class Login extends Controller {
                     Logger.error(provider + " replied " + resp.error.details());
                 }
                 flash.error("Authentification impossible");
-                index();
+                index(null);
             }
         }
 
@@ -86,7 +92,6 @@ public class Login extends Controller {
         if (member == null) {
             // On crée un nouveau member, qu'on invitera à renseigner son profil
             member = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount);
-
             member.save();
             session.put("username", member.login);
             render("Profile/edit.html", member);
@@ -94,15 +99,31 @@ public class Login extends Controller {
             // Un membre existant s'est connecté avec un nouveau provider
             // On se contente de lui ajouter le nouvel account utilisé
             member.addAccount(oAuthAccount);
-            // On valorise les éventuels données de son profil que 
+            // On valorise les éventuels nouvelles infos de son profil obtenues par ce nouveau provider
             member.save();
-            session.put("username", member.login);
-            Profile.show(member.login);
+            
+            onSuccessfulAuthentication(member.login);
         }
     }
 
+    protected static void onSuccessfulAuthentication(String login) {
+        
+        session.put("username", login);
+                
+        String returnUrl = flash.get(RETURN_URL);
+        if (returnUrl != null) {
+            // Return to origin URL
+            flash.remove(RETURN_URL);
+            redirect(returnUrl);
+        } else {
+            // Redirect to user profile
+            Profile.show(login);
+        }
+    }
+    
     public static void loginLinkIt(@Required String login, @Required String password) throws Throwable {
         Secure.authenticate(login, password, true);
+        onSuccessfulAuthentication(login);
     }
 
     public static void signup(@Required String login, @Required String password) {

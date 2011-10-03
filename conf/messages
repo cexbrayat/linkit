@@ -36,6 +36,10 @@ talk.speakers=Speaker(s)
 talk.speakers.note=Choisissez le ou les speakers
 talk.track=Track Mix-IT
 talk.track.note=
+content=Votre commentaire
+content.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
+code=Turing test
+code.note=Si t'es un humain, saisis le code ci-dessus que tu arrives à interpréter grâce aux signaux qui remontent le long de ton nerf optique.
 
 # Validation errors
 validation.required=La saisie du champ %s est obligatoire
