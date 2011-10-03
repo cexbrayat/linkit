@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import models.Member;
 import play.data.validation.Required;
+import play.i18n.Messages;
 
 /**
  * A link activity : someone ({@link Activity#member} starts to follow someone else ({@link LinkActivity#linked}
@@ -25,7 +26,6 @@ public class LinkActivity extends Activity {
 
     @Override
     public String getMessage(String lang) {
-        // TODO;
-        return "Link " + member + " -> " + linked;
+        return Messages.get(getMessageKey(), member, linked);
     }
 }

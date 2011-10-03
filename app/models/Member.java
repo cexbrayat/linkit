@@ -4,6 +4,8 @@ import java.util.*;
 import javax.persistence.*;
 
 import models.activity.LinkActivity;
+import models.activity.SignUpActivity;
+import models.activity.UpdateProfileActivity;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -216,6 +218,24 @@ public class Member extends Model {
         this.badges.add(badge);
     }
 
+    /**
+     * Register user a new Link-IT user
+     */
+    public Member register() {
+        save();
+        new SignUpActivity(this).save();
+        return this;
+    }
+ 
+    /**
+     * Update user profile
+     */
+    public Member updateProfile() {
+        save();
+        new UpdateProfileActivity(this).save();
+        return this;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

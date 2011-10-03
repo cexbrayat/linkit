@@ -41,6 +41,12 @@ content.note=&{markdown.note}
 code=Turing test
 code.note=Si t'es un humain, saisis le code ci-dessus que tu arrives à interpréter grâce aux signaux qui remontent le long de ton nerf optique.
 
+# Activities
+LinkActivity.message=%1$s s'est linké à %2$s
+CommentActivity.message=%1$s a commenté la session %2$s
+SignUpActivity.message=%1$s s'est inscrit
+UpdateProfileActivity.message=%1$s a mis a jour son profil
+
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
 

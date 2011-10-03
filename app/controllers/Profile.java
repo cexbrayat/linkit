@@ -45,7 +45,7 @@ public class Profile extends Controller {
             member.addInterests( StringUtils.splitByWholeSeparator(newInterests, ","));
         }
 
-        member.save();
+        member.updateProfile();
         flash.success("Profil enregistré!");
         Logger.info("Profil enregistré");
 

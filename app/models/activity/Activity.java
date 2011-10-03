@@ -57,5 +57,9 @@ public abstract class Activity extends Model {
         this.at = new Date();
     }
     
+    final protected String getMessageKey() {
+        return getClass().getSimpleName()+".message";
+    }
+    
     public abstract String getMessage(final String lang);
 }
