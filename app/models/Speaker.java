@@ -12,8 +12,7 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Speaker extends Member {
 
-    //@ManyToMany(mappedBy="speakers")
-    @ManyToMany
+    @ManyToMany(mappedBy="speakers")
     Set<Session> sessions = new HashSet<Session>();
     
     /**

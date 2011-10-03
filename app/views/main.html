@@ -26,12 +26,12 @@
                 <div class="container">
                     <h3><a href="@{Application.index()}">Mix-IT</a></h3>
                     <ul class="nav">
-                        <li class="active"><a href="@{Application.index()}">Accueil</a></li>
-                        <li><a href="@{Application.speakers()}">Speakers</a></li>
-                        <li><a href="@{Sessions.index()}">Sessions</a></li>
-                        <li><a href="@{Application.staff()}">Staff</a></li>
-                        <li><a href="@{Application.sponsors()}">Sponsors</a></li>
-                        <li><a href="@{Application.members()}">Participants</a></li>                        
+                        <li #{if request.action=="Application.index"}class="active"#{/if}><a href="@{Application.index()}">Accueil</a></li>
+                        <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">Speakers</a></li>
+                        <li #{if request.controller=="Sessions"}class="active"#{/if}><a href="@{Sessions.index()}">Sessions</a></li>
+                        <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">Staff</a></li>
+                        <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">Sponsors</a></li>
+                        <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">Participants</a></li>                        
                         #{if session.get("username") == null} 
                         <li><a href="@{Login.index()}">Se connecter</a></li>
                         #{/if}
