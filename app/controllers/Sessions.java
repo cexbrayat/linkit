@@ -8,12 +8,11 @@ import models.Comment;
 import models.Member;
 import models.Session;
 import models.Speaker;
-import net.sf.oval.guard.Post;
+import models.activity.Activity;
 import play.cache.Cache;
 import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.data.validation.Validation;
-import play.libs.Codec;
 import play.libs.Images;
 
 public class Sessions extends Controller {
@@ -38,29 +37,23 @@ public class Sessions extends Controller {
 
     public static void show(final Long sessionId) {
         Session talk = Session.findById(sessionId);
-        String randomID = Codec.UUID();
-        render(talk, randomID);
+        List<Activity> activities = Activity.recentsBySession(talk, 20);
+        render(talk, activities);
     }
 
     public static void postComment(
             Long talkId,
             @Required String login,
-            @Required String content,
-            @Required String code,
-            String randomID) {
+            @Required String content) {
         Session talk = Session.findById(talkId);
-        if(!Play.id.equals("test")) {
-            validation.equals(code, Cache.get(randomID)).message("Es-tu vraiment un humain?");
-        }
         if (Validation.hasErrors()) {
-            render("Sessions/show.html", talk, randomID);
+            render("Sessions/show.html", talk);
         }
 
         Member author = Member.findByLogin(login);
         talk.addComment(new Comment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        Cache.delete(randomID);
         show(talkId);
     }
 

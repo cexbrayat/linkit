@@ -3,6 +3,10 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
+import models.activity.EarnBadgeActivity;
+import models.activity.LinkActivity;
+import models.activity.SignUpActivity;
+import models.activity.UpdateProfileActivity;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -132,6 +136,8 @@ public class Member extends Model {
         if (linked != null) {
             links.add(linked);
             linked.linkers.add(this);
+            
+            new LinkActivity(this, linked).save();
         }
     }
     
@@ -211,8 +217,28 @@ public class Member extends Model {
     
     public void addBadge(Badge badge) {
         this.badges.add(badge);
+        
+        new EarnBadgeActivity(this, badge).save();
     }
 
+    /**
+     * Register user a new Link-IT user
+     */
+    public Member register() {
+        save();
+        new SignUpActivity(this).save();
+        return this;
+    }
+ 
+    /**
+     * Update user profile
+     */
+    public Member updateProfile() {
+        save();
+        new UpdateProfileActivity(this).save();
+        return this;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
