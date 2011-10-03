@@ -1,18 +1,14 @@
 package models.activity;
 
-
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import models.Badge;
 import models.Member;
 import models.Session;
 import org.hibernate.annotations.Index;
@@ -44,9 +40,6 @@ public abstract class Activity extends Model {
     
     @ManyToOne @JoinColumn(name=SESSION_FK)
     public Session session;
-    
-    @Enumerated(EnumType.STRING)
-    public Badge badge;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name=AT)

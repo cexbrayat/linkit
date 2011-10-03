@@ -3,6 +3,7 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
+import models.activity.EarnBadgeActivity;
 import models.activity.LinkActivity;
 import models.activity.SignUpActivity;
 import models.activity.UpdateProfileActivity;
@@ -216,6 +217,8 @@ public class Member extends Model {
     
     public void addBadge(Badge badge) {
         this.badges.add(badge);
+        
+        new EarnBadgeActivity(this, badge).save();
     }
 
     /**

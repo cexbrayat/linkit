@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import models.activity.CommentActivity;
+import models.activity.UpdateSessionActivity;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
@@ -73,6 +74,15 @@ public class Session extends Model {
         comments.add(comment);
         
         new CommentActivity(comment.author, this, comment).save();
+    }
+
+    @Override
+    public Session save() {
+        Session s = super.save();
+        
+        new UpdateSessionActivity(this).save();
+        
+        return s;
     }
     
     @Override

@@ -5,7 +5,7 @@ import models.Member;
 import play.i18n.Messages;
 
 /**
- * A update profile activity : someone ({@link Activity#member} updated his profile
+ * An update profile activity : someone ({@link Activity#member} updated his profile
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity

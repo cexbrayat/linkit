@@ -1,12 +1,10 @@
 package models.activity;
 
-
-import models.LinkItAccount;
 import models.Member;
 import org.junit.*;
 
 /**
- * Unit tests for {@link SignUpActivity} domain object
+ * Unit tests for {@link UpdateProfileActivity} domain object
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class UpdateProfileActivityTest extends AbstractActivityTest {

@@ -45,7 +45,9 @@ code.note=Si t'es un humain, saisis le code ci-dessus que tu arrives à interpr�
 LinkActivity.message=%1$s s'est linké à %2$s
 CommentActivity.message=%1$s a commenté la session %2$s
 SignUpActivity.message=%1$s s'est inscrit
-UpdateProfileActivity.message=%1$s a mis a jour son profil
+UpdateProfileActivity.message=%1$s a mis à jour son profil
+UpdateSessionActivity.message=La session %1$s a été mise à jour
+EarnBadgeActivity.message=%1$s a reçu le badge %2$s
 
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
