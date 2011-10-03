@@ -5,7 +5,7 @@
     <div class="hero-unit">
         <h1>${talk.title}</h1>
         <p>${talk.summary}</p>
-        #{if talk.comments?.size() > 0}
+        #{if talk.comments}
         <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
         #{/if}
     </div>
@@ -51,40 +51,42 @@
         #{/if}
 
         <hr/>
-        #{if session.username}
-        <div class="row">
-            #{form @Sessions.postComment(talk.id, session.username)}
+        <section id="post">
+            #{if session.username}
+            <div class="row">
+                #{form @Sessions.postComment(talk.id, session.username)}
 
-            #{field 'content'}
-            <div class="clearfix ${field.error?'error':''}"> 
-                <label for="${field.name}">&{field.name}</label> 
-                <div class="input offset3"> 
-                    <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
-                    <span class="help-inline">${field.error}</span>
-                    <span class="help-block">&{field.name+".note"}</span>
+                #{field 'content'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input offset3"> 
+                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
                 </div>
-            </div>
-            #{/}
-            #{field 'code'}
-            <div class="clearfix ${field.error?'error':''}"> 
-                <label for="${field.name}">&{field.name}</label> 
-                <div class="input offset3"> 
-                    <img src="@{Sessions.captcha(randomID)}" /><br/>
-                    <input class="large" id="${field.id}" name="${field.name}" type="text" />
-                    <span class="help-inline">${field.error}</span>
-                    <span class="help-block">&{field.name+".note"}</span>
+                #{/}
+                #{field 'code'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input offset3"> 
+                        <img src="@{Sessions.captcha(randomID)}" /><br/>
+                        <input class="large" id="${field.id}" name="${field.name}" type="text" />
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
+                    <input type="hidden" name="randomID" value="${randomID}" />
                 </div>
-                <input type="hidden" name="randomID" value="${randomID}" />
+                <div class="actions">
+                    <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
+                </div>
+                #{/}
+                #{/form}
             </div>
-            <div class="actions">
-                <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
-            </div>
-            #{/}
-            #{/form}
-        </div>
-        #{/if}
-        #{else}
-        <a href="@{Login.index()}">Connectez-vous pour pouvoir commenter cette session</a>
-        #{/else}
+            #{/if}
+            #{else}
+            <a href="@{Login.index(request.url+'#post')}">Connectez-vous pour commenter cette session</a>
+            #{/else}
+        </section>
     </div>
 </div>
