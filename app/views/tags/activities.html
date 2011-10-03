@@ -1,4 +1,4 @@
 *{ Display all activities "activities" }*
 #{list items:_activities, as:'activity'}
-${activity.getMessage(lang)} <br />
+<a href="${activity.getUrl()}">${activity.getMessage(lang)}</a><br/>
 #{/list}

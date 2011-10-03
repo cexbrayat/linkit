@@ -3,6 +3,7 @@ package models.activity;
 import javax.persistence.Entity;
 import models.Member;
 import play.i18n.Messages;
+import play.mvc.Router;
 
 /**
  * A sign-up activity : someone ({@link Activity#member} registered on Link-IT
@@ -19,5 +20,13 @@ public class SignUpActivity extends Activity {
     @Override
     public String getMessage(String lang) {
         return Messages.get(getMessageKey(), member);
+    }
+
+    @Override
+    public String getUrl() {
+        return Router
+                .reverse("Profile.show")
+                .add("login", member.login)
+                .toString();
     }
 }

@@ -31,21 +31,23 @@
             <section id="comments">
                 #{list items:talk.comments, as:"comment"}
                 <hr/>
-                <div class="row">
-                    <div class="span3">
-                        <a href="@{Profile.show(comment.author.login)}">
-                            #{if comment.author.email}
-                                #{gravatar.img comment.author.email, size:20, default:'mm', rating:'pg', secure:true/}
-                            #{/if}
-                            ${comment.author.displayName}
-                        </a><br/>
-                        ${comment.postedAt.format('dd/MM/yyyy hh:mm:ss')}
+                <section id="comment${comment.id}">
+                    <div class="row">
+                        <div class="span3">
+                            <a href="@{Profile.show(comment.author.login)}">
+                                #{if comment.author.email}
+                                    #{gravatar.img comment.author.email, size:20, default:'mm', rating:'pg', secure:true/}
+                                #{/if}
+                                ${comment.author.displayName}
+                            </a><br/>
+                            ${comment.postedAt.format('dd/MM/yyyy hh:mm:ss')}
+                        </div>
+                        <div class="span13">
+                            <p>${comment.content.markdown().raw()}</p>
+                        </div>
                     </div>
-                    <div class="span13">
-                        <p>${comment.content.markdown().raw()}</p>
-                    </div>
-                </div>
-                #{/list}
+                    #{/list}
+                </section>
             </section>
         </div>
         #{/if}

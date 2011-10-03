@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import models.Badge;
 import models.Member;
 import play.i18n.Messages;
+import play.mvc.Router;
 
 /**
  * A "badge earned" activity : someone ({@link Activity#member}) earned a badge ({@link EarnBadgeActivity#badge})
@@ -26,5 +27,14 @@ public class EarnBadgeActivity extends Activity {
     @Override
     public String getMessage(String lang) {
         return Messages.get(getMessageKey(), member, badge);
+    }
+
+    @Override
+    public String getUrl() {
+        return Router
+                .reverse("Profile.show")
+                .add("login", member.login)
+                .addRef("badge"+badge)
+                .toString();
     }
 }

@@ -55,4 +55,5 @@ public abstract class Activity extends Model {
     }
     
     public abstract String getMessage(final String lang);
+    public abstract String getUrl();
 }

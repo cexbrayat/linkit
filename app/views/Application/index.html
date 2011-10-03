@@ -23,9 +23,7 @@
     var word_list = [
         #{list items:tags, as:'tag'}
             %{
-            Map<String, Object> args = new HashMap<String, Object>();
-            args.put("interest", tag.get('interest'));
-            String url = play.mvc.Router.getFullUrl("Application.membersByInterest",args);
+            String url = play.mvc.Router.reverse("Application.membersByInterest").add("interest",tag.get('interest')).toString();
             url = java.net.URLDecoder.decode(url, "UTF-8");
         }%
             {text: "${tag.get('interest')}", url: "${url}", weight: ${tag.get('pound')} }      
@@ -65,6 +63,7 @@
 
         </div>
     </div>
+    #{if activities}
     <div class="row">
         <div class="span6">
             <h2>Activités récentes</h2>
@@ -73,5 +72,6 @@
             </p>
         </div>
     </div>
+    #{/if}
 
 </div><!-- /container --> 
