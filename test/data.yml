@@ -22,7 +22,29 @@ Staff(ced):
     badges:           
          - Staff
          - Attendee
+
 LinkItAccount(cedAccount):
     provider: LinkIt
     member: ced
     password: secret
+
+    
+Speaker(rguy) :
+    firstname: Romain
+    lastname: Guy
+    login: rguy
+    email: rguy@google.com
+    description : Test description
+    displayName: Romain Guy
+    twitterName: romainguy
+    googlePlusId: 111962077049890418486
+    badges:
+         - Speaker
+
+Session(sessionTest):
+    title: Test title
+    track: Techy
+    summary: Test summary
+    description : Test description
+    speakers:
+           - rguy

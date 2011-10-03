@@ -92,7 +92,7 @@ public class Login extends Controller {
         if (member == null) {
             // On crée un nouveau member, qu'on invitera à renseigner son profil
             member = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount);
-            member.save();
+            member.register();
             session.put("username", member.login);
             render("Profile/edit.html", member);
         } else {
@@ -131,7 +131,7 @@ public class Login extends Controller {
             render(login, password);
         }
         Member member = new Member(login, new LinkItAccount(password));
-        member.save();
+        member.register();
         session.put("username", member.login);
         render("Profile/edit.html", member);
     }

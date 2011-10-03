@@ -7,6 +7,7 @@ import play.data.validation.*;
 import java.util.*;
 
 import models.*;
+import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 
 public class Profile extends Controller {
@@ -45,7 +46,7 @@ public class Profile extends Controller {
             member.addInterests( StringUtils.splitByWholeSeparator(newInterests, ","));
         }
 
-        member.save();
+        member.updateProfile();
         flash.success("Profil enregistré!");
         Logger.info("Profil enregistré");
 
@@ -55,8 +56,9 @@ public class Profile extends Controller {
     public static void show(String login) {
         Logger.info("Profil " + login);
         Member member = Member.fetchForProfile(login);
+        List<Activity> activities = Activity.recentsByMember(member, 10);
         Logger.info("Profil " + member);
-        render(member);
+        render(member, activities);
     }
 
     public static void delete(String login) throws Throwable {
