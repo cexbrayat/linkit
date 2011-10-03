@@ -3,6 +3,7 @@ package models;
 import java.util.*;
 import javax.persistence.*;
 
+import models.activity.LinkActivity;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -132,6 +133,8 @@ public class Member extends Model {
         if (linked != null) {
             links.add(linked);
             linked.linkers.add(this);
+            
+            new LinkActivity(this, linked).save();
         }
     }
     
