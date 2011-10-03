@@ -12,6 +12,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import models.activity.CommentActivity;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
@@ -62,9 +63,16 @@ public class Session extends Model {
         return this;
     }
 
+    /**
+     * Save comment! Best practices in add method?
+     * @param comment 
+     */
     public void addComment(Comment comment) {
         comment.session = this;
+        comment.save();
         comments.add(comment);
+        
+        new CommentActivity(comment.author, this, comment).save();
     }
     
     @Override

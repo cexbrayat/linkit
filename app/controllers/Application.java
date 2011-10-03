@@ -6,12 +6,14 @@ import play.mvc.*;
 import java.util.*;
 
 import models.*;
+import models.activity.Activity;
 
 public class Application extends Controller {
 
     public static void index() {
         List<Map> tags = Interest.getCloud();
-        render(tags);
+        List<Activity> activities = Activity.find("order by at desc").fetch(10);
+        render(tags,activities);
     }
 
     public static void members() {
