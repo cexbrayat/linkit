@@ -23,12 +23,12 @@
         </thead> 
         <tbody>        
             #{list items:sessions, as:'talk'}
-            <tr>
+            <tr onclick="document.location.href='@{Sessions.show(talk.id)}';">
                 <td>${talk.track}</td> 
                 <td>${talk.title}</td>
                 <td>
                     #{list items:talk.speakers, as:'speaker'}
-                        <a href="@{Profile.show(speaker.login)}">${speaker.displayName}</a>#{if !speaker_isLast}, #{/if}
+                        <a href="@{Profile.show(speaker.login)}">${speaker}</a>#{if !speaker_isLast}, #{/if}
                     #{/list}
                 </td>
                 <td>

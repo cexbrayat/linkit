@@ -4,9 +4,89 @@
 <div class="container">
     <div class="hero-unit">
         <h1>${talk.title}</h1>
-        <small>${talk.summary}</small>
+        <p>${talk.summary}</p>
+        #{if talk.comments}
+        <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+        #{/if}
     </div>
     <div class="content">
-        ${talk.description.markdown().raw()}
+        <div class="row">
+            <div class="span3">
+                #{list items:talk.speakers, as:'speaker'}
+                <p>
+                    <a href="@{Profile.show(speaker.login)}">${speaker.displayName}</a>
+                    <br/>
+                    #{if speaker.email}
+                    <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                    #{/if}
+                </p>
+                #{/list}
+            </div>
+            <div class="span13">
+                ${talk.description.markdown().raw()}
+            </div>
+        </div>
+
+        #{if talk.comments}
+            <section id="comments">
+                #{list items:talk.comments, as:"comment"}
+                <hr/>
+                <div class="row">
+                    <div class="span3">
+                        <a href="@{Profile.show(comment.author.login)}">
+                            #{if comment.author.email}
+                                #{gravatar.img comment.author.email, size:20, default:'mm', rating:'pg', secure:true/}
+                            #{/if}
+                            ${comment.author.displayName}
+                        </a><br/>
+                        ${comment.postedAt.format('dd/MM/yyyy hh:mm:ss')}
+                    </div>
+                    <div class="span13">
+                        <p>${comment.content.markdown().raw()}</p>
+                    </div>
+                </div>
+                #{/list}
+            </section>
+        </div>
+        #{/if}
+
+        <hr/>
+        <section id="post">
+            #{if session.username}
+            <div class="row">
+                #{form @Sessions.postComment(talk.id, session.username)}
+
+                #{field 'content'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input offset3"> 
+                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
+                </div>
+                #{/}
+                #{field 'code'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input offset3"> 
+                        <img src="@{Sessions.captcha(randomID)}" /><br/>
+                        <input class="large" id="${field.id}" name="${field.name}" type="text" />
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
+                    <input type="hidden" name="randomID" value="${randomID}" />
+                </div>
+                <div class="actions">
+                    <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
+                </div>
+                #{/}
+                #{/form}
+            </div>
+            #{/if}
+            #{else}
+            <a href="@{Login.index(request.url+'#post')}">Connectez-vous pour commenter cette session</a>
+            #{/else}
+        </section>
     </div>
 </div>

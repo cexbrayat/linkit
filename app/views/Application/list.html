@@ -17,17 +17,15 @@
             <tr> 
                 <th>Prénom</th> 
                 <th>Nom</th> 
-                <th>Profil</th>
                 <th>Badges</th>
                 <th>Actions</th>
             </tr> 
         </thead> 
         <tbody>        
             #{list items:members, as:'member'}
-            <tr>
+            <tr onclick="document.location.href='@{Profile.show(member.login)}';">
                 <td>${member.firstname}</td> 
                 <td>${member.lastname}</td>
-                <td><a href="@{Profile.show(member.login)}">Profil</a></td>
                 <td>
                     #{list items:member.badges, as:'badge'}
                         #{badge badge:badge /}

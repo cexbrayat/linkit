@@ -10,7 +10,8 @@ import models.*;
 public class Application extends Controller {
 
     public static void index() {
-        render();
+        List<Map> tags = Interest.getCloud();
+        render(tags);
     }
 
     public static void members() {
