@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
@@ -18,17 +19,20 @@ import play.db.jpa.Model;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(
-        appliesTo="Comment"
-//      indexes={@Index(name="Comment_IDX", columnNames={"session", "postedAt"})}
+        appliesTo="Comment",
+        indexes={@Index(name="Comment_IDX", columnNames={Comment.SESSION_FK, "postedAt"})}
 )
 public class Comment extends Model {
 
+    static final String SESSION_FK = "session_id";
+    
     @Required
     @ManyToOne
     public Member author;
     
     @Required
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name=SESSION_FK)
     public Session session;
     
     @Required
