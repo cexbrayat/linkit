@@ -12,7 +12,7 @@ public class Application extends Controller {
 
     public static void index() {
         List<Map> tags = Interest.getCloud();
-        List<Activity> activities = Activity.find("order by at desc").fetch(10);
+        List<Activity> activities = Activity.recents(10);
         render(tags,activities);
     }
 

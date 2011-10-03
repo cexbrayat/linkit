@@ -12,7 +12,7 @@ public class UpdateSessionActivityTest extends AbstractActivityTest {
     @Test
     public void updateSession() {
         
-        Session s = Session.find("").first();
+        Session s = Session.all().first();
         
         // Non activity for the session
         assertNull(Activity.find("select a from Activity a where a.session = ?", s).first());

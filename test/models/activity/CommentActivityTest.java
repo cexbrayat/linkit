@@ -13,7 +13,7 @@ public class CommentActivityTest extends AbstractActivityTest {
 
     @Test
     public void addComment() {
-        Session s = Session.find("1 = 1").first();
+        Session s = Session.all().first();
         
         // Non activity for the session
         assertNull(Activity.find("select a from Activity a where a.session = ?", s).first());

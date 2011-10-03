@@ -1,6 +1,7 @@
 package models.activity;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -48,6 +49,18 @@ public abstract class Activity extends Model {
     
     protected Activity() {
         this.at = new Date();
+    }
+    
+    public static List<Activity> recents(int max) {
+        return Activity.find("order by at desc").fetch(max);
+    }
+    
+    public static List<Activity> recentsByMember(Member m, int max) {
+        return Activity.find("from Activity a where a.member = ? order by at desc", m).fetch(max);
+    }
+    
+    public static List<Activity> recentsBySession(Session s, int max) {
+        return Activity.find("from Activity a where a.session = ? order by at desc", s).fetch(max);
     }
     
     final protected String getMessageKey() {

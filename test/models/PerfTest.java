@@ -8,6 +8,7 @@ import play.test.*;
  * Some performance tests
  * @author Sryl <cyril.lacote@gmail.com>
  */
+@Ignore
 public class PerfTest extends UnitTest {
 
     private static final int NB = 10000;
