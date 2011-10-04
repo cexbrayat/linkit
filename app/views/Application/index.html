@@ -63,15 +63,35 @@
 
         </div>
     </div>
-    #{if activities}
+
     <div class="row">
         <div class="span6">
             <h2>Activités récentes</h2>
-            <p>
-                #{activities activities:activities /}
+            <p id="activities">
             </p>
+            <a id="moreActivities" href="#" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
+            
+<script type="text/javascript">
+    var page = 1;
+    var size = 5;
+    var activitiesAction = #{jsAction @Application.activities(':page',':size') /};
+   
+    function loadMoreActivities() {
+        $.get(activitiesAction({page: page, size: size}), function(data) {
+            $('#activities').append(data);
+            if (data) {
+                page++;
+            } else {
+                $('#moreActivities').css('visibility','hidden');
+            }
+        });    
+    }
+    
+    // Initial loading : first page
+    loadMoreActivities();
+</script>            
+
         </div>
     </div>
-    #{/if}
 
 </div><!-- /container --> 
