@@ -51,8 +51,8 @@ public abstract class Activity extends Model {
         this.at = new Date();
     }
     
-    public static List<Activity> recents(int max) {
-        return Activity.find("order by at desc").fetch(max);
+    public static List<Activity> recents(int page, int length) {
+        return Activity.find("order by at desc").fetch(page, length);
     }
     
     public static List<Activity> recentsByMember(Member m, int max) {
