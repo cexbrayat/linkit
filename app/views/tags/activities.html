@@ -1,4 +1,4 @@
 *{ Display all activities "activities" }*
 #{list items:_activities, as:'activity'}
-<a href="${activity.getUrl()}">${activity.getMessage(lang)}</a><br/>
+<a href="${activity.getUrl()}">${activity.getMessage(lang)}</a> - ${activity.at.since()}<br/>
 #{/list}

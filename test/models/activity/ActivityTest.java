@@ -12,7 +12,7 @@ public class ActivityTest extends AbstractActivityTest {
 
     @Test
     public void recents() {
-        assertNotNull(Activity.recents(10));
+        assertNotNull(Activity.recents(0, 10));
     }
 
     @Test
