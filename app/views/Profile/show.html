@@ -44,14 +44,14 @@
                             #{else} link${member.links.size().pluralize()} #{/else}
                         </h3>
                         #{list items:member.links, as:'link'}       
-                        <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                        <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
                     <div class="span3">
                         <h3>${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
                             #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
                         #{list items:member.linkers, as:'link'}
-                        <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                        <a href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
                 </div>

@@ -260,6 +260,10 @@ public class Member extends Model {
                 .toHashCode();
     }
 
+    /**
+     * Display member. WARNING : used on UI as main display of user.
+     * @return 
+     */
     @Override
     public String toString() {
         return displayName;
