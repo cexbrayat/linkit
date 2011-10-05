@@ -41,12 +41,7 @@
                 <section id="comment${comment.id}">
                     <div class="row">
                         <div class="span3">
-                            <a href="@{Profile.show(comment.author.login)}">
-                                #{if comment.author.email}
-                                    #{gravatar.img comment.author.email, size:20, default:'mm', rating:'pg', secure:true/}
-                                #{/if}
-                                ${comment.author.displayName}
-                            </a><br/>
+                            <a href="@{Profile.show(comment.author.login)}">#{member comment.author /}</a><br/>
                             ${comment.postedAt.format('dd/MM/yyyy hh:mm:ss')}
                         </div>
                         <div class="span13">

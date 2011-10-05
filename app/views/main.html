@@ -10,6 +10,7 @@
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
         <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         <script src="@{'/public/javascripts/twipsy.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/bootstrap-dropdown.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         <script> 
             $(function () {
               $("a[rel=twipsy]").twipsy({
@@ -20,7 +21,7 @@
           </script> 
         #{get 'moreScripts' /}
     </head>
-    <body>
+    <body style="padding-top: 40px;"> *{ 40px is navigation bar space}*
         <div class="topbar">
             <div class="fill">
                 <div class="container">
@@ -32,12 +33,20 @@
                         <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">Staff</a></li>
                         <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">Sponsors</a></li>
                         <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">Participants</a></li>                        
-                        #{if session.get("username") == null} 
-                        <li><a href="@{Login.index()}">Se connecter</a></li>
+                    </ul>
+                    <ul class="nav secondary-nav">
+                        #{if session.username} 
+                        <li class="dropdown" data-dropdown="dropdown">
+                            <a href="#" class="dropdown-toggle">#{member models.Member.findByLogin(session.username) /}</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@{Profile.show(session.username)}">Mon profil</a></li>
+                                <li class="divider"></li>
+                                <li><a href="@{Secure.logout()}">Se deconnecter</a></li>
+                            </ul>
+                        </li>
                         #{/if}
                         #{else}
-                        <li><a href="@{Profile.show(session.get("username"))}">Mon profil</a></li>
-                        <li><a href="@{Secure.logout()}">Se deconnecter</a></li>
+                        <li><a href="@{Login.index()}">Se connecter</a></li>
                         #{/else}
                     </ul>
                 </div>
