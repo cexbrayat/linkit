@@ -76,13 +76,12 @@ public class Session extends Model {
         new CommentActivity(comment.author, this, comment).save();
     }
 
-    @Override
-    public Session save() {
-        Session s = super.save();
-        
+    /**
+     * Functional update of this session (having modified its data)
+     */
+    public void update() {
+        save();
         new UpdateSessionActivity(this).save();
-        
-        return s;
     }
     
     @Override
