@@ -21,6 +21,15 @@
                 #{if member.email}
                 #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
                 #{/if}
+                #{if member instanceof models.Speaker}
+                    <h5>Session${member.sessions.size().pluralize()} :</h5>
+                    <p>
+                    #{list items:member.sessions, as:'talk'}
+                       <h5><a href="@{Sessions.show(talk.id)}">${talk.title}</a></h5>
+                    #{/list}
+                    </p>
+                #{/if}
+
                 <p>${member.description?.markdown().raw()}</p>
                 #{if member.googlePlusId}
                 <p>
