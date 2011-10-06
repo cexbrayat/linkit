@@ -16,13 +16,15 @@ public class CommentActivityTest extends AbstractActivityTest {
         Session s = Session.all().first();
         
         // Non activity for the session
-        assertNull(Activity.find("select a from Activity a where a.session = ?", s).first());
+        assertEquals(0, Activity.count("session = ?", s));
         
         Comment c = new Comment(Member.findByLogin("bob"), s, "Un commentaire");
         s.addComment(c);
+        s.save();
         
         // One activity for the session
-        Activity a = Activity.find("select a from Activity a where a.session = ?", s).first();
+        assertEquals(1, Activity.count("session = ?", s));
+        Activity a = Activity.find("session = ?", s).first();
         assertActivity(a);
         assertTrue(a instanceof CommentActivity);
         CommentActivity ca = (CommentActivity) a;

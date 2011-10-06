@@ -14,14 +14,16 @@ public class UpdateSessionActivityTest extends AbstractActivityTest {
         
         Session s = Session.all().first();
         
-        // Non activity for the session
-        assertNull(Activity.find("select a from Activity a where a.session = ?", s).first());
+        // No activity for the session
+        assertEquals(0, Activity.count("session = ?", s));
+        assertNull(Activity.find("session = ?", s).first());
         
         s.summary = "Un nouveau résumé";
-        s.save();
+        s.update();
         
-        // One activity for Bob
-        Activity a = Activity.find("select a from Activity a where a.session = ?", s).first();
+        // One activity for the session
+        assertEquals(1, Activity.count("session = ?", s));
+        Activity a = Activity.find("session = ?", s).first();
         assertActivity(a);
         assertTrue(a instanceof UpdateSessionActivity);
         UpdateSessionActivity usa = (UpdateSessionActivity) a;
