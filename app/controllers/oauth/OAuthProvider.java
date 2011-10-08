@@ -1,7 +1,7 @@
 package controllers.oauth;
 
 import models.OAuthAccount;
-import play.libs.OAuth.ServiceInfo;
+import org.scribe.oauth.OAuthService;
 import play.libs.WS.HttpResponse;
 
 /**
@@ -11,9 +11,10 @@ import play.libs.WS.HttpResponse;
 public interface OAuthProvider {
     
     /**
-     * @return OAuth provider's description as expected Play! library format
+     * @param callbackUrl Callback URL for OAuth redirection after successful authorization
+     * @return OAuth service
      */
-    ServiceInfo getServiceInfo();
+    OAuthService getService();
 
     /**
      * Fetch user profile from provider
@@ -28,7 +29,7 @@ public interface OAuthProvider {
      * @param URL REST resource's URL to GET (eventually asynchronously)
      * @param token valid OAuth access token
      * @param secret valid OAuth
-     * @return HTTP response fetched (asynchronously) with HTTP GET
+     * @return HTTP response's body
      */
-    HttpResponse get(String URL, String token, String secret) throws InterruptedException;
+    String get(String URL, String token, String secret);
 }

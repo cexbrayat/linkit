@@ -6,11 +6,16 @@ import models.LinkItAccount;
 import models.Member;
 import models.OAuthAccount;
 import models.ProviderType;
+import org.scribe.exceptions.OAuthException;
+import org.scribe.model.Token;
+import org.scribe.model.Verifier;
+import org.scribe.oauth.OAuthService;
 import play.Logger;
 import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.libs.OAuth;
 import play.mvc.Controller;
+import play.mvc.Router;
 
 /**
  * OAuth Login controller
@@ -38,52 +43,54 @@ public class Login extends Controller {
         flash.keep(RETURN_URL);
         ProviderType providerType = ProviderType.valueOf(provider);
         OAuthProvider oauthProvider = OAuthProviderFactory.getProvider(providerType);
+        OAuthService oauthService = oauthProvider.getService();
 
         if (OAuth.isVerifierResponse()) {
             // We got the verifier; 
             // now get the access tokens using the request tokens
-            final String token = flash.get(TOKEN_KEY);
-            final String secret = flash.get(SECRET_KEY);
-            OAuth.Response resp = OAuth.service(oauthProvider.getServiceInfo()).retrieveAccessToken(token, secret);
-            if (resp != null && resp.error == null) {
+            final Token requestToken = new Token(flash.get(TOKEN_KEY), flash.get(SECRET_KEY));
+            final String verifier = params.get("oauth_verifier");
+            try {
+                Token accessToken = oauthService.getAccessToken(requestToken, new Verifier(verifier));
 
                 // Fetch user oAuthAccount
-                OAuthAccount oAuthAccount = oauthProvider.getUserAccount(resp.token, resp.secret);
+                OAuthAccount oAuthAccount = oauthProvider.getUserAccount(accessToken.getToken(), accessToken.getSecret());
                 // Retrieve existing oAuthAccount from profile
                 OAuthAccount account = (OAuthAccount) OAuthAccount.find(providerType, oAuthAccount.getOAuthLogin());
 
                 if (account != null) {
                     onSuccessfulAuthentication(account.member.login);
-                }
+                } else {
 
-                // Pas d'account correspondant : new way of authentication
-                manageNewAuthenticationFrom(oAuthAccount);
-            } else {
-                Logger.error("Authentification impossible");
-                if (resp != null) {
-                    Logger.error(provider + " replied " + resp.error.details());
+                    // Pas d'account correspondant : new way of authentication
+                    manageNewAuthenticationFrom(oAuthAccount);
                 }
+            } catch (OAuthException ex) {
+                Logger.error("Authentification impossible avec " + provider + " : " + ex.getLocalizedMessage());
                 flash.error("Authentification impossible");
                 index(null);
             }
         }
 
-        OAuth service = OAuth.service(oauthProvider.getServiceInfo());
-        OAuth.Response resp = service.retrieveRequestToken();
-        if (resp != null && resp.error == null) {
+        try {
+            Token token = oauthService.getRequestToken();
             // We received the unauthorized tokens 
             // we need to store them before continuing
-            flash.put(TOKEN_KEY, resp.token);
-            flash.put(SECRET_KEY, resp.secret);
+            flash.put(TOKEN_KEY, token.getToken());
+            flash.put(SECRET_KEY, token.getSecret());
             // Redirect the user to the authorization page
-            redirect(service.redirectUrl(resp.token));
-        } else {
-            Logger.error("Authentification impossible");
-            if (resp != null) {
-                Logger.error(provider + " replied " + resp.error.details());
-            }
+            redirect(oauthService.getAuthorizationUrl(token));
+        } catch (OAuthException ex) {
+            Logger.error("Authentification impossible avec " + provider + " : " + ex.getLocalizedMessage());
             flash.error("Authentification impossible");
+            index(null);
         }
+    }
+    
+    public static String getCallbackUrl(ProviderType provider) {
+        Router.ActionDefinition ad = Router.reverse("Login.loginWith").add("provider", provider);
+        ad.absolute();
+        return ad.toString();
     }
 
     protected static void manageNewAuthenticationFrom(OAuthAccount oAuthAccount) {

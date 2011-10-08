@@ -1,10 +1,12 @@
 package controllers.oauth;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import models.GoogleAccount;
 import models.OAuthAccount;
 import models.ProviderType;
+import org.scribe.builder.ServiceBuilder;
+import org.scribe.builder.api.GoogleApi;
+import org.scribe.oauth.OAuthService;
 
 /**
  * Google OAuth provider
@@ -16,11 +18,21 @@ public class Google extends AbstractOAuthProviderImpl {
         super(ProviderType.Google);
     }
 
+    @Override
+    protected OAuthService buildService() {
+         return new ServiceBuilder()
+               .provider(GoogleApi.class)
+               .apiKey(getConfigString("consumerKey"))
+               .apiSecret(getConfigString("consumerSecret"))
+               .callback(getCallbackUrl())
+               .scope(getConfigString("scope"))
+               .build();
+    }
+
     public OAuthAccount getUserAccount(String token, String secret) {
         
         final String url = getConfigString("userProfileJsonUrl");
-        JsonElement response = get(url, token, secret).getJson();
-        JsonObject object = response.getAsJsonObject();
+        final JsonObject object = getAsJsonObject(get(url, token, secret));
 
         GoogleAccount account = new GoogleAccount(token,secret);
         account.googleId = getStringPropertyFromJson(object, "id");
