@@ -21,6 +21,15 @@
                 #{if member.email}
                 #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
                 #{/if}
+                #{if member instanceof models.Speaker}
+                    <h5>Session${member.sessions.size().pluralize()} :</h5>
+                    <p>
+                    #{list items:member.sessions, as:'talk'}
+                       <h5><a href="@{Sessions.show(talk.id)}">${talk.title}</a></h5>
+                    #{/list}
+                    </p>
+                #{/if}
+
                 <p>${member.description?.markdown().raw()}</p>
                 #{if member.googlePlusId}
                 <p>
@@ -43,15 +52,15 @@
                         <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
                             #{else} link${member.links.size().pluralize()} #{/else}
                         </h3>
-                        #{list items:member.links, as:'link'}
-                        <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                        #{list items:member.links, as:'link'}       
+                        <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
                     <div class="span3">
                         <h3>${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
                             #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
                         #{list items:member.linkers, as:'link'}
-                        <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                        <a href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
                 </div>
@@ -77,7 +86,9 @@
     <div class="row">
         <div class="span6">
             <h2>Activité récente</h2>
+            <p id="activities">
             #{activities activities:activities /}
+            </p>
         </div>
         <div class="span6">
             <h2>Intérêts</h2>

@@ -12,8 +12,7 @@ public class Application extends Controller {
 
     public static void index() {
         List<Map> tags = Interest.getCloud();
-        List<Activity> activities = Activity.recents(10);
-        render(tags,activities);
+        render(tags);
     }
 
     public static void members() {
@@ -44,5 +43,10 @@ public class Application extends Controller {
         List<Member> members = Member.findMembersInterestedBy(interest);
         Logger.info(Member.count() + " membres interested by " + interest);
         render("Application/list.html", members, interest);
+    }
+    
+    public static void activities(Integer page, Integer size) {
+        List<Activity> _activities = Activity.recents(page, size);
+        render("tags/activities.html", _activities);
     }
 }

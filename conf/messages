@@ -38,10 +38,9 @@ talk.track=Track Mix-IT
 talk.track.note=
 content=Votre commentaire
 content.note=&{markdown.note}
-code=Turing test
-code.note=Si t'es un humain, saisis le code ci-dessus que tu arrives à interpréter grâce aux signaux qui remontent le long de ton nerf optique.
 
 # Activities
+activities.more=Afficher plus...
 LinkActivity.message=%1$s s'est linké à %2$s
 CommentActivity.message=%1$s a commenté la session %2$s
 SignUpActivity.message=%1$s s'est inscrit
@@ -51,6 +50,14 @@ EarnBadgeActivity.message=%1$s a reçu le badge %2$s
 
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
+
+# Since Java Date extension
+since.seconds=il y a %d sec.
+since.minutes=il y a %d min.
+since.hours=il y a %dH
+since.days=il y a %d jours
+since.months=il y a %d mois
+since.years=il y a %d ans
 
 # Validation errors
 validation.required=La saisie du champ %s est obligatoire

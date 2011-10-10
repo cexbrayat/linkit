@@ -3,3 +3,18 @@
     max-height: 25px;
     margin: 1px;
 }
+
+#activities {
+    overflow: auto;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    min-height: 100px;
+}
+
+.member {
+    vertical-align: top;
+    display: inline-block;
+    height: 20px;
+}

@@ -70,7 +70,7 @@ public class Sessions extends Controller {
             Logger.error(Validation.errors().toString());
             render("Sessions/edit.html", talk);
         }
-        talk.save();
+        talk.update();
         flash.success("Session " + talk + " enregistrée");
         Logger.info("Session " + talk + " enregistrée");
         show(talk.id);
