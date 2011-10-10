@@ -16,7 +16,7 @@
         <h2>${member.displayName}</h2>
         #{/else}
         <div class="row">
-            <div class="span8">
+            <div class="span5">
                 <!-- profil -->
                 #{if member.email}
                 #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
@@ -43,7 +43,7 @@
                         <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
                             #{else} link${member.links.size().pluralize()} #{/else}
                         </h3>
-                        #{list items:member.links, as:'link'}       
+                        #{list items:member.links, as:'link'}
                         <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link.login}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
@@ -62,38 +62,13 @@
 
             </div>
 
-            #{if member.twitterName}
-            <div class="span6"> <!-- timeline twitter -->
-                <script>
-                    new TWTR.Widget({
-                        version: 2,
-                        type: 'profile',
-                        rpp: 7,
-                        interval: 1000,
-                        width: 'auto',
-                        height: '300',
-                        //                        theme: {
-                        //                            shell: {
-                        //                                background: '#736F6E',
-                        //                                color: '#9AFEFF'
-                        //                            },
-                        //                            tweets: {
-                        //                                background: '#736F6E',
-                        //                                color: '#333333',
-                        //                                links: '#9AFEFF'
-                        //                            }
-                        //                        },
-                        features: {
-                            scrollbar: true,
-                            loop: true,
-                            live: false,
-                            hashtags: true,
-                            timestamp: true,
-                            avatars: true,
-                            behavior: 'all'
-                        }
-                    }).render().setUser('${member.twitterName}').start();
-                </script>
+            #{if statuses}
+            <div class="span8" > <!-- timeline -->
+        		#{list items:statuses, as:'status'}
+                <div><span class="label notice">${status.provider}</span> - ${status.date.format('dd MMMM yyyy hh:mm:ss')}</div>
+				<div>${status.content.raw()}</div>
+                <br/>
+				#{/list}
             </div>
             #{/if}
         </div>
