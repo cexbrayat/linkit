@@ -7,7 +7,7 @@
     <div class="hero-unit">
         <h2>${member.displayName} akka ${member.firstname} ${member.lastname}</h2>
         <div class="row">
-            <div class="span5">
+            <div class="span6">
                 <!-- profil -->
                 #{if member.email}
                 #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
@@ -62,7 +62,7 @@
 
             </div>
 
-            <div class="span9" > <!-- timeline -->
+            <div class="span8" > <!-- timeline -->
                 <div id="activities" style="max-height: 400px">
                 </div>
                 <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
@@ -70,10 +70,10 @@
 <script type="text/javascript">
     var page = 1;
     var size = 10;
-    var activitiesAction = #{jsAction @Profile.activities(':page',':size') /};
+    var activitiesAction = #{jsAction @Profile.activities(':login', ':page',':size') /};
 
     function loadMoreActivities() {
-        $.get(activitiesAction({page: page, size: size}), function(data) {
+        $.get(activitiesAction({login: '${member.login}', page: page, size: size}), function(data) {
             $('#activities').append(data);
             if (data) {
                 page++;

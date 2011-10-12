@@ -124,9 +124,7 @@ public class Login extends Controller {
             // Un membre existant s'est connecté avec un nouveau provider
             // On se contente de lui ajouter le nouvel account utilisé
             member.addAccount(oAuthAccount);
-            // On valorise les éventuels nouvelles infos de son profil obtenues par ce nouveau provider
-            member.save();
-            
+            member.updateProfile();
             onSuccessfulAuthentication(member.login);
         }
     }

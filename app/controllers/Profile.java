@@ -87,8 +87,8 @@ public class Profile extends Controller {
         show(loginToLink);
     }
     
-    public static void activities(Integer page, Integer size) {
-        Member member = Member.findByLogin(Security.connected());
+    public static void activities(String login, Integer page, Integer size) {
+        Member member = Member.findByLogin(login);
         List<Activity> _activities = Activity.recentsByMember(member, page, size);
         render("tags/activities.html", _activities);
     }

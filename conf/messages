@@ -47,7 +47,11 @@ SignUpActivity.message=%1$s s'est inscrit
 UpdateProfileActivity.message=%1$s a mis à jour son profil
 UpdateSessionActivity.message=La session %1$s a été mise à jour
 EarnBadgeActivity.message=%1$s a reçu le badge %2$s
-#StatusActivity.message=<div><span class="label notice">%1$s</span> - %2$d</div><div>%3$s</div>
+
+# Providers
+provider.LinkIt=Link-IT
+provider.Google=Google+
+provider.Twitter=Twitter
 
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
