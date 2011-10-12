@@ -11,7 +11,8 @@ import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 import play.Play;
-import play.mvc.Router;
+import play.libs.WS;
+import play.mvc.Http;
 
 /**
  * Default implementation of {@link OAuthProvider}
@@ -52,6 +53,13 @@ abstract class AbstractOAuthProviderImpl implements OAuthProvider {
         return Play.configuration.getProperty(providerKey);
     }
 
+    /**
+     * GET a HTTP resource with OAuth authentication
+     * @param url
+     * @param token
+     * @param secret
+     * @return 
+     */
     public String get(String url, String token, String secret) {
         OAuthRequest request = new OAuthRequest(Verb.GET, url);
         service.signRequest(new Token(token, secret), request); // the access token from step 4
@@ -63,10 +71,37 @@ abstract class AbstractOAuthProviderImpl implements OAuthProvider {
         }
     }
 
-    static JsonObject getAsJsonObject(final String data) {
-        JsonElement response = new JsonParser().parse(data);
-        return response.getAsJsonObject();
+    /**
+     * GET a HTTP resource without OAuth authentication
+     * @param url
+     * @param token
+     * @param secret
+     * @return 
+     */
+    public String get(String url) {
+        return WS.url(url).get().getString();
     }
+
+    protected Response post(OAuthRequest request, String token, String secret) {
+        Token accessToken = new Token(token, secret);
+        getService().signRequest(accessToken, request);
+        Response response = request.send();
+        if (response.getCode() != Http.StatusCode.OK) {
+            throw new OAuthProviderException(response.getCode(), response.getBody(), provider);
+        }
+
+        return response;
+    }
+
+    static JsonObject getAsJsonObject(final String data) {
+        JsonElement element = getAsJsonElement(data);
+        return element.getAsJsonObject();
+    }
+
+    static JsonElement getAsJsonElement(final String data) {
+        return new JsonParser().parse(data);
+    }
+    
     static String getStringPropertyFromJson(JsonObject object, String property) {
         if (object.get(property) != null) {
             return object.get(property).getAsString();

@@ -14,6 +14,9 @@ public abstract class OAuthAccount extends Account {
     public String token;
     @Required
     public String secret;
+    
+    /** ID of last status retrieved */
+    public String lastStatusId;
 
     public OAuthAccount(ProviderType provider, String token, String secret) {
         super(provider);
@@ -28,7 +31,7 @@ public abstract class OAuthAccount extends Account {
     public abstract String getOAuthLogin();
 
     /**
-     * Find an existing member wich could own this account
+     * Find an existing member which could own this account
      * @return Corresponding member found, null if not
      */
     public abstract Member findCorrespondingMember();

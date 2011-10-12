@@ -1,6 +1,7 @@
 package models.activity;
 
 import javax.persistence.Entity;
+import models.ProviderType;
 import models.Session;
 import play.i18n.Messages;
 import play.mvc.Router;
@@ -28,5 +29,10 @@ public class UpdateSessionActivity extends Activity {
                 .reverse("Sessions.show")
                 .add("sessionId", session.id)
                 .toString();
+    }
+
+    @Override
+    public ProviderType getProvider() {
+        return ProviderType.LinkIt;
     }
 }

@@ -5,6 +5,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import models.Badge;
 import models.Member;
+import models.ProviderType;
 import play.i18n.Messages;
 import play.mvc.Router;
 
@@ -36,5 +37,10 @@ public class EarnBadgeActivity extends Activity {
                 .add("login", member.login)
                 .addRef("badge"+badge)
                 .toString();
+    }
+
+    @Override
+    public ProviderType getProvider() {
+        return ProviderType.LinkIt;
     }
 }

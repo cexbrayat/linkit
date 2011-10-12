@@ -1,8 +1,6 @@
 package controllers;
 
 import models.Member;
-import models.ProviderType;
-import models.Status;
 import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
@@ -10,8 +8,6 @@ import play.data.validation.Email;
 import play.data.validation.Required;
 import play.mvc.Controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Profile extends Controller {
@@ -61,17 +57,8 @@ public class Profile extends Controller {
         Logger.info("Profil " + login);
         Member member = Member.fetchForProfile(login);
         List<Activity> activities = Activity.recentsByMember(member, 10);
-        List<Status> statuses = new ArrayList<Status>();
-        if (member.googlePlusId != null) {
-            statuses.addAll(Status.getStatuses(ProviderType.Google, member.googlePlusId));
-        }
-        if (member.twitterName != null) {
-            statuses.addAll(Status.getStatuses(ProviderType.Twitter, member.twitterName));
-        }
-        Collections.sort(statuses);
-        statuses = statuses.size() > 10 ? statuses.subList(0, 10) : statuses;
         Logger.info("Profil " + member);
-        render(member, activities, statuses);
+        render(member, activities);
     }
 
     public static void delete(String login) throws Throwable {

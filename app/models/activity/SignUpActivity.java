@@ -2,6 +2,7 @@ package models.activity;
 
 import javax.persistence.Entity;
 import models.Member;
+import models.ProviderType;
 import play.i18n.Messages;
 import play.mvc.Router;
 
@@ -28,5 +29,10 @@ public class SignUpActivity extends Activity {
                 .reverse("Profile.show")
                 .add("login", member.login)
                 .toString();
+    }
+
+    @Override
+    public ProviderType getProvider() {
+        return ProviderType.LinkIt;
     }
 }

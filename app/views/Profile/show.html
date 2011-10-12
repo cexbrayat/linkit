@@ -73,11 +73,7 @@
 
             #{if statuses}
             <div class="span8" > <!-- timeline -->
-        		#{list items:statuses, as:'status'}
-                <div><span class="label notice">${status.provider}</span> - ${status.date.format('dd MMMM yyyy hh:mm:ss')}</div>
-				<div>${status.content.raw()}</div>
-                <br/>
-				#{/list}
+                #{activities activities:statuses /}
             </div>
             #{/if}
         </div>

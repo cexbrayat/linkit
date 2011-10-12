@@ -1,11 +1,10 @@
 package models.activity;
 
-import java.util.HashMap;
-import java.util.Map;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import models.Comment;
 import models.Member;
+import models.ProviderType;
 import models.Session;
 import play.data.validation.Required;
 import play.i18n.Messages;
@@ -42,5 +41,10 @@ public class CommentActivity extends Activity {
                 .add("sessionId", session.id)
                 .addRef("comment"+comment.id)
                 .toString();
+    }
+
+    @Override
+    public ProviderType getProvider() {
+        return ProviderType.LinkIt;
     }
 }

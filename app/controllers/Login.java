@@ -14,6 +14,7 @@ import play.Logger;
 import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.libs.OAuth;
+import play.libs.OpenID;
 import play.mvc.Controller;
 import play.mvc.Router;
 
@@ -87,6 +88,23 @@ public class Login extends Controller {
         }
     }
     
+// Draft Google OpenID : non working yet...
+    public static void google() {
+
+        if (OpenID.isAuthenticationResponse()) {
+            OpenID.UserInfo info = OpenID.getVerifiedID();
+            Logger.info("info : " + info.toString());
+            index(null);
+        }
+
+        OpenID.id("https://www.google.com/accounts/o8/id")
+                .returnTo(getCallbackUrl(ProviderType.Google))
+                .required("email","http://axschema.org/contact/email/")
+                .optional("firstname","http://axschema.org/namePerson/first")
+                .optional("lastname","http://axschema.org/namePerson/last")
+                .verify();
+    }
+
     public static String getCallbackUrl(ProviderType provider) {
         Router.ActionDefinition ad = Router.reverse("Login.loginWith").add("provider", provider);
         ad.absolute();

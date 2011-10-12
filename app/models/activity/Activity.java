@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import models.Member;
+import models.ProviderType;
 import models.Session;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
@@ -30,7 +31,7 @@ import play.db.jpa.Model;
             @Index(name="Activity_session_IDX", columnNames={Activity.SESSION_FK, Activity.AT})
         }
 )
-public abstract class Activity extends Model {
+public abstract class Activity extends Model implements Comparable<Activity> {
 
     static final String SESSION_FK = "session_id";
     static final String MEMBER_FK = "member_id";
@@ -51,6 +52,10 @@ public abstract class Activity extends Model {
         this.at = new Date();
     }
     
+    protected Activity(Date at) {
+        this.at = at;
+    }
+    
     public static List<Activity> recents(int page, int length) {
         return Activity.find("order by at desc").fetch(page, length);
     }
@@ -69,4 +74,10 @@ public abstract class Activity extends Model {
     
     public abstract String getMessage(final String lang);
     public abstract String getUrl();
+    public abstract ProviderType getProvider();
+
+    public int compareTo(Activity other) {
+        return (other.at.compareTo(this.at));
+    }
+
 }

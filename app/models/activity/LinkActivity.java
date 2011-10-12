@@ -3,6 +3,7 @@ package models.activity;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import models.Member;
+import models.ProviderType;
 import play.data.validation.Required;
 import play.i18n.Messages;
 import play.mvc.Router;
@@ -37,5 +38,10 @@ public class LinkActivity extends Activity {
                 .add("login", member.login)
                 .addRef("linkTo"+linked.login)
                 .toString();
+    }
+
+    @Override
+    public ProviderType getProvider() {
+        return ProviderType.LinkIt;
     }
 }
