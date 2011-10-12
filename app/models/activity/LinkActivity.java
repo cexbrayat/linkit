@@ -3,6 +3,7 @@ package models.activity;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import models.Member;
+import models.ProviderType;
 import play.data.validation.Required;
 import play.i18n.Messages;
 import play.mvc.Router;
@@ -20,7 +21,7 @@ public class LinkActivity extends Activity {
     public Member linked;
 
     public LinkActivity(Member member, Member linked) {
-        super();
+        super(ProviderType.LinkIt);
         this.member = member;
         this.linked = linked;
     }

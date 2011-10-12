@@ -14,11 +14,7 @@ public class AbstractOAuthProviderImplTest extends UnitTest {
     
     protected void assertProvider(OAuthProvider provider) {
         assertNotNull(provider);
-        assertFalse(StringUtils.isBlank(provider.getServiceInfo().accessTokenURL));
-        assertFalse(StringUtils.isBlank(provider.getServiceInfo().authorizationURL));
-        assertFalse(StringUtils.isBlank(provider.getServiceInfo().requestTokenURL));
-        assertFalse(StringUtils.isBlank(provider.getServiceInfo().consumerKey));
-        assertFalse(StringUtils.isBlank(provider.getServiceInfo().consumerSecret));
+        assertNotNull(provider.getService());
         if (provider instanceof AbstractOAuthProviderImpl) {
             AbstractOAuthProviderImpl impl = (AbstractOAuthProviderImpl) provider;
             assertFalse(StringUtils.isBlank(impl.getConfigString("userProfileJsonUrl")));

@@ -1,6 +1,7 @@
 package models.activity;
 
 import javax.persistence.Entity;
+import models.ProviderType;
 import models.Session;
 import play.i18n.Messages;
 import play.mvc.Router;
@@ -13,7 +14,7 @@ import play.mvc.Router;
 public class UpdateSessionActivity extends Activity {
 
     public UpdateSessionActivity(Session session) {
-        super();
+        super(ProviderType.LinkIt);
         this.session = session;
     }
 

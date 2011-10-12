@@ -1,14 +1,18 @@
 package controllers.oauth;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import java.util.concurrent.ExecutionException;
+import com.google.gson.JsonParser;
+import controllers.Login;
 import models.ProviderType;
-import play.Logger;
+import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
+import org.scribe.model.Token;
+import org.scribe.model.Verb;
+import org.scribe.oauth.OAuthService;
 import play.Play;
-import play.libs.F.Promise;
-import play.libs.OAuth.ServiceInfo;
 import play.libs.WS;
-import play.libs.WS.HttpResponse;
+import play.mvc.Http;
 
 /**
  * Default implementation of {@link OAuthProvider}
@@ -18,26 +22,27 @@ abstract class AbstractOAuthProviderImpl implements OAuthProvider {
 
     private ProviderType provider;
 
-    private ServiceInfo serviceInfo;
+    private OAuthService service;
 
     AbstractOAuthProviderImpl(ProviderType provider) {
         this.provider = provider;
-        this.serviceInfo = buildServiceInfo();
+        this.service = buildService();
     }
 
-    public ServiceInfo getServiceInfo() {
-        return serviceInfo;
+    public OAuthService getService() {
+        return service;
     }
 
-    final public ServiceInfo buildServiceInfo() {
-        final String requestTokenURL = getConfigString("requestTokenUrl");
-        final String accessTokenURL = getConfigString("accessTokenUrl");
-        final String authorizeURL = getConfigString("authorizeUrl");
-        final String consumerKey = getConfigString("consumerKey");
-        final String consumerSecret = getConfigString("consumerSecret");
-        return new ServiceInfo(requestTokenURL, accessTokenURL, authorizeURL, consumerKey, consumerSecret);
-    }
+    /**
+     * Create and configure OAuth service for provider
+     * @return OAuthService
+     */
+    protected abstract OAuthService buildService();
 
+    protected String getCallbackUrl() {
+        return Login.getCallbackUrl(provider);
+    }
+    
     /**
      * Get configuration String for current provider
      * @param key Key to retrieve for current provider
@@ -48,20 +53,55 @@ abstract class AbstractOAuthProviderImpl implements OAuthProvider {
         return Play.configuration.getProperty(providerKey);
     }
 
-    public HttpResponse get(String url, String token, String secret) {
-        Promise<HttpResponse> response = WS.url(url)
-                .oauth(getServiceInfo(), token, secret)
-                .getAsync();
-        try {
-            return response.get();
-        } catch (InterruptedException ex) {
-            Logger.error(ex, "OAuthenticated HTTP GET interrupted");
-        } catch (ExecutionException ex) {
-            Logger.error(ex, "OAuthenticated HTTP GET interrupted");
+    /**
+     * GET a HTTP resource with OAuth authentication
+     * @param url
+     * @param token
+     * @param secret
+     * @return 
+     */
+    public String get(String url, String token, String secret) {
+        OAuthRequest request = new OAuthRequest(Verb.GET, url);
+        service.signRequest(new Token(token, secret), request); // the access token from step 4
+        Response response = request.send();
+        if (response.isSuccessful()) {
+            return response.getBody();
+        } else {
+            return null;
         }
-        return null;
     }
 
+    /**
+     * GET a HTTP resource without OAuth authentication
+     * @param url
+     * @param token
+     * @param secret
+     * @return 
+     */
+    public String get(String url) {
+        return WS.url(url).get().getString();
+    }
+
+    protected Response post(OAuthRequest request, String token, String secret) {
+        Token accessToken = new Token(token, secret);
+        getService().signRequest(accessToken, request);
+        Response response = request.send();
+        if (response.getCode() != Http.StatusCode.OK) {
+            throw new OAuthProviderException(response.getCode(), response.getBody(), provider);
+        }
+
+        return response;
+    }
+
+    static JsonObject getAsJsonObject(final String data) {
+        JsonElement element = getAsJsonElement(data);
+        return element.getAsJsonObject();
+    }
+
+    static JsonElement getAsJsonElement(final String data) {
+        return new JsonParser().parse(data);
+    }
+    
     static String getStringPropertyFromJson(JsonObject object, String property) {
         if (object.get(property) != null) {
             return object.get(property).getAsString();

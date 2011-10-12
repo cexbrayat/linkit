@@ -37,7 +37,7 @@ public class Sessions extends Controller {
 
     public static void show(final Long sessionId) {
         Session talk = Session.findById(sessionId);
-        List<Activity> activities = Activity.recentsBySession(talk, 20);
+        List<Activity> activities = Activity.recentsBySession(talk, 1, 20);
         render(talk, activities);
     }
 
