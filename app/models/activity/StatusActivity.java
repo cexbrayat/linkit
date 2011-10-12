@@ -2,7 +2,6 @@ package models.activity;
 
 import controllers.oauth.OAuthProvider;
 import controllers.oauth.OAuthProviderFactory;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -15,6 +14,7 @@ import models.Member;
 import models.OAuthAccount;
 import models.ProviderType;
 import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.IndexColumn;
 import play.Logger;
 import play.data.validation.Required;
 
@@ -34,6 +34,7 @@ public class StatusActivity extends Activity {
     public String url;
     
     /** ID of status on external provider */
+    @IndexColumn(name="statusId_IDX", nullable=false)
     public String statusId;
 
     public StatusActivity(Member author, Date at, ProviderType provider, String content, String url, String statusId) {
@@ -54,14 +55,22 @@ public class StatusActivity extends Activity {
                 if (provider != null) {
                     Logger.info("Fetch timeline for %s on %s", member, account.provider);
                     List<StatusActivity> statuses = provider.fetchActivities(oAuthAccount);
-                    for (StatusActivity status : statuses) {
-                        status.save();
-                    }
                     if (!statuses.isEmpty()) {
                         // Memorizing most recent id
                         Collections.sort(statuses);
                         oAuthAccount.lastStatusId = statuses.get(0).statusId;
                         account.save();
+                    }
+                    
+                    for (StatusActivity status : statuses) {
+                        boolean add = true;
+                        // Google hack : workaround for lack of "since" parameter in API, returning already fetched statuses.
+                        if (ProviderType.Google == account.provider) {
+                            // We add this status only if we don't have it already in DB
+                            long count = StatusActivity.count("provider = ? and statusId = ? ", account.provider, status.statusId);
+                            add = (count <= 0l);
+                        }
+                        if (add) status.save();
                     }
                 }
             }

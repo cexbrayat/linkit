@@ -1,5 +1,6 @@
 package models;
 
+import controllers.JobFetchUserTimeline;
 import java.util.*;
 import javax.persistence.*;
 
@@ -227,6 +228,7 @@ public class Member extends Model {
     public Member register() {
         save();
         new SignUpActivity(this).save();
+        new JobFetchUserTimeline(this).now();
         return this;
     }
  
