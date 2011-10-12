@@ -14,7 +14,7 @@ import play.mvc.Router;
 public class UpdateProfileActivity extends Activity {
 
     public UpdateProfileActivity(Member member) {
-        super();
+        super(ProviderType.LinkIt);
         this.member = member;
     }
 
@@ -29,10 +29,5 @@ public class UpdateProfileActivity extends Activity {
                 .reverse("Profile.show")
                 .add("login", member.login)
                 .toString();
-    }
-
-    @Override
-    public ProviderType getProvider() {
-        return ProviderType.LinkIt;
     }
 }

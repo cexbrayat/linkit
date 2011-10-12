@@ -228,7 +228,6 @@ public class Member extends Model {
     public Member register() {
         save();
         new SignUpActivity(this).save();
-        new JobFetchUserTimeline(this).now();
         return this;
     }
  
@@ -238,6 +237,7 @@ public class Member extends Model {
     public Member updateProfile() {
         save();
         new UpdateProfileActivity(this).save();
+        new JobFetchUserTimeline(this).now();
         return this;
     }
     

@@ -20,7 +20,7 @@ public class EarnBadgeActivity extends Activity {
     public Badge badge;
 
     public EarnBadgeActivity(Member member, Badge badge) {
-        super();
+        super(ProviderType.LinkIt);
         this.member = member;
         this.badge = badge;
     }
@@ -37,10 +37,5 @@ public class EarnBadgeActivity extends Activity {
                 .add("login", member.login)
                 .addRef("badge"+badge)
                 .toString();
-    }
-
-    @Override
-    public ProviderType getProvider() {
-        return ProviderType.LinkIt;
     }
 }

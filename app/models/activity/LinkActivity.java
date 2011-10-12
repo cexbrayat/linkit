@@ -21,7 +21,7 @@ public class LinkActivity extends Activity {
     public Member linked;
 
     public LinkActivity(Member member, Member linked) {
-        super();
+        super(ProviderType.LinkIt);
         this.member = member;
         this.linked = linked;
     }
@@ -38,10 +38,5 @@ public class LinkActivity extends Activity {
                 .add("login", member.login)
                 .addRef("linkTo"+linked.login)
                 .toString();
-    }
-
-    @Override
-    public ProviderType getProvider() {
-        return ProviderType.LinkIt;
     }
 }

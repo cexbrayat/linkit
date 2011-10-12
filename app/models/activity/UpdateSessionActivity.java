@@ -14,7 +14,7 @@ import play.mvc.Router;
 public class UpdateSessionActivity extends Activity {
 
     public UpdateSessionActivity(Session session) {
-        super();
+        super(ProviderType.LinkIt);
         this.session = session;
     }
 
@@ -29,10 +29,5 @@ public class UpdateSessionActivity extends Activity {
                 .reverse("Sessions.show")
                 .add("sessionId", session.id)
                 .toString();
-    }
-
-    @Override
-    public ProviderType getProvider() {
-        return ProviderType.LinkIt;
     }
 }

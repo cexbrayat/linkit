@@ -78,7 +78,6 @@ public class Google extends AbstractOAuthProviderImpl {
                 String content = activity.get("object").getAsJsonObject().get("content").getAsString();
                 Date date = googleFormatter.parse(activity.get("published").getAsString());
                 String statusId = activity.get("id").getAsString();
-                // FIXME Twitter statusUrl
                 String statusUrl = activity.get("url").getAsString();
                 statuses.add(new StatusActivity(account.member, date, account.provider, content, statusUrl, statusId));
             } catch (ParseException pe) {

@@ -14,7 +14,7 @@ import play.mvc.Router;
 public class SignUpActivity extends Activity {
 
     public SignUpActivity(Member member) {
-        super();
+        super(ProviderType.LinkIt);
         this.member = member;
     }
 
@@ -29,10 +29,5 @@ public class SignUpActivity extends Activity {
                 .reverse("Profile.show")
                 .add("login", member.login)
                 .toString();
-    }
-
-    @Override
-    public ProviderType getProvider() {
-        return ProviderType.LinkIt;
     }
 }

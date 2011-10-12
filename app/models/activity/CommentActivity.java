@@ -23,7 +23,7 @@ public class CommentActivity extends Activity {
     public Comment comment;
 
     public CommentActivity(Member author, Session session, Comment comment) {
-        super();
+        super(ProviderType.LinkIt);
         this.member = author;
         this.session = session;
         this.comment = comment;
@@ -41,10 +41,5 @@ public class CommentActivity extends Activity {
                 .add("sessionId", session.id)
                 .addRef("comment"+comment.id)
                 .toString();
-    }
-
-    @Override
-    public ProviderType getProvider() {
-        return ProviderType.LinkIt;
     }
 }

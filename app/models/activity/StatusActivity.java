@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import models.Account;
 import models.Member;
@@ -16,7 +14,6 @@ import models.ProviderType;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.IndexColumn;
 import play.Logger;
-import play.data.validation.Required;
 
 /**
  * A status activity : someone ({@link Activity#member} posted a status on an external provider ({@link Activity#session}
@@ -24,10 +21,6 @@ import play.data.validation.Required;
  */
 @Entity
 public class StatusActivity extends Activity {
-
-    @Required
-    @Enumerated(EnumType.STRING)
-    public ProviderType provider;
 
     @Lob
     public String content;
@@ -38,7 +31,7 @@ public class StatusActivity extends Activity {
     public String statusId;
 
     public StatusActivity(Member author, Date at, ProviderType provider, String content, String url, String statusId) {
-        super(at);
+        super(provider, at);
         this.member = author;
         this.provider = provider;
         this.content = StringUtils.substring(content, 0, 4000);
@@ -85,10 +78,5 @@ public class StatusActivity extends Activity {
     @Override
     public String getUrl() {
         return url;
-    }
-
-    @Override
-    public ProviderType getProvider() {
-        return provider;
     }
 }

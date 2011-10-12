@@ -2,6 +2,7 @@ package controllers;
 
 import java.util.List;
 import models.Member;
+import models.activity.StatusActivity;
 import play.Logger;
 import play.jobs.Every;
 import play.jobs.Job;
@@ -18,7 +19,7 @@ public class JobFetchAllUsersTimelines extends Job {
         Logger.info("BEGIN fetch timelines");
         List<? extends Member> members = Member.findAll();
         for (Member member : members) {
-            new JobFetchUserTimeline(member).now();
+            StatusActivity.fetchFor(member);
         }
         Logger.info("END fetch timelines");
     }
