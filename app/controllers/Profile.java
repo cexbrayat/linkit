@@ -56,9 +56,8 @@ public class Profile extends Controller {
     public static void show(String login) {
         Logger.info("Profil " + login);
         Member member = Member.fetchForProfile(login);
-        List<Activity> activities = Activity.recentsByMember(member, 10);
         Logger.info("Profil " + member);
-        render(member, activities);
+        render(member);
     }
 
     public static void delete(String login) throws Throwable {
@@ -86,5 +85,11 @@ public class Profile extends Controller {
         Member.removeLink(login, loginToLink);
         flash.success("Link supprimé!");
         show(loginToLink);
+    }
+    
+    public static void activities(Integer page, Integer size) {
+        Member member = Member.findByLogin(Security.connected());
+        List<Activity> _activities = Activity.recentsByMember(member, page, size);
+        render("tags/activities.html", _activities);
     }
 }

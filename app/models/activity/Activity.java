@@ -72,12 +72,12 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return Activity.find("provider=? order by at desc", ProviderType.LinkIt).fetch(page, length);
     }
     
-    public static List<Activity> recentsByMember(Member m, int max) {
-        return Activity.find("from Activity a where a.member = ? order by at desc", m).fetch(max);
+    public static List<Activity> recentsByMember(Member m, int page, int length) {
+        return Activity.find("from Activity a where a.member = ? order by at desc", m).fetch(page, length);
     }
     
-    public static List<Activity> recentsBySession(Session s, int max) {
-        return Activity.find("from Activity a where a.session = ? order by at desc", s).fetch(max);
+    public static List<Activity> recentsBySession(Session s, int page, int length) {
+        return Activity.find("from Activity a where a.session = ? order by at desc", s).fetch(page, length);
     }
     
     final protected String getMessageKey() {

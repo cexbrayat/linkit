@@ -5,16 +5,7 @@
 #{/set}
 <div class="container">
     <div class="hero-unit">
-        #{if session.get("username")?.equals(member.login)}
-        <h2>${member.displayName} (${member.firstname} ${member.lastname})</h2>
-        <p>
-            <a class="btn primary" href="@{Profile.edit(member.login)}">Editer mon profil</a>
-            <a class="btn danger" href="@{Profile.delete(member.login)}">Supprimer mon compte (sans confirmation pour le moment!)</a>
-        </p>
-        #{/if}
-        #{else}
-        <h2>${member.displayName}</h2>
-        #{/else}
+        <h2>${member.displayName} akka ${member.firstname} ${member.lastname}</h2>
         <div class="row">
             <div class="span5">
                 <!-- profil -->
@@ -71,22 +62,36 @@
 
             </div>
 
-            #{if activities}
-            <div class="span8" > <!-- timeline -->
-                #{activities activities:activities /}
-            </div>
-            #{/if}
+            <div class="span9" > <!-- timeline -->
+                <div id="activities" style="max-height: 400px">
+                </div>
+                <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
+
+<script type="text/javascript">
+    var page = 1;
+    var size = 10;
+    var activitiesAction = #{jsAction @Profile.activities(':page',':size') /};
+
+    function loadMoreActivities() {
+        $.get(activitiesAction({page: page, size: size}), function(data) {
+            $('#activities').append(data);
+            if (data) {
+                page++;
+            } else {
+                $('#moreActivities').css('visibility','hidden');
+            }
+        });    
+    }
+
+    // Initial loading : first page
+    loadMoreActivities();
+</script>            
+           </div>
         </div>
     </div>
-
+ 
     <div class="row">
-        <div class="span6">
-            <h2>Activité récente</h2>
-            <p id="activities">
-            #{activities activities:activities /}
-            </p>
-        </div>
-        <div class="span6">
+        <div class="span8">
             <h2>Intérêts</h2>
             <p>
                 #{list items:member.interests, as:'interest'}
@@ -94,7 +99,7 @@
                 #{/list}
             </p>
         </div>
-        <div class="span4">
+        <div class="span8">
             <h2>Badges</h2>
             <p>
                 #{list items:member.badges, as:'badge'}
@@ -103,4 +108,13 @@
             </p>
         </div>
     </div>
+
+    #{if session.get("username")?.equals(member.login)}
+    <div class="row">
+        <div class="span16 actions">
+            <a class="btn primary" href="@{Profile.edit(member.login)}">Editer mon profil</a>
+            <a class="btn danger" href="@{Profile.delete(member.login)}">Supprimer mon compte (sans confirmation pour le moment!)</a>
+        </div>
+    </div>
+    #{/if}
 </div>

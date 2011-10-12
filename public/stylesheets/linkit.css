@@ -13,6 +13,12 @@
     min-height: 100px;
 }
 
+#activities .activity {
+    overflow: auto;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
 .member {
     vertical-align: top;
     display: inline-block;
