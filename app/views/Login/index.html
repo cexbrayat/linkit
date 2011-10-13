@@ -60,16 +60,10 @@
             <div class="span6">
                 <h2>avec un compte existant</h2>
                 <p>
-                    <a href="@{loginWith('Twitter')}" class="btn large primary">Twitter</a>
+                    <a href="@{loginWith('Twitter')}" class="btn large primary">&{'provider.Twitter'}</a>
                 </p>
                 <p>
-                    #{if (!play.id)}
-                        <div class="alert-message warning">
-                          <a class="close" href="#">×</a>
-                          <p><strong>Google</strong> ne fonctionnera pas en DEV (localhost non accepté).</p>
-                        </div>
-                    #{/if}
-                    <a href="@{loginWith('Google')}" class="btn large primary ${play.id ? '' : 'disabled'}">Google</a>
+                    <a href="@{loginWith('Google')}" class="btn large primary">&{'provider.Google'}</a>
                 </p>
             </div>
         </div>

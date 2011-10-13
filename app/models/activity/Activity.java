@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -11,9 +13,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import models.Member;
+import models.ProviderType;
 import models.Session;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 /**
@@ -26,15 +30,22 @@ import play.db.jpa.Model;
 @Table(
         appliesTo="Activity",
         indexes={
+            @Index(name="Activity_IDX", columnNames={Activity.PROVIDER, Activity.AT}),
             @Index(name="Activity_member_IDX", columnNames={Activity.MEMBER_FK, Activity.AT}),
             @Index(name="Activity_session_IDX", columnNames={Activity.SESSION_FK, Activity.AT})
         }
 )
-public abstract class Activity extends Model {
+public abstract class Activity extends Model implements Comparable<Activity> {
 
     static final String SESSION_FK = "session_id";
     static final String MEMBER_FK = "member_id";
+    static final String PROVIDER = "provider";
     static final String AT = "at";
+
+    @Required
+    @Column(name=PROVIDER)
+    @Enumerated(EnumType.STRING)
+    public ProviderType provider;
 
     @ManyToOne @JoinColumn(name=MEMBER_FK)
     public Member member;
@@ -47,20 +58,26 @@ public abstract class Activity extends Model {
     @Index(name=AT+"_idx")
     public Date at;
     
-    protected Activity() {
+    protected Activity(ProviderType provider) {
+        this.provider = provider;
         this.at = new Date();
     }
     
+    protected Activity(ProviderType provider, Date at) {
+        this.provider = provider;
+        this.at = at;
+    }
+    
     public static List<Activity> recents(int page, int length) {
-        return Activity.find("order by at desc").fetch(page, length);
+        return Activity.find("provider=? order by at desc", ProviderType.LinkIt).fetch(page, length);
     }
     
-    public static List<Activity> recentsByMember(Member m, int max) {
-        return Activity.find("from Activity a where a.member = ? order by at desc", m).fetch(max);
+    public static List<Activity> recentsByMember(Member m, int page, int length) {
+        return Activity.find("from Activity a where a.member = ? order by at desc", m).fetch(page, length);
     }
     
-    public static List<Activity> recentsBySession(Session s, int max) {
-        return Activity.find("from Activity a where a.session = ? order by at desc", s).fetch(max);
+    public static List<Activity> recentsBySession(Session s, int page, int length) {
+        return Activity.find("from Activity a where a.session = ? order by at desc", s).fetch(page, length);
     }
     
     final protected String getMessageKey() {
@@ -69,4 +86,13 @@ public abstract class Activity extends Model {
     
     public abstract String getMessage(final String lang);
     public abstract String getUrl();
+
+    public ProviderType getProvider() {
+        return provider;
+    }
+
+    public int compareTo(Activity other) {
+        return (other.at.compareTo(this.at));
+    }
+
 }

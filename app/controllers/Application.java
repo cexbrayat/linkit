@@ -11,6 +11,12 @@ import models.activity.Activity;
 public class Application extends Controller {
 
     public static void index() {
+        
+        // DEV MODE : discard connected user if not found in DB (when you restarded your local dev application with initial data)
+        String login = Security.connected();
+        if (login != null && Member.findByLogin(login) == null) {
+            session.remove("username");
+        }
         List<Map> tags = Interest.getCloud();
         render(tags);
     }

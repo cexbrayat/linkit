@@ -5,7 +5,7 @@ import java.util.Map;
 import models.ProviderType;
 
 /**
- *
+ * Factory of {@link OAuthProvider} implementations
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class OAuthProviderFactory {

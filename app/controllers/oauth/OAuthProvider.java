@@ -1,7 +1,11 @@
 package controllers.oauth;
 
+import java.util.Date;
+import java.util.List;
+import models.Member;
 import models.OAuthAccount;
-import play.libs.OAuth.ServiceInfo;
+import models.activity.StatusActivity;
+import org.scribe.oauth.OAuthService;
 import play.libs.WS.HttpResponse;
 
 /**
@@ -11,9 +15,10 @@ import play.libs.WS.HttpResponse;
 public interface OAuthProvider {
     
     /**
-     * @return OAuth provider's description as expected Play! library format
+     * @param callbackUrl Callback URL for OAuth redirection after successful authorization
+     * @return OAuth service
      */
-    ServiceInfo getServiceInfo();
+    OAuthService getService();
 
     /**
      * Fetch user profile from provider
@@ -28,7 +33,14 @@ public interface OAuthProvider {
      * @param URL REST resource's URL to GET (eventually asynchronously)
      * @param token valid OAuth access token
      * @param secret valid OAuth
-     * @return HTTP response fetched (asynchronously) with HTTP GET
+     * @return HTTP response's body
      */
-    HttpResponse get(String URL, String token, String secret) throws InterruptedException;
+    String get(String URL, String token, String secret);
+    
+    /**
+     * Fetch recent activities from provider for the given member's account
+     * @param account member's account
+     * @return activities last activities retrieved
+     */
+    List<StatusActivity> fetchActivities(OAuthAccount account);
 }
