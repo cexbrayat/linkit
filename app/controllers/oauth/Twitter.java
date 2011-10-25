@@ -7,9 +7,13 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import models.Member;
 import models.OAuthAccount;
 import models.ProviderType;
 import models.TwitterAccount;
@@ -21,6 +25,7 @@ import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 import play.Logger;
 import play.exceptions.UnexpectedException;
+import play.mvc.Router;
 
 /**
  * Twitter OAuth provider
@@ -94,21 +99,34 @@ public class Twitter extends AbstractOAuthProviderImpl {
         for (JsonElement element : array) {
             JsonObject tweet = element.getAsJsonObject();
             try {
-                String content = tweet.get("text").getAsString();
-                //TODO remplacer les username par les liens twitter (voire linkit si le profil existe).
-                //Idem pour g+, renvoyer directement sur le profil linkit
-                //Pattern p = Pattern.compile("@([A-Za-z0-9_]+)");
-                //Matcher m = p.matcher(content);
-                //while (m.find()) content.replace(m.group(1), "@<a href=\"http://www.twitter.com/" + m.group(1) + ">" + m.group(1) + "</a>");
-                Date date = twitterFormatter.parse(tweet.get("created_at").getAsString());
-                String statusId = tweet.get("id_str").getAsString();
-                // FIXME Twitter statusUrl
-                String statusUrl = "http://www.twitter.com/"+account.member.twitterName; // tweet.get("").getAsString();
+                final String content = tweet.get("text").getAsString();
+                final Date date = twitterFormatter.parse(tweet.get("created_at").getAsString());
+                final String statusId = tweet.get("id_str").getAsString();
+                final String statusUrl = "http://www.twitter.com/"+account.member.twitterName+"/status/"+statusId;
                 statuses.add(new StatusActivity(account.member, date, account.provider, content, statusUrl, statusId));
             } catch (ParseException pe) {
                 Logger.error("ouch! parse exception " + pe.getMessage());
             }
         }
         return statuses;
+    }
+
+    public void enhance(Collection<StatusActivity> activities) {
+        for (StatusActivity activity : activities) {
+            Pattern p = Pattern.compile("@([A-Za-z0-9_]+)");
+            Matcher m = p.matcher(activity.content);
+            while (m.find()) {
+                final String mention = m.group(1);
+                // By default, we link on Twitter's profile of mentionned user
+                String mentionLink = "http://www.twitter.com/"+mention;
+                Member mentionedMember = Member.find("twitterName=?", mention).first();
+                if (mentionedMember != null) {
+                    // If mentionned user is a Link-IT user : we link to its Link-IT profile
+                    mentionLink = Router.reverse("Profile.show").add("login", mentionedMember.login).toString();
+                }
+                // Replace original content with enhanced link
+                activity.content = activity.content.replace("@"+mention, "<a href=\""+mentionLink+"\">@" + mention + "</a>");
+            }
+        }
     }
 }
