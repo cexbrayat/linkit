@@ -102,8 +102,7 @@ public class Twitter extends AbstractOAuthProviderImpl {
                 //while (m.find()) content.replace(m.group(1), "@<a href=\"http://www.twitter.com/" + m.group(1) + ">" + m.group(1) + "</a>");
                 Date date = twitterFormatter.parse(tweet.get("created_at").getAsString());
                 String statusId = tweet.get("id_str").getAsString();
-                // FIXME Twitter statusUrl
-                String statusUrl = "http://www.twitter.com/"+account.member.twitterName; // tweet.get("").getAsString();
+                String statusUrl = "http://www.twitter.com/"+account.member.twitterName+"/status/"+statusId;
                 statuses.add(new StatusActivity(account.member, date, account.provider, content, statusUrl, statusId));
             } catch (ParseException pe) {
                 Logger.error("ouch! parse exception " + pe.getMessage());
