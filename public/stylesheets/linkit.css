@@ -24,3 +24,7 @@
     display: inline-block;
     height: 20px;
 }
+
+.checkbox { float: left; width: 31%; margin-right: 1% }
+
+.newline { clear: left }
