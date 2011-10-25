@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.annotations.IndexColumn;
+import play.data.validation.Max;
 import play.data.validation.Required;
 import play.db.jpa.*;
 

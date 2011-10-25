@@ -1,0 +1,19 @@
+#{extends 'main.html' /}
+#{set title:'Liste' /}
+
+</br>
+</br>
+<div class="container">
+    <div class="row">
+        <div class="span16">
+            <h4>Voici les participants ayant choisi l'intérêt ${interest} :</h4>
+            #{members members:members/}
+        </div>
+    </div>
+    <div class="row">
+        <div class="span16">
+            <h4>Voici les sessions liées à l'intérêt ${interest} :</h4>
+            #{sessions sessions:sessions/}
+        </div>
+    </div>
+</div>

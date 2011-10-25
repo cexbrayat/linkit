@@ -95,7 +95,7 @@
             <h2>Intérêts</h2>
             <p>
                 #{list items:member.interests, as:'interest'}
-                <a class="btn primary" href="@{Application.membersByInterest(interest.name)}">${interest}</a>
+                <a class="btn primary" href="@{Application.sessionsAndMembersByInterest(interest.name)}">${interest}</a>
                 #{/list}
             </p>
         </div>

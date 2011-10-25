@@ -9,6 +9,7 @@ import models.Member;
 import models.Session;
 import models.Speaker;
 import models.activity.Activity;
+import org.apache.commons.lang.StringUtils;
 import play.cache.Cache;
 import play.data.validation.Required;
 import play.data.validation.Valid;
@@ -30,8 +31,11 @@ public class Sessions extends Controller {
         render("Sessions/edit.html", talk);
     }
 
-    public static void edit(final Long sessionId) {
+    public static void edit(final Long sessionId,String newInterests) {
         Session talk = Session.findById(sessionId);
+        if (newInterests != null) {
+            talk.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
+        }
         render("Sessions/edit.html", talk);
     }
 
