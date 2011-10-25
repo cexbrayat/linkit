@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -86,4 +87,8 @@ public class Google extends AbstractOAuthProviderImpl {
         }
         return statuses;
      }
+
+    public void enhance(Collection<StatusActivity> activities) {
+        // TODO Google enhance
+    }
 }

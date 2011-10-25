@@ -55,6 +55,8 @@ public class StatusActivity extends Activity {
                         account.save();
                     }
                     
+                    provider.enhance(statuses);
+                    
                     for (StatusActivity status : statuses) {
                         boolean add = true;
                         // Google hack : workaround for lack of "since" parameter in API, returning already fetched statuses.

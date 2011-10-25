@@ -1,5 +1,6 @@
 package controllers.oauth;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import models.Member;
@@ -43,4 +44,10 @@ public interface OAuthProvider {
      * @return activities last activities retrieved
      */
     List<StatusActivity> fetchActivities(OAuthAccount account);
+    
+    /**
+     * Enhance given status activities with Link-IT features (ex : link to Link-IT profile, ...)
+     * @param activities status activities to enhance
+     */
+    void enhance(Collection<StatusActivity> activities);
 }
