@@ -6,14 +6,25 @@
 <div class="container">
     <div class="row">
         <div class="span16">
-            <h4>Voici les participants ayant choisi l'intérêt ${interest} :</h4>
-            #{members members:members/}
+            #{if sessions.size()>0}
+                <h4>Voici les sessions liées à l'intérêt ${interest} :</h4>
+                #{sessions sessions:sessions/}
+            #{/if}
+            #{else}
+                <h4>Aucune session liée à l'intérêt ${interest}!</h4>
+            #{/else}
         </div>
     </div>
     <div class="row">
         <div class="span16">
-            <h4>Voici les sessions liées à l'intérêt ${interest} :</h4>
-            #{sessions sessions:sessions/}
+            #{if members.size()>0}
+                <h4>Voici les participants ayant choisi l'intérêt ${interest} :</h4>
+                #{members members:members/}
+            #{/if}
+            #{else}
+                <h4>Aucun participant n'a choisi l'intérêt ${interest}!</h4>
+            #{/else}
         </div>
     </div>
+
 </div>

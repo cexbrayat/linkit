@@ -31,11 +31,8 @@ public class Sessions extends Controller {
         render("Sessions/edit.html", talk);
     }
 
-    public static void edit(final Long sessionId,String newInterests) {
+    public static void edit(final Long sessionId) {
         Session talk = Session.findById(sessionId);
-        if (newInterests != null) {
-            talk.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
-        }
         render("Sessions/edit.html", talk);
     }
 
@@ -68,11 +65,17 @@ public class Sessions extends Controller {
         renderBinary(captcha);
     }
 
-    public static void save(@Valid Session talk) {
+    public static void save(@Valid Session talk,String[] interests, String newInterests) {
         Logger.info("Tentative d'enregistrement de la session " + talk);
+        if (interests != null) {
+            talk.updateInterests(interests);
+        }
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
             render("Sessions/edit.html", talk);
+        }
+        if (newInterests != null) {
+            talk.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
         }
         talk.update();
         flash.success("Session " + talk + " enregistrée");
