@@ -1,0 +1,37 @@
+*{ Display all sessions "sessions" }*
+<script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
+<script >
+    $(function() {
+        $("table#sortSession").tablesorter({ sortList: [[1,0]] });
+    });
+</script>
+<div class="container">
+    <table class="zebra-striped" id="sortSession"> 
+        <thead> 
+            <tr> 
+                <th>track</th> 
+                <th>title</th> 
+                <th>speaker(s)</th>
+                <th>Actions</th>
+            </tr> 
+        </thead> 
+        <tbody>        
+            #{list items:_sessions, as:'talk'}
+            <tr onclick="document.location.href='@{Sessions.show(talk.id)}';">
+                <td>${talk.track}</td> 
+                <td>${talk.title}</td>
+                <td>
+                    #{list items:talk.speakers, as:'speaker'}
+                        <a href="@{Profile.show(speaker.login)}">${speaker}</a>#{if !speaker_isLast}, #{/if}
+                    #{/list}
+                </td>
+                <td>
+                    #{secure.check models.Role.ADMIN_SESSION}
+                        <a class="btn" href="@{Sessions.edit(talk.id)}">Editer</a>
+                    #{/secure.check} 
+                </td>
+            </tr>
+            #{/list}
+        </tbody> 
+    </table>
+</div><!-- /container --> 

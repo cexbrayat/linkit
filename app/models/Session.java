@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import models.activity.CommentActivity;
 import models.activity.UpdateSessionActivity;
+import org.apache.commons.lang.StringUtils;
 import play.data.validation.MaxSize;
 import play.data.validation.MinSize;
 import play.data.validation.Required;
@@ -43,6 +45,9 @@ public class Session extends Model {
     @ManyToMany
     @MinSize(1)
     public Set<Speaker> speakers = new HashSet<Speaker>();
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    public Set<Interest> interests = new TreeSet<Interest>();
 
     /** Eventual comments */
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
@@ -76,6 +81,31 @@ public class Session extends Model {
         new CommentActivity(comment.author, this, comment).save();
     }
 
+    public static List<Session> findSessionsLinkedWith(String interest) {
+        return Session.find(
+                "select distinct s from Session s join s.interests as i where i.name = ?", interest).fetch();
+    }
+    
+    public Session addInterest(String interest) {
+        if (StringUtils.isNotBlank(interest)) {
+            interests.add(Interest.findOrCreateByName(interest));
+        }
+        return this;
+    }
+
+    public Session addInterests(String... interests) {
+        for (String interet : interests) {
+            addInterest(interet);
+        }
+        return this;
+    }
+
+    public Session updateInterests(String... interests) {
+        this.interests.clear();
+        addInterests(interests);
+        return this;
+    }
+    
     /**
      * Functional update of this session (having modified its data)
      */

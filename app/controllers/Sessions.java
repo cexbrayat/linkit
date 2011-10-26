@@ -9,6 +9,7 @@ import models.Member;
 import models.Session;
 import models.Speaker;
 import models.activity.Activity;
+import org.apache.commons.lang.StringUtils;
 import play.cache.Cache;
 import play.data.validation.Required;
 import play.data.validation.Valid;
@@ -64,11 +65,17 @@ public class Sessions extends Controller {
         renderBinary(captcha);
     }
 
-    public static void save(@Valid Session talk) {
+    public static void save(@Valid Session talk,String[] interests, String newInterests) {
         Logger.info("Tentative d'enregistrement de la session " + talk);
+        if (interests != null) {
+            talk.updateInterests(interests);
+        }
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
             render("Sessions/edit.html", talk);
+        }
+        if (newInterests != null) {
+            talk.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
         }
         talk.update();
         flash.success("Session " + talk + " enregistrée");
