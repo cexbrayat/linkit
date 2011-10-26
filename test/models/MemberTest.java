@@ -1,10 +1,12 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.h2.util.StringUtils;
 import org.junit.*;
+import play.Logger;
 import play.test.*;
 
 /**
@@ -88,23 +90,35 @@ public class MemberTest extends UnitTest {
         Member ced = Member.findByLogin("ced");
 
         // Well
-        assertEquals(0, Member.findMembersInterestedBy("Java").size());
+        assertEquals(0, Member.findMembersInterestedIn("Java").size());
 
         // Add interest now
         ced.addInterest("Java").addInterest("Hadoop").save();
         bob.addInterest("TDD").addInterest("Java").save();
 
-        // Simple Check
-        assertEquals(2, Member.findMembersInterestedBy("Java").size());
-        assertEquals(1, Member.findMembersInterestedBy("TDD").size());
-        assertEquals(1, Member.findMembersInterestedBy("Hadoop").size());
+        // Simple Checks
+        assertEquals(2, Member.findMembersInterestedIn("Java").size());
+        assertEquals(1, Member.findMembersInterestedIn("TDD").size());
+        assertEquals(1, Member.findMembersInterestedIn("Hadoop").size());
 
-        // Advanced Check
-        assertEquals(2, Member.findMembersInterestedBy("Java").size());
-        assertEquals(1, Member.findMembersInterestedBy("Java", "Hadoop").size());
-        assertEquals(1, Member.findMembersInterestedBy("Java", "TDD").size());
-        assertEquals(0, Member.findMembersInterestedBy("Hadoop", "TDD").size());
-        assertEquals(0, Member.findMembersInterestedBy("Java", "Hadoop", "TDD").size());
+        // Advanced Checks
+        // Members inerested in ALL OF the Interests
+        List<Interest> interests_list1 = new ArrayList<Interest>();
+        interests_list1.add(Interest.findOrCreateByName("Java"));
+        assertEquals(2, Member.findMembersInterestedInAllOf(interests_list1).size());
+        interests_list1.add(Interest.findOrCreateByName("Hadoop"));
+        assertEquals(1, Member.findMembersInterestedInAllOf(interests_list1).size());
+        interests_list1.add(Interest.findOrCreateByName("TDD"));
+        assertEquals(0, Member.findMembersInterestedInAllOf(interests_list1).size());
+        
+        // Members inerested in AT LEAST ONE OF the Interests        
+        List<Interest> interests_list2 = new ArrayList<Interest>();
+        interests_list2.add(Interest.findOrCreateByName("Java"));
+        assertEquals(2, Member.findMembersInterestedInOneOf(interests_list2).size());
+        interests_list2.add(Interest.findOrCreateByName("Hadoop"));
+        assertEquals(2, Member.findMembersInterestedInOneOf(interests_list2).size());
+        interests_list2.add(Interest.findOrCreateByName("TDD"));
+        assertEquals(2, Member.findMembersInterestedInOneOf(interests_list2).size());
 
         // Check Interests Cloud
         // Be careful to the alphabetical order!
@@ -113,6 +127,23 @@ public class MemberTest extends UnitTest {
                 "[{interest=Hadoop, pound=1}, {interest=Java, pound=2}, {interest=TDD, pound=1}]",
                 cloud.toString());
 
+    }
+    
+    @Test
+    public void testSuggestedMembers() {
+        Member bob = Member.findByLogin("bob");
+        Member ced = Member.findByLogin("ced");
+
+
+        // Add interest now : Java is common
+        ced.addInterest("Java").addInterest("Hadoop").save();
+        bob.addInterest("TDD").addInterest("Java").save();
+        
+
+        // Ced has already Bob in his links, so we except 0 suggested member
+        assertEquals(0, Member.suggestedMembersFor(ced).size());
+        // Bos hasn't already Ced in his links, so we except 1 suggested members
+        assertEquals(1, Member.suggestedMembersFor(bob).size());
     }
     
     @Test
