@@ -1,5 +1,10 @@
 package models;
 
+
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import controllers.JobFetchUserTimeline;
 import java.util.*;
 import javax.persistence.*;
@@ -13,8 +18,8 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import org.hibernate.annotations.IndexColumn;
-import play.data.validation.Max;
 import play.data.validation.Required;
 import play.db.jpa.*;
 
@@ -23,68 +28,58 @@ import play.db.jpa.*;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQueries({
-    @NamedQuery(name=Member.QUERY_BYLOGIN, query="from Member m where m.login=:login"),
-    @NamedQuery(name=Member.QUERY_FORPROFILE,
-        query="select m from Member m "
-                + "left outer join fetch m.links "
-                + "left outer join fetch m.linkers "
-                + "left outer join fetch m.badges "
-                + "left outer join fetch m.interests "
-                + "where m.login=:login")
+    @NamedQuery(name = Member.QUERY_BYLOGIN, query = "from Member m where m.login=:login"),
+    @NamedQuery(name = Member.QUERY_FORPROFILE,
+    query = "select m from Member m "
+    + "left outer join fetch m.links "
+    + "left outer join fetch m.linkers "
+    + "left outer join fetch m.badges "
+    + "left outer join fetch m.interests "
+    + "where m.login=:login")
 })
 public class Member extends Model {
 
     static final String QUERY_BYLOGIN = "MemberByLogin";
     static final String QUERY_FORPROFILE = "MemberForProfile";
-    
     /** Internal login : functional key */
     @Column(nullable = false, unique = true, updatable = false)
     @IndexColumn(name = "login_UK_IDX", nullable = false)
     @Required
     public String login;
-    
     @Required
     public String email;
     public String firstname;
     public String lastname;
-    
     /** Name under which he wants to be displayed */
     @Required
     public String displayName;
-
     /** User-defined description, potentially as MarkDown */
-    @Lob @Required
+    @Lob
+    @Required
     public String description;
-    
     /** Twitter account name */
     public String twitterName;
-    
     /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumberInsteadOfABetterId} as seen on Google+' profile link */
     public String googlePlusId;
-
     /**
      * Members he follows
      */
     @ManyToMany()
     public Set<Member> links = new HashSet<Member>();
-
     /**
      * Members who follow him : reverse-mapping of {@link Member#links}
      */
-    @ManyToMany(mappedBy="links")
+    @ManyToMany(mappedBy = "links")
     public Set<Member> linkers = new HashSet<Member>();
-
-    @OneToMany(mappedBy="member", cascade=CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<Account> accounts = new HashSet<Account>();
-
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
-   
     @ElementCollection
     public Set<Badge> badges = new HashSet<Badge>();
-    
+
     public Member(String login, Account account) {
         this.login = login;
         addAccount(account);
@@ -108,10 +103,7 @@ public class Member extends Model {
     public static <M extends Member> M findByLogin(final String login) {
         M member = null;
         try {
-            member = (M) em()
-                    .createNamedQuery(QUERY_BYLOGIN)
-                    .setParameter("login", login)
-                    .getSingleResult();
+            member = (M) em().createNamedQuery(QUERY_BYLOGIN).setParameter("login", login).getSingleResult();
         } catch (NoResultException ex) {
             member = null;
         }
@@ -124,32 +116,29 @@ public class Member extends Model {
     public static <M extends Member> M fetchForProfile(final String login) {
         M member = null;
         try {
-            member = (M) em()
-                    .createNamedQuery(QUERY_FORPROFILE)
-                    .setParameter("login", login)
-                    .getSingleResult();
+            member = (M) em().createNamedQuery(QUERY_FORPROFILE).setParameter("login", login).getSingleResult();
         } catch (NoResultException ex) {
             member = null;
         }
         return member;
     }
-    
+
     public void addLink(Member linked) {
         if (linked != null) {
             links.add(linked);
             linked.linkers.add(this);
-            
+
             new LinkActivity(this, linked).save();
         }
     }
-    
+
     public void removeLink(Member memberToUnlink) {
         if (memberToUnlink != null) {
             links.remove(memberToUnlink);
             memberToUnlink.linkers.remove(this);
         }
     }
-    
+
     public static void addLink(String login, String loginToLink) {
         Member member = Member.findByLogin(login);
         Member memberToLink = Member.findByLogin(loginToLink);
@@ -166,6 +155,7 @@ public class Member extends Model {
 
     public boolean isLinkedTo(final String loginToLink) {
         return CollectionUtils.exists(links, new Predicate() {
+
             public boolean evaluate(Object o) {
                 Member linked = (Member) o;
                 return loginToLink.equals(linked.login);
@@ -175,6 +165,7 @@ public class Member extends Model {
 
     public boolean hasForLinker(final String loginToLink) {
         return CollectionUtils.exists(linkers, new Predicate() {
+
             public boolean evaluate(Object o) {
                 Member linked = (Member) o;
                 return loginToLink.equals(linked.login);
@@ -206,20 +197,55 @@ public class Member extends Model {
         return this;
     }
 
-    public static List<Member> findMembersInterestedBy(String interest) {
+    public static List<Member> findMembersInterestedIn(String interest) {
         return Member.find(
                 "select distinct m from Member m join m.interests as i where i.name = ?", interest).fetch();
     }
 
-    public static List<Member> findMembersInterestedBy(String... interests) {
+    /**
+     * Find all Members Interested in ALL of the interests
+     * @param interests
+     * @return members interested
+     */
+    public static List<Member> findMembersInterestedInAllOf(Collection<Interest> interests) {
         return Member.find(
                 "select distinct m from Member m join m.interests as i "
-                + "where i.name in (:interests) group by m having count(i.id) = :size").bind("interests", interests).bind("size", interests.length).fetch();
+                + "where i in (:interests) group by m having count(i.id) = :size").bind("interests", interests).bind("size", interests.size()).fetch();
+    }
+
+    /**
+     * Find all Members Interested in AT LEAST ONE interest
+     * @param interests
+     * @return 
+     */
+    public static List<Member> findMembersInterestedInOneOf(Collection<Interest> interests) {
+        return Member.find(
+                "select distinct m from Member m join m.interests as i "
+                + "where i in (:interests) group by m").bind("interests", interests).fetch();
     }
     
+     /**
+     * Suggest all Members with the same interests
+     * Currently : algorithm is base on the findMembersInterestedInOneOf method!
+     * The suggested Members must only have AT LEAST ONE common interest with the member
+     * These members must NOT contain the member!
+     * These members must be different of the links (members he follows)
+     * @param member
+     * @return List of suggested member
+     */
+    public static Set<Member> suggestedMembersFor(Member member) {
+        List<Member> allSuggestedMembers = findMembersInterestedInOneOf(member.interests);
+        allSuggestedMembers.remove(member);
+        Iterable suggestedMembers =
+                Iterables.filter(allSuggestedMembers, 
+                    Predicates.not(Predicates.in(member.links))
+                );
+        return Sets.newHashSet(suggestedMembers);
+    }
+
     public void addBadge(Badge badge) {
         this.badges.add(badge);
-        
+
         new EarnBadgeActivity(this, badge).save();
     }
 
@@ -231,7 +257,7 @@ public class Member extends Model {
         new SignUpActivity(this).save();
         return this;
     }
- 
+
     /**
      * Update user profile
      */
@@ -241,7 +267,7 @@ public class Member extends Model {
         new JobFetchUserTimeline(this).now();
         return this;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -251,16 +277,12 @@ public class Member extends Model {
             return false;
         }
         final Member other = (Member) obj;
-        return new EqualsBuilder()
-                .append(this.login, other.login)
-                .isEquals();
+        return new EqualsBuilder().append(this.login, other.login).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder()
-                .append(this.login)
-                .toHashCode();
+        return new HashCodeBuilder().append(this.login).toHashCode();
     }
 
     /**
@@ -271,7 +293,7 @@ public class Member extends Model {
     public String toString() {
         return displayName;
     }
-    
+
     public boolean hasRole(String profile) {
         return false;
     }

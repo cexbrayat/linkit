@@ -46,7 +46,7 @@ public class Application extends Controller {
     }
 
     public static void sessionsAndMembersByInterest(String interest) {
-        List<Member> members = Member.findMembersInterestedBy(interest);
+        List<Member> members = Member.findMembersInterestedIn(interest);
         Logger.info(Member.count() + " membres interested by " + interest);
         List<Session> sessions = Session.findSessionsLinkedWith(interest);
         Logger.info(Session.count() + " session linked with " + interest);
