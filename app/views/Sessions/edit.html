@@ -85,6 +85,42 @@
                 #{/}
 
             </fieldset>
+                            </fieldset>
+            <fieldset>
+                <legend>Intérêts</legend>
+
+                #{field 'interests'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+
+                        <ul class="inputs-list">
+                            #{list items:models.Interest.findAll(), as:'interest'}
+                            <span class="checkbox">
+                                <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
+                            </span>
+
+                            #{/list}
+                        </ul>                        
+                        <span class="help-inline newline">${field.error}</span>
+                        <span class="help-block newline">&{field.name+".note"}</span>
+                    </div>
+
+                </div><!-- /clearfix -->
+
+                #{/}
+
+                #{field 'newInterests'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="200" type="text" value="${newInterests}" /> 
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div> 
+                </div><!-- /clearfix -->
+                #{/}
+            </fieldset>
             <div class="actions">
                 <input type="submit" class="btn primary large" value="Enregistrer"/>
                 <a href="@{Sessions.show(talk.id)}" class="btn large">Annuler</a>

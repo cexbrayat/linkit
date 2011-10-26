@@ -49,6 +49,9 @@ public class Interest extends Model implements Comparable<Interest> {
         return result;
     }
 
+
+    
+
     public int compareTo(Interest otherInterest) {
         return name.compareTo(otherInterest.name);
     }
