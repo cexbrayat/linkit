@@ -9,6 +9,7 @@ import play.data.validation.Required;
 import play.mvc.Controller;
 
 import java.util.List;
+import java.util.Set;
 
 public class Profile extends Controller {
 
@@ -57,7 +58,8 @@ public class Profile extends Controller {
         Logger.info("Profil " + login);
         Member member = Member.fetchForProfile(login);
         Logger.info("Profil " + member);
-        render(member);
+        Set<Member> suggests = Member.suggestedMembersFor(member);
+        render(member,suggests);
     }
 
     public static void delete(String login) throws Throwable {

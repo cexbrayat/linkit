@@ -13,12 +13,12 @@
                 #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
                 #{/if}
                 #{if member instanceof models.Speaker}
-                    <h5>Session${member.sessions.size().pluralize()} :</h5>
-                    <p>
+                <h5>Session${member.sessions.size().pluralize()} :</h5>
+                <p>
                     #{list items:member.sessions, as:'talk'}
-                       <h5><a href="@{Sessions.show(talk.id)}">${talk.title}</a></h5>
-                    #{/list}
-                    </p>
+                <h5><a href="@{Sessions.show(talk.id)}">${talk.title}</a></h5>
+                #{/list}
+                </p>
                 #{/if}
 
                 <p>${member.description?.markdown().raw()}</p>
@@ -39,7 +39,7 @@
                     #{/if}
                 </p>
                 <div class="row">
-                    <div class="span3">
+                    <div class="span2">
                         <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
                             #{else} link${member.links.size().pluralize()} #{/else}
                         </h3>
@@ -47,19 +47,29 @@
                         <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
-                    <div class="span3">
+                    <div class="span2">
                         <h3>${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
                             #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
                         #{list items:member.linkers, as:'link'}
                         <a href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
+                    #{if session.get("username")?.equals(member.login)}
+                    <div class="span2">
+                        <h3>Suggestions:</h3>
+                        #{list items:suggests, as:'suggest'}
+                            <a href="@{Profile.show(suggest.login)}" rel='twipsy' title="${suggest}">#{gravatar.img suggest.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                          #{/list}
+                    </div>
+                    #{/if}
                 </div>
-
-                <p>
-                    #{socialbar/}
-                </p>
-
+                <div class="row">
+                    <div class="span6">
+                        <p>
+                          <h2>#{socialbar/}</h2>
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div class="span8" > <!-- timeline -->
@@ -67,29 +77,29 @@
                 </div>
                 <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
 
-<script type="text/javascript">
-    var page = 1;
-    var size = 10;
-    var activitiesAction = #{jsAction @Profile.activities(':login', ':page',':size') /};
+                <script type="text/javascript">
+                    var page = 1;
+                    var size = 10;
+                    var activitiesAction = #{jsAction @Profile.activities(':login', ':page',':size') /};
 
-    function loadMoreActivities() {
-        $.get(activitiesAction({login: '${member.login}', page: page, size: size}), function(data) {
-            $('#activities').append(data);
-            if (data) {
-                page++;
-            } else {
-                $('#moreActivities').css('visibility','hidden');
-            }
-        });    
-    }
+                    function loadMoreActivities() {
+                        $.get(activitiesAction({login: '${member.login}', page: page, size: size}), function(data) {
+                            $('#activities').append(data);
+                            if (data) {
+                                page++;
+                            } else {
+                                $('#moreActivities').css('visibility','hidden');
+                            }
+                        });    
+                    }
 
-    // Initial loading : first page
-    loadMoreActivities();
-</script>            
-           </div>
+                    // Initial loading : first page
+                    loadMoreActivities();
+                </script>            
+            </div>
         </div>
     </div>
- 
+
     <div class="row">
         <div class="span8">
             <h2>Intérêts</h2>
