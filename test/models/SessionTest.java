@@ -29,4 +29,23 @@ public class SessionTest extends UnitTest {
         session.description = description;
         session.save();
     }
+    
+        @Test
+    public void testInterests() {
+        Session session1 = new Session();
+        Session session2 = new Session();
+
+        // Well
+        assertEquals(0, Session.findSessionsLinkedWith("Java").size());
+
+        // Add interest now
+        session1.addInterest("Java").addInterest("TDD").addInterest("Hadoop").save();
+        session2.addInterest("Java").save();
+
+        // Simple Check
+        assertEquals(2, Session.findSessionsLinkedWith("Java").size());
+        assertEquals(1, Session.findSessionsLinkedWith("TDD").size());
+        assertEquals(1, Session.findSessionsLinkedWith("Hadoop").size());
+
+    }
 }
