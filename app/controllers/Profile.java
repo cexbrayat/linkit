@@ -9,8 +9,6 @@ import play.data.validation.Required;
 import play.mvc.Controller;
 
 import java.util.List;
-import java.util.Set;
-import models.Suggestion;
 
 public class Profile extends Controller {
 
@@ -89,9 +87,15 @@ public class Profile extends Controller {
         show(loginToLink);
     }
     
-    public static void activities(String login, Integer page, Integer size) {
+    public static void activitiesOf(String login, Integer page, Integer size) {
         Member member = Member.findByLogin(login);
         List<Activity> _activities = Activity.recentsByMember(member, page, size);
+        render("tags/activities.html", _activities);
+    }
+    
+    public static void activitiesFor(String login, Integer page, Integer size) {
+        Member member = Member.findByLogin(login);
+        List<Activity> _activities = Activity.recentsForMember(member, page, size);
         render("tags/activities.html", _activities);
     }
 }

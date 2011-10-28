@@ -5,7 +5,7 @@
 #{/set}
 <div class="container">
     <div class="hero-unit">
-        <h2>Your dashboard</h2>
+        <h1>Your dashboard</h1>
         <div class="row">
             <div class="span6">
                 <!-- profil -->
@@ -51,7 +51,7 @@
                         <h3>Suggestions de liens :</h3>
                         #{list items:suggests, as:'suggest'}
                             <a href="@{Profile.show(suggest.login)}" rel='twipsy' title="${suggest}">#{gravatar.img suggest.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
-                            <a class="btn primary small" title="Link" href="@{Profile.link(session.get("username"), suggest.login)}">+</a>
+                            <a class="btn primary small" title="Link" href="@{link(suggest.login)}">+</a>
                             <br/>
                         #{/list}
                     </div>
@@ -60,10 +60,7 @@
             </div>
 
             <div class="span8" > <!-- timeline -->
-                <h2>Timeline entrante</h2>
-                <div class="alert-message warning">
-                    <p><strong>Cette timeline sera à terme celle de ceux linkés.</strong> Actuellement, elle est identique à celle du profil</p>
-                </div>
+                <h2>Activités de vos links</h2>
                 <div id="activities" style="max-height: 400px">
                 </div>
                 <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
@@ -71,7 +68,7 @@
                 <script type="text/javascript">
                     var page = 1;
                     var size = 10;
-                    var activitiesAction = #{jsAction @Profile.activities(':login', ':page',':size') /};
+                    var activitiesAction = #{jsAction @Profile.activitiesFor(':login', ':page',':size') /};
 
                     function loadMoreActivities() {
                         $.get(activitiesAction({login: '${member.login}', page: page, size: size}), function(data) {

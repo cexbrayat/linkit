@@ -12,4 +12,10 @@ public class Dashboard extends Controller {
         Set<Member> suggests = Suggestion.suggestedMembersFor(member);
         render(member, suggests);
     }
+
+    public static void link(String loginToLink) {
+        Member.addLink(Security.connected(), loginToLink);
+        flash.success("Link ajouté!");
+        index();
+    }
 }

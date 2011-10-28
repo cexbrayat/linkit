@@ -72,7 +72,7 @@
                 <script type="text/javascript">
                     var page = 1;
                     var size = 10;
-                    var activitiesAction = #{jsAction @Profile.activities(':login', ':page',':size') /};
+                    var activitiesAction = #{jsAction @Profile.activitiesOf(':login', ':page',':size') /};
 
                     function loadMoreActivities() {
                         $.get(activitiesAction({login: '${member.login}', page: page, size: size}), function(data) {
