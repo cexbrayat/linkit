@@ -59,8 +59,7 @@ public class Profile extends Controller {
         Logger.info("Profil " + login);
         Member member = Member.fetchForProfile(login);
         Logger.info("Profil " + member);
-        Set<Member> suggests = Suggestion.suggestedMembersFor(member);
-        render(member,suggests);
+        render(member);
     }
 
     public static void delete(String login) throws Throwable {

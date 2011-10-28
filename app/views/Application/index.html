@@ -51,7 +51,7 @@
                 <a class="btn primary large" href="@{Login.index()}">Se connecter</a>
                 #{/if}
                 #{else}  
-                <a class="btn primary large" href="@{Profile.show(session.get("username"))}">Mon profil</a>
+                <a class="btn primary large" href="@{Dashboard.index()}">Mon Dashboard</a>
                 #{/else}
             </div>
             <div class="span7"> 

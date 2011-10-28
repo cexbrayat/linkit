@@ -1,11 +1,11 @@
 #{extends 'main.html' /}
-#{set title:member.displayName + ' - Mix-IT' /}
+#{set title:member.displayName + ' - Dashboard Link-IT' /}
 #{set 'moreScripts'}
 <script src="http://widgets.twimg.com/j/2/widget.js"></script>
 #{/set}
 <div class="container">
     <div class="hero-unit">
-        <h2>${member.displayName} akka ${member.firstname} ${member.lastname}</h2>
+        <h2>Your dashboard</h2>
         <div class="row">
             <div class="span6">
                 <!-- profil -->
@@ -20,51 +20,50 @@
                 #{/list}
                 </p>
                 #{/if}
-
-                <p>${member.description?.markdown().raw()}</p>
-                #{if member.googlePlusId}
                 <p>
-                    <a rel="author" href="https://profiles.google.com/${member.googlePlusId}" target="_new">
-                        <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
-                    </a>
-                <p>
-                    #{/if}
-                    #{if session.get("username") != null && !session.get("username").equals(member.login)}
-                    #{if !member.hasForLinker(session.get("username"))}
-                    <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
-                    #{/if}
-                    #{else}
-                    <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>
-                    #{/else}
-                    #{/if}
+                <a href="@{Profile.show(session.username)}">Voir mon profil</a>
+                <a href="@{Profile.edit(session.username)}">Editer mon profil</a>
                 </p>
+                
+                #{if member.links}
                 <div class="row">
-                    <div class="span3">
-                        <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
-                            #{else} link${member.links.size().pluralize()} #{/else}
-                        </h3>
+                    <div class="span6">
+                        <h3>Vous êtes lié à :</h3>
                         #{list items:member.links, as:'link'}       
                         <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
-                    <div class="span3">
-                        <h3>${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
-                            #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
+                </div>
+                #{/if}
+                #{if member.linkers}
+                <div class="row">
+                    <div class="span6">
+                        <h3>Ils vous ont lié :</h3>
                         #{list items:member.linkers, as:'link'}
                         <a href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
                 </div>
+                #{/if}
+                #{if suggests}
                 <div class="row">
                     <div class="span6">
-                        <p>
-                          <h2>#{socialbar/}</h2>
-                        </p>
+                        <h3>Suggestions de liens :</h3>
+                        #{list items:suggests, as:'suggest'}
+                            <a href="@{Profile.show(suggest.login)}" rel='twipsy' title="${suggest}">#{gravatar.img suggest.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                            <a class="btn primary small" title="Link" href="@{Profile.link(session.get("username"), suggest.login)}">+</a>
+                            <br/>
+                        #{/list}
                     </div>
                 </div>
+                #{/if}
             </div>
 
             <div class="span8" > <!-- timeline -->
+                <h2>Timeline entrante</h2>
+                <div class="alert-message warning">
+                    <p><strong>Cette timeline sera à terme celle de ceux linkés.</strong> Actuellement, elle est identique à celle du profil</p>
+                </div>
                 <div id="activities" style="max-height: 400px">
                 </div>
                 <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
@@ -91,32 +90,4 @@
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="span8">
-            <h2>Intérêts</h2>
-            <p>
-                #{list items:member.interests, as:'interest'}
-                <a href="@{Application.sessionsAndMembersByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
-                #{/list}
-            </p>
-        </div>
-        <div class="span8">
-            <h2>Badges</h2>
-            <p>
-                #{list items:member.badges, as:'badge'}
-                #{badge badge:badge /}
-                #{/list}
-            </p>
-        </div>
-    </div>
-
-    #{if session.get("username")?.equals(member.login)}
-    <div class="row">
-        <div class="span16 actions">
-            <a class="btn primary" href="@{Profile.edit(member.login)}">Editer mon profil</a>
-            <a class="btn danger" href="@{Profile.delete(member.login)}">Supprimer mon compte (sans confirmation pour le moment!)</a>
-        </div>
-    </div>
-    #{/if}
 </div>
