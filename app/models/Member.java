@@ -1,10 +1,6 @@
 package models;
 
 
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import controllers.JobFetchUserTimeline;
 import java.util.*;
 import javax.persistence.*;
@@ -172,10 +168,6 @@ public class Member extends Model {
             }
         });
     }
-//    Deprecated since bidirectionnal mapping linkers - links
-//    public List<Member> linkers() {
-//        return Member.find("select m from Member m, in (m.links) as l where l.id = ?", id).fetch();
-//    }
 
     public Member addInterest(String interest) {
         if (StringUtils.isNotBlank(interest)) {
@@ -200,47 +192,6 @@ public class Member extends Model {
     public static List<Member> findMembersInterestedIn(String interest) {
         return Member.find(
                 "select distinct m from Member m join m.interests as i where i.name = ?", interest).fetch();
-    }
-
-    /**
-     * Find all Members Interested in ALL of the interests
-     * @param interests
-     * @return members interested
-     */
-    public static List<Member> findMembersInterestedInAllOf(Collection<Interest> interests) {
-        return Member.find(
-                "select distinct m from Member m join m.interests as i "
-                + "where i in (:interests) group by m having count(i.id) = :size").bind("interests", interests).bind("size", interests.size()).fetch();
-    }
-
-    /**
-     * Find all Members Interested in AT LEAST ONE interest
-     * @param interests
-     * @return 
-     */
-    public static List<Member> findMembersInterestedInOneOf(Collection<Interest> interests) {
-        return Member.find(
-                "select distinct m from Member m join m.interests as i "
-                + "where i in (:interests) group by m").bind("interests", interests).fetch();
-    }
-    
-     /**
-     * Suggest all Members with the same interests
-     * Currently : algorithm is base on the findMembersInterestedInOneOf method!
-     * The suggested Members must only have AT LEAST ONE common interest with the member
-     * These members must NOT contain the member!
-     * These members must be different of the links (members he follows)
-     * @param member
-     * @return List of suggested member
-     */
-    public static Set<Member> suggestedMembersFor(Member member) {
-        List<Member> allSuggestedMembers = findMembersInterestedInOneOf(member.interests);
-        allSuggestedMembers.remove(member);
-        Iterable suggestedMembers =
-                Iterables.filter(allSuggestedMembers, 
-                    Predicates.not(Predicates.in(member.links))
-                );
-        return Sets.newHashSet(suggestedMembers);
     }
 
     public void addBadge(Badge badge) {

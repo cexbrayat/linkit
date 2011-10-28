@@ -10,6 +10,7 @@ import play.mvc.Controller;
 
 import java.util.List;
 import java.util.Set;
+import models.Suggestion;
 
 public class Profile extends Controller {
 
@@ -58,7 +59,7 @@ public class Profile extends Controller {
         Logger.info("Profil " + login);
         Member member = Member.fetchForProfile(login);
         Logger.info("Profil " + member);
-        Set<Member> suggests = Member.suggestedMembersFor(member);
+        Set<Member> suggests = Suggestion.suggestedMembersFor(member);
         render(member,suggests);
     }
 
