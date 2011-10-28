@@ -39,7 +39,7 @@
                     #{/if}
                 </p>
                 <div class="row">
-                    <div class="span2">
+                    <div class="span3">
                         <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
                             #{else} link${member.links.size().pluralize()} #{/else}
                         </h3>
@@ -47,21 +47,13 @@
                         <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
-                    <div class="span2">
+                    <div class="span3">
                         <h3>${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
                             #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
                         #{list items:member.linkers, as:'link'}
                         <a href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
-                    #{if session.get("username")?.equals(member.login)}
-                    <div class="span2">
-                        <h3>Suggestions:</h3>
-                        #{list items:suggests, as:'suggest'}
-                            <a href="@{Profile.show(suggest.login)}" rel='twipsy' title="${suggest}">#{gravatar.img suggest.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
-                          #{/list}
-                    </div>
-                    #{/if}
                 </div>
                 <div class="row">
                     <div class="span6">
@@ -80,7 +72,7 @@
                 <script type="text/javascript">
                     var page = 1;
                     var size = 10;
-                    var activitiesAction = #{jsAction @Profile.activities(':login', ':page',':size') /};
+                    var activitiesAction = #{jsAction @Profile.activitiesOf(':login', ':page',':size') /};
 
                     function loadMoreActivities() {
                         $.get(activitiesAction({login: '${member.login}', page: page, size: size}), function(data) {
