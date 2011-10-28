@@ -139,8 +139,8 @@ public class Login extends Controller {
             flash.remove(RETURN_URL);
             redirect(returnUrl);
         } else {
-            // Redirect to user profile
-            Profile.show(login);
+            // Redirect to dashboard
+            Dashboard.index();
         }
     }
     

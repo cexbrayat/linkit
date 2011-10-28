@@ -1,5 +1,6 @@
 package models.activity;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -72,12 +73,36 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return Activity.find("provider=? order by at desc", ProviderType.LinkIt).fetch(page, length);
     }
     
+    /**
+     * Activities for a given member
+     * @param m member whose activities are to be found
+     * @param page
+     * @param length
+     * @return 
+     */
     public static List<Activity> recentsByMember(Member m, int page, int length) {
-        return Activity.find("from Activity a where a.member = ? order by at desc", m).fetch(page, length);
+        return Activity.find("from Activity a where a.member = ? order by a.at desc", m).fetch(page, length);
+    }
+    
+    /**
+     * Incoming activities of linked members of a given member 
+     * @param m
+     * @param page
+     * @param length
+     * @return 
+     */
+    public static List<Activity> recentsForMember(Member m, int page, int length) {
+        List<Activity> activities = Collections.emptyList();
+        if (!m.links.isEmpty()) {
+            activities = Activity.find("from Activity a where a.member in (:linked) order by a.at desc")
+                    .bind("linked", m.links)
+                    .fetch(page, length);
+        }
+        return activities;
     }
     
     public static List<Activity> recentsBySession(Session s, int page, int length) {
-        return Activity.find("from Activity a where a.session = ? order by at desc", s).fetch(page, length);
+        return Activity.find("from Activity a where a.session = ? order by a.at desc", s).fetch(page, length);
     }
     
     final protected String getMessageKey() {
