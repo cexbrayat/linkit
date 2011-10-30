@@ -1,9 +1,11 @@
 package models.activity;
 
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 import models.LinkItAccount;
 import models.Member;
+import models.ProviderType;
 import models.Session;
 import org.junit.*;
 
@@ -21,22 +23,40 @@ public class ActivityTest extends AbstractActivityTest {
     @Test
     public void recentsByMember() {
         final Member m = Member.all().first();
-        assertNotNull(Activity.recentsByMember(m, 1, 10));
+        assertNotNull(Activity.recentsByMember(m,EnumSet.allOf(ProviderType.class), 1, 10));
     }
-
+    
+    @Test
+    public void recentsByMemberWithoutProvider() {
+        final Member m = Member.all().first();
+        // if none provider ==> same behavior if all providers are selected
+        assertEquals(Activity.recentsByMember(m,EnumSet.allOf(ProviderType.class), 1, 10),
+                Activity.recentsByMember(m,EnumSet.noneOf(ProviderType.class), 1, 10));
+    }
     @Test
     public void recentsForMember() {
         List<Member> members = Member.all().fetch();
         Member m = members.get(0);
         // Ensure existing links
         m.addLink(members.get(1));
-        assertNotNull(Activity.recentsForMember(m, 1, 10));
+        assertNotNull(Activity.recentsForMember(m, EnumSet.allOf(ProviderType.class),1, 10));
+    }
+    
+    @Test
+    public void recentsForMemberWithoutProvider() {
+        List<Member> members = Member.all().fetch();
+        Member m = members.get(0);
+        // Ensure existing links
+        m.addLink(members.get(1));
+        // if none provider ==> same behavior if all providers are selected
+        assertEquals(Activity.recentsForMember(m, EnumSet.allOf(ProviderType.class),1, 10),
+                Activity.recentsForMember(m, EnumSet.noneOf(ProviderType.class),1, 10));
     }
 
     @Test
     public void recentsForMemberNoLinks() {
         Member nolinks = new Member("toto", new LinkItAccount("password"));
-        List<Activity> activities = Activity.recentsForMember(nolinks, 1, 10);
+        List<Activity> activities = Activity.recentsForMember(nolinks,EnumSet.allOf(ProviderType.class), 1, 10);
         assertNotNull(activities);
         assertTrue(activities.isEmpty());
     }

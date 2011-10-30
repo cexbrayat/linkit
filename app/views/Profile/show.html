@@ -70,17 +70,17 @@
             		<a class="service-button linkit" id="LinkIt" onClick="handleProvider('LinkIt')"></a>
 					<a class="service-button twitter" id="Twitter" onClick="handleProvider('Twitter')"></a>
 					<a class="service-button google" id="Google" onClick="handleProvider('Google')"></a>
-				</div>
+		</div>
 				<br/>
 				<br/>
-				<div class="span8">
+		<div class="span8">
                 	<div id="activities" style="max-height: 400px">
                 	</div>
                 </div>
                 <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
 
                 <script type="text/javascript">
-                	var providers = ['LinkIt', 'Twitter', 'Google'];
+                    var providers = ['LinkIt', 'Twitter', 'Google'];
                     var page = 1;
                     var size = 5;
                     var activitiesAction = #{jsAction @Profile.activitiesOf(':login', ':providers', ':page',':size') /};
