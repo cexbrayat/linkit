@@ -1,9 +1,9 @@
 package models.activity;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -81,7 +81,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
      * @param length
      * @return 
      */
-    public static List<Activity> recentsByMember(Member m, Set<ProviderType> providers, int page, int length) {
+    public static List<Activity> recentsByMember(Member m, Collection<ProviderType> providers, int page, int length) {
         CriteriaBuilder builder = em().getCriteriaBuilder();
         CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
         Root<Activity> activity = cq.from(Activity.class);
@@ -104,7 +104,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
      * @param length
      * @return 
      */
-    public static List<Activity> recentsForMember(Member m, Set<ProviderType> providers, int page, int length) {   
+    public static List<Activity> recentsForMember(Member m, Collection<ProviderType> providers, int page, int length) {   
         List<Activity> activities = Collections.emptyList();
         if (!m.links.isEmpty()) {
             CriteriaBuilder builder = em().getCriteriaBuilder();
