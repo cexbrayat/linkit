@@ -1,8 +1,10 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
+import java.util.Set;
 import models.Member;
 import models.ProviderType;
 import models.activity.Activity;
@@ -93,7 +95,7 @@ public class Profile extends Controller {
     
     public static void activitiesOf(String login, String networks, Integer page, Integer size) {
         Member member = Member.findByLogin(login);
-        List<ProviderType> providers = new ArrayList<ProviderType>();
+        Set<ProviderType> providers = new HashSet<ProviderType> ();
         for (String network : networks.split("~")) {
 			ProviderType provider = ProviderType.valueOf(network);
 			providers.add(provider);
@@ -104,7 +106,7 @@ public class Profile extends Controller {
     
     public static void activitiesFor(String login, String networks, Integer page, Integer size) {
         Member member = Member.findByLogin(login);
-        List<ProviderType> providers = new ArrayList<ProviderType>();
+        Set<ProviderType> providers = new HashSet<ProviderType>();
         for (String network : networks.split("~")) {
 			ProviderType provider = ProviderType.valueOf(network);
 			providers.add(provider);
