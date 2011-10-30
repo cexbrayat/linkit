@@ -1,9 +1,9 @@
 package models.activity;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,7 +12,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Query;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -25,7 +24,6 @@ import models.Session;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.Required;
-import play.db.jpa.JPA;
 import play.db.jpa.Model;
 
 /**
@@ -38,7 +36,7 @@ import play.db.jpa.Model;
 @Table(appliesTo = "Activity",
 indexes = {
     @Index(name = "Activity_IDX", columnNames = {Activity.PROVIDER, Activity.AT}),
-    @Index(name = "Activity_member_IDX", columnNames = {Activity.MEMBER_FK, Activity.AT}),
+    @Index(name = "Activity_member_provider_IDX", columnNames = {Activity.MEMBER_FK, Activity.PROVIDER, Activity.AT}),
     @Index(name = "Activity_session_IDX", columnNames = {Activity.SESSION_FK, Activity.AT})
 })
 public abstract class Activity extends Model implements Comparable<Activity> {
@@ -83,7 +81,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
      * @param length
      * @return 
      */
-    public static List<Activity> recentsByMember(Member m, Set<ProviderType> providers, int page, int length) {
+    public static List<Activity> recentsByMember(Member m, Collection<ProviderType> providers, int page, int length) {
         CriteriaBuilder builder = em().getCriteriaBuilder();
         CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
         Root<Activity> activity = cq.from(Activity.class);
@@ -106,7 +104,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
      * @param length
      * @return 
      */
-    public static List<Activity> recentsForMember(Member m, Set<ProviderType> providers, int page, int length) {   
+    public static List<Activity> recentsForMember(Member m, Collection<ProviderType> providers, int page, int length) {   
         List<Activity> activities = Collections.emptyList();
         if (!m.links.isEmpty()) {
             CriteriaBuilder builder = em().getCriteriaBuilder();

@@ -37,6 +37,6 @@ public class LinkActivity extends Activity {
                 .reverse("Profile.show")
                 .add("login", member.login)
                 .addRef("linkTo"+linked.login)
-                .toString();
+                .url;
     }
 }

@@ -36,6 +36,6 @@ public class EarnBadgeActivity extends Activity {
                 .reverse("Profile.show")
                 .add("login", member.login)
                 .addRef("badge"+badge)
-                .toString();
+                .url;
     }
 }
