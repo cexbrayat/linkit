@@ -23,7 +23,7 @@
     var word_list = [
         #{list items:tags, as:'tag'}
             %{
-            String url = play.mvc.Router.reverse("Application.sessionsAndMembersByInterest").add("interest",tag.get('interest')).toString();
+            String url = play.mvc.Router.reverse("Application.sessionsAndMembersByInterest").add("interest",tag.get('interest')).url;
             url = java.net.URLDecoder.decode(url, "UTF-8");
         }%
             {text: "${tag.get('interest')}", url: "${url}", weight: ${tag.get('pound')} }      

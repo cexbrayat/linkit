@@ -28,6 +28,6 @@ public class UpdateSessionActivity extends Activity {
         return Router
                 .reverse("Sessions.show")
                 .add("sessionId", session.id)
-                .toString();
+                .url;
     }
 }

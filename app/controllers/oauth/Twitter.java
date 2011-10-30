@@ -122,7 +122,7 @@ public class Twitter extends AbstractOAuthProviderImpl {
                 Member mentionedMember = Member.find("twitterName=?", mention).first();
                 if (mentionedMember != null) {
                     // If mentionned user is a Link-IT user : we link to its Link-IT profile
-                    mentionLink = Router.reverse("Profile.show").add("login", mentionedMember.login).toString();
+                    mentionLink = Router.reverse("Profile.show").add("login", mentionedMember.login).url;
                 }
                 // Replace original content with enhanced link
                 activity.content = activity.content.replace("@"+mention, "<a href=\""+mentionLink+"\">@" + mention + "</a>");
