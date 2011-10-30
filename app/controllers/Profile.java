@@ -1,14 +1,18 @@
 package controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import models.Member;
+import models.ProviderType;
 import models.activity.Activity;
+
 import org.apache.commons.lang.StringUtils;
+
 import play.Logger;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.mvc.Controller;
-
-import java.util.List;
 
 public class Profile extends Controller {
 
@@ -87,15 +91,25 @@ public class Profile extends Controller {
         show(loginToLink);
     }
     
-    public static void activitiesOf(String login, Integer page, Integer size) {
+    public static void activitiesOf(String login, String networks, Integer page, Integer size) {
         Member member = Member.findByLogin(login);
-        List<Activity> _activities = Activity.recentsByMember(member, page, size);
+        List<ProviderType> providers = new ArrayList<ProviderType>();
+        for (String network : networks.split("~")) {
+			ProviderType provider = ProviderType.valueOf(network);
+			providers.add(provider);
+		}
+        List<Activity> _activities = Activity.recentsByMember(member, providers, page, size);
         render("tags/activities.html", _activities);
     }
     
-    public static void activitiesFor(String login, Integer page, Integer size) {
+    public static void activitiesFor(String login, String networks, Integer page, Integer size) {
         Member member = Member.findByLogin(login);
-        List<Activity> _activities = Activity.recentsForMember(member, page, size);
+        List<ProviderType> providers = new ArrayList<ProviderType>();
+        for (String network : networks.split("~")) {
+			ProviderType provider = ProviderType.valueOf(network);
+			providers.add(provider);
+		}
+        List<Activity> _activities = Activity.recentsForMember(member, providers, page, size);
         render("tags/activities.html", _activities);
     }
 }

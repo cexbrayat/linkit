@@ -80,8 +80,10 @@ public abstract class Activity extends Model implements Comparable<Activity> {
      * @param length
      * @return 
      */
-    public static List<Activity> recentsByMember(Member m, int page, int length) {
-        return Activity.find("from Activity a where a.member = ? order by a.at desc", m).fetch(page, length);
+    public static List<Activity> recentsByMember(Member m, List<ProviderType> providers, int page, int length) {
+        return Activity.find("from Activity a where a.member = ? and a.provider in (:providers) order by a.at desc", m)
+        	.bind("providers", providers)
+        	.fetch(page, length);
     }
     
     /**
@@ -91,11 +93,12 @@ public abstract class Activity extends Model implements Comparable<Activity> {
      * @param length
      * @return 
      */
-    public static List<Activity> recentsForMember(Member m, int page, int length) {
+    public static List<Activity> recentsForMember(Member m, List<ProviderType> providers, int page, int length) {
         List<Activity> activities = Collections.emptyList();
         if (!m.links.isEmpty()) {
-            activities = Activity.find("from Activity a where a.member in (:linked) order by a.at desc")
+            activities = Activity.find("from Activity a where a.member in (:linked) and a.provider in (:providers) order by a.at desc")
                     .bind("linked", m.links)
+                    .bind("providers", providers)
                     .fetch(page, length);
         }
         return activities;
