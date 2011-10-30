@@ -12,7 +12,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Query;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -25,7 +24,6 @@ import models.Session;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.Required;
-import play.db.jpa.JPA;
 import play.db.jpa.Model;
 
 /**
@@ -38,7 +36,7 @@ import play.db.jpa.Model;
 @Table(appliesTo = "Activity",
 indexes = {
     @Index(name = "Activity_IDX", columnNames = {Activity.PROVIDER, Activity.AT}),
-    @Index(name = "Activity_member_IDX", columnNames = {Activity.MEMBER_FK, Activity.AT}),
+    @Index(name = "Activity_member_provider_IDX", columnNames = {Activity.MEMBER_FK, Activity.PROVIDER, Activity.AT}),
     @Index(name = "Activity_session_IDX", columnNames = {Activity.SESSION_FK, Activity.AT})
 })
 public abstract class Activity extends Model implements Comparable<Activity> {
