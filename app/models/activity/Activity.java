@@ -87,12 +87,15 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         CriteriaBuilder builder = em().getCriteriaBuilder();
         CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
         Root<Activity> activity = cq.from(Activity.class);
-        builder.and(builder.equal(activity.get("member"), m));
+        Predicate givenMember = builder.equal(activity.get("member"), m);
+        Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
         if (providers != null && !providers.isEmpty()) {
-            builder.in(activity.get("provider")).value(providers);
+            cq.where(givenMember, chosenProviders);
+        } else {
+            cq.where(givenMember);
         }
         cq.orderBy(builder.desc(activity.get("at")));
-        return em().createQuery(cq).setFirstResult(page * length).setMaxResults(length).getResultList();
+        return em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
 
     }
 
@@ -109,12 +112,15 @@ public abstract class Activity extends Model implements Comparable<Activity> {
             CriteriaBuilder builder = em().getCriteriaBuilder();
             CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
             Root<Activity> activity = cq.from(Activity.class);
-            builder.and(builder.in(activity.get("member")).value(m.links));
+            Predicate linkedMembers = builder.in(activity.get("member")).value(m.links);
+            Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
             if (providers != null && !providers.isEmpty()) {
-                builder.in(activity.get("provider")).value(providers);
+                cq.where(linkedMembers, chosenProviders);
+            } else {
+                cq.where(linkedMembers);
             }
             cq.orderBy(builder.desc(activity.get("at")));
-            activities= em().createQuery(cq).setFirstResult(page * length).setMaxResults(length).getResultList();
+            activities = em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
         }
         return activities;
     }
