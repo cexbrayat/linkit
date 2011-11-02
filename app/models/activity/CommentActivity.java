@@ -40,6 +40,6 @@ public class CommentActivity extends Activity {
                 .reverse("Sessions.show")
                 .add("sessionId", session.id)
                 .addRef("comment"+comment.id)
-                .toString();
+                .url;
     }
 }

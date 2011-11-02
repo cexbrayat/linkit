@@ -28,6 +28,6 @@ public class SignUpActivity extends Activity {
         return Router
                 .reverse("Profile.show")
                 .add("login", member.login)
-                .toString();
+                .url;
     }
 }
