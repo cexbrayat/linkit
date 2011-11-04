@@ -20,7 +20,7 @@ public enum Badge {
      */
     public static final String BASE_URL = "/public/images/badges/";
     /**
-     * Base folder storing badges image files.
+     * Default image file extension for badges.
      */
     public static final String DEFAULT_IMAGE_EXT = ".png";
     
