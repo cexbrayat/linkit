@@ -1,5 +1,6 @@
 package controllers.badge;
 
+import models.Speaker;
 import models.Staff;
 import org.junit.After;
 import org.junit.Before;
@@ -29,5 +30,12 @@ public class BadgeComputationContextTest extends UnitTest {
         final Long actualNbStaff = new BadgeComputationContext().getNbStaff();
         assertNotNull(actualNbStaff);
         assertEquals(Staff.count(), actualNbStaff.longValue());
+    }
+    
+    @Test
+    public void getNbSpeaker() {
+        final Long actualNbSpeaker = new BadgeComputationContext().getNbSpeakers();
+        assertNotNull(actualNbSpeaker);
+        assertEquals(Speaker.count(), actualNbSpeaker.longValue());
     }
 }
