@@ -16,11 +16,21 @@ public enum Badge {
     Attendee,
     /** A friend of all staff members */
     StaffFriend,
+    /** A friend of all speaker members */
+    SpeakerFriend,
     /** Having made one comment */
     Commentator1,
     /** Having made 5 comments */
-    Commentator5;
-    
+    Commentator5,
+    /** Having linked 1 member */
+    Linkator1,
+    /** Having linked 5 members */
+    Linkator5,
+    /** Being linked by 1 member */
+    Linkedator1,
+    /** Being linked by 5 members */
+    Linkedator5;
+
     /**
      * Base folder storing badges image files.
      */

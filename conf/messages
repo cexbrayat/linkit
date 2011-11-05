@@ -54,13 +54,18 @@ provider.Google=Google+
 provider.Twitter=Twitter
 
 # Badges
-badge.Speaker=Badge Speaker (intervenant sur une session),
-badge.Staff=Badge Staff (membre organisateur de Mix-IT),
-badge.Sponsor=Badge Sponsor (gentil bienfaiteur de Mix-IT),
-badge.Attendee=Badge Participant (Membre inscrit pour la conférence),
-badge.StaffFriend=Badge Lêche-cul (vous êtes ami avec tous les membres du staff)
-badge.Commentator1=Badge Commentator (vous avez posté au moins un commentaire),
-badge.Commentator5=Badge Commentator++ (vous avez posté au moins cinq commentaires);
+badge.Speaker=Speaker (intervenant sur une session)
+badge.Staff=Staff (membre organisateur de Mix-IT)
+badge.Sponsor=Sponsor (gentil bienfaiteur de Mix-IT)
+badge.Attendee=Participant (Membre inscrit pour la conférence)
+badge.StaffFriend=Petit Lêche-cul (vous êtes ami avec tous les membres du staff)
+badge.SpeakerFriend=Gros Lêche-cul (vous êtes ami avec tous les speakers)
+badge.Commentator1=Commentator (vous avez posté au moins un commentaire)
+badge.Commentator5=Commentator++ (vous avez posté au moins cinq commentaires)
+badge.Linkator1=Linkator (vous avez linké au moins un membre)
+badge.Linkator5=Linkator++ (vous avez linké au moins cinq membres)
+badge.Linkedator1=You're not alone! (vous avez été linké par au moins un membre)
+badge.Linkedator5=30 millions d'amis (vous avez été linké par au moins cinq membres)
 
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
