@@ -5,7 +5,6 @@ import controllers.JobFetchUserTimeline;
 import java.util.*;
 import javax.persistence.*;
 
-import models.activity.EarnBadgeActivity;
 import models.activity.LinkActivity;
 import models.activity.SignUpActivity;
 import models.activity.UpdateProfileActivity;
@@ -74,7 +73,7 @@ public class Member extends Model {
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
     @ElementCollection
-    public Set<Badge> badges = new HashSet<Badge>();
+    public Set<Badge> badges = EnumSet.noneOf(Badge.class);
 
     public Member(String login, Account account) {
         this.login = login;
@@ -197,7 +196,8 @@ public class Member extends Model {
     public void addBadge(Badge badge) {
         this.badges.add(badge);
 
-        new EarnBadgeActivity(this, badge).save();
+        // FIXME EarnBadgeActivity : can't call a save() without being sure that current Member (linked in Activity) is actually persisted
+        // new EarnBadgeActivity(this, badge).save();
     }
 
     /**
