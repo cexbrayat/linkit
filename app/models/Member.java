@@ -73,7 +73,7 @@ public class Member extends Model {
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
     @ElementCollection
-    public Set<Badge> badges = new HashSet<Badge>();
+    public Set<Badge> badges = EnumSet.noneOf(Badge.class);
 
     public Member(String login, Account account) {
         this.login = login;

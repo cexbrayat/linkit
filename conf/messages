@@ -53,12 +53,21 @@ provider.LinkIt=Link-IT
 provider.Google=Google+
 provider.Twitter=Twitter
 
+# Badges
+badge.Speaker=Badge Speaker (intervenant sur une session),
+badge.Staff=Badge Staff (membre organisateur de Mix-IT),
+badge.Sponsor=Badge Sponsor (gentil bienfaiteur de Mix-IT),
+badge.Attendee=Badge Participant (Membre inscrit pour la conférence),
+badge.StaffFriend=Badge Lêche-cul (vous êtes ami avec tous les membres du staff)
+badge.Commentator1=Badge Commentator (vous avez posté au moins un commentaire),
+badge.Commentator5=Badge Commentator++ (vous avez posté au moins cinq commentaires);
+
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
 
 # Since Java Date extension
-since.seconds=il y a %d sec.
-since.minutes=il y a %d min.
+since.seconds=il y a %d sec
+since.minutes=il y a %d min
 since.hours=il y a %dH
 since.days=il y a %d jours
 since.months=il y a %d mois

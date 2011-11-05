@@ -1,7 +1,10 @@
 package models.activity;
 
+import java.util.EnumSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import models.Badge;
 import models.Member;
 import models.ProviderType;
 import play.data.validation.Required;
@@ -38,5 +41,10 @@ public class LinkActivity extends Activity {
                 .add("login", member.login)
                 .addRef("linkTo"+linked.login)
                 .url;
+    }
+
+    @Override
+    public Set<Badge> getPotentialTriggeredBadges() {
+        return EnumSet.of(Badge.StaffFriend);
     }
 }

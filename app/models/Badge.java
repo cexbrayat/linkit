@@ -24,11 +24,11 @@ public enum Badge {
     /**
      * Base folder storing badges image files.
      */
-    public static final String BASE_URL = "/public/images/badges/";
+    private static final String BASE_URL = "/public/images/badges/";
     /**
      * Default image file extension for badges.
      */
-    public static final String DEFAULT_IMAGE_EXT = ".png";
+    private static final String DEFAULT_IMAGE_EXT = ".png";
     
     /**
      * URL of icon illustrating this badge
@@ -39,7 +39,7 @@ public enum Badge {
      * Use enum.name()+".png" as default filename
      */
     Badge() {
-        this.iconUrl = BASE_URL + name().toLowerCase() + ".png";
+        this.iconUrl = BASE_URL + name().toLowerCase() + DEFAULT_IMAGE_EXT;
     }
     
     /**

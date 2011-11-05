@@ -10,7 +10,7 @@ import models.Member;
  * Computer of {@link Badge#Commentator1} or {@link Badge#Commentator5} badges.
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class CommentatorBadgeComputer implements BadgeComputer {
+class CommentatorBadgeComputer implements BadgeComputer {
 
     public Set<Badge> compute(final Member member, BadgeComputationContext context) {
         Set<Badge> badges = EnumSet.noneOf(Badge.class);

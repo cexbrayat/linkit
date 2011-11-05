@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,6 +19,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import models.Badge;
 import models.Member;
 import models.ProviderType;
 import models.Session;
@@ -45,29 +47,41 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     static final String MEMBER_FK = "member_id";
     static final String PROVIDER = "provider";
     static final String AT = "at";
+
     @Required
-    @Column(name = PROVIDER)
+    @Column(name = PROVIDER, nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     public ProviderType provider;
+
+    /** Optional corresponding member. May be null. */
     @ManyToOne
     @JoinColumn(name = MEMBER_FK)
     public Member member;
+
+    /** Optional corresponding session. May be null. */
     @ManyToOne
     @JoinColumn(name = SESSION_FK)
     public Session session;
+
+    /** Timestamp of activity */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = AT)
     @Index(name = AT + "_idx")
     public Date at;
+    
+    /** True if badge computation has been done for this activity (or if it is pointless). */
+    public boolean badgeComputationDone = false;
 
     protected Activity(ProviderType provider) {
-        this.provider = provider;
-        this.at = new Date();
+        this(provider, new Date());
     }
 
     protected Activity(ProviderType provider, Date at) {
         this.provider = provider;
         this.at = at;
+        if (getPotentialTriggeredBadges().isEmpty()) {
+            badgeComputationDone = true;
+        }
     }
 
     public static List<Activity> recents(int page, int length) {
@@ -131,12 +145,27 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return getClass().getSimpleName() + ".message";
     }
 
+    /**
+     * @param lang Language selected by user
+     * @return i18n (HTML) message to be displayed on GUI for this activity
+     */
     public abstract String getMessage(final String lang);
 
+    /**
+     * @return URL to be linked on this activity.
+     */
     public abstract String getUrl();
 
-    public ProviderType getProvider() {
-        return provider;
+    /**
+     * @return Set of {@link Badge} that could potentially be triggered by this activity
+     */
+    public abstract Set<Badge> getPotentialTriggeredBadges();
+    
+    /**
+     * @return Activities for which badge computation hasn't been done yet
+     */
+    public static List<Activity> uncomputed() {
+        return Activity.find("badgeComputationDone=false").fetch();
     }
 
     public int compareTo(Activity other) {

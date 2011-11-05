@@ -12,10 +12,17 @@ public class BadgeComputerFactory {
 
     private static final Map<Badge, BadgeComputer> computers = new EnumMap<Badge, BadgeComputer>(Badge.class);
     static {
+        BadgeComputer commentator = new CommentatorBadgeComputer();
         computers.put(Badge.StaffFriend, new StaffFriendBadgeComputer());
+        computers.put(Badge.Commentator1, commentator);
+        computers.put(Badge.Commentator5, commentator);
     }
     
-    BadgeComputer create(Badge badge) {
+    /**
+     * @param badge Badge to be computed
+     * @return {@link BadgeComputer} implementation computing given badge
+     */
+    public static BadgeComputer getFor(Badge badge) {
         return computers.get(badge);
     }
 }

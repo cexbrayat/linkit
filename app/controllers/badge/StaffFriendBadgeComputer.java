@@ -12,7 +12,7 @@ import models.Staff;
  * Computer of {@link Badge#StaffFriend} badge.
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class StaffFriendBadgeComputer implements BadgeComputer {
+class StaffFriendBadgeComputer implements BadgeComputer {
 
     public Set<Badge> compute(final Member member, BadgeComputationContext context) {
         // Checking staff people linked by member

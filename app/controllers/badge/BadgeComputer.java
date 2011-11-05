@@ -8,12 +8,13 @@ import models.Member;
  * Interface for an engine computing badges for a given member
  * @author Sryl <cyril.lacote@gmail.com>
  */
-interface BadgeComputer {
+public interface BadgeComputer {
     
     /**
-     * @param member Member to computed new granted badges
+     * Computes badges to be granted to given member
+     * @param member Member to compute new granted badges
      * @param context Context of badge computation
-     * @return Granted badges
+     * @return Granted badges, potentially empty
      */
     Set<Badge> compute(Member member, BadgeComputationContext context);
 }
