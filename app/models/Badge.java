@@ -13,7 +13,13 @@ public enum Badge {
     /** A sponsor member */
     Sponsor,
     /** A registered attendee */
-    Attendee;
+    Attendee,
+    /** A friend of all staff members */
+    StaffFriend,
+    /** Having made one comment */
+    Commentator1,
+    /** Having made 5 comments */
+    Commentator5;
     
     /**
      * Base folder storing badges image files.
