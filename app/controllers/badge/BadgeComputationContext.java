@@ -1,5 +1,6 @@
 package controllers.badge;
 
+import models.Speaker;
 import models.Staff;
 
 /**
@@ -10,6 +11,9 @@ public class BadgeComputationContext {
     
     /** Number of staff people */
     private Long nbStaff;
+    
+    /** Number of speaker people */
+    private Long nbSpeakers;
 
     /**
      * @return Number of staff people (computed through DB)
@@ -19,5 +23,15 @@ public class BadgeComputationContext {
             nbStaff = Staff.count();
         }
         return nbStaff;
+    }
+
+    /**
+     * @return Number of speaker people (computed through DB)
+     */
+    public Long getNbSpeakers() {
+        if (nbSpeakers == null) {
+            nbSpeakers = Speaker.count();
+        }
+        return nbSpeakers;
     }
 }
