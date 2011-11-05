@@ -3,4 +3,4 @@
 %{
     String url = play.mvc.Router.reverse(play.vfs.VirtualFile.fromRelativePath(_badge.getIconUrl()));
 %}
-<img src="${url}" class="badge"  alt="Badge ${_badge}" title="Badge ${_badge}" />
+<img src="${url}" class="badge" alt="&{'badge.'+_badge}" title="&{'badge.'+_badge}" />

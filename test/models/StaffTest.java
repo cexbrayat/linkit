@@ -30,19 +30,12 @@ public class StaffTest extends UnitTest {
         assertNotNull(staffMember);
         
         assertNotNull(staffMember.badges);
-        final int originalNbBadges = staffMember.badges.size();
-        
-        staffMember.addBadge(Badge.Sponsor);
-        staffMember.save();
-        
-        staffMember = Staff.findByLogin(login);
-        assertEquals(originalNbBadges+1, staffMember.badges.size());
-        
-        // Adding same badge twice : no consequences
-        staffMember.addBadge(Badge.Sponsor);
-        staffMember.save();
-        staffMember = Staff.findByLogin(login);
-        assertEquals(originalNbBadges+1, staffMember.badges.size());
+        assertTrue(staffMember.badges.contains(Badge.Staff));
     }
-    
+
+    @Test public void newBadge() {
+        Staff s = new Staff("toto", new LinkItAccount("password"));
+        assertNotNull(s.badges);
+        assertTrue(s.badges.contains(Badge.Staff));
+    }
 }

@@ -13,16 +13,32 @@ public enum Badge {
     /** A sponsor member */
     Sponsor,
     /** A registered attendee */
-    Attendee;
-    
+    Attendee,
+    /** A friend of all staff members */
+    StaffFriend,
+    /** A friend of all speaker members */
+    SpeakerFriend,
+    /** Having made one comment */
+    Commentator1,
+    /** Having made 5 comments */
+    Commentator5,
+    /** Having linked 1 member */
+    Linkator1,
+    /** Having linked 5 members */
+    Linkator5,
+    /** Being linked by 1 member */
+    Linkedator1,
+    /** Being linked by 5 members */
+    Linkedator5;
+
     /**
      * Base folder storing badges image files.
      */
-    public static final String BASE_URL = "/public/images/badges/";
+    private static final String BASE_URL = "/public/images/badges/";
     /**
-     * Base folder storing badges image files.
+     * Default image file extension for badges.
      */
-    public static final String DEFAULT_IMAGE_EXT = ".png";
+    private static final String DEFAULT_IMAGE_EXT = ".png";
     
     /**
      * URL of icon illustrating this badge
@@ -33,7 +49,7 @@ public enum Badge {
      * Use enum.name()+".png" as default filename
      */
     Badge() {
-        this.iconUrl = BASE_URL + name().toLowerCase() + ".png";
+        this.iconUrl = BASE_URL + name().toLowerCase() + DEFAULT_IMAGE_EXT;
     }
     
     /**
