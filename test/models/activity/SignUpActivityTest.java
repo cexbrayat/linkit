@@ -20,7 +20,7 @@ public class SignUpActivityTest extends AbstractActivityTest {
         
         nouveau = new Member("new", new LinkItAccount("password")).register();
         
-        // One activity for Bob
+        // One activity for nouveau
         Activity a = Activity.find("select a from Activity a where a.member = ?", nouveau).first();
         assertActivity(a);
         assertTrue(a instanceof SignUpActivity);

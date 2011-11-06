@@ -18,7 +18,7 @@ public class CommentActivityTest extends AbstractActivityTest {
         // Non activity for the session
         assertEquals(0, Activity.count("session = ?", s));
         
-        Comment c = new Comment(Member.findByLogin("bob"), s, "Un commentaire");
+        Comment c = new Comment(member, s, "Un commentaire");
         s.addComment(c);
         s.save();
         
@@ -28,7 +28,7 @@ public class CommentActivityTest extends AbstractActivityTest {
         assertActivity(a);
         assertTrue(a instanceof CommentActivity);
         CommentActivity ca = (CommentActivity) a;
-        assertEquals(Member.findByLogin("bob"), ca.member);
+        assertEquals(member, ca.member);
         assertEquals(s, ca.session);
         assertEquals(c, ca.comment);
     }

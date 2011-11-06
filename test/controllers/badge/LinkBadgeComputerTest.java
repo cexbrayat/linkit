@@ -4,58 +4,55 @@ import java.util.EnumSet;
 import java.util.Set;
 import models.Badge;
 import models.Member;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import play.test.Fixtures;
-import play.test.UnitTest;
 
 /**
  * Unit tests for {@link LinkBadgeComputer}
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class LinkBadgeComputerTest extends UnitTest {
+public class LinkBadgeComputerTest extends AbstractBadgeComputerTest {
 
-    private LinkBadgeComputer computer = new LinkBadgeComputer();
-    
-    /** Login of alone member */
-    private static final String ALONE = "alone";
-    
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
-    
-    @Test
-    public void notGranted() {
-        final Member alone = Member.findByLogin(ALONE);
-        final Set<Badge> actualBadges = computer.compute(alone, new BadgeComputationContext());
-        assertTrue(actualBadges.isEmpty());
+    public LinkBadgeComputerTest() {
+        super(new LinkBadgeComputer());
     }
     
     @Test
     public void grantedLinkator1() {
-        final Member alone = Member.findByLogin(ALONE);
-        final Member other = Member.all().first();
+        final Member other = createMember("toto");
         // Member links someone
-        Member.addLink(alone.login, other.login);
-        final Set<Badge> actualBadges = computer.compute(alone, new BadgeComputationContext());
+        member.addLink(other);
+        final Set<Badge> actualBadges = computer.compute(member, new BadgeComputationContext());
         assertEquals(EnumSet.of(Badge.Linkator1), actualBadges);
     }
     
     @Test
+    public void grantedLinkator5() {
+        // Member links 5 other people
+        for (int i = 0; i < 5; i++) {
+            final Member other = createMember("toto"+i);
+            member.addLink(other);
+        }
+        final Set<Badge> actualBadges = computer.compute(member, new BadgeComputationContext());
+        assertEquals(EnumSet.of(Badge.Linkator1, Badge.Linkator5), actualBadges);
+    }
+    
+    @Test
     public void grantedLinkedator1() {
-        final Member alone = Member.findByLogin(ALONE);
-        final Member other = Member.all().first();
         // Someone links our member
-        Member.addLink(other.login, alone.login);
-        final Set<Badge> actualBadges = computer.compute(alone, new BadgeComputationContext());
+        final Member other = createMember("toto");
+        other.addLink(member);
+        final Set<Badge> actualBadges = computer.compute(member, new BadgeComputationContext());
         assertEquals(EnumSet.of(Badge.Linkedator1), actualBadges);
+    }
+    
+    @Test
+    public void grantedLinkedator5() {
+        // 5 other members link our member
+        for (int i = 0; i < 5; i++) {
+            final Member other = createMember("toto"+i);
+            other.addLink(member);
+        }
+        final Set<Badge> actualBadges = computer.compute(member, new BadgeComputationContext());
+        assertEquals(EnumSet.of(Badge.Linkedator1, Badge.Linkedator5), actualBadges);
     }
 }

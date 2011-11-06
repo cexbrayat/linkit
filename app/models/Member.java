@@ -5,6 +5,7 @@ import controllers.JobFetchUserTimeline;
 import java.util.*;
 import javax.persistence.*;
 
+import models.activity.EarnBadgeActivity;
 import models.activity.LinkActivity;
 import models.activity.SignUpActivity;
 import models.activity.UpdateProfileActivity;
@@ -120,10 +121,13 @@ public class Member extends Model {
 
     public void addLink(Member linked) {
         if (linked != null) {
-            links.add(linked);
-            linked.linkers.add(this);
+            // Avoid activity duplication
+            if (!links.contains(linked)) {
+                links.add(linked);
+                linked.linkers.add(this);
 
-            new LinkActivity(this, linked).save();
+                new LinkActivity(this, linked).save();
+            }
         }
     }
 
@@ -194,10 +198,11 @@ public class Member extends Model {
     }
 
     public void addBadge(Badge badge) {
-        this.badges.add(badge);
-
-        // FIXME EarnBadgeActivity : can't call a save() without being sure that current Member (linked in Activity) is actually persisted
-        // new EarnBadgeActivity(this, badge).save();
+        // Avoid activity duplication
+        if (!this.badges.contains(badge)) {
+            this.badges.add(badge);
+            new EarnBadgeActivity(this, badge).save();
+        }
     }
 
     /**

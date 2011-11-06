@@ -89,7 +89,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     }
 
     /**
-     * Activities for a given member
+     * Activities by a given member
      * @param m member whose activities are to be found
      * @param page
      * @param length

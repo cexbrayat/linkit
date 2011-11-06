@@ -11,22 +11,22 @@ import org.junit.*;
 public class EarnBadgeActivityTest extends AbstractActivityTest {
 
     @Test
-    @Ignore // FIXME EarnBadgeActivity
     public void addBadge() {
-        Member bob = Member.findByLogin("bob");
+        // No activity for member
+        assertNull(Activity.find("select a from Activity a where a.member = ?", member).first());
         
-        // No activity for bob
-        assertNull(Activity.find("select a from Activity a where a.member = ?", bob).first());
+        member.addBadge(Badge.Attendee);
+        // Second add for ensuring no activity duplication
+        member.addBadge(Badge.Attendee);
+        member.save();
         
-        bob.addBadge(Badge.Attendee);
-        bob.save();
-        
-        // One activity for bob
-        Activity a = Activity.find("select a from Activity a where a.member = ?", bob).first();
+        // One activity for member
+        assertEquals(1l, Activity.count("from Activity a where a.member = ?", member));
+        Activity a = Activity.find("select a from Activity a where a.member = ?", member).first();
         assertActivity(a);
         assertTrue(a instanceof EarnBadgeActivity);
         EarnBadgeActivity eba = (EarnBadgeActivity) a;
-        assertEquals(Member.findByLogin("bob"), eba.member);
+        assertEquals(member, eba.member);
         assertEquals(Badge.Attendee, eba.badge);
     }
 }
