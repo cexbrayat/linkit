@@ -1,6 +1,9 @@
 package models.activity;
 
+import java.util.EnumSet;
+import java.util.Set;
 import javax.persistence.Entity;
+import models.Badge;
 import models.Member;
 import models.ProviderType;
 import play.i18n.Messages;
@@ -28,6 +31,11 @@ public class SignUpActivity extends Activity {
         return Router
                 .reverse("Profile.show")
                 .add("login", member.login)
-                .toString();
+                .url;
+    }
+
+    @Override
+    public Set<Badge> getPotentialTriggeredBadges() {
+        return EnumSet.noneOf(Badge.class);
     }
 }

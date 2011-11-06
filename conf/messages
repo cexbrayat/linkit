@@ -46,19 +46,33 @@ CommentActivity.message=%1$s a commenté la session %2$s
 SignUpActivity.message=%1$s s'est inscrit
 UpdateProfileActivity.message=%1$s a mis à jour son profil
 UpdateSessionActivity.message=La session %1$s a été mise à jour
-EarnBadgeActivity.message=%1$s a reçu le badge %2$s
+EarnBadgeActivity.message=%1$s a reçu le badge &{badge.%2$s}
 
 # Providers
 provider.LinkIt=Link-IT
 provider.Google=Google+
 provider.Twitter=Twitter
 
+# Badges
+badge.Speaker=Speaker (intervenant sur une session)
+badge.Staff=Staff (membre organisateur de Mix-IT)
+badge.Sponsor=Sponsor (gentil bienfaiteur de Mix-IT)
+badge.Attendee=Participant (Membre inscrit pour la conférence)
+badge.StaffFriend=Petit Lêche-cul (vous êtes ami avec tous les membres du staff)
+badge.SpeakerFriend=Gros Lêche-cul (vous êtes ami avec tous les speakers)
+badge.Commentator1=Commentator (vous avez posté au moins un commentaire)
+badge.Commentator5=Commentator++ (vous avez posté au moins cinq commentaires)
+badge.Linkator1=Linkator (vous avez linké au moins un membre)
+badge.Linkator5=Linkator++ (vous avez linké au moins cinq membres)
+badge.Linkedator1=You're not alone! (vous avez été linké par au moins un membre)
+badge.Linkedator5=30 millions d'amis (vous avez été linké par au moins cinq membres)
+
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
 
 # Since Java Date extension
-since.seconds=il y a %d sec.
-since.minutes=il y a %d min.
+since.seconds=il y a %d sec
+since.minutes=il y a %d min
 since.hours=il y a %dH
 since.days=il y a %d jours
 since.months=il y a %d mois

@@ -6,7 +6,7 @@ import play.Logger;
 import play.jobs.Job;
 
 /**
- * Asynchronous fetch of on user timelines on external providers (Google+, Twitter)
+ * Asynchronous fetch of one user timelines on external providers (Google+, Twitter)
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class JobFetchUserTimeline extends Job {

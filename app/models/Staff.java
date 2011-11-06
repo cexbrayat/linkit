@@ -24,7 +24,8 @@ public class Staff extends Member {
 
     public Staff(String login, Account account) {
         super(login, account);
-        addBadge(Badge.Staff);
+        // Can't call addBadge() on a transient instance (and don't want to trigger activity)
+        this.badges.add(Badge.Staff);
     }
 
     @Override

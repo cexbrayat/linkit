@@ -25,7 +25,8 @@ public class Speaker extends Member {
     
     public Speaker(String login, Account account) {
         super(login, account);
-        addBadge(Badge.Speaker);
+        // Can't call addBadge() on a transient instance (and don't want to trigger activity)
+        this.badges.add(Badge.Speaker);
     }
 
     @Override

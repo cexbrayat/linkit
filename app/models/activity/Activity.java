@@ -1,5 +1,6 @@
 package models.activity;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -12,20 +13,19 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Query;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import models.Badge;
 import models.Member;
 import models.ProviderType;
 import models.Session;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.Required;
-import play.db.jpa.JPA;
 import play.db.jpa.Model;
 
 /**
@@ -38,7 +38,7 @@ import play.db.jpa.Model;
 @Table(appliesTo = "Activity",
 indexes = {
     @Index(name = "Activity_IDX", columnNames = {Activity.PROVIDER, Activity.AT}),
-    @Index(name = "Activity_member_IDX", columnNames = {Activity.MEMBER_FK, Activity.AT}),
+    @Index(name = "Activity_member_provider_IDX", columnNames = {Activity.MEMBER_FK, Activity.PROVIDER, Activity.AT}),
     @Index(name = "Activity_session_IDX", columnNames = {Activity.SESSION_FK, Activity.AT})
 })
 public abstract class Activity extends Model implements Comparable<Activity> {
@@ -47,29 +47,41 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     static final String MEMBER_FK = "member_id";
     static final String PROVIDER = "provider";
     static final String AT = "at";
+
     @Required
-    @Column(name = PROVIDER)
+    @Column(name = PROVIDER, nullable = false, updatable = false)
     @Enumerated(EnumType.STRING)
     public ProviderType provider;
+
+    /** Optional corresponding member. May be null. */
     @ManyToOne
     @JoinColumn(name = MEMBER_FK)
     public Member member;
+
+    /** Optional corresponding session. May be null. */
     @ManyToOne
     @JoinColumn(name = SESSION_FK)
     public Session session;
+
+    /** Timestamp of activity */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = AT)
     @Index(name = AT + "_idx")
     public Date at;
+    
+    /** True if badge computation has been done for this activity (or if it is pointless). */
+    public boolean badgeComputationDone = false;
 
     protected Activity(ProviderType provider) {
-        this.provider = provider;
-        this.at = new Date();
+        this(provider, new Date());
     }
 
     protected Activity(ProviderType provider, Date at) {
         this.provider = provider;
         this.at = at;
+        if (getPotentialTriggeredBadges().isEmpty()) {
+            badgeComputationDone = true;
+        }
     }
 
     public static List<Activity> recents(int page, int length) {
@@ -77,22 +89,25 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     }
 
     /**
-     * Activities for a given member
+     * Activities by a given member
      * @param m member whose activities are to be found
      * @param page
      * @param length
      * @return 
      */
-    public static List<Activity> recentsByMember(Member m, Set<ProviderType> providers, int page, int length) {
+    public static List<Activity> recentsByMember(Member m, Collection<ProviderType> providers, int page, int length) {
         CriteriaBuilder builder = em().getCriteriaBuilder();
         CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
         Root<Activity> activity = cq.from(Activity.class);
-        builder.and(builder.equal(activity.get("member"), m));
+        Predicate givenMember = builder.equal(activity.get("member"), m);
+        Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
         if (providers != null && !providers.isEmpty()) {
-            builder.in(activity.get("provider")).value(providers);
+            cq.where(givenMember, chosenProviders);
+        } else {
+            cq.where(givenMember);
         }
         cq.orderBy(builder.desc(activity.get("at")));
-        return em().createQuery(cq).setFirstResult(page * length).setMaxResults(length).getResultList();
+        return em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
 
     }
 
@@ -103,18 +118,21 @@ public abstract class Activity extends Model implements Comparable<Activity> {
      * @param length
      * @return 
      */
-    public static List<Activity> recentsForMember(Member m, Set<ProviderType> providers, int page, int length) {   
+    public static List<Activity> recentsForMember(Member m, Collection<ProviderType> providers, int page, int length) {   
         List<Activity> activities = Collections.emptyList();
         if (!m.links.isEmpty()) {
             CriteriaBuilder builder = em().getCriteriaBuilder();
             CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
             Root<Activity> activity = cq.from(Activity.class);
-            builder.and(builder.in(activity.get("member")).value(m.links));
+            Predicate linkedMembers = builder.in(activity.get("member")).value(m.links);
+            Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
             if (providers != null && !providers.isEmpty()) {
-                builder.in(activity.get("provider")).value(providers);
+                cq.where(linkedMembers, chosenProviders);
+            } else {
+                cq.where(linkedMembers);
             }
             cq.orderBy(builder.desc(activity.get("at")));
-            activities= em().createQuery(cq).setFirstResult(page * length).setMaxResults(length).getResultList();
+            activities = em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
         }
         return activities;
     }
@@ -127,12 +145,27 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return getClass().getSimpleName() + ".message";
     }
 
+    /**
+     * @param lang Language selected by user
+     * @return i18n (HTML) message to be displayed on GUI for this activity
+     */
     public abstract String getMessage(final String lang);
 
+    /**
+     * @return URL to be linked on this activity.
+     */
     public abstract String getUrl();
 
-    public ProviderType getProvider() {
-        return provider;
+    /**
+     * @return Set of {@link Badge} that could potentially be triggered by this activity
+     */
+    public abstract Set<Badge> getPotentialTriggeredBadges();
+    
+    /**
+     * @return Activities for which badge computation hasn't been done yet
+     */
+    public static List<Activity> uncomputed() {
+        return Activity.find("badgeComputationDone=false").fetch();
     }
 
     public int compareTo(Activity other) {

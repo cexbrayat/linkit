@@ -124,4 +124,27 @@ public class MemberTest extends UnitTest {
         bob = Member.findByLogin("bob");
         assertEquals(3, bob.accounts.size());
     }
+        
+    @Test public void addBadge() {
+        final String login = "ced";
+        final Badge addedBadge = Badge.Sponsor;
+        
+        Staff staffMember = Staff.findByLogin(login);
+        assertNotNull(staffMember);
+        
+        assertNotNull(staffMember.badges);
+        final int originalNbBadges = staffMember.badges.size();
+        
+        staffMember.addBadge(addedBadge);
+        staffMember.save();
+        
+        staffMember = Staff.findByLogin(login);
+        assertEquals(originalNbBadges+1, staffMember.badges.size());
+        
+        // Adding same badge twice : no consequences
+        staffMember.addBadge(addedBadge);
+        staffMember.save();
+        staffMember = Staff.findByLogin(login);
+        assertEquals(originalNbBadges+1, staffMember.badges.size());
+    }
 }

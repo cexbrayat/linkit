@@ -1,7 +1,6 @@
 package models.activity;
 
 import java.util.EnumSet;
-import java.util.Iterator;
 import java.util.List;
 import models.LinkItAccount;
 import models.Member;
@@ -65,5 +64,10 @@ public class ActivityTest extends AbstractActivityTest {
     public void recentsBySession() {
         final Session s = Session.all().first();
         assertNotNull(Activity.recentsBySession(s, 1, 10));
+    }
+
+    @Test
+    public void uncomputed() {
+        assertNotNull(Activity.uncomputed());
     }
 }

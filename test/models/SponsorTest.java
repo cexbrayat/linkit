@@ -7,10 +7,10 @@ import play.test.Fixtures;
 import play.test.UnitTest;
 
 /**
- * Unit tests for {@link Staff}
+ * Unit tests for {@link Sponsor}
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class StaffTest extends UnitTest {
+public class SponsorTest extends UnitTest {
 
     @Before
     public void setUp() {
@@ -22,21 +22,20 @@ public class StaffTest extends UnitTest {
     public void tearDown() {
         Fixtures.deleteAllModels();
     }
-    
+        
     @Test public void load() {
-        final String login = "ced";
+        final String sponsorLogin = "sponsor";
         
-        Staff staffMember = Staff.findByLogin(login);
-        assertNotNull(staffMember);
-        
-        assertNotNull(staffMember.badges);
-        assertTrue(staffMember.badges.contains(Badge.Staff));
+        Sponsor sponsor = Sponsor.findByLogin(sponsorLogin);
+        assertNotNull(sponsor);
+        assertNotNull(sponsor.badges);
+        assertTrue(sponsor.badges.contains(Badge.Sponsor));
     }
 
     @Test public void create() {
-        Staff s = new Staff("toto", new LinkItAccount("password"));
+        Sponsor s = new Sponsor("toto", new LinkItAccount("password"));
         assertNotNull(s.badges);
-        assertTrue(s.badges.contains(Badge.Staff));
+        assertTrue(s.badges.contains(Badge.Sponsor));
         s.save();
     }
 }

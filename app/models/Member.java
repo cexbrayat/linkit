@@ -74,7 +74,7 @@ public class Member extends Model {
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
     @ElementCollection
-    public Set<Badge> badges = new HashSet<Badge>();
+    public Set<Badge> badges = EnumSet.noneOf(Badge.class);
 
     public Member(String login, Account account) {
         this.login = login;
@@ -121,10 +121,13 @@ public class Member extends Model {
 
     public void addLink(Member linked) {
         if (linked != null) {
-            links.add(linked);
-            linked.linkers.add(this);
+            // Avoid activity duplication
+            if (!links.contains(linked)) {
+                links.add(linked);
+                linked.linkers.add(this);
 
-            new LinkActivity(this, linked).save();
+                new LinkActivity(this, linked).save();
+            }
         }
     }
 
@@ -195,9 +198,11 @@ public class Member extends Model {
     }
 
     public void addBadge(Badge badge) {
-        this.badges.add(badge);
-
-        new EarnBadgeActivity(this, badge).save();
+        // Avoid activity duplication
+        if (!this.badges.contains(badge)) {
+            this.badges.add(badge);
+            new EarnBadgeActivity(this, badge).save();
+        }
     }
 
     /**
