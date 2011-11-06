@@ -48,11 +48,3 @@ Session(sessionTest):
     description : Test description
     speakers:
            - rguy
-
-# Someone with no links and no linkers
-Member(alone):
-    email: alone@intheworld.com
-    firstname: Sam
-    lastname: Suffit
-    login: alone
-    description: Go away!
