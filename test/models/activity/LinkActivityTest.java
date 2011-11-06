@@ -16,8 +16,11 @@ public class LinkActivityTest extends AbstractActivityTest {
         
         final Member other = createMember("other");
         member.addLink(other);
+        // Ensure non activity duplication
+        member.addLink(other);
         
         // One activity for member
+        assertEquals(1l, Activity.count("from Activity a where a.member = ?", member));
         Activity a = Activity.find("select a from Activity a where a.member = ?", member).first();
         assertActivity(a);
         assertTrue(a instanceof LinkActivity);
