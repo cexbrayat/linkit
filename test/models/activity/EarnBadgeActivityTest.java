@@ -11,7 +11,6 @@ import org.junit.*;
 public class EarnBadgeActivityTest extends AbstractActivityTest {
 
     @Test
-    @Ignore // FIXME EarnBadgeActivity
     public void addBadge() {
         Member bob = Member.findByLogin("bob");
         

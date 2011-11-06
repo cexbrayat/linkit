@@ -11,6 +11,7 @@ public class Sponsor extends Member {
 
     public Sponsor(String login, Account account) {
         super(login, account);
-        addBadge(Badge.Sponsor);
+        // Can't call addBadge() on a transient instance (and don't want to trigger activity)
+        this.badges.add(Badge.Sponsor);
     }
 }

@@ -48,3 +48,14 @@ Session(sessionTest):
     description : Test description
     speakers:
            - rguy
+
+Sponsor(sponsor) :
+    firstname: ACME
+    lastname: Company
+    login: sponsor
+    email: info@acme.com
+    description : We rule the world!
+    displayName: ACME Company Ltd.
+    twitterName: acme
+    badges:
+         - Sponsor

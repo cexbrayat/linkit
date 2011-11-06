@@ -1,5 +1,7 @@
 package models.activity;
 
+import models.LinkItAccount;
+import models.Member;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -13,11 +15,19 @@ import play.test.UnitTest;
 public abstract class AbstractActivityTest extends UnitTest {
 
     public static final String DEFAULT_LANG = "fr";
+        
+    /** One alone member (no links, no linker) */
+    protected Member member;
+
+    protected Member createMember(final String login) {
+        return new Member(login, new LinkItAccount(login)).save();
+    }
 
     @Before
     public void setUp() {
         Fixtures.deleteAllModels();
         Fixtures.loadModels("data.yml");
+        member = createMember("toto");
     }
 
     @After
