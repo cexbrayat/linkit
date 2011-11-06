@@ -49,10 +49,13 @@ Session(sessionTest):
     speakers:
            - rguy
 
-# Someone with no links and no linkers
-Member(alone):
-    email: alone@intheworld.com
-    firstname: Sam
-    lastname: Suffit
-    login: alone
-    description: Go away!
+Sponsor(sponsor) :
+    firstname: ACME
+    lastname: Company
+    login: sponsor
+    email: info@acme.com
+    description : We rule the world!
+    displayName: ACME Company Ltd.
+    twitterName: acme
+    badges:
+         - Sponsor

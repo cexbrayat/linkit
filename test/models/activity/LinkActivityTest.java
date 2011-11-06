@@ -1,6 +1,5 @@
 package models.activity;
 
-
 import models.Member;
 import org.junit.*;
 
@@ -12,19 +11,21 @@ public class LinkActivityTest extends AbstractActivityTest {
 
     @Test
     public void addLink() {
-        Member bob = Member.findByLogin("bob");
+        // Non activity for member
+        assertNull(Activity.find("select a from Activity a where a.member = ?", member).first());
         
-        // Non activity for Bob
-        assertNull(Activity.find("select a from Activity a where a.member = ?", bob).first());
+        final Member other = createMember("other");
+        member.addLink(other);
+        // Ensure non activity duplication
+        member.addLink(other);
         
-        Member.addLink("bob", "ced");
-        
-        // One activity for Bob
-        Activity a = Activity.find("select a from Activity a where a.member = ?", bob).first();
+        // One activity for member
+        assertEquals(1l, Activity.count("from Activity a where a.member = ?", member));
+        Activity a = Activity.find("select a from Activity a where a.member = ?", member).first();
         assertActivity(a);
         assertTrue(a instanceof LinkActivity);
         LinkActivity la = (LinkActivity) a;
-        assertEquals(bob, la.member);
-        assertEquals(Member.findByLogin("ced"), la.linked);
+        assertEquals(member, la.member);
+        assertEquals(other, la.linked);
     }
 }
