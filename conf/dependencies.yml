@@ -8,3 +8,4 @@ require:
     - play -> secure
     - org.scribe -> scribe 1.2.3
     - play -> markdown 1.1
+    - play -> crud 1.2.3
