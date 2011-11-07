@@ -33,14 +33,8 @@ public class JobComputeBadges extends Job {
             // Potential badges triggered by this activity
             Set<Badge> potentialBadges = activity.getPotentialTriggeredBadges();
 
-            // Retrieving badge computers for thoses potential badges
-            Set<BadgeComputer> computers = new HashSet<BadgeComputer>();
-            for (Badge badge : potentialBadges) {
-                computers.add(BadgeComputerFactory.getFor(badge));
-            }
-
             // FIXME CLA compute badge for linked member!
-            computeForMember(activity.member, computers, context);
+            computeForMember(activity.member, potentialBadges, context);
 
             // Flagging current activity as computed (whatever if we earned badges or not)
             activity.badgeComputationDone = true;
@@ -49,10 +43,20 @@ public class JobComputeBadges extends Job {
         Logger.info("END badges computation");
     }
 
-    protected void computeForMember(Member member, Set<BadgeComputer> computers, BadgeComputationContext context) {
+    protected void computeForMember(Member member, Set<Badge> potentialBadges, BadgeComputationContext context) {
 
         // Member potentially null
         if (member != null) {
+
+            // Avoid to recompute an already earned badge
+            potentialBadges.removeAll(member.badges);
+            
+            // Retrieving badge computers for thoses potential badges
+            Set<BadgeComputer> computers = new HashSet<BadgeComputer>();
+            for (Badge badge : potentialBadges) {
+                computers.add(BadgeComputerFactory.getFor(badge));
+            }
+
             // Computing all granted badges
             Set<Badge> grantedBadges = EnumSet.noneOf(Badge.class);
             for (BadgeComputer computer : computers) {
