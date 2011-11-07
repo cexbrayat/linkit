@@ -1,13 +1,14 @@
 package models;
 
 /**
- * A badge rewarding some kind of awesome activity on LinkIT
+ * A badge rewarding some kind of awesome activity on LinkIT.
+ * Every badge MUST be displayable with an icon, either with an image file URL {@link Badge#iconUrl} OR with an Unicode character {@link Badge#iconChar}.
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public enum Badge {
 
     /** A speaker member */
-    Speaker,
+    Speaker('\u2655'),
     /** A staff member */
     Staff,
     /** A sponsor member */
@@ -46,6 +47,11 @@ public enum Badge {
     private String iconUrl;
     
     /**
+     * Single unicode char illustrating badge
+     */
+    private Character iconChar;
+    
+    /**
      * Use enum.name()+".png" as default filename
      */
     Badge() {
@@ -59,8 +65,16 @@ public enum Badge {
         this.iconUrl = BASE_URL + iconFileName;
     }
 
+    Badge(final char iconChar) {
+        this.iconChar = iconChar;
+    }
+    
     public String getIconUrl() {
         return iconUrl;
+    }
+
+    public Character getIconChar() {
+        return iconChar;
     }
     
 }
