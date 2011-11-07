@@ -108,7 +108,7 @@ public class Login extends Controller {
     public static String getCallbackUrl(ProviderType provider) {
         Router.ActionDefinition ad = Router.reverse("Login.loginWith").add("provider", provider);
         ad.absolute();
-        return ad.toString();
+        return ad.url;
     }
 
     protected static void manageNewAuthenticationFrom(OAuthAccount oAuthAccount) {
@@ -139,8 +139,8 @@ public class Login extends Controller {
             flash.remove(RETURN_URL);
             redirect(returnUrl);
         } else {
-            // Redirect to user profile
-            Profile.show(login);
+            // Redirect to dashboard
+            Dashboard.index();
         }
     }
     

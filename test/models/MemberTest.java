@@ -1,7 +1,5 @@
 package models;
 
-import java.util.List;
-import java.util.Map;
 
 import org.h2.util.StringUtils;
 import org.junit.*;
@@ -83,38 +81,23 @@ public class MemberTest extends UnitTest {
     }
 
     @Test
-    public void testInterests() {
+    public void testFindMembersInterestedIn() {
         Member bob = Member.findByLogin("bob");
         Member ced = Member.findByLogin("ced");
 
         // Well
-        assertEquals(0, Member.findMembersInterestedBy("Java").size());
+        assertEquals(0, Member.findMembersInterestedIn("Java").size());
 
         // Add interest now
         ced.addInterest("Java").addInterest("Hadoop").save();
         bob.addInterest("TDD").addInterest("Java").save();
 
-        // Simple Check
-        assertEquals(2, Member.findMembersInterestedBy("Java").size());
-        assertEquals(1, Member.findMembersInterestedBy("TDD").size());
-        assertEquals(1, Member.findMembersInterestedBy("Hadoop").size());
-
-        // Advanced Check
-        assertEquals(2, Member.findMembersInterestedBy("Java").size());
-        assertEquals(1, Member.findMembersInterestedBy("Java", "Hadoop").size());
-        assertEquals(1, Member.findMembersInterestedBy("Java", "TDD").size());
-        assertEquals(0, Member.findMembersInterestedBy("Hadoop", "TDD").size());
-        assertEquals(0, Member.findMembersInterestedBy("Java", "Hadoop", "TDD").size());
-
-        // Check Interests Cloud
-        // Be careful to the alphabetical order!
-        List<Map> cloud = Interest.getCloud();
-        assertEquals(
-                "[{interest=Hadoop, pound=1}, {interest=Java, pound=2}, {interest=TDD, pound=1}]",
-                cloud.toString());
-
+        // Simple Checks
+        assertEquals(2, Member.findMembersInterestedIn("Java").size());
+        assertEquals(1, Member.findMembersInterestedIn("TDD").size());
+        assertEquals(1, Member.findMembersInterestedIn("Hadoop").size());
     }
-    
+   
     @Test
     public void testAddAccount() {
         Member bob = Member.findByLogin("bob");
@@ -140,5 +123,28 @@ public class MemberTest extends UnitTest {
         bob.save();
         bob = Member.findByLogin("bob");
         assertEquals(3, bob.accounts.size());
+    }
+        
+    @Test public void addBadge() {
+        final String login = "ced";
+        final Badge addedBadge = Badge.Sponsor;
+        
+        Staff staffMember = Staff.findByLogin(login);
+        assertNotNull(staffMember);
+        
+        assertNotNull(staffMember.badges);
+        final int originalNbBadges = staffMember.badges.size();
+        
+        staffMember.addBadge(addedBadge);
+        staffMember.save();
+        
+        staffMember = Staff.findByLogin(login);
+        assertEquals(originalNbBadges+1, staffMember.badges.size());
+        
+        // Adding same badge twice : no consequences
+        staffMember.addBadge(addedBadge);
+        staffMember.save();
+        staffMember = Staff.findByLogin(login);
+        assertEquals(originalNbBadges+1, staffMember.badges.size());
     }
 }

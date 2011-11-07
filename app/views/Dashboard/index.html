@@ -1,0 +1,120 @@
+#{extends 'main.html' /}
+#{set title:member.displayName + ' - Dashboard Link-IT' /}
+#{set 'moreScripts'}
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+#{/set}
+<div class="container">
+    <div class="hero-unit">
+        <h1>Your dashboard</h1>
+        <div class="row">
+            <div class="span6">
+                <!-- profil -->
+                #{if member.email}
+                #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
+                #{/if}
+                #{if member instanceof models.Speaker}
+                <h5>Session${member.sessions.size().pluralize()} :</h5>
+                <p>
+                    #{list items:member.sessions, as:'talk'}
+                <h5><a href="@{Sessions.show(talk.id)}">${talk.title}</a></h5>
+                #{/list}
+                </p>
+                #{/if}
+                <p>
+                    <a href="@{Profile.show(session.username)}">Voir mon profil</a>
+                    <a href="@{Profile.edit(session.username)}">Editer mon profil</a>
+                </p>
+
+                #{if member.links}
+                <div class="row">
+                    <div class="span6">
+                        <h3>Vous êtes lié à :</h3>
+                        #{list items:member.links, as:'link'}       
+                        <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                        #{/list}
+                    </div>
+                </div>
+                #{/if}
+                #{if member.linkers}
+                <div class="row">
+                    <div class="span6">
+                        <h3>Ils vous ont lié :</h3>
+                        #{list items:member.linkers, as:'link'}
+                        <a href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                        #{/list}
+                    </div>
+                </div>
+                #{/if}
+                #{if suggests}
+                <div class="row">
+                    <div class="span6">
+                        <h3>Suggestions de liens :</h3>
+                        #{list items:suggests, as:'suggest'}
+                        <a href="@{Profile.show(suggest.login)}" rel='twipsy' title="${suggest}">#{gravatar.img suggest.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                        <a class="btn primary small" title="Link" href="@{link(suggest.login)}">+</a>
+                        <br/>
+                        #{/list}
+                    </div>
+                </div>
+                #{/if}
+            </div>
+
+            <div class="span8" > <!-- timeline -->
+                <h2>Activités de vos links</h2>
+                <div class="row">
+                    <div class="span8">
+                        <a class="service-button linkit" id="LinkIt" onClick="handleProvider('LinkIt')"></a>
+                        <a class="service-button twitter" id="Twitter" onClick="handleProvider('Twitter')"></a>
+                        <a class="service-button google" id="Google" onClick="handleProvider('Google')"></a>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="span8">
+                        <div id="activities" style="max-height: 400px">
+                        </div>
+                    </div>
+                    <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
+
+                    <script type="text/javascript">
+                        var providers = ['LinkIt', 'Twitter', 'Google'];
+                        var page = 1;
+                        var size = 5;
+                        var activitiesAction = #{jsAction @Profile.activitiesFor(':login', ':providers', ':page',':size') /};
+
+                        function loadMoreActivities() {
+                            if (providers.length > 0) {
+                                $.get(activitiesAction({login: '${member.login}', providers: providers.join("~"), page: page, size: size}), function(data) {
+                                    $('#activities').append(data);
+                                    if (data) {
+                                        $('#moreActivities').css('visibility','visible');
+                                        page++;
+                                    } else {
+                                        $('#moreActivities').css('visibility','hidden');
+                                    }
+                                });
+                            }
+                        }
+                    
+                        function handleProvider(provider){
+                            var contain = providers.indexOf(provider);
+                            if(contain != -1){
+                                providers = providers.filter(function(x){return x != provider})
+                                $('#'+provider).removeClass(provider.toLowerCase()).addClass(provider.toLowerCase()+'-off');
+                            }else{
+                                providers.push(provider);
+                                $('#'+provider).removeClass(provider.toLowerCase()+'-off').addClass(provider.toLowerCase());
+                            }
+                            $('#activities').empty();
+                            page = 1;
+                            size = 5;
+                            console.log(providers);
+                            loadMoreActivities();
+                        };
+
+                        // Initial loading : first page
+                        loadMoreActivities();
+                    </script>            
+                </div>
+            </div>
+        </div>
+    </div>

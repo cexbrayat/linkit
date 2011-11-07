@@ -1,14 +1,19 @@
 package controllers;
 
+import java.util.List;
+
+import java.util.Set;
 import models.Member;
+import models.ProviderType;
 import models.activity.Activity;
+
 import org.apache.commons.lang.StringUtils;
+
 import play.Logger;
+import play.data.binding.As;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.mvc.Controller;
-
-import java.util.List;
 
 public class Profile extends Controller {
 
@@ -87,9 +92,15 @@ public class Profile extends Controller {
         show(loginToLink);
     }
     
-    public static void activities(String login, Integer page, Integer size) {
+    public static void activitiesOf(String login, @As("~") Set<ProviderType> providers, Integer page, Integer size) {
         Member member = Member.findByLogin(login);
-        List<Activity> _activities = Activity.recentsByMember(member, page, size);
+        List<Activity> _activities = Activity.recentsByMember(member, providers, page, size);
+        render("tags/activities.html", _activities);
+    }
+    
+    public static void activitiesFor(String login, @As("~") Set<ProviderType> providers, Integer page, Integer size) {
+        Member member = Member.findByLogin(login);
+        List<Activity> _activities = Activity.recentsForMember(member, providers, page, size);
         render("tags/activities.html", _activities);
     }
 }

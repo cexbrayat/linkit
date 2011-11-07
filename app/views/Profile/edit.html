@@ -2,6 +2,7 @@
 #{set title:'Editer mon profil' /}
 </br>
 </br>
+
 <div class="container">
     <div class="page-header"> 
         <h1>Inscription</h1> 
@@ -101,15 +102,21 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
+
                         <ul class="inputs-list">
                             #{list items:models.Interest.findAll(), as:'interest'}
-                            <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
+                            <span class="checkbox">
+                                <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
+                            </span>
+
                             #{/list}
-                        </ul>
-                        <span class="help-inline">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
+                        </ul>                        
+                        <span class="help-inline newline">${field.error}</span>
+                        <span class="help-block newline">&{field.name+".note"}</span>
                     </div>
+
                 </div><!-- /clearfix -->
+
                 #{/}
 
                 #{field 'newInterests'}

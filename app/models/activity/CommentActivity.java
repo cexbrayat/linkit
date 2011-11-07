@@ -1,7 +1,10 @@
 package models.activity;
 
+import java.util.EnumSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import models.Badge;
 import models.Comment;
 import models.Member;
 import models.ProviderType;
@@ -40,6 +43,11 @@ public class CommentActivity extends Activity {
                 .reverse("Sessions.show")
                 .add("sessionId", session.id)
                 .addRef("comment"+comment.id)
-                .toString();
+                .url;
+    }
+
+    @Override
+    public Set<Badge> getPotentialTriggeredBadges() {
+        return EnumSet.of(Badge.Commentator1, Badge.Commentator5);
     }
 }

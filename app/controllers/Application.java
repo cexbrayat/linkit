@@ -45,10 +45,12 @@ public class Application extends Controller {
         render("Application/list.html", members);
     }
 
-    public static void membersByInterest(String interest) {
-        List<Member> members = Member.findMembersInterestedBy(interest);
+    public static void sessionsAndMembersByInterest(String interest) {
+        List<Member> members = Member.findMembersInterestedIn(interest);
         Logger.info(Member.count() + " membres interested by " + interest);
-        render("Application/list.html", members, interest);
+        List<Session> sessions = Session.findSessionsLinkedWith(interest);
+        Logger.info(Session.count() + " session linked with " + interest);
+        render("Interests/list.html", members, sessions, interest);
     }
     
     public static void activities(Integer page, Integer size) {

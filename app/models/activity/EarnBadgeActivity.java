@@ -1,5 +1,7 @@
 package models.activity;
 
+import java.util.EnumSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -36,6 +38,11 @@ public class EarnBadgeActivity extends Activity {
                 .reverse("Profile.show")
                 .add("login", member.login)
                 .addRef("badge"+badge)
-                .toString();
+                .url;
+    }
+
+    @Override
+    public Set<Badge> getPotentialTriggeredBadges() {
+        return EnumSet.noneOf(Badge.class);
     }
 }

@@ -1,6 +1,9 @@
 package models.activity;
 
+import java.util.EnumSet;
+import java.util.Set;
 import javax.persistence.Entity;
+import models.Badge;
 import models.ProviderType;
 import models.Session;
 import play.i18n.Messages;
@@ -28,6 +31,11 @@ public class UpdateSessionActivity extends Activity {
         return Router
                 .reverse("Sessions.show")
                 .add("sessionId", session.id)
-                .toString();
+                .url;
+    }
+
+    @Override
+    public Set<Badge> getPotentialTriggeredBadges() {
+        return EnumSet.noneOf(Badge.class);
     }
 }

@@ -23,7 +23,7 @@
     var word_list = [
         #{list items:tags, as:'tag'}
             %{
-            String url = play.mvc.Router.reverse("Application.membersByInterest").add("interest",tag.get('interest')).toString();
+            String url = play.mvc.Router.reverse("Application.sessionsAndMembersByInterest").add("interest",tag.get('interest')).url;
             url = java.net.URLDecoder.decode(url, "UTF-8");
         }%
             {text: "${tag.get('interest')}", url: "${url}", weight: ${tag.get('pound')} }      
@@ -51,7 +51,7 @@
                 <a class="btn primary large" href="@{Login.index()}">Se connecter</a>
                 #{/if}
                 #{else}  
-                <a class="btn primary large" href="@{Profile.show(session.get("username"))}">Mon profil</a>
+                <a class="btn primary large" href="@{Dashboard.index()}">Mon Dashboard</a>
                 #{/else}
             </div>
             <div class="span7"> 

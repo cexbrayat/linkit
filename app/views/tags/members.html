@@ -1,0 +1,39 @@
+*{ Display all members "members" }*
+<script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
+<script >
+    $(function() {
+        $("table#sortMember").tablesorter({ sortList: [[1,0]] });
+    });
+</script>
+<div class="container">
+    <table class="zebra-striped" id="sortMember"> 
+        <thead> 
+            <tr> 
+                <th>Prénom</th> 
+                <th>Nom</th> 
+                <th>Badges</th>
+                <th>Actions</th>
+            </tr> 
+        </thead> 
+        <tbody>        
+            #{list items:_members, as:'member'}
+            <tr onclick="document.location.href='@{Profile.show(member.login)}';">
+                <td>${member.firstname}</td> 
+                <td>${member.lastname}</td>
+                <td>
+                    #{list items:member.badges, as:'badge'}
+                        #{badge badge:badge /}
+                    #{/list}
+                </td>
+                <td>
+                    #{if member instanceof models.Speaker}
+                        #{secure.check models.Role.ADMIN_SESSION}
+                            <a class="btn" href="@{Sessions.create(member.login)}">Créer une session</a>
+                        #{/secure.check} 
+                   #{/if}
+                </td>
+            </tr>
+            #{/list}
+        </tbody> 
+    </table>
+</div><!-- /container --> 
