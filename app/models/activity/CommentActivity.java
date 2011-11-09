@@ -48,6 +48,6 @@ public class CommentActivity extends Activity {
 
     @Override
     public Set<Badge> getPotentialTriggeredBadges() {
-        return EnumSet.of(Badge.Commentator1, Badge.Commentator5);
+        return EnumSet.of(Badge.Brave, Badge.Troller);
     }
 }

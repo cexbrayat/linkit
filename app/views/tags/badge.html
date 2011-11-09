@@ -1,6 +1,10 @@
 *{ Display a badge "badge" }*
-*{ How to retrieve image URL given by ?!}*
+#{if _badge.getIconChar()}
+<span class="badge" title="&{'badge.'+_badge}">${_badge.getIconChar()}</span>
+#{/if}
+#{else}
 %{
     String url = play.mvc.Router.reverse(play.vfs.VirtualFile.fromRelativePath(_badge.getIconUrl()));
 %}
 <img src="${url}" class="badge" alt="&{'badge.'+_badge}" title="&{'badge.'+_badge}" />
+#{/else}

@@ -1,13 +1,14 @@
 package models;
 
 /**
- * A badge rewarding some kind of awesome activity on LinkIT
+ * A badge rewarding some kind of awesome activity on LinkIT.
+ * Every badge MUST be displayable with an icon, either with an image file URL {@link Badge#iconUrl} OR with an Unicode character {@link Badge#iconChar}.
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public enum Badge {
 
     /** A speaker member */
-    Speaker,
+    Speaker('\u2655'),
     /** A staff member */
     Staff,
     /** A sponsor member */
@@ -15,21 +16,33 @@ public enum Badge {
     /** A registered attendee */
     Attendee,
     /** A friend of all staff members */
-    StaffFriend,
+    StaffBestFriend,
     /** A friend of all speaker members */
-    SpeakerFriend,
+    SpeakerFan,
+    /** A friend of all sponsor members */
+    SponsorFriendly,
     /** Having made one comment */
-    Commentator1,
-    /** Having made 5 comments */
-    Commentator5,
+    Brave,
+    /** Having made 10 comments */
+    Troller,
     /** Having linked 1 member */
-    Linkator1,
-    /** Having linked 5 members */
-    Linkator5,
+    NewBorn,
+    /** Having linked 10 members */
+    Friendly,
+    /** Having linked 50 members */
+    SocialBeast,
+    /** Having linked 100 members */
+    MadLinker,
     /** Being linked by 1 member */
-    Linkedator1,
-    /** Being linked by 5 members */
-    Linkedator5;
+    YouReNotAlone,
+    /** Being linked by 10 members */
+    LocalCelebrity,
+    /** Being linked by 50 members */
+    RockStar,
+    /** Being linked by 100 members */
+    Leader,
+    /** Being linked by 200 members */
+    Idol;
 
     /**
      * Base folder storing badges image files.
@@ -46,6 +59,11 @@ public enum Badge {
     private String iconUrl;
     
     /**
+     * Single unicode char illustrating badge
+     */
+    private Character iconChar;
+    
+    /**
      * Use enum.name()+".png" as default filename
      */
     Badge() {
@@ -59,8 +77,16 @@ public enum Badge {
         this.iconUrl = BASE_URL + iconFileName;
     }
 
+    Badge(final char iconChar) {
+        this.iconChar = iconChar;
+    }
+    
     public String getIconUrl() {
         return iconUrl;
+    }
+
+    public Character getIconChar() {
+        return iconChar;
     }
     
 }
