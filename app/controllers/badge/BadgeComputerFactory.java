@@ -18,8 +18,8 @@ public class BadgeComputerFactory {
         computers.put(Badge.StaffBestFriend, friend);
         computers.put(Badge.SpeakerFan, friend);
         computers.put(Badge.SponsorFriendly, friend);
-        computers.put(Badge.Commentator1, commentator);
-        computers.put(Badge.Commentator5, commentator);
+        computers.put(Badge.Brave, commentator);
+        computers.put(Badge.Troller, commentator);
         computers.put(Badge.NewBorn, social);
         computers.put(Badge.Friendly, social);
         computers.put(Badge.SocialBeast, social);

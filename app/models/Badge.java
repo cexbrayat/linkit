@@ -22,9 +22,9 @@ public enum Badge {
     /** A friend of all sponsor members */
     SponsorFriendly,
     /** Having made one comment */
-    Commentator1,
-    /** Having made 5 comments */
-    Commentator5,
+    Brave,
+    /** Having made 10 comments */
+    Troller,
     /** Having linked 1 member */
     NewBorn,
     /** Having linked 10 members */
