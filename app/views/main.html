@@ -33,7 +33,10 @@
                         <li #{if request.controller=="Sessions"}class="active"#{/if}><a href="@{Sessions.index()}">Sessions</a></li>
                         <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">Staff</a></li>
                         <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">Sponsors</a></li>
-                        <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">Participants</a></li>                        
+                        <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">Participants</a></li>
+                        #{secure.check 'admin'}
+                        <li ><a href="/admin">Admin</a></li>
+                        #{/secure.check}
                     </ul>
                     <ul class="nav secondary-nav">
                         #{if session.username} 
