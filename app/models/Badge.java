@@ -16,21 +16,33 @@ public enum Badge {
     /** A registered attendee */
     Attendee,
     /** A friend of all staff members */
-    StaffFriend,
+    StaffBestFriend,
     /** A friend of all speaker members */
-    SpeakerFriend,
+    SpeakerFan,
+    /** A friend of all sponsor members */
+    SponsorFriendly,
     /** Having made one comment */
     Commentator1,
     /** Having made 5 comments */
     Commentator5,
     /** Having linked 1 member */
-    Linkator1,
-    /** Having linked 5 members */
-    Linkator5,
+    NewBorn,
+    /** Having linked 10 members */
+    Friendly,
+    /** Having linked 50 members */
+    SocialBeast,
+    /** Having linked 100 members */
+    MadLinker,
     /** Being linked by 1 member */
-    Linkedator1,
-    /** Being linked by 5 members */
-    Linkedator5;
+    YouReNotAlone,
+    /** Being linked by 10 members */
+    LocalCelebrity,
+    /** Being linked by 50 members */
+    RockStar,
+    /** Being linked by 100 members */
+    Leader,
+    /** Being linked by 200 members */
+    Idol;
 
     /**
      * Base folder storing badges image files.

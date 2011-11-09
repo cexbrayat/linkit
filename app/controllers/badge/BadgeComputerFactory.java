@@ -12,16 +12,23 @@ public class BadgeComputerFactory {
 
     private static final Map<Badge, BadgeComputer> computers = new EnumMap<Badge, BadgeComputer>(Badge.class);
     static {
+        BadgeComputer friend = new FriendBadgeComputer();
         BadgeComputer commentator = new CommentatorBadgeComputer();
-        BadgeComputer linkator = new LinkBadgeComputer();
-        computers.put(Badge.StaffFriend, new StaffFriendBadgeComputer());
-        computers.put(Badge.SpeakerFriend, new SpeakerFriendBadgeComputer());
+        BadgeComputer social = new SocialBadgeComputer();
+        computers.put(Badge.StaffBestFriend, friend);
+        computers.put(Badge.SpeakerFan, friend);
+        computers.put(Badge.SponsorFriendly, friend);
         computers.put(Badge.Commentator1, commentator);
         computers.put(Badge.Commentator5, commentator);
-        computers.put(Badge.Linkator1, linkator);
-        computers.put(Badge.Linkator5, linkator);
-        computers.put(Badge.Linkedator1, linkator);
-        computers.put(Badge.Linkedator5, linkator);
+        computers.put(Badge.NewBorn, social);
+        computers.put(Badge.Friendly, social);
+        computers.put(Badge.SocialBeast, social);
+        computers.put(Badge.MadLinker, social);
+        computers.put(Badge.YouReNotAlone, social);
+        computers.put(Badge.LocalCelebrity, social);
+        computers.put(Badge.RockStar, social);
+        computers.put(Badge.Leader, social);
+        computers.put(Badge.Idol, social);
     }
     
     /**
