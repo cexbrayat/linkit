@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers.badge;
 
 import java.util.Set;
@@ -50,5 +46,4 @@ public abstract class AbstractBadgeComputerTest extends UnitTest {
         final Set<Badge> actualBadges = computer.compute(member, new BadgeComputationContext());
         assertTrue(actualBadges.isEmpty());
     }
-    
 }

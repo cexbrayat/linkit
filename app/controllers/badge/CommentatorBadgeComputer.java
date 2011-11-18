@@ -7,7 +7,7 @@ import models.Comment;
 import models.Member;
 
 /**
- * Computer of {@link Badge#Commentator1} or {@link Badge#Commentator5} badges.
+ * Computer of {@link Badge#Brave} or {@link Badge#Troller} badges.
  * @author Sryl <cyril.lacote@gmail.com>
  */
 class CommentatorBadgeComputer implements BadgeComputer {
@@ -15,12 +15,12 @@ class CommentatorBadgeComputer implements BadgeComputer {
     public Set<Badge> compute(final Member member, BadgeComputationContext context) {
         Set<Badge> badges = EnumSet.noneOf(Badge.class);
         // Computing number of comments by Member
-        long nbComments = Comment.count("author=?", member);
+        long nbComments = Comment.countByMember(member);
         if (nbComments >= 1) {
-            badges.add(Badge.Commentator1);
+            badges.add(Badge.Brave);
         }
-        if (nbComments >= 5) {
-            badges.add(Badge.Commentator5);
+        if (nbComments >= 10) {
+            badges.add(Badge.Troller);
         }
         return badges;
     }

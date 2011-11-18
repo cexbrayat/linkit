@@ -45,6 +45,6 @@ public class LinkActivity extends Activity {
 
     @Override
     public Set<Badge> getPotentialTriggeredBadges() {
-        return EnumSet.of(Badge.StaffFriend, Badge.SpeakerFriend, Badge.Linkator1, Badge.Linkator5, Badge.Linkedator1, Badge.Linkedator5);
+        return EnumSet.of(Badge.StaffBestFriend, Badge.SpeakerFan, Badge.SponsorFriendly, Badge.NewBorn, Badge.Friendly, Badge.SocialBeast, Badge.MadLinker, Badge.YouReNotAlone, Badge.LocalCelebrity, Badge.RockStar, Badge.Leader, Badge.Idol);
     }
 }

@@ -20,14 +20,19 @@ import play.db.jpa.Model;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(
         appliesTo="Comment",
-        indexes={@Index(name="Comment_IDX", columnNames={Comment.SESSION_FK, "postedAt"})}
+        indexes={
+            @Index(name="Comment_IDX", columnNames={Comment.SESSION_FK, "postedAt"}),
+            @Index(name="Comment_Author_IDX", columnNames={Comment.AUTHOR_FK, "postedAt"})
+        }
 )
 public class Comment extends Model {
 
     static final String SESSION_FK = "session_id";
+    static final String AUTHOR_FK = "author_id";
     
     @Required
     @ManyToOne
+    @JoinColumn(name=AUTHOR_FK)
     public Member author;
     
     @Required
@@ -60,6 +65,10 @@ public class Comment extends Model {
         this.inReplyTo = inReplyTo;
     }
 
+    public static long countByMember(Member m) {
+        return count("author=?", m);
+    }
+    
     @Override
     public String toString() {
         return author + " le " + postedAt;
