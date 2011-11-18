@@ -22,7 +22,7 @@ public class JobComputeBadges extends Job {
 
     @Override
     public void doJob() {
-        Logger.info("BEGIN badges computation");
+        Logger.debug("BEGIN badges computation");
 
         BadgeComputationContext context = new BadgeComputationContext();
 
@@ -31,6 +31,6 @@ public class JobComputeBadges extends Job {
         for (Activity activity : uncomputedActivities) {
             activity.computeBadges(context);
         }
-        Logger.info("END badges computation");
+        Logger.debug("END badges computation");
     }
 }

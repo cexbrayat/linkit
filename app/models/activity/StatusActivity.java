@@ -6,9 +6,11 @@ import helpers.oauth.OAuthProviderFactory;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import models.Account;
+import models.Badge;
 import models.Member;
 import models.OAuthAccount;
 import models.ProviderType;
@@ -31,6 +33,9 @@ public class StatusActivity extends Activity {
     @IndexColumn(name="statusId_IDX", nullable=false)
     public String statusId;
 
+    /** Pattern for detecting content dealing with Mix-IT */
+    private static final Pattern MIXIT_PATTERN = Pattern.compile(".*\\bmix-?it\\b.*", Pattern.CASE_INSENSITIVE);
+    
     public StatusActivity(Member author, Date at, ProviderType provider, String content, String url, String statusId) {
         super(provider, at);
         this.member = author;
@@ -38,8 +43,6 @@ public class StatusActivity extends Activity {
         this.content = StringUtils.substring(content, 0, 4000);
         this.url = url;
         this.statusId = statusId;
-        // Useless badge computation
-        this.badgeComputationDone = true;
     }
 
     static public void fetchFor(Member member) {
@@ -85,8 +88,25 @@ public class StatusActivity extends Activity {
         return url;
     }
 
+    /**
+     * @return True if content deals with Mix-IT
+     */
+    public boolean isAboutMixIT() {
+        return MIXIT_PATTERN.matcher(content).matches();
+    }
+    
     @Override
     protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
-        // No badge computation;
+        if (isAboutMixIT()) {
+            switch (this.provider) {
+                case Twitter :
+                    member.addBadge(Badge.Twittos);
+                    break;
+                case Google :
+                    member.addBadge(Badge.Plusoner);
+                    break;
+            }
+            member.save();
+        }
     }
 }

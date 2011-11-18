@@ -2,7 +2,6 @@ package models.activity;
 
 import helpers.badge.BadgeComputationContext;
 import java.util.EnumSet;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import models.Badge;

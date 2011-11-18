@@ -42,7 +42,11 @@ public enum Badge {
     /** Being linked by 100 members */
     Leader,
     /** Being linked by 200 members */
-    Idol;
+    Idol,
+    /** Having tweeted about Mix-IT */
+    Twittos('t'),
+    /** Being posted on Google+ about Mix-IT */
+    Plusoner('+');
 
     /**
      * Base folder storing badges image files.

@@ -72,6 +72,8 @@ badge.LocalCelebrity=Local Celebrity (vous avez été linké par au moins dix me
 badge.RockStar=Rock Star (vous avez été linké par au moins cinquante membres)
 badge.Leader=Leader (vous avez été linké par au moins cent membres)
 badge.Idol=Idol (vous avez été linké par au moins deux cent membres)
+badge.Twittos=Twittos (vous avez été twitté à propos de Mix-IT)
+badge.Plusoner=Plusoner (vous avez posté sur Google+ à propos de Mix-IT)
 
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
