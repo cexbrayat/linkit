@@ -1,7 +1,9 @@
 package models;
 
-
 import controllers.JobFetchUserTimeline;
+import controllers.badge.BadgeComputationContext;
+import controllers.badge.BadgeComputer;
+import controllers.badge.BadgeComputerFactory;
 import java.util.*;
 import javax.persistence.*;
 
@@ -14,8 +16,8 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import org.hibernate.annotations.IndexColumn;
+import play.Logger;
 import play.data.validation.Required;
 import play.db.jpa.*;
 
@@ -222,6 +224,32 @@ public class Member extends Model {
         new UpdateProfileActivity(this).save();
         new JobFetchUserTimeline(this).now();
         return this;
+    }
+
+    public void computeBadges(Set<Badge> potentialBadges, BadgeComputationContext context) {
+
+        // Avoid to recompute an already earned badge
+        potentialBadges.removeAll(badges);
+
+        if (!potentialBadges.isEmpty()) {
+            // Retrieving badge computers for thoses potential badges
+            Set<BadgeComputer> computers = BadgeComputerFactory.getFor(potentialBadges);
+
+            // Computing all granted badges
+            Set<Badge> grantedBadges = EnumSet.noneOf(Badge.class);
+            for (BadgeComputer computer : computers) {
+                grantedBadges.addAll(computer.compute(this, context));
+            }
+
+            // Granting earned badges to member
+            if (!grantedBadges.isEmpty()) {
+                for (Badge badge : grantedBadges) {
+                    Logger.debug("Le membre %s se voit attribuer le badge %s", this, badge);
+                    addBadge(badge);
+                }
+                save();
+            }
+        }
     }
 
     @Override

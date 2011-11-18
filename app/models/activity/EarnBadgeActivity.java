@@ -1,5 +1,6 @@
 package models.activity;
 
+import controllers.badge.BadgeComputationContext;
 import java.util.EnumSet;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -25,6 +26,8 @@ public class EarnBadgeActivity extends Activity {
         super(ProviderType.LinkIt);
         this.member = member;
         this.badge = badge;
+        // Useless badge computation
+        this.badgeComputationDone = true;
     }
 
     @Override
@@ -42,7 +45,7 @@ public class EarnBadgeActivity extends Activity {
     }
 
     @Override
-    public Set<Badge> getPotentialTriggeredBadges() {
-        return EnumSet.noneOf(Badge.class);
+    protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
+        // No badge computation;
     }
 }

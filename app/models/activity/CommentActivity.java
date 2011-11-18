@@ -1,7 +1,7 @@
 package models.activity;
 
+import controllers.badge.BadgeComputationContext;
 import java.util.EnumSet;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import models.Badge;
@@ -47,7 +47,7 @@ public class CommentActivity extends Activity {
     }
 
     @Override
-    public Set<Badge> getPotentialTriggeredBadges() {
-        return EnumSet.of(Badge.Brave, Badge.Troller);
+    protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
+        member.computeBadges(EnumSet.of(Badge.Brave, Badge.Troller), context);
     }
 }

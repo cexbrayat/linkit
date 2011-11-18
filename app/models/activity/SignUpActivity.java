@@ -1,9 +1,7 @@
 package models.activity;
 
-import java.util.EnumSet;
-import java.util.Set;
+import controllers.badge.BadgeComputationContext;
 import javax.persistence.Entity;
-import models.Badge;
 import models.Member;
 import models.ProviderType;
 import play.i18n.Messages;
@@ -19,6 +17,8 @@ public class SignUpActivity extends Activity {
     public SignUpActivity(Member member) {
         super(ProviderType.LinkIt);
         this.member = member;
+        // Useless badge computation
+        this.badgeComputationDone = true;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class SignUpActivity extends Activity {
     }
 
     @Override
-    public Set<Badge> getPotentialTriggeredBadges() {
-        return EnumSet.noneOf(Badge.class);
+    protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
+        // No badge computation;
     }
 }

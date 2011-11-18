@@ -1,5 +1,6 @@
 package models.activity;
 
+import controllers.badge.BadgeComputationContext;
 import java.util.EnumSet;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -44,7 +45,10 @@ public class LinkActivity extends Activity {
     }
 
     @Override
-    public Set<Badge> getPotentialTriggeredBadges() {
-        return EnumSet.of(Badge.StaffBestFriend, Badge.SpeakerFan, Badge.SponsorFriendly, Badge.NewBorn, Badge.Friendly, Badge.SocialBeast, Badge.MadLinker, Badge.YouReNotAlone, Badge.LocalCelebrity, Badge.RockStar, Badge.Leader, Badge.Idol);
+    protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
+        // Linker
+        member.computeBadges(EnumSet.of(Badge.StaffBestFriend, Badge.SpeakerFan, Badge.SponsorFriendly, Badge.NewBorn, Badge.Friendly, Badge.SocialBeast, Badge.MadLinker), context);
+        // Linked
+        linked.computeBadges(EnumSet.of(Badge.YouReNotAlone, Badge.LocalCelebrity, Badge.RockStar, Badge.Leader, Badge.Idol), context);
     }
 }
