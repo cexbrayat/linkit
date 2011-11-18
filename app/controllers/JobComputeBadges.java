@@ -1,8 +1,8 @@
 package controllers;
 
-import controllers.badge.BadgeComputationContext;
-import controllers.badge.BadgeComputer;
-import controllers.badge.BadgeComputerFactory;
+import helpers.badge.BadgeComputationContext;
+import helpers.badge.BadgeComputer;
+import helpers.badge.BadgeComputerFactory;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;

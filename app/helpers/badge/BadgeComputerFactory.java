@@ -1,4 +1,4 @@
-package controllers.badge;
+package helpers.badge;
 
 import java.util.Collection;
 import java.util.EnumMap;

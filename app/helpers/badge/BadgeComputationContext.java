@@ -1,4 +1,4 @@
-package controllers.badge;
+package helpers.badge;
 
 import models.Speaker;
 import models.Staff;

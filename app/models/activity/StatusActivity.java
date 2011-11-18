@@ -1,8 +1,8 @@
 package models.activity;
 
-import controllers.badge.BadgeComputationContext;
-import controllers.oauth.OAuthProvider;
-import controllers.oauth.OAuthProviderFactory;
+import helpers.badge.BadgeComputationContext;
+import helpers.oauth.OAuthProvider;
+import helpers.oauth.OAuthProviderFactory;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;

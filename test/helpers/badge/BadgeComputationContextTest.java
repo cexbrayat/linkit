@@ -1,4 +1,4 @@
-package controllers.badge;
+package helpers.badge;
 
 import models.Speaker;
 import models.Staff;
@@ -9,7 +9,7 @@ import play.test.Fixtures;
 import play.test.UnitTest;
 
 /**
- * Unit tests for {@link controllers.badge.BadgeComputationContext}
+ * Unit tests for {@link helpers.badge.BadgeComputationContext}
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class BadgeComputationContextTest extends UnitTest {

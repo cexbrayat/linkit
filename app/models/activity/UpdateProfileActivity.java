@@ -1,6 +1,6 @@
 package models.activity;
 
-import controllers.badge.BadgeComputationContext;
+import helpers.badge.BadgeComputationContext;
 import javax.persistence.Entity;
 import models.Member;
 import models.ProviderType;

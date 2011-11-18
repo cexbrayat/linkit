@@ -1,4 +1,4 @@
-package controllers.oauth;
+package helpers.oauth;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

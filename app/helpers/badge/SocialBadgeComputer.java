@@ -1,4 +1,4 @@
-package controllers.badge;
+package helpers.badge;
 
 import java.util.EnumSet;
 import java.util.Set;
