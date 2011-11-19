@@ -12,6 +12,9 @@
                 #{if member.email}
                 #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
                 #{/if}
+ 
+                <p>Votre profil a été consulté ${member.getNbLooks()} fois.</p>
+
                 #{if member instanceof models.Speaker}
                 <h5>Session${member.sessions.size().pluralize()} :</h5>
                 <p>
@@ -22,7 +25,7 @@
                 #{/if}
                 <p>
                     <a href="@{Profile.show(session.username)}">Voir mon profil</a>
-                    <a href="@{Profile.edit(session.username)}">Editer mon profil</a>
+                    <a href="@{Profile.edit()}">Editer mon profil</a>
                 </p>
 
                 #{if member.links}

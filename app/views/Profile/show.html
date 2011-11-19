@@ -12,6 +12,9 @@
                 #{if member.email}
                 #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
                 #{/if}
+
+                ${member.getNbLooks()} consultation${member.getNbLooks().pluralize()}
+
                 #{if member instanceof models.Speaker}
                 <h5>Session${member.sessions.size().pluralize()} :</h5>
                 <p>
@@ -145,8 +148,8 @@
     #{if session.get("username")?.equals(member.login)}
     <div class="row">
         <div class="span16 actions">
-            <a class="btn primary" href="@{Profile.edit(member.login)}">Editer mon profil</a>
-            <a class="btn danger" href="@{Profile.delete(member.login)}">Supprimer mon compte (sans confirmation pour le moment!)</a>
+            <a class="btn primary" href="@{Profile.edit()}">Editer mon profil</a>
+            <a class="btn danger" href="@{Profile.delete()}">Supprimer mon compte (sans confirmation pour le moment!)</a>
         </div>
     </div>
     #{/if}

@@ -6,31 +6,33 @@ import javax.persistence.Entity;
 import models.Badge;
 import models.Member;
 import models.ProviderType;
+import models.Session;
 import play.i18n.Messages;
 import play.mvc.Router;
 
 /**
- * An update profile activity : someone ({@link Activity#member} updated his profile
+ * A "looked at session" activity : someone ({@link Activity#member}) looked at a session ({@link Activity#session}).
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public class UpdateProfileActivity extends Activity {
+public class LookSessionActivity extends Activity {
 
-    public UpdateProfileActivity(Member member) {
+    public LookSessionActivity(Member member, Session session) {
         super(ProviderType.LinkIt);
         this.member = member;
+        this.session = session;
     }
 
     @Override
     public String getMessage(String lang) {
-        return Messages.get(getMessageKey(), member);
+        return Messages.get(getMessageKey(), member, session);
     }
 
     @Override
     public String getUrl() {
         return Router
-                .reverse("Profile.show")
-                .add("login", member.login)
+                .reverse("Sessions.show")
+                .add("sessionId", session.id)
                 .url;
     }
 

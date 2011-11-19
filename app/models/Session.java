@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import models.activity.CommentActivity;
+import models.activity.LookSessionActivity;
 import models.activity.UpdateSessionActivity;
 import org.apache.commons.lang.StringUtils;
 import play.data.validation.MaxSize;
@@ -27,7 +28,7 @@ import play.db.jpa.Model;
  * @author Agnes <agnes.crepet@gmail.com>
  */
 @Entity
-public class Session extends Model {
+public class Session extends Model implements Lookable {
 
     @Required
     @MaxSize(50)
@@ -53,6 +54,9 @@ public class Session extends Model {
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     @OrderBy("postedAt ASC")
     List<Comment> comments;
+    
+    /** Number of consultation */
+    public long nbConsults;
 
     public final void addSpeaker(Speaker speaker) {
         if (speaker != null) {
@@ -117,5 +121,19 @@ public class Session extends Model {
     @Override
     public String toString() {
         return title;
+    }
+
+    public long getNbLooks() {
+        return nbConsults;
+    }
+
+    public void lookedBy(Member member) {
+        if (member == null || !speakers.contains(member)) {
+            nbConsults++;
+            save();
+            if (member != null) {
+                new LookSessionActivity(member, this).save();                
+            }
+        }
     }
 }

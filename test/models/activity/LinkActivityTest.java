@@ -26,6 +26,6 @@ public class LinkActivityTest extends AbstractActivityTest {
         assertTrue(a instanceof LinkActivity);
         LinkActivity la = (LinkActivity) a;
         assertEquals(member, la.member);
-        assertEquals(other, la.linked);
+        assertEquals(other, la.other);
     }
 }

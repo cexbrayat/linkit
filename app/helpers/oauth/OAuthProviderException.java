@@ -1,4 +1,4 @@
-package controllers.oauth;
+package helpers.oauth;
 
 import models.ProviderType;
 

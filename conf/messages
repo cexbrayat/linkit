@@ -47,6 +47,8 @@ SignUpActivity.message=%1$s s'est inscrit
 UpdateProfileActivity.message=%1$s a mis à jour son profil
 UpdateSessionActivity.message=La session %1$s a été mise à jour
 EarnBadgeActivity.message=%1$s a reçu le badge &{badge.%2$s}
+LookSessionActivity.message=%1$s a consulté la session %2$s
+LookProfileActivity.message=%1$s a consulté le profil de %2$s
 
 # Providers
 provider.LinkIt=Link-IT
@@ -58,9 +60,9 @@ badge.Speaker=Speaker (intervenant sur une session)
 badge.Staff=Staff (membre organisateur de Mix-IT)
 badge.Sponsor=Sponsor (gentil bienfaiteur de Mix-IT)
 badge.Attendee=Participant (Membre inscrit pour la conférence)
-badge.StaffBestFriend=Staff best friend (vous êtes ami avec tous les membres du staff)
-badge.SpeakerFan=Speaker fan (vous êtes ami avec tous les speakers)
-badge.SponsorFriendly=Sponsor friendly (vous êtes ami avec tous les sponsors)
+badge.StaffBestFriend=Staff best friend (vous avez linké tous les membres du staff)
+badge.SpeakerFan=Speaker fan (vous avez linké tous les speakers)
+badge.SponsorFriendly=Sponsor friendly (vous avez linké tous les sponsors)
 badge.Brave=Brave (vous avez posté au moins un commentaire)
 badge.Troller=Troller (vous avez posté au moins dix commentaires)
 badge.NewBorn=New born (vous avez linké au moins un membre)
@@ -72,6 +74,11 @@ badge.LocalCelebrity=Local Celebrity (vous avez été linké par au moins dix me
 badge.RockStar=Rock Star (vous avez été linké par au moins cinquante membres)
 badge.Leader=Leader (vous avez été linké par au moins cent membres)
 badge.Idol=Idol (vous avez été linké par au moins deux cent membres)
+badge.Twittos=Twittos (vous avez été twitté à propos de Mix-IT)
+badge.Plusoner=Plusoner (vous avez posté sur Google+ à propos de Mix-IT)
+badge.TwoDaysInARow=2 days in a row (vous avez utilisé le site deux jours de suite)
+badge.FiveDaysInARow=5 days in a row (vous avez utilisé le site cinq jours de suite)
+badge.MixITAddict=Mix-IT addict (vous avez utilisé le site dix jours de suite)
 
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.

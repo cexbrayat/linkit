@@ -5,6 +5,7 @@
     <div class="hero-unit">
         <h1>${talk.title}</h1>
         <p>${talk.summary}</p>
+        ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
         #{if talk.comments}
         <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
         #{/if}

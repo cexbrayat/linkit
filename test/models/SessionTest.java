@@ -48,4 +48,20 @@ public class SessionTest extends UnitTest {
         assertEquals(1, Session.findSessionsLinkedWith("Hadoop").size());
 
     }
+    
+    @Test public void lookBy() {
+        final Session session = Session.all().first();
+        final Speaker speaker = session.speakers.iterator().next();
+        final Member ced = Member.findByLogin("ced");
+        final long nbLooks = session.getNbLooks();
+        
+        // If a speaker looks at his session, it is not counted
+        session.lookedBy(speaker);
+        assertEquals(nbLooks, session.getNbLooks());
+
+        session.lookedBy(ced);
+        assertEquals(nbLooks+1, session.getNbLooks());
+        session.lookedBy(null);
+        assertEquals(nbLooks+2, session.getNbLooks());
+    }
 }

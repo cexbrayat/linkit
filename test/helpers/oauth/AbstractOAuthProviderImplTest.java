@@ -1,5 +1,8 @@
-package controllers.oauth;
+package helpers.oauth;
 
+import helpers.oauth.OAuthProviderFactory;
+import helpers.oauth.AbstractOAuthProviderImpl;
+import helpers.oauth.OAuthProvider;
 import models.ProviderType;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
