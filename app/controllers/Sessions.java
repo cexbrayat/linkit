@@ -37,19 +37,23 @@ public class Sessions extends Controller {
     }
 
     public static void show(final Long sessionId) {
-        show(sessionId, true);
+        internalShow(sessionId, true);
     }
 
-    private static void show(final Long sessionId, boolean countLook) {
+    public static void show(final Long sessionId, boolean count) {
+        internalShow(sessionId, count);
+    }
+
+    private static void internalShow(final Long sessionId, boolean count) {
         Session talk = Session.findById(sessionId);
         // Don't count look when coming from internal redirect
-        if (countLook) {
+        if (count) {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
         List<Activity> activities = Activity.recentsBySession(talk, 1, 10);
         render(talk, activities);
     }
-
+    
     public static void postComment(
             Long talkId,
             @Required String login,
