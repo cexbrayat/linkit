@@ -47,6 +47,8 @@ SignUpActivity.message=%1$s s'est inscrit
 UpdateProfileActivity.message=%1$s a mis à jour son profil
 UpdateSessionActivity.message=La session %1$s a été mise à jour
 EarnBadgeActivity.message=%1$s a reçu le badge &{badge.%2$s}
+LookSessionActivity.message=%1$s a consulté la session %2$s
+LookProfileActivity.message=%1$s a consulté le profil de %2$s
 
 # Providers
 provider.LinkIt=Link-IT

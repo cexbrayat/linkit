@@ -32,6 +32,10 @@ public class MemberTest extends UnitTest {
         assertNull(Member.findByLogin("toto"));
     }
 
+    @Test public void findByLoginNull() {
+        assertNull(Member.findByLogin(null));
+    }
+
     @Test public void fetchForProfileOK() {
         Member ced = Member.fetchForProfile("ced");
         assertNotNull(ced);
@@ -146,5 +150,17 @@ public class MemberTest extends UnitTest {
         staffMember.save();
         staffMember = Staff.findByLogin(login);
         assertEquals(originalNbBadges+1, staffMember.badges.size());
+    }
+    
+    @Test public void lookBy() {
+        final Member bob = Member.findByLogin("bob");
+        final Member ced = Member.findByLogin("ced");
+        final long nbLooks = bob.getNbLooks();
+        bob.lookedBy(bob);
+        assertEquals(nbLooks, bob.getNbLooks());
+        bob.lookedBy(ced);
+        assertEquals(nbLooks+1, bob.getNbLooks());
+        bob.lookedBy(null);
+        assertEquals(nbLooks+2, bob.getNbLooks());
     }
 }

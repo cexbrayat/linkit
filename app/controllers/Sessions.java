@@ -38,7 +38,8 @@ public class Sessions extends Controller {
 
     public static void show(final Long sessionId) {
         Session talk = Session.findById(sessionId);
-        List<Activity> activities = Activity.recentsBySession(talk, 1, 20);
+        talk.lookedBy(Member.findByLogin(Security.connected()));
+        List<Activity> activities = Activity.recentsBySession(talk, 1, 10);
         render(talk, activities);
     }
 
