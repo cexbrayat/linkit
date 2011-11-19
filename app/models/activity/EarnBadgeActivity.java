@@ -1,8 +1,6 @@
 package models.activity;
 
 import helpers.badge.BadgeComputationContext;
-import java.util.EnumSet;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

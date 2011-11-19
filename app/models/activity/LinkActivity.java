@@ -46,7 +46,7 @@ public class LinkActivity extends Activity {
     @Override
     protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
         // Linker
-        member.computeBadges(EnumSet.of(Badge.StaffBestFriend, Badge.SpeakerFan, Badge.SponsorFriendly, Badge.NewBorn, Badge.Friendly, Badge.SocialBeast, Badge.MadLinker), context);
+        member.computeBadges(EnumSet.of(Badge.StaffBestFriend, Badge.SpeakerFan, Badge.SponsorFriendly, Badge.NewBorn, Badge.Friendly, Badge.SocialBeast, Badge.MadLinker, Badge.TwoDaysInARow, Badge.FiveDaysInARow, Badge.MixITAddict), context);
         // Linked
         other.computeBadges(EnumSet.of(Badge.YouReNotAlone, Badge.LocalCelebrity, Badge.RockStar, Badge.Leader, Badge.Idol), context);
     }

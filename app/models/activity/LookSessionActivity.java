@@ -1,7 +1,9 @@
 package models.activity;
 
 import helpers.badge.BadgeComputationContext;
+import java.util.EnumSet;
 import javax.persistence.Entity;
+import models.Badge;
 import models.Member;
 import models.ProviderType;
 import models.Session;
@@ -36,6 +38,6 @@ public class LookSessionActivity extends Activity {
 
     @Override
     protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
-        // No badge computation;
+        member.computeBadges(EnumSet.of(Badge.TwoDaysInARow, Badge.FiveDaysInARow, Badge.MixITAddict), context);
     }
 }

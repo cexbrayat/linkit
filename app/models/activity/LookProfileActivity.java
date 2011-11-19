@@ -1,8 +1,10 @@
 package models.activity;
 
 import helpers.badge.BadgeComputationContext;
+import java.util.EnumSet;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import models.Badge;
 import models.Member;
 import models.ProviderType;
 import play.i18n.Messages;
@@ -39,6 +41,6 @@ public class LookProfileActivity extends Activity {
 
     @Override
     protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
-        // No badge computation;
+        member.computeBadges(EnumSet.of(Badge.TwoDaysInARow, Badge.FiveDaysInARow, Badge.MixITAddict), context);
     }
 }
