@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 import models.Badge;
 import models.Member;
+import models.ProviderType;
 import models.activity.Activity;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -19,8 +20,8 @@ class UsageBadgeComputer implements BadgeComputer {
 
     public Set<Badge> compute(final Member member, BadgeComputationContext context) {
         Set<Badge> badges = EnumSet.noneOf(Badge.class);
-        // Recent activities in desc order
-        final List<Activity> activities = Activity.recentsByMember(member, null, 1, 100);
+        // Recent Link-IT activities in desc order
+        final List<Activity> activities = Activity.recentsByMember(member, EnumSet.of(ProviderType.LinkIt), 1, 100);
         final int consecutiveDays = computeConsecutiveDays(activities, 10);
         if (consecutiveDays >= 2) {
             badges.add(Badge.TwoDaysInARow);
