@@ -37,8 +37,15 @@ public class Sessions extends Controller {
     }
 
     public static void show(final Long sessionId) {
+        show(sessionId, true);
+    }
+
+    private static void show(final Long sessionId, boolean countLook) {
         Session talk = Session.findById(sessionId);
-        talk.lookedBy(Member.findByLogin(Security.connected()));
+        // Don't count look when coming from internal redirect
+        if (countLook) {
+            talk.lookedBy(Member.findByLogin(Security.connected()));
+        }
         List<Activity> activities = Activity.recentsBySession(talk, 1, 10);
         render(talk, activities);
     }
@@ -56,7 +63,7 @@ public class Sessions extends Controller {
         talk.addComment(new Comment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(talkId);
+        show(talkId, false);
     }
 
     public static void captcha(String id) {
@@ -81,6 +88,6 @@ public class Sessions extends Controller {
         talk.update();
         flash.success("Session " + talk + " enregistrée");
         Logger.info("Session " + talk + " enregistrée");
-        show(talk.id);
+        show(talk.id, false);
     }
 }
