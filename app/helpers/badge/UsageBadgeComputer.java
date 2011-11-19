@@ -20,9 +20,7 @@ class UsageBadgeComputer implements BadgeComputer {
 
     public Set<Badge> compute(final Member member, BadgeComputationContext context) {
         Set<Badge> badges = EnumSet.noneOf(Badge.class);
-        // Recent Link-IT activities in desc order
-        final List<Activity> activities = Activity.recentsByMember(member, EnumSet.of(ProviderType.LinkIt), 1, 100);
-        final int consecutiveDays = computeConsecutiveDays(activities, 10);
+        final int consecutiveDays = computeActivitiesConsecutiveDays(member, 10);
         if (consecutiveDays >= 2) {
             badges.add(Badge.TwoDaysInARow);
         }
@@ -35,24 +33,36 @@ class UsageBadgeComputer implements BadgeComputer {
         return badges;
     }
     
-    protected int computeConsecutiveDays(List<Activity> activities, final int maxConsecutives) {
+    protected int computeActivitiesConsecutiveDays(final Member member, final int maxConsecutives) {
         int consecutiveDays = 0;
         
-        // Ensure activities sorted by at desc
-        Collections.sort(activities);
-        
-        int previousDaysDiff = -1;
-        boolean gap = false;
         final DateTime today = new DateTime();
-        // Pour chaque activité survenue il y a moins de 10 jours
-        for (Iterator<Activity> itActivities = activities.iterator(); itActivities.hasNext() && !gap && consecutiveDays < maxConsecutives;) {
-            int daysDiff = Days.daysBetween(new DateTime(itActivities.next().at), today).getDays();
-            if (daysDiff-previousDaysDiff==1) {
-                consecutiveDays++;
-            } else if (daysDiff - previousDaysDiff > 1) {
-                gap = true;
+        int activitiesPage = 1;
+        boolean end = false;
+        int previousDaysDiff = -1;
+        while (!end) {
+            // Recent Link-IT activities in desc order
+            final List<Activity> activities = Activity.recentsByMember(member, EnumSet.of(ProviderType.LinkIt), activitiesPage++, 20);
+            // Ensure activities sorted by at desc
+            Collections.sort(activities);
+
+            for (Iterator<Activity> itActivities = activities.iterator(); itActivities.hasNext() && !end;) {
+                int daysDiff = Days.daysBetween(new DateTime(itActivities.next().at), today).getDays();
+                if (daysDiff-previousDaysDiff==1) {
+                    consecutiveDays++;
+                } else if (daysDiff - previousDaysDiff > 1) {
+                    // A gap in consecutive days : no use to check older activities
+                    end = true;
+                }
+                previousDaysDiff = daysDiff;
+                
+                if (consecutiveDays >= maxConsecutives) {
+                    // We found enough consecutive activities
+                    end = true;
+                }
             }
-            previousDaysDiff = daysDiff;
+            // If no more activities
+            if (activities.isEmpty()) end = true;
         }
         return consecutiveDays;
     }
