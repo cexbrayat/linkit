@@ -1,10 +1,10 @@
 package models.activity;
 
+import helpers.badge.BadgeComputationContext;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,7 +19,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import models.Badge;
 import models.Member;
 import models.ProviderType;
 import models.Session;
@@ -79,9 +78,6 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     protected Activity(ProviderType provider, Date at) {
         this.provider = provider;
         this.at = at;
-        if (getPotentialTriggeredBadges().isEmpty()) {
-            badgeComputationDone = true;
-        }
     }
 
     public static List<Activity> recents(int page, int length) {
@@ -155,11 +151,6 @@ public abstract class Activity extends Model implements Comparable<Activity> {
      * @return URL to be linked on this activity.
      */
     public abstract String getUrl();
-
-    /**
-     * @return Set of {@link Badge} that could potentially be triggered by this activity
-     */
-    public abstract Set<Badge> getPotentialTriggeredBadges();
     
     /**
      * @return Activities for which badge computation hasn't been done yet
@@ -168,6 +159,17 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return Activity.find("badgeComputationDone=false").fetch();
     }
 
+    public final void computeBadges(BadgeComputationContext context) {
+
+        computedBadgesForConcernedMembers(context);
+
+        // Flagging current activity as computed (whatever if we earned badges or not)
+        this.badgeComputationDone = true;
+        save();
+    }
+
+    protected abstract void computedBadgesForConcernedMembers(BadgeComputationContext context);
+    
     public int compareTo(Activity other) {
         return (other.at.compareTo(this.at));
     }

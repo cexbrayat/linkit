@@ -1,7 +1,7 @@
 package controllers;
 
-import controllers.oauth.OAuthProvider;
-import controllers.oauth.OAuthProviderFactory;
+import helpers.oauth.OAuthProvider;
+import helpers.oauth.OAuthProviderFactory;
 import models.LinkItAccount;
 import models.Member;
 import models.OAuthAccount;

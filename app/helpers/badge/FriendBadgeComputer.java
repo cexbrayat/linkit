@@ -1,4 +1,4 @@
-package controllers.badge;
+package helpers.badge;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Sets;

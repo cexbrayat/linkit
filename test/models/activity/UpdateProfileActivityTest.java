@@ -17,7 +17,7 @@ public class UpdateProfileActivityTest extends AbstractActivityTest {
         member.twitterName = "bob";
         member.updateProfile();
         
-        // One activity for Bob
+        // One activity for member
         Activity a = Activity.find("select a from Activity a where a.member = ?", member).first();
         assertActivity(a);
         assertTrue(a instanceof UpdateProfileActivity);
