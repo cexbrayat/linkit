@@ -1,13 +1,14 @@
 package helpers.badge;
 
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import models.Badge;
 import models.Member;
-import models.ProviderType;
 import models.activity.Activity;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -41,28 +42,33 @@ class UsageBadgeComputer implements BadgeComputer {
         boolean end = false;
         int previousDaysDiff = -1;
         while (!end) {
-            // Recent Link-IT activities in desc order
-            final List<Activity> activities = Activity.recentsByMember(member, EnumSet.of(ProviderType.LinkIt), activitiesPage++, 20);
-            // Ensure activities sorted by at desc
-            Collections.sort(activities);
+            // Recent date of Link-IT activityDates in desc order
+            final List<Date> activityDates = Activity.recentDatesByMember(member, activitiesPage++, 20);
+            // Ensure activityDates sorted by at desc
+            Collections.sort(activityDates, new Comparator<Date>() {
+                // Desc order
+                public int compare(Date d1, Date d2) {
+                    return d2.compareTo(d1);
+                }
+            });
 
-            for (Iterator<Activity> itActivities = activities.iterator(); itActivities.hasNext() && !end;) {
-                int daysDiff = Days.daysBetween(new DateTime(itActivities.next().at), today).getDays();
+            for (Iterator<Date> itDate = activityDates.iterator(); itDate.hasNext() && !end;) {
+                int daysDiff = Days.daysBetween(new DateTime(itDate.next()), today).getDays();
                 if (daysDiff-previousDaysDiff==1) {
                     consecutiveDays++;
                 } else if (daysDiff - previousDaysDiff > 1) {
-                    // A gap in consecutive days : no use to check older activities
+                    // A gap in consecutive days : no use to check older activityDates
                     end = true;
                 }
                 previousDaysDiff = daysDiff;
                 
                 if (consecutiveDays >= maxConsecutives) {
-                    // We found enough consecutive activities
+                    // We found enough consecutive activityDates
                     end = true;
                 }
             }
-            // If no more activities
-            if (activities.isEmpty()) end = true;
+            // If no more activityDates
+            if (activityDates.isEmpty()) end = true;
         }
         return consecutiveDays;
     }

@@ -20,6 +20,11 @@ public class ActivityTest extends AbstractActivityTest {
     }
 
     @Test
+    public void recentDatesByMember() {
+        assertNotNull(Activity.recentDatesByMember(member, 1, 10));
+    }
+
+    @Test
     public void recentsByMember() {
         final Member m = Member.all().first();
         assertNotNull(Activity.recentsByMember(m,EnumSet.allOf(ProviderType.class), 1, 10));
