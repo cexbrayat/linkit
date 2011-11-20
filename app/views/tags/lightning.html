@@ -1,0 +1,56 @@
+*{ Display all sessions "lightning" }*
+<script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
+<script>
+    $(function () {
+        $("table#sortSession").tablesorter({ sortList:[
+            [1, 0]
+        ] });
+    });
+
+    var voteAction = #{jsAction @vote(':talk', ':member', ':value') /}
+
+            function vote(id, name, value) {
+                $.get(voteAction({talk:id, member:name, value:value}), function (data) {
+                    if (data == -1) {
+                        alert("Erreur pendant le vote")
+                    }
+                    else {
+                        $("#counter-" + id).html(data);
+                    }
+                })
+            }
+</script>
+<div class="container">
+    <table class="zebra-striped" id="sortSession">
+        <thead>
+        <tr>
+            <th>Track</th>
+            <th>Titre</th>
+            <th>speaker(s)</th>
+            <th>Vote</th>
+        </tr>
+        </thead>
+        <tbody>
+        #{list items:_sessions, as:'talk'}
+        <!--tr onclick="document.location.href='@{Sessions.show(talk.id)}';"-->
+        <tr>
+            <td>${talk.track}</td>
+            <td>${talk.title}</td>
+            <td>
+                #{list items:talk.speakers, as:'speaker'}
+                    <a href="@{Profile.show(speaker.login)}">${speaker}</a>#{if !speaker_isLast}, #{/if}
+                #{/list}
+            </td>
+            <td>
+                <div id="counter-${talk.id}">${talk.votes.size()}</div>
+                #{if session.username}
+                    <div class="vote" onclick="vote(${talk.id}, '${session.username}', true)">Vote
+                    </div>
+                #{/if}
+
+            </td>
+        </tr>
+        #{/list}
+        </tbody>
+    </table>
+</div><!-- /container --> 

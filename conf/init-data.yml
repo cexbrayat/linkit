@@ -369,7 +369,7 @@ Speaker(rguy) :
     badges:
          - Speaker
     
-Session(sessionplayframework):
+Talk(sessionplayframework):
     title: Play! Framework for dummies
     track: Techy
     summary: Intro sur le framework de la mort qui déchire tout!
@@ -447,7 +447,7 @@ Session(sessionplayframework):
     speakers:
            - nmartignole
     
-Session(sessionhadoop):
+Talk(sessionhadoop):
     title: Hadoop c'est Hype!
     track: Trendy
     summary: Hadoop c'est un nom pourri mais c'est de la balle!
@@ -524,4 +524,11 @@ Session(sessionhadoop):
         [Pandoc]: http://johnmacfarlane.net/Pandoc/
     speakers:
            - nmartignole
+           - rguy
+
+LightningTalk(sessionlightning):
+    title: Lightning talk on light
+    track: Techy
+    summary: Intro sur la lumière
+    speakers:
            - rguy

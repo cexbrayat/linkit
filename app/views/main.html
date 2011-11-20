@@ -1,77 +1,90 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>#{get 'title' /}</title>
-        <meta charset="${_response_encoding}">
-        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/bootstrap.less'}">
-        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/linkit.css'}">
-        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/networks.css'}">
-        #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/twipsy.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/bootstrap-dropdown.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script> 
-            $(function () {
-              $("a[rel=twipsy]").twipsy({
-                live: true,
-                placement: 'below'
-              })
+<head>
+    <title>#{get 'title' /}</title>
+    <meta charset="${_response_encoding}">
+    <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/bootstrap.less'}">
+    <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/linkit.css'}">
+    <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/networks.css'}">
+#{get 'moreStyles' /}
+    <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+    <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript"
+            charset="${_response_encoding}"></script>
+    <script src="@{'/public/javascripts/twipsy.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+    <script src="@{'/public/javascripts/bootstrap-dropdown.js'}" type="text/javascript"
+            charset="${_response_encoding}"></script>
+    <script>
+        $(function () {
+            $("a[rel=twipsy]").twipsy({
+                live:true,
+                placement:'below'
             })
-          </script> 
-        #{get 'moreScripts' /}
-    </head>
-    <body style="padding-top: 40px;"> *{ 40px is navigation bar space}*
-        <div class="topbar">
-            <div class="fill">
-                <div class="container">
-                    <h3><a href="@{Application.index()}">Mix-IT</a></h3>
-                    <ul class="nav">
-                        <li #{if request.action=="Application.index"}class="active"#{/if}><a href="@{Application.index()}">Accueil</a></li>
-                        <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">Speakers</a></li>
-                        <li #{if request.controller=="Sessions"}class="active"#{/if}><a href="@{Sessions.index()}">Sessions</a></li>
-                        <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">Staff</a></li>
-                        <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">Sponsors</a></li>
-                        <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">Participants</a></li>
-                        #{secure.check 'admin'}
-                        <li ><a href="/admin">Admin</a></li>
-                        #{/secure.check}
+        })
+    </script>
+#{get 'moreScripts' /}
+</head>
+<body style="padding-top: 40px;"> *{ 40px is navigation bar space}*
+<div class="topbar">
+    <div class="fill">
+        <div class="container">
+            <h3><a href="@{Application.index()}">Mix-IT 2012</a></h3>
+            <ul class="nav">
+                <li #{if request.action=="Application.index"}class="active"#{/if}><a href="@{Application.index()}">Accueil</a>
+                </li>
+                <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">Speakers</a></li>
+                <li class="dropdown" data-dropdown="dropdown">
+                    <a href="@{Application.members()}" class="dropdown-toggle">Programme</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@{Sessions.index()}">Sessions</a></li>
+                        <li><a href="@{Sessions.lightning()}">Lightning talks</a></li>
                     </ul>
-                    <ul class="nav secondary-nav">
-                        #{if session.username} 
-                        <li class="dropdown" data-dropdown="dropdown">
-                            <a href="#" class="dropdown-toggle">#{member models.Member.findByLogin(session.username) /}</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="@{Dashboard.index}">Dashboard</a></li>
-                                <li><a href="@{Profile.show(session.username)}">Voir mon profil</a></li>
-                                <li><a href="@{Profile.edit(session.username)}">Editer mon profil</a></li>
-                                <li class="divider"></li>
-                                <li><a href="@{Secure.logout()}">Se deconnecter</a></li>
-                            </ul>
-                        </li>
-                        #{/if}
-                        #{else}
-                        <li><a href="@{Login.index()}">Se connecter</a></li>
-                        #{/else}
+                </li>
+                <li #{if request.action=="Application.staff"}class="active"#{/if}><a
+                        href="@{Application.staff()}">Staff</a></li>
+                <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a
+                        href="@{Application.sponsors()}">Sponsors</a></li>
+                <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a
+                        href="@{Application.members()}">Participants</a></li>
+            #{secure.check 'admin'}
+                <li><a href="/admin">Admin</a></li>
+            #{/secure.check}
+            </ul>
+            <ul class="nav secondary-nav">
+            #{if session.username}
+                <li class="dropdown" data-dropdown="dropdown">
+                    <a href="#" class="dropdown-toggle">#{member models.Member.findByLogin(session.username) /}</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@{Dashboard.index}">Dashboard</a></li>
+                        <li><a href="@{Profile.show(session.username)}">Voir mon profil</a></li>
+                        <li><a href="@{Profile.edit(session.username)}">Editer mon profil</a></li>
+                        <li class="divider"></li>
+                        <li><a href="@{Secure.logout()}">Se deconnecter</a></li>
                     </ul>
-                </div>
-            </div>
+                </li>
+            #{/if}
+            #{else}
+                <li><a href="@{Login.index()}">Se connecter</a></li>
+            #{/else}
+            </ul>
         </div>
-        
-        #{if flash.success}
-        <div class="alert-message success">${flash.success}</div>
-        #{/if}
-        #{if flash.error}
-        <div class="alert-message error">${flash.error}</div>
-        #{/if}
-        
-        #{doLayout /}
-        
-        <footer>
-            <div class="container">
-                <p>Mix-IT 2012 - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
-            </div>
-        </footer>
-    </body>
+    </div>
+</div>
+
+#{if flash.success}
+<div class="alert-message success">${flash.success}</div>
+#{/if}
+#{if flash.error}
+<div class="alert-message error">${flash.error}</div>
+#{/if}
+
+#{doLayout /}
+
+<footer>
+    <div class="container">
+        <p>©2012 Mix-IT 2012 - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les
+            suggestions</a></p>
+    </div>
+</footer>
+</body>
 </html>

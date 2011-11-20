@@ -13,7 +13,7 @@ import javax.persistence.ManyToMany;
 public class Speaker extends Member {
 
     @ManyToMany(mappedBy="speakers")
-    Set<Session> sessions = new HashSet<Session>();
+    Set<Talk> sessions = new HashSet<Talk>();
     
     /**
      * Authorized roles for a speaker

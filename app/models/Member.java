@@ -75,6 +75,9 @@ public class Member extends Model {
     public Set<Interest> interests = new TreeSet<Interest>();
     @ElementCollection
     public Set<Badge> badges = EnumSet.noneOf(Badge.class);
+  
+    @OneToMany
+    public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
 
     public Member(String login, Account account) {
         this.login = login;
@@ -204,6 +207,14 @@ public class Member extends Model {
             new EarnBadgeActivity(this, badge).save();
         }
     }
+
+  /**
+   *
+   */
+  public void addLightningTalk(LightningTalk talk)
+  {
+    lightningTalks.add(talk);
+  }
 
     /**
      * Register user a new Link-IT user
