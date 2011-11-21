@@ -34,8 +34,9 @@ public class TwitterAccount extends Account {
     //Wed Oct 05 12:42:55 +0000 2011
     static final String DATE_FORMAT = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
     
-    public TwitterAccount() {
+    public TwitterAccount(final String screenName) {
         super(ProviderType.Twitter);
+        this.screenName = screenName;
     }
     
     @Override
@@ -81,7 +82,7 @@ public class TwitterAccount extends Account {
                 final String mention = m.group(1);
                 // By default, we link on Twitter's profile of mentionned user
                 String mentionLink = "http://www.twitter.com/"+mention;
-                Member mentionedMember = Member.find("twitterName=?", mention).first();
+                Member mentionedMember = findMemberByScreenName(mention);
                 if (mentionedMember != null) {
                     // If mentionned user is a Link-IT user : we link to its Link-IT profile
                     mentionLink = Router.reverse("Profile.show").add("login", mentionedMember.login).url;

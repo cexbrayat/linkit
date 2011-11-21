@@ -52,9 +52,10 @@ public class StatusActivity extends Activity {
                 Collections.sort(statuses);
                 account.lastStatusId = statuses.get(0).statusId;
                 account.save();
+
+                account.enhance(statuses);
             }
 
-            account.enhance(statuses);
 
             for (StatusActivity status : statuses) {
                 boolean add = true;

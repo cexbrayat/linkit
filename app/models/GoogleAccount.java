@@ -25,14 +25,16 @@ import play.libs.WS;
 @Entity
 public class GoogleAccount extends Account {
     
+    /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumber} as seen on Google+' profile link */
     @Required
     public String googleId;     // 114128610730314333831
 
     //2011-10-04T14:41:40.837Z
     static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     
-    public GoogleAccount() {
+    public GoogleAccount(final String googleId) {
         super(ProviderType.Google);
+        this.googleId = googleId;
     }
     
     @Override

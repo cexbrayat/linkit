@@ -25,23 +25,22 @@ public class GoogleOAuthAccountTest extends UnitTest {
 
     @Test
     public void testInitMemberProfileNull() {
-        new GoogleOAuthAccount(null, null).initMemberProfile();
+        new GoogleOAuthAccount(null, null, null).initMemberProfile();
         // Should not fail even if Account.member == null
     }
 
     @Test
     public void testInitMemberProfileEmpty() {
-        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null);
+        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null, "G+");
         ga.email = "toto@toto.com";
-        ga.googleId = "G+";
         ga.givenName = "Jean";
         ga.familyName = "Dupont";
-        ga.name = "Jean *Cule* Dupont";
+        ga.name = "Jean Dupont";
 
         Member m = new Member("login", ga.getAccount());
         ga.initMemberProfile();
 
-        assertEquals(ga.googleId, m.googlePlusId);
+        assertEquals(ga.googleId, ga.account.googleId);
         assertEquals(ga.email, m.email);
         assertEquals(ga.givenName, m.firstname);
         assertEquals(ga.familyName, m.lastname);
@@ -50,12 +49,11 @@ public class GoogleOAuthAccountTest extends UnitTest {
 
     @Test
     public void testInitMemberProfileNotEmpty() {
-        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null);
+        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null, "G+");
         ga.email = "toto@toto.com";
-        ga.googleId = "G+";
         ga.givenName = "Jean";
         ga.familyName = "Dupont";
-        ga.name = "Jean *Cule* Dupont";
+        ga.name = "Jean Dupont";
 
         final String originalGooglePlusId = "123";
         final String originalEmail = "mon@email.ch";
@@ -63,14 +61,14 @@ public class GoogleOAuthAccountTest extends UnitTest {
         final String originalLastName = "Aure";
         final String originalDisplayName = "Jade Aure";
         Member m = new Member("login", ga.getAccount());
-        m.googlePlusId = originalGooglePlusId;
+        ga.account.googleId = originalGooglePlusId;
         m.email = originalEmail;
         m.firstname = originalFirstName;
         m.lastname = originalLastName;
         m.displayName = originalDisplayName;
 
         ga.initMemberProfile();
-        assertEquals(originalGooglePlusId, m.googlePlusId);
+        assertEquals(originalGooglePlusId, ga.account.googleId);
         assertEquals(originalEmail, m.email);
         assertEquals(originalFirstName, m.firstname);
         assertEquals(originalLastName, m.lastname);
@@ -79,14 +77,14 @@ public class GoogleOAuthAccountTest extends UnitTest {
 
     @Test
     public void findCorrespondingMemberOK() {
-        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null);
+        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null, "1234");
         ga.email = "bob@gmail.com";
         assertEquals(Member.findByLogin("bob"), ga.findCorrespondingMember());
     }
 
     @Test
     public void findCorrespondingMemberNotFound() {
-        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null);
+        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null, "1234");
         ga.email = "toto@toto.com";
         assertNull(ga.findCorrespondingMember());
     }

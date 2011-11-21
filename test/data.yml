@@ -16,18 +16,21 @@ Staff(ced):
     lastname: Name
     login: ced
     description: is ced
-    twitterName: cedric_exbrayat
     links:           
          - bob
     badges:           
          - Staff
          - Attendee
 
-LinkItAccount(cedAccount):
+TwitterAccount(cedTwitter):
+    provider: Twitter
+    member: ced
+    screenName: cedric_exbrayat
+
+LinkItAccount(cedLinkIt):
     provider: LinkIt
     member: ced
     password: secret
-
     
 Speaker(rguy) :
     firstname: Romain
@@ -37,9 +40,19 @@ Speaker(rguy) :
     description : Test description
     displayName: Romain Guy
     twitterName: romainguy
-    googlePlusId: 111962077049890418486
+    googlePlusId: 
     badges:
          - Speaker
+
+TwitterAccount(rquyTwitter):
+    provider: Twitter
+    member: rguy
+    screenName: romainguy
+
+GoogleAccount(rguyLinkIt):
+    provider: Google
+    member: rguy
+    googleId: 111962077049890418486
 
 Session(sessionTest):
     title: Test title
@@ -56,6 +69,5 @@ Sponsor(sponsor) :
     email: info@acme.com
     description : We rule the world!
     displayName: ACME Company Ltd.
-    twitterName: acme
     badges:
          - Sponsor

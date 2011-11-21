@@ -62,10 +62,7 @@ public class Member extends Model implements Lookable {
     @Lob
     @Required
     public String description;
-    /** Twitter account name */
-    public String twitterName;
-    /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumberInsteadOfABetterId} as seen on Google+' profile link */
-    public String googlePlusId;
+
     /**
      * Members he follows
      */
@@ -76,10 +73,13 @@ public class Member extends Model implements Lookable {
      */
     @ManyToMany(mappedBy = "links")
     public Set<Member> linkers = new HashSet<Member>();
+    
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<Account> accounts = new HashSet<Account>();
+    
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
+    
     @ElementCollection
     public Set<Badge> badges = EnumSet.noneOf(Badge.class);
     
@@ -105,7 +105,7 @@ public class Member extends Model implements Lookable {
             account.initMemberProfile();
         }
     }
-
+    
     /**
      * Find unique member having given login.
      * Seems this request is very often used, it's better to used it (more efficient with named query usage) instead of Play! find("byLogin", login)

@@ -35,8 +35,9 @@ public class Profile extends Controller {
         member.lastname = lastname;
         member.login = login;
         member.displayName = displayName;
-        member.twitterName = twitterName;
-        member.googlePlusId = googlePlusId;
+// FIXME CLA
+//        member.twitterName = twitterName;
+//        member.googlePlusId = googlePlusId;
         if (interests != null) {
             member.updateInterests(interests);
         }

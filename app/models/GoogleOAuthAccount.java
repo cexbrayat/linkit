@@ -3,7 +3,6 @@ package models;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import org.apache.commons.lang.StringUtils;
-import play.data.validation.Required;
 
 /**
  * A Google account
@@ -26,9 +25,10 @@ public class GoogleOAuthAccount extends OAuthAccount {
     public String birthday;     // 0000-03-26 (yes, 0000 for me?!)
     public String locale;       // en
     
-    public GoogleOAuthAccount(String token, String secret) {
+    public GoogleOAuthAccount(String token, String secret, String googleId) {
         super(ProviderType.Google, token, secret);
-        account = new GoogleAccount();
+        account = new GoogleAccount(googleId);
+        this.googleId = googleId;
     }
 
     @Override

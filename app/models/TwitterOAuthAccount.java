@@ -26,9 +26,10 @@ public class TwitterOAuthAccount extends OAuthAccount {
     public Long statusesCount;  // 491
     public Long friendsCount;   // 159
     
-    public TwitterOAuthAccount(String token, String secret) {
+    public TwitterOAuthAccount(String token, String secret, String screenName) {
         super(ProviderType.Twitter, token, secret);
-        account = new TwitterAccount();
+        this.account = new TwitterAccount(screenName);
+        this.screenName = screenName;
     }
 
     @Override

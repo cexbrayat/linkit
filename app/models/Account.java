@@ -32,9 +32,6 @@ public abstract class Account extends Model {
     @Required
     @Enumerated(EnumType.STRING)
     public ProviderType provider; 
-
-    @ManyToOne
-    public OAuthAccount oauthAccount;
     
     /** ID of last status retrieved */
     public String lastStatusId;

@@ -108,21 +108,21 @@ public class MemberTest extends UnitTest {
         assertEquals(1, bob.accounts.size());
 
         // Ajout d'un compte Google
-        final Account google1 = new GoogleAccount();
+        final Account google1 = new GoogleAccount("id1");
         bob.addAccount(google1);
         bob.save();
         bob = Member.findByLogin("bob");
         assertEquals(2, bob.accounts.size());
 
         // Ajout d'un second compte Google : pas de modification
-        final Account google2 = new GoogleAccount();
+        final Account google2 = new GoogleAccount("id2");
         bob.addAccount(google2);
         bob.save();
         bob = Member.findByLogin("bob");
         assertEquals(2, bob.accounts.size());
 
         // Ajout d'un nouveau compte Twitter
-        final Account twitter = new TwitterAccount();
+        final Account twitter = new TwitterAccount("toto");
         bob.addAccount(twitter);
         bob.save();
         bob = Member.findByLogin("bob");

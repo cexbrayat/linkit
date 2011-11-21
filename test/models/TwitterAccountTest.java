@@ -15,45 +15,37 @@ import play.test.UnitTest;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class TwitterAccountTest extends UnitTest {
-
-    private TwitterAccount account = new TwitterAccount();
-    
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
     
     protected StatusActivity buildTweet(Member author, String content) {
         return new StatusActivity(author, new Date(), ProviderType.Twitter, content, null, null);
     }
     
+    protected TwitterAccount createMemberAndAccount(final String login, final String twitterName) {
+        TwitterAccount ta = new TwitterAccount(twitterName);
+        new Member(login, ta).save();
+        return ta;
+    }
+    
     @Test
     public void enhance() {
-        Member author = Member.findByLogin("ced");
-        Member rguy = Member.findByLogin("rguy");
-        final String content1 = "Hey @" + rguy.twitterName + " did you tweet about @toto or not?";
-        final StatusActivity tweet1 = buildTweet(author, content1);
+        TwitterAccount auteurAccount = createMemberAndAccount("auteur", "leplusgrandauteur");
+        TwitterAccount mentionnedAccount = createMemberAndAccount("rguy","rguy");
+        final String content1 = "Hey @" + mentionnedAccount.screenName + " did you tweet about @toto or not?";
+        final StatusActivity tweet1 = buildTweet(auteurAccount.member, content1);
         final String content2 = "no mention";
-        final StatusActivity tweet2 = buildTweet(author, content2);
-        
+        final StatusActivity tweet2 = buildTweet(auteurAccount.member, content2);
         
         List<StatusActivity> activities = Arrays.asList(tweet1, tweet2);
         // Tested method
-        account.enhance(activities);
-        
+        auteurAccount.enhance(activities);
+
         // List preserved
         assertEquals(2, activities.size());
         assertSame(tweet1, activities.get(0));
         assertSame(tweet2, activities.get(1));
         // Content enhanced on tweet1
         assertFalse(content1.equals(tweet1.content));
-        assertTrue(tweet1.content.contains("<a href=\"/profile/show?login="+rguy.login+"\">@"+rguy.twitterName+"</a>"));
+        assertTrue(tweet1.content.contains("<a href=\"/profile/show?login="+mentionnedAccount.member.login+"\">@"+mentionnedAccount.screenName+"</a>"));
         assertTrue(tweet1.content.contains("<a href=\"http://www.twitter.com/toto\">@toto</a>"));
         // Content same on tweet2
         assertEquals(content2, tweet2.content);

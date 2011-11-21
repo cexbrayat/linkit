@@ -25,52 +25,48 @@ public class TwitterOAuthAccountTest extends UnitTest {
 
     @Test
     public void testInitMemberProfileNull() {
-        new TwitterOAuthAccount(null, null).initMemberProfile();
+        new TwitterOAuthAccount(null, null, null).initMemberProfile();
         // Should not fail even if Account.member == null
     }
 
     @Test
     public void testInitMemberProfileEmpty() {
-        final TwitterOAuthAccount ta = new TwitterOAuthAccount(null, null);
+        final TwitterOAuthAccount ta = new TwitterOAuthAccount(null, null, "jean_dupont");
         ta.name = "Jean Dupont";
-        ta.screenName = "jean_dupont";
 
         Member m = new Member("login", ta.getAccount());
         ta.initMemberProfile();
 
         assertEquals(ta.name, m.displayName);
-        assertEquals(ta.screenName, m.twitterName);
+        assertEquals(ta.screenName, ta.account.screenName);
     }
 
     @Test
     public void testInitMemberProfileNotEmpty() {
-        final TwitterOAuthAccount ta = new TwitterOAuthAccount(null, null);
+        final TwitterOAuthAccount ta = new TwitterOAuthAccount(null, null, "jean_dupont");
         ta.name = "Jean Dupont";
-        ta.screenName = "jean_dupont";
 
         final String originalDisplayName = "MaDescription";
         final String originalTwitterName = "MonTwitter";
         Member m = new Member("login", ta.getAccount());
         m.displayName = originalDisplayName;
-        m.twitterName = originalTwitterName;
+        ta.account.screenName = originalTwitterName;
         ta.initMemberProfile();
 
         // Member profile not modified
         assertEquals(originalDisplayName, m.displayName);
-        assertEquals(originalTwitterName, m.twitterName);
+        assertEquals(originalTwitterName, ta.account.screenName);
     }
 
     @Test
     public void findCorrespondingMemberOK() {
-        final TwitterOAuthAccount ta = new TwitterOAuthAccount(null, null);
-        ta.screenName = "cedric_exbrayat";
+        final TwitterOAuthAccount ta = new TwitterOAuthAccount(null, null, "cedric_exbrayat");
         assertEquals(Member.findByLogin("ced"), ta.findCorrespondingMember());
     }
 
     @Test
     public void findCorrespondingMemberNotFound() {
-        final TwitterOAuthAccount ta = new TwitterOAuthAccount(null, null);
-        ta.screenName = "MonTwitter";
+        final TwitterOAuthAccount ta = new TwitterOAuthAccount(null, null, "MonTwitter");
         assertNull(ta.findCorrespondingMember());
     }
 }
