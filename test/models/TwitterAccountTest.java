@@ -1,76 +1,58 @@
 package models;
 
-import org.junit.After;
-import org.junit.Before;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import models.activity.StatusActivity;
 import org.junit.Test;
-import play.test.Fixtures;
 import play.test.UnitTest;
 
 /**
- * Unit tests for {@link TwitterAccount} 
+ * Unit tests for {@link TwitterAccount}
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class TwitterAccountTest extends UnitTest {
-
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
+    
+    protected static StatusActivity buildTweet(Member author, String content) {
+        return new StatusActivity(author, new Date(), ProviderType.Twitter, content, null, null);
     }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
+    
+    protected static TwitterAccount createMemberAndAccount(final String login, final String twitterName) {
+        TwitterAccount ta = new TwitterAccount(twitterName);
+        Member m = new Member(login);
+        m.addAccount(ta);
+        m.save();
+        return ta;
     }
-
+    
     @Test
-    public void testInitMemberProfileNull() {
-        new TwitterAccount(null, null).initMemberProfile();
-        // Should not fail even if Account.member == null
+    public void enhance() {
+        TwitterAccount auteurAccount = createMemberAndAccount("auteur", "leplusgrandauteur");
+        TwitterAccount mentionnedAccount = createMemberAndAccount("rguy","rguy");
+        final String content1 = "Hey @" + mentionnedAccount.screenName + " did you tweet about @toto or not?";
+        final StatusActivity tweet1 = buildTweet(auteurAccount.member, content1);
+        final String content2 = "no mention";
+        final StatusActivity tweet2 = buildTweet(auteurAccount.member, content2);
+        
+        List<StatusActivity> activities = Arrays.asList(tweet1, tweet2);
+        // Tested method
+        auteurAccount.enhance(activities);
+
+        // List preserved
+        assertEquals(2, activities.size());
+        assertSame(tweet1, activities.get(0));
+        assertSame(tweet2, activities.get(1));
+        // Content enhanced on tweet1
+        assertFalse(content1.equals(tweet1.content));
+        assertTrue(tweet1.content.contains("<a href=\"/profile/show?login="+mentionnedAccount.member.login+"\">@"+mentionnedAccount.screenName+"</a>"));
+        assertTrue(tweet1.content.contains("<a href=\"http://www.twitter.com/toto\">@toto</a>"));
+        // Content same on tweet2
+        assertEquals(content2, tweet2.content);
     }
-
+    
     @Test
-    public void testInitMemberProfileEmpty() {
-        final TwitterAccount ta = new TwitterAccount(null, null);
-        ta.name = "Jean Dupont";
-        ta.screenName = "jean_dupont";
-
-        Member m = new Member("login", ta);
-        ta.initMemberProfile();
-
-        assertEquals(ta.name, m.displayName);
-        assertEquals(ta.screenName, m.twitterName);
-    }
-
-    @Test
-    public void testInitMemberProfileNotEmpty() {
-        final TwitterAccount ta = new TwitterAccount(null, null);
-        ta.name = "Jean Dupont";
-        ta.screenName = "jean_dupont";
-
-        final String originalDisplayName = "MaDescription";
-        final String originalTwitterName = "MonTwitter";
-        Member m = new Member("login", ta);
-        m.displayName = originalDisplayName;
-        m.twitterName = originalTwitterName;
-        ta.initMemberProfile();
-
-        // Member profile not modified
-        assertEquals(originalDisplayName, m.displayName);
-        assertEquals(originalTwitterName, m.twitterName);
-    }
-
-    @Test
-    public void findCorrespondingMemberOK() {
-        final TwitterAccount ta = new TwitterAccount(null, null);
-        ta.screenName = "cedric_exbrayat";
-        assertEquals(Member.findByLogin("ced"), ta.findCorrespondingMember());
-    }
-
-    @Test
-    public void findCorrespondingMemberNotFound() {
-        final TwitterAccount ta = new TwitterAccount(null, null);
-        ta.screenName = "MonTwitter";
-        assertNull(ta.findCorrespondingMember());
+    public void getURL() {
+        TwitterAccount ta = createMemberAndAccount("toto", "toto69");
+        assertEquals("http://www.twitter.com/toto69", ta.url());
     }
 }

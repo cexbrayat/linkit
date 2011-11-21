@@ -2,22 +2,20 @@ package models;
 
 import javax.persistence.Entity;
 import play.data.validation.Required;
+import play.db.jpa.Model;
 
 /**
  * An OAuth account on a third-party authentication provider
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public abstract class OAuthAccount extends Account {
+public abstract class OAuthAccount extends AuthAccount {
 
     @Required
     public String token;
     @Required
     public String secret;
     
-    /** ID of last status retrieved */
-    public String lastStatusId;
-
     public OAuthAccount(ProviderType provider, String token, String secret) {
         super(provider);
         this.token = token;
@@ -31,8 +29,8 @@ public abstract class OAuthAccount extends Account {
     public abstract String getOAuthLogin();
 
     /**
-     * Find an existing member which could own this account
-     * @return Corresponding member found, null if not
+     * Find an existing account for this authentication account
+     * @return Corresponding account found, null if not
      */
     public abstract Member findCorrespondingMember();
 }

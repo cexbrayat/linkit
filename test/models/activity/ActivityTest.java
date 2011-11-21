@@ -59,7 +59,7 @@ public class ActivityTest extends AbstractActivityTest {
 
     @Test
     public void recentsForMemberNoLinks() {
-        Member nolinks = new Member("toto", new LinkItAccount("password"));
+        Member nolinks = new Member("toto");
         List<Activity> activities = Activity.recentsForMember(nolinks,EnumSet.allOf(ProviderType.class), 1, 10);
         assertNotNull(activities);
         assertTrue(activities.isEmpty());

@@ -7,7 +7,7 @@ import javax.persistence.Entity;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public class LinkItAccount extends Account {
+public class LinkItAccount extends AuthAccount {
 
     public String password;
 
@@ -18,11 +18,11 @@ public class LinkItAccount extends Account {
     
     @Override
     public String toString(){
-        return "provider {" + provider + "}";
+        return "Link-IT account for " + member;
     }
 
     @Override
     public void initMemberProfile() {
-        // Nothing to initialize;
+        // Nothing;
     }
 }

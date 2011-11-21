@@ -1,5 +1,10 @@
 package models;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import controllers.JobFetchUserTimeline;
 import helpers.badge.BadgeComputationContext;
 import helpers.badge.BadgeComputer;
@@ -12,8 +17,6 @@ import models.activity.LinkActivity;
 import models.activity.LookProfileActivity;
 import models.activity.SignUpActivity;
 import models.activity.UpdateProfileActivity;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -62,10 +65,7 @@ public class Member extends Model implements Lookable {
     @Lob
     @Required
     public String description;
-    /** Twitter account name */
-    public String twitterName;
-    /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumberInsteadOfABetterId} as seen on Google+' profile link */
-    public String googlePlusId;
+
     /**
      * Members he follows
      */
@@ -76,30 +76,88 @@ public class Member extends Model implements Lookable {
      */
     @ManyToMany(mappedBy = "links")
     public Set<Member> linkers = new HashSet<Member>();
+    
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
     public Set<Account> accounts = new HashSet<Account>();
+    
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
+    
     @ElementCollection
     public Set<Badge> badges = EnumSet.noneOf(Badge.class);
     
     /** Number of profile consultations */
     public long nbConsults;
 
-    public Member(String login, Account account) {
+    public Member(String login) {
         this.login = login;
-        addAccount(account);
     }
 
     public final void addAccount(Account account) {
         if (account != null) {
             account.member = this;
             this.accounts.add(account);
-            // On préinitialise son profil avec les données récupérées du compte
-            account.initMemberProfile();
+        }
+    }
+    
+    public final void removeAccount(Account account) {
+        if (account != null) {
+            this.accounts.remove(account);
+            account.member = null;
+            // FIXME CLA Delete all activities on account
         }
     }
 
+    /**
+     * Find an activated social network account for given provider
+     * @param provider Provider searched
+     * @return Activated account found, null otherwise
+     */
+    public Account getAccount(final ProviderType provider) {
+        // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
+        Predicate<Account> p = new Predicate<Account>() {
+            public boolean apply(Account a) {
+                return a.provider == provider;
+            }
+        };
+        return Iterables.find(accounts, p, null);
+    }
+    
+    public GoogleAccount getGoogleAccount() {
+        return (GoogleAccount) getAccount(ProviderType.Google);
+    }
+    
+    public TwitterAccount getTwitterAccount() {
+        return (TwitterAccount) getAccount(ProviderType.Twitter);
+    }
+    
+    /**
+     * Preserve {@link ProviderType} enumeration order (used on UI)
+     * @return All providers where the member has an activated social network account
+     */
+    public List<ProviderType> getAccountProviders() {
+        // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
+        List<ProviderType> providers = Lists.newArrayList(Collections2.transform(this.accounts, new Function<Account, ProviderType>() {
+            public ProviderType apply(Account a) {
+                return a.provider;
+            }
+        }));
+        providers.add(ProviderType.LinkIt);   // LinkIt est toujours un provider actif
+        Collections.sort(providers);    // Ensure enumeration order
+        return providers;
+    }
+    
+    /**
+     * Preserve {@link ProviderType} enumeration order (used on UI)
+     * @return All social network accounts
+     */
+    public List<Account> getOrderedAccounts() {
+        List<Account> orderedAccounts = Lists.newArrayList(accounts);
+        Collections.sort(orderedAccounts);
+        return orderedAccounts;
+    }
+    
     /**
      * Find unique member having given login.
      * Seems this request is very often used, it's better to used it (more efficient with named query usage) instead of Play! find("byLogin", login)
@@ -165,21 +223,17 @@ public class Member extends Model implements Lookable {
     }
 
     public boolean isLinkedTo(final String loginToLink) {
-        return CollectionUtils.exists(links, new Predicate() {
-
-            public boolean evaluate(Object o) {
-                Member linked = (Member) o;
+        return Iterables.any(links, new Predicate<Member>() {
+            public boolean apply(Member linked) {
                 return loginToLink.equals(linked.login);
             }
         });
     }
 
     public boolean hasForLinker(final String loginToLink) {
-        return CollectionUtils.exists(linkers, new Predicate() {
-
-            public boolean evaluate(Object o) {
-                Member linked = (Member) o;
-                return loginToLink.equals(linked.login);
+        return Iterables.any(linkers, new Predicate<Member>() {
+            public boolean apply(Member linker) {
+                return loginToLink.equals(linker.login);
             }
         });
     }
@@ -218,14 +272,28 @@ public class Member extends Model implements Lookable {
     }
 
     /**
-     * Register user a new Link-IT user
+     * Register a new Link-IT user with given authentication account
      */
-    public Member register() {
+    public Member register(AuthAccount account) {
         save();
+        authenticate(account);
+        account.save();
         new SignUpActivity(this).save();
         return this;
     }
 
+    /**
+     * User authenticated with given account
+     * @param account 
+     */
+    public void authenticate(AuthAccount account) {
+        if (account != null) {
+            account.member = this;
+            // On préinitialise son profil avec les données récupérées du compte
+            account.initMemberProfile();
+        }
+    }
+    
     /**
      * Update user profile
      */
