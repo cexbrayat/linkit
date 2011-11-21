@@ -1,7 +1,6 @@
 package controllers;
 
 import models.*;
-import play.Logger;
 
 /**
  * By default, the login page will accept any login/password.

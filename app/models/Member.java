@@ -95,6 +95,12 @@ public class Member extends Model implements Lookable {
         if (account != null) {
             account.member = this;
             this.accounts.add(account);
+        }
+    }
+
+    public final void addAccount(OAuthAccount account) {
+        if (account != null) {
+            addAccount(account.getAccount());
             // On préinitialise son profil avec les données récupérées du compte
             account.initMemberProfile();
         }

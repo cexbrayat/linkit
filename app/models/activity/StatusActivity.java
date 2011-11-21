@@ -1,8 +1,6 @@
 package models.activity;
 
 import helpers.badge.BadgeComputationContext;
-import helpers.oauth.OAuthProvider;
-import helpers.oauth.OAuthProviderFactory;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -12,7 +10,6 @@ import javax.persistence.Lob;
 import models.Account;
 import models.Badge;
 import models.Member;
-import models.OAuthAccount;
 import models.ProviderType;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.IndexColumn;
@@ -48,32 +45,26 @@ public class StatusActivity extends Activity {
     static public void fetchFor(Member member) {
 
         for (Account account : member.accounts) {
-            if (account instanceof OAuthAccount) {
-                OAuthAccount oAuthAccount = (OAuthAccount) account;
-                OAuthProvider provider = OAuthProviderFactory.getProvider(account.provider);
-                if (provider != null) {
-                    Logger.info("Fetch timeline for %s on %s", member, account.provider);
-                    List<StatusActivity> statuses = provider.fetchActivities(oAuthAccount);
-                    if (!statuses.isEmpty()) {
-                        // Memorizing most recent id
-                        Collections.sort(statuses);
-                        oAuthAccount.lastStatusId = statuses.get(0).statusId;
-                        account.save();
-                    }
-                    
-                    provider.enhance(statuses);
-                    
-                    for (StatusActivity status : statuses) {
-                        boolean add = true;
-                        // Google hack : workaround for lack of "since" parameter in API, returning already fetched statuses.
-                        if (ProviderType.Google == account.provider) {
-                            // We add this status only if we don't have it already in DB
-                            long count = StatusActivity.count("provider = ? and statusId = ? ", account.provider, status.statusId);
-                            add = (count <= 0l);
-                        }
-                        if (add) status.save();
-                    }
+            Logger.info("Fetch timeline for %s on %s", member, account.provider);
+            List<StatusActivity> statuses = account.fetchActivities();
+            if (!statuses.isEmpty()) {
+                // Memorizing most recent id
+                Collections.sort(statuses);
+                account.lastStatusId = statuses.get(0).statusId;
+                account.save();
+            }
+
+            account.enhance(statuses);
+
+            for (StatusActivity status : statuses) {
+                boolean add = true;
+                // Google hack : workaround for lack of "since" parameter in API, returning already fetched statuses.
+                if (ProviderType.Google == account.provider) {
+                    // We add this status only if we don't have it already in DB
+                    long count = StatusActivity.count("provider = ? and statusId = ? ", account.provider, status.statusId);
+                    add = (count <= 0l);
                 }
+                if (add) status.save();
             }
         }
     }

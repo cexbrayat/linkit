@@ -1,6 +1,10 @@
 package models;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import javax.persistence.Entity;
+import models.activity.StatusActivity;
 
 /**
  * An account on Link-IT (basic login/password local authentication)
@@ -18,11 +22,17 @@ public class LinkItAccount extends Account {
     
     @Override
     public String toString(){
-        return "provider {" + provider + "}";
+        return "Link-IT account for " + member;
     }
 
     @Override
-    public void initMemberProfile() {
-        // Nothing to initialize;
+    public List<StatusActivity> fetchActivities() {
+        // No activities to fetch;
+        return Collections.emptyList();
+    }
+
+    @Override
+    public void enhance(Collection<StatusActivity> activities) {
+        // Useless;
     }
 }

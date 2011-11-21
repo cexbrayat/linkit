@@ -7,10 +7,10 @@ import play.test.Fixtures;
 import play.test.UnitTest;
 
 /**
- * Unit tests for {@link GoogleAccount} 
+ * Unit tests for {@link GoogleOAuthAccount} 
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class GoogleAccountTest extends UnitTest {
+public class GoogleOAuthAccountTest extends UnitTest {
 
     @Before
     public void setUp() {
@@ -25,20 +25,20 @@ public class GoogleAccountTest extends UnitTest {
 
     @Test
     public void testInitMemberProfileNull() {
-        new GoogleAccount(null, null).initMemberProfile();
+        new GoogleOAuthAccount(null, null).initMemberProfile();
         // Should not fail even if Account.member == null
     }
 
     @Test
     public void testInitMemberProfileEmpty() {
-        final GoogleAccount ga = new GoogleAccount(null, null);
+        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null);
         ga.email = "toto@toto.com";
         ga.googleId = "G+";
         ga.givenName = "Jean";
         ga.familyName = "Dupont";
         ga.name = "Jean *Cule* Dupont";
 
-        Member m = new Member("login", ga);
+        Member m = new Member("login", ga.getAccount());
         ga.initMemberProfile();
 
         assertEquals(ga.googleId, m.googlePlusId);
@@ -50,7 +50,7 @@ public class GoogleAccountTest extends UnitTest {
 
     @Test
     public void testInitMemberProfileNotEmpty() {
-        final GoogleAccount ga = new GoogleAccount(null, null);
+        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null);
         ga.email = "toto@toto.com";
         ga.googleId = "G+";
         ga.givenName = "Jean";
@@ -62,7 +62,7 @@ public class GoogleAccountTest extends UnitTest {
         final String originalFirstName = "Jade";
         final String originalLastName = "Aure";
         final String originalDisplayName = "Jade Aure";
-        Member m = new Member("login", ga);
+        Member m = new Member("login", ga.getAccount());
         m.googlePlusId = originalGooglePlusId;
         m.email = originalEmail;
         m.firstname = originalFirstName;
@@ -79,14 +79,14 @@ public class GoogleAccountTest extends UnitTest {
 
     @Test
     public void findCorrespondingMemberOK() {
-        final GoogleAccount ga = new GoogleAccount(null, null);
+        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null);
         ga.email = "bob@gmail.com";
         assertEquals(Member.findByLogin("bob"), ga.findCorrespondingMember());
     }
 
     @Test
     public void findCorrespondingMemberNotFound() {
-        final GoogleAccount ga = new GoogleAccount(null, null);
+        final GoogleOAuthAccount ga = new GoogleOAuthAccount(null, null);
         ga.email = "toto@toto.com";
         assertNull(ga.findCorrespondingMember());
     }

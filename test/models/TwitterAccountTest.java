@@ -1,5 +1,9 @@
 package models;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import models.activity.StatusActivity;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,11 +11,13 @@ import play.test.Fixtures;
 import play.test.UnitTest;
 
 /**
- * Unit tests for {@link TwitterAccount} 
+ * Unit tests for {@link TwitterAccount}
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class TwitterAccountTest extends UnitTest {
 
+    private TwitterAccount account = new TwitterAccount();
+    
     @Before
     public void setUp() {
         Fixtures.deleteAllModels();
@@ -22,55 +28,34 @@ public class TwitterAccountTest extends UnitTest {
     public void tearDown() {
         Fixtures.deleteAllModels();
     }
-
-    @Test
-    public void testInitMemberProfileNull() {
-        new TwitterAccount(null, null).initMemberProfile();
-        // Should not fail even if Account.member == null
+    
+    protected StatusActivity buildTweet(Member author, String content) {
+        return new StatusActivity(author, new Date(), ProviderType.Twitter, content, null, null);
     }
-
+    
     @Test
-    public void testInitMemberProfileEmpty() {
-        final TwitterAccount ta = new TwitterAccount(null, null);
-        ta.name = "Jean Dupont";
-        ta.screenName = "jean_dupont";
-
-        Member m = new Member("login", ta);
-        ta.initMemberProfile();
-
-        assertEquals(ta.name, m.displayName);
-        assertEquals(ta.screenName, m.twitterName);
-    }
-
-    @Test
-    public void testInitMemberProfileNotEmpty() {
-        final TwitterAccount ta = new TwitterAccount(null, null);
-        ta.name = "Jean Dupont";
-        ta.screenName = "jean_dupont";
-
-        final String originalDisplayName = "MaDescription";
-        final String originalTwitterName = "MonTwitter";
-        Member m = new Member("login", ta);
-        m.displayName = originalDisplayName;
-        m.twitterName = originalTwitterName;
-        ta.initMemberProfile();
-
-        // Member profile not modified
-        assertEquals(originalDisplayName, m.displayName);
-        assertEquals(originalTwitterName, m.twitterName);
-    }
-
-    @Test
-    public void findCorrespondingMemberOK() {
-        final TwitterAccount ta = new TwitterAccount(null, null);
-        ta.screenName = "cedric_exbrayat";
-        assertEquals(Member.findByLogin("ced"), ta.findCorrespondingMember());
-    }
-
-    @Test
-    public void findCorrespondingMemberNotFound() {
-        final TwitterAccount ta = new TwitterAccount(null, null);
-        ta.screenName = "MonTwitter";
-        assertNull(ta.findCorrespondingMember());
+    public void enhance() {
+        Member author = Member.findByLogin("ced");
+        Member rguy = Member.findByLogin("rguy");
+        final String content1 = "Hey @" + rguy.twitterName + " did you tweet about @toto or not?";
+        final StatusActivity tweet1 = buildTweet(author, content1);
+        final String content2 = "no mention";
+        final StatusActivity tweet2 = buildTweet(author, content2);
+        
+        
+        List<StatusActivity> activities = Arrays.asList(tweet1, tweet2);
+        // Tested method
+        account.enhance(activities);
+        
+        // List preserved
+        assertEquals(2, activities.size());
+        assertSame(tweet1, activities.get(0));
+        assertSame(tweet2, activities.get(1));
+        // Content enhanced on tweet1
+        assertFalse(content1.equals(tweet1.content));
+        assertTrue(tweet1.content.contains("<a href=\"/profile/show?login="+rguy.login+"\">@"+rguy.twitterName+"</a>"));
+        assertTrue(tweet1.content.contains("<a href=\"http://www.twitter.com/toto\">@toto</a>"));
+        // Content same on tweet2
+        assertEquals(content2, tweet2.content);
     }
 }

@@ -2,6 +2,7 @@ package controllers;
 
 import helpers.oauth.OAuthProvider;
 import helpers.oauth.OAuthProviderFactory;
+import models.Account;
 import models.LinkItAccount;
 import models.Member;
 import models.OAuthAccount;
@@ -14,7 +15,6 @@ import play.Logger;
 import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.libs.OAuth;
-import play.libs.OpenID;
 import play.mvc.Controller;
 import play.mvc.Router;
 
@@ -57,7 +57,7 @@ public class Login extends Controller {
                 // Fetch user oAuthAccount
                 OAuthAccount oAuthAccount = oauthProvider.getUserAccount(accessToken.getToken(), accessToken.getSecret());
                 // Retrieve existing oAuthAccount from profile
-                OAuthAccount account = (OAuthAccount) OAuthAccount.find(providerType, oAuthAccount.getOAuthLogin());
+                Account account = Account.find(providerType, oAuthAccount.getOAuthLogin());
 
                 if (account != null) {
                     onSuccessfulAuthentication(account.member.login);
@@ -87,23 +87,6 @@ public class Login extends Controller {
             index(null);
         }
     }
-    
-// Draft Google OpenID : non working yet...
-    public static void google() {
-
-        if (OpenID.isAuthenticationResponse()) {
-            OpenID.UserInfo info = OpenID.getVerifiedID();
-            Logger.info("info : " + info.toString());
-            index(null);
-        }
-
-        OpenID.id("https://www.google.com/accounts/o8/id")
-                .returnTo(getCallbackUrl(ProviderType.Google))
-                .required("email","http://axschema.org/contact/email/")
-                .optional("firstname","http://axschema.org/namePerson/first")
-                .optional("lastname","http://axschema.org/namePerson/last")
-                .verify();
-    }
 
     public static String getCallbackUrl(ProviderType provider) {
         Router.ActionDefinition ad = Router.reverse("Login.loginWith").add("provider", provider);
@@ -116,7 +99,7 @@ public class Login extends Controller {
         Member member = oAuthAccount.findCorrespondingMember();
         if (member == null) {
             // On crée un nouveau member, qu'on invitera à renseigner son profil
-            member = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount);
+            member = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount.getAccount());
             member.register();
             session.put("username", member.login);
             render("Profile/edit.html", member);
