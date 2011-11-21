@@ -14,6 +14,45 @@ GET     /favicon.ico                            404
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
+# Login
+GET	/login					Login.index
+GET	/login/linkit				Login.loginLinkIt
+GET	/login/signup				Login.signup
+GET	/login/with				Login.loginWith
+
+# Application
+GET	/activities				Application.activities
+GET	/speakers				Application.speakers
+GET	/staff					Application.staff
+GET	/sponsors				Application.sponsors
+GET	/members				Application.members
+GET	/sessions/members			Application.sessionsAndMembersByInterest
+
+# Profile
+POST	/profile				Profile.save 
+GET	/profile/{login}			Profile.show
+GET	/profile/edit				Profile.edit
+GET	/profile/activities			Profile.activitiesOf
+GET	/profile/activities/{providers}		Profile.activitiesFor
+DELETE	/profile				Profile.delete
+GET	/profile/link				Profile.link
+DELETE	/profile/link				Profile.unlink
+
+# Dashboard
+GET	/dashboard				Dashboard.index
+GET	/dashboard/link				Dashboard.link
+
+# Sessions
+GET	/sessions				Sessions.index
+GET	/session/{sessionId}			Sessions.show
+GET	/session				Sessions.create
+POST	/session				Sessions.save
+PUT	/session				Sessions.edit
+POST	/sessions/comment			Session.postComment
+
+# Secure
+GET	/logout					Secure.logout
+
 # Catch all
 *       /{controller}                           {controller}.index
 *       /{controller}/{action}                  {controller}.{action}
