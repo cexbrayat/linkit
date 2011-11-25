@@ -28,7 +28,7 @@ public class TwitterAccountTest extends UnitTest {
     @Test
     public void enhance() {
         TwitterAccount auteurAccount = createMemberAndAccount("auteur", "leplusgrandauteur");
-        TwitterAccount mentionnedAccount = createMemberAndAccount("rguy","rguy");
+        TwitterAccount mentionnedAccount = createMemberAndAccount("mentioned","mentioned");
         final String content1 = "Hey @" + mentionnedAccount.screenName + " did you tweet about @toto or not?";
         final StatusActivity tweet1 = buildTweet(auteurAccount.member, content1);
         final String content2 = "no mention";
@@ -44,7 +44,7 @@ public class TwitterAccountTest extends UnitTest {
         assertSame(tweet2, activities.get(1));
         // Content enhanced on tweet1
         assertFalse(content1.equals(tweet1.content));
-        assertTrue(tweet1.content.contains("<a href=\"/profile/show?login="+mentionnedAccount.member.login+"\">@"+mentionnedAccount.screenName+"</a>"));
+        assertTrue(tweet1.content.contains("<a href=\"/profile/"+mentionnedAccount.member.login+"\">@"+mentionnedAccount.screenName+"</a>"));
         assertTrue(tweet1.content.contains("<a href=\"http://www.twitter.com/toto\">@toto</a>"));
         // Content same on tweet2
         assertEquals(content2, tweet2.content);
