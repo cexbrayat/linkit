@@ -78,7 +78,7 @@ public class SuggestionTest extends UnitTest {
     @Test
     public void testSuggestedMembersWithNoInterests() {
         // Member with no interests
-        Member notinterested = new Member("toto", new LinkItAccount("password"));
+        Member notinterested = new Member("toto").save();
         assertEquals(0, Suggestion.suggestedMembersFor(notinterested).size());
     }
 }

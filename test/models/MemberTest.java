@@ -1,7 +1,7 @@
 package models;
 
-
-import org.h2.util.StringUtils;
+import java.util.Arrays;
+import org.apache.commons.lang.StringUtils;
 import org.junit.*;
 import play.test.*;
 
@@ -53,7 +53,7 @@ public class MemberTest extends UnitTest {
     @Test
     public void saveWithBigDescription() {
         Member bob = Member.findByLogin("bob");
-        String description = StringUtils.pad("testwith4000char", 4000, "a" , true);
+        String description = StringUtils.rightPad("testwith4000char", 4000, "a");
         bob.description = description;
         bob.save();
     }
@@ -102,31 +102,56 @@ public class MemberTest extends UnitTest {
         assertEquals(1, Member.findMembersInterestedIn("Hadoop").size());
     }
    
+    protected static Member createMember(final String login) {
+        return new Member(login).save();
+    }
+    
     @Test
     public void testAddAccount() {
-        Member bob = Member.findByLogin("bob");
-        assertEquals(1, bob.accounts.size());
+        final String login = "toto";
+        Member toto = createMember(login);
+        assertEquals(0, toto.accounts.size());
 
         // Ajout d'un compte Google
-        final Account google1 = new GoogleAccount("ABC", "DEF");
-        bob.addAccount(google1);
-        bob.save();
-        bob = Member.findByLogin("bob");
-        assertEquals(2, bob.accounts.size());
+        final Account google1 = new GoogleAccount("id1");
+        toto.addAccount(google1);
+        toto.save();
+        toto = Member.findByLogin(login);
+        assertEquals(1, toto.accounts.size());
 
         // Ajout d'un second compte Google : pas de modification
-        final Account google2 = new GoogleAccount("GHI", "JKL");
-        bob.addAccount(google2);
-        bob.save();
-        bob = Member.findByLogin("bob");
-        assertEquals(2, bob.accounts.size());
+        final Account google2 = new GoogleAccount("id2");
+        toto.addAccount(google2);
+        toto.save();
+        toto = Member.findByLogin(login);
+        assertEquals(1, toto.accounts.size());
 
         // Ajout d'un nouveau compte Twitter
-        final Account twitter = new TwitterAccount("ABC", "DEF");
-        bob.addAccount(twitter);
-        bob.save();
-        bob = Member.findByLogin("bob");
-        assertEquals(3, bob.accounts.size());
+        final Account twitter = new TwitterAccount("toto");
+        toto.addAccount(twitter);
+        toto.save();
+        toto = Member.findByLogin(login);
+        assertEquals(2, toto.accounts.size());
+    }
+   
+    @Test
+    public void testRemoveAccount() {
+        final String login = "toto";
+        Member toto = createMember(login);
+        final GoogleAccount ga = new GoogleAccount("G+");
+        final TwitterAccount ta = new TwitterAccount("twitter");
+        toto.addAccount(ga);
+        toto.addAccount(ta);
+        toto.save();
+        toto = Member.findByLogin(login);
+        assertEquals(2, toto.accounts.size());
+        
+        toto.removeAccount(ga);
+        toto.save();
+ 
+        toto = Member.findByLogin(login);
+        assertEquals(1, toto.accounts.size());
+        assertSame(ta, toto.accounts.iterator().next());
     }
         
     @Test public void addBadge() {
@@ -162,5 +187,35 @@ public class MemberTest extends UnitTest {
         assertEquals(nbLooks+1, bob.getNbLooks());
         bob.lookedBy(null);
         assertEquals(nbLooks+2, bob.getNbLooks());
+    }
+    
+    @Test public void getAccount() {
+        final Account googleAccount = new GoogleAccount("1234");
+        final Member m = new Member("toto");
+        m.addAccount(googleAccount);
+        
+        assertSame(googleAccount, m.getAccount(ProviderType.Google));
+        assertSame(googleAccount, m.getGoogleAccount());
+        assertNull(m.getAccount(ProviderType.Twitter));
+        assertNull(m.getTwitterAccount());
+    }
+    
+    @Test public void getAccountProviders() {
+        final Member m = new Member("toto");
+        m.addAccount(new GoogleAccount("1234"));
+        
+        // Preserver order of ProviderType.values(), and always LinkIt
+        assertEquals(Arrays.asList(ProviderType.LinkIt, ProviderType.Google), m.getAccountProviders());
+    }
+    
+    @Test public void getOrderedAccounts() {
+        final Account twitterAccount = new TwitterAccount("twitter");
+        final Account googleAccount = new GoogleAccount("1234");
+        final Member m = new Member("toto");
+        m.addAccount(googleAccount);
+        m.addAccount(twitterAccount);
+        
+        // Preserver order of ProviderType.values()
+        assertEquals(Arrays.asList(twitterAccount, googleAccount), m.getOrderedAccounts());
     }
 }

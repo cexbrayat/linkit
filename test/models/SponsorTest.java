@@ -33,7 +33,7 @@ public class SponsorTest extends UnitTest {
     }
 
     @Test public void create() {
-        Sponsor s = new Sponsor("toto", new LinkItAccount("password"));
+        Sponsor s = new Sponsor("toto");
         assertNotNull(s.badges);
         assertTrue(s.badges.contains(Badge.Sponsor));
         s.save();
