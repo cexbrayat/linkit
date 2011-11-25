@@ -1,13 +1,11 @@
 package helpers.oauth;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import models.Member;
-import models.OAuthAccount;
+import models.Account;
+import models.auth.OAuthAccount;
 import models.activity.StatusActivity;
 import org.scribe.oauth.OAuthService;
-import play.libs.WS.HttpResponse;
 
 /**
  * Interface for an OAuth provider, enabling authentication and authenticated REST resource fetching
@@ -37,17 +35,4 @@ public interface OAuthProvider {
      * @return HTTP response's body
      */
     String get(String URL, String token, String secret);
-    
-    /**
-     * Fetch recent activities from provider for the given member's account
-     * @param account member's account
-     * @return activities last activities retrieved
-     */
-    List<StatusActivity> fetchActivities(OAuthAccount account);
-    
-    /**
-     * Enhance given status activities with Link-IT features (ex : link to Link-IT profile, ...)
-     * @param activities status activities to enhance
-     */
-    void enhance(Collection<StatusActivity> activities);
 }

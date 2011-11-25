@@ -99,8 +99,6 @@ Staff(cedric) :
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
     displayName: CédriX
-    twitterName: cedric_exbrayat
-    googlePlusId: 108783492614745057153
     interests:           
          - java
          - hadoop
@@ -111,10 +109,20 @@ Staff(cedric) :
          - Staff
          - Attendee
 
-LinkItAccount(cedAccount):
+models.auth.LinkItAccount(cedLinkIt):
     provider: LinkIt
     member: cedric
     password: ced
+
+TwitterAccount(cedTwitter):
+    provider: Twitter
+    member: cedric
+    screenName: cedric_exbrayat
+
+GoogleAccount(cedGoogle):
+    provider: Google
+    member: cedric
+    googleId: 108783492614745057153
 
 Staff(ju) :
     firstname: Julien
@@ -166,8 +174,6 @@ Staff(ju) :
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
     displayName: tluapir
-    twitterName: julien_ripault
-    googlePlusId: 105928763613547015053
     interests:           
          - java
          - play
@@ -176,12 +182,22 @@ Staff(ju) :
     badges:           
          - Staff
 
-LinkItAccount(juAccount):
+models.auth.LinkItAccount(juLinkIt):
     provider: LinkIt
     member: ju
     password: ju
+
+TwitterAccount(juTwitter):
+    provider: Twitter
+    member: ju
+    screenName: julien_ripault
+
+GoogleAccount(juGoogle):
+    provider: Google
+    member: ju
+    googleId: 105928763613547015053
     
-Member(agnes) :
+Sponsor(agnes) :
     firstname: Agnès
     lastname: Crépet
     login: agnes
@@ -231,8 +247,6 @@ Member(agnes) :
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
     displayName: Gnès
-    twitterName: agnes_crepet
-    googlePlusId: 116189330666769817164
     interests:
          - java
          - spring
@@ -243,11 +257,21 @@ Member(agnes) :
          - Speaker
          - Attendee
 
-LinkItAccount(agnesAccount):
+models.auth.LinkItAccount(agnesAccount):
     provider: LinkIt
     member: agnes
     password: agnes
-    
+
+TwitterAccount(agnesTwitter):
+    provider: Twitter
+    member: agnes
+    screenName: agnes_crepet
+
+GoogleAccount(agnesGoogle):
+    provider: Google
+    member: agnes
+    googleId: 116189330666769817164
+  
 Speaker(nmartignole) :
     firstname: Nicolas
     lastname: Martignole
@@ -307,12 +331,22 @@ Speaker(nmartignole) :
          - Speaker
          - Sponsor
 
-LinkItAccount(nmartignoleAccount):
+models.auth.LinkItAccount(nmartignoleAccount):
     provider: LinkIt
     member: nmartignole
     password: nicolas
+
+TwitterAccount(nmartignoleTwitter):
+    provider: Twitter
+    member: nmartignole
+    screenName: nmartignole
+
+GoogleAccount(nmartignoleGoogle):
+    provider: Google
+    member: nmartignole
+    googleId: 112895425540987915280
     
-Speaker(rguy) :
+Speaker(rguy):
     firstname: Romain
     lastname: Guy
     login: rguy
@@ -362,12 +396,20 @@ Speaker(rguy) :
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
     displayName: Romain Guy
-    twitterName: romainguy
-    googlePlusId: 111962077049890418486
     interests:
          - java
     badges:
          - Speaker
+
+TwitterAccount(rguyTwitter):
+    provider: Twitter
+    member: rguy
+    screenName: romainguy
+
+GoogleAccount(rguyGoogle):
+    provider: Google
+    member: rguy
+    googleId: 111962077049890418486
     
 Session(sessionplayframework):
     title: Play! Framework for dummies

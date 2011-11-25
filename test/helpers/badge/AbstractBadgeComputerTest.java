@@ -2,7 +2,7 @@ package helpers.badge;
 
 import java.util.Set;
 import models.Badge;
-import models.LinkItAccount;
+import models.auth.LinkItAccount;
 import models.Member;
 import org.junit.After;
 import org.junit.Before;
@@ -38,7 +38,7 @@ public abstract class AbstractBadgeComputerTest extends UnitTest {
     }
 
     protected Member createMember(final String login) {
-        return new Member(login, new LinkItAccount(login)).save();
+        return new Member(login).save();
     }
 
     @Test

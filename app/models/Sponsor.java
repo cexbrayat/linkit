@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 @Entity
 public class Sponsor extends Member {
 
-    public Sponsor(String login, Account account) {
-        super(login, account);
+    public Sponsor(String login) {
+        super(login);
         // Can't call addBadge() on a transient instance (and don't want to trigger activity)
         this.badges.add(Badge.Sponsor);
     }

@@ -1,6 +1,5 @@
 package models.activity;
 
-import models.LinkItAccount;
 import models.Member;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;
@@ -20,7 +19,7 @@ public abstract class AbstractActivityTest extends UnitTest {
     protected Member member;
 
     protected Member createMember(final String login) {
-        return new Member(login, new LinkItAccount(login)).save();
+        return new Member(login).save();
     }
 
     @Before

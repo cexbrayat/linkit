@@ -85,6 +85,17 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     }
 
     /**
+     * Recent dates of Link-IT activity by given member in desc order
+     * @param member
+     * @param page
+     * @param length
+     * @return 
+     */
+    public static List<Date> recentDatesByMember(final Member member, int page, int length) {
+        return Activity.find("select a.at from Activity a where a.provider=? and a.member=? order by at desc", ProviderType.LinkIt, member).fetch(page, length);
+    }
+
+    /**
      * Activities by a given member
      * @param m member whose activities are to be found
      * @param page

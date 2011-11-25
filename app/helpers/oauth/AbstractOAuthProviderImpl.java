@@ -92,30 +92,4 @@ abstract class AbstractOAuthProviderImpl implements OAuthProvider {
 
         return response;
     }
-
-    static JsonObject getAsJsonObject(final String data) {
-        JsonElement element = getAsJsonElement(data);
-        return element.getAsJsonObject();
-    }
-
-    static JsonElement getAsJsonElement(final String data) {
-        return new JsonParser().parse(data);
-    }
-    
-    static String getStringPropertyFromJson(JsonObject object, String property) {
-        if (object.get(property) != null) {
-            return object.get(property).getAsString();
-        } else {
-            return null;
-        }
-    }
-    
-    static Long getLongPropertyFromJson(JsonObject object, String property) {
-        if (object.get(property) != null) {
-            return object.get(property).getAsLong();
-        } else {
-            return null;
-        }
-    }
-
 }
