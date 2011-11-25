@@ -21,7 +21,7 @@ public class GoogleAccountTest extends UnitTest {
     }
     
     @Test
-    @Ignore // TODO
+    @Ignore // TODO Google enhance
     public void enhance() {
     }
     

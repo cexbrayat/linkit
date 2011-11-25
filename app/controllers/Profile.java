@@ -41,21 +41,31 @@ public class Profile extends Controller {
         member.displayName = displayName;
         
         TwitterAccount twitter = member.getTwitterAccount();
-        if (twitter == null) {
-            member.addAccount(new TwitterAccount(twitterName));
+        if (StringUtils.isNotBlank(twitterName)) {
+            if (twitter == null) {
+                member.addAccount(new TwitterAccount(twitterName));
+            } else {
+                twitter.screenName = twitterName;
+            }
         } else {
-            twitter.screenName = twitterName;
+            if (twitter != null) {
+                member.removeAccount(twitter);
+            }
         }
         
         GoogleAccount google = member.getGoogleAccount();
-        if (google == null) {
-            member.addAccount(new GoogleAccount(googlePlusId));
+        if (StringUtils.isNotBlank(googlePlusId)) {
+            if (google == null) {
+                member.addAccount(new GoogleAccount(googlePlusId));
+            } else {
+                google.googleId = googlePlusId;
+            }
         } else {
-            google.googleId = googlePlusId;
+            if (google != null) {
+                member.removeAccount(google);
+            }
         }
-// FIXME CLA
-//        member.twitterName = twitterName;
-//        member.googlePlusId = googlePlusId;
+
         if (interests != null) {
             member.updateInterests(interests);
         }

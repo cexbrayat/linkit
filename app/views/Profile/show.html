@@ -70,8 +70,8 @@
             <div class="span8" > <!-- timeline -->
                 <h3>Ses activités</h3>
                 <div class="span8">
-                    #{list items:member.getOrderedAccounts(), as:'account'}       
-                        <a class="service-button ${account.provider.name().toLowerCase()}" id="${account.provider}" onClick="handleProvider('${account.provider}')"></a>
+                    #{list items:member.getAccountProviders(), as:'provider'}       
+                        <a class="service-button ${provider.name().toLowerCase()}" id="${provider}" onClick="handleProvider('${provider}')"></a>
                     #{/list}
                     (Cliquez pour activer/désactiver un flux)
                 </div>

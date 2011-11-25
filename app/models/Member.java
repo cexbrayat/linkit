@@ -138,13 +138,13 @@ public class Member extends Model implements Lookable {
      */
     public List<ProviderType> getAccountProviders() {
         // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
-        List<ProviderType> providers = Lists.newArrayList(ProviderType.values());
-        Collection<ProviderType> activeProviders = Collections2.transform(this.accounts, new Function<Account, ProviderType>() {
+        List<ProviderType> providers = Lists.newArrayList(Collections2.transform(this.accounts, new Function<Account, ProviderType>() {
             public ProviderType apply(Account a) {
                 return a.provider;
             }
-        });
-        Iterables.retainAll(providers, activeProviders);
+        }));
+        providers.add(ProviderType.LinkIt);   // LinkIt est toujours un provider actif
+        Collections.sort(providers);    // Ensure enumeration order
         return providers;
     }
     
