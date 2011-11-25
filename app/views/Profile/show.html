@@ -5,12 +5,22 @@
         <h2>${member.firstname} ${member.lastname} aka ${member.displayName}</h2>
         <div class="row">
             <div class="span6">
-                <!-- profil -->
-                #{if member.email}
-                #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
-                #{/if}
+                <div class="row">
+                    <div class="span3">
+                        #{if member.email}
+                        #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
+                        #{/if}
+                    </div>
+                    <div class="span3">
+                        ${member.getNbLooks()} consultation${member.getNbLooks().pluralize()}
+                        <br/>
 
-                ${member.getNbLooks()} consultation${member.getNbLooks().pluralize()}
+                        #{list items:member.accounts, as:'account'}       
+                            <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}"></a>
+                        #{/list}
+                    </div>
+                </div>
+
 
                 #{if member instanceof models.Speaker}
                     <h5>Session${member.sessions.size().pluralize()} :</h5>
@@ -20,12 +30,6 @@
                     #{/list}
                     </ul>
                 #{/if}
-
-                <p>Social networks :<br/>
-                #{list items:member.accounts, as:'account'}       
-                    <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}"></a>
-                #{/list}
-                </p>
                 
                 <p>${member.description?.markdown().raw()}</p>
                 
@@ -37,7 +41,7 @@
                         <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>
                     #{/else}
                 #{/if}
-                </p>
+
                 <div class="row">
                     <div class="span3">
                         <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
@@ -65,62 +69,61 @@
             </div>
 
             <div class="span8" > <!-- timeline -->
-                <div class="row">
-                    <div class="span8">
-                        Afficher : 
-                        #{list items:member.accounts, as:'account'}       
-                            <a class="service-button ${account.provider.name().toLowerCase()}" id="${account.provider}" onClick="handleProvider('${account.provider}')"></a>
-                        #{/list}
+                <h3>Ses activités</h3>
+                <div class="span8">
+                    #{list items:member.accounts, as:'account'}       
+                        <a class="service-button ${account.provider.name().toLowerCase()}" id="${account.provider}" onClick="handleProvider('${account.provider}')"></a>
+                    #{/list}
+                    (Cliquez pour activer/désactiver un flux)
+                </div>
+                <br/>
+                <br/>
+                <div class="span8">
+                    <div id="activities" style="max-height: 400px">
                     </div>
-                    <br/>
-                    <br/>
-                    <div class="span8">
-                        <div id="activities" style="max-height: 400px">
-                        </div>
-                    </div>
-                    <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
+                </div>
+                <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
 
-                    <script type="text/javascript">
-                        var providers = ['${member.getAccountProviders().join("','")}'];
-                        var page = 1;
-                        var size = 5;
-                        var activitiesAction = #{jsAction @Profile.activitiesOf(':login', ':providers', ':page',':size') /};
+                <script type="text/javascript">
+                    var providers = ['${member.getAccountProviders().join("','")}'];
+                    var page = 1;
+                    var size = 5;
+                    var activitiesAction = #{jsAction @Profile.activitiesOf(':login', ':providers', ':page',':size') /};
 
-                        function loadMoreActivities() {
-                            if (providers.length > 0) {
-                                $.get(activitiesAction({login: '${member.login}', providers: providers.join("${controllers.Profile.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
-                                    $('#activities').append(data);
-                                    if (data) {
-                                        $('#moreActivities').css('visibility','visible');
-                                        page++;
-                                    } else {
-                                        $('#moreActivities').css('visibility','hidden');
-                                    }
-                                });
-                            }
-                        };
-                    
-                        function handleProvider(provider){
-                            var contain = providers.indexOf(provider);
-                            if(contain != -1){
-                                providers = providers.filter(function(x){return x != provider})
-                                $('#'+provider).removeClass(provider.toLowerCase()).addClass(provider.toLowerCase()+'-off');
-                            }else{
-                                providers.push(provider);
-                                $('#'+provider).removeClass(provider.toLowerCase()+'-off').addClass(provider.toLowerCase());
-                            }
-                            $('#activities').empty();
-                            page = 1;
-                            size = 5;
-                            console.log(providers);
-                            loadMoreActivities();
-                        };
+                    function loadMoreActivities() {
+                        if (providers.length > 0) {
+                            $.get(activitiesAction({login: '${member.login}', providers: providers.join("${controllers.Profile.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
+                                $('#activities').append(data);
+                                if (data) {
+                                    $('#moreActivities').css('visibility','visible');
+                                    page++;
+                                } else {
+                                    $('#moreActivities').css('visibility','hidden');
+                                }
+                            });
+                        }
+                    };
 
-                        // Initial loading : first page
+                    function handleProvider(provider){
+                        var contain = providers.indexOf(provider);
+                        if(contain != -1){
+                            providers = providers.filter(function(x){return x != provider})
+                            $('#'+provider).removeClass(provider.toLowerCase()).addClass(provider.toLowerCase()+'-off');
+                        }else{
+                            providers.push(provider);
+                            $('#'+provider).removeClass(provider.toLowerCase()+'-off').addClass(provider.toLowerCase());
+                        }
+                        $('#activities').empty();
+                        page = 1;
+                        size = 5;
+                        console.log(providers);
                         loadMoreActivities();
-                    </script>
-                </div>            
-            </div>
+                    };
+
+                    // Initial loading : first page
+                    loadMoreActivities();
+                </script>
+            </div>            
         </div>
     </div>
 
