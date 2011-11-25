@@ -57,6 +57,11 @@ public abstract class Account extends Model {
      */
     public abstract void enhance(Collection<StatusActivity> activities);
     
+    /**
+     * @return URL of member's profile on this social network account
+     */
+    public abstract String getUrl();
+    
     @Override
     public String toString(){
         return "provider {" + provider + "}";

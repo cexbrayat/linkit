@@ -92,4 +92,9 @@ public class TwitterAccount extends Account {
             }
         }
     }
+
+    @Override
+    public String getUrl() {
+        return new StringBuilder("http://www.twitter.com/").append(screenName).toString();
+    }
 }

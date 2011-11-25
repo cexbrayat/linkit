@@ -73,4 +73,9 @@ public class GoogleAccount extends Account {
     public void enhance(Collection<StatusActivity> activities) {
         // TODO Google enhance
     }
+
+    @Override
+    public String getUrl() {
+        return new StringBuilder("https://profiles.google.com/").append(googleId).toString();
+    }
 }

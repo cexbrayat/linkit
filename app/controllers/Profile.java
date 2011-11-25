@@ -17,6 +17,8 @@ import play.mvc.Controller;
 
 public class Profile extends Controller {
 
+    public static final String PROVIDERS_SEP = "~";
+    
     public static void edit() {
         Member member = Member.findByLogin(Security.connected());
         Logger.info("Edition du profil " + member);
@@ -91,13 +93,13 @@ public class Profile extends Controller {
         show(loginToLink);
     }
     
-    public static void activitiesOf(String login, @As("~") Set<ProviderType> providers, Integer page, Integer size) {
+    public static void activitiesOf(String login, @As(PROVIDERS_SEP) Set<ProviderType> providers, Integer page, Integer size) {
         Member member = Member.findByLogin(login);
         List<Activity> _activities = Activity.recentsByMember(member, providers, page, size);
         render("tags/activities.html", _activities);
     }
     
-    public static void activitiesFor(String login, @As("~") Set<ProviderType> providers, Integer page, Integer size) {
+    public static void activitiesFor(String login, @As(PROVIDERS_SEP) Set<ProviderType> providers, Integer page, Integer size) {
         Member member = Member.findByLogin(login);
         List<Activity> _activities = Activity.recentsForMember(member, providers, page, size);
         render("tags/activities.html", _activities);

@@ -1,5 +1,9 @@
 package models;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
 import controllers.JobFetchUserTimeline;
 import helpers.badge.BadgeComputationContext;
 import helpers.badge.BadgeComputer;
@@ -12,8 +16,6 @@ import models.activity.LinkActivity;
 import models.activity.LookProfileActivity;
 import models.activity.SignUpActivity;
 import models.activity.UpdateProfileActivity;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -75,6 +77,7 @@ public class Member extends Model implements Lookable {
     public Set<Member> linkers = new HashSet<Member>();
     
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
     public Set<Account> accounts = new HashSet<Account>();
     
     @ManyToMany(cascade = CascadeType.PERSIST)
@@ -104,6 +107,33 @@ public class Member extends Model implements Lookable {
             // On préinitialise son profil avec les données récupérées du compte
             account.initMemberProfile();
         }
+    }
+    
+    /**
+     * Find an activated social network account for given provider
+     * @param provider Provider searched
+     * @return Activated account found, null otherwise
+     */
+    public Account getAccount(final ProviderType provider) {
+        // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
+        Predicate<Account> p = new Predicate<Account>() {
+            public boolean apply(Account a) {
+                return a.provider == provider;
+            }
+        };
+        return Iterables.find(accounts, p, null);
+    }
+    
+    /**
+     * @return All providers where the member has an activated social network account
+     */
+    public Set<ProviderType> getAccountProviders() {
+        // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
+        return EnumSet.copyOf(Collections2.transform(this.accounts, new Function<Account, ProviderType>() {
+            public ProviderType apply(Account a) {
+                return a.provider;
+            }
+        }));
     }
     
     /**
@@ -171,21 +201,17 @@ public class Member extends Model implements Lookable {
     }
 
     public boolean isLinkedTo(final String loginToLink) {
-        return CollectionUtils.exists(links, new Predicate() {
-
-            public boolean evaluate(Object o) {
-                Member linked = (Member) o;
+        return Iterables.any(links, new Predicate<Member>() {
+            public boolean apply(Member linked) {
                 return loginToLink.equals(linked.login);
             }
         });
     }
 
     public boolean hasForLinker(final String loginToLink) {
-        return CollectionUtils.exists(linkers, new Predicate() {
-
-            public boolean evaluate(Object o) {
-                Member linked = (Member) o;
-                return loginToLink.equals(linked.login);
+        return Iterables.any(linkers, new Predicate<Member>() {
+            public boolean apply(Member linker) {
+                return loginToLink.equals(linker.login);
             }
         });
     }

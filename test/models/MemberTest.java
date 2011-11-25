@@ -1,6 +1,6 @@
 package models;
 
-
+import java.util.EnumSet;
 import org.h2.util.StringUtils;
 import org.junit.*;
 import play.test.*;
@@ -162,5 +162,25 @@ public class MemberTest extends UnitTest {
         assertEquals(nbLooks+1, bob.getNbLooks());
         bob.lookedBy(null);
         assertEquals(nbLooks+2, bob.getNbLooks());
+    }
+    
+    @Test public void getAccount() {
+        final Account linkItAccount = new LinkItAccount("password");
+        final Account googleAccount = new GoogleAccount("1234");
+        final Member m = new Member("toto", linkItAccount);
+        m.addAccount(googleAccount);
+        
+        assertSame(linkItAccount, m.getAccount(ProviderType.LinkIt));
+        assertSame(googleAccount, m.getAccount(ProviderType.Google));
+        assertNull(m.getAccount(ProviderType.Twitter));
+    }
+    
+    @Test public void getAccountProviders() {
+        final Account linkItAccount = new LinkItAccount("password");
+        final Account googleAccount = new GoogleAccount("1234");
+        final Member m = new Member("toto", linkItAccount);
+        m.addAccount(googleAccount);
+        
+        assertEquals(EnumSet.of(ProviderType.Google, ProviderType.LinkIt), m.getAccountProviders());
     }
 }

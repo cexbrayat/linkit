@@ -4,10 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import models.activity.StatusActivity;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import play.test.Fixtures;
 import play.test.UnitTest;
 
 /**
@@ -16,11 +13,11 @@ import play.test.UnitTest;
  */
 public class TwitterAccountTest extends UnitTest {
     
-    protected StatusActivity buildTweet(Member author, String content) {
+    protected static StatusActivity buildTweet(Member author, String content) {
         return new StatusActivity(author, new Date(), ProviderType.Twitter, content, null, null);
     }
     
-    protected TwitterAccount createMemberAndAccount(final String login, final String twitterName) {
+    protected static TwitterAccount createMemberAndAccount(final String login, final String twitterName) {
         TwitterAccount ta = new TwitterAccount(twitterName);
         new Member(login, ta).save();
         return ta;
@@ -49,5 +46,11 @@ public class TwitterAccountTest extends UnitTest {
         assertTrue(tweet1.content.contains("<a href=\"http://www.twitter.com/toto\">@toto</a>"));
         // Content same on tweet2
         assertEquals(content2, tweet2.content);
+    }
+    
+    @Test
+    public void getURL() {
+        TwitterAccount ta = createMemberAndAccount("toto", "toto69");
+        assertEquals("http://www.twitter.com/toto69", ta.getUrl());
     }
 }

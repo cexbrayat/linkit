@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.persistence.Entity;
 import models.activity.StatusActivity;
+import play.mvc.Router;
 
 /**
  * An account on Link-IT (basic login/password local authentication)
@@ -34,5 +35,10 @@ public class LinkItAccount extends Account {
     @Override
     public void enhance(Collection<StatusActivity> activities) {
         // Useless;
+    }
+
+    @Override
+    public String getUrl() {
+        return Router.reverse("Profile.show").add("login", member.login).url;
     }
 }
