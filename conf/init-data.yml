@@ -109,7 +109,7 @@ Staff(cedric) :
          - Staff
          - Attendee
 
-LinkItAccount(cedLinkIt):
+models.auth.LinkItAccount(cedLinkIt):
     provider: LinkIt
     member: cedric
     password: ced
@@ -182,7 +182,7 @@ Staff(ju) :
     badges:           
          - Staff
 
-LinkItAccount(juLinkIt):
+models.auth.LinkItAccount(juLinkIt):
     provider: LinkIt
     member: ju
     password: ju
@@ -257,7 +257,7 @@ Sponsor(agnes) :
          - Speaker
          - Attendee
 
-LinkItAccount(agnesAccount):
+models.auth.LinkItAccount(agnesAccount):
     provider: LinkIt
     member: agnes
     password: agnes
@@ -331,7 +331,7 @@ Speaker(nmartignole) :
          - Speaker
          - Sponsor
 
-LinkItAccount(nmartignoleAccount):
+models.auth.LinkItAccount(nmartignoleAccount):
     provider: LinkIt
     member: nmartignole
     password: nicolas

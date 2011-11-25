@@ -1,5 +1,7 @@
-package models;
+package models.auth;
 
+import models.Member;
+import models.TwitterAccount;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

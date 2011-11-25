@@ -2,7 +2,7 @@ package helpers.badge;
 
 import java.util.Set;
 import models.Badge;
-import models.LinkItAccount;
+import models.auth.LinkItAccount;
 import models.Member;
 import org.junit.After;
 import org.junit.Before;

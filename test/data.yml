@@ -6,7 +6,7 @@ Member(bob):
     login: bob
     description: is bob
 
-LinkItAccount(bobAccount):
+models.auth.LinkItAccount(bobAccount):
     provider: LinkIt
     member: bob
     password: secret
@@ -27,7 +27,7 @@ TwitterAccount(cedTwitter):
     member: ced
     screenName: cedric_exbrayat
 
-LinkItAccount(cedLinkIt):
+models.auth.LinkItAccount(cedLinkIt):
     provider: LinkIt
     member: ced
     password: secret

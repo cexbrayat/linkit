@@ -2,9 +2,9 @@ package helpers.oauth;
 
 import com.google.gson.JsonObject;
 import helpers.JSON;
-import models.OAuthAccount;
+import models.auth.OAuthAccount;
 import models.ProviderType;
-import models.TwitterOAuthAccount;
+import models.auth.TwitterOAuthAccount;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.TwitterApi;
 import org.scribe.model.OAuthRequest;

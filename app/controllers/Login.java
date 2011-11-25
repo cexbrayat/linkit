@@ -2,10 +2,10 @@ package controllers;
 
 import helpers.oauth.OAuthProvider;
 import helpers.oauth.OAuthProviderFactory;
-import models.AuthAccount;
-import models.LinkItAccount;
+import models.auth.AuthAccount;
+import models.auth.LinkItAccount;
 import models.Member;
-import models.OAuthAccount;
+import models.auth.OAuthAccount;
 import models.ProviderType;
 import org.scribe.exceptions.OAuthException;
 import org.scribe.model.Token;

@@ -2,8 +2,8 @@ package helpers.oauth;
 
 import com.google.gson.JsonObject;
 import helpers.JSON;
-import models.GoogleOAuthAccount;
-import models.OAuthAccount;
+import models.auth.GoogleOAuthAccount;
+import models.auth.OAuthAccount;
 import models.ProviderType;
 import org.scribe.builder.ServiceBuilder;
 import org.scribe.builder.api.GoogleApi;

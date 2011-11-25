@@ -1,4 +1,4 @@
-package models;
+package models.auth;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -7,6 +7,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import models.Member;
+import models.ProviderType;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import play.data.validation.Required;

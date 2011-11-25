@@ -3,7 +3,7 @@ package helpers.oauth;
 import java.util.Collection;
 import java.util.List;
 import models.Account;
-import models.OAuthAccount;
+import models.auth.OAuthAccount;
 import models.activity.StatusActivity;
 import org.scribe.oauth.OAuthService;
 

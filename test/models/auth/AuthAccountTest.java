@@ -1,5 +1,6 @@
-package models;
+package models.auth;
 
+import models.ProviderType;
 import org.junit.*;
 import play.test.*;
 

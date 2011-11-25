@@ -1,6 +1,8 @@
-package models;
+package models.auth;
 
 import javax.persistence.Entity;
+import models.Member;
+import models.ProviderType;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 

@@ -1,6 +1,5 @@
 package models.activity;
 
-import models.LinkItAccount;
 import models.Member;
 import org.apache.commons.lang.StringUtils;
 import org.junit.After;

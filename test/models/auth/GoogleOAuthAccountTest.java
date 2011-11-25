@@ -1,5 +1,7 @@
-package models;
+package models.auth;
 
+import models.GoogleAccount;
+import models.Member;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

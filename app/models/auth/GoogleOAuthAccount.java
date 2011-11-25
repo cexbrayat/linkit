@@ -1,6 +1,9 @@
-package models;
+package models.auth;
 
 import javax.persistence.Entity;
+import models.GoogleAccount;
+import models.Member;
+import models.ProviderType;
 import org.apache.commons.lang.StringUtils;
 
 /**

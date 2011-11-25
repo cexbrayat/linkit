@@ -1,7 +1,6 @@
 package models.activity;
 
-
-import models.LinkItAccount;
+import models.auth.LinkItAccount;
 import models.Member;
 import org.junit.*;
 

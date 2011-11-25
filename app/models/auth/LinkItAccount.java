@@ -1,6 +1,7 @@
-package models;
+package models.auth;
 
 import javax.persistence.Entity;
+import models.ProviderType;
 
 /**
  * An account on Link-IT (basic login/password local authentication)

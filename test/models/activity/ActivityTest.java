@@ -2,7 +2,6 @@ package models.activity;
 
 import java.util.EnumSet;
 import java.util.List;
-import models.LinkItAccount;
 import models.Member;
 import models.ProviderType;
 import models.Session;

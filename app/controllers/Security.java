@@ -1,5 +1,6 @@
 package controllers;
 
+import models.auth.LinkItAccount;
 import models.*;
 
 /**
