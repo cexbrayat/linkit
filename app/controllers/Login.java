@@ -2,7 +2,7 @@ package controllers;
 
 import helpers.oauth.OAuthProvider;
 import helpers.oauth.OAuthProviderFactory;
-import models.Account;
+import models.AuthAccount;
 import models.LinkItAccount;
 import models.Member;
 import models.OAuthAccount;
@@ -57,7 +57,7 @@ public class Login extends Controller {
                 // Fetch user oAuthAccount
                 OAuthAccount oAuthAccount = oauthProvider.getUserAccount(accessToken.getToken(), accessToken.getSecret());
                 // Retrieve existing oAuthAccount from profile
-                Account account = Account.find(providerType, oAuthAccount.getOAuthLogin());
+                AuthAccount account = AuthAccount.find(providerType, oAuthAccount.getOAuthLogin());
 
                 if (account != null) {
                     onSuccessfulAuthentication(account.member.login);
@@ -99,14 +99,14 @@ public class Login extends Controller {
         Member member = oAuthAccount.findCorrespondingMember();
         if (member == null) {
             // On crée un nouveau member, qu'on invitera à renseigner son profil
-            member = new Member(oAuthAccount.getOAuthLogin(), oAuthAccount.getAccount());
-            member.register();
+            member = new Member(oAuthAccount.getOAuthLogin());
+            member.register(oAuthAccount);
             session.put("username", member.login);
             render("Profile/edit.html", member);
         } else {
             // Un membre existant s'est connecté avec un nouveau provider
             // On se contente de lui ajouter le nouvel account utilisé
-            member.addAccount(oAuthAccount);
+            member.authenticate(oAuthAccount);
             member.updateProfile();
             onSuccessfulAuthentication(member.login);
         }
@@ -136,8 +136,8 @@ public class Login extends Controller {
         if (Validation.hasErrors()) {
             render(login, password);
         }
-        Member member = new Member(login, new LinkItAccount(password));
-        member.register();
+        Member member = new Member(login);
+        member.register(new LinkItAccount(password));
         session.put("username", member.login);
         render("Profile/edit.html", member);
     }

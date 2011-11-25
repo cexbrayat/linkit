@@ -1,7 +1,5 @@
 package models;
 
-import java.util.Collection;
-import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,20 +7,19 @@ import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
-import models.activity.StatusActivity;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
 /**
- * An account on an social network
+ * An authentication account for login on Link-IT
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
 @DiscriminatorValue("provider")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public abstract class Account extends Model implements Comparable<Account> {
+public abstract class AuthAccount extends Model {
     
     @Required
     @ManyToOne(optional = false)
@@ -36,31 +33,22 @@ public abstract class Account extends Model implements Comparable<Account> {
     /** ID of last status retrieved */
     public String lastStatusId;
     
-    public Account(ProviderType provider) {
+    public AuthAccount(ProviderType provider) {
         this.provider = provider;
     }
     
+    public static AuthAccount find(ProviderType provider, String login) {
+        return AuthAccount.find("from AuthAccount a where a.provider=?1 and a.member.login=?2", provider, login).first();
+    }
+        
     /**
-     * Fetch recent activities from provider for the given member's account
-     * @param account member's account
-     * @return activities last activities retrieved
+     * Initialize member profile from account data
      */
-    public abstract List<StatusActivity> fetchActivities();
-    
-    /**
-     * Enhance given status activities with Link-IT features (ex : link to Link-IT profile, ...)
-     * @param activities status activities to enhance
-     */
-    public abstract void enhance(Collection<StatusActivity> activities);
-    
-    /**
-     * @return URL of member's profile on this social network account
-     */
-    public abstract String url();
-    
+    public abstract void initMemberProfile();
+
     @Override
     public String toString(){
-        return "provider {" + provider + "}";
+        return "AuthAccount provider {" + provider + "}";
     }
 
     @Override
@@ -71,7 +59,7 @@ public abstract class Account extends Model implements Comparable<Account> {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Account other = (Account) obj;
+        final AuthAccount other = (AuthAccount) obj;
         return new EqualsBuilder()
                 .append(this.member, other.member)
                 .append(this.provider, other.provider)
@@ -85,9 +73,4 @@ public abstract class Account extends Model implements Comparable<Account> {
                 .append(this.provider)
                 .toHashCode();
     }
-
-    public int compareTo(Account other) {
-        return this.provider.compareTo(other.provider);
-    }
-    
 }

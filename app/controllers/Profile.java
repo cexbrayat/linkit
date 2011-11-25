@@ -40,14 +40,14 @@ public class Profile extends Controller {
         member.login = login;
         member.displayName = displayName;
         
-        TwitterAccount twitter = (TwitterAccount) member.getAccount(ProviderType.Twitter);
+        TwitterAccount twitter = member.getTwitterAccount();
         if (twitter == null) {
             member.addAccount(new TwitterAccount(twitterName));
         } else {
             twitter.screenName = twitterName;
         }
         
-        GoogleAccount google = (GoogleAccount) member.getAccount(ProviderType.Google);
+        GoogleAccount google = member.getGoogleAccount();
         if (google == null) {
             member.addAccount(new GoogleAccount(googlePlusId));
         } else {

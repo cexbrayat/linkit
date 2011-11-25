@@ -35,8 +35,8 @@ public class Google extends AbstractOAuthProviderImpl {
         final String url = getConfigString("userProfileJsonUrl");
         final JsonObject object = JSON.getAsObject(get(url, token, secret));
 
-        final String googleId = JSON.getStringProperty(object, "id");
-        GoogleOAuthAccount account = new GoogleOAuthAccount(token, secret, googleId);
+        GoogleOAuthAccount account = new GoogleOAuthAccount(token, secret);
+        account.googleId = JSON.getStringProperty(object, "id");
         account.email = JSON.getStringProperty(object, "email");
         account.name = JSON.getStringProperty(object, "name");
         account.givenName = JSON.getStringProperty(object, "given_name");

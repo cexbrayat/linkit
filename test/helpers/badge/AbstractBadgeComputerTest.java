@@ -38,7 +38,7 @@ public abstract class AbstractBadgeComputerTest extends UnitTest {
     }
 
     protected Member createMember(final String login) {
-        return new Member(login, new LinkItAccount(login)).save();
+        return new Member(login).save();
     }
 
     @Test

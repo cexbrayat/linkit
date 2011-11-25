@@ -9,7 +9,7 @@ import play.db.jpa.Model;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public abstract class OAuthAccount extends Model {
+public abstract class OAuthAccount extends AuthAccount {
 
     @Required
     public String token;
@@ -17,17 +17,10 @@ public abstract class OAuthAccount extends Model {
     public String secret;
     
     public OAuthAccount(ProviderType provider, String token, String secret) {
-        super();
+        super(provider);
         this.token = token;
         this.secret = secret;
     }
-    
-    public abstract Account getAccount();
-    
-    /**
-     * Initialize member profile from account data
-     */
-    public abstract void initMemberProfile();
 
     /**
      * Template method to retrieve login value

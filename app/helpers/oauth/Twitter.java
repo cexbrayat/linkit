@@ -37,8 +37,8 @@ public class Twitter extends AbstractOAuthProviderImpl {
         final String url = getConfigString("userProfileJsonUrl");
         final JsonObject object = JSON.getAsObject(get(url, token, secret));
 
-        final String screenName = JSON.getStringProperty(object, "screen_name");
-        TwitterOAuthAccount account = new TwitterOAuthAccount(token, secret, screenName);
+        TwitterOAuthAccount account = new TwitterOAuthAccount(token, secret);
+        account.screenName = JSON.getStringProperty(object, "screen_name");
         account.userId = JSON.getLongProperty(object, "id");
         account.lang = JSON.getStringProperty(object, "lang");
         account.name = JSON.getStringProperty(object, "name");

@@ -16,10 +16,8 @@ public class GoogleAccountTest extends UnitTest {
         return new StatusActivity(author, new Date(), ProviderType.Google, content, null, null);
     }
     
-    protected static GoogleAccount createMemberAndAccount(final String login, final String gplusId) {
-        GoogleAccount ga = new GoogleAccount(gplusId);
-        new Member(login, ga).save();
-        return ga;
+    protected static GoogleAccount createAccount(final String gplusId) {
+        return new GoogleAccount(gplusId);
     }
     
     @Test
@@ -29,7 +27,7 @@ public class GoogleAccountTest extends UnitTest {
     
     @Test
     public void getURL() {
-        GoogleAccount ga = createMemberAndAccount("toto", "1234");
+        GoogleAccount ga = createAccount("1234");
         assertEquals("https://profiles.google.com/1234", ga.url());
     }
 }

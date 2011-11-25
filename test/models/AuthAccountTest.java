@@ -4,10 +4,10 @@ import org.junit.*;
 import play.test.*;
 
 /**
- * Unit tests for {@link Account} domain object
+ * Unit tests for {@link AuthAccount} domain object
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class AccountTest extends UnitTest {
+public class AuthAccountTest extends UnitTest {
 
     @Before
     public void setUp() {
@@ -23,6 +23,6 @@ public class AccountTest extends UnitTest {
     @Test
     public void find() {
         final String login = "ced";
-        assertNotNull(Account.find(ProviderType.LinkIt, login));
+        assertNotNull(AuthAccount.find(ProviderType.LinkIt, login));
     }
 }

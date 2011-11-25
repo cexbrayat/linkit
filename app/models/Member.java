@@ -90,9 +90,8 @@ public class Member extends Model implements Lookable {
     /** Number of profile consultations */
     public long nbConsults;
 
-    public Member(String login, Account account) {
+    public Member(String login) {
         this.login = login;
-        addAccount(account);
     }
 
     public final void addAccount(Account account) {
@@ -101,15 +100,15 @@ public class Member extends Model implements Lookable {
             this.accounts.add(account);
         }
     }
-
-    public final void addAccount(OAuthAccount account) {
+    
+    public final void removeAccount(Account account) {
         if (account != null) {
-            addAccount(account.getAccount());
-            // On préinitialise son profil avec les données récupérées du compte
-            account.initMemberProfile();
+            this.accounts.remove(account);
+            account.member = null;
+            // FIXME CLA Delete all activities on account
         }
     }
-    
+
     /**
      * Find an activated social network account for given provider
      * @param provider Provider searched
@@ -123,6 +122,14 @@ public class Member extends Model implements Lookable {
             }
         };
         return Iterables.find(accounts, p, null);
+    }
+    
+    public GoogleAccount getGoogleAccount() {
+        return (GoogleAccount) getAccount(ProviderType.Google);
+    }
+    
+    public TwitterAccount getTwitterAccount() {
+        return (TwitterAccount) getAccount(ProviderType.Twitter);
     }
     
     /**
@@ -265,14 +272,28 @@ public class Member extends Model implements Lookable {
     }
 
     /**
-     * Register user a new Link-IT user
+     * Register a new Link-IT user with given authentication account
      */
-    public Member register() {
+    public Member register(AuthAccount account) {
         save();
+        authenticate(account);
+        account.save();
         new SignUpActivity(this).save();
         return this;
     }
 
+    /**
+     * User authenticated with given account
+     * @param account 
+     */
+    public void authenticate(AuthAccount account) {
+        if (account != null) {
+            account.member = this;
+            // On préinitialise son profil avec les données récupérées du compte
+            account.initMemberProfile();
+        }
+    }
+    
     /**
      * Update user profile
      */

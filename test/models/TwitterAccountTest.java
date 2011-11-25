@@ -19,7 +19,9 @@ public class TwitterAccountTest extends UnitTest {
     
     protected static TwitterAccount createMemberAndAccount(final String login, final String twitterName) {
         TwitterAccount ta = new TwitterAccount(twitterName);
-        new Member(login, ta).save();
+        Member m = new Member(login);
+        m.addAccount(ta);
+        m.save();
         return ta;
     }
     

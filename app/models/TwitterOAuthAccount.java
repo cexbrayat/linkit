@@ -1,7 +1,6 @@
 package models;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import org.apache.commons.lang.StringUtils;
 import play.data.validation.Required;
 
@@ -11,9 +10,6 @@ import play.data.validation.Required;
  */
 @Entity
 public class TwitterOAuthAccount extends OAuthAccount {
-    
-    @ManyToOne(optional=false)
-    public TwitterAccount account;
 
     @Required
     public Long userId;         // 217990448
@@ -26,10 +22,8 @@ public class TwitterOAuthAccount extends OAuthAccount {
     public Long statusesCount;  // 491
     public Long friendsCount;   // 159
     
-    public TwitterOAuthAccount(String token, String secret, String screenName) {
+    public TwitterOAuthAccount(String token, String secret) {
         super(ProviderType.Twitter, token, secret);
-        this.account = new TwitterAccount(screenName);
-        this.screenName = screenName;
     }
 
     @Override
@@ -39,10 +33,14 @@ public class TwitterOAuthAccount extends OAuthAccount {
 
     @Override
     public void initMemberProfile() {
-        if (account != null) {
-            if (StringUtils.isBlank(account.screenName)) account.screenName = this.screenName;
-            if (account.member != null) {
-                if (StringUtils.isBlank(account.member.displayName)) account.member.displayName = this.name;
+        if (member != null) {
+            if (StringUtils.isBlank(member.displayName)) member.displayName = this.name;
+            TwitterAccount account = member.getTwitterAccount();
+            if (account == null) {
+                account = new TwitterAccount(screenName);
+                member.addAccount(account);
+            } else {
+                if (StringUtils.isBlank(account.screenName)) account.screenName = this.screenName;
             }
         }
     }
@@ -50,10 +48,5 @@ public class TwitterOAuthAccount extends OAuthAccount {
     @Override
     public Member findCorrespondingMember() {
         return TwitterAccount.findMemberByScreenName(this.screenName);
-    }
-
-    @Override
-    public Account getAccount() {
-        return account;
     }
 }

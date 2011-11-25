@@ -20,7 +20,7 @@ public abstract class AbstractActivityTest extends UnitTest {
     protected Member member;
 
     protected Member createMember(final String login) {
-        return new Member(login, new LinkItAccount(login)).save();
+        return new Member(login).save();
     }
 
     @Before

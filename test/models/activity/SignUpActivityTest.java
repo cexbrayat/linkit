@@ -18,7 +18,7 @@ public class SignUpActivityTest extends AbstractActivityTest {
         Member nouveau = Member.findByLogin("new");
         assertNull(nouveau);
         
-        nouveau = new Member("new", new LinkItAccount("password")).register();
+        nouveau = new Member("new").register(new LinkItAccount("password"));
         
         // One activity for nouveau
         Activity a = Activity.find("select a from Activity a where a.member = ?", nouveau).first();
