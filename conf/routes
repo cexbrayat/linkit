@@ -30,13 +30,13 @@ GET	/sessions/members			Application.sessionsAndMembersByInterest
 
 # Profile
 POST	/profile				Profile.save 
-GET	/profile/{login}			Profile.show
 GET	/profile/edit				Profile.edit
-GET	/profile/activities			Profile.activitiesOf
-GET	/profile/activities/{providers}		Profile.activitiesFor
-DELETE	/profile				Profile.delete
 GET	/profile/link				Profile.link
 DELETE	/profile/link				Profile.unlink
+GET	/profile/activities			Profile.activitiesOf
+GET	/profile/activities/{providers}		Profile.activitiesFor
+GET	/profile/{login}			Profile.show
+DELETE	/profile				Profile.delete
 
 # Dashboard
 GET	/dashboard				Dashboard.index
