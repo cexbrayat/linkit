@@ -3,8 +3,10 @@ package controllers;
 import java.util.List;
 
 import java.util.Set;
+import models.GoogleAccount;
 import models.Member;
 import models.ProviderType;
+import models.TwitterAccount;
 import models.activity.Activity;
 
 import org.apache.commons.lang.StringUtils;
@@ -37,6 +39,20 @@ public class Profile extends Controller {
         member.lastname = lastname;
         member.login = login;
         member.displayName = displayName;
+        
+        TwitterAccount twitter = (TwitterAccount) member.getAccount(ProviderType.Twitter);
+        if (twitter == null) {
+            member.addAccount(new TwitterAccount(twitterName));
+        } else {
+            twitter.screenName = twitterName;
+        }
+        
+        GoogleAccount google = (GoogleAccount) member.getAccount(ProviderType.Google);
+        if (google == null) {
+            member.addAccount(new GoogleAccount(googlePlusId));
+        } else {
+            google.googleId = googlePlusId;
+        }
 // FIXME CLA
 //        member.twitterName = twitterName;
 //        member.googlePlusId = googlePlusId;

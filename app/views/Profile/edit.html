@@ -70,12 +70,12 @@
                     </div> 
                 </div><!-- /clearfix -->
                 #{/}
-
+ 
                 #{field 'twitterName'}
                 <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.twitterName}" /> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Twitter)?.screenName}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
@@ -86,7 +86,7 @@
                 <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.googlePlusId}" /> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Google)?.googleId}}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
