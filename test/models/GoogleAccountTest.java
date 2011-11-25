@@ -30,6 +30,6 @@ public class GoogleAccountTest extends UnitTest {
     @Test
     public void getURL() {
         GoogleAccount ga = createMemberAndAccount("toto", "1234");
-        assertEquals("https://profiles.google.com/1234", ga.getUrl());
+        assertEquals("https://profiles.google.com/1234", ga.url());
     }
 }

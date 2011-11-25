@@ -60,7 +60,7 @@ public abstract class Account extends Model {
     /**
      * @return URL of member's profile on this social network account
      */
-    public abstract String getUrl();
+    public abstract String url();
     
     @Override
     public String toString(){

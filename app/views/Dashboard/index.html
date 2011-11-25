@@ -1,6 +1,5 @@
 #{extends 'main.html' /}
-#{set title:member + ' - Dashboard Link-IT' /}
-#{/set}
+#{set title:member.toString() + ' - Dashboard Link-IT' /}
 <div class="container">
     <div class="hero-unit">
         <h1>Your dashboard</h1>
@@ -14,12 +13,12 @@
                 <p>Votre profil a été consulté ${member.getNbLooks()} fois.</p>
 
                 #{if member instanceof models.Speaker}
-                <h5>Session${member.sessions.size().pluralize()} :</h5>
-                <p>
+                    <h5>Session${member.sessions.size().pluralize()} :</h5>
+                    <ul>
                     #{list items:member.sessions, as:'talk'}
-                <h5><a href="@{Sessions.show(talk.id)}">${talk.title}</a></h5>
-                #{/list}
-                </p>
+                        <li><a href="@{Sessions.show(talk.id)}">${talk.title}</a></li>
+                    #{/list}
+                    </ul>
                 #{/if}
                 <p>
                     <a href="@{Profile.show(session.username)}">Voir mon profil</a>
@@ -64,6 +63,7 @@
                 <h2>Activités de vos links</h2>
                 <div class="row">
                     <div class="span8">
+                        Afficher : 
                         <a class="service-button linkit" id="LinkIt" onClick="handleProvider('LinkIt')"></a>
                         <a class="service-button twitter" id="Twitter" onClick="handleProvider('Twitter')"></a>
                         <a class="service-button google" id="Google" onClick="handleProvider('Google')"></a>
@@ -77,14 +77,14 @@
                     <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
 
                     <script type="text/javascript">
-                        var providers = ['LinkIt', 'Twitter', 'Google'];
+                        var providers = ['${models.ProviderType.values().join("','")}'];
                         var page = 1;
                         var size = 5;
                         var activitiesAction = #{jsAction @Profile.activitiesFor(':login', ':providers', ':page',':size') /};
 
                         function loadMoreActivities() {
                             if (providers.length > 0) {
-                                $.get(activitiesAction({login: '${member.login}', providers: providers.join(controllers.Profile.PROVIDERS_SEP), page: page, size: size}), function(data) {
+                                $.get(activitiesAction({login: '${member.login}', providers: providers.join("${controllers.Profile.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
                                     $('#activities').append(data);
                                     if (data) {
                                         $('#moreActivities').css('visibility','visible');

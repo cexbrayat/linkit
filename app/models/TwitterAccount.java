@@ -94,7 +94,7 @@ public class TwitterAccount extends Account {
     }
 
     @Override
-    public String getUrl() {
+    public String url() {
         return new StringBuilder("http://www.twitter.com/").append(screenName).toString();
     }
 }

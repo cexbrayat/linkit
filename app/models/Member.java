@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import controllers.JobFetchUserTimeline;
 import helpers.badge.BadgeComputationContext;
 import helpers.badge.BadgeComputer;
@@ -125,15 +126,19 @@ public class Member extends Model implements Lookable {
     }
     
     /**
+     * Preserve {@link ProviderType} enumeration order
      * @return All providers where the member has an activated social network account
      */
-    public Set<ProviderType> getAccountProviders() {
+    public List<ProviderType> getAccountProviders() {
         // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
-        return EnumSet.copyOf(Collections2.transform(this.accounts, new Function<Account, ProviderType>() {
+        List<ProviderType> providers = Lists.newArrayList(ProviderType.values());
+        Collection<ProviderType> activeProviders = Collections2.transform(this.accounts, new Function<Account, ProviderType>() {
             public ProviderType apply(Account a) {
                 return a.provider;
             }
-        }));
+        });
+        Iterables.retainAll(providers, activeProviders);
+        return providers;
     }
     
     /**

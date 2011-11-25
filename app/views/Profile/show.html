@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:member + ' - Mix-IT' /}
+#{set title:member.toString() + ' - Mix-IT' /}
 <div class="container">
     <div class="hero-unit">
         <h2>${member.firstname} ${member.lastname} aka ${member.displayName}</h2>
@@ -13,34 +13,30 @@
                 ${member.getNbLooks()} consultation${member.getNbLooks().pluralize()}
 
                 #{if member instanceof models.Speaker}
-                <h5>Session${member.sessions.size().pluralize()} :</h5>
-                <p>
+                    <h5>Session${member.sessions.size().pluralize()} :</h5>
+                    <ul>
                     #{list items:member.sessions, as:'talk'}
-                <h5><a href="@{Sessions.show(talk.id)}">${talk.title}</a></h5>
-                #{/list}
-                </p>
+                        <li><a href="@{Sessions.show(talk.id)}">${talk.title}</a></li>
+                    #{/list}
+                    </ul>
                 #{/if}
 
-                <p>${member.description?.markdown().raw()}</p>
+                <p>Social networks :<br/>
                 #{list items:member.accounts, as:'account'}       
-                    <a id="linkTo${link.login}" href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                    <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}"></a>
                 #{/list}
+                </p>
                 
-                #{if member.googlePlusId}
-                <p>
-                    <a rel="author" href="https://profiles.google.com/${member.googlePlusId}" target="_new">
-                        <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
-                    </a>
-                <p>
-                    #{/if}
-                    #{if session.get("username") != null && !session.get("username").equals(member.login)}
+                <p>${member.description?.markdown().raw()}</p>
+                
+                #{if session.get("username") != null && !session.get("username").equals(member.login)}
                     #{if !member.hasForLinker(session.get("username"))}
-                    <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
+                        <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
                     #{/if}
                     #{else}
-                    <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>
+                        <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>
                     #{/else}
-                    #{/if}
+                #{/if}
                 </p>
                 <div class="row">
                     <div class="span3">
@@ -71,9 +67,10 @@
             <div class="span8" > <!-- timeline -->
                 <div class="row">
                     <div class="span8">
-                        <a class="service-button linkit" id="LinkIt" onClick="handleProvider('LinkIt')"></a>
-                        <a class="service-button twitter" id="Twitter" onClick="handleProvider('Twitter')"></a>
-                        <a class="service-button google" id="Google" onClick="handleProvider('Google')"></a>
+                        Afficher : 
+                        #{list items:member.accounts, as:'account'}       
+                            <a class="service-button ${account.provider.name().toLowerCase()}" id="${account.provider}" onClick="handleProvider('${account.provider}')"></a>
+                        #{/list}
                     </div>
                     <br/>
                     <br/>
@@ -84,14 +81,14 @@
                     <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
 
                     <script type="text/javascript">
-                        var providers = ['LinkIt', 'Twitter', 'Google'];
+                        var providers = ['${member.getAccountProviders().join("','")}'];
                         var page = 1;
                         var size = 5;
                         var activitiesAction = #{jsAction @Profile.activitiesOf(':login', ':providers', ':page',':size') /};
 
                         function loadMoreActivities() {
                             if (providers.length > 0) {
-                                $.get(activitiesAction({login: '${member.login}', providers: providers.join(controllers.Profile.PROVIDERS_SEP), page: page, size: size}), function(data) {
+                                $.get(activitiesAction({login: '${member.login}', providers: providers.join("${controllers.Profile.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
                                     $('#activities').append(data);
                                     if (data) {
                                         $('#moreActivities').css('visibility','visible');

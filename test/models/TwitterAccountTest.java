@@ -51,6 +51,6 @@ public class TwitterAccountTest extends UnitTest {
     @Test
     public void getURL() {
         TwitterAccount ta = createMemberAndAccount("toto", "toto69");
-        assertEquals("http://www.twitter.com/toto69", ta.getUrl());
+        assertEquals("http://www.twitter.com/toto69", ta.url());
     }
 }

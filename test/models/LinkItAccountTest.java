@@ -18,6 +18,6 @@ public class LinkItAccountTest extends UnitTest {
     @Test
     public void getURL() {
         LinkItAccount a = createMemberAndAccount("toto", "password");
-        assertNotNull(a.getUrl());
+        assertNotNull(a.url());
     }
 }

@@ -75,7 +75,7 @@ public class GoogleAccount extends Account {
     }
 
     @Override
-    public String getUrl() {
+    public String url() {
         return new StringBuilder("https://profiles.google.com/").append(googleId).toString();
     }
 }

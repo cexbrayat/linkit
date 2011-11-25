@@ -38,7 +38,7 @@ public class LinkItAccount extends Account {
     }
 
     @Override
-    public String getUrl() {
+    public String url() {
         return Router.reverse("Profile.show").add("login", member.login).url;
     }
 }

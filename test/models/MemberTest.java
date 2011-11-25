@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Arrays;
 import java.util.EnumSet;
 import org.h2.util.StringUtils;
 import org.junit.*;
@@ -178,9 +179,10 @@ public class MemberTest extends UnitTest {
     @Test public void getAccountProviders() {
         final Account linkItAccount = new LinkItAccount("password");
         final Account googleAccount = new GoogleAccount("1234");
-        final Member m = new Member("toto", linkItAccount);
-        m.addAccount(googleAccount);
+        final Member m = new Member("toto", googleAccount);
+        m.addAccount(linkItAccount);
         
-        assertEquals(EnumSet.of(ProviderType.Google, ProviderType.LinkIt), m.getAccountProviders());
+        // Preserver order of ProviderType.values()
+        assertEquals(Arrays.asList(ProviderType.LinkIt, ProviderType.Google), m.getAccountProviders());
     }
 }
