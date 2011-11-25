@@ -1,4 +1,4 @@
-a.service-button{width:24px;height:24px;display:inline;float:left;margin-right:6px;background:url(../images/mini-networks-sprite3.png) 0 0 no-repeat;}a.service-button:hover{background-position:0 -120px;}
+a.service-button{width:24px;height:24px;display:block;float:left;margin-right:6px;background:url(../images/mini-networks-sprite3.png) 0 0 no-repeat;}a.service-button:hover{background-position:0 -120px;}
 a.service-button:active{background-position:0 -120px;}
 a.service-button.twitter{background-position:0 0;}a.service-button.twitter:hover{background-position:0px -120px;}
 a.service-button.twitter:active{background-position:0px -240px;}

@@ -15,12 +15,11 @@
                         ${member.getNbLooks()} consultation${member.getNbLooks().pluralize()}
                         <br/>
 
-                        #{list items:member.accounts, as:'account'}       
+                        #{list items:member.getOrderedAccounts(), as:'account'}       
                             <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}"></a>
                         #{/list}
                     </div>
                 </div>
-
 
                 #{if member instanceof models.Speaker}
                     <h5>Session${member.sessions.size().pluralize()} :</h5>
@@ -71,7 +70,7 @@
             <div class="span8" > <!-- timeline -->
                 <h3>Ses activités</h3>
                 <div class="span8">
-                    #{list items:member.accounts, as:'account'}       
+                    #{list items:member.getOrderedAccounts(), as:'account'}       
                         <a class="service-button ${account.provider.name().toLowerCase()}" id="${account.provider}" onClick="handleProvider('${account.provider}')"></a>
                     #{/list}
                     (Cliquez pour activer/désactiver un flux)

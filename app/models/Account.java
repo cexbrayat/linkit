@@ -22,7 +22,7 @@ import play.db.jpa.Model;
 @Entity
 @DiscriminatorValue("provider")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public abstract class Account extends Model {
+public abstract class Account extends Model implements Comparable<Account> {
     
     @Required
     @ManyToOne(optional = false)
@@ -89,4 +89,9 @@ public abstract class Account extends Model {
                 .append(this.provider)
                 .toHashCode();
     }
+
+    public int compareTo(Account other) {
+        return this.provider.compareTo(other.provider);
+    }
+    
 }

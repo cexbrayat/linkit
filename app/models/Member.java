@@ -126,7 +126,7 @@ public class Member extends Model implements Lookable {
     }
     
     /**
-     * Preserve {@link ProviderType} enumeration order
+     * Preserve {@link ProviderType} enumeration order (used on UI)
      * @return All providers where the member has an activated social network account
      */
     public List<ProviderType> getAccountProviders() {
@@ -139,6 +139,16 @@ public class Member extends Model implements Lookable {
         });
         Iterables.retainAll(providers, activeProviders);
         return providers;
+    }
+    
+    /**
+     * Preserve {@link ProviderType} enumeration order (used on UI)
+     * @return All social network accounts
+     */
+    public List<Account> getOrderedAccounts() {
+        List<Account> orderedAccounts = Lists.newArrayList(accounts);
+        Collections.sort(orderedAccounts);
+        return orderedAccounts;
     }
     
     /**

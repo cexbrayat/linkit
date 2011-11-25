@@ -185,4 +185,14 @@ public class MemberTest extends UnitTest {
         // Preserver order of ProviderType.values()
         assertEquals(Arrays.asList(ProviderType.LinkIt, ProviderType.Google), m.getAccountProviders());
     }
+    
+    @Test public void getOrderedAccounts() {
+        final Account linkItAccount = new LinkItAccount("password");
+        final Account googleAccount = new GoogleAccount("1234");
+        final Member m = new Member("toto", googleAccount);
+        m.addAccount(linkItAccount);
+        
+        // Preserver order of ProviderType.values()
+        assertEquals(Arrays.asList(linkItAccount, googleAccount), m.getOrderedAccounts());
+    }
 }
