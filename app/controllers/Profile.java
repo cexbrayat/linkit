@@ -27,17 +27,16 @@ public class Profile extends Controller {
         render(member);
     }
 
-    public static void save(@Required String login, String firstname, String lastname, @Required @Email String email, @Required String displayName, @Required String description, String twitterName, String googlePlusId,
+    public static void save(@Required Long id, String firstname, String lastname, @Required @Email String email, @Required String displayName, @Required String description, String twitterName, String googlePlusId,
                             String[] interests, String newInterests) {
         Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
 
-        Member member = Member.findByLogin(login);
+        Member member = Member.findById(id);
         member.firstname = firstname;
         member.description = description;
         member.email = email;
         member.lastname = lastname;
-        member.login = login;
         member.displayName = displayName;
         
         TwitterAccount twitter = member.getTwitterAccount();
