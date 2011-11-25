@@ -31,12 +31,12 @@ GET	/sessions/members			Application.sessionsAndMembersByInterest
 # Profile
 POST	/profile				Profile.save 
 GET	/profile/edit				Profile.edit
+GET	/profile/delete				Profile.delete
 GET	/profile/link				Profile.link
 DELETE	/profile/link				Profile.unlink
 GET	/profile/activities			Profile.activitiesOf
 GET	/profile/activities/{providers}		Profile.activitiesFor
 GET	/profile/{login}			Profile.show
-DELETE	/profile				Profile.delete
 
 # Dashboard
 GET	/dashboard				Dashboard.index
@@ -44,11 +44,11 @@ GET	/dashboard/link				Dashboard.link
 
 # Sessions
 GET	/sessions				Sessions.index
-GET	/session/{sessionId}			Sessions.show
-GET	/session				Sessions.create
+GET	/session/new				Sessions.create
 POST	/session				Sessions.save
-PUT	/session				Sessions.edit
-POST	/sessions/comment			Session.postComment
+GET	/session/edit				Sessions.edit
+POST	/session/comment			Sessions.postComment
+GET	/session/{sessionId}			Sessions.show
 
 # Secure
 GET	/logout					Secure.logout

@@ -374,4 +374,10 @@ public class Member extends Model implements Lookable {
             }
         }
     }
+
+    @Override
+    public Member delete() {
+        // FIXME CLA Delete related activities
+        return super.delete();
+    }
 }
