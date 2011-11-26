@@ -61,6 +61,12 @@ Session(sessionTest):
     speakers:
            - rguy
 
+Article(articleTest):
+    title: Mix_IT 2012!
+    headline: Mix-IT seconde édition est annoncée pour le 26 avril 2012
+    content: Test content
+    author: ced
+
 Sponsor(sponsor) :
     firstname: ACME
     lastname: Company

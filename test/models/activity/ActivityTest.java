@@ -2,6 +2,7 @@ package models.activity;
 
 import java.util.EnumSet;
 import java.util.List;
+import models.Article;
 import models.Member;
 import models.ProviderType;
 import models.Session;
@@ -68,6 +69,12 @@ public class ActivityTest extends AbstractActivityTest {
     public void recentsBySession() {
         final Session s = Session.all().first();
         assertNotNull(Activity.recentsBySession(s, 1, 10));
+    }
+
+    @Test
+    public void recentsByArticle() {
+        final Article a = Article.all().first();
+        assertNotNull(Activity.recentsByArticle(a, 1, 10));
     }
 
     @Test

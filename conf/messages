@@ -42,13 +42,15 @@ content.note=&{markdown.note}
 # Activities
 activities.more=Afficher plus...
 LinkActivity.message=%1$s s'est linké à %2$s
-CommentActivity.message=%1$s a commenté la session %2$s
+CommentSessionActivity.message=%1$s a commenté la session %2$s
+CommentArticleActivity.message=%1$s a commenté l'article %2$s
 SignUpActivity.message=%1$s s'est inscrit
 UpdateProfileActivity.message=%1$s a mis à jour son profil
 UpdateSessionActivity.message=La session %1$s a été mise à jour
 EarnBadgeActivity.message=%1$s a reçu le badge &{badge.%2$s}
 LookSessionActivity.message=%1$s a consulté la session %2$s
 LookProfileActivity.message=%1$s a consulté le profil de %2$s
+LookArticleActivity.message=%1$s a consulté l'article %2$s
 
 # Providers
 provider.LinkIt=Link-IT
@@ -74,7 +76,7 @@ badge.LocalCelebrity=Local Celebrity (vous avez été linké par au moins dix me
 badge.RockStar=Rock Star (vous avez été linké par au moins cinquante membres)
 badge.Leader=Leader (vous avez été linké par au moins cent membres)
 badge.Idol=Idol (vous avez été linké par au moins deux cent membres)
-badge.Twittos=Twittos (vous avez été twitté à propos de Mix-IT)
+badge.Twittos=Twittos (vous avez twitté à propos de Mix-IT)
 badge.Plusoner=Plusoner (vous avez posté sur Google+ à propos de Mix-IT)
 badge.TwoDaysInARow=2 days in a row (vous avez utilisé le site deux jours de suite)
 badge.FiveDaysInARow=5 days in a row (vous avez utilisé le site cinq jours de suite)

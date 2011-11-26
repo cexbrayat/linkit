@@ -22,7 +22,7 @@ public class CommentTest extends UnitTest {
     }
 
     @Test
-    public void testCount() {
+    public void testCountByMember() {
         Member member = Member.all().first();
         final long count = Comment.countByMember(member);
         assertTrue(count >= 0);
