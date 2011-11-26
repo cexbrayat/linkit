@@ -12,6 +12,13 @@
     </div>
     <div class="content">
         
+        #{secure.check models.Role.ADMIN_ARTICLE}
+        <p>
+            Ami du staff, veux-tu <a class="btn danger" href="@{Articles.edit(article.id)}">Editer cet article</a> ?
+        </p>
+        #{/secure.check} 
+
+        
         <blockquote class="article content">
             ${article.content.markdown().raw()}
             <br/><br/>

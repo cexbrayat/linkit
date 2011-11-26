@@ -25,7 +25,7 @@ public class Articles extends Controller {
     public static void create() {
         Member author = Member.findByLogin(Security.connected());
         Article article = new Article(author);
-        render("Article/edit.html", article);
+        render("Articles/edit.html", article);
     }
 
     public static void edit(final Long articleId) {
@@ -60,9 +60,12 @@ public class Articles extends Controller {
         show(articleId, true);
     }
 
-    public static void save(@Valid Article article) {
+    public static void save(Article article) {
         Logger.info("Tentative d'enregistrement d'article " + article);
 
+        article.author = Member.findByLogin(Security.connected());
+
+        validation.valid(article);
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
             render("Articles/edit.html", article);

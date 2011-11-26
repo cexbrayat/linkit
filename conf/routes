@@ -54,6 +54,7 @@ GET	/session/{sessionId}			Sessions.show
 GET	/articles				Articles.index
 GET	/articles/{size}                        Articles.list
 POST	/article				Articles.save
+GET	/article/new				Articles.create
 GET	/article/edit				Articles.edit
 POST	/article/comment			Articles.postComment
 GET	/article/{articleId}			Articles.show

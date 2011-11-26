@@ -11,11 +11,11 @@
         <div class="span12 columns"> 
             #{form @Articles.save()} 
                 #{field 'article.id'}
-                    <input cid="${field.id}" name="${field.name}" type="hidden" value="${field.value}" />
+                    <input id="${field.id}" name="${field.name}" type="hidden" value="${field.value}" />
                 #{/}
 
             <fieldset> 
-                <legend>Titre</legend>
+                <legend>Contenu</legend>
 
                 #{field 'article.title'}
                 <div class="clearfix ${field.error?'error':''}"> 
@@ -51,79 +51,9 @@
                 #{/}
 
             </fieldset>
-            <fieldset>
-                <legend>Les infos</legend>
-
-                #{field 'article.speakers'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <ul class="inputs-list">
-                            #{list items:models.Speaker.findAll(), as:'speaker'}
-                            <li><label><input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${article.speakers.contains(speaker)?'checked':''} /> <span>${speaker}</span></label></li>
-                            #{/list}
-                        </ul>
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div>
-                </div><!-- /clearfix -->
-                #{/}
-
-                #{field 'article.track'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <ul class="inputs-list">
-                            #{list items:models.Track.values(), as:'track'}
-                            <li><label><input type="radio" name="${field.name}" value="${track}" ${article.track == track?'checked':''} /> <span>${track}</span></label></li>
-                            #{/list}
-                        </ul>
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div>
-                </div><!-- /clearfix -->
-                #{/}
-
-            </fieldset>
-                            </fieldset>
-            <fieldset>
-                <legend>Intérêts</legend>
-
-                #{field 'interests'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-
-                        <ul class="inputs-list">
-                            #{list items:models.Interest.findAll(), as:'interest'}
-                            <span class="checkbox">
-                                <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
-                            </span>
-
-                            #{/list}
-                        </ul>                        
-                        <span class="help-inline newline">${field.error}</span>
-                        <span class="help-block newline">&{field.name+".note"}</span>
-                    </div>
-
-                </div><!-- /clearfix -->
-
-                #{/}
-
-                #{field 'newInterests'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="200" type="text" value="${newInterests}" /> 
-                        <span class="help-inline">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div> 
-                </div><!-- /clearfix -->
-                #{/}
-            </fieldset>
             <div class="actions">
                 <input type="submit" class="btn primary large" value="Enregistrer"/>
-                <a href="@{Sessions.show(article.id)}" class="btn large">Annuler</a>
+                <a href="@{Articles.show(article.id)}" class="btn large">Annuler</a>
             </div>
             #{/form}
         </div>

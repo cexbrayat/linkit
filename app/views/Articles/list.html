@@ -3,6 +3,12 @@
 
 <div class="container">
 
+    #{secure.check models.Role.ADMIN_ARTICLE}
+    <p>
+        Ami du staff, veux-tu <a class="btn danger" href="@{Articles.create()}">Créer un article</a> ?
+    </p>
+    #{/secure.check} 
+    
     #{list items:articles, as:'article'}
 
     <p>

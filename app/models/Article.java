@@ -39,7 +39,7 @@ public class Article extends Model implements Lookable {
 
     @Column(name = POSTEDAT)
     @Temporal(TemporalType.TIMESTAMP)
-    public Date postedAt;
+    public Date postedAt = new Date();
     
     @Required
     @MaxSize(50)
