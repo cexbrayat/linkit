@@ -5,11 +5,7 @@
     <div class="row">
         <div class="span12">
             <h1>${article.title}</h1>
-            <h2>${article.headline}</h2>
-            ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}
-            #{if article.comments}
-            <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
-            #{/if}
+            <strong>${article.headline}</strong>
         </div>
         <div class="span4">
             Par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a><br/>
@@ -42,25 +38,7 @@
             #{if previous} <<< <a href="@{Articles.show(previous.id)}">Article précédent : ${previous.title}</a> #{/if}
         </p>
         
-        #{if article.comments}
-            <section id="comments">
-                #{list items:article.comments, as:"comment"}
-                <hr/>
-                <section id="comment${comment.id}">
-                    <div class="row">
-                        <div class="span3">
-                            <a href="@{Profile.show(comment.author.login)}">#{member comment.author /}</a><br/>
-                            ${comment.postedAt.format('dd/MM/yyyy hh:mm:ss')}
-                        </div>
-                        <div class="span13">
-                            <p>${comment.content.markdown().raw()}</p>
-                        </div>
-                    </div>
-                    #{/list}
-                </section>
-            </section>
-        </div>
-        #{/if}
+        #{comments article.comments /}
 
         <hr/>
         <section id="post">
