@@ -11,12 +11,16 @@
         #{/if}
     </div>
     <div class="content">
-        <p class="article author">
-            Par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a> le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}
-        </p>
         
-        <p class="article content">
+        <blockquote class="article content">
             ${article.content.markdown().raw()}
+            <br/><br/>
+            <small>Posté par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a> le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}</small>
+        </blockquote>
+        
+        <p>
+            #{if previous} <<< <a href="@{Articles.show(previous.id)}">Article précédent : ${previous.title}</a><br/> #{/if}
+            #{if following} >>> <a href="@{Articles.show(following.id)}">Article suivant : ${following.title}</a> #{/if}
         </p>
         
         #{if article.comments}

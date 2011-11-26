@@ -50,6 +50,14 @@ GET	/session/edit				Sessions.edit
 POST	/session/comment			Sessions.postComment
 GET	/session/{sessionId}			Sessions.show
 
+# Articles
+GET	/articles				Articles.index
+GET	/articles/{size}                        Articles.list
+POST	/article				Articles.save
+GET	/article/edit				Articles.edit
+POST	/article/comment			Articles.postComment
+GET	/article/{articleId}			Articles.show
+
 # Secure
 GET	/logout					Secure.logout
 

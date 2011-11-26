@@ -29,6 +29,7 @@
                     <h3><a href="@{Application.index()}">Mix-IT</a></h3>
                     <ul class="nav">
                         <li #{if request.action=="Application.index"}class="active"#{/if}><a href="@{Application.index()}">Accueil</a></li>
+                        <li #{if request.controller=="Articles"}class="active"#{/if}><a href="@{Articles.index()}">Actualités</a></li>
                         <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">Speakers</a></li>
                         <li #{if request.controller=="Sessions"}class="active"#{/if}><a href="@{Sessions.index()}">Sessions</a></li>
                         <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">Staff</a></li>

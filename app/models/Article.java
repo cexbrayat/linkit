@@ -72,6 +72,14 @@ public class Article extends Model implements Lookable {
         return find("order by postedAt desc").fetch(page, length);
     }
     
+    public Article findPrevious() {
+        return find("postedAt<? order by postedAt desc", this.postedAt).first();
+    }
+    
+    public Article findFollowing() {
+        return find("postedAt>? order by postedAt desc", this.postedAt).first();
+    }
+    
     /**
      * Save comment! Best practices in add method?
      * @param comment 

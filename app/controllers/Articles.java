@@ -7,7 +7,6 @@ import java.util.*;
 import models.Article;
 import models.ArticleComment;
 import models.Member;
-import models.activity.Activity;
 import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.data.validation.Validation;
@@ -15,12 +14,12 @@ import play.data.validation.Validation;
 public class Articles extends Controller {
 
     public static void index() {
-        list(1,10);
+        list(10);
     }
 
-    public static void list(int page, int lenght) {
-        List<Article> articles = Article.recents(page, 10);
-        render(articles);
+    public static void list(int size) {
+        List<Article> articles = Article.recents(1, size);
+        render(articles, size);
     }
 
     public static void create() {
@@ -36,12 +35,14 @@ public class Articles extends Controller {
 
     public static void show(final Long articleId, boolean noCount) {
         Article article = Article.findById(articleId);
+        Article previous = article.findPrevious();
+        Article following = article.findFollowing();
         // Don't count look when coming from internal redirect
         if (!noCount) {
             article.lookedBy(Member.findByLogin(Security.connected()));
         }
         // List<Activity> activities = Activity.recentsByArticle(article, 1, 10);
-        render(article /*, activities */);
+        render(article, previous, following /*, activities */);
     }
     
     public static void postComment(
