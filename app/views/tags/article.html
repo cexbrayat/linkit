@@ -1,10 +1,10 @@
 *{ Displays _arg article in a short way }*
 
-<h1 class="article title">${_arg.title}</h1>
+<h2 class="article title">${_arg.title}</h2>
 <blockquote class="article headline">
     ${_arg.headline.markdown().raw()}
     <small>Posté par <a href="@{Profile.show(_arg.author.login)}">#{member _arg.author /}</a> le ${_arg.postedAt.format('dd/MM/yyyy à hh:mm')}</small>
 </blockquote>
 <p>
-    <a href="@{Articles.show(_arg.id)}" class="article link">Afficher cet article</a><br/>
+    → <a href="@{Articles.show(_arg.id)}" class="article link">Afficher cet article</a><br/>
 </p>

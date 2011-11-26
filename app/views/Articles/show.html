@@ -2,21 +2,34 @@
 #{set title:article.title /}
 
 <div class="container">
-    <div class="hero-unit">
-        <h1>${article.title}</h1>
-        <p>${article.headline.markdown().raw()}</p>
-        ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}
-        #{if article.comments}
-        <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
-        #{/if}
-    </div>
-    <div class="content">
+    <div class="row">
+        <div class="span12">
+            <h1>${article.title}</h1>
+            <h2>${article.headline}</h2>
+            ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}
+            #{if article.comments}
+            <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
+            #{/if}
+        </div>
+        <div class="span4">
+            Par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a><br/>
+            le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}<br/>
+            <br/>
+            ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}<br/>
+            <br/>
+            #{if article.comments}
+            <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
+            #{/if}
         
-        #{secure.check models.Role.ADMIN_ARTICLE}
-        <p>
-            Ami du staff, veux-tu <a class="btn danger" href="@{Articles.edit(article.id)}">Editer cet article</a> ?
-        </p>
-        #{/secure.check} 
+            #{secure.check models.Role.ADMIN_ARTICLE}
+            <p>
+                Staff : <a class="btn danger" href="@{Articles.edit(article.id)}">Editer cet article</a>
+            </p>
+            #{/secure.check} 
+        </div>
+    </div>
+
+    <div class="row">
         
         <blockquote class="article content">
             ${article.content.markdown().raw()}

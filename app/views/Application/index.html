@@ -29,11 +29,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="span16">
-            <h2>Activités récentes</h2>
-            <p id="activities">
-            </p>
-            <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>  
+        #{list items:articles, as:'article'}
+        <div class="span-one-third">
+            #{article article /}
+        </div>
+        #{/list}
+    </div>
+    <div class="row">
+        <h4>Activités récentes</h4>
+        <p id="activities"></p>
+        <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>  
 <script type="text/javascript">
     var page = 1;
     var size = 5;
@@ -53,6 +58,5 @@
     // Initial loading : first page
     loadMoreActivities();
 </script>            
-        </div>
     </div>
 </div><!-- /container --> 
