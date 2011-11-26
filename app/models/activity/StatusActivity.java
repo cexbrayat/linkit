@@ -14,6 +14,7 @@ import models.ProviderType;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.IndexColumn;
 import play.Logger;
+import play.i18n.Messages;
 
 /**
  * A status activity : someone ({@link Activity#member} posted a status on an external provider ({@link Activity#session}
@@ -72,7 +73,7 @@ public class StatusActivity extends Activity {
     
     @Override
     public String getMessage(String lang) {
-        return content;
+        return Messages.get(getMessageKey(), member, content);
     }
 
     @Override

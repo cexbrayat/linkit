@@ -50,6 +50,7 @@ article.content.note=Le contenu de votre article.<br/>&{markdown.note}
 # Activities
 activities.more=Afficher plus...
 LinkActivity.message=%1$s s'est linké à %2$s
+StatusActivity.message=%1$s : %2$s
 CommentSessionActivity.message=%1$s a commenté la session %2$s
 CommentArticleActivity.message=%1$s a commenté l'article %2$s
 SignUpActivity.message=%1$s s'est inscrit
