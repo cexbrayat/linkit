@@ -60,7 +60,7 @@
                     <div class="input"> 
                         <ul class="inputs-list">
                             #{list items:models.Speaker.findAll(), as:'speaker'}
-                            <li><label><input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} /> <span>${speaker.displayName}</span></label></li>
+                            <li><label><input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} /> <span>${speaker}</span></label></li>
                             #{/list}
                         </ul>
                         <span class="help-block">${field.error}</span>

@@ -48,19 +48,19 @@ public class Member extends Model implements Lookable {
     static final String QUERY_FORPROFILE = "MemberForProfile";
     
     /** Internal login : functional key */
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(nullable = false, unique = true, updatable = true)
     @IndexColumn(name = "login_UK_IDX", nullable = false)
     @Required
     public String login;
     
     @Required
     public String email;
-    public String firstname;
-    public String lastname;
     
-    /** Name under which he wants to be displayed */
     @Required
-    public String displayName;
+    public String firstname;
+    
+    @Required
+    public String lastname;
     
     /** User-defined description, potentially as MarkDown */
     @Lob
@@ -340,12 +340,18 @@ public class Member extends Model implements Lookable {
             return false;
         }
         final Member other = (Member) obj;
-        return new EqualsBuilder().append(this.login, other.login).isEquals();
+        return new EqualsBuilder()
+                .append(this.id, other.id)
+                .append(this.login, other.login)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(this.login).toHashCode();
+        return new HashCodeBuilder()
+                .append(this.id)
+                .append(this.login)
+                .toHashCode();
     }
 
     /**
@@ -354,7 +360,14 @@ public class Member extends Model implements Lookable {
      */
     @Override
     public String toString() {
-        return displayName;
+        return new StringBuilder()
+                .append(firstname)
+                .append(' ')
+                .append(lastname)
+                .append(" (")
+                .append(login)
+                .append(')')
+                .toString();
     }
 
     public boolean hasRole(String profile) {

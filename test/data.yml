@@ -38,7 +38,6 @@ Speaker(rguy) :
     login: rguy
     email: rguy@google.com
     description : Test description
-    displayName: Romain Guy
     twitterName: romainguy
     googlePlusId: 
     badges:
@@ -68,6 +67,5 @@ Sponsor(sponsor) :
     login: sponsor
     email: info@acme.com
     description : We rule the world!
-    displayName: ACME Company Ltd.
     badges:
          - Sponsor

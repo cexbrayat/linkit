@@ -98,7 +98,6 @@ Staff(cedric) :
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: CédriX
     interests:           
          - java
          - hadoop
@@ -173,7 +172,6 @@ Staff(ju) :
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: tluapir
     interests:           
          - java
          - play
@@ -246,7 +244,6 @@ Sponsor(agnes) :
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: Gnès
     interests:
          - java
          - spring
@@ -321,7 +318,6 @@ Speaker(nmartignole) :
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: "Le Touilleur"
     twitterName: nmartignole
     googlePlusId: 112895425540987915280
     interests:
@@ -395,7 +391,6 @@ Speaker(rguy):
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: Romain Guy
     interests:
          - java
     badges:

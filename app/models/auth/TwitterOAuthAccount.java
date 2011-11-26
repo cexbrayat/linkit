@@ -37,7 +37,7 @@ public class TwitterOAuthAccount extends OAuthAccount {
     @Override
     public void initMemberProfile() {
         if (member != null) {
-            if (StringUtils.isBlank(member.displayName)) member.displayName = this.name;
+            if (StringUtils.isBlank(member.login)) member.login = getOAuthLogin();
             TwitterAccount account = member.getTwitterAccount();
             if (account == null) {
                 account = new TwitterAccount(screenName);

@@ -16,7 +16,7 @@
                 <h4>Speaker${talk.speakers.size().pluralize()}</h4>
                 #{list items:talk.speakers, as:'speaker'}
                 <p>
-                    <a href="@{Profile.show(speaker.login)}">${speaker.displayName}</a>
+                    <a href="@{Profile.show(speaker.login)}">${speaker}</a>
                     <br/>
                     #{if speaker.email}
                     <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>

@@ -6,12 +6,12 @@
 
 # FIXME conflict with (Member.)description and (Session.)description : needs a deep refactoring
 
+login=Nom d'utilisateur
+login.note=Votre login, nom d'utilisateur, pseudonyme. Si vous le modifiez, les éventuelles URL vous concernant que vous auriez bookmarkées ne seront plus valides.
 lastname=Nom
-lastname.note=Il restera confidentiel (ou pas)
+lastname.note=Nom de famille
 firstname=Prénom
-firstname.note=Il restera confidentiel (ou pas)
-displayName=Pseudonyme
-displayName.note=Nom sous lequel vous voulez apparaître sur le site
+firstname.note=
 email=Email
 email.note=
 description=Description
@@ -96,3 +96,4 @@ validation.required=La saisie du champ %s est obligatoire
 validation.email=Saisir un email valide
 validation.minSize=Le nombre maximum de %s est %d.
 validation.maxSize=Le nombre maximum de %s est %d
+validation.login.unique=Trop tard, le login %s est déjà utilisé! Trouvez-en un autre.
