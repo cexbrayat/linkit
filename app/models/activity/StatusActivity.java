@@ -14,6 +14,7 @@ import models.ProviderType;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.IndexColumn;
 import play.Logger;
+import play.db.jpa.JPA;
 import play.i18n.Messages;
 
 /**
@@ -43,9 +44,11 @@ public class StatusActivity extends Activity {
         this.statusId = statusId;
     }
 
-    static public void fetchFor(Member member) {
+    static public void fetchForMember(Long memberId) {
 
+        Member member = Member.findById(memberId);
         for (Account account : member.accounts) {
+            
             Logger.info("Fetch timeline for %s on %s", member, account.provider);
             List<StatusActivity> statuses = account.fetchActivities();
             if (!statuses.isEmpty()) {
@@ -56,7 +59,6 @@ public class StatusActivity extends Activity {
 
                 account.enhance(statuses);
             }
-
 
             for (StatusActivity status : statuses) {
                 boolean add = true;
