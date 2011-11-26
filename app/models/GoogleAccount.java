@@ -3,7 +3,6 @@ package models;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import helpers.JSON;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +15,6 @@ import javax.persistence.Entity;
 import models.activity.StatusActivity;
 import play.Logger;
 import play.data.validation.Required;
-import play.libs.WS;
 
 /**
  * A Google account
@@ -52,19 +50,21 @@ public class GoogleAccount extends Account {
         StringBuilder url = new StringBuilder("https://www.googleapis.com/plus/v1/people/")
                 .append(this.googleId)
                 .append("/activities/public?key=AIzaSyC4xOkQsEPJcUKUvQGL6T7RZkrIIxSuZAg");
-        JsonObject response = JSON.getAsObject(WS.url(url.toString()).get().getString());    // Unauthenticated
-        JsonArray activities = response.get("items").getAsJsonArray();
-        DateFormat googleFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
-        for (JsonElement element : activities) {
-            JsonObject activity = element.getAsJsonObject();
-            try {
-                String content = activity.get("object").getAsJsonObject().get("content").getAsString();
-                Date date = googleFormatter.parse(activity.get("published").getAsString());
-                String statusId = activity.get("id").getAsString();
-                String statusUrl = activity.get("url").getAsString();
-                statuses.add(new StatusActivity(this.member, date, this.provider, content, statusUrl, statusId));
-            } catch (ParseException pe) {
-                Logger.error("ouch! parse exception " + pe.getMessage());
+        JsonElement response = fetchJson(url.toString());
+        if (response != null) {
+            JsonArray activities = response.getAsJsonObject().get("items").getAsJsonArray();
+            DateFormat googleFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
+            for (JsonElement element : activities) {
+                JsonObject activity = element.getAsJsonObject();
+                try {
+                    String content = activity.get("object").getAsJsonObject().get("content").getAsString();
+                    Date date = googleFormatter.parse(activity.get("published").getAsString());
+                    String statusId = activity.get("id").getAsString();
+                    String statusUrl = activity.get("url").getAsString();
+                    statuses.add(new StatusActivity(this.member, date, this.provider, content, statusUrl, statusId));
+                } catch (ParseException pe) {
+                    Logger.error("ouch! parse exception " + pe.getMessage());
+                }
             }
         }
         return statuses;

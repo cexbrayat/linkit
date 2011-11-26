@@ -3,7 +3,6 @@ package models;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import helpers.JSON;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,7 +17,6 @@ import javax.persistence.Entity;
 import models.activity.StatusActivity;
 import play.Logger;
 import play.data.validation.Required;
-import play.libs.WS;
 import play.mvc.Router;
 
 /**
@@ -56,19 +54,21 @@ public class TwitterAccount extends Account {
         if (this.lastStatusId != null) {
             url.append("&since_id=").append(this.lastStatusId);
         }
-        JsonElement response = JSON.getAsElement(WS.url(url.toString()).get().getString());    // Unauthenticated
-        JsonArray array = response.getAsJsonArray();
-        DateFormat twitterFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
-        for (JsonElement element : array) {
-            JsonObject tweet = element.getAsJsonObject();
-            try {
-                final String content = tweet.get("text").getAsString();
-                final Date date = twitterFormatter.parse(tweet.get("created_at").getAsString());
-                final String statusId = tweet.get("id_str").getAsString();
-                final String statusUrl = "http://www.twitter.com/"+this.screenName+"/status/"+statusId;
-                statuses.add(new StatusActivity(this.member, date, this.provider, content, statusUrl, statusId));
-            } catch (ParseException pe) {
-                Logger.error("ouch! parse exception " + pe.getMessage());
+        JsonElement response = fetchJson(url.toString());
+        if (response != null) {
+            JsonArray array = response.getAsJsonArray();
+            DateFormat twitterFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
+            for (JsonElement element : array) {
+                JsonObject tweet = element.getAsJsonObject();
+                try {
+                    final String content = tweet.get("text").getAsString();
+                    final Date date = twitterFormatter.parse(tweet.get("created_at").getAsString());
+                    final String statusId = tweet.get("id_str").getAsString();
+                    final String statusUrl = "http://www.twitter.com/"+this.screenName+"/status/"+statusId;
+                    statuses.add(new StatusActivity(this.member, date, this.provider, content, statusUrl, statusId));
+                } catch (ParseException pe) {
+                    Logger.error("ouch! parse exception " + pe.getMessage());
+                }
             }
         }
         return statuses;
