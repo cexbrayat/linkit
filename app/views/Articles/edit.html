@@ -53,7 +53,12 @@
             </fieldset>
             <div class="actions">
                 <input type="submit" class="btn primary large" value="Enregistrer"/>
+                #{if article.id}
                 <a href="@{Articles.show(article.id)}" class="btn large">Annuler</a>
+                #{/if}
+                #{else}
+                <a href="@{Articles.index()}" class="btn large">Annuler</a>
+                #{/else}
             </div>
             #{/form}
         </div>

@@ -37,6 +37,7 @@ public class Article extends Model implements Lookable {
     @ManyToOne(optional = false)
     public Member author;
 
+    @Required
     @Column(name = POSTEDAT)
     @Temporal(TemporalType.TIMESTAMP)
     public Date postedAt = new Date();

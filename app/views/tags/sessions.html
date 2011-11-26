@@ -6,6 +6,13 @@
     });
 </script>
 <div class="container">
+
+    #{secure.check models.Role.ADMIN_SESSION}
+    <p>
+        Ami du staff, veux-tu <a class="btn danger" href="@{Sessions.create()}">Créer un session</a> ?
+    </p>
+    #{/secure.check} 
+
     <table class="zebra-striped" id="sortSession"> 
         <thead> 
             <tr> 

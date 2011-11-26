@@ -17,7 +17,6 @@
             Ami du staff, veux-tu <a class="btn danger" href="@{Articles.edit(article.id)}">Editer cet article</a> ?
         </p>
         #{/secure.check} 
-
         
         <blockquote class="article content">
             ${article.content.markdown().raw()}
@@ -26,8 +25,8 @@
         </blockquote>
         
         <p>
-            #{if previous} <<< <a href="@{Articles.show(previous.id)}">Article précédent : ${previous.title}</a><br/> #{/if}
-            #{if following} >>> <a href="@{Articles.show(following.id)}">Article suivant : ${following.title}</a> #{/if}
+            #{if following} >>> <a href="@{Articles.show(following.id)}">Article suivant : ${following.title}</a><br/> #{/if}
+            #{if previous} <<< <a href="@{Articles.show(previous.id)}">Article précédent : ${previous.title}</a> #{/if}
         </p>
         
         #{if article.comments}

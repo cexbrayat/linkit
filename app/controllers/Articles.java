@@ -64,6 +64,7 @@ public class Articles extends Controller {
         Logger.info("Tentative d'enregistrement d'article " + article);
 
         article.author = Member.findByLogin(Security.connected());
+        article.postedAt = new Date();
 
         validation.valid(article);
         if (Validation.hasErrors()) {

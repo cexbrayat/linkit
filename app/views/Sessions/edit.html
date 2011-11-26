@@ -123,7 +123,12 @@
             </fieldset>
             <div class="actions">
                 <input type="submit" class="btn primary large" value="Enregistrer"/>
+                #{if talk.id}
                 <a href="@{Sessions.show(talk.id)}" class="btn large">Annuler</a>
+                #{/if}
+                #{else}
+                <a href="@{Sessions.index()}" class="btn large">Annuler</a>
+                #{/else}
             </div>
             #{/form}
         </div>
