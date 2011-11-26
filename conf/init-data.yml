@@ -564,13 +564,12 @@ Session(sessionhadoop):
            - rguy
 
 Article(article1):
-    title: Mix_IT 2012!
+    title: Mix-IT 2012!
     headline: Mix-IT seconde édition est annoncée pour le 26 avril 2012
     content: |
-        Vous l'attendiez tous... et bien voilà la conf [Mix-IT] 2012 aura lieu le 26 avril 2012 à Lyon! Stay tuned! Au programme on vous prépare toujours un bon mix de #Java #Agilité, autres langages, technos innovantes, etc.
-
-        [Mix-IT]: http://www.mix-it.fr
+        Vous l'attendiez tous... et bien voilà la conf [Mix-IT](http://www.mix-it.fr) 2012 aura lieu le 26 avril 2012 à Lyon! Stay tuned! Au programme on vous prépare toujours un bon mix de #Java #Agilité, autres langages, technos innovantes, etc.
     author: agnes
+    postedAt: 2011-11-25
 
 Article(article2):
     title: Un nouveau sample
@@ -647,3 +646,4 @@ Article(article2):
 
         [Pandoc]: http://johnmacfarlane.net/Pandoc/
     author: cedric
+    postedAt: 2011-11-26

@@ -48,14 +48,13 @@ public class Sessions extends Controller {
     
     public static void postComment(
             Long talkId,
-            @Required String login,
             @Required String content) {
         Session talk = Session.findById(talkId);
         if (Validation.hasErrors()) {
             render("Sessions/show.html", talk);
         }
 
-        Member author = Member.findByLogin(login);
+        Member author = Member.findByLogin(Security.connected());
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);

@@ -1,0 +1,10 @@
+*{ Displays _arg article in a short way }*
+
+<h1 class="article title">${_arg.title}</h1>
+<p class="article headline">
+    ${_arg.headline.markdown().raw()}
+</p>
+<p>
+    <a href="@{Articles.show(_arg.id)}" class="article link">Afficher cet article</a><br/>
+    Par <a href="@{Profile.show(_arg.author.login)}">#{member _arg.author /}</a> le ${_arg.postedAt.format('dd/MM/yyyy à hh:mm')}
+</p>

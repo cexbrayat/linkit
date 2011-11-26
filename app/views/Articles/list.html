@@ -1,0 +1,14 @@
+#{extends 'main.html' /}
+#{set title:'Les actualités' /}
+
+<div class="container">
+
+    #{list items:articles, as:'article'}
+
+    <p>
+        #{article article /}
+    </p>
+    <hr/>
+
+    #{/list}
+</div>

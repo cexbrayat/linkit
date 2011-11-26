@@ -1,14 +1,20 @@
 package models;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import models.activity.CommentArticleActivity;
 import models.activity.LookArticleActivity;
+import org.hibernate.annotations.Index;
+import org.hibernate.annotations.Table;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -18,16 +24,28 @@ import play.db.jpa.Model;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
+@Table(appliesTo = "Article",
+indexes = {
+    @Index(name = "Article_IDX", columnNames = {Article.POSTEDAT})
+})
 public class Article extends Model implements Lookable {
 
+    public final static String POSTEDAT = "postedAt";
+    
+    
     @Required
-    @ManyToOne(optional=false)
+    @ManyToOne(optional = false)
     public Member author;
 
+    @Column(name = POSTEDAT)
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date postedAt;
+    
     @Required
     @MaxSize(50)
     public String title;
 
+    /** Markdown enabled */
     @Required
     @MaxSize(500)
     public String headline;
@@ -47,8 +65,13 @@ public class Article extends Model implements Lookable {
 
     public Article(Member author) {
         this.author = author;
+        this.postedAt = new Date();
     }
 
+    public static List<Article> recents(int page, int length) {
+        return find("order by postedAt desc").fetch(page, length);
+    }
+    
     /**
      * Save comment! Best practices in add method?
      * @param comment 

@@ -1,50 +1,27 @@
 #{extends 'main.html' /}
-#{set title:'Session ' + talk.title /}
+#{set title:article.title /}
 
 <div class="container">
     <div class="hero-unit">
-        <h1>${talk.title}</h1>
-        <p>${talk.summary}</p>
-        ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
-        #{if talk.comments}
-        <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+        <h1>${article.title}</h1>
+        <p>${article.headline.markdown().raw()}</p>
+        ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}
+        #{if article.comments}
+        <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
         #{/if}
     </div>
     <div class="content">
-        <div class="row">
-            <div class="span3">
-                <h4>Speaker${talk.speakers.size().pluralize()}</h4>
-                #{list items:talk.speakers, as:'speaker'}
-                <p>
-                    <a href="@{Profile.show(speaker.login)}">${speaker}</a>
-                    <br/>
-                    #{if speaker.email}
-                    <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
-                    #{/if}
-                </p>
-                #{/list}
-
-                <h4>Intérêts</h4>
-                <p>
-                    #{list items:talk.interests, as:'interest'}
-                        <a href="@{Application.sessionsAndMembersByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
-                    #{/list}
-                </p>
-                <h4>Activité récente</h4>
-                <div id="activities">
-                #{activities activities:activities /}
-                </div>
-
-                
-            </div>
-            <div class="span13">
-                ${talk.description.markdown().raw()}
-            </div>
-        </div>
-
-        #{if talk.comments}
+        <p class="article author">
+            Par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a> le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}
+        </p>
+        
+        <p class="article content">
+            ${article.content.markdown().raw()}
+        </p>
+        
+        #{if article.comments}
             <section id="comments">
-                #{list items:talk.comments, as:"comment"}
+                #{list items:article.comments, as:"comment"}
                 <hr/>
                 <section id="comment${comment.id}">
                     <div class="row">
@@ -66,7 +43,7 @@
         <section id="post">
             #{if session.username}
             <div class="row">
-                #{form @Sessions.postComment(talk.id)}
+                #{form @Articles.postComment(article.id)}
 
                 #{field 'content'}
                 <div class="clearfix ${field.error?'error':''}"> 
@@ -85,7 +62,7 @@
             </div>
             #{/if}
             #{else}
-            <a href="@{Login.index(request.url+'#post')}">Connectez-vous pour commenter cette session</a>
+            <a href="@{Login.index(request.url+'#post')}">Connectez-vous pour commenter cet article</a>
             #{/else}
         </section>
     </div>

@@ -31,6 +31,11 @@ public class ArticleTest extends UnitTest {
         article.save();
     }
     
+    @Test
+    public void recents() {
+        assertNotNull(Article.recents(1, 10));
+    }
+    
     private Member createMember(String login) {
         return new Member(login).save();
     }

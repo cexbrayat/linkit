@@ -66,6 +66,7 @@ Article(articleTest):
     headline: Mix-IT seconde édition est annoncée pour le 26 avril 2012
     content: Test content
     author: ced
+    postedAt: 2011-11-26
 
 Sponsor(sponsor) :
     firstname: ACME
