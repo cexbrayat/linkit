@@ -159,6 +159,25 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     public static List<Activity> recentsByArticle(Article a, int page, int length) {
         return Activity.find("from Activity a where a.article = ? order by a.at desc", a).fetch(page, length);
     }
+    
+    /**
+     * Delete all activities related to given member
+     * @param member
+     * @return 
+     */
+    public static int deleteForMember(Member member) {
+        return delete("delete Activity a where a.member = ?1 or a.other = ?1", member);
+    }
+    
+    /**
+     * Delete all activities related to given member for given provider
+     * @param member
+     * @param provider
+     * @return 
+     */
+    public static int deleteForMember(Member member, ProviderType provider) {
+        return delete("delete Activity a where (a.member = ?1 or a.other = ?1) and a.provider = ?2", member, provider);
+    }
 
     final protected String getMessageKey() {
         return getClass().getSimpleName() + ".message";

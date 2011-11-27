@@ -81,4 +81,14 @@ public class ActivityTest extends AbstractActivityTest {
     public void uncomputed() {
         assertNotNull(Activity.uncomputed());
     }
+    
+    @Test
+    public void deleteForMember() {
+        assertNotNull(Activity.deleteForMember(member));
+    }
+    
+    @Test
+    public void deleteForMemberWithProvider() {
+        assertNotNull(Activity.deleteForMember(member, ProviderType.Twitter));
+    }
 }

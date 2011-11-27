@@ -13,10 +13,12 @@ import helpers.badge.BadgeComputerFactory;
 import java.util.*;
 import javax.persistence.*;
 
+import models.activity.Activity;
 import models.activity.EarnBadgeActivity;
 import models.activity.LinkActivity;
 import models.activity.LookProfileActivity;
 import models.activity.SignUpActivity;
+import models.activity.StatusActivity;
 import models.activity.UpdateProfileActivity;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -70,7 +72,7 @@ public class Member extends Model implements Lookable {
     /**
      * Members he follows
      */
-    @ManyToMany()
+    @ManyToMany
     public Set<Member> links = new HashSet<Member>();
     /**
      * Members who follow him : reverse-mapping of {@link Member#links}
@@ -106,7 +108,7 @@ public class Member extends Model implements Lookable {
         if (account != null) {
             this.accounts.remove(account);
             account.member = null;
-            // FIXME CLA Delete all activities on account
+            StatusActivity.deleteForMember(this, account.provider);
         }
     }
 
@@ -390,7 +392,8 @@ public class Member extends Model implements Lookable {
 
     @Override
     public Member delete() {
-        // FIXME CLA Delete related activities
+        Activity.deleteForMember(this);
+        AuthAccount.deleteForMember(this);
         return super.delete();
     }
 }
