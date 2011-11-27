@@ -21,7 +21,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" maxlength="50" type="text" value="${field.value}" />
+                        <input class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="50" type="text" value="${field.value}" />
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -32,7 +32,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" maxlength="140" type="text" value="${field.value}" /> 
+                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="3">${field.value}</textarea>
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
