@@ -237,6 +237,11 @@ public class MemberTest extends UnitTest {
         Member other = createMember("other");
         member.addLink(other);
         other.addLink(member);
+        // Some comments
+        final Session session = Session.all().first();
+        session.addComment(new SessionComment(member, session, "commentaire"));
+        final Article article = Article.all().first();
+        article.addComment(new ArticleComment(member, article, "commentaire"));
         
         assertNotNull(member.delete());
     }

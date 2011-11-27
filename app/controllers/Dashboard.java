@@ -16,6 +16,8 @@ public class Dashboard extends Controller {
         // Three recent articles
         List<Article> articles = Article.recents(1, 3);
 
+        // TODO CLA Afficher nos commentaires
+        
         render(member, suggests, articles);
     }
 

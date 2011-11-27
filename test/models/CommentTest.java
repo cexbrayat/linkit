@@ -27,4 +27,10 @@ public class CommentTest extends UnitTest {
         final long count = Comment.countByMember(member);
         assertTrue(count >= 0);
     }
+
+    @Test
+    public void deleteForMember() {
+        Member member = Member.all().first();
+        Comment.deleteForMember(member);
+    }
 }

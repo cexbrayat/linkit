@@ -55,6 +55,10 @@ public abstract class Comment extends Model {
         this.postedAt = new Date();
     }
 
+    public static int deleteForMember(Member member) {
+        return delete("from Comment c where c.author = ?", member);
+    }
+    
     public static long countByMember(Member m) {
         return count("author=?", m);
     }

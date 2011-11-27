@@ -394,6 +394,7 @@ public class Member extends Model implements Lookable {
     public Member delete() {
         Activity.deleteForMember(this);
         AuthAccount.deleteForMember(this);
+        Comment.deleteForMember(this);
         return super.delete();
     }
 }
