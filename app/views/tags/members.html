@@ -19,9 +19,7 @@
             <tr onclick="document.location.href='@{Profile.show(member.login)}';">
                 <td>${member}</td> 
                 <td>
-                    #{list items:member.badges, as:'badge'}
-                        #{badge badge:badge /}
-                    #{/list}
+                    #{badges member.badges /}
                 </td>
                 <td>
                     #{if member instanceof models.Speaker}
