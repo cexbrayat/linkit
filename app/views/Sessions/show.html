@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Session ' + talk.title + ' - Mix-IT' /}
+#{set title:'Session ' + talk.title /}
 
 <div class="container">
     <div class="hero-unit">
@@ -16,7 +16,7 @@
                 <h4>Speaker${talk.speakers.size().pluralize()}</h4>
                 #{list items:talk.speakers, as:'speaker'}
                 <p>
-                    <a href="@{Profile.show(speaker.login)}">${speaker.displayName}</a>
+                    <a href="@{Profile.show(speaker.login)}">${speaker}</a>
                     <br/>
                     #{if speaker.email}
                     <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
@@ -38,35 +38,19 @@
                 
             </div>
             <div class="span13">
+                <blockquote>
                 ${talk.description.markdown().raw()}
+                </blockquote>
             </div>
         </div>
 
-        #{if talk.comments}
-            <section id="comments">
-                #{list items:talk.comments, as:"comment"}
-                <hr/>
-                <section id="comment${comment.id}">
-                    <div class="row">
-                        <div class="span3">
-                            <a href="@{Profile.show(comment.author.login)}">#{member comment.author /}</a><br/>
-                            ${comment.postedAt.format('dd/MM/yyyy hh:mm:ss')}
-                        </div>
-                        <div class="span13">
-                            <p>${comment.content.markdown().raw()}</p>
-                        </div>
-                    </div>
-                    #{/list}
-                </section>
-            </section>
-        </div>
-        #{/if}
+        #{comments talk.comments /}
 
         <hr/>
         <section id="post">
             #{if session.username}
             <div class="row">
-                #{form @Sessions.postComment(talk.id, session.username)}
+                #{form @Sessions.postComment(talk.id)}
 
                 #{field 'content'}
                 <div class="clearfix ${field.error?'error':''}"> 

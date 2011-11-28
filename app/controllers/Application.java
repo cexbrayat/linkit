@@ -17,8 +17,11 @@ public class Application extends Controller {
         if (login != null && Member.findByLogin(login) == null) {
             session.remove("username");
         }
+        
+        // Three recent articles
+        List<Article> articles = Article.recents(1, 3);
         List<Map> tags = Interest.getCloud();
-        render(tags);
+        render(articles, tags);
     }
 
     public static void members() {

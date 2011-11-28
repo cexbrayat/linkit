@@ -1,8 +1,8 @@
 #{extends 'main.html' /}
-#{set title:member.toString() + ' - Mix-IT' /}
+#{set title:member.toString() /}
 <div class="container">
     <div class="hero-unit">
-        <h2>${member.firstname} ${member.lastname} aka ${member.displayName}</h2>
+        <h2>${member}</h2>
         <div class="row">
             <div class="span6">
                 <div class="row">
@@ -138,9 +138,7 @@
         <div class="span8">
             <h2>Badges</h2>
             <p>
-                #{list items:member.badges, as:'badge'}
-                #{badge badge:badge /}
-                #{/list}
+                #{badges member.badges /}
             </p>
         </div>
     </div>

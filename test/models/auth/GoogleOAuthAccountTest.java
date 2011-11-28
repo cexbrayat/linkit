@@ -25,6 +25,20 @@ public class GoogleOAuthAccountTest extends UnitTest {
         Fixtures.deleteAllModels();
     }
 
+    @Test public void getOAuthLoginOK() {
+        final GoogleOAuthAccount ta = new GoogleOAuthAccount(null, null);
+        ta.email = "jean.dupont@gmail.com";
+        assertEquals("jean.dupont", ta.getOAuthLogin());
+    }
+
+    @Test public void getOAuthLoginNotValidEmail() {
+        final GoogleOAuthAccount ta = new GoogleOAuthAccount(null, null);
+        ta.email = "jean.dupont";   // No @
+        assertEquals("jean.dupont", ta.getOAuthLogin());
+        ta.email = "jean.dupont@test@test.com";   // Several @
+        assertEquals("jean.dupont", ta.getOAuthLogin());
+    }
+
     @Test
     public void testInitMemberProfileNull() {
         new GoogleOAuthAccount(null, null).initMemberProfile();
@@ -47,7 +61,6 @@ public class GoogleOAuthAccountTest extends UnitTest {
         assertEquals(ga.email, ga.member.email);
         assertEquals(ga.givenName, ga.member.firstname);
         assertEquals(ga.familyName, ga.member.lastname);
-        assertEquals(ga.name, ga.member.displayName);
     }
 
     @Test
@@ -64,19 +77,16 @@ public class GoogleOAuthAccountTest extends UnitTest {
         final String originalEmail = "mon@email.ch";
         final String originalFirstName = "Jade";
         final String originalLastName = "Aure";
-        final String originalDisplayName = "Jade Aure";
         ga.member.addAccount(new GoogleAccount(originalGooglePlusId));
         ga.member.email = originalEmail;
         ga.member.firstname = originalFirstName;
         ga.member.lastname = originalLastName;
-        ga.member.displayName = originalDisplayName;
 
         ga.initMemberProfile();
         assertEquals(originalGooglePlusId, ga.member.getGoogleAccount().googleId);
         assertEquals(originalEmail, ga.member.email);
         assertEquals(originalFirstName, ga.member.firstname);
         assertEquals(originalLastName, ga.member.lastname);
-        assertEquals(originalDisplayName, ga.member.displayName);
     }
 
     @Test

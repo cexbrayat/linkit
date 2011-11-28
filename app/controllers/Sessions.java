@@ -4,7 +4,7 @@ import play.*;
 import play.mvc.*;
 
 import java.util.*;
-import models.Comment;
+import models.SessionComment;
 import models.Member;
 import models.Session;
 import models.Speaker;
@@ -48,15 +48,14 @@ public class Sessions extends Controller {
     
     public static void postComment(
             Long talkId,
-            @Required String login,
             @Required String content) {
         Session talk = Session.findById(talkId);
         if (Validation.hasErrors()) {
             render("Sessions/show.html", talk);
         }
 
-        Member author = Member.findByLogin(login);
-        talk.addComment(new Comment(author, talk, content));
+        Member author = Member.findByLogin(Security.connected());
+        talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
         show(talkId, true);

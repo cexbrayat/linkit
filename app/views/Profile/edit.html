@@ -16,6 +16,17 @@
         <div class="span12 columns"> 
             <fieldset> 
                 <legend>Profil</legend>
+                #{field 'login'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="10" type="text" value="${member.login}" />
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
+                </div>
+                #{/}
+                
                 #{field 'lastname'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
@@ -32,17 +43,6 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.firstname}" /> 
-                        <span class="help-inline">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div> 
-                </div><!-- /clearfix -->
-                #{/}
-
-                #{field 'displayName'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.displayName}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 

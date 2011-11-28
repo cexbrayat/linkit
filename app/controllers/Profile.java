@@ -27,17 +27,17 @@ public class Profile extends Controller {
         render(member);
     }
 
-    public static void save(@Required Long id, String firstname, String lastname, @Required @Email String email, @Required String displayName, @Required String description, String twitterName, String googlePlusId,
+    public static void save(@Required Long id, @Required String login, String firstname, String lastname, @Required @Email String email, @Required String description, String twitterName, String googlePlusId,
                             String[] interests, String newInterests) {
-        Logger.info("firstname {" + firstname + "}, lastname {" + lastname + "}, "
+        Logger.info("Save Profile login {" + login + "}, firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
 
         Member member = Member.findById(id);
+        member.login = login;
         member.firstname = firstname;
         member.description = description;
         member.email = email;
         member.lastname = lastname;
-        member.displayName = displayName;
         
         TwitterAccount twitter = member.getTwitterAccount();
         if (StringUtils.isNotBlank(twitterName)) {
@@ -69,15 +69,21 @@ public class Profile extends Controller {
             member.updateInterests(interests);
         }
 
+        if (newInterests != null) {
+            member.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
+        }
+
+        Member other = Member.findByLogin(login);
+        if (other != null && !member.equals(other)) {
+            validation.addError("login", "validation.login.unique", login);
+        }
+        
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
             render("Profile/edit.html", member, newInterests);
         }
 
-        if (newInterests != null) {
-            member.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
-        }
-
+        session.put("username", member.login);
         member.updateProfile();
         flash.success("Profil enregistré!");
         Logger.info("Profil enregistré");

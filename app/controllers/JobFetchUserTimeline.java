@@ -20,9 +20,7 @@ public class JobFetchUserTimeline extends Job {
     @Override
     public void doJob() {
         Logger.info("BEGIN JOB fetch timelines for " + member);
-        // Reload member
-        member = Member.findById(member.id);
-        StatusActivity.fetchFor(member);
+        StatusActivity.fetchForMember(member.id);
         Logger.info("END JOB fetch timelines for " + member);
     }
 }

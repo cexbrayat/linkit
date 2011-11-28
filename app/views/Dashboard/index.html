@@ -2,7 +2,7 @@
 #{set title:member.toString() + ' - Dashboard Link-IT' /}
 <div class="container">
     <div class="hero-unit">
-        <h1>Your dashboard</h1>
+        <h2>Mon dashboard</h2>
         <div class="row">
             <div class="span6">
                 <!-- profil -->
@@ -60,7 +60,7 @@
             </div>
 
             <div class="span8" > <!-- timeline -->
-                <h2>Activités de vos links</h2>
+                <h3>Activités de vos links</h3>
                 <div class="row">
                     <div class="span8">
                         <a class="service-button linkit" id="LinkIt" onClick="handleProvider('LinkIt')"></a>
@@ -119,3 +119,12 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        #{list items:articles, as:'article'}
+        <div class="span-one-third">
+            #{article article /}
+        </div>
+        #{/list}
+    </div>
+</div>

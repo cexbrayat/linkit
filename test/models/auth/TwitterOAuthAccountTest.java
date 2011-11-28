@@ -32,6 +32,13 @@ public class TwitterOAuthAccountTest extends UnitTest {
     }
 
     @Test
+    public void getOAuthLogin() {
+        final TwitterOAuthAccount ta = new TwitterOAuthAccount(null, null);
+        ta.screenName = "jean_dupont";
+        assertEquals(ta.screenName, ta.getOAuthLogin());
+    }
+    
+    @Test
     public void testInitMemberProfileEmpty() {
         final TwitterOAuthAccount ta = new TwitterOAuthAccount(null, null);
         ta.screenName = "jean_dupont";
@@ -40,7 +47,6 @@ public class TwitterOAuthAccountTest extends UnitTest {
 
         ta.initMemberProfile();
 
-        assertEquals(ta.name, ta.member.displayName);
         assertEquals(ta.screenName, ta.member.getTwitterAccount().screenName);
     }
 
@@ -50,15 +56,12 @@ public class TwitterOAuthAccountTest extends UnitTest {
         ta.screenName = "jean_dupont";
         ta.name = "Jean Dupont";
         ta.member = new Member("login");
-        final String originalDisplayName = "MaDescription";
         final String originalTwitterName = "MonTwitter";
-        ta.member.displayName = originalDisplayName;
         TwitterAccount originalTwitterAccount = new TwitterAccount(originalTwitterName);
         ta.member.addAccount(originalTwitterAccount);
         ta.initMemberProfile();
 
         // Member profile not modified
-        assertEquals(originalDisplayName, ta.member.displayName);
         assertEquals(originalTwitterName, ta.member.getTwitterAccount().screenName);
     }
 

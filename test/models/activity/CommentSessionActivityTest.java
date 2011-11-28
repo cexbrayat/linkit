@@ -1,15 +1,15 @@
 package models.activity;
 
-import models.Comment;
+import models.SessionComment;
 import models.Member;
 import models.Session;
 import org.junit.*;
 
 /**
- * Unit tests for {@link CommentActivity} domain object
+ * Unit tests for {@link CommentSessionActivity} domain object
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class CommentActivityTest extends AbstractActivityTest {
+public class CommentSessionActivityTest extends AbstractActivityTest {
 
     @Test
     public void addComment() {
@@ -18,7 +18,7 @@ public class CommentActivityTest extends AbstractActivityTest {
         // Non activity for the session
         assertEquals(0, Activity.count("session = ?", s));
         
-        Comment c = new Comment(member, s, "Un commentaire");
+        SessionComment c = new SessionComment(member, s, "Un commentaire");
         s.addComment(c);
         s.save();
         
@@ -26,8 +26,8 @@ public class CommentActivityTest extends AbstractActivityTest {
         assertEquals(1, Activity.count("session = ?", s));
         Activity a = Activity.find("session = ?", s).first();
         assertActivity(a);
-        assertTrue(a instanceof CommentActivity);
-        CommentActivity ca = (CommentActivity) a;
+        assertTrue(a instanceof CommentSessionActivity);
+        CommentSessionActivity ca = (CommentSessionActivity) a;
         assertEquals(member, ca.member);
         assertEquals(s, ca.session);
         assertEquals(c, ca.comment);
