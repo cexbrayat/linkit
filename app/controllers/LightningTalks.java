@@ -15,63 +15,40 @@ import java.util.List;
 
 public class LightningTalks extends Controller
 {
-
-  public static void index()
+  public static void list()
   {
-    List<Session> sessions = Session.findAll();
-    Logger.info(sessions.size() + " sessions");
-    render("Sessions/list.html", sessions);
+    List<LightningTalk> sessions = LightningTalk.findAll();
+    render(sessions);
   }
 
-  public static void create(final String speakerLogin)
+  public static void create()
   {
-    Speaker speaker = Speaker.findByLogin(speakerLogin);
-    Session talk = new Session();
-    talk.addSpeaker(speaker);
-    render("Sessions/edit.html", talk);
+    LightningTalk talk = new LightningTalk();
+    render("LightningTalks/edit.html", talk);
   }
 
   public static void edit(final Long sessionId)
   {
-    Session talk = Session.findById(sessionId);
-    render("Sessions/edit.html", talk);
+    LightningTalk talk = LightningTalk.findById(sessionId);
+    render(talk);
   }
 
   public static void show(final Long sessionId)
   {
-    Session talk = Session.findById(sessionId);
-    render(talk);
-  }
-
-  public static void postComment(
-      Long talkId,
-      @Required String login,
-      @Required String content)
-  {
-    Session talk = Session.findById(talkId);
-    if (Validation.hasErrors())
+    LightningTalk talk = LightningTalk.findById(sessionId);
+    if(talk != null)
     {
-      render("Sessions/show.html", talk);
+      render(talk);
     }
-
-    Member author = Member.findByLogin(login);
-    talk.addComment(new Comment(author, talk, content));
-    talk.save();
-    flash.success("Merci pour votre commentaire %s", author);
-    show(talkId);
+    else
+    {
+      //TODO 404
+    }
   }
 
-  public static void captcha(String id)
+  public static void save(@Valid LightningTalk talk, String[] interests, String newInterests)
   {
-    Images.Captcha captcha = Images.captcha();
-    String code = captcha.getText();
-    Cache.set(id, code, "10mn");
-    renderBinary(captcha);
-  }
-
-  public static void save(@Valid Session talk, String[] interests, String newInterests)
-  {
-    Logger.info("Tentative d'enregistrement de la session " + talk);
+    Logger.info("Tentative d'enregistrement du lightningTalk " + talk + " - nb speakers: " + talk.speakers.size());
     if (interests != null)
     {
       talk.updateInterests(interests);
@@ -79,16 +56,25 @@ public class LightningTalks extends Controller
     if (Validation.hasErrors())
     {
       Logger.error(Validation.errors().toString());
-      render("Sessions/edit.html", talk);
+      render("LightningTalks/edit.html", talk);
     }
     if (newInterests != null)
     {
       talk.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
     }
-    talk.update();
-    flash.success("Session " + talk + " enregistrée");
-    Logger.info("Session " + talk + " enregistrée");
+    Member member = Member.findByLogin(Security.connected());
+    talk.addSpeaker(member);
+    talk.save();
+    flash.success("LightningTalk " + talk + " enregistré");
+    Logger.info("LightningTalk " + talk + " enregistré");
     show(talk.id);
+  }
+  
+  public static void delete(final Long sessionId)
+  {
+    LightningTalk talk = LightningTalk.findById(sessionId);
+    talk.delete();
+    list();
   }
 
   public static long vote(Long talkId, String username, Boolean value)
@@ -114,11 +100,4 @@ public class LightningTalks extends Controller
 
     return -1;
   }
-
-  public static void list()
-  {
-    List<LightningTalk> sessions = LightningTalk.findAll();
-    render(sessions);
-  }
-
 }

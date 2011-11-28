@@ -5,7 +5,7 @@
     <div class="hero-unit">
         <h1>${talk.title}</h1>
         <p>${talk.summary}</p>
-        #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>#{/if}
+        #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
     </div>
     <div class="content">
         <div class="row">

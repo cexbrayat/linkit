@@ -37,7 +37,7 @@
         #{list items:_sessions, as:'talk'}
         <tr>
             <td><a href="@{LightningTalks.show(talk.id)}">${talk.title}</a>
-                #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>#{/if}
+                #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
             </td>
             <td>
                 #{list items:talk.speakers, as:'speaker'}
