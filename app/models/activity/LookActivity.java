@@ -8,20 +8,19 @@ import models.Member;
 import models.ProviderType;
 
 /**
- * A comment activity : someone ({@link Activity#member} commented on something
- * @author Agnes <agnes.crepet@gmail.com>
+ * A consultation of something activity : someone ({@link Activity#member}) looked at something on link-it.
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public abstract class CommentActivity extends Activity {
+public abstract class LookActivity extends Activity {
 
-    public CommentActivity(Member author) {
+    protected LookActivity(Member member) {
         super(ProviderType.LinkIt);
-        this.member = author;
+        this.member = member;
     }
 
     @Override
     protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
-        member.computeBadges(EnumSet.of(Badge.Brave, Badge.Troller), context);
+        member.computeBadges(EnumSet.of(Badge.TwoDaysInARow, Badge.FiveDaysInARow, Badge.MixITAddict), context);
     }
 }

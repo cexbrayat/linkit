@@ -1,13 +1,7 @@
 package controllers;
 
 import helpers.badge.BadgeComputationContext;
-import helpers.badge.BadgeComputer;
-import helpers.badge.BadgeComputerFactory;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
-import models.Badge;
-import models.Member;
 import models.activity.Activity;
 import play.Logger;
 import play.jobs.Every;

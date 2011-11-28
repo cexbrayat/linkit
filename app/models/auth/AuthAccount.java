@@ -42,6 +42,10 @@ public abstract class AuthAccount extends Model {
     public static AuthAccount find(ProviderType provider, String login) {
         return AuthAccount.find("from AuthAccount a where a.provider=?1 and a.member.login=?2", provider, login).first();
     }
+    
+    public static int deleteForMember(Member member) {
+        return delete("from AuthAccount a where a.member=?", member);
+    }
         
     /**
      * Initialize member profile from account data

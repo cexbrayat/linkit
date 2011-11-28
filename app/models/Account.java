@@ -1,5 +1,7 @@
 package models;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import java.util.Collection;
 import java.util.List;
 import javax.persistence.DiscriminatorValue;
@@ -12,8 +14,11 @@ import javax.persistence.ManyToOne;
 import models.activity.StatusActivity;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import play.Logger;
+import play.Play;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+import play.libs.WS;
 
 /**
  * An account on an social network
@@ -36,6 +41,9 @@ public abstract class Account extends Model implements Comparable<Account> {
     /** ID of last status retrieved */
     public String lastStatusId;
     
+    /** Timeout for WS fetching. Short because we can't do it again next time. */
+    protected static final String FETCH_TIMEOUT = Play.configuration.getProperty("linkit.timeline.fetch.timeout");
+    
     public Account(ProviderType provider) {
         this.provider = provider;
     }
@@ -57,6 +65,22 @@ public abstract class Account extends Model implements Comparable<Account> {
      * @return URL of member's profile on this social network account
      */
     public abstract String url();
+    
+    /**
+     * Fetch JSON data from given WS URL
+     * @param url url to fetch JSON data from
+     * @return JSON dat fetched, null if error or timeout.
+     */
+    protected JsonElement fetchJson(final String url) {
+        JsonElement data = null;
+        try {
+            data = WS.url(url).timeout(FETCH_TIMEOUT).get().getJson();
+        } catch (Exception e) {
+            Logger.warn(e, "Error while fetching %s", url);
+            data = null;
+        }
+        return data;
+    }
     
     @Override
     public String toString(){

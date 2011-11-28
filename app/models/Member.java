@@ -13,10 +13,12 @@ import helpers.badge.BadgeComputerFactory;
 import java.util.*;
 import javax.persistence.*;
 
+import models.activity.Activity;
 import models.activity.EarnBadgeActivity;
 import models.activity.LinkActivity;
 import models.activity.LookProfileActivity;
 import models.activity.SignUpActivity;
+import models.activity.StatusActivity;
 import models.activity.UpdateProfileActivity;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -48,19 +50,19 @@ public class Member extends Model implements Lookable {
     static final String QUERY_FORPROFILE = "MemberForProfile";
     
     /** Internal login : functional key */
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(nullable = false, unique = true, updatable = true)
     @IndexColumn(name = "login_UK_IDX", nullable = false)
     @Required
     public String login;
     
     @Required
     public String email;
-    public String firstname;
-    public String lastname;
     
-    /** Name under which he wants to be displayed */
     @Required
-    public String displayName;
+    public String firstname;
+    
+    @Required
+    public String lastname;
     
     /** User-defined description, potentially as MarkDown */
     @Lob
@@ -70,7 +72,7 @@ public class Member extends Model implements Lookable {
     /**
      * Members he follows
      */
-    @ManyToMany()
+    @ManyToMany
     public Set<Member> links = new HashSet<Member>();
     /**
      * Members who follow him : reverse-mapping of {@link Member#links}
@@ -106,7 +108,7 @@ public class Member extends Model implements Lookable {
         if (account != null) {
             this.accounts.remove(account);
             account.member = null;
-            // FIXME CLA Delete all activities on account
+            StatusActivity.deleteForMember(this, account.provider);
         }
     }
 
@@ -340,12 +342,18 @@ public class Member extends Model implements Lookable {
             return false;
         }
         final Member other = (Member) obj;
-        return new EqualsBuilder().append(this.login, other.login).isEquals();
+        return new EqualsBuilder()
+                .append(this.id, other.id)
+                .append(this.login, other.login)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(this.login).toHashCode();
+        return new HashCodeBuilder()
+                .append(this.id)
+                .append(this.login)
+                .toHashCode();
     }
 
     /**
@@ -354,7 +362,14 @@ public class Member extends Model implements Lookable {
      */
     @Override
     public String toString() {
-        return displayName;
+        return new StringBuilder()
+                .append(firstname)
+                .append(' ')
+                .append(lastname)
+                .append(" (")
+                .append(login)
+                .append(')')
+                .toString();
     }
 
     public boolean hasRole(String profile) {
@@ -377,7 +392,9 @@ public class Member extends Model implements Lookable {
 
     @Override
     public Member delete() {
-        // FIXME CLA Delete related activities
+        Activity.deleteForMember(this);
+        AuthAccount.deleteForMember(this);
+        Comment.deleteForMember(this);
         return super.delete();
     }
 }

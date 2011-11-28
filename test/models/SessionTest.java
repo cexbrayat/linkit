@@ -1,6 +1,6 @@
 package models;
 
-import org.h2.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.*;
 import play.test.*;
 
@@ -25,8 +25,9 @@ public class SessionTest extends UnitTest {
     @Test
     public void saveWithBigDescription() {
         Session session = new Session();
-        String description = StringUtils.pad("testwith4000char", 4000, "a" , true);
+        String description = StringUtils.leftPad("testwith4000char", 4000+3000, "a");
         session.description = description;
+        assertTrue(session.description.length()>4000);
         session.save();
     }
     

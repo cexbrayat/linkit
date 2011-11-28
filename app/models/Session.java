@@ -13,7 +13,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import models.activity.CommentActivity;
+import models.activity.CommentSessionActivity;
 import models.activity.LookSessionActivity;
 import models.activity.UpdateSessionActivity;
 import org.apache.commons.lang.StringUtils;
@@ -53,7 +53,7 @@ public class Session extends Model implements Lookable {
     /** Eventual comments */
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     @OrderBy("postedAt ASC")
-    List<Comment> comments;
+    List<SessionComment> comments;
     
     /** Number of consultation */
     public long nbConsults;
@@ -77,12 +77,12 @@ public class Session extends Model implements Lookable {
      * Save comment! Best practices in add method?
      * @param comment 
      */
-    public void addComment(Comment comment) {
+    public void addComment(SessionComment comment) {
         comment.session = this;
         comment.save();
         comments.add(comment);
         
-        new CommentActivity(comment.author, this, comment).save();
+        new CommentSessionActivity(comment.author, this, comment).save();
     }
 
     public static List<Session> findSessionsLinkedWith(String interest) {

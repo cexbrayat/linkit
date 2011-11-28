@@ -1,28 +1,23 @@
 package models.activity;
 
-import helpers.badge.BadgeComputationContext;
-import java.util.EnumSet;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import models.Badge;
 import models.Member;
-import models.ProviderType;
 import play.i18n.Messages;
 import play.mvc.Router;
 
 /**
- * An consultation profile activity : someone ({@link Activity#member} looked at someone else's ({@link LookProfileActivity#other} profile.
+ * A consultation of profile activity : someone ({@link Activity#member} looked at someone else's ({@link LookProfileActivity#other} profile.
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public class LookProfileActivity extends Activity {
+public class LookProfileActivity extends LookActivity {
 
     @ManyToOne
     public Member other;
 
     public LookProfileActivity(Member member, Member consulted) {
-        super(ProviderType.LinkIt);
-        this.member = member;
+        super(member);
         this.other = consulted;
     }
 
@@ -37,10 +32,5 @@ public class LookProfileActivity extends Activity {
                 .reverse("Profile.show")
                 .add("login", other.login)
                 .url;
-    }
-
-    @Override
-    protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
-        member.computeBadges(EnumSet.of(Badge.TwoDaysInARow, Badge.FiveDaysInARow, Badge.MixITAddict), context);
     }
 }

@@ -1,6 +1,9 @@
 package models;
 
 import java.util.Arrays;
+import models.auth.GoogleOAuthAccount;
+import models.auth.LinkItAccount;
+import models.auth.TwitterOAuthAccount;
 import org.apache.commons.lang.StringUtils;
 import org.junit.*;
 import play.test.*;
@@ -44,6 +47,7 @@ public class MemberTest extends UnitTest {
         ced.linkers.toArray();
         ced.badges.toArray();
         ced.interests.toArray();
+        ced.accounts.toArray();
     }
 
     @Test public void fetchForProfileNotFound() {
@@ -53,8 +57,9 @@ public class MemberTest extends UnitTest {
     @Test
     public void saveWithBigDescription() {
         Member bob = Member.findByLogin("bob");
-        String description = StringUtils.rightPad("testwith4000char", 4000, "a");
+        String description = StringUtils.rightPad("testwith4000char", 4000+3000, "a");
         bob.description = description;
+        assert(bob.description.length()>4000);
         bob.save();
     }
     
@@ -217,5 +222,27 @@ public class MemberTest extends UnitTest {
         
         // Preserver order of ProviderType.values()
         assertEquals(Arrays.asList(twitterAccount, googleAccount), m.getOrderedAccounts());
+    }
+    
+    @Test public void delete() {
+        Member member = createMember("member");
+        // Some accounts
+        member.addAccount(new GoogleAccount("1234"));
+        member.addAccount(new TwitterAccount("@member"));
+        member.register(new LinkItAccount("password"));
+        member.register(new GoogleOAuthAccount("token", "secret"));
+        member.register(new TwitterOAuthAccount("token", "secret"));
+        // Add some activities
+        member.updateProfile();
+        Member other = createMember("other");
+        member.addLink(other);
+        other.addLink(member);
+        // Some comments
+        final Session session = Session.all().first();
+        session.addComment(new SessionComment(member, session, "commentaire"));
+        final Article article = Article.all().first();
+        article.addComment(new ArticleComment(member, article, "commentaire"));
+        
+        assertNotNull(member.delete());
     }
 }

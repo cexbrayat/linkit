@@ -34,7 +34,7 @@ public class GoogleOAuthAccount extends OAuthAccount {
             if (StringUtils.isBlank(member.email)) member.email = this.email;
             if (StringUtils.isBlank(member.firstname)) member.firstname = this.givenName;
             if (StringUtils.isBlank(member.lastname)) member.lastname = this.familyName;
-            if (StringUtils.isBlank(member.displayName)) member.displayName = this.name;
+            if (StringUtils.isBlank(member.login)) member.login = getOAuthLogin();
             GoogleAccount account = member.getGoogleAccount();
             if (account == null) {
                 account = new GoogleAccount(googleId);
@@ -52,6 +52,6 @@ public class GoogleOAuthAccount extends OAuthAccount {
 
     @Override
     public String getOAuthLogin() {
-        return email;
+        return StringUtils.substringBefore(email, "@");
     }
 }

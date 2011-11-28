@@ -38,5 +38,6 @@ public abstract class AbstractActivityTest extends UnitTest {
         assertNotNull(activity);
         assertNotNull(activity.at);
         assertTrue(StringUtils.isNotBlank(activity.getMessage(LinkActivityTest.DEFAULT_LANG)));
+        assertFalse(activity.getMessage(LinkActivityTest.DEFAULT_LANG).equals(activity.getMessageKey()));
     }
 }

@@ -38,7 +38,6 @@ Speaker(rguy) :
     login: rguy
     email: rguy@google.com
     description : Test description
-    displayName: Romain Guy
     twitterName: romainguy
     googlePlusId: 
     badges:
@@ -62,12 +61,18 @@ Session(sessionTest):
     speakers:
            - rguy
 
+Article(articleTest):
+    title: Mix_IT 2012!
+    headline: Mix-IT seconde édition est annoncée pour le 26 avril 2012
+    content: Test content
+    author: ced
+    postedAt: 2011-11-26
+
 Sponsor(sponsor) :
     firstname: ACME
     lastname: Company
     login: sponsor
     email: info@acme.com
     description : We rule the world!
-    displayName: ACME Company Ltd.
     badges:
          - Sponsor

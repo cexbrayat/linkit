@@ -1,0 +1,28 @@
+#{extends 'main.html' /}
+#{set title:'Les actualités' /}
+
+<div class="container">
+
+    #{secure.check models.Role.ADMIN_ARTICLE}
+    <p>
+        Ami du staff, veux-tu <a class="btn danger" href="@{Articles.create()}">Créer un article</a> ?
+    </p>
+    #{/secure.check} 
+    
+    #{list items:articles, as:'article'}
+
+    <p>
+        #{article article /}
+    </p>
+    #{if !article_isLast}
+        <hr/>
+    #{/if}
+
+    #{/list}
+    
+    #{if articles.size() >= size}
+    <p>
+        <a href="@{Articles.list(size+10)}" class="btn small">Afficher plus d'actualité</a>
+    </p>
+    #{/if}
+</div>

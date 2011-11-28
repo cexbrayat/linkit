@@ -1,25 +1,20 @@
 package models.activity;
 
-import helpers.badge.BadgeComputationContext;
-import java.util.EnumSet;
 import javax.persistence.Entity;
-import models.Badge;
 import models.Member;
-import models.ProviderType;
 import models.Session;
 import play.i18n.Messages;
 import play.mvc.Router;
 
 /**
- * A "looked at session" activity : someone ({@link Activity#member}) looked at a session ({@link Activity#session}).
+ * A consultation of session : someone ({@link Activity#member}) looked at a session ({@link Activity#session}).
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public class LookSessionActivity extends Activity {
+public class LookSessionActivity extends LookActivity {
 
     public LookSessionActivity(Member member, Session session) {
-        super(ProviderType.LinkIt);
-        this.member = member;
+        super(member);
         this.session = session;
     }
 
@@ -34,10 +29,5 @@ public class LookSessionActivity extends Activity {
                 .reverse("Sessions.show")
                 .add("sessionId", session.id)
                 .url;
-    }
-
-    @Override
-    protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
-        member.computeBadges(EnumSet.of(Badge.TwoDaysInARow, Badge.FiveDaysInARow, Badge.MixITAddict), context);
     }
 }
