@@ -71,29 +71,35 @@
                     <br/>
                     <br/>
                     <div class="span8">
-                        <div id="activities" style="max-height: 400px">
-                        </div>
+                        <div id="activities" style="max-height: 400px"></div>
                     </div>
                     <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
+                    <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
 
                     <script type="text/javascript">
                         var providers = ['${models.ProviderType.values().join("','")}'];
                         var page = 1;
                         var size = 5;
                         var activitiesAction = #{jsAction @Profile.activitiesFor(':login', ':providers', ':page',':size') /};
+                        var spinner = $('#activitiesSpinner');
+                        var btnMoreActivities = $('#moreActivities');
 
                         function loadMoreActivities() {
                             if (providers.length > 0) {
+                                btnMoreActivities.addClass('disabled');
+                                spinner.css("visibility", "visible");
                                 $.get(activitiesAction({login: '${member.login}', providers: providers.join("${controllers.Profile.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
                                     $('#activities').append(data);
                                     if (data) {
-                                        $('#moreActivities').css('visibility','visible');
+                                        btnMoreActivities.css('visibility','visible');
                                         page++;
                                     } else {
-                                        $('#moreActivities').css('visibility','hidden');
+                                        btnMoreActivities.css('visibility','hidden');
                                     }
                                 });
-                            }
+                                spinner.css("visibility", "hidden");
+                                btnMoreActivities.removeClass('disabled');
+                           }
                         }
                     
                         function handleProvider(provider){

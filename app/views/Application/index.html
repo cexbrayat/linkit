@@ -39,20 +39,28 @@
         <h4>Activités récentes</h4>
         <p id="activities"></p>
         <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>  
+        <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
+        
 <script type="text/javascript">
     var page = 1;
     var size = 5;
     var activitiesAction = #{jsAction @Application.activities(':page',':size') /};
+    var spinner = $('#activitiesSpinner');
+    var btnMoreActivities = $('#moreActivities');
    
     function loadMoreActivities() {
+        btnMoreActivities.addClass('disabled');
+        spinner.css("visibility", "visible");
         $.get(activitiesAction({page: page, size: size}), function(data) {
             $('#activities').append(data);
             if (data) {
                 page++;
             } else {
-                $('#moreActivities').css('visibility','hidden');
+                btnMoreActivities.css('visibility','hidden');
             }
-        });    
+        });
+        spinner.css("visibility", "hidden");
+        btnMoreActivities.removeClass('disabled');
     }
     
     // Initial loading : first page
