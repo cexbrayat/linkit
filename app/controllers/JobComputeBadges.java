@@ -17,7 +17,7 @@ import play.jobs.Job;
  * Asynchronous computations of new badges granted to all users. Based on new (uncomputed) {@link Activity}.
  * @author Sryl <cyril.lacote@gmail.com>
  */
-//@Every("20s")
+@Every("20s")
 public class JobComputeBadges extends Job {
 
     @Override

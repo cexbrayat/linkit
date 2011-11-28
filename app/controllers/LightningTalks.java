@@ -36,14 +36,8 @@ public class LightningTalks extends Controller
   public static void show(final Long sessionId)
   {
     LightningTalk talk = LightningTalk.findById(sessionId);
-    if(talk != null)
-    {
-      render(talk);
-    }
-    else
-    {
-      //TODO 404
-    }
+    notFoundIfNull(talk);
+    render(talk);
   }
 
   public static void save(@Valid LightningTalk talk, String[] interests, String newInterests)
