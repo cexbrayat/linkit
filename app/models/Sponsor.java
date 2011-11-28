@@ -14,4 +14,13 @@ public class Sponsor extends Member {
         // Can't call addBadge() on a transient instance (and don't want to trigger activity)
         this.badges.add(Badge.Sponsor);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder(firstname);
+        if (lastname != null) {
+           str.append(' ').append(lastname);
+        }
+        return str.toString();
+    }   
 }

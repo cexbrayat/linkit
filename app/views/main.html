@@ -87,6 +87,16 @@
         
         <footer>
             <div class="container">
+                #{if sponsors}
+                <ul class="row sponsors">
+                #{list items:sponsors, as:'sponsor'}
+                    <li class="span4 sponsor">
+                        <a href="@{Profile.show(sponsor.login)}"><h4>${sponsor}</h4></a>
+                        <p>${sponsor.description.markdown().raw()}</p>
+                    </li>
+                #{/list}
+                </ul>
+                #{/if}
                 <p>Mix-IT 2012 - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
             </div>
         </footer>
