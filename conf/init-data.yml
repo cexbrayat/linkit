@@ -713,3 +713,63 @@ Article(article2):
         [Pandoc]: http://johnmacfarlane.net/Pandoc/
     author: cedric
     postedAt: 2011-11-26
+    
+Sponsor(od):
+    firstname: Objet
+    lastname: Direct
+    login: od
+    email: info@objetdirect.com
+    description : |
+        SSII trop de la balle, on fait de l'informatique et on aime ça.
+    badges:
+         - Sponsor
+
+Sponsor(sqli):
+    firstname: SQL
+    lastname: i
+    login: sqli
+    email: info@sqli.com
+    description : |
+        SSII trop de la balle nous aussi, on fait de l'informatique *et on aime vraiment ça*.
+    badges:
+         - Sponsor
+
+Sponsor(elf):
+    firstname: TotalFina
+    lastname: Elf
+    login: total
+    email: info@totalfina.fr
+    description : |
+        Je ne sais pas ce qu'on fait là mais on a plein d'argent.
+    badges:
+         - Sponsor
+
+Sponsor(boulangerie):
+    firstname: Boulangerie
+    lastname: Martin
+    login: martin
+    email: boulangerie.martin@hotmail.com
+    description : |
+        Les meilleures miches françaises depuis 1989.
+    badges:
+         - Sponsor
+
+Sponsor(charcuterie):
+    firstname: Charcuterie
+    lastname: Raymond
+    login: raymond
+    email: charcuterie.raymond@hotmail.fr
+    description : |
+        Les meilleures tripes françaises depuis 1984.
+    badges:
+         - Sponsor
+
+Sponsor(anpe):
+    firstname: Pôle
+    lastname: Emploi
+    login: anpe
+    email: info@pole-emploi.fr
+    description : |
+        Vous n'avez pas de boulot? Nous non plus!
+    badges:
+         - Sponsor

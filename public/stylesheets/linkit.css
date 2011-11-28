@@ -16,19 +16,20 @@
     overflow: auto;
     text-overflow: ellipsis;
     display: inline-block;
-	font-size: 13px;
-	font-weight: normal;
-	line-height: 18px;
-	margin-bottom: 3px;
-	padding-top: 5px;
-	border-top: 1px solid;
-	border-color: #DCDCDC;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+    margin-bottom: 0px;
+    padding-bottom: 3px;
+    padding-top: 5px;
+    border-top: 1px solid;
+    border-color: #DCDCDC;
+    width: 100%;
 }
 
 #activities .activity:hover {
     background-color: #DCDCDC;
 }
-
 
 .member {
     vertical-align: top;
@@ -36,6 +37,11 @@
     height: 20px;
 }
 
-.checkbox { float: left; width: 31%; margin-right: 1% }
+.sponsors {
+}
 
+.sponsor {
+}
+
+.checkbox { float: left; width: 31%; margin-right: 1% }
 .newline { clear: left }

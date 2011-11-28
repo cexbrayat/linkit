@@ -5,9 +5,8 @@ import java.util.Set;
 import models.Article;
 import models.Member;
 import models.Suggestion;
-import play.mvc.*;
 
-public class Dashboard extends Controller {
+public class Dashboard extends PageController {
 
     public static void index() {
         Member member = Member.fetchForProfile(Security.connected());

@@ -21,12 +21,16 @@ GET	/login/signup				Login.signup
 GET	/login/with				Login.loginWith
 
 # Application
-GET	/activities				Application.activities
 GET	/speakers				Application.speakers
 GET	/staff					Application.staff
 GET	/sponsors				Application.sponsors
 GET	/members				Application.members
 GET	/sessions/members			Application.sessionsAndMembersByInterest
+
+# Activities
+GET	/activities				Activities.general
+GET	/activities/incoming/{providers}       	Activities.for
+GET	/activities/{login}/{providers}        	Activities.of
 
 # Profile
 POST	/profile				Profile.save 
@@ -34,8 +38,6 @@ GET	/profile/edit				Profile.edit
 GET	/profile/delete				Profile.delete
 GET	/profile/link				Profile.link
 GET	/profile/unlink				Profile.unlink
-GET	/profile/activities			Profile.activitiesOf
-GET	/profile/activities/{providers}		Profile.activitiesFor
 GET	/profile/{login}			Profile.show
 
 # Dashboard

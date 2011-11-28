@@ -1,17 +1,15 @@
 package controllers;
 
 import play.*;
-import play.mvc.*;
 
 import java.util.*;
 import models.Article;
 import models.ArticleComment;
 import models.Member;
 import play.data.validation.Required;
-import play.data.validation.Valid;
 import play.data.validation.Validation;
 
-public class Articles extends Controller {
+public class Articles extends PageController {
 
     public static void index() {
         list(10);
