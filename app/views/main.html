@@ -92,7 +92,7 @@
                 #{list items:sponsors, as:'sponsor'}
                     <li class="span4 sponsor">
                         <a href="@{Profile.show(sponsor.login)}"><h4>${sponsor}</h4></a>
-                        <p>${sponsor.description.markdown().raw()}</p>
+                        ${sponsor.description.markdown().raw()}
                     </li>
                 #{/list}
                 </ul>

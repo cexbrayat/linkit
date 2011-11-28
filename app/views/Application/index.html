@@ -5,7 +5,6 @@
 #{/set}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/jqcloud-0.2.4.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-<script src="@{'/public/javascripts/tagcloud.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 #{/set}
 
 <div class="container">
@@ -25,6 +24,22 @@
             <div class="span7"> 
                 <!-- You must explicitly specify the dimensions of the container element -->
                 <div id="wordcloud" style="width: 250px; height: 250px; position: relative;"></div>
+                <script type="text/javascript">
+var word_list = [
+#{list items:tags, as:'tag'}
+%{
+    String url = play.mvc.Router.reverse("Application.sessionsAndMembersByInterest").add("interest",tag.get('interest')).url;
+    url = java.net.URLDecoder.decode(url, "UTF-8");
+}%
+    {text: "${tag.get('interest')}", url: "${url}", weight: ${tag.get('pound')} }      
+    #{if !tag_isLast} , #{/if} 
+#{/list}
+    ];
+$(document).ready(function() {
+	// Call jQCloud on a jQuery object passing the word list as the first argument. Chainability of methods is maintained.
+	$("#wordcloud").jQCloud(word_list);
+});
+                </script>
             </div>
         </div>
     </div>
