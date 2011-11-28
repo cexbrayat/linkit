@@ -369,7 +369,7 @@ Speaker(rguy) :
     badges:
          - Speaker
     
-Talk(sessionplayframework):
+Session(sessionplayframework):
     title: Play! Framework for dummies
     track: Techy
     summary: Intro sur le framework de la mort qui déchire tout!
@@ -447,7 +447,7 @@ Talk(sessionplayframework):
     speakers:
            - nmartignole
     
-Talk(sessionhadoop):
+Session(sessionhadoop):
     title: Hadoop c'est Hype!
     track: Trendy
     summary: Hadoop c'est un nom pourri mais c'est de la balle!

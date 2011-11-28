@@ -43,6 +43,7 @@ public class Session extends Model implements Lookable
   @Lob
   @Required
   public String description;
+
   @ManyToMany
   @MinSize(1)
   public Set<Speaker> speakers = new HashSet<Speaker>();
@@ -62,24 +63,6 @@ public class Session extends Model implements Lookable
    */
   public long nbConsults;
 
-  public void addSpeaker(Speaker speaker)
-  {
-    if (speaker != null)
-    {
-      speakers.add(speaker);
-      speaker.sessions.add(this);
-    }
-  }
-
-  public Session updateSpeakers(Collection<Speaker> speakers)
-  {
-    this.speakers.clear();
-    for (Speaker speaker : speakers)
-    {
-      addSpeaker(speaker);
-    }
-    return this;
-  }
 
   /**
    * Save comment! Best practices in add method?
@@ -144,6 +127,26 @@ public class Session extends Model implements Lookable
   public long getNbLooks()
   {
     return nbConsults;
+  }
+
+
+  public void addSpeaker(Speaker speaker)
+  {
+    if (speaker != null)
+    {
+      speakers.add(speaker);
+      speaker.sessions.add(this);
+    }
+  }
+
+  public Session updateSpeakers(Collection<Speaker> speakers)
+  {
+    this.speakers.clear();
+    for (Speaker speaker : speakers)
+    {
+      addSpeaker(speaker);
+    }
+    return this;
   }
 
   public void lookedBy(Member member)

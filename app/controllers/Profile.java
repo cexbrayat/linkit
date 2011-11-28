@@ -3,6 +3,8 @@ package controllers;
 import java.util.List;
 
 import java.util.Set;
+
+import models.LightningTalk;
 import models.Member;
 import models.ProviderType;
 import models.activity.Activity;
@@ -61,7 +63,8 @@ public class Profile extends Controller {
         Member member = Member.fetchForProfile(login);
         member.lookedBy(Member.findByLogin(Security.connected()));
         Logger.info("Profil " + member);
-        render(member);
+        List<LightningTalk> lightningTalks = LightningTalk.findByMember(member);
+        render(member, lightningTalks);
     }
 
     public static void delete() throws Throwable {

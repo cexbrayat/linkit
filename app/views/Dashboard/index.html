@@ -12,7 +12,7 @@
                 #{if member.email}
                 #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
                 #{/if}
- 
+
                 <p>Votre profil a été consulté ${member.getNbLooks()} fois.</p>
 
                 #{if member instanceof models.Speaker}
@@ -23,6 +23,15 @@
                 #{/list}
                 </p>
                 #{/if}
+                #{if lightningTalks.size() > 0}
+                <h5>LightningTalk${lightningTalks.size().pluralize()} :</h5>
+                <p>
+                    #{list items:lightningTalks, as:'lt'}
+                <h5><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a></h5>
+                #{/list}
+                </p>
+                #{/if}
+
                 <p>
                     <a href="@{Profile.show(session.username)}">Voir mon profil</a>
                     <a href="@{Profile.edit()}">Editer mon profil</a>
@@ -32,7 +41,7 @@
                 <div class="row">
                     <div class="span6">
                         <h3>Vous êtes lié à :</h3>
-                        #{list items:member.links, as:'link'}       
+                        #{list items:member.links, as:'link'}
                         <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
                         #{/list}
                     </div>
@@ -97,7 +106,7 @@
                                 });
                             }
                         }
-                    
+
                         function handleProvider(provider){
                             var contain = providers.indexOf(provider);
                             if(contain != -1){
@@ -116,7 +125,7 @@
 
                         // Initial loading : first page
                         loadMoreActivities();
-                    </script>            
+                    </script>
                 </div>
             </div>
         </div>

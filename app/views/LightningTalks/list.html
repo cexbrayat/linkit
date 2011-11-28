@@ -1,4 +1,16 @@
 #{extends 'main.html' /}
 #{set title:'Liste des lightning talks' /}
-
+</br>
+<div class="container">
+<h2>Mais qu'est-ce qu'un lightning talk ?</h2>
+<p>Lorem ipsum de la description d'un lightning talk</p>
+</br>
+#{if session.username}
+<a class="btn primary" href="@{LightningTalks.create()}">Proposer un lightning talk</a>
+#{/if}
+</br>
+</br>
+</br>
 #{lightning sessions:sessions, votes:votes/}
+
+</div>

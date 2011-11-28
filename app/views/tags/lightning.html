@@ -25,11 +25,9 @@
                 })
             }
 </script>
-<div class="container">
     <table class="zebra-striped" id="sortSession">
         <thead>
         <tr>
-            <th>Track</th>
             <th>Titre</th>
             <th>Speaker(s)</th>
             <th>Vote</th>
@@ -38,8 +36,9 @@
         <tbody>
         #{list items:_sessions, as:'talk'}
         <tr>
-            <td>${talk.track}</td>
-            <td><a href="@{LightningTalks.show(talk.id)}">${talk.title}</a></td>
+            <td><a href="@{LightningTalks.show(talk.id)}">${talk.title}</a>
+                #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>#{/if}
+            </td>
             <td>
                 #{list items:talk.speakers, as:'speaker'}
                     <a href="@{Profile.show(speaker.login)}">${speaker}</a>#{if !speaker_isLast}, #{/if}
@@ -56,4 +55,3 @@
         #{/list}
         </tbody>
     </table>
-</div><!-- /container --> 
