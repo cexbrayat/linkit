@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import javax.persistence.*;
 
 import models.activity.CommentActivity;
+import models.activity.LookSessionActivity;
 import models.activity.UpdateSessionActivity;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -24,8 +25,7 @@ import play.db.jpa.Model;
  * @author Agnes <agnes.crepet@gmail.com>
  */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Session extends Model
+public class Session extends Model implements Lookable
 {
 
   @Required
@@ -37,7 +37,6 @@ public class Session extends Model
   @Required
   @Enumerated(EnumType.STRING)
   public Track track;
-
   /**
    * Markdown enabled
    */
@@ -56,9 +55,14 @@ public class Session extends Model
    */
   @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
   @OrderBy("postedAt ASC")
-  public List<Comment> comments;
+  protected List<Comment> comments;
 
-  public final void addSpeaker(Speaker speaker)
+  /**
+   * Number of consultation
+   */
+  public long nbConsults;
+
+  public void addSpeaker(Speaker speaker)
   {
     if (speaker != null)
     {
@@ -137,25 +141,21 @@ public class Session extends Model
     return title;
   }
 
-
-  @Override
-  public boolean equals(Object obj)
+  public long getNbLooks()
   {
-    if (obj == null)
-    {
-      return false;
-    }
-    if (getClass() != obj.getClass())
-    {
-      return false;
-    }
-    final Session other = (Session) obj;
-    return new EqualsBuilder().append(this.title, other.title).isEquals();
+    return nbConsults;
   }
 
-  @Override
-  public int hashCode()
+  public void lookedBy(Member member)
   {
-    return new HashCodeBuilder().append(this.title).toHashCode();
+    if (member == null || !speakers.contains(member))
+    {
+      nbConsults++;
+      save();
+      if (member != null)
+      {
+        new LookSessionActivity(member, this).save();
+      }
+    }
   }
 }

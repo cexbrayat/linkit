@@ -1,12 +1,15 @@
 package models;
 
-
 import controllers.JobFetchUserTimeline;
+import helpers.badge.BadgeComputationContext;
+import helpers.badge.BadgeComputer;
+import helpers.badge.BadgeComputerFactory;
 import java.util.*;
 import javax.persistence.*;
 
 import models.activity.EarnBadgeActivity;
 import models.activity.LinkActivity;
+import models.activity.LookProfileActivity;
 import models.activity.SignUpActivity;
 import models.activity.UpdateProfileActivity;
 import org.apache.commons.collections.CollectionUtils;
@@ -14,8 +17,8 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import org.hibernate.annotations.IndexColumn;
+import play.Logger;
 import play.data.validation.Required;
 import play.db.jpa.*;
 
@@ -35,22 +38,26 @@ import play.db.jpa.*;
     + "left outer join fetch m.interests "
     + "where m.login=:login")
 })
-public class Member extends Model {
+public class Member extends Model implements Lookable {
 
     static final String QUERY_BYLOGIN = "MemberByLogin";
     static final String QUERY_FORPROFILE = "MemberForProfile";
+    
     /** Internal login : functional key */
     @Column(nullable = false, unique = true, updatable = false)
     @IndexColumn(name = "login_UK_IDX", nullable = false)
     @Required
     public String login;
+    
     @Required
     public String email;
     public String firstname;
     public String lastname;
+    
     /** Name under which he wants to be displayed */
     @Required
     public String displayName;
+    
     /** User-defined description, potentially as MarkDown */
     @Lob
     @Required
@@ -75,7 +82,11 @@ public class Member extends Model {
     public Set<Interest> interests = new TreeSet<Interest>();
     @ElementCollection
     public Set<Badge> badges = EnumSet.noneOf(Badge.class);
-  
+
+    /** Number of profile consultations */
+    public long nbConsults;
+
+
     @OneToMany
     public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
 
@@ -96,15 +107,17 @@ public class Member extends Model {
     /**
      * Find unique member having given login.
      * Seems this request is very often used, it's better to used it (more efficient with named query usage) instead of Play! find("byLogin", login)
-     * @param login Login to find
-     * @return Member found, null if none.
+     * @param login Login to find. May be null.
+     * @return Member found, null if none (or if login null).
      */
     public static <M extends Member> M findByLogin(final String login) {
         M member = null;
-        try {
-            member = (M) em().createNamedQuery(QUERY_BYLOGIN).setParameter("login", login).getSingleResult();
-        } catch (NoResultException ex) {
-            member = null;
+        if (login != null) {
+            try {
+                member = (M) em().createNamedQuery(QUERY_BYLOGIN).setParameter("login", login).getSingleResult();
+            } catch (NoResultException ex) {
+                member = null;
+            }
         }
         return member;
     }
@@ -235,6 +248,32 @@ public class Member extends Model {
         return this;
     }
 
+    public void computeBadges(Set<Badge> potentialBadges, BadgeComputationContext context) {
+
+        // Avoid to recompute an already earned badge
+        potentialBadges.removeAll(badges);
+
+        if (!potentialBadges.isEmpty()) {
+            // Retrieving badge computers for thoses potential badges
+            Set<BadgeComputer> computers = BadgeComputerFactory.getFor(potentialBadges);
+
+            // Computing all granted badges
+            Set<Badge> grantedBadges = EnumSet.noneOf(Badge.class);
+            for (BadgeComputer computer : computers) {
+                grantedBadges.addAll(computer.compute(this, context));
+            }
+
+            // Granting earned badges to member
+            if (!grantedBadges.isEmpty()) {
+                for (Badge badge : grantedBadges) {
+                    Logger.debug("Le membre %s se voit attribuer le badge %s", this, badge);
+                    addBadge(badge);
+                }
+                save();
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -263,5 +302,19 @@ public class Member extends Model {
 
     public boolean hasRole(String profile) {
         return false;
+    }
+
+    public long getNbLooks() {
+        return nbConsults;
+    }
+
+    public void lookedBy(Member member) {
+        if (!this.equals(member)) {
+            nbConsults++;
+            save();
+            if (member != null) {
+                new LookProfileActivity(member, this).save();                
+            }
+        }
     }
 }

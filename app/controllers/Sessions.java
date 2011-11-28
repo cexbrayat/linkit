@@ -2,11 +2,14 @@ package controllers;
 
 import models.*;
 import play.*;
-import play.db.jpa.JPABase;
 import play.mvc.*;
 
 import java.util.*;
 
+import models.Comment;
+import models.Member;
+import models.Session;
+import models.Speaker;
 import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 import play.cache.Cache;
@@ -20,17 +23,9 @@ public class Sessions extends Controller
 
   public static void index()
   {
-    //List<Session> sessions = Session.findAll();
-    List<Session> sessions = Talk.findAll();
+    List<Session> sessions = Session.findAll();
     Logger.info(sessions.size() + " sessions");
     render("Sessions/list.html", sessions);
-  }
-
-  public static void lightning()
-  {
-    List<LightningTalk> sessions = LightningTalk.findAll();
-    Logger.info(sessions.size() + " lightning talks");
-    render("Sessions/Lightning/list.html", sessions);
   }
 
   public static void create(final String speakerLogin)
@@ -49,8 +44,23 @@ public class Sessions extends Controller
 
   public static void show(final Long sessionId)
   {
+    internalShow(sessionId, true);
+  }
+
+  public static void show(final Long sessionId, boolean count)
+  {
+    internalShow(sessionId, count);
+  }
+
+  private static void internalShow(final Long sessionId, boolean count)
+  {
     Session talk = Session.findById(sessionId);
-    List<Activity> activities = Activity.recentsBySession(talk, 1, 20);
+    // Don't count look when coming from internal redirect
+    if (count)
+    {
+      talk.lookedBy(Member.findByLogin(Security.connected()));
+    }
+    List<Activity> activities = Activity.recentsBySession(talk, 1, 10);
     render(talk, activities);
   }
 
@@ -69,7 +79,7 @@ public class Sessions extends Controller
     talk.addComment(new Comment(author, talk, content));
     talk.save();
     flash.success("Merci pour votre commentaire %s", author);
-    show(talkId);
+    show(talkId, false);
   }
 
   public static void captcha(String id)
@@ -99,30 +109,6 @@ public class Sessions extends Controller
     talk.update();
     flash.success("Session " + talk + " enregistrée");
     Logger.info("Session " + talk + " enregistrée");
-    show(talk.id);
-  }
-
-  public static long vote(Long talkId, String username, Boolean value)
-  {
-    LightningTalk talk = LightningTalk.findById(talkId);
-    Member member = Member.findByLogin(username);
-    if(member != null && talk != null)
-    {
-      Vote vote = Vote.findVote(talk, member);
-      if(vote != null)
-      {
-        vote.value = value;
-      }
-      else
-      {
-        vote = new Vote(talk, member, value);
-      }
-      vote.save();
-      long numberOfVotesBySession = Vote.findNumberOfVotesBySession(talk);
-      Logger.error("votes : " + numberOfVotesBySession);
-      return numberOfVotesBySession;
-    }
-    
-    return -1;
+    show(talk.id, false);
   }
 }

@@ -1,7 +1,7 @@
 package models.activity;
 
+import helpers.badge.BadgeComputationContext;
 import java.util.EnumSet;
-import java.util.Set;
 import javax.persistence.Entity;
 import models.Badge;
 import models.Member;
@@ -35,7 +35,7 @@ public class UpdateProfileActivity extends Activity {
     }
 
     @Override
-    public Set<Badge> getPotentialTriggeredBadges() {
-        return EnumSet.noneOf(Badge.class);
+    protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
+        member.computeBadges(EnumSet.of(Badge.TwoDaysInARow, Badge.FiveDaysInARow, Badge.MixITAddict), context);
     }
 }

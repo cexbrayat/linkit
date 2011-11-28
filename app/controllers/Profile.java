@@ -17,9 +17,8 @@ import play.mvc.Controller;
 
 public class Profile extends Controller {
 
-    public static void edit(@Required String login) {
-        Logger.info("Profil " + login);
-        Member member = Member.findByLogin(login);
+    public static void edit() {
+        Member member = Member.findByLogin(Security.connected());
         Logger.info("Edition du profil " + member);
         render(member);
     }
@@ -59,17 +58,16 @@ public class Profile extends Controller {
     }
 
     public static void show(String login) {
-        Logger.info("Profil " + login);
         Member member = Member.fetchForProfile(login);
+        member.lookedBy(Member.findByLogin(Security.connected()));
         Logger.info("Profil " + member);
         render(member);
     }
 
-    public static void delete(String login) throws Throwable {
-        Logger.info("Delete Profile " + login);
-        Member member = Member.findByLogin(login);
+    public static void delete() throws Throwable {
+        Member member = Member.findByLogin(Security.connected());
         member.delete();
-        Logger.info("Delete Profile " + login);
+        Logger.info("Deleted profile " + member);
         flash.success("Votre compte a été supprimé");
         Secure.logout();
     }
