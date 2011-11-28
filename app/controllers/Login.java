@@ -15,14 +15,13 @@ import play.Logger;
 import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.libs.OAuth;
-import play.mvc.Controller;
 import play.mvc.Router;
 
 /**
  * OAuth Login controller
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class Login extends Controller {
+public class Login extends PageController {
 
     private static final String TOKEN_KEY = "token";
     private static final String SECRET_KEY = "secret";

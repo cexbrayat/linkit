@@ -87,7 +87,7 @@
                     var providers = ['${member.getAccountProviders().join("','")}'];
                     var page = 1;
                     var size = 5;
-                    var activitiesAction = #{jsAction @Profile.activitiesOf(':login', ':providers', ':page',':size') /};
+                    var activitiesAction = #{jsAction @Activities.of(':login', ':providers', ':page',':size') /};
                     var spinner = $('#activitiesSpinner');
                     var btnMoreActivities = $('#moreActivities');
 
@@ -95,7 +95,7 @@
                         if (providers.length > 0) {
                             btnMoreActivities.addClass('disabled');
                             spinner.css("visibility", "visible");
-                            $.get(activitiesAction({login: '${member.login}', providers: providers.join("${controllers.Profile.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
+                            $.get(activitiesAction({login: '${member.login}', providers: providers.join("${controllers.Activities.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
                                 $('#activities').append(data);
                                 if (data) {
                                     btnMoreActivities.css('visibility','visible');

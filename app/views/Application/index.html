@@ -44,7 +44,7 @@
 <script type="text/javascript">
     var page = 1;
     var size = 5;
-    var activitiesAction = #{jsAction @Application.activities(':page',':size') /};
+    var activitiesAction = #{jsAction @Activities.general(':page',':size') /};
     var spinner = $('#activitiesSpinner');
     var btnMoreActivities = $('#moreActivities');
    

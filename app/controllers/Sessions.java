@@ -1,7 +1,6 @@
 package controllers;
 
 import play.*;
-import play.mvc.*;
 
 import java.util.*;
 import models.SessionComment;
@@ -16,7 +15,7 @@ import play.data.validation.Valid;
 import play.data.validation.Validation;
 import play.libs.Images;
 
-public class Sessions extends Controller {
+public class Sessions extends PageController {
 
     public static void index() {
         List<Session> sessions = Session.findAll();
