@@ -50,7 +50,7 @@ public class Member extends Model implements Lookable {
     static final String QUERY_FORPROFILE = "MemberForProfile";
     
     /** Internal login : functional key */
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(nullable = false, unique = true, updatable = true)
     @IndexColumn(name = "login_UK_IDX", nullable = false)
     @Required
     public String login;
@@ -275,7 +275,7 @@ public class Member extends Model implements Lookable {
     }
 
     /**
-     * Register user a new Link-IT user
+     * Register a new Link-IT user with given authentication account
      */
     public Member register(AuthAccount account) {
         save();

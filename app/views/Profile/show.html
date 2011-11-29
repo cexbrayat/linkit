@@ -29,14 +29,14 @@
                     #{/list}
                     </ul>
                 #{/if}
-                
-                #{if lightningTalks.size() > 0}
-                <h5>LightningTalk${lightningTalks.size().pluralize()} :</h5>
-                <p>
+
+                #{if lightningTalks}
+                    <h5>Lightning Talk${lightningTalks.size().pluralize()} :</h5>
+                    <ul>
                     #{list items:lightningTalks, as:'lt'}
-                <h5><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a></h5>
-                #{/list}
-                </p>
+                        <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a></li>
+                    #{/list}
+                    </ul>
                 #{/if}                
                 
                 <p>${member.description?.markdown().raw()}</p>

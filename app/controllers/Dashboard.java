@@ -7,7 +7,6 @@ import models.LightningTalk;
 import models.Article;
 import models.Member;
 import models.Suggestion;
-import play.mvc.*;
 
 public class Dashboard extends PageController {
 
