@@ -6,7 +6,7 @@ Member(bob):
     login: bob
     description: is bob
 
-LinkItAccount(bobAccount):
+models.auth.LinkItAccount(bobAccount):
     provider: LinkIt
     member: bob
     password: secret
@@ -16,18 +16,21 @@ Staff(ced):
     lastname: Name
     login: ced
     description: is ced
-    twitterName: cedric_exbrayat
     links:           
          - bob
     badges:           
          - Staff
          - Attendee
 
-LinkItAccount(cedAccount):
+TwitterAccount(cedTwitter):
+    provider: Twitter
+    member: ced
+    screenName: cedric_exbrayat
+
+models.auth.LinkItAccount(cedLinkIt):
     provider: LinkIt
     member: ced
     password: secret
-
     
 Speaker(rguy) :
     firstname: Romain
@@ -35,11 +38,20 @@ Speaker(rguy) :
     login: rguy
     email: rguy@google.com
     description : Test description
-    displayName: Romain Guy
     twitterName: romainguy
-    googlePlusId: 111962077049890418486
+    googlePlusId: 
     badges:
          - Speaker
+
+TwitterAccount(rquyTwitter):
+    provider: Twitter
+    member: rguy
+    screenName: romainguy
+
+GoogleAccount(rguyLinkIt):
+    provider: Google
+    member: rguy
+    googleId: 111962077049890418486
 
 Session(sessionTest):
     title: Test title
@@ -49,13 +61,18 @@ Session(sessionTest):
     speakers:
            - rguy
 
+Article(articleTest):
+    title: Mix_IT 2012!
+    headline: Mix-IT seconde édition est annoncée pour le 26 avril 2012
+    content: Test content
+    author: ced
+    postedAt: 2011-11-26
+
 Sponsor(sponsor) :
     firstname: ACME
     lastname: Company
     login: sponsor
     email: info@acme.com
     description : We rule the world!
-    displayName: ACME Company Ltd.
-    twitterName: acme
     badges:
          - Sponsor

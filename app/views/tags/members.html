@@ -9,8 +9,7 @@
     <table class="zebra-striped" id="sortMember"> 
         <thead> 
             <tr> 
-                <th>Prénom</th> 
-                <th>Nom</th> 
+                <th>Membre</th> 
                 <th>Badges</th>
                 <th>Actions</th>
             </tr> 
@@ -18,12 +17,9 @@
         <tbody>        
             #{list items:_members, as:'member'}
             <tr onclick="document.location.href='@{Profile.show(member.login)}';">
-                <td>${member.firstname}</td> 
-                <td>${member.lastname}</td>
+                <td>${member}</td> 
                 <td>
-                    #{list items:member.badges, as:'badge'}
-                        #{badge badge:badge /}
-                    #{/list}
+                    #{badges member.badges /}
                 </td>
                 <td>
                     #{if member instanceof models.Speaker}

@@ -19,6 +19,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import models.Article;
 import models.Member;
 import models.ProviderType;
 import models.Session;
@@ -38,10 +39,12 @@ import play.db.jpa.Model;
 indexes = {
     @Index(name = "Activity_IDX", columnNames = {Activity.PROVIDER, Activity.AT}),
     @Index(name = "Activity_member_provider_IDX", columnNames = {Activity.MEMBER_FK, Activity.PROVIDER, Activity.AT}),
+    @Index(name = "Activity_article_IDX", columnNames = {Activity.ARTICLE_FK, Activity.AT}),
     @Index(name = "Activity_session_IDX", columnNames = {Activity.SESSION_FK, Activity.AT})
 })
 public abstract class Activity extends Model implements Comparable<Activity> {
 
+    static final String ARTICLE_FK = "article_id";
     static final String SESSION_FK = "session_id";
     static final String MEMBER_FK = "member_id";
     static final String PROVIDER = "provider";
@@ -61,6 +64,11 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     @ManyToOne
     @JoinColumn(name = SESSION_FK)
     public Session session;
+
+    /** Optional corresponding article. May be null. */
+    @ManyToOne
+    @JoinColumn(name = ARTICLE_FK)
+    public Article article;
 
     /** Timestamp of activity */
     @Temporal(TemporalType.TIMESTAMP)
@@ -82,6 +90,17 @@ public abstract class Activity extends Model implements Comparable<Activity> {
 
     public static List<Activity> recents(int page, int length) {
         return Activity.find("provider=? order by at desc", ProviderType.LinkIt).fetch(page, length);
+    }
+
+    /**
+     * Recent dates of Link-IT activity by given member in desc order
+     * @param member
+     * @param page
+     * @param length
+     * @return 
+     */
+    public static List<Date> recentDatesByMember(final Member member, int page, int length) {
+        return Activity.find("select a.at from Activity a where a.provider=? and a.member=? order by at desc", ProviderType.LinkIt, member).fetch(page, length);
     }
 
     /**
@@ -135,6 +154,29 @@ public abstract class Activity extends Model implements Comparable<Activity> {
 
     public static List<Activity> recentsBySession(Session s, int page, int length) {
         return Activity.find("from Activity a where a.session = ? order by a.at desc", s).fetch(page, length);
+    }
+
+    public static List<Activity> recentsByArticle(Article a, int page, int length) {
+        return Activity.find("from Activity a where a.article = ? order by a.at desc", a).fetch(page, length);
+    }
+    
+    /**
+     * Delete all activities related to given member
+     * @param member
+     * @return 
+     */
+    public static int deleteForMember(Member member) {
+        return delete("delete Activity a where a.member = ?1 or a.other = ?1", member);
+    }
+    
+    /**
+     * Delete all activities related to given member for given provider
+     * @param member
+     * @param provider
+     * @return 
+     */
+    public static int deleteForMember(Member member, ProviderType provider) {
+        return delete("delete Activity a where (a.member = ?1 or a.other = ?1) and a.provider = ?2", member, provider);
     }
 
     final protected String getMessageKey() {

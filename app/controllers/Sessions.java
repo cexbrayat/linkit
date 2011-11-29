@@ -4,8 +4,7 @@ import play.*;
 import play.mvc.*;
 
 import java.util.*;
-
-import models.Comment;
+import models.SessionComment;
 import models.Member;
 import models.Session;
 import models.Speaker;
@@ -17,7 +16,7 @@ import play.data.validation.Valid;
 import play.data.validation.Validation;
 import play.libs.Images;
 
-public class Sessions extends Controller {
+public class Sessions extends PageController {
 
     public static void index() {
         List<Session> sessions = Session.findAll();
@@ -34,21 +33,13 @@ public class Sessions extends Controller {
 
     public static void edit(final Long sessionId) {
         Session talk = Session.findById(sessionId);
-        render("Sessions/edit.html", talk);
+        render(talk);
     }
 
-    public static void show(final Long sessionId) {
-        internalShow(sessionId, true);
-    }
-
-    public static void show(final Long sessionId, boolean count) {
-        internalShow(sessionId, count);
-    }
-
-    private static void internalShow(final Long sessionId, boolean count) {
+    public static void show(final Long sessionId, boolean noCount) {
         Session talk = Session.findById(sessionId);
         // Don't count look when coming from internal redirect
-        if (count) {
+        if (!noCount) {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
         List<Activity> activities = Activity.recentsBySession(talk, 1, 10);
@@ -56,19 +47,18 @@ public class Sessions extends Controller {
     }
 
     public static void postComment(
-        Long talkId,
-        @Required String login,
-        @Required String content) {
+            Long talkId,
+            @Required String content) {
         Session talk = Session.findById(talkId);
         if (Validation.hasErrors()) {
             render("Sessions/show.html", talk);
         }
 
-        Member author = Member.findByLogin(login);
-        talk.addComment(new Comment(author, talk, content));
+        Member author = Member.findByLogin(Security.connected());
+        talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(talkId, false);
+        show(talkId, true);
     }
 
     public static void captcha(String id) {
@@ -93,6 +83,6 @@ public class Sessions extends Controller {
         talk.update();
         flash.success("Session " + talk + " enregistrée");
         Logger.info("Session " + talk + " enregistrée");
-        show(talk.id, false);
+        show(talk.id, true);
     }
 }

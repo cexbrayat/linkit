@@ -2,8 +2,10 @@ package helpers.badge;
 
 import java.util.EnumSet;
 import java.util.Set;
+import models.Article;
+import models.ArticleComment;
 import models.Badge;
-import models.Comment;
+import models.SessionComment;
 import models.Member;
 import models.Session;
 import org.junit.Test;
@@ -20,7 +22,13 @@ public class CommentatorBadgeComputerTest extends AbstractBadgeComputerTest {
 
     protected void comment(Member m, Session s, final int nbComments) {
         for (int i = 0; i < nbComments; i++) {
-            s.addComment(new Comment(member, s, "Un commentaire"));
+            s.addComment(new SessionComment(member, s, "Un commentaire"));
+        }
+    }
+
+    protected void comment(Member m, Article a, final int nbComments) {
+        for (int i = 0; i < nbComments; i++) {
+            a.addComment(new ArticleComment(member, a, "Un commentaire"));
         }
     }
     
@@ -37,7 +45,9 @@ public class CommentatorBadgeComputerTest extends AbstractBadgeComputerTest {
     public void grantedTroller() {
         // Member add five comments
         final Session s = Session.all().first();
-        comment(member, s, 10);
+        final Article a = Article.all().first();
+        comment(member, s, 5);  // 5 comments on a session
+        comment(member, a, 5);  // 5 comments on an article
         final Set<Badge> actualBadges = computer.compute(member, new BadgeComputationContext());
         assertEquals(EnumSet.of(Badge.Brave, Badge.Troller), actualBadges);
     }

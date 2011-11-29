@@ -11,7 +11,7 @@
         <div class="span12 columns"> 
             #{form @Sessions.save()} 
                 #{field 'talk.id'}
-                    <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="hidden" value="${field.value}" />
+                    <input id="${field.id}" name="${field.name}" type="hidden" value="${field.value}" />
                 #{/}
 
             <fieldset> 
@@ -21,7 +21,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" />
+                        <input class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxsize="50" type="text" value="${field.value}" />
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -32,7 +32,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" /> 
+                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="140" rows="2">${field.value}</textarea>
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
@@ -60,7 +60,7 @@
                     <div class="input"> 
                         <ul class="inputs-list">
                             #{list items:models.Speaker.findAll(), as:'speaker'}
-                            <li><label><input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} /> <span>${speaker.displayName}</span></label></li>
+                            <li><label><input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} /> <span>${speaker}</span></label></li>
                             #{/list}
                         </ul>
                         <span class="help-block">${field.error}</span>
@@ -123,7 +123,12 @@
             </fieldset>
             <div class="actions">
                 <input type="submit" class="btn primary large" value="Enregistrer"/>
+                #{if talk.id}
                 <a href="@{Sessions.show(talk.id)}" class="btn large">Annuler</a>
+                #{/if}
+                #{else}
+                <a href="@{Sessions.index()}" class="btn large">Annuler</a>
+                #{/else}
             </div>
             #{/form}
         </div>

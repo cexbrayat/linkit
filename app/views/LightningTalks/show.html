@@ -37,7 +37,7 @@
                         <a href="@{Profile.show(talk.speaker.login)}">#{gravatar.img talk.speaker.email, default:'mm', rating:'pg', secure:true/}</a>
                     #{/if}
                     <br/>
-                    <a href="@{Profile.show(talk.speaker.login)}">${talk.speaker.displayName}</a>
+                    <a href="@{Profile.show(talk.speaker.login)}">${talk.speaker}</a>
                 </p>
 
                 <h4>Intérêts</h4>

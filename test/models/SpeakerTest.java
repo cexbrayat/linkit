@@ -33,7 +33,7 @@ public class SpeakerTest extends UnitTest {
     }
 
     @Test public void create() {
-        Speaker s = new Speaker("toto", new LinkItAccount("password"));
+        Speaker s = new Speaker("toto");
         assertNotNull(s.badges);
         assertTrue(s.badges.contains(Badge.Speaker));
         s.save();

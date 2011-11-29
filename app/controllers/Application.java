@@ -1,15 +1,14 @@
 package controllers;
 
 import play.*;
-import play.mvc.*;
 
 import java.util.*;
 
 import models.*;
 import models.activity.Activity;
 
-public class Application extends Controller {
-
+public class Application extends PageController {
+    
     public static void index() {
         
         // DEV MODE : discard connected user if not found in DB (when you restarted your local dev application with initial data)
@@ -17,8 +16,11 @@ public class Application extends Controller {
         if (login != null && Member.findByLogin(login) == null) {
             session.remove("username");
         }
+        
+        // Three recent articles
+        List<Article> articles = Article.recents(1, 3);
         List<Map> tags = Interest.getCloud();
-        render(tags);
+        render(articles, tags);
     }
 
     public static void members() {
@@ -51,10 +53,5 @@ public class Application extends Controller {
         List<Session> sessions = Session.findSessionsLinkedWith(interest);
         Logger.info(Session.count() + " session linked with " + interest);
         render("Interests/list.html", members, sessions, interest);
-    }
-    
-    public static void activities(Integer page, Integer size) {
-        List<Activity> _activities = Activity.recents(page, size);
-        render("tags/activities.html", _activities);
     }
 }
