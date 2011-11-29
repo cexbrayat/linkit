@@ -43,8 +43,35 @@
 .sponsor {
 }
 
-.checkbox { float: left; width: 31%; margin-right: 1% }
-.newline { clear: left }
+.checkbox {
+    float: left;
+    width: 31%;
+    margin-right: 1%
+}
 
-.active {color: black;}
-.inactive {color: gray;}
+.newline {
+    clear: left
+}
+
+.active {
+    color: #00cc00;
+}
+
+.inactive {
+    color: gray;
+}
+
+.vote-counter {
+    display: inline-block;
+    color: lightslategray;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.vote-up {
+    display: inline-block;
+    vertical-align: top;
+    font-weight: bold;
+    font-size: 120%;
+}
+
