@@ -39,13 +39,12 @@ public class LightningTalk extends Model {
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     public List<Vote> votes;
 
-    @ManyToMany
-    @MinSize(1)
-    public Set<Member> speakers = new HashSet<Member>();
+    @ManyToOne
+    public Member speaker;
 
     public void addSpeaker(Member speaker) {
         if (speaker != null) {
-            speakers.add(speaker);
+            this.speaker = speaker;
         }
     }
 
@@ -63,14 +62,7 @@ public class LightningTalk extends Model {
 
     public boolean hasSpeaker(String username) {
         Member member = Member.findByLogin(username);
-        if (member != null) {
-            for (Member speaker : speakers) {
-                if (speaker.login.equals(username)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return speaker.equals(member);
     }
 
     public long getNumberOfVotes() {
@@ -85,8 +77,8 @@ public class LightningTalk extends Model {
     }
 
     public void addInterests(String... interests) {
-        for (String interet : interests) {
-            addInterest(interet);
+        for (String interest : interests) {
+            addInterest(interest);
         }
     }
 
@@ -96,7 +88,7 @@ public class LightningTalk extends Model {
     }
 
     public static List<LightningTalk> findByMember(Member member) {
-        return LightningTalk.find("select distinct l from LightningTalk l INNER JOIN l.speakers m where m = ?", member).fetch();
+        return LightningTalk.find("select distinct l from LightningTalk l where speaker = ?", member).fetch();
     }
 
     @Override

@@ -40,9 +40,7 @@
                 #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
             </td>
             <td>
-                #{list items:talk.speakers, as:'speaker'}
-                    <a href="@{Profile.show(speaker.login)}">${speaker}</a>#{if !speaker_isLast}, #{/if}
-                #{/list}
+                <a href="@{Profile.show(talk.speaker.login)}">${talk.speaker}</a>
             </td>
             <td>
                 <div id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>

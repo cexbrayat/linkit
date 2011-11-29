@@ -36,7 +36,6 @@ public class LightningTalks extends Controller {
     }
 
     public static void save(@Valid LightningTalk talk, String[] interests, String newInterests) {
-        Logger.info("Tentative d'enregistrement du lightningTalk " + talk + " - nb speakers: " + talk.speakers.size());
         if (interests != null) {
             talk.updateInterests(interests);
         }
@@ -48,7 +47,7 @@ public class LightningTalks extends Controller {
             talk.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
         }
         Member member = Member.findByLogin(Security.connected());
-        talk.addSpeaker(member);
+        talk.speaker = member;
         talk.save();
         flash.success("LightningTalk " + talk + " enregistré");
         Logger.info("LightningTalk " + talk + " enregistré");

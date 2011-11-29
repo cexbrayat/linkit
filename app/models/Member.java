@@ -87,7 +87,7 @@ public class Member extends Model implements Lookable {
     public long nbConsults;
 
 
-    @OneToMany
+    @OneToMany(mappedBy="speaker")
     public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
 
     public Member(String login, Account account) {

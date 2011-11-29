@@ -31,16 +31,14 @@
     <div class="content">
         <div class="row">
             <div class="span3">
-                <h4>Speaker${talk.speakers.size().pluralize()}</h4>
-                #{list items:talk.speakers, as:'speaker'}
+                <h4>Speaker</h4>
                 <p>
-                    #{if speaker.email}
-                        <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                    #{if talk.speaker.email}
+                        <a href="@{Profile.show(talk.speaker.login)}">#{gravatar.img talk.speaker.email, default:'mm', rating:'pg', secure:true/}</a>
                     #{/if}
                     <br/>
-                    <a href="@{Profile.show(speaker.login)}">${speaker.displayName}</a>
+                    <a href="@{Profile.show(talk.speaker.login)}">${talk.speaker.displayName}</a>
                 </p>
-                #{/list}
 
                 <h4>Intérêts</h4>
                 <p>

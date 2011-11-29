@@ -530,12 +530,12 @@ LightningTalk(sessionlightning):
     title: Lightning talk on light
     track: Techy
     summary: Intro sur la lumière
-    speakers:
+    speaker:
            - rguy
 
 LightningTalk(sessionlightning2):
     title: Lightning talk on clouds
     track: Techy
     summary: Intro sur les nuages
-    speakers:
+    speaker:
            - nmartignole
