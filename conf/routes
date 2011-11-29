@@ -6,7 +6,7 @@
 GET     /                                       Application.index
 
 # Import CRUD routes
-*     /admin           module:crud
+*       /admin                                  module:crud
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
@@ -15,54 +15,62 @@ GET     /favicon.ico                            404
 GET     /public/                                staticDir:public
 
 # Login
-GET	/login					Login.index
-GET	/login/linkit				Login.loginLinkIt
-GET	/login/signup				Login.signup
-GET	/login/with				Login.loginWith
+GET     /login                                  Login.index
+GET     /login/linkit                           Login.loginLinkIt
+GET     /login/signup                           Login.signup
+GET     /login/with                             Login.loginWith
 
 # Application
-GET	/speakers				Application.speakers
-GET	/staff					Application.staff
-GET	/sponsors				Application.sponsors
-GET	/members				Application.members
-GET	/sessions/members			Application.sessionsAndMembersByInterest
+GET     /speakers                               Application.speakers
+GET     /staff                                  Application.staff
+GET     /sponsors                               Application.sponsors
+GET     /members                                Application.members
+GET     /sessions/members                       Application.sessionsAndMembersByInterest
 
-# Activities
-GET	/activities				Activities.general
-GET	/activities/incoming/{providers}       	Activities.for
-GET	/activities/{login}/{providers}        	Activities.of
+# Activities    
+GET     /activities                             Activities.general
+GET     /activities/incoming/{providers}        Activities.for
+GET     /activities/{login}/{providers}         Activities.of
 
 # Profile
-POST	/profile				Profile.save 
-GET	/profile/edit				Profile.edit
-GET	/profile/delete				Profile.delete
-GET	/profile/link				Profile.link
-GET	/profile/unlink				Profile.unlink
-GET	/profile/{login}			Profile.show
+POST    /profile                                Profile.save
+GET     /profile/edit                           Profile.edit
+GET     /profile/delete                         Profile.delete
+GET     /profile/link                           Profile.link
+GET     /profile/unlink                         Profile.unlink
+GET     /profile/{login}                        Profile.show
 
 # Dashboard
-GET	/dashboard				Dashboard.index
-GET	/dashboard/link				Dashboard.link
+GET     /dashboard                              Dashboard.index
+GET     /dashboard/link                         Dashboard.link
 
 # Sessions
-GET	/sessions				Sessions.index
-GET	/session/new				Sessions.create
-POST	/session				Sessions.save
-GET	/session/edit				Sessions.edit
-POST	/session/comment			Sessions.postComment
-GET	/session/{sessionId}			Sessions.show
+GET     /sessions                               Sessions.index
+GET     /session/new                            Sessions.create
+POST    /session                                Sessions.save
+GET     /session/edit                           Sessions.edit
+POST    /session/comment                        Sessions.postComment
+GET     /session/{sessionId}                    Sessions.show
+
+# Lightning
+GET     /lightnings                             LightningTalks.list
+GET     /lightning/new                          LightningTalks.create
+GET     /lightning/{sessionId}                  LightningTalks.show
+POST    /lightning/vote                         LightningTalks.vote
+POST    /lightning                              LightningTalks.save
+DELETE  /lightning/{sessionId}                  LightningTalks.delete
 
 # Articles
-GET	/articles				Articles.index
-GET	/articles/{size}                        Articles.list
-POST	/article				Articles.save
-GET	/article/new				Articles.create
-GET	/article/edit				Articles.edit
-POST	/article/comment			Articles.postComment
-GET	/article/{articleId}			Articles.show
+GET     /articles                               Articles.index
+GET     /articles/{size}                        Articles.list
+POST    /article                                Articles.save
+GET     /article/new                            Articles.create
+GET     /article/edit                           Articles.edit
+POST    /article/comment                        Articles.postComment
+GET     /article/{articleId}                    Articles.show
 
 # Secure
-GET	/logout					Secure.logout
+GET     /logout                                 Secure.logout
 
 # Catch all
 *       /{controller}                           {controller}.index
