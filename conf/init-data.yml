@@ -633,6 +633,7 @@ LightningTalk(sessionlightning):
     title: Lightning talk on light
     track: Techy
     summary: Intro sur la lumière
+    description: Yeah this guy is so shinny
     speaker:
            - rguy
 
@@ -640,6 +641,7 @@ LightningTalk(sessionlightning2):
     title: Lightning talk on clouds
     track: Techy
     summary: Intro sur les nuages
+    description: From Paris, more likely to have a tedious weather
     speaker:
            - nmartignole           
 
