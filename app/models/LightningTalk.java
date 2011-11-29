@@ -1,15 +1,12 @@
 package models;
 
-import models.activity.CommentActivity;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.MaxSize;
-import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
