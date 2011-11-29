@@ -1,8 +1,8 @@
 package models;
 
+import com.google.common.base.Predicate;
 import models.auth.AuthAccount;
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -50,7 +50,7 @@ public class Member extends Model implements Lookable {
     static final String QUERY_FORPROFILE = "MemberForProfile";
     
     /** Internal login : functional key */
-    @Column(nullable = false, unique = true, updatable = true)
+    @Column(nullable = false, unique = true, updatable = false)
     @IndexColumn(name = "login_UK_IDX", nullable = false)
     @Required
     public String login;
@@ -275,7 +275,7 @@ public class Member extends Model implements Lookable {
     }
 
     /**
-     * Register a new Link-IT user with given authentication account
+     * Register user a new Link-IT user
      */
     public Member register(AuthAccount account) {
         save();

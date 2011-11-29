@@ -43,6 +43,7 @@ public class Session extends Model implements Lookable {
     @Lob
     @Required
     public String description;
+
     @ManyToMany
     @MinSize(1)
     public Set<Speaker> speakers = new HashSet<Speaker>();

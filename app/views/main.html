@@ -32,7 +32,13 @@
                         <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">Dashboard</a></li>
                         #{/if}
                         <li #{if request.controller=="Articles"}class="active"#{/if}><a href="@{Articles.index()}">Actualités</a></li>
-                        <li #{if request.controller=="Sessions"}class="active"#{/if}><a href="@{Sessions.index()}">Sessions</a></li>
+                            <li class="dropdown" data-dropdown="dropdown">
+                                <a href="@{Application.members()}" class="dropdown-toggle">Programme</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="@{Sessions.index()}">Sessions</a></li>
+                                    <li><a href="@{LightningTalks.list()}">Lightning talks</a></li>
+                                </ul>
+                            </li>
                         <li class="dropdown" data-dropdown="dropdown">
                             <a href="#" class="dropdown-toggle">Participants</a>
                             <ul class="dropdown-menu">
@@ -97,7 +103,7 @@
                 #{/list}
                 </ul>
                 #{/if}
-                <p>Mix-IT 2012 - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
+                <p>©2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
             </div>
         </footer>
     </body>

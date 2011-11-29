@@ -1,14 +1,18 @@
 package controllers;
 
-import models.GoogleAccount;
-import models.Member;
-import models.TwitterAccount;
+import java.util.List;
+import java.util.Set;
 
+import models.*;
+
+import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
+import play.data.binding.As;
 import play.data.validation.Email;
 import play.data.validation.Required;
+import play.mvc.Controller;
 
 public class Profile extends PageController {
     
@@ -86,7 +90,8 @@ public class Profile extends PageController {
         Member member = Member.fetchForProfile(login);
         member.lookedBy(Member.findByLogin(Security.connected()));
         Logger.info("Profil " + member);
-        render(member);
+        List<LightningTalk> lightningTalks = LightningTalk.findByMember(member);
+        render(member, lightningTalks);
     }
 
     public static void delete() throws Throwable {
@@ -113,5 +118,17 @@ public class Profile extends PageController {
         Member.removeLink(login, loginToLink);
         flash.success("Link supprimé!");
         show(loginToLink);
+    }
+    
+    public static void activitiesOf(String login, @As("~") Set<ProviderType> providers, Integer page, Integer size) {
+        Member member = Member.findByLogin(login);
+        List<Activity> _activities = Activity.recentsByMember(member, providers, page, size);
+        render("tags/activities.html", _activities);
+    }
+    
+    public static void activitiesFor(String login, @As("~") Set<ProviderType> providers, Integer page, Integer size) {
+        Member member = Member.findByLogin(login);
+        List<Activity> _activities = Activity.recentsForMember(member, providers, page, size);
+        render("tags/activities.html", _activities);
     }
 }

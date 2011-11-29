@@ -1,0 +1,54 @@
+*{ Display all sessions "lightning" }*
+<script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
+<script>
+    $(function () {
+        $("table#sortSession").tablesorter({ sortList:[
+            [1, 0]
+        ] });
+
+    });
+
+    var voteAction = #{jsAction @vote(':talk', ':member', ':value') /}
+
+    function vote(id, name) {
+        var myClass = $("#vote-"+id).attr("class");
+        var value = (myClass == "inactive");
+        $.get(voteAction({talk:id, member:name, value:value}), function (data) {
+            if (data == -1) {
+                alert("Erreur pendant le vote")
+            }
+            else {
+                $("#counter-" + id).html(data);
+                $("#vote-"+id).toggleClass("active");
+                $("#vote-"+id).toggleClass("inactive");
+            }
+        })
+    }
+</script>
+    <table class="zebra-striped" id="sortSession">
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Speaker(s)</th>
+            <th>Vote</th>
+        </tr>
+        </thead>
+        <tbody>
+        #{list items:_sessions, as:'talk'}
+        <tr>
+            <td><a href="@{LightningTalks.show(talk.id)}">${talk.title}</a>
+                #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
+            </td>
+            <td>
+                <a href="@{Profile.show(talk.speaker.login)}">${talk.speaker}</a>
+            </td>
+            <td>
+                <div id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>
+                #{if session.username && !talk.hasSpeaker(session.username)}
+                    <div id="vote-${talk.id}" class="#{if talk.hasVoteFrom(session.username)}active#{/if}#{else}inactive#{/else}" onclick="vote(${talk.id}, '${session.username}')">Vote</div>
+                #{/if}
+            </td>
+        </tr>
+        #{/list}
+        </tbody>
+    </table>
