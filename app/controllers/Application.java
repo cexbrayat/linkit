@@ -5,7 +5,6 @@ import play.*;
 import java.util.*;
 
 import models.*;
-import models.activity.Activity;
 
 public class Application extends PageController {
     

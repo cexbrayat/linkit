@@ -130,9 +130,6 @@ Staff(ju) :
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: tluapir
-    twitterName: julien_ripault
-    googlePlusId: 105928763613547015053
     interests:           
          - java
          - play
@@ -205,9 +202,6 @@ Staff(agnes) :
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: Gnès
-    twitterName: agnes_crepet
-    googlePlusId: 116189330666769817164
     interests:
          - java
          - spring
@@ -391,9 +385,6 @@ Speaker(nmartignole) :
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: "Le Touilleur"
-    twitterName: nmartignole
-    googlePlusId: 112895425540987915280
     interests:
          - scrum
          - java
@@ -465,9 +456,6 @@ Speaker(rguy):
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: Romain Guy
-    twitterName: romainguy
-    googlePlusId: 111962077049890418486
     interests:
          - java
     badges:

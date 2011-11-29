@@ -1,19 +1,16 @@
 package controllers;
 
 import models.*;
-import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
-import play.cache.Cache;
-import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.data.validation.Validation;
-import play.libs.Images;
 import play.mvc.Controller;
 
 import java.util.List;
 
 public class LightningTalks extends Controller {
+
     public static void list() {
         List<LightningTalk> sessions = LightningTalk.findAll();
         render(sessions);
