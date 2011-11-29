@@ -56,7 +56,7 @@ GET     /session/{sessionId}                    Sessions.show
 GET     /lightnings                             LightningTalks.list
 GET     /lightning/new                          LightningTalks.create
 GET     /lightning/{sessionId}                  LightningTalks.show
-POST    /lightning/vote                         LightningTalks.vote
+POST    /lightning/vote/{id}/{name}             LightningTalks.vote
 POST    /lightning                              LightningTalks.save
 DELETE  /lightning/{sessionId}                  LightningTalks.delete
 
