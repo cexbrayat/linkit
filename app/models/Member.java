@@ -4,6 +4,7 @@ import controllers.JobFetchUserTimeline;
 import helpers.badge.BadgeComputationContext;
 import helpers.badge.BadgeComputer;
 import helpers.badge.BadgeComputerFactory;
+
 import java.util.*;
 import javax.persistence.*;
 
@@ -24,6 +25,7 @@ import play.db.jpa.*;
 
 /**
  * A LinkIT member.
+ *
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
@@ -31,40 +33,50 @@ import play.db.jpa.*;
 @NamedQueries({
     @NamedQuery(name = Member.QUERY_BYLOGIN, query = "from Member m where m.login=:login"),
     @NamedQuery(name = Member.QUERY_FORPROFILE,
-    query = "select m from Member m "
-    + "left outer join fetch m.links "
-    + "left outer join fetch m.linkers "
-    + "left outer join fetch m.badges "
-    + "left outer join fetch m.interests "
-    + "where m.login=:login")
+        query = "select m from Member m "
+            + "left outer join fetch m.links "
+            + "left outer join fetch m.linkers "
+            + "left outer join fetch m.badges "
+            + "left outer join fetch m.interests "
+            + "where m.login=:login")
 })
 public class Member extends Model implements Lookable {
 
     static final String QUERY_BYLOGIN = "MemberByLogin";
     static final String QUERY_FORPROFILE = "MemberForProfile";
-    
-    /** Internal login : functional key */
+
+    /**
+     * Internal login : functional key
+     */
     @Column(nullable = false, unique = true, updatable = false)
     @IndexColumn(name = "login_UK_IDX", nullable = false)
     @Required
     public String login;
-    
+
     @Required
     public String email;
     public String firstname;
     public String lastname;
-    
-    /** Name under which he wants to be displayed */
+
+    /**
+     * Name under which he wants to be displayed
+     */
     @Required
     public String displayName;
-    
-    /** User-defined description, potentially as MarkDown */
+
+    /**
+     * User-defined description, potentially as MarkDown
+     */
     @Lob
     @Required
     public String description;
-    /** Twitter account name */
+    /**
+     * Twitter account name
+     */
     public String twitterName;
-    /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumberInsteadOfABetterId} as seen on Google+' profile link */
+    /**
+     * Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumberInsteadOfABetterId} as seen on Google+' profile link
+     */
     public String googlePlusId;
     /**
      * Members he follows
@@ -83,11 +95,13 @@ public class Member extends Model implements Lookable {
     @ElementCollection
     public Set<Badge> badges = EnumSet.noneOf(Badge.class);
 
-    /** Number of profile consultations */
+    /**
+     * Number of profile consultations
+     */
     public long nbConsults;
 
 
-    @OneToMany(mappedBy="speaker")
+    @OneToMany(mappedBy = "speaker")
     public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
 
     public Member(String login, Account account) {
@@ -107,6 +121,7 @@ public class Member extends Model implements Lookable {
     /**
      * Find unique member having given login.
      * Seems this request is very often used, it's better to used it (more efficient with named query usage) instead of Play! find("byLogin", login)
+     *
      * @param login Login to find. May be null.
      * @return Member found, null if none (or if login null).
      */
@@ -210,7 +225,7 @@ public class Member extends Model implements Lookable {
 
     public static List<Member> findMembersInterestedIn(String interest) {
         return Member.find(
-                "select distinct m from Member m join m.interests as i where i.name = ?", interest).fetch();
+            "select distinct m from Member m join m.interests as i where i.name = ?", interest).fetch();
     }
 
     public void addBadge(Badge badge) {
@@ -221,13 +236,13 @@ public class Member extends Model implements Lookable {
         }
     }
 
-  /**
-   *
-   */
-  public void addLightningTalk(LightningTalk talk)
-  {
-    lightningTalks.add(talk);
-  }
+    /**
+     *
+     */
+    public void addLightningTalk(LightningTalk talk) {
+        lightningTalks.add(talk);
+        talk.speaker = this;
+    }
 
     /**
      * Register user a new Link-IT user
@@ -293,7 +308,8 @@ public class Member extends Model implements Lookable {
 
     /**
      * Display member. WARNING : used on UI as main display of user.
-     * @return 
+     *
+     * @return
      */
     @Override
     public String toString() {
@@ -313,7 +329,7 @@ public class Member extends Model implements Lookable {
             nbConsults++;
             save();
             if (member != null) {
-                new LookProfileActivity(member, this).save();                
+                new LookProfileActivity(member, this).save();
             }
         }
     }
