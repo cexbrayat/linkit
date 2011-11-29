@@ -1,6 +1,5 @@
 function vote(id, name) {
-    var myClass = $("#vote-" + id).attr("class");
-    var value = (myClass == "inactive");
+    var value = $("#vote-" + id).hasClass("inactive");
     $.get(voteAction({talk:id, member:name, value:value}), function (data) {
         if (data == -1) {
             alert("Erreur pendant le vote")

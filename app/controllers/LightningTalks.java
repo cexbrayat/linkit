@@ -64,9 +64,9 @@ public class LightningTalks extends Controller {
         if (member != null && talk != null) {
             Vote vote = Vote.findVote(talk, member);
             if (vote != null) {
-                vote.value = value;
+                vote.value = !value;
             } else {
-                vote = new Vote(talk, member, value);
+                vote = new Vote(talk, member, !value);
             }
             vote.save();
             return Vote.findNumberOfVotesBySession(talk);

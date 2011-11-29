@@ -11,30 +11,34 @@
 
     var voteAction = #{jsAction @vote(':talk', ':member', ':value') /};
 </script>
-    <table class="zebra-striped" id="sortSession">
-        <thead>
-        <tr>
-            <th>Titre</th>
-            <th>Speaker(s)</th>
-            <th>Vote</th>
-        </tr>
-        </thead>
-        <tbody>
-        #{list items:_sessions, as:'talk'}
-        <tr>
-            <td><a href="@{LightningTalks.show(talk.id)}">${talk.title}</a>
-                #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
-            </td>
-            <td>
-                <a href="@{Profile.show(talk.speaker.login)}">${talk.speaker}</a>
-            </td>
-            <td>
-                <div class="vote-counter" id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>
-                #{if session.username && !talk.hasSpeaker(session.username)}
-                    <div id="vote-${talk.id}" class="vote-up #{if talk.hasVoteFrom(session.username)}inactive#{/if}#{else}active#{/else}" onclick="vote(${talk.id}, '${session.username}')">+1</div>
-                #{/if}
-            </td>
-        </tr>
-        #{/list}
-        </tbody>
-    </table>
+<table class="zebra-striped" id="sortSession">
+    <thead>
+    <tr>
+        <th>Titre</th>
+        <th>Speaker(s)</th>
+        <th>Vote</th>
+    </tr>
+    </thead>
+    <tbody>
+    #{list items:_sessions, as:'talk'}
+    <tr>
+        <td><a href="@{LightningTalks.show(talk.id)}">${talk.title}</a>
+            #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a
+                    class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
+        </td>
+        <td>
+            <a href="@{Profile.show(talk.speaker.login)}">${talk.speaker}</a>
+        </td>
+        <td>
+            <div class="vote-counter" id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>
+            #{if session.username && !talk.hasSpeaker(session.username)}
+            <div id="vote-${talk.id}"
+                 class="vote-up #{if talk.hasVoteFrom(session.username)}inactive#{/if}#{else}active#{/else}"
+                 onclick="vote(${talk.id}, '${session.username}')">+1
+            </div>
+            #{/if}
+        </td>
+    </tr>
+    #{/list}
+    </tbody>
+</table>
