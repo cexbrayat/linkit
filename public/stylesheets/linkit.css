@@ -45,3 +45,6 @@
 
 .checkbox { float: left; width: 31%; margin-right: 1% }
 .newline { clear: left }
+
+.active {color: black;}
+.inactive {color: gray;}

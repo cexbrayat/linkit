@@ -30,6 +30,15 @@
                     </ul>
                 #{/if}
                 
+                #{if lightningTalks.size() > 0}
+                <h5>LightningTalk${lightningTalks.size().pluralize()} :</h5>
+                <p>
+                    #{list items:lightningTalks, as:'lt'}
+                <h5><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a></h5>
+                #{/list}
+                </p>
+                #{/if}                
+                
                 <p>${member.description?.markdown().raw()}</p>
                 
                 #{if session.get("username") != null && !session.get("username").equals(member.login)}

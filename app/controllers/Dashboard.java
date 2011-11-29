@@ -2,9 +2,12 @@ package controllers;
 
 import java.util.List;
 import java.util.Set;
+
+import models.LightningTalk;
 import models.Article;
 import models.Member;
 import models.Suggestion;
+import play.mvc.*;
 
 public class Dashboard extends PageController {
 
@@ -17,7 +20,8 @@ public class Dashboard extends PageController {
 
         // TODO CLA Afficher nos commentaires
         
-        render(member, suggests, articles);
+        List<LightningTalk> lightningTalks = LightningTalk.findByMember(member);
+        render(member, suggests, articles, lightningTalks);
     }
 
     public static void link(String loginToLink) {

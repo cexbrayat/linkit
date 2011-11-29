@@ -1,0 +1,61 @@
+#{extends 'main.html' /}
+#{set title:'Session ' + talk.title + ' - Mix-IT' /}
+<script>
+    var voteAction = #{jsAction @vote(':talk', ':member', ':value') /}
+
+            function vote(id, name) {
+                var myClass = $("#vote-"+id).attr("class");
+                var value = (myClass == "inactive");
+                $.get(voteAction({talk:id, member:name, value:value}), function (data) {
+                    if (data == -1) {
+                        alert("Erreur pendant le vote")
+                    }
+                    else {
+                        $("#counter-" + id).html(data);
+                        $("#vote-"+id).toggleClass("active");
+                        $("#vote-"+id).toggleClass("inactive");
+                    }
+                })
+            }
+</script>
+<div class="container">
+    <div class="hero-unit">
+        <h1>${talk.title}</h1>
+        <p>${talk.summary}</p>
+        #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
+        <div id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>
+        #{if session.username && !talk.hasSpeaker(session.username)}
+            <div id="vote-${talk.id}" class="#{if talk.hasVoteFrom(session.username)}active#{/if}#{else}inactive#{/else}" onclick="vote(${talk.id}, '${session.username}')">Vote</div>
+        #{/if}
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="span3">
+                <h4>Speaker</h4>
+                <p>
+                    #{if talk.speaker.email}
+                        <a href="@{Profile.show(talk.speaker.login)}">#{gravatar.img talk.speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                    #{/if}
+                    <br/>
+                    <a href="@{Profile.show(talk.speaker.login)}">${talk.speaker}</a>
+                </p>
+
+                <h4>Intérêts</h4>
+                <p>
+                    #{list items:talk.interests, as:'interest'}
+                        <a href="@{Application.sessionsAndMembersByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
+                    #{/list}
+                </p>
+                <h4>Activité récente</h4>
+                <div id="activities">
+                #{activities activities:activities /}
+                </div>
+
+                
+            </div>
+            <div class="span13">
+                ${talk.description?.markdown().raw()}
+            </div>
+        </div>
+    </div>
+</div>

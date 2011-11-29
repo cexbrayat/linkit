@@ -1,6 +1,7 @@
 package controllers;
 
 import play.*;
+import play.mvc.*;
 
 import java.util.*;
 import models.SessionComment;
@@ -32,7 +33,7 @@ public class Sessions extends PageController {
 
     public static void edit(final Long sessionId) {
         Session talk = Session.findById(sessionId);
-        render("Sessions/edit.html", talk);
+        render(talk);
     }
 
     public static void show(final Long sessionId, boolean noCount) {
@@ -44,7 +45,7 @@ public class Sessions extends PageController {
         List<Activity> activities = Activity.recentsBySession(talk, 1, 10);
         render(talk, activities);
     }
-    
+
     public static void postComment(
             Long talkId,
             @Required String content) {
@@ -67,7 +68,7 @@ public class Sessions extends PageController {
         renderBinary(captcha);
     }
 
-    public static void save(@Valid Session talk,String[] interests, String newInterests) {
+    public static void save(@Valid Session talk, String[] interests, String newInterests) {
         Logger.info("Tentative d'enregistrement de la session " + talk);
         if (interests != null) {
             talk.updateInterests(interests);
