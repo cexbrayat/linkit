@@ -6,12 +6,12 @@
 
 # FIXME conflict with (Member.)description and (Session.)description : needs a deep refactoring
 
+login=Nom d'utilisateur
+login.note=Votre login, nom d'utilisateur, pseudonyme. Si vous le modifiez, les éventuelles URL vous concernant que vous auriez bookmarkées ne seront plus valides.
 lastname=Nom
-lastname.note=Il restera confidentiel (ou pas)
+lastname.note=Nom de famille
 firstname=Prénom
-firstname.note=Il restera confidentiel (ou pas)
-displayName=Pseudonyme
-displayName.note=Nom sous lequel vous voulez apparaître sur le site
+firstname.note=
 email=Email
 email.note=
 description=Description
@@ -38,6 +38,14 @@ talk.track=Track Mix-IT
 talk.track.note=
 content=Votre commentaire
 content.note=&{markdown.note}
+
+# Article fields
+article.title=Titre	  	
+article.title.note=Un court titre pour cet article
+article.headline=Accroche
+article.headline.note=Introduction, qui sera affichée dans les listes d'actualité<br/>&{markdown.note}
+article.content=Contenu	  	
+article.content.note=Le contenu de votre article.<br/>&{markdown.note}
 
 # LightningTalk fields
 talk.title.lt.note=Un court titre pour votre lightning talk
@@ -82,7 +90,7 @@ badge.LocalCelebrity=Local Celebrity (vous avez été linké par au moins dix me
 badge.RockStar=Rock Star (vous avez été linké par au moins cinquante membres)
 badge.Leader=Leader (vous avez été linké par au moins cent membres)
 badge.Idol=Idol (vous avez été linké par au moins deux cent membres)
-badge.Twittos=Twittos (vous avez été twitté à propos de Mix-IT)
+badge.Twittos=Twittos (vous avez twitté à propos de Mix-IT)
 badge.Plusoner=Plusoner (vous avez posté sur Google+ à propos de Mix-IT)
 badge.TwoDaysInARow=2 days in a row (vous avez utilisé le site deux jours de suite)
 badge.FiveDaysInARow=5 days in a row (vous avez utilisé le site cinq jours de suite)
