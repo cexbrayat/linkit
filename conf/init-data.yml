@@ -789,3 +789,41 @@ Sponsor(anpe):
         Vous n'avez pas de boulot? Nous non plus!
     badges:
          - Sponsor
+    
+Member(mrbadges) :
+    firstname: Monsieur
+    lastname: Badges
+    login: mrbadges
+    email: mister@badges.com
+    description : |
+        Je suis un robot.
+        
+        Je porte tous les badges.
+        Comme ça les graphistes peuvent tous les voir.
+        
+        A votre service.
+        
+    badges:           
+         - Speaker
+         - Staff
+         - Sponsor
+         - Attendee
+         - StaffBestFriend
+         - SpeakerFan
+         - SponsorFriendly
+         - Brave
+         - Troller
+         - NewBorn
+         - Friendly
+         - SocialBeast
+         - MadLinker
+         - YouReNotAlone
+         - LocalCelebrity
+         - RockStar
+         - Leader
+         - Idol
+         - Twittos
+         - Plusoner
+         - TwoDaysInARow
+         - FiveDaysInARow
+         - MixITAddict
