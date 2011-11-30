@@ -25,7 +25,7 @@ public class Login extends PageController {
 
     private static final String TOKEN_KEY = "token";
     private static final String SECRET_KEY = "secret";
-    private static final String RETURN_URL = "return";
+    private static final String RETURN_URL = "url";
 
     /**
      * Displays available authentication methods
@@ -127,6 +127,7 @@ public class Login extends PageController {
     }
     
     public static void loginLinkIt(@Required String login, @Required String password) throws Throwable {
+        flash.keep(RETURN_URL);
         Secure.authenticate(login, password, true);
         onSuccessfulAuthentication(login);
     }

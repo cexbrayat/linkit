@@ -19,7 +19,6 @@ public class Security extends Secure.Security {
         LinkItAccount account = (LinkItAccount) LinkItAccount.find(ProviderType.LinkIt, username);
         return (account != null && account.password.equals(password));
     }
-    
         
     public static boolean check(String profile) {
       Member user = Member.findByLogin(connected());
