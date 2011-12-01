@@ -86,8 +86,7 @@ public class Profile extends PageController {
         Member member = Member.fetchForProfile(login);
         member.lookedBy(Member.findByLogin(Security.connected()));
         Logger.info("Profil " + member);
-        List<LightningTalk> lightningTalks = LightningTalk.findByMember(member);
-        render(member, lightningTalks);
+        render(member);
     }
 
     public static void delete() throws Throwable {

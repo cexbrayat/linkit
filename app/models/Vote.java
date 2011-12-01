@@ -4,19 +4,20 @@ import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import java.util.List;
+import javax.persistence.ManyToOne;
 
 /**
  * @author Julien Ripault <tluapir@gmail.com>
  */
 @Entity
 public class Vote extends Model {
+
     @Required
-    @OneToOne
+    @ManyToOne
     public LightningTalk session;
     @Required
-    @OneToOne
+    @ManyToOne
     public Member member;
 
     /**

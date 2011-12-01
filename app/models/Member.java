@@ -42,6 +42,7 @@ import play.db.jpa.*;
     + "left outer join fetch m.linkers "
     + "left outer join fetch m.badges "
     + "left outer join fetch m.interests "
+    + "left outer join fetch m.lightningTalks "
     + "where m.login=:login")
 })
 public class Member extends Model implements Lookable {
@@ -89,6 +90,9 @@ public class Member extends Model implements Lookable {
     
     @ElementCollection
     public Set<Badge> badges = EnumSet.noneOf(Badge.class);
+
+    @OneToMany(mappedBy="speaker")
+    public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
     
     /** Number of profile consultations */
     public long nbConsults;
