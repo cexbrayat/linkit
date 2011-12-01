@@ -21,7 +21,7 @@
                     <h5>Mes session${member.sessions.size().pluralize()} :</h5>
                     <ul>
                     #{list items:member.sessions, as:'talk'}
-                        <li><a href="@{Sessions.show(talk.id)}">${talk.title}</a></li>
+                        <li>#{session talk /}</li>
                     #{/list}
                     </ul>
                 #{/if}
@@ -39,12 +39,12 @@
                     <h5>Mes commentaires récents :</h5>
                     <ul>
                     #{list items:comments, as:'comment'}
-                        <li>${comment.postedAt.since()} :
+                        <li>${comment.postedAt.since()},
                             #{if comment instanceof models.SessionComment}
-                                Sur la <a href="@{Sessions.show(comment.session.id)}#comment${comment.id}">session ${comment.session.title}</a>
+                                sur la session #{session comment.session /}
                             #{/if}
                             #{if comment instanceof models.ArticleComment}
-                                Sur l'<a href="@{Articles.show(comment.article.id)}#comment${comment.id}">article ${comment.article.title}</a>
+                                sur l'<a href="@{Articles.show(comment.article.id)}#comment${comment.id}">article ${comment.article.title}</a>
                             #{/if}
                         </li>
                     #{/list}
@@ -68,8 +68,8 @@
                     <ul>
                     #{list suggestedMembers, as:'suggest'}
                         <li>
-                            <a href="@{Profile.show(suggest.login)}" rel='twipsy' title="${suggest}">#{member suggest /}</a>
                             <a class="btn primary small" title="Link" href="@{link(suggest.login)}">Link</a>
+                            <a href="@{Profile.show(suggest.login)}" title="${suggest}">#{member suggest /}</a>
                         </li>
                     #{/list}
                     </ul>
@@ -78,7 +78,7 @@
                     <h3>Suggestions de sessions :</h3>
                     <ul>
                     #{list suggestedSessions, as:'suggest'}
-                        <li><a href="@{Sessions.show(suggest.id)}" title="${suggest}">${suggest.title}</a></li>
+                        <li>#{session suggest /}</li>
                     #{/list}
                     </ul>
                 #{/if}

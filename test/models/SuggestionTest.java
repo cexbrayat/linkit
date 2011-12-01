@@ -2,6 +2,7 @@ package models;
 
 import com.google.common.collect.Sets;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 import org.junit.*;
@@ -126,5 +127,23 @@ public class SuggestionTest extends UnitTest {
         member.addInterest(commonInterest1).addInterest(commonInterest2).save();
  
         assertEquals(Sets.newHashSet(s1, s2), Suggestion.suggestedSessionsFor(member));
+    }
+    
+    private static Member createMember(String login) {
+        return new Member(login).save();
+    }
+    
+    @Test
+    public void missingBadgesFor() {
+        Member member = createMember("toto");
+        member.addBadge(Badge.Brave);
+        member.addBadge(Badge.FiveDaysInARow);
+        assertEquals(EnumSet.complementOf(EnumSet.of(Badge.Brave, Badge.FiveDaysInARow)), Suggestion.missingBadgesFor(member));
+    }
+    
+    @Test
+    public void missingBadgesForMemberWithNoBadge() {
+        Member member = createMember("toto");
+        assertEquals(EnumSet.allOf(Badge.class), Suggestion.missingBadgesFor(member));
     }
 }

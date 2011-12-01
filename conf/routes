@@ -50,7 +50,8 @@ GET     /session/new                            Sessions.create
 POST    /session                                Sessions.save
 GET     /session/edit                           Sessions.edit
 POST    /session/comment                        Sessions.postComment
-GET     /session/{sessionId}                    Sessions.show
+GET     /session/{sessionId}/{slugify}          Sessions.show
+GET     /session/{sessionId}                    Sessions.show   # Just in case we forget the slugified title as parameter
 
 # Lightning
 GET     /lightnings                             LightningTalks.list

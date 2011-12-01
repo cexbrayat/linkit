@@ -81,6 +81,18 @@ GoogleAccount(cedGoogle):
     member: cedric
     googleId: 108783492614745057153
 
+SharedLink(cedLink1):
+    member: cedric
+    ordernum: 0
+    name: Mon Github
+    URL: https://github.com/cexbrayat
+
+SharedLink(cedLink2):
+    member: cedric
+    ordernum: 1
+    name: Mon blog HypeDrivenDev
+    URL: http://hypedrivendev.wordpress.com/
+
 Staff(ju) :
     firstname: Julien
     lastname: Ripault
@@ -137,6 +149,12 @@ Staff(ju) :
          - kanban
     badges:           
          - Staff
+
+SharedLink(juLink1):
+    member: ju
+    ordernum: 0
+    name: "Ma passion : la musique"
+    URL: http://lolannonces.fr/tag/frederic-francois/
 
 models.auth.LinkItAccount(juLinkIt):
     provider: LinkIt

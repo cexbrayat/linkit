@@ -25,6 +25,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.annotations.IndexColumn;
 import play.Logger;
+import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.*;
 
@@ -43,6 +44,7 @@ import play.db.jpa.*;
     + "left outer join fetch m.badges "
     + "left outer join fetch m.interests "
     + "left outer join fetch m.lightningTalks "
+    + "left outer join fetch m.sharedLinks "
     + "where m.login=:login")
 })
 public class Member extends Model implements Lookable {
@@ -91,8 +93,13 @@ public class Member extends Model implements Lookable {
     @ElementCollection
     public Set<Badge> badges = EnumSet.noneOf(Badge.class);
 
-    @OneToMany(mappedBy="speaker")
+    @OneToMany(mappedBy="speaker", cascade= CascadeType.ALL, orphanRemoval = true)
     public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
+
+    @OneToMany(mappedBy="member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderColumn(name="ordernum")
+    @MaxSize(5)
+    public List<SharedLink> sharedLinks = new ArrayList<SharedLink>();
     
     /** Number of profile consultations */
     public long nbConsults;
@@ -278,8 +285,18 @@ public class Member extends Model implements Lookable {
         }
     }
 
+    public void addSharedLink(SharedLink link) {
+        link.member = this;
+        this.sharedLinks.add(link);
+    }
+    
+    public void addLightningTalk(LightningTalk talk) {
+        talk.speaker = this;
+        this.lightningTalks.add(talk);
+    }
+    
     /**
-     * Register a new Link-IT user with given authentication account
+     * Register a new SharedLink-IT user with given authentication account
      */
     public Member register(AuthAccount account) {
         save();
@@ -399,6 +416,13 @@ public class Member extends Model implements Lookable {
         Activity.deleteForMember(this);
         AuthAccount.deleteForMember(this);
         Comment.deleteForMember(this);
+        for (Member linked : this.links) {
+            this.removeLink(linked);
+        }
+        for (Member linker : this.linkers) {
+            linker.removeLink(this);
+            linker.save();
+        }
         return super.delete();
     }
 }
