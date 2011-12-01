@@ -49,6 +49,7 @@ public class MemberTest extends UnitTest {
         ced.interests.toArray();
         ced.accounts.toArray();
         ced.lightningTalks.toArray();
+        ced.sharedLinks.toArray();
     }
 
     @Test public void fetchForProfileNotFound() {
@@ -233,11 +234,17 @@ public class MemberTest extends UnitTest {
         member.register(new LinkItAccount("password"));
         member.register(new GoogleOAuthAccount("token", "secret"));
         member.register(new TwitterOAuthAccount("token", "secret"));
+        // Some shared links
+        member.addSharedLink(new SharedLink("Google", "http://www.google.com"));
+        member.addSharedLink(new SharedLink("Yahoo", "http://www.yahoo.fr"));
         // Add some activities
         member.updateProfile();
         Member other = createMember("other");
+        // Add links
         member.addLink(other);
         other.addLink(member);
+        member.save();
+        other.save();
         // Some comments
         final Session session = Session.all().first();
         session.addComment(new SessionComment(member, session, "commentaire"));
@@ -245,5 +252,6 @@ public class MemberTest extends UnitTest {
         article.addComment(new ArticleComment(member, article, "commentaire"));
         
         assertNotNull(member.delete());
+        assertSame(other, Member.findById(other.id));
     }
 }
