@@ -5,6 +5,35 @@
 #{/set}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/jqcloud-0.2.4.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="http://bxslider.com/sites/default/files/jquery.bxSlider.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var slider = $('#slider').bxSlider({
+        auto: true,
+        pause:5e3,
+        controls: false,
+        onAfterSlide: function(currentSlide, totalSlides){
+            $("h2[id^='slide']").addClass("inactive");
+            $('#slide-'+currentSlide).toggleClass("inactive");
+        }
+    });
+    $('#slide-0').click(function(){
+        slider.goToSlide(0);
+        slider.startShow();
+        return true;
+    });
+    $('#slide-1').click(function(){
+        slider.goToSlide(1);
+        slider.startShow();
+        return true;
+    });
+    $('#slide-2').click(function(){
+        slider.goToSlide(2);
+        slider.startShow();
+        return true;
+    });
+  });
+</script>|
 #{/set}
 
 <div class="container">
@@ -44,12 +73,45 @@ $(document).ready(function() {
         </div>
     </div>
     <div class="row">
-        #{list items:articles, as:'article'}
         <div class="span-one-third">
-            #{article article /}
+            <h2 id="slide-0">Derniers articles</h2>
         </div>
-        #{/list}
-    </div>
+        <div class="span-one-third">
+            <h2 id="slide-1" class="inactive">Dernieres sessions</h2>
+        </div>
+        <div class="span-one-third">
+            <h2 id="slide-2" class="inactive">Derniers inscrits</h2>
+        </div>
+    <div class="row">
+    <ul id="slider">
+        <li>
+            <div class="row">
+                #{list items:articles, as:'article'}
+                <div class="span-one-third">
+                    #{article article /}
+                </div>
+                #{/list}
+            </div>
+        </li>
+        <li>
+            <div class="row">
+                #{list items:sessions, as:'s'}
+                <div class="span-one-third">
+                    #{session-small s /}
+                </div>
+                #{/list}
+            </div>
+        </li>
+        <li>
+            <div class="row">
+                #{list items:members, as:'member'}
+                <div style="padding-top: 20px" class="span-one-third">
+                    <a href="@{Profile.show(member.login)}">#{member member /}</a>
+                </div>
+                #{/list}
+            </div>
+        </li>
+    </ul>
     <div class="row">
         <h4>Activités récentes</h4>
         <p id="activities"></p>

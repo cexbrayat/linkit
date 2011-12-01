@@ -67,6 +67,10 @@ public class Member extends Model implements Lookable {
     @Required
     public String company;
 
+    @Required
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date registeredAt = new Date();
+
     /**
      * User-defined description, potentially as MarkDown
      */
@@ -434,5 +438,9 @@ public class Member extends Model implements Lookable {
             linker.save();
         }
         return super.delete();
+    }
+
+    public static List<Member> recents(int page, int length) {
+        return find("order by registeredAt desc").fetch(page, length);
     }
 }

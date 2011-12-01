@@ -1,10 +1,10 @@
 package controllers;
 
-import play.*;
-
-import java.util.*;
-
 import models.*;
+import play.Logger;
+
+import java.util.List;
+import java.util.Map;
 
 public class Application extends PageController {
     
@@ -18,8 +18,10 @@ public class Application extends PageController {
         
         // Three recent articles
         List<Article> articles = Article.recents(1, 3);
+        List<Session> sessions = Session.recents(1, 3);
+        List<Member> members = Member.recents(1, 6);
         List<Map> tags = Interest.getCloud();
-        render(articles, tags);
+        render(articles, sessions, members, tags);
     }
 
     public static void members() {
