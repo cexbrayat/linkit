@@ -35,7 +35,7 @@ public class Sessions extends PageController {
         render(talk);
     }
 
-    public static void show(final Long sessionId, boolean noCount) {
+    public static void show(final Long sessionId, String slugify, boolean noCount) {
         Session talk = Session.findById(sessionId);
         // Don't count look when coming from internal redirect
         if (!noCount) {
@@ -57,7 +57,7 @@ public class Sessions extends PageController {
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(talkId, true);
+        show(talkId, null, true);
     }
 
     public static void captcha(String id) {
@@ -82,6 +82,6 @@ public class Sessions extends PageController {
         talk.update();
         flash.success("Session " + talk + " enregistrée");
         Logger.info("Session " + talk + " enregistrée");
-        show(talk.id, true);
+        show(talk.id, null, true);
     }
 }

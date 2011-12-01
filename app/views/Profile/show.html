@@ -25,7 +25,7 @@
                     <h5>Session${member.sessions.size().pluralize()} :</h5>
                     <ul>
                     #{list items:member.sessions, as:'talk'}
-                        <li><a href="@{Sessions.show(talk.id)}">${talk.title}</a></li>
+                        <li>#{session talk /}</li>
                     #{/list}
                     </ul>
                 #{/if}
@@ -37,9 +37,18 @@
                         <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a></li>
                     #{/list}
                     </ul>
-                #{/if}                
+                #{/if}
+
+                #{if member.sharedLinks}
+                    <h5>Mes liens :</h5>
+                    <ul>
+                    #{list items:member.sharedLinks, as:'link'}
+                        <li><a class="sharedLink" href="${link.URL}" target="_blank"><img src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/>${link.name}</a></li>
+                    #{/list}
+                    </ul>
+                #{/if}
                 
-                <p>${member.description?.markdown().raw()}</p>
+                ${member.description?.markdown().raw()}
                 
                 #{if session.get("username") != null && !session.get("username").equals(member.login)}
                     #{if !member.hasForLinker(session.get("username"))}
