@@ -52,36 +52,35 @@
                 #{/if}
 
                 #{if member.links}
-                <div class="row">
-                    <div class="span6">
-                        <h3>Vous êtes lié à :</h3>
-                        #{list items:member.links, as:'link'}
-                        <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
-                        #{/list}
-                    </div>
-                </div>
+                    <h3>Vous êtes lié à :</h3>
+                    #{list items:member.links, as:'link'}
+                    <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                    #{/list}
                 #{/if}
                 #{if member.linkers}
-                <div class="row">
-                    <div class="span6">
-                        <h3>Ils vous ont lié :</h3>
-                        #{list items:member.linkers, as:'link'}
-                        <a href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
-                        #{/list}
-                    </div>
-                </div>
+                    <h3>Ils vous ont lié :</h3>
+                    #{list items:member.linkers, as:'link'}
+                    <a href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                    #{/list}
                 #{/if}
-                #{if suggests}
-                <div class="row">
-                    <div class="span6">
-                        <h3>Suggestions de liens :</h3>
-                        #{list items:suggests, as:'suggest'}
-                        <a href="@{Profile.show(suggest.login)}" rel='twipsy' title="${suggest}">#{gravatar.img suggest.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
-                        <a class="btn primary small" title="Link" href="@{link(suggest.login)}">+</a>
-                        <br/>
-                        #{/list}
-                    </div>
-                </div>
+                #{if suggestedMembers}
+                    <h3>Suggestions de liens :</h3>
+                    <ul>
+                    #{list suggestedMembers, as:'suggest'}
+                        <li>
+                            <a href="@{Profile.show(suggest.login)}" rel='twipsy' title="${suggest}">#{member suggest /}</a>
+                            <a class="btn primary small" title="Link" href="@{link(suggest.login)}">Link</a>
+                        </li>
+                    #{/list}
+                    </ul>
+                #{/if}
+                #{if suggestedSessions}
+                    <h3>Suggestions de sessions :</h3>
+                    <ul>
+                    #{list suggestedSessions, as:'suggest'}
+                        <li><a href="@{Sessions.show(suggest.id)}" title="${suggest}">${suggest.title}</a></li>
+                    #{/list}
+                    <ul/>
                 #{/if}
             </div>
 
