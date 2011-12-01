@@ -3,8 +3,8 @@ package controllers;
 import java.util.List;
 import java.util.Set;
 
-import models.LightningTalk;
 import models.Article;
+import models.Comment;
 import models.Member;
 import models.Suggestion;
 
@@ -17,9 +17,9 @@ public class Dashboard extends PageController {
         // Three recent articles
         List<Article> articles = Article.recents(1, 3);
 
-        // TODO CLA Afficher nos commentaires
+        List<Comment> comments = Comment.recentsByMember(member, 5);
 
-        render(member, suggests, articles);
+        render(member, suggests, articles, comments);
     }
 
     public static void link(String loginToLink) {

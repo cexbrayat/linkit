@@ -12,8 +12,13 @@
 
                 <p>Votre profil a été consulté ${member.getNbLooks()} fois.</p>
 
+                <p>
+                    <a href="@{Profile.show(session.username)}" class="btn">Voir mon profil</a>
+                    <a href="@{Profile.edit()}" class="btn">Editer mon profil</a>
+                </p>
+
                 #{if member instanceof models.Speaker}
-                    <h5>Session${member.sessions.size().pluralize()} :</h5>
+                    <h5>Mes session${member.sessions.size().pluralize()} :</h5>
                     <ul>
                     #{list items:member.sessions, as:'talk'}
                         <li><a href="@{Sessions.show(talk.id)}">${talk.title}</a></li>
@@ -22,18 +27,29 @@
                 #{/if}
 
                 #{if member.lightningTalks}
-                    <h5>Lightning Talk${member.lightningTalks.size().pluralize()} :</h5>
+                    <h5>Mes propositions de lightning talks :</h5>
                     <ul>
                     #{list items:member.lightningTalks, as:'lt'}
-                        <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a></li>
+                        <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a> : ${lt.getNumberOfVotes()} votes</li>
                     #{/list}
                     </ul>
                 #{/if}
 
-                <p>
-                    <a href="@{Profile.show(session.username)}">Voir mon profil</a>
-                    <a href="@{Profile.edit()}">Editer mon profil</a>
-                </p>
+                #{if comments}
+                    <h5>Mes commentaires récents :</h5>
+                    <ul>
+                    #{list items:comments, as:'comment'}
+                        <li>${comment.postedAt.since()} :
+                            #{if comment instanceof models.SessionComment}
+                                Sur la <a href="@{Sessions.show(comment.session.id)}#comment${comment.id}">session ${comment.session.title}</a>
+                            #{/if}
+                            #{if comment instanceof models.ArticleComment}
+                                Sur l'<a href="@{Articles.show(comment.article.id)}#comment${comment.id}">article ${comment.article.title}</a>
+                            #{/if}
+                        </li>
+                    #{/list}
+                    </ul>
+                #{/if}
 
                 #{if member.links}
                 <div class="row">

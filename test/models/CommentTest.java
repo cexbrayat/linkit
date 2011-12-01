@@ -29,6 +29,12 @@ public class CommentTest extends UnitTest {
     }
 
     @Test
+    public void testRecentsByMember() {
+        Member member = Member.all().first();
+        assertNotNull(Comment.recentsByMember(member, 10));
+    }
+
+    @Test
     public void deleteForMember() {
         Member member = Member.all().first();
         Comment.deleteForMember(member);
