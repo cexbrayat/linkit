@@ -48,6 +48,7 @@ public class MemberTest extends UnitTest {
         ced.badges.toArray();
         ced.interests.toArray();
         ced.accounts.toArray();
+        ced.lightningTalks.toArray();
     }
 
     @Test public void fetchForProfileNotFound() {

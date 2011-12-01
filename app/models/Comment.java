@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -61,6 +62,10 @@ public abstract class Comment extends Model {
     
     public static long countByMember(Member m) {
         return count("author=?", m);
+    }
+    
+    public static List<Comment> recentsByMember(Member m, int size) {
+        return find("from Comment c where c.author = ? order by c.postedAt desc", m).fetch(1, size);
     }
 
     @Override

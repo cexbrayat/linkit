@@ -33,7 +33,7 @@ public class LightningTalk extends Model {
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Vote> votes;
 
     @ManyToOne
@@ -82,10 +82,6 @@ public class LightningTalk extends Model {
     public void updateInterests(String... interests) {
         this.interests.clear();
         addInterests(interests);
-    }
-
-    public static List<LightningTalk> findByMember(Member member) {
-        return LightningTalk.find("select distinct l from LightningTalk l where speaker = ?", member).fetch();
     }
 
     @Override
