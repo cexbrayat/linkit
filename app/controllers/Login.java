@@ -2,11 +2,11 @@ package controllers;
 
 import helpers.oauth.OAuthProvider;
 import helpers.oauth.OAuthProviderFactory;
+import models.Member;
+import models.ProviderType;
 import models.auth.AuthAccount;
 import models.auth.LinkItAccount;
-import models.Member;
 import models.auth.OAuthAccount;
-import models.ProviderType;
 import org.scribe.exceptions.OAuthException;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
@@ -19,6 +19,7 @@ import play.mvc.Router;
 
 /**
  * OAuth Login controller
+ *
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class Login extends PageController {
@@ -29,7 +30,8 @@ public class Login extends PageController {
 
     /**
      * Displays available authentication methods
-     * @param url Optional URL to return to after successful login 
+     *
+     * @param url Optional URL to return to after successful login
      */
     public static void index(String url) {
         if (url != null) {
@@ -112,9 +114,9 @@ public class Login extends PageController {
     }
 
     protected static void onSuccessfulAuthentication(String login) {
-        
+
         session.put("username", login);
-                
+
         String returnUrl = flash.get(RETURN_URL);
         if (returnUrl != null) {
             // Return to origin URL
@@ -125,7 +127,7 @@ public class Login extends PageController {
             Dashboard.index();
         }
     }
-    
+
     public static void loginLinkIt(@Required String login, @Required String password) throws Throwable {
         flash.keep(RETURN_URL);
         Secure.authenticate(login, password, true);
@@ -134,6 +136,11 @@ public class Login extends PageController {
 
     public static void signup(@Required String login, @Required String password) {
         if (Validation.hasErrors()) {
+            render(login, password);
+        }
+        //unicite du login
+        if (Member.findByLogin(login) != null) {
+            flash.error("Ce login est déjà utilisé");
             render(login, password);
         }
         Member member = new Member(login);
