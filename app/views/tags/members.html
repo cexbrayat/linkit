@@ -17,7 +17,7 @@
         <tbody>        
             #{list items:_members, as:'member'}
             <tr>
-                <td>#{member member /}</td> 
+                <td><a href="@{Profile.show(member.login)}"#{member member /}</a></td> 
                 <td>
                     #{badges member.badges /}
                 </td>

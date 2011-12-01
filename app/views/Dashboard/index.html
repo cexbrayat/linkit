@@ -39,12 +39,12 @@
                     <h5>Mes commentaires récents :</h5>
                     <ul>
                     #{list items:comments, as:'comment'}
-                        <li>${comment.postedAt.since()} :
+                        <li>${comment.postedAt.since()},
                             #{if comment instanceof models.SessionComment}
-                                Sur la session #{session comment.session /}
+                                sur la session #{session comment.session /}
                             #{/if}
                             #{if comment instanceof models.ArticleComment}
-                                Sur l'<a href="@{Articles.show(comment.article.id)}#comment${comment.id}">article ${comment.article.title}</a>
+                                sur l'<a href="@{Articles.show(comment.article.id)}#comment${comment.id}">article ${comment.article.title}</a>
                             #{/if}
                         </li>
                     #{/list}
