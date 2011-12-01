@@ -18,9 +18,8 @@ public class Dashboard extends PageController {
         List<Article> articles = Article.recents(1, 3);
 
         // TODO CLA Afficher nos commentaires
-        
-        List<LightningTalk> lightningTalks = LightningTalk.findByMember(member);
-        render(member, suggests, articles, lightningTalks);
+
+        render(member, suggests, articles);
     }
 
     public static void link(String loginToLink) {

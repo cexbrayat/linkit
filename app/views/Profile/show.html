@@ -30,10 +30,10 @@
                     </ul>
                 #{/if}
 
-                #{if lightningTalks}
-                    <h5>Lightning Talk${lightningTalks.size().pluralize()} :</h5>
+                #{if member.lightningTalks}
+                    <h5>Lightning Talk${member.lightningTalks.size().pluralize()} :</h5>
                     <ul>
-                    #{list items:lightningTalks, as:'lt'}
+                    #{list items:member.lightningTalks, as:'lt'}
                         <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a></li>
                     #{/list}
                     </ul>
