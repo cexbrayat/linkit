@@ -1,7 +1,7 @@
 package controllers;
 
+import models.auth.LinkItAccount;
 import models.*;
-import play.Logger;
 
 /**
  * By default, the login page will accept any login/password.
@@ -16,10 +16,9 @@ public class Security extends Secure.Security {
   public static final String ADMIN = "admin";
 
   public static boolean authenticate(String username, String password) {
-        LinkItAccount account = (LinkItAccount) Account.find(ProviderType.LinkIt, username);
+        LinkItAccount account = (LinkItAccount) LinkItAccount.find(ProviderType.LinkIt, username);
         return (account != null && account.password.equals(password));
     }
-    
         
     public static boolean check(String profile) {
       Member user = Member.findByLogin(connected());

@@ -3,7 +3,7 @@ package controllers.admin;
 import controllers.CRUD;
 import controllers.Check;
 import controllers.Secure;
-import models.Comment;
+import models.SessionComment;
 import models.Role;
 import play.mvc.With;
 
@@ -12,7 +12,7 @@ import play.mvc.With;
  */
 @Check({Role.ADMIN_MEMBER, Role.ADMIN_PLANNING, Role.ADMIN_SESSION, Role.ADMIN_SPEAKER})
 @With(Secure.class)
-@CRUD.For(Comment.class)
+@CRUD.For(SessionComment.class)
 public class CommentsAdmin extends CRUD
 {
 }

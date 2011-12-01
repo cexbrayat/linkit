@@ -1,53 +1,27 @@
 package models.activity;
 
+import helpers.badge.BadgeComputationContext;
 import java.util.EnumSet;
-import java.util.Set;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import models.Badge;
-import models.Comment;
 import models.Member;
 import models.ProviderType;
-import models.Session;
-import play.data.validation.Required;
-import play.i18n.Messages;
-import play.mvc.Router;
 
 /**
- * A comment activity : someone ({@link Activity#member} commented on a session ({@link Activity#session}
+ * A comment activity : someone ({@link Activity#member} commented on something
  * @author Agnes <agnes.crepet@gmail.com>
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public class CommentActivity extends Activity {
+public abstract class CommentActivity extends Activity {
 
-    @Required
-    @ManyToOne
-    public Comment comment;
-
-    public CommentActivity(Member author, Session session, Comment comment) {
+    public CommentActivity(Member author) {
         super(ProviderType.LinkIt);
         this.member = author;
-        this.session = session;
-        this.comment = comment;
     }
 
     @Override
-    public String getMessage(String lang) {
-        return Messages.get(getMessageKey(), member, session, comment);
-    }
-
-    @Override
-    public String getUrl() {
-        return Router
-                .reverse("Sessions.show")
-                .add("sessionId", session.id)
-                .addRef("comment"+comment.id)
-                .url;
-    }
-
-    @Override
-    public Set<Badge> getPotentialTriggeredBadges() {
-        return EnumSet.of(Badge.Brave, Badge.Troller);
+    protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
+        member.computeBadges(EnumSet.of(Badge.Brave, Badge.Troller), context);
     }
 }

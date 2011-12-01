@@ -2,7 +2,7 @@ package models.activity;
 
 import java.util.EnumSet;
 import java.util.List;
-import models.LinkItAccount;
+import models.Article;
 import models.Member;
 import models.ProviderType;
 import models.Session;
@@ -17,6 +17,11 @@ public class ActivityTest extends AbstractActivityTest {
     @Test
     public void recents() {
         assertNotNull(Activity.recents(1, 10));
+    }
+
+    @Test
+    public void recentDatesByMember() {
+        assertNotNull(Activity.recentDatesByMember(member, 1, 10));
     }
 
     @Test
@@ -54,7 +59,7 @@ public class ActivityTest extends AbstractActivityTest {
 
     @Test
     public void recentsForMemberNoLinks() {
-        Member nolinks = new Member("toto", new LinkItAccount("password"));
+        Member nolinks = new Member("toto");
         List<Activity> activities = Activity.recentsForMember(nolinks,EnumSet.allOf(ProviderType.class), 1, 10);
         assertNotNull(activities);
         assertTrue(activities.isEmpty());
@@ -67,7 +72,23 @@ public class ActivityTest extends AbstractActivityTest {
     }
 
     @Test
+    public void recentsByArticle() {
+        final Article a = Article.all().first();
+        assertNotNull(Activity.recentsByArticle(a, 1, 10));
+    }
+
+    @Test
     public void uncomputed() {
         assertNotNull(Activity.uncomputed());
+    }
+    
+    @Test
+    public void deleteForMember() {
+        assertNotNull(Activity.deleteForMember(member));
+    }
+    
+    @Test
+    public void deleteForMemberWithProvider() {
+        assertNotNull(Activity.deleteForMember(member, ProviderType.Twitter));
     }
 }

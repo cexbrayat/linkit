@@ -5,44 +5,11 @@
 #{/set}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/jqcloud-0.2.4.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-<script type="text/javascript" >
-    /*!
-     * Create an array of objects to be passed to jQCloud, each representing a word in the cloud and specifying
-     * the following mandatory attributes:
-     *
-     * text: a string containing the word(s)
-     * weight: a number (integer or float) defining the relative importance of the word
-     *         (such as the number of occurrencies, etc.). The range of values is arbitrary, as they will
-     *         be linearly mapped to a discrete scale from 1 to 10.
-     *
-     * You can also specify the following optional attributes:
-     * EX : {text: "Ipsum", weight: 9, url: "http://jquery.com/", title: "jQuery Rocks!"},
-     * url: a URL to which the word will be linked. It will be used as the href attribute of an HTML anchor.
-     * title: an HTML title for the <span> that will contain the word(s)
-     */
-    var word_list = [
-        #{list items:tags, as:'tag'}
-            %{
-            String url = play.mvc.Router.reverse("Application.sessionsAndMembersByInterest").add("interest",tag.get('interest')).url;
-            url = java.net.URLDecoder.decode(url, "UTF-8");
-        }%
-            {text: "${tag.get('interest')}", url: "${url}", weight: ${tag.get('pound')} }      
-        #{if !tag_isLast} , #{/if} 
-        #{/list}
-    ];
-    $(document).ready(function() {
-        // Call jQCloud on a jQuery object passing the word list as the first argument. Chainability of methods is maintained.
-        $("#wordcloud").jQCloud(word_list);
-    });
-</script>
 #{/set}
 
 <div class="container">
-
-
     <div class="hero-unit">
         <div class="row">
-
             <div class="span7">
                 <h1>Mix-it</h1> 
                 <h2>Des idées pour tout de suite !</h2>
@@ -57,40 +24,62 @@
             <div class="span7"> 
                 <!-- You must explicitly specify the dimensions of the container element -->
                 <div id="wordcloud" style="width: 250px; height: 250px; position: relative;"></div>
+                <script type="text/javascript">
+var word_list = [
+#{list items:tags, as:'tag'}
+%{
+    String url = play.mvc.Router.reverse("Application.sessionsAndMembersByInterest").add("interest",tag.get('interest')).url;
+    url = java.net.URLDecoder.decode(url, "UTF-8");
+}%
+    {text: "${tag.get('interest')}", url: "${url}", weight: ${tag.get('pound')} }      
+    #{if !tag_isLast} , #{/if} 
+#{/list}
+    ];
+$(document).ready(function() {
+	// Call jQCloud on a jQuery object passing the word list as the first argument. Chainability of methods is maintained.
+	$("#wordcloud").jQCloud(word_list);
+});
+                </script>
             </div>
-
-
         </div>
     </div>
-
     <div class="row">
-        <div class="span16">
-            <h2>Activités récentes</h2>
-            <p id="activities" style="max-height: 150px">
-            </p>
-            <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
-            
+        #{list items:articles, as:'article'}
+        <div class="span-one-third">
+            #{article article /}
+        </div>
+        #{/list}
+    </div>
+    <div class="row">
+        <h4>Activités récentes</h4>
+        <p id="activities"></p>
+        <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>  
+        <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
+        
 <script type="text/javascript">
     var page = 1;
     var size = 5;
-    var activitiesAction = #{jsAction @Application.activities(':page',':size') /};
+    var activitiesAction = #{jsAction @Activities.general(':page',':size') /};
+    var spinner = $('#activitiesSpinner');
+    var btnMoreActivities = $('#moreActivities');
    
     function loadMoreActivities() {
+        btnMoreActivities.addClass('disabled');
+        spinner.css("visibility", "visible");
         $.get(activitiesAction({page: page, size: size}), function(data) {
             $('#activities').append(data);
             if (data) {
                 page++;
             } else {
-                $('#moreActivities').css('visibility','hidden');
+                btnMoreActivities.css('visibility','hidden');
             }
-        });    
+            spinner.css("visibility", "hidden");
+            btnMoreActivities.removeClass('disabled');
+        });
     }
     
     // Initial loading : first page
     loadMoreActivities();
 </script>            
-
-        </div>
     </div>
-
 </div><!-- /container --> 

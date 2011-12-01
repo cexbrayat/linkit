@@ -1,10 +1,10 @@
 package models.activity;
 
+import helpers.badge.BadgeComputationContext;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,7 +19,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import models.Badge;
+import models.Article;
 import models.Member;
 import models.ProviderType;
 import models.Session;
@@ -39,10 +39,12 @@ import play.db.jpa.Model;
 indexes = {
     @Index(name = "Activity_IDX", columnNames = {Activity.PROVIDER, Activity.AT}),
     @Index(name = "Activity_member_provider_IDX", columnNames = {Activity.MEMBER_FK, Activity.PROVIDER, Activity.AT}),
+    @Index(name = "Activity_article_IDX", columnNames = {Activity.ARTICLE_FK, Activity.AT}),
     @Index(name = "Activity_session_IDX", columnNames = {Activity.SESSION_FK, Activity.AT})
 })
 public abstract class Activity extends Model implements Comparable<Activity> {
 
+    static final String ARTICLE_FK = "article_id";
     static final String SESSION_FK = "session_id";
     static final String MEMBER_FK = "member_id";
     static final String PROVIDER = "provider";
@@ -63,6 +65,11 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     @JoinColumn(name = SESSION_FK)
     public Session session;
 
+    /** Optional corresponding article. May be null. */
+    @ManyToOne
+    @JoinColumn(name = ARTICLE_FK)
+    public Article article;
+
     /** Timestamp of activity */
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = AT)
@@ -79,13 +86,21 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     protected Activity(ProviderType provider, Date at) {
         this.provider = provider;
         this.at = at;
-        if (getPotentialTriggeredBadges().isEmpty()) {
-            badgeComputationDone = true;
-        }
     }
 
     public static List<Activity> recents(int page, int length) {
         return Activity.find("provider=? order by at desc", ProviderType.LinkIt).fetch(page, length);
+    }
+
+    /**
+     * Recent dates of Link-IT activity by given member in desc order
+     * @param member
+     * @param page
+     * @param length
+     * @return 
+     */
+    public static List<Date> recentDatesByMember(final Member member, int page, int length) {
+        return Activity.find("select a.at from Activity a where a.provider=? and a.member=? order by at desc", ProviderType.LinkIt, member).fetch(page, length);
     }
 
     /**
@@ -141,6 +156,29 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return Activity.find("from Activity a where a.session = ? order by a.at desc", s).fetch(page, length);
     }
 
+    public static List<Activity> recentsByArticle(Article a, int page, int length) {
+        return Activity.find("from Activity a where a.article = ? order by a.at desc", a).fetch(page, length);
+    }
+    
+    /**
+     * Delete all activities related to given member
+     * @param member
+     * @return 
+     */
+    public static int deleteForMember(Member member) {
+        return delete("delete Activity a where a.member = ?1 or a.other = ?1", member);
+    }
+    
+    /**
+     * Delete all activities related to given member for given provider
+     * @param member
+     * @param provider
+     * @return 
+     */
+    public static int deleteForMember(Member member, ProviderType provider) {
+        return delete("delete Activity a where (a.member = ?1 or a.other = ?1) and a.provider = ?2", member, provider);
+    }
+
     final protected String getMessageKey() {
         return getClass().getSimpleName() + ".message";
     }
@@ -155,11 +193,6 @@ public abstract class Activity extends Model implements Comparable<Activity> {
      * @return URL to be linked on this activity.
      */
     public abstract String getUrl();
-
-    /**
-     * @return Set of {@link Badge} that could potentially be triggered by this activity
-     */
-    public abstract Set<Badge> getPotentialTriggeredBadges();
     
     /**
      * @return Activities for which badge computation hasn't been done yet
@@ -168,6 +201,17 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return Activity.find("badgeComputationDone=false").fetch();
     }
 
+    public final void computeBadges(BadgeComputationContext context) {
+
+        computedBadgesForConcernedMembers(context);
+
+        // Flagging current activity as computed (whatever if we earned badges or not)
+        this.badgeComputationDone = true;
+        save();
+    }
+
+    protected abstract void computedBadgesForConcernedMembers(BadgeComputationContext context);
+    
     public int compareTo(Activity other) {
         return (other.at.compareTo(this.at));
     }

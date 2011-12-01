@@ -5,17 +5,28 @@
 
 <div class="container">
     <div class="page-header"> 
-        <h1>Inscription</h1> 
+        <h1>Edition de votre profil</h1> 
     </div>
+    #{form @Profile.save(member.id)} 
     <div class="row"> 
         <div class="span4 columns"> 
             <h2>Informations</h2> 
-            <p>Informations générales sur votre profil, vos réseaux sociaux et vos intérêts.</p> 
+            <p>Vos coordonnées</p> 
         </div> 
         <div class="span12 columns"> 
-            #{form @Profile.save(member.login)} 
             <fieldset> 
                 <legend>Profil</legend>
+                #{field 'login'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="10" type="text" value="${member.login}" />
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
+                </div>
+                #{/}
+                
                 #{field 'lastname'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
@@ -32,17 +43,6 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.firstname}" /> 
-                        <span class="help-inline">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div> 
-                </div><!-- /clearfix -->
-                #{/}
-
-                #{field 'displayName'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.displayName}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
@@ -70,12 +70,25 @@
                     </div> 
                 </div><!-- /clearfix -->
                 #{/}
-
+            </fieldset>
+        </div>
+    </div>
+    <hr/>
+    <div class="row"> 
+        <div class="span4 columns"> 
+            <h2>Réseaux sociaux</h2> 
+            <p>Vos comptes sur les différents réseaux sociaux.</p> 
+            <p>Les données publiques des comptes que vous indiquerez seront <strong>automatiquement récupérées et publiquement affichées</strong></p> 
+        </div> 
+        <div class="span12 columns">
+            <fieldset>
+                <legend>Vos comptes sociaux</legend>
+ 
                 #{field 'twitterName'}
                 <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.twitterName}" /> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Twitter)?.screenName}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
@@ -86,7 +99,7 @@
                 <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.googlePlusId}" /> 
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Google)?.googleId}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -95,9 +108,18 @@
                 #{/}
 
             </fieldset>
+        </div>
+    </div>
+    <hr/>
+    <div class="row"> 
+        <div class="span4 columns"> 
+            <h2>Centres d'intérêt</h2> 
+            <p>Les sujets qui vous intéressent, et que vous souhaitez creuser à Mix-IT et sur ce site.</p> 
+        </div> 
+        <div class="span12 columns">
             <fieldset>
                 <legend>Intérêts</legend>
-
+ 
                 #{field 'interests'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
@@ -134,7 +156,7 @@
                 <input type="submit" class="btn primary large" value="Enregistrer"/>
                 <a href="@{Profile.show(member.login)}" class="btn large">Annuler</a>
             </div>
-            #{/form}
         </div>
     </div>
+    #{/form}
 </div>

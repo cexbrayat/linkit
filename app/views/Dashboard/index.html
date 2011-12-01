@@ -1,100 +1,136 @@
 #{extends 'main.html' /}
-#{set title:member.displayName + ' - Dashboard Link-IT' /}
-#{set 'moreScripts'}
-<script src="http://widgets.twimg.com/j/2/widget.js"></script>
-#{/set}
+#{set title:member.toString() + ' - Dashboard Link-IT' /}
 <div class="container">
     <div class="hero-unit">
-        <h1>Your dashboard</h1>
+        <h2>Mon dashboard</h2>
         <div class="row">
             <div class="span6">
                 <!-- profil -->
                 #{if member.email}
                 #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
                 #{/if}
-                #{if member instanceof models.Speaker}
-                <h5>Session${member.sessions.size().pluralize()} :</h5>
+
+                <p>Votre profil a été consulté ${member.getNbLooks()} fois.</p>
+
                 <p>
-                    #{list items:member.sessions, as:'talk'}
-                <h5><a href="@{Sessions.show(talk.id)}">${talk.title}</a></h5>
-                #{/list}
-                </p>
-                #{/if}
-                <p>
-                    <a href="@{Profile.show(session.username)}">Voir mon profil</a>
-                    <a href="@{Profile.edit(session.username)}">Editer mon profil</a>
+                    <a href="@{Profile.show(session.username)}" class="btn">Voir mon profil</a>
+                    <a href="@{Profile.edit()}" class="btn">Editer mon profil</a>
                 </p>
 
+                #{if member instanceof models.Speaker}
+                    <h5>Mes session${member.sessions.size().pluralize()} :</h5>
+                    <ul>
+                    #{list items:member.sessions, as:'talk'}
+                        <li><a href="@{Sessions.show(talk.id)}">${talk.title}</a></li>
+                    #{/list}
+                    </ul>
+                #{/if}
+
+                #{if member.lightningTalks}
+                    <h5>Mes propositions de lightning talks :</h5>
+                    <ul>
+                    #{list items:member.lightningTalks, as:'lt'}
+                        <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a> : ${lt.getNumberOfVotes()} votes</li>
+                    #{/list}
+                    </ul>
+                #{/if}
+
+                #{if comments}
+                    <h5>Mes commentaires récents :</h5>
+                    <ul>
+                    #{list items:comments, as:'comment'}
+                        <li>${comment.postedAt.since()} :
+                            #{if comment instanceof models.SessionComment}
+                                Sur la <a href="@{Sessions.show(comment.session.id)}#comment${comment.id}">session ${comment.session.title}</a>
+                            #{/if}
+                            #{if comment instanceof models.ArticleComment}
+                                Sur l'<a href="@{Articles.show(comment.article.id)}#comment${comment.id}">article ${comment.article.title}</a>
+                            #{/if}
+                        </li>
+                    #{/list}
+                    </ul>
+                #{/if}
+
                 #{if member.links}
-                <div class="row">
-                    <div class="span6">
-                        <h3>Vous êtes lié à :</h3>
-                        #{list items:member.links, as:'link'}       
-                        <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
-                        #{/list}
-                    </div>
-                </div>
+                    <h3>Vous êtes lié à :</h3>
+                    #{list items:member.links, as:'link'}
+                    <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                    #{/list}
                 #{/if}
                 #{if member.linkers}
-                <div class="row">
-                    <div class="span6">
-                        <h3>Ils vous ont lié :</h3>
-                        #{list items:member.linkers, as:'link'}
-                        <a href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
-                        #{/list}
-                    </div>
-                </div>
+                    <h3>Ils vous ont lié :</h3>
+                    #{list items:member.linkers, as:'link'}
+                    <a href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                    #{/list}
                 #{/if}
-                #{if suggests}
-                <div class="row">
-                    <div class="span6">
-                        <h3>Suggestions de liens :</h3>
-                        #{list items:suggests, as:'suggest'}
-                        <a href="@{Profile.show(suggest.login)}" rel='twipsy' title="${suggest}">#{gravatar.img suggest.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
-                        <a class="btn primary small" title="Link" href="@{link(suggest.login)}">+</a>
-                        <br/>
-                        #{/list}
-                    </div>
-                </div>
+                #{if suggestedMembers}
+                    <h3>Suggestions de liens :</h3>
+                    <ul>
+                    #{list suggestedMembers, as:'suggest'}
+                        <li>
+                            <a href="@{Profile.show(suggest.login)}" rel='twipsy' title="${suggest}">#{member suggest /}</a>
+                            <a class="btn primary small" title="Link" href="@{link(suggest.login)}">Link</a>
+                        </li>
+                    #{/list}
+                    </ul>
+                #{/if}
+                #{if suggestedSessions}
+                    <h3>Suggestions de sessions :</h3>
+                    <ul>
+                    #{list suggestedSessions, as:'suggest'}
+                        <li><a href="@{Sessions.show(suggest.id)}" title="${suggest}">${suggest.title}</a></li>
+                    #{/list}
+                    </ul>
+                #{/if}
+                #{if suggestedBadges}
+                    <h3>Les badges qu'il vous manque :</h3>
+                    #{badges suggestedBadges /}
                 #{/if}
             </div>
 
             <div class="span8" > <!-- timeline -->
-                <h2>Activités de vos links</h2>
+                <h3>Activités de vos links</h3>
                 <div class="row">
                     <div class="span8">
                         <a class="service-button linkit" id="LinkIt" onClick="handleProvider('LinkIt')"></a>
                         <a class="service-button twitter" id="Twitter" onClick="handleProvider('Twitter')"></a>
                         <a class="service-button google" id="Google" onClick="handleProvider('Google')"></a>
+                        (Cliquez pour activer/désactiver un flux)
                     </div>
                     <br/>
                     <br/>
                     <div class="span8">
-                        <div id="activities" style="max-height: 400px">
-                        </div>
+                        <div id="activities" style="max-height: 400px"></div>
                     </div>
                     <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
+                    <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
 
                     <script type="text/javascript">
-                        var providers = ['LinkIt', 'Twitter', 'Google'];
+                        var providers = ['${models.ProviderType.values().join("','")}'];
                         var page = 1;
-                        var size = 5;
-                        var activitiesAction = #{jsAction @Profile.activitiesFor(':login', ':providers', ':page',':size') /};
+                        var size = 10;
+                        var activitiesAction = #{jsAction @Activities.incoming(':providers', ':page',':size') /};
+                        var spinner = $('#activitiesSpinner');
+                        var btnMoreActivities = $('#moreActivities');
 
                         function loadMoreActivities() {
                             if (providers.length > 0) {
-                                $.get(activitiesAction({login: '${member.login}', providers: providers.join("~"), page: page, size: size}), function(data) {
+                                btnMoreActivities.addClass('disabled');
+                                spinner.css("visibility", "visible");
+                                $.get(activitiesAction({providers: providers.join("${controllers.Activities.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
                                     $('#activities').append(data);
                                     if (data) {
-                                        $('#moreActivities').css('visibility','visible');
+                                        btnMoreActivities.css('visibility','visible');
                                         page++;
                                     } else {
-                                        $('#moreActivities').css('visibility','hidden');
+                                        btnMoreActivities.css('visibility','hidden');
                                     }
+                                    spinner.css("visibility", "hidden");
+                                    btnMoreActivities.removeClass('disabled');
                                 });
                             }
                         }
-                    
+
                         function handleProvider(provider){
                             var contain = providers.indexOf(provider);
                             if(contain != -1){
@@ -113,8 +149,17 @@
 
                         // Initial loading : first page
                         loadMoreActivities();
-                    </script>            
+                    </script>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row">
+        #{list items:articles, as:'article'}
+        <div class="span-one-third">
+            #{article article /}
+        </div>
+        #{/list}
+    </div>
+</div>

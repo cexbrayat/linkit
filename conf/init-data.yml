@@ -55,52 +55,7 @@ Staff(cedric) :
     login: cedric
     email: cexbrayat@gmail.com
     description : |
-        ## Profile description : (long) Markdown sample
-
-        ### Overview
-
-        Great features of Markdown are:
-
-        * It's plain text (e.g., support for version control, create with code)  
-        * It's simple to learn and use
-        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
-        * It's quicker to type than HTML 
-        * It's easy to convert to other formats
-        * Several websites such as Stack Exchange and Github use it
-        * HTML code can be interspersed when features such as tables are not supported 
-
-        It's not for everything, but it's a good tool for certain tasks.
-        I'm still exploring the options, but in the case of blog posts and readme files it works well.
-
-
-        ### Learning the Syntax
-        The markup is simple to learn.
-        I first installed the Markdown Editor in Eclipse  
-        and associated `.md` files with the Markdown editor.
-
-        I then:
-
-        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
-        2. opened the Markdown HTML Preview: 
-        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
-        3. worked through the [Markdown syntax guide][msg]
-        creating simple proof of concept examples, bouncing between
-        the Markdown Editor and the Markdown HTML Preview.
-
-        [msg]: http://daringfireball.net/projects/markdown/syntax
-
-
-        ### Conversion
-        #### Markdown to HTML
-        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
-        can be obtained in several ways.
-
-        * Right click the Markdown HTML Preview and click "View Source"
-        * When in the Markdown editor, go to File -- Export HTML. 
-        This creates a HTML version of the file
-    displayName: CédriX
-    twitterName: cedric_exbrayat
-    googlePlusId: 108783492614745057153
+        Je m'appelle Cédric, et je me présente qu'avec moins de 140 caractères.
     interests:           
          - java
          - hadoop
@@ -111,10 +66,20 @@ Staff(cedric) :
          - Staff
          - Attendee
 
-LinkItAccount(cedAccount):
+models.auth.LinkItAccount(cedLinkIt):
     provider: LinkIt
     member: cedric
     password: ced
+
+TwitterAccount(cedTwitter):
+    provider: Twitter
+    member: cedric
+    screenName: cedric_exbrayat
+
+GoogleAccount(cedGoogle):
+    provider: Google
+    member: cedric
+    googleId: 108783492614745057153
 
 Staff(ju) :
     firstname: Julien
@@ -165,9 +130,6 @@ Staff(ju) :
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: tluapir
-    twitterName: julien_ripault
-    googlePlusId: 105928763613547015053
     interests:           
          - java
          - play
@@ -176,12 +138,22 @@ Staff(ju) :
     badges:           
          - Staff
 
-LinkItAccount(juAccount):
+models.auth.LinkItAccount(juLinkIt):
     provider: LinkIt
     member: ju
     password: ju
+
+TwitterAccount(juTwitter):
+    provider: Twitter
+    member: ju
+    screenName: julien_ripault
+
+GoogleAccount(juGoogle):
+    provider: Google
+    member: ju
+    googleId: 105928763613547015053
     
-Member(agnes) :
+Staff(agnes) :
     firstname: Agnès
     lastname: Crépet
     login: agnes
@@ -230,24 +202,140 @@ Member(agnes) :
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: Gnès
-    twitterName: agnes_crepet
-    googlePlusId: 116189330666769817164
     interests:
          - java
          - spring
          - tdd
          - play
     badges:           
-         - Sponsor
-         - Speaker
-         - Attendee
+         - Staff
 
-LinkItAccount(agnesAccount):
+models.auth.LinkItAccount(agnesAccount):
     provider: LinkIt
     member: agnes
     password: agnes
-    
+
+TwitterAccount(agnesTwitter):
+    provider: Twitter
+    member: agnes
+    screenName: agnes_crepet
+
+GoogleAccount(agnesGoogle):
+    provider: Google
+    member: agnes
+    googleId: 116189330666769817164
+
+Staff(franck) :
+    firstname: Franck
+    lastname: Depierre
+    login: franck
+    email: franck.depierre@gmail.com
+    description : |
+        CARA *for ever*!
+    interests:
+         - scrum
+         - kanban
+    badges:           
+         - Staff
+
+models.auth.LinkItAccount(franckLinkIt):
+    provider: LinkIt
+    member: franck
+    password: franck
+
+TwitterAccount(franckTwitter):
+    provider: Twitter
+    member: franck
+    screenName: FranckDepierre
+
+GoogleAccount(franckGoogle):
+    provider: Google
+    member: franck
+    googleId: 111489000265528223150
+
+Staff(romain) :
+    firstname: Romain
+    lastname: Couturier
+    login: romain
+    email: couturier.romain@gmail.com
+    description : |
+        WinMagine *for ever*!
+    interests:
+         - scrum
+         - kanban
+    badges:           
+         - Staff
+
+models.auth.LinkItAccount(romainLinkIt):
+    provider: LinkIt
+    member: romain
+    password: romain
+
+TwitterAccount(romainTwitter):
+    provider: Twitter
+    member: romain
+    screenName: romaincouturier
+
+GoogleAccount(romainGoogle):
+    provider: Google
+    member: romain
+    googleId: 113173388528230315265
+
+Staff(nicolas) :
+    firstname: Nicolas
+    lastname: Pelloux-Prayer
+    login: nicolas
+    email: nicolaspellouxprayer@gmail.com
+    description : |
+        CARA *for ever*!
+    interests:
+         - scrum
+         - kanban
+    badges:           
+         - Staff
+
+models.auth.LinkItAccount(nicolasLinkIt):
+    provider: LinkIt
+    member: nicolas
+    password: nicolas
+
+TwitterAccount(nicolasTwitter):
+    provider: Twitter
+    member: nicolas
+    screenName: npelloux
+
+GoogleAccount(nicolasGoogle):
+    provider: Google
+    member: nicolas
+    googleId: 105069688047906196113
+
+Staff(mathieu) :
+    firstname: Mathieu
+    lastname: Calba
+    login: mathieu
+    email: mathieu.calba@gmail.com
+    description : |
+        Androïd for ever.
+    interests:
+         - java
+    badges:           
+         - Staff
+
+models.auth.LinkItAccount(mathieuLinkIt):
+    provider: LinkIt
+    member: mathieu
+    password: mathieu
+
+TwitterAccount(mathieuTwitter):
+    provider: Twitter
+    member: mathieu
+    screenName: npelloux
+
+GoogleAccount(mathieuGoogle):
+    provider: Google
+    member: mathieu
+    googleId: 105069688047906196113
+
 Speaker(nmartignole) :
     firstname: Nicolas
     lastname: Martignole
@@ -297,9 +385,6 @@ Speaker(nmartignole) :
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: "Le Touilleur"
-    twitterName: nmartignole
-    googlePlusId: 112895425540987915280
     interests:
          - scrum
          - java
@@ -307,12 +392,22 @@ Speaker(nmartignole) :
          - Speaker
          - Sponsor
 
-LinkItAccount(nmartignoleAccount):
+models.auth.LinkItAccount(nmartignoleAccount):
     provider: LinkIt
     member: nmartignole
     password: nicolas
+
+TwitterAccount(nmartignoleTwitter):
+    provider: Twitter
+    member: nmartignole
+    screenName: nmartignole
+
+GoogleAccount(nmartignoleGoogle):
+    provider: Google
+    member: nmartignole
+    googleId: 112895425540987915280
     
-Speaker(rguy) :
+Speaker(rguy):
     firstname: Romain
     lastname: Guy
     login: rguy
@@ -361,13 +456,20 @@ Speaker(rguy) :
         * Right click the Markdown HTML Preview and click "View Source"
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
-    displayName: Romain Guy
-    twitterName: romainguy
-    googlePlusId: 111962077049890418486
     interests:
          - java
     badges:
          - Speaker
+
+TwitterAccount(rguyTwitter):
+    provider: Twitter
+    member: rguy
+    screenName: romainguy
+
+GoogleAccount(rguyGoogle):
+    provider: Google
+    member: rguy
+    googleId: 111962077049890418486
     
 Session(sessionplayframework):
     title: Play! Framework for dummies
@@ -525,3 +627,203 @@ Session(sessionhadoop):
     speakers:
            - nmartignole
            - rguy
+           
+
+LightningTalk(sessionlightning):
+    title: Lightning talk on light
+    track: Techy
+    summary: Intro sur la lumière
+    description: Yeah this guy is so shinny
+    speaker:
+           - rguy
+
+LightningTalk(sessionlightning2):
+    title: Lightning talk on clouds
+    track: Techy
+    summary: Intro sur les nuages
+    description: From Paris, more likely to have a tedious weather
+    speaker:
+           - nmartignole           
+
+Article(article1):
+    title: Mix-IT 2012!
+    headline: Mix-IT seconde édition est annoncée pour le 26 avril 2012
+    content: |
+        Vous l'attendiez tous... et bien voilà la conf [Mix-IT](http://www.mix-it.fr) 2012 aura lieu le 26 avril 2012 à Lyon! Stay tuned! Au programme on vous prépare toujours un bon mix de #Java #Agilité, autres langages, technos innovantes, etc.
+    author: agnes
+    postedAt: 2011-11-25
+
+Article(article2):
+    title: Un nouveau sample
+    headline: Vous ne rêvez pas, un nouvel article est disponible.
+    content: |
+        # Article : Markdown sample
+        I've recently adopted Markdown as a markup language for editing my blog posts.
+        This post discusses 
+        (a) the benefits of Markdown,
+        (b) installing a Markdown editor,
+        (c) learning Markdown, and
+        (d) converting between formats.
+
+        <!-- more -->
+        ### Overview
+
+        Great features of Markdown are:
+
+        * It's plain text (e.g., support for version control, create with code)  
+        * It's simple to learn and use
+        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
+        * It's quicker to type than HTML 
+        * It's easy to convert to other formats
+        * Several websites such as Stack Exchange and Github use it
+        * HTML code can be interspersed when features such as tables are not supported 
+
+        It's not for everything, but it's a good tool for certain tasks.
+        I'm still exploring the options, but in the case of blog posts and readme files it works well.
+
+
+        ### Installation
+        I chose to install the Markdown Editor plugin for Eclipse developed by Daniel Winterstein. 
+        Cool features include:
+
+        * Outline View
+        * Syntax highlighting
+        * Markdown HTML Preview
+        * Integration with Eclipse
+
+        Installation instructions can be found on the [winterwell] website.
+
+        [winterwell]: http://www.winterwell.com/software/markdown-editor.php 
+
+
+        ### Learning the Syntax
+        The markup is simple to learn.
+        I first installed the Markdown Editor in Eclipse  
+        and associated `.md` files with the Markdown editor.
+
+        I then:
+
+        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
+        2. opened the Markdown HTML Preview: 
+        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
+        3. worked through the [Markdown syntax guide][msg]
+        creating simple proof of concept examples, bouncing between
+        the Markdown Editor and the Markdown HTML Preview.
+
+        [msg]: http://daringfireball.net/projects/markdown/syntax
+
+
+        ### Conversion
+        #### Markdown to HTML
+        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
+        can be obtained in several ways.
+
+        * Right click the Markdown HTML Preview and click "View Source"
+        * When in the Markdown editor, go to File -- Export HTML. 
+        This creates a HTML version of the file
+
+        #### Other options
+        [Pandoc] appears to be a good option for converting between document 
+        formats such as Markdown, LaTeX, RTF, PDF, OpenDocument, and more. 
+
+        [Pandoc]: http://johnmacfarlane.net/Pandoc/
+    author: cedric
+    postedAt: 2011-11-26
+    
+Sponsor(od):
+    firstname: Objet
+    lastname: Direct
+    login: od
+    email: info@objetdirect.com
+    description : |
+        SSII trop de la balle, on fait de l'informatique et on aime ça.
+    badges:
+         - Sponsor
+
+Sponsor(sqli):
+    firstname: SQL
+    lastname: i
+    login: sqli
+    email: info@sqli.com
+    description : |
+        SSII trop de la balle nous aussi, on fait de l'informatique *et on aime vraiment ça*.
+    badges:
+         - Sponsor
+
+Sponsor(elf):
+    firstname: TotalFina
+    lastname: Elf
+    login: total
+    email: info@totalfina.fr
+    description : |
+        Je ne sais pas ce qu'on fait là mais on a plein d'argent.
+    badges:
+         - Sponsor
+
+Sponsor(boulangerie):
+    firstname: Boulangerie
+    lastname: Martin
+    login: martin
+    email: boulangerie.martin@hotmail.com
+    description : |
+        Les meilleures miches françaises depuis 1989.
+    badges:
+         - Sponsor
+
+Sponsor(charcuterie):
+    firstname: Charcuterie
+    lastname: Raymond
+    login: raymond
+    email: charcuterie.raymond@hotmail.fr
+    description : |
+        Les meilleures tripes françaises depuis 1984.
+    badges:
+         - Sponsor
+
+Sponsor(anpe):
+    firstname: Pôle
+    lastname: Emploi
+    login: anpe
+    email: info@pole-emploi.fr
+    description : |
+        Vous n'avez pas de boulot? Nous non plus!
+    badges:
+         - Sponsor
+    
+Member(mrbadges) :
+    firstname: Monsieur
+    lastname: Badges
+    login: mrbadges
+    email: mister@badges.com
+    description : |
+        Je suis un robot.
+        
+        Je porte tous les badges.
+        Comme ça les graphistes peuvent tous les voir.
+        
+        A votre service.
+        
+    badges:           
+         - Speaker
+         - Staff
+         - Sponsor
+         - Attendee
+         - StaffBestFriend
+         - SpeakerFan
+         - SponsorFriendly
+         - Brave
+         - Troller
+         - NewBorn
+         - Friendly
+         - SocialBeast
+         - MadLinker
+         - YouReNotAlone
+         - LocalCelebrity
+         - RockStar
+         - Leader
+         - Idol
+         - Twittos
+         - Plusoner
+         - TwoDaysInARow
+         - FiveDaysInARow
+         - MixITAddict

@@ -1,10 +1,21 @@
 import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
 import play.test.*;
-import play.mvc.*;
 import play.mvc.Http.*;
-import models.*;
 
 public class ApplicationTest extends FunctionalTest {
+
+    @Before
+    public void setUp() {
+        Fixtures.deleteAllModels();
+        Fixtures.loadModels("data.yml");
+    }
+
+    @After
+    public void tearDown() {
+        Fixtures.deleteAllModels();
+    }
 
     @Test
     public void testThatIndexPageWorks() {
@@ -12,6 +23,11 @@ public class ApplicationTest extends FunctionalTest {
         assertIsOk(response);
         assertContentType("text/html", response);
         assertCharset(play.Play.defaultWebEncoding, response);
+    }
+
+    @Test
+    public void testThatProfilePageWorks() {
+        assertIsOk(GET("/profile/ced"));
     }
     
 }

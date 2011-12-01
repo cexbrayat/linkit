@@ -26,6 +26,17 @@ public class Suggestion {
     }
 
     /**
+     * Find all sessions about AT LEAST ONE interest
+     * @param interests
+     * @return 
+     */
+    public static List<Session> findSessionsAbout(Collection<Interest> interests) {
+        return Session.find(
+                "select distinct s from Session s join s.interests as i "
+                + "where i in (:interests) group by s").bind("interests", interests).fetch();
+    }
+
+    /**
      * Find all Members Interested in ALL of the interests
      * @param interests
      * @return members interested
@@ -37,7 +48,7 @@ public class Suggestion {
     }
     
      /**
-     * Suggest all Members with the same interests
+     * Suggest members sharing interest with given member
      * Currently : algorithm is base on the findMembersInterestedInOneOf method!
      * The suggested Members must only have AT LEAST ONE common interest with the member
      * These members must NOT contain the member!
@@ -58,6 +69,21 @@ public class Suggestion {
             suggestions = Sets.newHashSet(suggestedMembers);
         }
         return suggestions;
+    }
+    
+     /**
+     * Suggest all sessions sharing interests of given member
+     * @param member
+     * @return Set of suggested sessions
+     */
+    public static Set<Session> suggestedSessionsFor(Member member) {
+        Set<Session> sessions = Sets.newHashSet();
+        if (!member.interests.isEmpty()) {
+            List<Session> allSuggestedSessions = findSessionsAbout(member.interests);
+            // TODO Don't suggest a session where member has already plan to go.
+            sessions.addAll(allSuggestedSessions);
+        }
+        return sessions;
     }
     
 }

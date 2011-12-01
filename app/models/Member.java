@@ -1,21 +1,30 @@
 package models;
 
-
+import com.google.common.base.Predicate;
+import models.auth.AuthAccount;
+import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import controllers.JobFetchUserTimeline;
+import helpers.badge.BadgeComputationContext;
+import helpers.badge.BadgeComputer;
+import helpers.badge.BadgeComputerFactory;
 import java.util.*;
 import javax.persistence.*;
 
+import models.activity.Activity;
 import models.activity.EarnBadgeActivity;
 import models.activity.LinkActivity;
+import models.activity.LookProfileActivity;
 import models.activity.SignUpActivity;
+import models.activity.StatusActivity;
 import models.activity.UpdateProfileActivity;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-
 import org.hibernate.annotations.IndexColumn;
+import play.Logger;
 import play.data.validation.Required;
 import play.db.jpa.*;
 
@@ -33,75 +42,143 @@ import play.db.jpa.*;
     + "left outer join fetch m.linkers "
     + "left outer join fetch m.badges "
     + "left outer join fetch m.interests "
+    + "left outer join fetch m.lightningTalks "
     + "where m.login=:login")
 })
-public class Member extends Model {
+public class Member extends Model implements Lookable {
 
     static final String QUERY_BYLOGIN = "MemberByLogin";
     static final String QUERY_FORPROFILE = "MemberForProfile";
+    
     /** Internal login : functional key */
-    @Column(nullable = false, unique = true, updatable = false)
+    @Column(nullable = false, unique = true, updatable = true)
     @IndexColumn(name = "login_UK_IDX", nullable = false)
     @Required
     public String login;
+    
     @Required
     public String email;
-    public String firstname;
-    public String lastname;
-    /** Name under which he wants to be displayed */
+    
     @Required
-    public String displayName;
+    public String firstname;
+    
+    @Required
+    public String lastname;
+    
     /** User-defined description, potentially as MarkDown */
     @Lob
     @Required
     public String description;
-    /** Twitter account name */
-    public String twitterName;
-    /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumberInsteadOfABetterId} as seen on Google+' profile link */
-    public String googlePlusId;
+
     /**
      * Members he follows
      */
-    @ManyToMany()
+    @ManyToMany
     public Set<Member> links = new HashSet<Member>();
     /**
      * Members who follow him : reverse-mapping of {@link Member#links}
      */
     @ManyToMany(mappedBy = "links")
     public Set<Member> linkers = new HashSet<Member>();
+    
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
     public Set<Account> accounts = new HashSet<Account>();
+    
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
+    
     @ElementCollection
     public Set<Badge> badges = EnumSet.noneOf(Badge.class);
 
-    public Member(String login, Account account) {
+    @OneToMany(mappedBy="speaker")
+    public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
+    
+    /** Number of profile consultations */
+    public long nbConsults;
+
+    public Member(String login) {
         this.login = login;
-        addAccount(account);
     }
 
     public final void addAccount(Account account) {
         if (account != null) {
             account.member = this;
             this.accounts.add(account);
-            // On préinitialise son profil avec les données récupérées du compte
-            account.initMemberProfile();
+        }
+    }
+    
+    public final void removeAccount(Account account) {
+        if (account != null) {
+            this.accounts.remove(account);
+            account.member = null;
+            StatusActivity.deleteForMember(this, account.provider);
         }
     }
 
     /**
+     * Find an activated social network account for given provider
+     * @param provider Provider searched
+     * @return Activated account found, null otherwise
+     */
+    public Account getAccount(final ProviderType provider) {
+        // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
+        Predicate<Account> p = new Predicate<Account>() {
+            public boolean apply(Account a) {
+                return a.provider == provider;
+            }
+        };
+        return Iterables.find(accounts, p, null);
+    }
+    
+    public GoogleAccount getGoogleAccount() {
+        return (GoogleAccount) getAccount(ProviderType.Google);
+    }
+    
+    public TwitterAccount getTwitterAccount() {
+        return (TwitterAccount) getAccount(ProviderType.Twitter);
+    }
+    
+    /**
+     * Preserve {@link ProviderType} enumeration order (used on UI)
+     * @return All providers where the member has an activated social network account
+     */
+    public List<ProviderType> getAccountProviders() {
+        // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
+        List<ProviderType> providers = Lists.newArrayList(Collections2.transform(this.accounts, new Function<Account, ProviderType>() {
+            public ProviderType apply(Account a) {
+                return a.provider;
+            }
+        }));
+        providers.add(ProviderType.LinkIt);   // LinkIt est toujours un provider actif
+        Collections.sort(providers);    // Ensure enumeration order
+        return providers;
+    }
+    
+    /**
+     * Preserve {@link ProviderType} enumeration order (used on UI)
+     * @return All social network accounts
+     */
+    public List<Account> getOrderedAccounts() {
+        List<Account> orderedAccounts = Lists.newArrayList(accounts);
+        Collections.sort(orderedAccounts);
+        return orderedAccounts;
+    }
+    
+    /**
      * Find unique member having given login.
      * Seems this request is very often used, it's better to used it (more efficient with named query usage) instead of Play! find("byLogin", login)
-     * @param login Login to find
-     * @return Member found, null if none.
+     * @param login Login to find. May be null.
+     * @return Member found, null if none (or if login null).
      */
     public static <M extends Member> M findByLogin(final String login) {
         M member = null;
-        try {
-            member = (M) em().createNamedQuery(QUERY_BYLOGIN).setParameter("login", login).getSingleResult();
-        } catch (NoResultException ex) {
-            member = null;
+        if (login != null) {
+            try {
+                member = (M) em().createNamedQuery(QUERY_BYLOGIN).setParameter("login", login).getSingleResult();
+            } catch (NoResultException ex) {
+                member = null;
+            }
         }
         return member;
     }
@@ -153,21 +230,17 @@ public class Member extends Model {
     }
 
     public boolean isLinkedTo(final String loginToLink) {
-        return CollectionUtils.exists(links, new Predicate() {
-
-            public boolean evaluate(Object o) {
-                Member linked = (Member) o;
+        return Iterables.any(links, new Predicate<Member>() {
+            public boolean apply(Member linked) {
                 return loginToLink.equals(linked.login);
             }
         });
     }
 
     public boolean hasForLinker(final String loginToLink) {
-        return CollectionUtils.exists(linkers, new Predicate() {
-
-            public boolean evaluate(Object o) {
-                Member linked = (Member) o;
-                return loginToLink.equals(linked.login);
+        return Iterables.any(linkers, new Predicate<Member>() {
+            public boolean apply(Member linker) {
+                return loginToLink.equals(linker.login);
             }
         });
     }
@@ -206,14 +279,28 @@ public class Member extends Model {
     }
 
     /**
-     * Register user a new Link-IT user
+     * Register a new Link-IT user with given authentication account
      */
-    public Member register() {
+    public Member register(AuthAccount account) {
         save();
+        authenticate(account);
+        account.save();
         new SignUpActivity(this).save();
         return this;
     }
 
+    /**
+     * User authenticated with given account
+     * @param account 
+     */
+    public void authenticate(AuthAccount account) {
+        if (account != null) {
+            account.member = this;
+            // On préinitialise son profil avec les données récupérées du compte
+            account.initMemberProfile();
+        }
+    }
+    
     /**
      * Update user profile
      */
@@ -222,6 +309,32 @@ public class Member extends Model {
         new UpdateProfileActivity(this).save();
         new JobFetchUserTimeline(this).now();
         return this;
+    }
+
+    public void computeBadges(Set<Badge> potentialBadges, BadgeComputationContext context) {
+
+        // Avoid to recompute an already earned badge
+        potentialBadges.removeAll(badges);
+
+        if (!potentialBadges.isEmpty()) {
+            // Retrieving badge computers for thoses potential badges
+            Set<BadgeComputer> computers = BadgeComputerFactory.getFor(potentialBadges);
+
+            // Computing all granted badges
+            Set<Badge> grantedBadges = EnumSet.noneOf(Badge.class);
+            for (BadgeComputer computer : computers) {
+                grantedBadges.addAll(computer.compute(this, context));
+            }
+
+            // Granting earned badges to member
+            if (!grantedBadges.isEmpty()) {
+                for (Badge badge : grantedBadges) {
+                    Logger.debug("Le membre %s se voit attribuer le badge %s", this, badge);
+                    addBadge(badge);
+                }
+                save();
+            }
+        }
     }
 
     @Override
@@ -233,12 +346,18 @@ public class Member extends Model {
             return false;
         }
         final Member other = (Member) obj;
-        return new EqualsBuilder().append(this.login, other.login).isEquals();
+        return new EqualsBuilder()
+                .append(this.id, other.id)
+                .append(this.login, other.login)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(this.login).toHashCode();
+        return new HashCodeBuilder()
+                .append(this.id)
+                .append(this.login)
+                .toHashCode();
     }
 
     /**
@@ -247,10 +366,39 @@ public class Member extends Model {
      */
     @Override
     public String toString() {
-        return displayName;
+        return new StringBuilder()
+                .append(firstname)
+                .append(' ')
+                .append(lastname)
+                .append(" (")
+                .append(login)
+                .append(')')
+                .toString();
     }
 
     public boolean hasRole(String profile) {
         return false;
+    }
+
+    public long getNbLooks() {
+        return nbConsults;
+    }
+
+    public void lookedBy(Member member) {
+        if (!this.equals(member)) {
+            nbConsults++;
+            save();
+            if (member != null) {
+                new LookProfileActivity(member, this).save();                
+            }
+        }
+    }
+
+    @Override
+    public Member delete() {
+        Activity.deleteForMember(this);
+        AuthAccount.deleteForMember(this);
+        Comment.deleteForMember(this);
+        return super.delete();
     }
 }

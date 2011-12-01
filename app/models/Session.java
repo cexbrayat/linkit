@@ -13,7 +13,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
-import models.activity.CommentActivity;
+import models.activity.CommentSessionActivity;
+import models.activity.LookSessionActivity;
 import models.activity.UpdateSessionActivity;
 import org.apache.commons.lang.StringUtils;
 import play.data.validation.MaxSize;
@@ -27,7 +28,7 @@ import play.db.jpa.Model;
  * @author Agnes <agnes.crepet@gmail.com>
  */
 @Entity
-public class Session extends Model {
+public class Session extends Model implements Lookable {
 
     @Required
     @MaxSize(50)
@@ -42,6 +43,7 @@ public class Session extends Model {
     @Lob
     @Required
     public String description;
+
     @ManyToMany
     @MinSize(1)
     public Set<Speaker> speakers = new HashSet<Speaker>();
@@ -52,7 +54,10 @@ public class Session extends Model {
     /** Eventual comments */
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     @OrderBy("postedAt ASC")
-    List<Comment> comments;
+    List<SessionComment> comments;
+    
+    /** Number of consultation */
+    public long nbConsults;
 
     public final void addSpeaker(Speaker speaker) {
         if (speaker != null) {
@@ -73,12 +78,12 @@ public class Session extends Model {
      * Save comment! Best practices in add method?
      * @param comment 
      */
-    public void addComment(Comment comment) {
+    public void addComment(SessionComment comment) {
         comment.session = this;
         comment.save();
         comments.add(comment);
         
-        new CommentActivity(comment.author, this, comment).save();
+        new CommentSessionActivity(comment.author, this, comment).save();
     }
 
     public static List<Session> findSessionsLinkedWith(String interest) {
@@ -117,5 +122,19 @@ public class Session extends Model {
     @Override
     public String toString() {
         return title;
+    }
+
+    public long getNbLooks() {
+        return nbConsults;
+    }
+
+    public void lookedBy(Member member) {
+        if (member == null || !speakers.contains(member)) {
+            nbConsults++;
+            save();
+            if (member != null) {
+                new LookSessionActivity(member, this).save();                
+            }
+        }
     }
 }

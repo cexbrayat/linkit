@@ -34,7 +34,7 @@ public class StaffTest extends UnitTest {
     }
 
     @Test public void create() {
-        Staff s = new Staff("toto", new LinkItAccount("password"));
+        Staff s = new Staff("toto");
         assertNotNull(s.badges);
         assertTrue(s.badges.contains(Badge.Staff));
         s.save();

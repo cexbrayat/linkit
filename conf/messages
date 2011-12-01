@@ -6,12 +6,12 @@
 
 # FIXME conflict with (Member.)description and (Session.)description : needs a deep refactoring
 
+login=Nom d'utilisateur
+login.note=Votre login, nom d'utilisateur, pseudonyme. Si vous le modifiez, les éventuelles URL vous concernant que vous auriez bookmarkées ne seront plus valides.
 lastname=Nom
-lastname.note=Il restera confidentiel (ou pas)
+lastname.note=Nom de famille
 firstname=Prénom
-firstname.note=Il restera confidentiel (ou pas)
-displayName=Pseudonyme
-displayName.note=Nom sous lequel vous voulez apparaître sur le site
+firstname.note=
 email=Email
 email.note=
 description=Description
@@ -39,14 +39,32 @@ talk.track.note=
 content=Votre commentaire
 content.note=&{markdown.note}
 
+# Article fields
+article.title=Titre	  	
+article.title.note=Un court titre pour cet article
+article.headline=Accroche
+article.headline.note=Introduction, qui sera affichée dans les listes d'actualité<br/>&{markdown.note}
+article.content=Contenu	  	
+article.content.note=Le contenu de votre article.<br/>&{markdown.note}
+
+# LightningTalk fields
+talk.title.lt.note=Un court titre pour votre lightning talk
+talk.summary.lt.note=Un résumé de votre lightning talk
+talk.description.lt.note=La description complète de votre lightning talk.<br/>&{markdown.note}
+
 # Activities
 activities.more=Afficher plus...
 LinkActivity.message=%1$s s'est linké à %2$s
-CommentActivity.message=%1$s a commenté la session %2$s
+StatusActivity.message=%1$s : %2$s
+CommentSessionActivity.message=%1$s a commenté la session %2$s
+CommentArticleActivity.message=%1$s a commenté l'article %2$s
 SignUpActivity.message=%1$s s'est inscrit
 UpdateProfileActivity.message=%1$s a mis à jour son profil
 UpdateSessionActivity.message=La session %1$s a été mise à jour
 EarnBadgeActivity.message=%1$s a reçu le badge &{badge.%2$s}
+LookSessionActivity.message=%1$s a consulté la session %2$s
+LookProfileActivity.message=%1$s a consulté le profil de %2$s
+LookArticleActivity.message=%1$s a consulté l'article %2$s
 
 # Providers
 provider.LinkIt=Link-IT
@@ -58,9 +76,9 @@ badge.Speaker=Speaker (intervenant sur une session)
 badge.Staff=Staff (membre organisateur de Mix-IT)
 badge.Sponsor=Sponsor (gentil bienfaiteur de Mix-IT)
 badge.Attendee=Participant (Membre inscrit pour la conférence)
-badge.StaffBestFriend=Staff best friend (vous êtes ami avec tous les membres du staff)
-badge.SpeakerFan=Speaker fan (vous êtes ami avec tous les speakers)
-badge.SponsorFriendly=Sponsor friendly (vous êtes ami avec tous les sponsors)
+badge.StaffBestFriend=Staff best friend (vous avez linké tous les membres du staff)
+badge.SpeakerFan=Speaker fan (vous avez linké tous les speakers)
+badge.SponsorFriendly=Sponsor friendly (vous avez linké tous les sponsors)
 badge.Brave=Brave (vous avez posté au moins un commentaire)
 badge.Troller=Troller (vous avez posté au moins dix commentaires)
 badge.NewBorn=New born (vous avez linké au moins un membre)
@@ -72,6 +90,11 @@ badge.LocalCelebrity=Local Celebrity (vous avez été linké par au moins dix me
 badge.RockStar=Rock Star (vous avez été linké par au moins cinquante membres)
 badge.Leader=Leader (vous avez été linké par au moins cent membres)
 badge.Idol=Idol (vous avez été linké par au moins deux cent membres)
+badge.Twittos=Twittos (vous avez twitté à propos de Mix-IT)
+badge.Plusoner=Plusoner (vous avez posté sur Google+ à propos de Mix-IT)
+badge.TwoDaysInARow=2 days in a row (vous avez utilisé le site deux jours de suite)
+badge.FiveDaysInARow=5 days in a row (vous avez utilisé le site cinq jours de suite)
+badge.MixITAddict=Mix-IT addict (vous avez utilisé le site dix jours de suite)
 
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
@@ -89,3 +112,4 @@ validation.required=La saisie du champ %s est obligatoire
 validation.email=Saisir un email valide
 validation.minSize=Le nombre maximum de %s est %d.
 validation.maxSize=Le nombre maximum de %s est %d
+validation.login.unique=Trop tard, le login %s est déjà utilisé! Trouvez-en un autre.

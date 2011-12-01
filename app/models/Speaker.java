@@ -23,8 +23,8 @@ public class Speaker extends Member {
         ROLES.add(Role.ADMIN_SESSION);
     }
     
-    public Speaker(String login, Account account) {
-        super(login, account);
+    public Speaker(String login) {
+        super(login);
         // Can't call addBadge() on a transient instance (and don't want to trigger activity)
         this.badges.add(Badge.Speaker);
     }
