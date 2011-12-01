@@ -80,7 +80,11 @@
                     #{list suggestedSessions, as:'suggest'}
                         <li><a href="@{Sessions.show(suggest.id)}" title="${suggest}">${suggest.title}</a></li>
                     #{/list}
-                    <ul/>
+                    </ul>
+                #{/if}
+                #{if suggestedBadges}
+                    <h3>Les badges qu'il vous manque :</h3>
+                    #{badges suggestedBadges /}
                 #{/if}
             </div>
 
@@ -104,7 +108,7 @@
                     <script type="text/javascript">
                         var providers = ['${models.ProviderType.values().join("','")}'];
                         var page = 1;
-                        var size = 5;
+                        var size = 10;
                         var activitiesAction = #{jsAction @Activities.incoming(':providers', ':page',':size') /};
                         var spinner = $('#activitiesSpinner');
                         var btnMoreActivities = $('#moreActivities');

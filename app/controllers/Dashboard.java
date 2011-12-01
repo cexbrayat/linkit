@@ -1,9 +1,11 @@
 package controllers;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
 import models.Article;
+import models.Badge;
 import models.Comment;
 import models.Member;
 import models.Session;
@@ -16,13 +18,15 @@ public class Dashboard extends PageController {
 
         Set<Member> suggestedMembers = Suggestion.suggestedMembersFor(member);
         Set<Session> suggestedSessions = Suggestion.suggestedSessionsFor(member);
+        Set<Badge> suggestedBadges = EnumSet.complementOf(EnumSet.copyOf(member.badges));
 
         // Three recent articles
         List<Article> articles = Article.recents(1, 3);
 
+        // Five recent comments
         List<Comment> comments = Comment.recentsByMember(member, 5);
 
-        render(member, suggestedMembers, suggestedSessions, articles, comments);
+        render(member, suggestedMembers, suggestedSessions, suggestedBadges, articles, comments);
     }
 
     public static void link(String loginToLink) {
