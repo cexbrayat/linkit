@@ -25,7 +25,7 @@
                     <h5>Session${member.sessions.size().pluralize()} :</h5>
                     <ul>
                     #{list items:member.sessions, as:'talk'}
-                        <li><a href="@{Sessions.show(talk.id)}">${talk.title}</a></li>
+                        <li>#{session talk /}</li>
                     #{/list}
                     </ul>
                 #{/if}

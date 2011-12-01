@@ -16,8 +16,8 @@
         </thead> 
         <tbody>        
             #{list items:_members, as:'member'}
-            <tr onclick="document.location.href='@{Profile.show(member.login)}';">
-                <td>${member}</td> 
+            <tr>
+                <td>#{member member /}</td> 
                 <td>
                     #{badges member.badges /}
                 </td>

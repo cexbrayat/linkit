@@ -43,10 +43,14 @@
 .sponsor {
 }
 
+.sharedLink {
+}
+
 .sharedLink img {
     max-height: 16px;
     max-width: 16px;
     margin-right: 3px;
+    vertical-align: middle;
 }
 
 .checkbox {
