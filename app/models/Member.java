@@ -1,8 +1,7 @@
 package models;
 
-import com.google.common.base.Predicate;
-import models.auth.AuthAccount;
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -10,16 +9,8 @@ import controllers.JobFetchUserTimeline;
 import helpers.badge.BadgeComputationContext;
 import helpers.badge.BadgeComputer;
 import helpers.badge.BadgeComputerFactory;
-import java.util.*;
-import javax.persistence.*;
-
-import models.activity.Activity;
-import models.activity.EarnBadgeActivity;
-import models.activity.LinkActivity;
-import models.activity.LookProfileActivity;
-import models.activity.SignUpActivity;
-import models.activity.StatusActivity;
-import models.activity.UpdateProfileActivity;
+import models.activity.*;
+import models.auth.AuthAccount;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -27,47 +18,58 @@ import org.hibernate.annotations.IndexColumn;
 import play.Logger;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
-import play.db.jpa.*;
+import play.db.jpa.Model;
+
+import javax.persistence.*;
+import java.util.*;
 
 /**
  * A LinkIT member.
+ *
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @NamedQueries({
-    @NamedQuery(name = Member.QUERY_BYLOGIN, query = "from Member m where m.login=:login"),
-    @NamedQuery(name = Member.QUERY_FORPROFILE,
-    query = "select m from Member m "
-    + "left outer join fetch m.links "
-    + "left outer join fetch m.linkers "
-    + "left outer join fetch m.badges "
-    + "left outer join fetch m.interests "
-    + "left outer join fetch m.lightningTalks "
-    + "left outer join fetch m.sharedLinks "
-    + "where m.login=:login")
+        @NamedQuery(name = Member.QUERY_BYLOGIN, query = "from Member m where m.login=:login"),
+        @NamedQuery(name = Member.QUERY_FORPROFILE,
+                query = "select m from Member m "
+                        + "left outer join fetch m.links "
+                        + "left outer join fetch m.linkers "
+                        + "left outer join fetch m.badges "
+                        + "left outer join fetch m.interests "
+                        + "left outer join fetch m.lightningTalks "
+                        + "left outer join fetch m.sharedLinks "
+                        + "where m.login=:login")
 })
 public class Member extends Model implements Lookable {
 
     static final String QUERY_BYLOGIN = "MemberByLogin";
     static final String QUERY_FORPROFILE = "MemberForProfile";
-    
-    /** Internal login : functional key */
+
+    /**
+     * Internal login : functional key
+     */
     @Column(nullable = false, unique = true, updatable = true)
     @IndexColumn(name = "login_UK_IDX", nullable = false)
     @Required
     public String login;
-    
+
     @Required
     public String email;
-    
+
     @Required
     public String firstname;
-    
+
     @Required
     public String lastname;
-    
-    /** User-defined description, potentially as MarkDown */
+
+    @Required
+    public String company;
+
+    /**
+     * User-defined description, potentially as MarkDown
+     */
     @Lob
     @Required
     public String description;
@@ -82,26 +84,28 @@ public class Member extends Model implements Lookable {
      */
     @ManyToMany(mappedBy = "links")
     public Set<Member> linkers = new HashSet<Member>();
-    
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
     public Set<Account> accounts = new HashSet<Account>();
-    
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
-    
+
     @ElementCollection
     public Set<Badge> badges = EnumSet.noneOf(Badge.class);
 
-    @OneToMany(mappedBy="speaker", cascade= CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "speaker", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
 
-    @OneToMany(mappedBy="member", cascade = CascadeType.ALL, orphanRemoval = true)
-    @OrderColumn(name="ordernum")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderColumn(name = "ordernum")
     @MaxSize(5)
     public List<SharedLink> sharedLinks = new ArrayList<SharedLink>();
-    
-    /** Number of profile consultations */
+
+    /**
+     * Number of profile consultations
+     */
     public long nbConsults;
 
     public Member(String login) {
@@ -114,7 +118,7 @@ public class Member extends Model implements Lookable {
             this.accounts.add(account);
         }
     }
-    
+
     public final void removeAccount(Account account) {
         if (account != null) {
             this.accounts.remove(account);
@@ -125,6 +129,7 @@ public class Member extends Model implements Lookable {
 
     /**
      * Find an activated social network account for given provider
+     *
      * @param provider Provider searched
      * @return Activated account found, null otherwise
      */
@@ -137,17 +142,18 @@ public class Member extends Model implements Lookable {
         };
         return Iterables.find(accounts, p, null);
     }
-    
+
     public GoogleAccount getGoogleAccount() {
         return (GoogleAccount) getAccount(ProviderType.Google);
     }
-    
+
     public TwitterAccount getTwitterAccount() {
         return (TwitterAccount) getAccount(ProviderType.Twitter);
     }
-    
+
     /**
      * Preserve {@link ProviderType} enumeration order (used on UI)
+     *
      * @return All providers where the member has an activated social network account
      */
     public List<ProviderType> getAccountProviders() {
@@ -161,9 +167,10 @@ public class Member extends Model implements Lookable {
         Collections.sort(providers);    // Ensure enumeration order
         return providers;
     }
-    
+
     /**
      * Preserve {@link ProviderType} enumeration order (used on UI)
+     *
      * @return All social network accounts
      */
     public List<Account> getOrderedAccounts() {
@@ -171,10 +178,11 @@ public class Member extends Model implements Lookable {
         Collections.sort(orderedAccounts);
         return orderedAccounts;
     }
-    
+
     /**
      * Find unique member having given login.
      * Seems this request is very often used, it's better to used it (more efficient with named query usage) instead of Play! find("byLogin", login)
+     *
      * @param login Login to find. May be null.
      * @return Member found, null if none (or if login null).
      */
@@ -289,12 +297,12 @@ public class Member extends Model implements Lookable {
         link.member = this;
         this.sharedLinks.add(link);
     }
-    
+
     public void addLightningTalk(LightningTalk talk) {
         talk.speaker = this;
         this.lightningTalks.add(talk);
     }
-    
+
     /**
      * Register a new SharedLink-IT user with given authentication account
      */
@@ -308,7 +316,8 @@ public class Member extends Model implements Lookable {
 
     /**
      * User authenticated with given account
-     * @param account 
+     *
+     * @param account
      */
     public void authenticate(AuthAccount account) {
         if (account != null) {
@@ -317,7 +326,7 @@ public class Member extends Model implements Lookable {
             account.initMemberProfile();
         }
     }
-    
+
     /**
      * Update user profile
      */
@@ -379,7 +388,8 @@ public class Member extends Model implements Lookable {
 
     /**
      * Display member. WARNING : used on UI as main display of user.
-     * @return 
+     *
+     * @return
      */
     @Override
     public String toString() {
@@ -406,7 +416,7 @@ public class Member extends Model implements Lookable {
             nbConsults++;
             save();
             if (member != null) {
-                new LookProfileActivity(member, this).save();                
+                new LookProfileActivity(member, this).save();
             }
         }
     }

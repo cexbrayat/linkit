@@ -47,8 +47,16 @@
                     #{/list}
                     </ul>
                 #{/if}
-                
-                ${member.description?.markdown().raw()}
+                <div class="row">
+                    <div class="span3">
+                        ${member.company}
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        ${member.description?.markdown().raw()}
+                    </div>
+                </div>
                 
                 #{if session.get("username") != null && !session.get("username").equals(member.login)}
                     #{if !member.hasForLinker(session.get("username"))}
