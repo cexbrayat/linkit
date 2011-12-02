@@ -65,11 +65,15 @@
                     #{/list}
                     </ul>
                 #{/if}
-                <div id="longDescription" class="row" style="display: none">
-                    ${member.longDescription?.markdown().raw()}
-                </div>
-                <a id="showMore" href="#" onclick="toggleShowMore()">&#x21CA; Plus de détails &#x21CA;</a>
-
+                #{if member.longDescription}
+                <p>
+                    <div id="longDescription" style="display: none">
+                        ${member.longDescription?.markdown().raw()}
+                    </div>
+                    <a id="showMore" href="#" onclick="toggleShowMore()">&#x21CA; Plus de détails &#x21CA;</a>
+                </p>
+                #{/if}
+                
                 #{if session.get("username") != null && !session.get("username").equals(member.login)}
                     #{if !member.hasForLinker(session.get("username"))}
                         <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
@@ -84,15 +88,15 @@
                         <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
                             #{else} link${member.links.size().pluralize()} #{/else}
                         </h3>
-                        #{list items:member.links, as:'link'}       
-                        <a id="linkTo${link.login}" href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                        #{list items:member.links, as:'link'}
+                            #{member link, short:true, elementId:'linkTo${link.login}' /}
                         #{/list}
                     </div>
                     <div class="span3">
                         <h3>${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
                             #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
-                        #{list items:member.linkers, as:'link'}
-                        <a id="linkerTo${link.login}" href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                        #{list items:member.linkers, as:'linker'}
+                            #{member linker, short:true, elementId:'linkerTo${link.login}' /}
                         #{/list}
                     </div>
                 </div>
