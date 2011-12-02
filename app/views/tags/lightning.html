@@ -9,7 +9,7 @@
 
     });
 
-    var voteAction = #{jsAction @vote(':talk', ':member', ':value') /};
+    var voteAction = #{jsAction @Votes.vote(':talk', ':member', ':value') /};
 </script>
 <table class="zebra-striped" id="sortSession">
     <thead>
@@ -27,7 +27,7 @@
                     class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
         </td>
         <td>
-            <a href="@{Profile.show(talk.speaker.login)}">${talk.speaker}</a>
+            #{member talk.speaker /}
         </td>
         <td>
             <div class="vote-counter" id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>

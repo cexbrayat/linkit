@@ -27,7 +27,7 @@
                 <td>#{session talk /}</td>
                 <td>
                     #{list items:talk.speakers, as:'speaker'}
-                        <a href="@{Profile.show(speaker.login)}">#{member speaker /}</a>#{if !speaker_isLast}, #{/if}
+                        #{member speaker /}#{if !speaker_isLast}, #{/if}
                     #{/list}
                 </td>
                 <td>
