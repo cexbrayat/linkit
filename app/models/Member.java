@@ -74,9 +74,16 @@ public class Member extends Model implements Lookable {
     /**
      * User-defined description, potentially as MarkDown
      */
+    @Required
+    @MaxSize(140)
+    public String shortDescription;
+
+    /**
+     * User-defined description, potentially as MarkDown
+     */
     @Lob
     @Required
-    public String description;
+    public String longDescription;
 
     /**
      * Members he follows

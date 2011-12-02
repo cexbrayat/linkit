@@ -107,7 +107,7 @@ $(document).ready(function() {
             <div class="row">
                 #{list items:members, as:'member'}
                 <div style="padding-top: 20px" class="span-one-third">
-                    <a href="@{Profile.show(member.login)}">#{member member /}</a>
+                    #{member member /}
                 </div>
                 #{/list}
             </div>

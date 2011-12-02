@@ -60,8 +60,8 @@ public class MemberTest extends UnitTest {
     public void saveWithBigDescription() {
         Member bob = Member.findByLogin("bob");
         String description = StringUtils.rightPad("testwith4000char", 4000+3000, "a");
-        bob.description = description;
-        assert(bob.description.length()>4000);
+        bob.longDescription = description;
+        assert(bob.longDescription.length()>4000);
         bob.save();
     }
     

@@ -64,7 +64,7 @@
                     <ul class="nav secondary-nav">
                         #{if session.username} 
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a href="#" class="dropdown-toggle">#{member models.Member.findByLogin(session.username) /}</a>
+                            <a href="#" class="dropdown-toggle">#{member models.Member.findByLogin(session.username), static:true /}</a>
                             <ul class="dropdown-menu">
                                 <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">Mon dashboard</a></li>
                                 <li><a href="@{Profile.show(session.username)}">Voir mon profil</a></li>
