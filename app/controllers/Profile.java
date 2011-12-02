@@ -89,7 +89,6 @@ public class Profile extends PageController {
 
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
-            flash.put("sharedLinks", sharedLinks);
             render("Profile/edit.html", member, newInterests, sharedLinks);
         }
 
