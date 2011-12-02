@@ -71,11 +71,22 @@
                 </div><!-- /clearfix -->
                 #{/}
 
+                #{field 'shortDescription'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <textarea class="xlarge" id="${field.id}" name="${field.name}" size="30" rows="2">${member?.shortDescription}</textarea>
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div> 
+                </div><!-- /clearfix -->
+                #{/}
+
                 #{field 'description'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="30" rows="3">${member?.description}</textarea>
+                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="30" rows="4">${member?.longDescription}</textarea>
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 

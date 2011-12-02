@@ -1,5 +1,19 @@
 #{extends 'main.html' /}
 #{set title:member.toString() /}
+#{set 'moreScripts'}
+<script type="text/javascript">
+    function toggleShowMore() {
+        var longDescription = $('#longDescription');
+        var showMore = $('#showMore');
+        if (longDescription.css('display')=='none') {
+            showMore.html('&#x21C8; Moins de détails &#x21C8;');
+        } else {
+            showMore.html('&#x21CA; Plus de détails &#x21CA;');
+        }
+        longDescription.slideToggle();
+    }
+</script>
+#{/set}
 <div class="container">
     <div class="hero-unit">
         <h2>${member}</h2>
@@ -14,11 +28,15 @@
                     <div class="span3">
                         ${member.getNbLooks()} consultation${member.getNbLooks().pluralize()}
                         <br/>
-
+                        ${member?.company}
+                        <br/>
                         #{list items:member.getOrderedAccounts(), as:'account'}       
                             <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}"></a>
                         #{/list}
                     </div>
+                </div>
+                <div id="shortDescription" class="row">
+                    ${member.shortDescription?.markdown().raw()}
                 </div>
 
                 #{if member instanceof models.Speaker}
@@ -47,17 +65,11 @@
                     #{/list}
                     </ul>
                 #{/if}
-                <div class="row">
-                    <div class="span3">
-                        ${member.company}
-                     </div>
+                <div id="longDescription" class="row" style="display: none">
+                    ${member.longDescription?.markdown().raw()}
                 </div>
-                <div class="row">
-                    <div class="span3">
-                        ${member.description?.markdown().raw()}
-                    </div>
-                </div>
-                
+                <a id="showMore" href="#" onclick="toggleShowMore()">&#x21CA; Plus de détails &#x21CA;</a>
+
                 #{if session.get("username") != null && !session.get("username").equals(member.login)}
                     #{if !member.hasForLinker(session.get("username"))}
                         <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>

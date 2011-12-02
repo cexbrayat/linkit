@@ -4,18 +4,18 @@ Member(bob):
     firstname: Bob
     lastname: Name
     login: bob
-    description: is bob
+    shortDescription: is bob
 
 models.auth.LinkItAccount(bobAccount):
     provider: LinkIt
     member: bob
     password: secret
-    
+
 Staff(ced):
     firstname: Ced
     lastname: Name
     login: ced
-    description: is ced
+    shortDescription: is ced
     links:           
          - bob
     badges:           
@@ -37,9 +37,7 @@ Speaker(rguy) :
     lastname: Guy
     login: rguy
     email: rguy@google.com
-    description : Test description
-    twitterName: romainguy
-    googlePlusId: 
+    shortDescription : Test description
     badges:
          - Speaker
 
