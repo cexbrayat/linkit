@@ -109,7 +109,7 @@ public class Member extends Model implements Lookable {
     @OneToMany(mappedBy = "speaker", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @OrderColumn(name = "ordernum")
     @MaxSize(5)
     public List<SharedLink> sharedLinks = new ArrayList<SharedLink>();
@@ -305,11 +305,32 @@ public class Member extends Model implements Lookable {
     }
 
     public void addSharedLink(SharedLink link) {
-        link.member = this;
-        this.sharedLinks.add(link);
-        link.save();
+        if (!this.sharedLinks.contains(link)) {
+            link.member = this;
+            link.ordernum = this.sharedLinks.size();
+            this.sharedLinks.add(link);
+            link.save();
 
-        new SharedLinkActivity(link).save();
+            new SharedLinkActivity(link).save();
+        }
+    }
+
+    public void updateSharedLinks(List<SharedLink> links) {
+        
+        // Can't simply call sharedLinks.clear() then addAll() : we don't want to add already shared links to avoir duplicated activity
+        
+        // Suppression des liens obsolètes
+        for (Iterator<SharedLink> itLink = this.sharedLinks.iterator(); itLink.hasNext(); ) {
+            SharedLink existing = itLink.next();
+            if (!links.contains(existing)) {
+                itLink.remove();
+                existing.delete();
+            }
+        }
+        // Ajout des nouveaux liens
+        for (SharedLink link : links) {
+            addSharedLink(link);
+        }
     }
 
     public void addLightningTalk(LightningTalk talk) {

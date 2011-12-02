@@ -135,6 +135,32 @@
     <hr/>
     <div class="row"> 
         <div class="span4 columns"> 
+            <h2>Vos liens</h2> 
+            <p>Des liens que vous voulez faire apparaître sur votre profil et que vous aimeriez partager.</p> 
+        </div> 
+        <div class="span12 columns">
+            <fieldset>
+                <legend>Vos liens</legend>
+ 
+                #{list items:0..4, as:'i'}
+                    #{field 'sharedLinks'}
+                    <div class="clearfix ${field.error?'error':''}">
+                        <div class="input">
+                            <div class="inline-inputs">
+                                <input class="span3" id="${field.id}_name" name="${field.name}[${i}].name" type="text" value="${member.sharedLinks[i]?.name}" /> 
+                                <input class="span6" id="${field.id}_URL" name="${field.name}[${i}].URL" type="text" value="${member.sharedLinks[i]?.URL}" /> 
+                                <span class="help-inline">${field.error}</span>
+                            </div>
+                        </div> 
+                    </div><!-- /clearfix -->
+                    #{/}
+                #{/list}
+            </fieldset>
+        </div>
+    </div>
+    <hr/>
+    <div class="row"> 
+        <div class="span4 columns"> 
             <h2>Centres d'intérêt</h2> 
             <p>Les sujets qui vous intéressent, et que vous souhaitez creuser à Mix-IT et sur ce site.</p> 
         </div> 
