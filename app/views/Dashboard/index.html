@@ -54,13 +54,13 @@
                 #{if member.links}
                     <h3>Vous êtes lié à :</h3>
                     #{list items:member.links, as:'link'}
-                    <a href="@{Profile.show(link.login)}" rel='twipsy' title='${link}'>#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                       #{member link, short:true}
                     #{/list}
                 #{/if}
                 #{if member.linkers}
                     <h3>Ils vous ont lié :</h3>
                     #{list items:member.linkers, as:'link'}
-                    <a href="@{Profile.show(link.login)}" rel='twipsy' title="${link}">#{gravatar.img link.email, size:24, default:'mm', rating:'pg', secure:true/}</a>
+                       #{member link, short:true}
                     #{/list}
                 #{/if}
                 #{if suggestedMembers}
