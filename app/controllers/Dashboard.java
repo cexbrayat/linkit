@@ -18,7 +18,7 @@ public class Dashboard extends PageController {
 
         Set<Member> suggestedMembers = Suggestion.suggestedMembersFor(member);
         Set<Session> suggestedSessions = Suggestion.suggestedSessionsFor(member);
-        Set<Badge> suggestedBadges = EnumSet.complementOf(EnumSet.copyOf(member.badges));
+        Set<Badge> suggestedBadges = Suggestion.missingBadgesFor(member);
 
         // Three recent articles
         List<Article> articles = Article.recents(1, 3);

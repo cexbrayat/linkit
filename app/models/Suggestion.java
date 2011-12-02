@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
@@ -86,4 +87,9 @@ public class Suggestion {
         return sessions;
     }
     
+    public static Set<Badge> missingBadgesFor(Member member) {
+        // EnumSet.copyOf can't be used on empty collection
+        EnumSet<Badge> badges = (member.badges.isEmpty()) ? EnumSet.noneOf(Badge.class) : EnumSet.copyOf(member.badges);
+        return EnumSet.complementOf(badges);
+    }
 }

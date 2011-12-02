@@ -39,12 +39,6 @@ public class LightningTalk extends Model {
     @ManyToOne
     public Member speaker;
 
-    public void addSpeaker(Member speaker) {
-        if (speaker != null) {
-            this.speaker = speaker;
-        }
-    }
-
     public boolean hasVoteFrom(String username) {
         Member member = Member.findByLogin(username);
         if (member != null) {

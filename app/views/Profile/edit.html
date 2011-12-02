@@ -49,6 +49,17 @@
                 </div><!-- /clearfix -->
                 #{/}
 
+                #{field 'company'}
+                <div class="clearfix ${field.error?'error':''}">
+                    <label for="${field.name}">&{field.name}</label>
+                    <div class="input">
+                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.company}" />
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
+                </div><!-- /clearfix -->
+                #{/}
+
                 #{field 'email'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 

@@ -1,6 +1,6 @@
 *{ Displays _arg article in a short way }*
 
-<h2 class="article title">${_arg.title}</h2>
+<h3 class="article title">${_arg.title}</h3>
 <blockquote class="article headline">
     ${_arg.headline.markdown().raw()}
     <small>Posté par <a href="@{Profile.show(_arg.author.login)}">#{member _arg.author /}</a> le ${_arg.postedAt.format('dd/MM/yyyy à hh:mm')}</small>

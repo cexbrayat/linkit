@@ -1,7 +1,5 @@
 package controllers;
 
-import java.util.List;
-
 import models.*;
 
 import org.apache.commons.lang.StringUtils;
@@ -18,7 +16,7 @@ public class Profile extends PageController {
         render(member);
     }
 
-    public static void save(@Required Long id, @Required String login, String firstname, String lastname, @Required @Email String email, @Required String description, String twitterName, String googlePlusId,
+    public static void save(@Required Long id, @Required String login, String firstname, String lastname, String company, @Required @Email String email, @Required String description, String twitterName, String googlePlusId,
                             String[] interests, String newInterests) {
         Logger.info("Save Profile login {" + login + "}, firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
@@ -29,6 +27,7 @@ public class Profile extends PageController {
         member.description = description;
         member.email = email;
         member.lastname = lastname;
+        member.company = company;
         
         TwitterAccount twitter = member.getTwitterAccount();
         if (StringUtils.isNotBlank(twitterName)) {
