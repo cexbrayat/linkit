@@ -6,6 +6,7 @@ import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
 import play.data.validation.Email;
+import play.data.validation.MaxSize;
 import play.data.validation.Required;
 
 public class Profile extends PageController {
@@ -16,7 +17,7 @@ public class Profile extends PageController {
         render(member);
     }
 
-    public static void save(@Required Long id, @Required String login, String firstname, String lastname, String company, @Required @Email String email, @Required String description, String twitterName, String googlePlusId,
+    public static void save(@Required Long id, @Required String login, String firstname, String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription, String twitterName, String googlePlusId,
                             String[] interests, String newInterests) {
         Logger.info("Save Profile login {" + login + "}, firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
@@ -24,7 +25,8 @@ public class Profile extends PageController {
         Member member = Member.findById(id);
         member.login = login;
         member.firstname = firstname;
-        member.description = description;
+        member.shortDescription = shortDescription;
+        member.longDescription = longDescription;
         member.email = email;
         member.lastname = lastname;
         member.company = company;

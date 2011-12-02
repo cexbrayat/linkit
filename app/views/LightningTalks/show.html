@@ -1,9 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Session ' + talk.title + ' - Mix-IT' /}
+#{set 'moreScripts'}
 <script src="@{'/public/javascripts/vote.js'}"></script>
 <script>
-    var voteAction = #{jsAction @vote(':talk', ':member', ':value') /}
+    var voteAction = #{jsAction @Votes.vote(':talk', ':member', ':value') /}
 </script>
+#{/set}
 <div class="container">
     <div class="hero-unit">
         <h1>${talk.title}</h1>
@@ -14,7 +16,6 @@
             <div id="vote-${talk.id}" class="vote-up #{if talk.hasVoteFrom(session.username)}inactive#{/if}#{else}active#{/else}" onclick="vote(${talk.id}, '${session.username}')">+1</div>
         #{/if}
     </div>
-    <div class="content">
         <div class="row">
             <div class="span3">
                 <h4>Speaker</h4>
@@ -41,5 +42,4 @@
                 ${talk.description?.markdown().raw()}
             </div>
         </div>
-    </div>
 </div>

@@ -54,8 +54,53 @@ Staff(cedric) :
     lastname: Exbrayat
     login: cedric
     email: cexbrayat@gmail.com
-    description : |
+    company : SQLi
+    shortDescription : |
         Je m'appelle Cédric, et je me présente qu'avec moins de 140 caractères.
+    longDescription : |
+        ## Profile description : (long) Markdown sample
+
+        ### Overview
+
+        Great features of Markdown are:
+
+        * It's plain text (e.g., support for version control, create with code)  
+        * It's simple to learn and use
+        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
+        * It's quicker to type than HTML 
+        * It's easy to convert to other formats
+        * Several websites such as Stack Exchange and Github use it
+        * HTML code can be interspersed when features such as tables are not supported 
+
+        It's not for everything, but it's a good tool for certain tasks.
+        I'm still exploring the options, but in the case of blog posts and readme files it works well.
+
+
+        ### Learning the Syntax
+        The markup is simple to learn.
+        I first installed the Markdown Editor in Eclipse  
+        and associated `.md` files with the Markdown editor.
+
+        I then:
+
+        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
+        2. opened the Markdown HTML Preview: 
+        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
+        3. worked through the [Markdown syntax guide][msg]
+        creating simple proof of concept examples, bouncing between
+        the Markdown Editor and the Markdown HTML Preview.
+
+        [msg]: http://daringfireball.net/projects/markdown/syntax
+
+
+        ### Conversion
+        #### Markdown to HTML
+        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
+        can be obtained in several ways.
+
+        * Right click the Markdown HTML Preview and click "View Source"
+        * When in the Markdown editor, go to File -- Export HTML. 
+        This creates a HTML version of the file
     interests:           
          - java
          - hadoop
@@ -98,7 +143,8 @@ Staff(ju) :
     lastname: Ripault
     login: julien
     email: tluapir@gmail.com
-    description : |
+    shortDescription : Entretenir mes cheveux et ma guitare sont mes activités principales.
+    longDescription : |
         ## Profile description : (long) Markdown sample
 
         ### Overview
@@ -176,7 +222,39 @@ Staff(agnes) :
     lastname: Crépet
     login: agnes
     email: agnes.crepet@gmail.com
-    description : |
+    company: Laboratoires Boiron
+    shortDescription : Joe Strummer et Gérald Quintana sont mes deux idôles.
+    interests:
+         - java
+         - spring
+         - tdd
+         - play
+    badges:           
+         - Staff
+
+models.auth.LinkItAccount(agnesAccount):
+    provider: LinkIt
+    member: agnes
+    password: agnes
+
+TwitterAccount(agnesTwitter):
+    provider: Twitter
+    member: agnes
+    screenName: agnes_crepet
+
+GoogleAccount(agnesGoogle):
+    provider: Google
+    member: agnes
+    googleId: 116189330666769817164
+
+Staff(franck) :
+    firstname: Franck
+    lastname: Depierre
+    login: franck
+    email: franck.depierre@gmail.com
+    company: Arkoon
+    shortDescription : CARA *for ever*!
+    longDescription : |
         ## Profile description : (long) Markdown sample
 
         ### Overview
@@ -221,36 +299,6 @@ Staff(agnes) :
         * When in the Markdown editor, go to File -- Export HTML. 
         This creates a HTML version of the file
     interests:
-         - java
-         - spring
-         - tdd
-         - play
-    badges:           
-         - Staff
-
-models.auth.LinkItAccount(agnesAccount):
-    provider: LinkIt
-    member: agnes
-    password: agnes
-
-TwitterAccount(agnesTwitter):
-    provider: Twitter
-    member: agnes
-    screenName: agnes_crepet
-
-GoogleAccount(agnesGoogle):
-    provider: Google
-    member: agnes
-    googleId: 116189330666769817164
-
-Staff(franck) :
-    firstname: Franck
-    lastname: Depierre
-    login: franck
-    email: franck.depierre@gmail.com
-    description : |
-        CARA *for ever*!
-    interests:
          - scrum
          - kanban
     badges:           
@@ -276,8 +324,52 @@ Staff(romain) :
     lastname: Couturier
     login: romain
     email: couturier.romain@gmail.com
-    description : |
-        WinMagine *for ever*!
+    company: WinMagine
+    shortDescription : WinMagine *for ever*!
+    longDescription : |
+        ## Profile description : (long) Markdown sample
+
+        ### Overview
+
+        Great features of Markdown are:
+
+        * It's plain text (e.g., support for version control, create with code)  
+        * It's simple to learn and use
+        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
+        * It's quicker to type than HTML 
+        * It's easy to convert to other formats
+        * Several websites such as Stack Exchange and Github use it
+        * HTML code can be interspersed when features such as tables are not supported 
+
+        It's not for everything, but it's a good tool for certain tasks.
+        I'm still exploring the options, but in the case of blog posts and readme files it works well.
+
+
+        ### Learning the Syntax
+        The markup is simple to learn.
+        I first installed the Markdown Editor in Eclipse  
+        and associated `.md` files with the Markdown editor.
+
+        I then:
+
+        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
+        2. opened the Markdown HTML Preview: 
+        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
+        3. worked through the [Markdown syntax guide][msg]
+        creating simple proof of concept examples, bouncing between
+        the Markdown Editor and the Markdown HTML Preview.
+
+        [msg]: http://daringfireball.net/projects/markdown/syntax
+
+
+        ### Conversion
+        #### Markdown to HTML
+        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
+        can be obtained in several ways.
+
+        * Right click the Markdown HTML Preview and click "View Source"
+        * When in the Markdown editor, go to File -- Export HTML. 
+        This creates a HTML version of the file
     interests:
          - scrum
          - kanban
@@ -304,8 +396,51 @@ Staff(nicolas) :
     lastname: Pelloux-Prayer
     login: nicolas
     email: nicolaspellouxprayer@gmail.com
-    description : |
-        CARA *for ever*!
+    shortDescription : CARA *for ever*!
+    longDescription : |
+        ## Profile description : (long) Markdown sample
+
+        ### Overview
+
+        Great features of Markdown are:
+
+        * It's plain text (e.g., support for version control, create with code)  
+        * It's simple to learn and use
+        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
+        * It's quicker to type than HTML 
+        * It's easy to convert to other formats
+        * Several websites such as Stack Exchange and Github use it
+        * HTML code can be interspersed when features such as tables are not supported 
+
+        It's not for everything, but it's a good tool for certain tasks.
+        I'm still exploring the options, but in the case of blog posts and readme files it works well.
+
+
+        ### Learning the Syntax
+        The markup is simple to learn.
+        I first installed the Markdown Editor in Eclipse  
+        and associated `.md` files with the Markdown editor.
+
+        I then:
+
+        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
+        2. opened the Markdown HTML Preview: 
+        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
+        3. worked through the [Markdown syntax guide][msg]
+        creating simple proof of concept examples, bouncing between
+        the Markdown Editor and the Markdown HTML Preview.
+
+        [msg]: http://daringfireball.net/projects/markdown/syntax
+
+
+        ### Conversion
+        #### Markdown to HTML
+        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
+        can be obtained in several ways.
+
+        * Right click the Markdown HTML Preview and click "View Source"
+        * When in the Markdown editor, go to File -- Export HTML. 
+        This creates a HTML version of the file
     interests:
          - scrum
          - kanban
@@ -332,8 +467,7 @@ Staff(mathieu) :
     lastname: Calba
     login: mathieu
     email: mathieu.calba@gmail.com
-    description : |
-        Androïd for ever.
+    shortDescription : Androïd *for ever*!
     interests:
          - java
     badges:           
@@ -359,7 +493,9 @@ Speaker(nmartignole) :
     lastname: Martignole
     login: nmartignole
     email: nicolas@touilleur-express.fr
-    description : |
+    company: I'me CEO, bitch!
+    shortDescription : Je travaille pour les banques, et suis un cador en personal branding.
+    longDescription : |
         ## Profile description : (long) Markdown sample
 
         ### Overview
@@ -430,7 +566,9 @@ Speaker(rguy):
     lastname: Guy
     login: rguy
     email: rguy@google.com
-    description : |
+    company: Google
+    shortDescription : Googler et photographe de talent, je bosse sur Androïd.
+    longDescription : |
         ## Profile description : (long) Markdown sample
 
         ### Overview
@@ -749,62 +887,65 @@ Article(article2):
     postedAt: 2011-11-26
     
 Sponsor(od):
+    logoUrl: http://www.springsource.com/files/images/Objet%20Direct_RVB%20BD.jpg
     firstname: Objet
     lastname: Direct
     login: od
+    company: Objet Direct
     email: info@objetdirect.com
-    description : |
-        SSII trop de la balle, on fait de l'informatique et on aime ça.
+    shortDescription : SSII trop de la balle, on fait de l'informatique et on aime ça.
     badges:
          - Sponsor
 
 Sponsor(sqli):
+    logoUrl: http://upload.wikimedia.org/wikipedia/fr/8/89/LogoSQLI.gif
     firstname: SQL
     lastname: i
     login: sqli
+    company: SQLi
     email: info@sqli.com
-    description : |
-        SSII trop de la balle nous aussi, on fait de l'informatique *et on aime vraiment ça*.
+    shortDescription : SSII trop de la balle nous aussi, on fait de l'informatique *et on aime vraiment ça*.
     badges:
          - Sponsor
 
 Sponsor(elf):
+    logoUrl: http://neftegaz.ru/images/total(1).jpg
     firstname: TotalFina
     lastname: Elf
     login: total
     email: info@totalfina.fr
-    description : |
-        Je ne sais pas ce qu'on fait là mais on a plein d'argent.
+    company: TotalFina Elf
+    shortDescription : Je ne sais pas ce qu'on fait là mais on a plein d'argent.
     badges:
          - Sponsor
 
 Sponsor(boulangerie):
+    logoUrl: http://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/FD_1.jpg/220px-FD_1.jpg
     firstname: Boulangerie
     lastname: Martin
     login: martin
     email: boulangerie.martin@hotmail.com
-    description : |
-        Les meilleures miches françaises depuis 1989.
+    shortDescription : Les meilleures miches françaises depuis 1989.
     badges:
          - Sponsor
 
 Sponsor(charcuterie):
+    logoUrl: http://blog.rayon-basque.com/images/Produits/Saucisson_Jesus.jpg
     firstname: Charcuterie
     lastname: Raymond
     login: raymond
     email: charcuterie.raymond@hotmail.fr
-    description : |
-        Les meilleures tripes françaises depuis 1984.
+    shortDescription : Les meilleures tripes françaises depuis 1984.
     badges:
          - Sponsor
 
 Sponsor(anpe):
+    logoUrl: http://upload.wikimedia.org/wikipedia/fr/c/cd/Logo_P%C3%B4le_Emploi.png
     firstname: Pôle
     lastname: Emploi
     login: anpe
     email: info@pole-emploi.fr
-    description : |
-        Vous n'avez pas de boulot? Nous non plus!
+    shortDescription : Vous n'avez pas de boulot? Nous non plus!
     badges:
          - Sponsor
     
@@ -813,11 +954,12 @@ Member(mrbadges) :
     lastname: Badges
     login: mrbadges
     email: mister@badges.com
-    description : |
+    shortDescription : I'm a robot.
+    longDescription : |
         Je suis un robot.
         
-        Je porte tous les badges.
-        Comme ça les graphistes peuvent tous les voir.
+        Je porte _tous les badges_.
+        Comme ça les graphistes peuvent *tous* les voir.
         
         A votre service.
         
