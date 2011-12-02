@@ -67,4 +67,13 @@ public class SharedLink extends Model {
                 .append(this.URL)
                 .toHashCode();
     }
+
+    /**
+     * WARNING : used in UI to display a link in {@link SharedLinkActivity}
+     * @return 
+     */
+    @Override
+    public String toString() {
+        return name;
+    }
 }

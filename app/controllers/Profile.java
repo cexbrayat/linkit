@@ -17,7 +17,8 @@ public class Profile extends PageController {
     public static void edit() {
         Member member = Member.findByLogin(Security.connected());
         Logger.info("Edition du profil " + member);
-        render(member);
+        List<SharedLink> sharedLinks = member.sharedLinks;
+        render(member, sharedLinks);
     }
 
     public static void save(@Required Long id, @Required String login, String firstname, String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription, String twitterName, String googlePlusId,
@@ -70,9 +71,10 @@ public class Profile extends PageController {
         }
 
         List<SharedLink> validatedSharedLinks = new ArrayList<SharedLink>(sharedLinks.size());
-        for (SharedLink link : sharedLinks) {
+        for (int i = 0; i < sharedLinks.size(); i++) {
+            SharedLink link = sharedLinks.get(i);
             if (StringUtils.isNotBlank(link.name) && StringUtils.isNotBlank(link.URL)) {
-                ValidationResult result = validation.valid(link);
+                ValidationResult result = validation.valid("sharedLinks["+i+"]", link);
                 if (result.ok) {
                     validatedSharedLinks.add(link);
                 }
@@ -87,7 +89,8 @@ public class Profile extends PageController {
 
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
-            render("Profile/edit.html", member, newInterests);
+            flash.put("sharedLinks", sharedLinks);
+            render("Profile/edit.html", member, newInterests, sharedLinks);
         }
 
         session.put("username", member.login);

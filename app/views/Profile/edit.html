@@ -1,5 +1,48 @@
 #{extends 'main.html' /}
 #{set title:'Editer mon profil' /}
+#{set 'moreScripts'}
+<script lang="text/javascript">
+    var nbLinks = 5;
+    function inputName(i) {
+        return $('#sharedLinks'+i+'_name');
+    }
+    function inputUrl(i) {
+        return $('#sharedLinks'+i+'_URL');
+    }
+    function setSharedLink(i, name, url) {
+        inputName(i).val('');
+        inputUrl(i).val('');
+    }
+    function setSharedLink(i, values) {
+        inputName(i).val(values.name);
+        inputUrl(i).val(values.url);
+    }
+    function getSharedLink(i) {
+        var name = inputName(i).val();
+        var url = inputUrl(i).val();
+        return {name: name, url: url};
+    }
+    function deleteSharedLink(i) {
+        setSharedLink(i, '', '');
+    }
+    function moveUpSharedLink(i) {
+        if (i > 0) {
+            var valuesPrevious = getSharedLink(i-1);
+            var valuesCurrent = getSharedLink(i);
+            setSharedLink(i, valuesPrevious);
+            setSharedLink(i-1, valuesCurrent);
+        }
+    }
+    function moveDownSharedLink(i) {
+        if (i < nbLinks - 1) {
+            var valuesNext = getSharedLink(i+1);
+            var valuesCurrent = getSharedLink(i);
+            setSharedLink(i, valuesNext);
+            setSharedLink(i+1, valuesCurrent);
+        }
+    }
+</script>
+#{/set}
 </br>
 </br>
 
@@ -143,13 +186,17 @@
                 <legend>Vos liens</legend>
  
                 #{list items:0..4, as:'i'}
-                    #{field 'sharedLinks'}
+                    #{field 'sharedLinks['+i+']'}
                     <div class="clearfix ${field.error?'error':''}">
                         <div class="input">
                             <div class="inline-inputs">
-                                <input class="span3" id="${field.id}_name" name="${field.name}[${i}].name" placeholder="Nom du lien" type="text" value="${member.sharedLinks[i]?.name}" /> 
-                                <input class="span6" id="${field.id}_URL" name="${field.name}[${i}].URL" placeholder="URL du lien" type="text" value="${member.sharedLinks[i]?.URL}" /> 
-                                <span class="help-inline">${field.error}</span>
+                                <input class="span2" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" value="${sharedLinks[i]?.name}" /> 
+                                <input class="span6" id="sharedLinks${i}_URL" name="${field.name}.URL" placeholder="URL du lien" type="text" value="${sharedLinks[i]?.URL}" /> 
+                                <a class="btn small" onclick="moveUpSharedLink(${i})">&#x21A5;</a>
+                                <a class="btn small" onclick="moveDownSharedLink(${i})">&#x21A7;</a>
+                                <a class="btn small" onclick="deleteSharedLink(${i})">X</a>
+                                <span class="help-inline span2">#{error 'sharedLinks['+i+'].name' /}</span>
+                                <span class="help-inline span6">#{error 'sharedLinks['+i+'].URL' /}</span>
                             </div>
                         </div> 
                     </div><!-- /clearfix -->
