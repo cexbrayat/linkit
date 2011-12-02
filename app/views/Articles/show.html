@@ -8,7 +8,7 @@
             <strong>${article.headline}</strong>
         </div>
         <div class="span4">
-            Par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a><br/>
+            Par #{member article.author /}<br/>
             le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}<br/>
             <br/>
             ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}<br/>
