@@ -60,15 +60,16 @@ talk.description.lt.note=La description complète de votre lightning talk.<br/>&
 activities.more=Afficher plus...
 LinkActivity.message=%1$s s'est linké à %2$s
 StatusActivity.message=%1$s : %2$s
-CommentSessionActivity.message=%1$s a commenté la session %2$s
-CommentArticleActivity.message=%1$s a commenté l'article %2$s
+CommentSessionActivity.message=%1$s a commenté la session "%2$s"
+CommentArticleActivity.message=%1$s a commenté l'article "%2$s"
 SignUpActivity.message=%1$s s'est inscrit
 UpdateProfileActivity.message=%1$s a mis à jour son profil
 UpdateSessionActivity.message=La session %1$s a été mise à jour
 EarnBadgeActivity.message=%1$s a reçu le badge &{badge.%2$s}
-LookSessionActivity.message=%1$s a consulté la session %2$s
+LookSessionActivity.message=%1$s a consulté la session "%2$s"
 LookProfileActivity.message=%1$s a consulté le profil de %2$s
-LookArticleActivity.message=%1$s a consulté l'article %2$s
+LookArticleActivity.message=%1$s a consulté l'article "%2$s"
+SharedLinkActivity.message=%1$s a partagé le lien "%2$s"
 
 # Providers
 provider.LinkIt=Link-IT
@@ -101,7 +102,7 @@ badge.FiveDaysInARow=5 days in a row (vous avez utilisé le site cinq jours de s
 badge.MixITAddict=Mix-IT addict (vous avez utilisé le site dix jours de suite)
 
 # Global messages
-markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new"><strong>MarkDown</strong></a> accepté.
+markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new" tabindex="-1"><strong>MarkDown</strong></a> accepté.
 
 # Since Java Date extension
 since.seconds=il y a %d sec
