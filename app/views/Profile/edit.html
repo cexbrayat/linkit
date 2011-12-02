@@ -147,8 +147,8 @@
                     <div class="clearfix ${field.error?'error':''}">
                         <div class="input">
                             <div class="inline-inputs">
-                                <input class="span3" id="${field.id}_name" name="${field.name}[${i}].name" type="text" value="${member.sharedLinks[i]?.name}" /> 
-                                <input class="span6" id="${field.id}_URL" name="${field.name}[${i}].URL" type="text" value="${member.sharedLinks[i]?.URL}" /> 
+                                <input class="span3" id="${field.id}_name" name="${field.name}[${i}].name" placeholder="Nom du lien" type="text" value="${member.sharedLinks[i]?.name}" /> 
+                                <input class="span6" id="${field.id}_URL" name="${field.name}[${i}].URL" placeholder="URL du lien" type="text" value="${member.sharedLinks[i]?.URL}" /> 
                                 <span class="help-inline">${field.error}</span>
                             </div>
                         </div> 

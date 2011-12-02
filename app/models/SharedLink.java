@@ -8,7 +8,6 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.data.validation.URL;
-import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 
 /**

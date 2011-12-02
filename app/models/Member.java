@@ -109,10 +109,10 @@ public class Member extends Model implements Lookable {
     @OneToMany(mappedBy = "speaker", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderColumn(name = "ordernum")
     @MaxSize(5)
-    public List<SharedLink> sharedLinks = new ArrayList<SharedLink>();
+    public List<SharedLink> sharedLinks = new LinkedList<SharedLink>();
 
     /**
      * Number of profile consultations
@@ -305,31 +305,51 @@ public class Member extends Model implements Lookable {
     }
 
     public void addSharedLink(SharedLink link) {
+        addSharedLink(link, true);
+    }
+
+    private void addSharedLink(SharedLink link, boolean newActivity) {
         if (!this.sharedLinks.contains(link)) {
             link.member = this;
             link.ordernum = this.sharedLinks.size();
             this.sharedLinks.add(link);
             link.save();
 
-            new SharedLinkActivity(link).save();
+            if (newActivity) {
+                new SharedLinkActivity(link).save();
+            }
         }
     }
 
     public void updateSharedLinks(List<SharedLink> links) {
-        
-        // Can't simply call sharedLinks.clear() then addAll() : we don't want to add already shared links to avoir duplicated activity
-        
-        // Suppression des liens obsolètes
-        for (Iterator<SharedLink> itLink = this.sharedLinks.iterator(); itLink.hasNext(); ) {
-            SharedLink existing = itLink.next();
-            if (!links.contains(existing)) {
-                itLink.remove();
-                existing.delete();
+//        
+//        // Can't simply call sharedLinks.clear() then addAll() : we don't want to add already shared links to avoir duplicated activity
+//        
+//        // Suppression des liens obsolètes
+//        for (Iterator<SharedLink> itLink = this.sharedLinks.iterator(); itLink.hasNext(); ) {
+//            SharedLink existing = itLink.next();
+//            if (!links.contains(existing)) {
+//                itLink.remove();
+//                existing.delete();
+//            }
+//        }
+//        // Ajout des nouveaux liens et recalul des numéros d'ordre
+//        for (SharedLink link : links) {
+//            addSharedLink(link);
+//        }
+//        // Recalcul des numéros d'ordre
+//        int i = 0;
+//        for (SharedLink link : this.sharedLinks) {
+//            link.ordernum = i++;
+//        }
+        List<SharedLink> previouses = new ArrayList<SharedLink>(this.sharedLinks);
+        this.sharedLinks.clear();
+        for (int i = 0; i < links.size(); i++) {
+            SharedLink link = links.get(i);
+            addSharedLink(link, false);
+            if (!previouses.contains(link)) {
+                new SharedLinkActivity(link).save();
             }
-        }
-        // Ajout des nouveaux liens
-        for (SharedLink link : links) {
-            addSharedLink(link);
         }
     }
 

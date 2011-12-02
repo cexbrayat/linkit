@@ -1,6 +1,7 @@
 package models;
 
 import java.util.Arrays;
+import java.util.List;
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
@@ -253,5 +254,48 @@ public class MemberTest extends UnitTest {
         
         assertNotNull(member.delete());
         assertSame(other, Member.findById(other.id));
+    }
+    
+    private static final SharedLink createSharedLink(String name) {
+        return new SharedLink(name, "http://"+name+".fr");
+    }
+    
+    @Test public void addSharedLink() {
+        final String login = "toto";
+        final Member member = createMember(login);
+        final SharedLink link1 = createSharedLink("test1");
+        final SharedLink link2 = createSharedLink("test2");
+        final SharedLink link3 = createSharedLink("test3");
+        
+        // Le membre a les liens 1, 2 et 3
+        member.addSharedLink(link1);
+        member.addSharedLink(link2);
+        member.addSharedLink(link3);
+        member.save();
+        
+        // Relecture depuis la BDD
+        assertEquals(Arrays.asList(link1, link2, link3), Member.findByLogin(login).sharedLinks);
+    }
+    
+    @Test public void updateSharedLinks() {
+        final String login = "toto";
+        final Member member = createMember(login);
+        final SharedLink link1 = createSharedLink("test1");
+        final SharedLink link2 = createSharedLink("test2");
+        final SharedLink link3 = createSharedLink("test3");
+        final SharedLink link4 = createSharedLink("test4");
+        
+        // Le membre a initialement les liens 1, 2 et 3
+        member.addSharedLink(link1);
+        member.addSharedLink(link2);
+        member.addSharedLink(link3);
+        member.save();
+        
+        // On met à jour ses liens avec 4, 3 et 1
+        final List<SharedLink> newLinks = Arrays.asList(link4, link3, link1);
+        member.updateSharedLinks(newLinks);
+        
+        // Relecture depuis la BDD
+        assertEquals(newLinks, Member.findByLogin(login).sharedLinks);
     }
 }
