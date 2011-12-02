@@ -5,11 +5,10 @@ import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Valid;
 import play.data.validation.Validation;
-import play.mvc.Controller;
 
 import java.util.List;
 
-public class LightningTalks extends Controller {
+public class LightningTalks extends PageController {
 
     public static void list() {
         List<LightningTalk> sessions = LightningTalk.findAll();
@@ -57,21 +56,5 @@ public class LightningTalks extends Controller {
         list();
     }
 
-    public static long vote(Long talkId, String username, Boolean value) {
-        LightningTalk talk = LightningTalk.findById(talkId);
-        Member member = Member.findByLogin(username);
-        Logger.info("Vote value: " + value);
-        if (member != null && talk != null) {
-            Vote vote = Vote.findVote(talk, member);
-            if (vote != null) {
-                vote.value = !value;
-            } else {
-                vote = new Vote(talk, member, !value);
-            }
-            vote.save();
-            return Vote.findNumberOfVotesBySession(talk);
-        }
-
-        return -1;
-    }
+   
 }

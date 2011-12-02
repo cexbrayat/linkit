@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.Entity;
+import play.data.validation.Required;
 
 /**
  * A Mix-IT sponsor, giving a fucking load of money to buy better sandwiches than the ones given at WSN Paris.
@@ -9,6 +10,9 @@ import javax.persistence.Entity;
 @Entity
 public class Sponsor extends Member {
 
+    @Required
+    public String logoUrl;
+        
     public Sponsor(String login) {
         super(login);
         // Can't call addBadge() on a transient instance (and don't want to trigger activity)

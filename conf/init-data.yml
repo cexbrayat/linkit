@@ -887,6 +887,7 @@ Article(article2):
     postedAt: 2011-11-26
     
 Sponsor(od):
+    logoUrl: http://www.springsource.com/files/images/Objet%20Direct_RVB%20BD.jpg
     firstname: Objet
     lastname: Direct
     login: od
@@ -897,6 +898,7 @@ Sponsor(od):
          - Sponsor
 
 Sponsor(sqli):
+    logoUrl: http://upload.wikimedia.org/wikipedia/fr/8/89/LogoSQLI.gif
     firstname: SQL
     lastname: i
     login: sqli
@@ -907,6 +909,7 @@ Sponsor(sqli):
          - Sponsor
 
 Sponsor(elf):
+    logoUrl: http://neftegaz.ru/images/total(1).jpg
     firstname: TotalFina
     lastname: Elf
     login: total
@@ -917,6 +920,7 @@ Sponsor(elf):
          - Sponsor
 
 Sponsor(boulangerie):
+    logoUrl: http://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/FD_1.jpg/220px-FD_1.jpg
     firstname: Boulangerie
     lastname: Martin
     login: martin
@@ -926,6 +930,7 @@ Sponsor(boulangerie):
          - Sponsor
 
 Sponsor(charcuterie):
+    logoUrl: http://blog.rayon-basque.com/images/Produits/Saucisson_Jesus.jpg
     firstname: Charcuterie
     lastname: Raymond
     login: raymond
@@ -935,6 +940,7 @@ Sponsor(charcuterie):
          - Sponsor
 
 Sponsor(anpe):
+    logoUrl: http://upload.wikimedia.org/wikipedia/fr/c/cd/Logo_P%C3%B4le_Emploi.png
     firstname: Pôle
     lastname: Emploi
     login: anpe
