@@ -29,7 +29,7 @@ public class CommentSessionActivity extends CommentActivity {
 
     @Override
     public String getMessage(String lang) {
-        return Messages.get(getMessageKey(), member, session, comment);
+        return Messages.get(getMessageKey(), member, session, getUrl());
     }
 
     @Override

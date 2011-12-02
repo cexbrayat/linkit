@@ -22,6 +22,8 @@ import play.db.jpa.Model;
 
 import javax.persistence.*;
 import java.util.*;
+import play.data.validation.Email;
+import play.data.validation.Valid;
 
 /**
  * A LinkIT member.
@@ -56,6 +58,7 @@ public class Member extends Model implements Lookable {
     public String login;
 
     @Required
+    @Email
     public String email;
 
     @Required
@@ -82,7 +85,6 @@ public class Member extends Model implements Lookable {
      * User-defined description, potentially as MarkDown
      */
     @Lob
-    @Required
     public String longDescription;
 
     /**
@@ -109,10 +111,11 @@ public class Member extends Model implements Lookable {
     @OneToMany(mappedBy = "speaker", cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @OrderColumn(name = "ordernum")
     @MaxSize(5)
-    public List<SharedLink> sharedLinks = new ArrayList<SharedLink>();
+    @Valid
+    public List<SharedLink> sharedLinks = new LinkedList<SharedLink>();
 
     /**
      * Number of profile consultations
@@ -305,8 +308,57 @@ public class Member extends Model implements Lookable {
     }
 
     public void addSharedLink(SharedLink link) {
-        link.member = this;
-        this.sharedLinks.add(link);
+        addSharedLink(link, true);
+    }
+
+    private void addSharedLink(SharedLink link, boolean newActivity) {
+        if (!this.sharedLinks.contains(link)) {
+            link.member = this;
+            link.ordernum = this.sharedLinks.size();
+            this.sharedLinks.add(link);
+            link.save();
+
+            if (newActivity) {
+                new SharedLinkActivity(link).save();
+            }
+        }
+    }
+
+    public void removeSharedLink(SharedLink link) {
+        int i = 0;
+        for (Iterator<SharedLink> iLink = this.sharedLinks.iterator(); iLink.hasNext(); ) {
+            SharedLink current = iLink.next();
+            if (current.equals(link)) {
+                current.delete();
+                iLink.remove();
+            } else {
+                current.ordernum = i++;
+            }
+        }
+    }
+    
+    public void updateSharedLinks(List<SharedLink> links) {
+        List<SharedLink> previouses = new ArrayList<SharedLink>(this.sharedLinks);
+        this.sharedLinks.clear();
+        for (final SharedLink link : links) {
+            final Predicate<SharedLink> equals = new Predicate<SharedLink>() {
+                public boolean apply(SharedLink other) {
+                    return link.equals(other);
+                }
+            };
+            SharedLink previous = Iterables.find(previouses, equals, null);
+            if (previous == null) {
+                addSharedLink(link, true);
+            } else {
+                addSharedLink(previous, false);
+            }
+        }
+        // Deleting obsolete links
+        for (SharedLink previous : previouses) {
+            if (!this.sharedLinks.contains(previous)) {
+                previous.delete();
+            }
+        }
     }
 
     public void addLightningTalk(LightningTalk talk) {
