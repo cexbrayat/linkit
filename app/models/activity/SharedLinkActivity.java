@@ -1,27 +1,42 @@
 package models.activity;
 
 import helpers.badge.BadgeComputationContext;
-import java.util.EnumSet;
 import javax.persistence.Entity;
-import models.Badge;
-import models.Member;
+import javax.persistence.ManyToOne;
 import models.ProviderType;
+import models.SharedLink;
+import play.i18n.Messages;
 
 /**
- * A comment activity : someone ({@link Activity#member} commented on something
- * @author Agnes <agnes.crepet@gmail.com>
+ * A link sharing activity : someone ({@link Activity#member} shared a new link ({@link SharedLinkActivity#link}).
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public abstract class CommentActivity extends Activity {
+public class SharedLinkActivity extends Activity {
 
-    public CommentActivity(Member author) {
+    @ManyToOne
+    public SharedLink link;
+
+    public SharedLinkActivity(SharedLink link) {
         super(ProviderType.LinkIt);
-        this.member = author;
+        this.member = link.member;
+        this.link = link;
+        // Useless badge computation
+        this.badgeComputationDone = true;
     }
 
     @Override
     protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
-        member.computeBadges(EnumSet.of(Badge.Brave, Badge.Troller), context);
+        // Nothing
+    }
+
+    @Override
+    public String getMessage(String lang) {
+        return Messages.get(getMessageKey(), member, link);
+    }
+
+    @Override
+    public String getUrl() {
+        return link.URL;
     }
 }

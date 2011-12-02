@@ -1,34 +1,30 @@
 package models.activity;
 
-import models.Article;
-import models.ArticleComment;
+import models.SharedLink;
 import org.junit.*;
 
 /**
- * Unit tests for {@link CommentArticleActivity} domain object
+ * Unit tests for {@link SharedLinkActivity} domain object
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class CommentArticleActivityTest extends AbstractActivityTest {
+public class SharedLinkActivityTest extends AbstractActivityTest {
 
     @Test
-    public void addComment() {
-        Article article = Article.all().first();
+    public void addSharedLink() {
         
-        // Non activity for the article
-        assertEquals(0, Activity.count("article = ?", article));
-        
-        ArticleComment c = new ArticleComment(member, article, "Un commentaire");
-        article.addComment(c);
-        article.save();
-        
-        // One activity for the article
-        assertEquals(1, Activity.count("article = ?", article));
-        Activity a = Activity.find("article = ?", article).first();
+        // Non activity for member
+        assertNull(Activity.find("select a from Activity a where a.member = ?", member).first());
+
+        final SharedLink link = new SharedLink("test", "http://www.test.fr");
+        member.addSharedLink(link);
+        member.save();
+
+        // One activity for member
+        Activity a = Activity.find("select a from Activity a where a.member = ?", member).first();
         assertActivity(a);
-        assertTrue(a instanceof CommentArticleActivity);
-        CommentArticleActivity ca = (CommentArticleActivity) a;
-        assertEquals(member, ca.member);
-        assertEquals(article, ca.article);
-        assertEquals(c, ca.comment);
+        assertTrue(a instanceof SharedLinkActivity);
+        SharedLinkActivity sla = (SharedLinkActivity) a;
+        assertSame(member, sla.member);
+        assertSame(link, sla.link);
     }
 }

@@ -307,6 +307,9 @@ public class Member extends Model implements Lookable {
     public void addSharedLink(SharedLink link) {
         link.member = this;
         this.sharedLinks.add(link);
+        link.save();
+
+        new SharedLinkActivity(link).save();
     }
 
     public void addLightningTalk(LightningTalk talk) {
