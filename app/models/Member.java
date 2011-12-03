@@ -98,7 +98,7 @@ public class Member extends Model implements Lookable {
     @ManyToMany(mappedBy = "links")
     public Set<Member> linkers = new HashSet<Member>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
     public Set<Account> accounts = new HashSet<Account>();
 
@@ -373,6 +373,7 @@ public class Member extends Model implements Lookable {
         save();
         authenticate(account);
         account.save();
+        save();
         new SignUpActivity(this).save();
         return this;
     }
