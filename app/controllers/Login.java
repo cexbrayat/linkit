@@ -103,7 +103,7 @@ public class Login extends PageController {
             member = new Member(oAuthAccount.getOAuthLogin());
             member.register(oAuthAccount);
             session.put("username", member.login);
-            render("Profile/edit.html", member);
+            Profile.edit();
         } else {
             // Un membre existant s'est connecté avec un nouveau provider
             // On se contente de lui ajouter le nouvel account utilisé
@@ -146,6 +146,6 @@ public class Login extends PageController {
         Member member = new Member(login);
         member.register(new LinkItAccount(password));
         session.put("username", member.login);
-        render("Profile/edit.html", member);
+        Profile.edit();
     }
 }
