@@ -22,11 +22,11 @@
           </script> 
         #{get 'moreScripts' /}
     </head>
-    <body style="padding-top: 60px;"> *{ 40px is navigation bar space }*
+    <body style="padding-top: 60px;"> *{ 60px is navigation bar space }*
         <div class="topbar">
-            <div class="fill">
-                <div class="container">
-                    <h3><a href="@{Application.index()}">Mix-IT</a></h3>
+            <div class="topbar-inner">
+                <div class="container-fluid">
+                    <a class="brand" href="@{Application.index()}">Mix-IT</a>
                     <ul class="nav">
                         #{if session.username}
                         <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">Dashboard</a></li>
@@ -82,28 +82,65 @@
             </div>
         </div>
         
-        #{if flash.success}
-        <div class="alert-message success">${flash.success}</div>
-        #{/if}
-        #{if flash.error}
-        <div class="alert-message error">${flash.error}</div>
-        #{/if}
-        
-        #{doLayout /}
-        
-        <footer>
-            <div class="container">
-                #{if sponsors}
-                <ul class="media-grid">
-                #{list items:sponsors, as:'sponsor'}
-                    <li class="sponsor">
-                        <a href="@{Profile.show(sponsor.login)}"><img src="${sponsor.logoUrl}" /></a>
-                    </li>
-                #{/list}
+        <div class="container-fluid">
+        <div class="sidebar">
+            <div class="well">
+                <h2>Sidebar</h2>
+                <p>Lorem ipsum</p>
+                <h3>Partagez!</h3>
+                <ol>
+                    <li>Remplissez votre profil</li>
+                    <li>Lier des gens</li>
+                    <li>Commenter des articles ou des sessions</li>
+                </ol>
+                <h3>Actualités</h3>
+                <ul>
+                    <li>Article 1</li>
+                    <li>Article 2</li>
+                    <li>Article 3</li>
                 </ul>
-                #{/if}
-                <p>©2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
+                <h3>Nouveaux membres</h3>
+                <ul>
+                    <li>Membre 1</li>
+                    <li>Membre 2</li>
+                    <li>Membre 3</li>
+                </ul>
+                <h3>Nouvelles sessions</h3>
+                <ul>
+                    <li>Session 1</li>
+                    <li>Session 2</li>
+                    <li>Session 3</li>
+                </ul>
+                <p>extends sidebar with setting <code>moreSidebar</code> template variable in your view.</p>
+                #{get 'moreSidebar' /}
             </div>
-        </footer>
+        </div>
+        <div class="content">
+                    
+            #{if flash.success}
+            <div class="alert-message success">${flash.success}</div>
+            #{/if}
+            #{if flash.error}
+            <div class="alert-message error">${flash.error}</div>
+            #{/if}
+
+            #{doLayout /}
+
+            <footer>
+                <div class="container">
+                    #{if sponsors}
+                    <ul class="media-grid">
+                    #{list items:sponsors, as:'sponsor'}
+                        <li class="sponsor">
+                            <a href="@{Profile.show(sponsor.login)}"><img src="${sponsor.logoUrl}" /></a>
+                        </li>
+                    #{/list}
+                    </ul>
+                    #{/if}
+                    <p>&copy; 2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
+                </div>
+            </footer>
+        </div>
+        </div>
     </body>
 </html>
