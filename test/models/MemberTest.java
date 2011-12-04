@@ -48,7 +48,7 @@ public class MemberTest extends UnitTest {
         ced.linkers.toArray();
         ced.badges.toArray();
         ced.interests.toArray();
-        ced.accounts.toArray();
+        ced.accounts.values().toArray();
         ced.lightningTalks.toArray();
         ced.sharedLinks.toArray();
     }
@@ -159,7 +159,7 @@ public class MemberTest extends UnitTest {
  
         toto = Member.findByLogin(login);
         assertEquals(1, toto.accounts.size());
-        assertSame(ta, toto.accounts.iterator().next());
+        assertSame(ta, toto.accounts.values().iterator().next());
     }
         
     @Test public void addBadge() {
