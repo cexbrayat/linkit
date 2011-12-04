@@ -1,0 +1,29 @@
+#{extends 'main.html' /}
+#{set title:'Agenda' /}
+
+<div class="container">
+    <div class="row">
+        <div class="span8">
+            <h2>Agenda</h2>
+            <ol>
+            #{list items:models.planning.Slot, as:'slot'}
+                <li>${slot}</li>
+            #{/list}
+            </ol>
+        </div>
+        <div class="span8">
+            <h2>Les sessions</h2>
+            <ul>
+            #{list items:sessions, as:'talk'}
+                <li>#{session talk /}</li>
+            #{/list}
+            </ul>
+            <h2>Les Lightning-talks</h2>
+            <ul>
+            #{list items:lightningTalks, as:'talk'}
+                <li><a href="@{LightningTalks.show(talk.id)}">${talk.title}</a></li>
+            #{/list}
+            </ul>
+        </div>
+    </div>
+</div>
