@@ -4,6 +4,7 @@ import helpers.badge.BadgeComputationContext;
 import java.util.List;
 import models.activity.Activity;
 import play.Logger;
+import play.Play;
 import play.jobs.Every;
 import play.jobs.Job;
 
@@ -16,15 +17,17 @@ public class JobComputeBadges extends Job {
 
     @Override
     public void doJob() {
-        Logger.debug("BEGIN badges computation");
+        if (!"test".equals(Play.id)) {
+            Logger.debug("BEGIN badges computation");
 
-        BadgeComputationContext context = new BadgeComputationContext();
+            BadgeComputationContext context = new BadgeComputationContext();
 
-        // Retrieving uncomputed activities
-        List<? extends Activity> uncomputedActivities = Activity.uncomputed();
-        for (Activity activity : uncomputedActivities) {
-            activity.computeBadges(context);
-        }
-        Logger.debug("END badges computation");
+            // Retrieving uncomputed activities
+            List<? extends Activity> uncomputedActivities = Activity.uncomputed();
+            for (Activity activity : uncomputedActivities) {
+                activity.computeBadges(context);
+            }
+            Logger.debug("END badges computation");
+        }   
     }
 }
