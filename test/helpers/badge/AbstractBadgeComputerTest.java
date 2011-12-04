@@ -2,7 +2,7 @@ package helpers.badge;
 
 import java.util.Set;
 import models.Badge;
-import models.auth.LinkItAccount;
+import models.BaseDataUnitTest;
 import models.Member;
 import org.junit.After;
 import org.junit.Before;
@@ -14,7 +14,7 @@ import play.test.UnitTest;
  * Base utility class for unit tests about {@link BadgeComputer} implementations.
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public abstract class AbstractBadgeComputerTest extends UnitTest {
+public abstract class AbstractBadgeComputerTest extends BaseDataUnitTest {
 
     protected BadgeComputer computer;
         
@@ -25,16 +25,10 @@ public abstract class AbstractBadgeComputerTest extends UnitTest {
         this.computer = computer;
     }
 
-    @Before
+    @Override
     public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
+        super.setUp();
         member = createMember("alone");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
     }
 
     protected Member createMember(final String login) {

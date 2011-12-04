@@ -7,24 +7,12 @@ import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
 import org.apache.commons.lang.StringUtils;
 import org.junit.*;
-import play.test.*;
 
 /**
  * Unit tests for {@link Member} domain object
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class MemberTest extends UnitTest {
-
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
+public class MemberTest extends BaseDataUnitTest {
 
     @Test public void findByLoginOK() {
         Member bob = Member.findByLogin("bob");

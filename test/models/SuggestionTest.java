@@ -6,24 +6,12 @@ import java.util.EnumSet;
 import java.util.List;
 
 import org.junit.*;
-import play.test.*;
 
 /**
  * Unit tests for {@link Suggestion} domain object
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class SuggestionTest extends UnitTest {
-
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
+public class SuggestionTest extends BaseDataUnitTest {
 
     @Test
     public void testFindMembersInterestedInAllOf() {
