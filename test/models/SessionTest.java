@@ -12,7 +12,7 @@ public class SessionTest extends BaseDataUnitTest {
     
     @Test
     public void saveWithBigDescription() {
-        Session session = new Session();
+        Session session = new Talk();
         String description = StringUtils.leftPad("testwith4000char", 4000+3000, "a");
         session.description = description;
         assertTrue(session.description.length()>4000);
@@ -21,8 +21,8 @@ public class SessionTest extends BaseDataUnitTest {
     
         @Test
     public void testInterests() {
-        Session session1 = new Session();
-        Session session2 = new Session();
+        Session session1 = new Talk();
+        Session session2 = new Talk();
 
         // Well
         assertEquals(0, Session.findSessionsLinkedWith("Java").size());
@@ -40,7 +40,7 @@ public class SessionTest extends BaseDataUnitTest {
     
     @Test public void lookBy() {
         final Session session = Session.all().first();
-        final Speaker speaker = session.speakers.iterator().next();
+        final Member speaker = session.speakers.iterator().next();
         final Member ced = Member.findByLogin("ced");
         final long nbLooks = session.getNbLooks();
         

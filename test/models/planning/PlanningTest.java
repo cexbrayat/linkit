@@ -3,6 +3,7 @@ package models.planning;
 import models.BaseDataUnitTest;
 import models.Member;
 import models.Session;
+import models.Talk;
 import org.junit.Test;
 
 /**
@@ -16,7 +17,7 @@ public class PlanningTest extends BaseDataUnitTest {
     }
     
     private static Session createSession(String text) {
-        return new Session().save();
+        return new Talk().save();
     }
     
     @Test

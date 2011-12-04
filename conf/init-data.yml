@@ -138,7 +138,7 @@ SharedLink(cedLink2):
     name: Mon blog HypeDrivenDev
     URL: http://hypedrivendev.wordpress.com/
 
-Staff(ju) :
+Staff(julien) :
     firstname: Julien
     lastname: Ripault
     login: julien
@@ -197,24 +197,24 @@ Staff(ju) :
          - Staff
 
 SharedLink(juLink1):
-    member: ju
+    member: julien
     ordernum: 0
     name: "Ma passion : la musique"
     URL: http://lolannonces.fr/tag/frederic-francois/
 
 models.auth.LinkItAccount(juLinkIt):
     provider: LinkIt
-    member: ju
-    password: ju
+    member: julien
+    password: julien
 
 TwitterAccount(juTwitter):
     provider: Twitter
-    member: ju
+    member: julien
     screenName: julien_ripault
 
 GoogleAccount(juGoogle):
     provider: Google
-    member: ju
+    member: julien
     googleId: 105928763613547015053
     
 Staff(agnes) :
@@ -627,7 +627,7 @@ GoogleAccount(rguyGoogle):
     member: rguy
     googleId: 111962077049890418486
     
-Session(sessionplayframework):
+Talk(sessionplayframework):
     title: Play! Framework for dummies
     track: Techy
     summary: Intro sur le framework de la mort qui déchire tout!
@@ -705,7 +705,7 @@ Session(sessionplayframework):
     speakers:
            - nmartignole
     
-Session(sessionhadoop):
+Talk(sessionhadoop):
     title: Hadoop c'est Hype!
     track: Trendy
     summary: Hadoop c'est un nom pourri mais c'est de la balle!
@@ -783,6 +783,7 @@ Session(sessionhadoop):
     speakers:
            - nmartignole
            - rguy
+           - cedric
            
 
 LightningTalk(sessionlightning):
@@ -790,16 +791,18 @@ LightningTalk(sessionlightning):
     track: Techy
     summary: Intro sur la lumière
     description: Yeah this guy is so shinny
-    speaker:
-           - rguy
+    speakers:
+           - cedric
+           - julien
 
 LightningTalk(sessionlightning2):
     title: Lightning talk on clouds
     track: Techy
     summary: Intro sur les nuages
     description: From Paris, more likely to have a tedious weather
-    speaker:
-           - nmartignole           
+    speakers:
+           - julien
+           - agnes
 
 Article(article1):
     title: Mix-IT 2012!

@@ -18,7 +18,7 @@ public class Application extends PageController {
         
         // Three recent articles
         List<Article> articles = Article.recents(1, 3);
-        List<Session> sessions = Session.recents(1, 3);
+        List<Talk> sessions = Talk.recents(1, 3);
         List<Member> members = Member.recents(1, 6);
         List<Map> tags = Interest.getCloud();
         render(articles, sessions, members, tags);

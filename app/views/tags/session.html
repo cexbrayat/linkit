@@ -1,2 +1,5 @@
 *{ Displays _arg session }*
-<span class="label notice">${_arg.track.name()}</span>&nbsp;<a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg.title}</a>
+<span class="label notice">
+    ${(_arg instanceof models.Talk)?_arg.track.name():"Lightning Talk"}
+</span>&nbsp;
+<a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg.title}</a>

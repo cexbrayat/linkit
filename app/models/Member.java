@@ -38,7 +38,7 @@ import play.data.validation.Valid;
                         + "left outer join fetch m.linkers "
                         + "left outer join fetch m.badges "
                         + "left outer join fetch m.interests "
-                        + "left outer join fetch m.lightningTalks "
+                        + "left outer join fetch m.sessions "
                         + "left outer join fetch m.sharedLinks "
                         + "where m.login=:login")
 })
@@ -106,8 +106,8 @@ public class Member extends Model implements Lookable {
     @ElementCollection
     public Set<Badge> badges = EnumSet.noneOf(Badge.class);
 
-    @OneToMany(mappedBy = "speaker", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
+    @ManyToMany(mappedBy="speakers")
+    public Set<Session> sessions = new HashSet<Session>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @OrderColumn(name = "ordernum")
@@ -346,11 +346,6 @@ public class Member extends Model implements Lookable {
                 previous.delete();
             }
         }
-    }
-
-    public void addLightningTalk(LightningTalk talk) {
-        talk.speaker = this;
-        this.lightningTalks.add(talk);
     }
 
     /**

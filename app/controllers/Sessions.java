@@ -7,6 +7,7 @@ import models.SessionComment;
 import models.Member;
 import models.Session;
 import models.Speaker;
+import models.Talk;
 import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 import play.cache.Cache;
@@ -18,14 +19,14 @@ import play.libs.Images;
 public class Sessions extends PageController {
 
     public static void index() {
-        List<Session> sessions = Session.findAll();
+        List<Session> sessions = Talk.findAll();
         Logger.info(sessions.size() + " sessions");
         render("Sessions/list.html", sessions);
     }
 
     public static void create(final String speakerLogin) {
         Speaker speaker = Speaker.findByLogin(speakerLogin);
-        Session talk = new Session();
+        Talk talk = new Talk();
         talk.addSpeaker(speaker);
         render("Sessions/edit.html", talk);
     }

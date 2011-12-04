@@ -3,7 +3,6 @@ package models;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 
 /**
  * A Mix-IT speaker, lecturing some sessions
@@ -11,9 +10,6 @@ import javax.persistence.ManyToMany;
  */
 @Entity
 public class Speaker extends Member {
-
-    @ManyToMany(mappedBy="speakers")
-    Set<Session> sessions = new HashSet<Session>();
     
     /**
      * Authorized roles for a speaker

@@ -37,7 +37,7 @@ public class MemberTest extends BaseDataUnitTest {
         ced.badges.toArray();
         ced.interests.toArray();
         ced.accounts.values().toArray();
-        ced.lightningTalks.toArray();
+        ced.sessions.toArray();
         ced.sharedLinks.toArray();
     }
 
