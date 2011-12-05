@@ -50,6 +50,9 @@
         padding-left: 5px;
         width: 300px;
     }
+    .slot.hovered {
+        background-color: lightgrey;
+    }
 #{list items:models.planning.Slot, as:'slot'}
     .agenda #slot${slot.name()} {
         top:${slot.getStartMinutesFromMidnight()*minuteHeight + midnightOffset}px;
@@ -61,7 +64,53 @@
         position: relative;
         left: 400px;
     }
+
+    .sessions .session {
+    }
+    .session:hover{
+        cursor: move;
+    }
+    .session.ui-draggable-dragging {
+        font-weight: bolder;
+    }
 </style>
+
+#{/set}
+#{set 'moreScripts'}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+<script lang="text/javascript">
+
+$( init );
+function init() {
+  $('.session').draggable({
+      cursor: 'move',
+      revert: 'valid',
+      connectToSortable: 'ul#plannedSessions'
+  });
+  $('.slot').droppable( {
+      accept: '.session',
+      hoverClass: 'hovered',
+      drop: handleSessionDrop,
+      tolerance: 'pointer'
+  });
+}
+
+var planAction = #{jsAction @Plannings.plan(':planningId', ':slot', ':sessionId') /};
+function handleSessionDrop(event, ui) {
+    var draggable = ui.draggable;
+    var sessionId = draggable.attr('data-id');
+    var slot = $(this).attr('data-id');
+    alert('drop session '+sessionId+' sur slot '+slot);
+    $.get(planAction({planningId:${planning.id}, slot:slot, sessionId:sessionId}), function (data) {
+        if (data) {
+            draggable.draggable('option', "revert", "invalid");
+        } else {
+            alert('Erreur pendant la sauvegarde de votre agenda');
+        }
+    });
+}
+
+</script>
 
 #{/set}
 
@@ -74,9 +123,10 @@
         </div>
         <div class="slots">
             #{list items:models.planning.Slot, as:'slot'}
-                <div id="slot${slot.name()}" class="slot">${slot}<br/>
+                <div id="slot${slot.name()}" class="slot" data-id="${slot.name()}">${slot}
+                <ul id="plannedSessions">
                 #{list items:planning.getPlan(slot), as:'talk'}
-                    #{session talk /}, 
+                    <li>#{session talk /}</li>
                 #{/list}
                 </div>
             #{/list}

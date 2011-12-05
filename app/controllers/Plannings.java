@@ -25,9 +25,11 @@ public class Plannings extends Controller {
         render(planning, sessions);
     }
     
-    public static void plan(Planning planning, Slot slot, Session session) {
-        planning.addPlan(slot, session);
+    public static boolean plan(long planningId, Slot slot, long sessionId) {
+        Planning planning = Planning.findById(planningId);
+        Session talk = Session.findById(sessionId);
+        planning.addPlan(slot, talk);
         planning.save();
-        index();
+        return true;
     }
 }
