@@ -13,12 +13,13 @@ import javax.persistence.*;
 import java.util.*;
 
 /**
- * A talk session
+ * A session
  * @author Sryl <cyril.lacote@gmail.com>
  * @author Agnes <agnes.crepet@gmail.com>
  */
 @Entity
-public class Session extends Model implements Lookable {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Session extends Model implements Lookable {
 
     @Required
     @MaxSize(50)
@@ -32,9 +33,6 @@ public class Session extends Model implements Lookable {
     @Temporal(TemporalType.TIMESTAMP)
     public Date addedAt = new Date();
 
-    @Required
-    @Enumerated(EnumType.STRING)
-    public Track track;
     /** Markdown enabled */
     @Lob
     @Required
@@ -42,7 +40,7 @@ public class Session extends Model implements Lookable {
 
     @ManyToMany
     @MinSize(1)
-    public Set<Speaker> speakers = new HashSet<Speaker>();
+    public Set<Member> speakers = new HashSet<Member>();
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
@@ -50,12 +48,12 @@ public class Session extends Model implements Lookable {
     /** Eventual comments */
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     @OrderBy("postedAt ASC")
-    List<SessionComment> comments;
+    public List<SessionComment> comments;
     
     /** Number of consultation */
     public long nbConsults;
 
-    public final void addSpeaker(Speaker speaker) {
+    public final void addSpeaker(Member speaker) {
         if (speaker != null) {
             speakers.add(speaker);
             speaker.sessions.add(this);
@@ -68,6 +66,11 @@ public class Session extends Model implements Lookable {
             addSpeaker(speaker);
         }
         return this;
+    }
+
+    public boolean hasSpeaker(String username) {
+        Member member = Member.findByLogin(username);
+        return speakers.contains(member);
     }
 
     /**
@@ -133,9 +136,4 @@ public class Session extends Model implements Lookable {
             }
         }
     }
-
-    public static List<Session> recents(int page, int length) {
-        return find("order by addedAt desc").fetch(page, length);
-    }
-
 }

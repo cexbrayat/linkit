@@ -2,27 +2,15 @@ package models;
 
 import org.junit.*;
 import play.Logger;
-import play.test.*;
 
 /**
  * Some performance tests
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Ignore
-public class PerfTest extends UnitTest {
+public class PerfTest extends BaseDataUnitTest {
 
     private static final int NB = 10000;
-    
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
 
     private void bench(String testName, Runnable task) {
         long start = System.currentTimeMillis();

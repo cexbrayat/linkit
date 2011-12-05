@@ -2,29 +2,17 @@ package models;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.*;
-import play.test.*;
 
 /**
  * Unit tests for {@link Session} domain object
  * @author Sryl <cyril.lacote@gmail.com>
  * @author Agnes <agnes.crepet@gmail.com>
  */
-public class SessionTest extends UnitTest {
-
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
+public class SessionTest extends BaseDataUnitTest {
     
     @Test
     public void saveWithBigDescription() {
-        Session session = new Session();
+        Session session = new Talk();
         String description = StringUtils.leftPad("testwith4000char", 4000+3000, "a");
         session.description = description;
         assertTrue(session.description.length()>4000);
@@ -33,8 +21,8 @@ public class SessionTest extends UnitTest {
     
         @Test
     public void testInterests() {
-        Session session1 = new Session();
-        Session session2 = new Session();
+        Session session1 = new Talk();
+        Session session2 = new Talk();
 
         // Well
         assertEquals(0, Session.findSessionsLinkedWith("Java").size());
@@ -52,7 +40,7 @@ public class SessionTest extends UnitTest {
     
     @Test public void lookBy() {
         final Session session = Session.all().first();
-        final Speaker speaker = session.speakers.iterator().next();
+        final Member speaker = session.speakers.iterator().next();
         final Member ced = Member.findByLogin("ced");
         final long nbLooks = session.getNbLooks();
         

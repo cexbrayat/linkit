@@ -6,24 +6,12 @@ import java.util.EnumSet;
 import java.util.List;
 
 import org.junit.*;
-import play.test.*;
 
 /**
  * Unit tests for {@link Suggestion} domain object
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class SuggestionTest extends UnitTest {
-
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
+public class SuggestionTest extends BaseDataUnitTest {
 
     @Test
     public void testFindMembersInterestedInAllOf() {
@@ -87,8 +75,8 @@ public class SuggestionTest extends UnitTest {
 
     @Test
     public void findSessionsAbout() {
-        final Session s1 = createSession("session1");
-        final Session s2 = createSession("session2");
+        final Session s1 = createTalk("session1");
+        final Session s2 = createLightningTalk("session2");
 
         s1.addInterest("Java").addInterest("Hadoop").save();
         s2.addInterest("TDD").addInterest("Java").save();
@@ -102,8 +90,8 @@ public class SuggestionTest extends UnitTest {
         assertEquals(2, Suggestion.findSessionsAbout(interests).size());
     }
     
-    private static Session createSession(String text) {
-        Session s = new Session();
+    private static Session createTalk(String text) {
+        Talk s = new Talk();
         s.title = text;
         s.summary = text;
         s.description = text;
@@ -111,11 +99,19 @@ public class SuggestionTest extends UnitTest {
         return s.save();
     }
     
+    private static Session createLightningTalk(String text) {
+        LightningTalk t = new LightningTalk();
+        t.title = text;
+        t.summary = text;
+        t.description = text;
+        return t.save();
+    }
+    
     @Test
     public void suggestedSessionsFor() {
-        final Session s1 = createSession("session1");
-        final Session s2 = createSession("session2");
-        final Session s3 = createSession("session3");
+        final Session s1 = createTalk("session1");
+        final Session s2 = createLightningTalk("session2");
+        final Session s3 = createTalk("session3");
 
         final String commonInterest1 = "TOTO";
         final String commonInterest2 = "TATA";

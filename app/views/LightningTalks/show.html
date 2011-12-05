@@ -18,14 +18,16 @@
     </div>
         <div class="row">
             <div class="span3">
-                <h4>Speaker</h4>
+                <h4>Speaker${talk.speakers.size().pluralize()}</h4>
+                #{list items:talk.speakers, as:'speaker'}
                 <p>
-                    #{if talk.speaker.email}
-                        <a href="@{Profile.show(talk.speaker.login)}">#{gravatar.img talk.speaker.email, default:'mm', rating:'pg', secure:true/}</a>
-                    #{/if}
+                    <a href="@{Profile.show(speaker.login)}">${speaker}</a>
                     <br/>
-                    <a href="@{Profile.show(talk.speaker.login)}">${talk.speaker}</a>
+                    #{if speaker.email}
+                    <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                    #{/if}
                 </p>
+                #{/list}
 
                 <h4>Intérêts</h4>
                 <p>

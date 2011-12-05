@@ -1,17 +1,14 @@
 package models.activity;
 
+import models.BaseDataUnitTest;
 import models.Member;
 import org.apache.commons.lang.StringUtils;
-import org.junit.After;
-import org.junit.Before;
-import play.test.Fixtures;
-import play.test.UnitTest;
 
 /**
  * Abstract class for units tests of {@link Activity} and derived classes.
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public abstract class AbstractActivityTest extends UnitTest {
+public abstract class AbstractActivityTest extends BaseDataUnitTest {
 
     public static final String DEFAULT_LANG = "fr";
         
@@ -22,16 +19,10 @@ public abstract class AbstractActivityTest extends UnitTest {
         return new Member(login).save();
     }
 
-    @Before
+    @Override
     public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
+        super.setUp();
         member = createMember("toto");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
     }
 
     protected void assertActivity(final Activity activity) {

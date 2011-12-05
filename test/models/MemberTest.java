@@ -7,24 +7,12 @@ import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
 import org.apache.commons.lang.StringUtils;
 import org.junit.*;
-import play.test.*;
 
 /**
  * Unit tests for {@link Member} domain object
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class MemberTest extends UnitTest {
-
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
+public class MemberTest extends BaseDataUnitTest {
 
     @Test public void findByLoginOK() {
         Member bob = Member.findByLogin("bob");
@@ -48,8 +36,8 @@ public class MemberTest extends UnitTest {
         ced.linkers.toArray();
         ced.badges.toArray();
         ced.interests.toArray();
-        ced.accounts.toArray();
-        ced.lightningTalks.toArray();
+        ced.accounts.values().toArray();
+        ced.sessions.toArray();
         ced.sharedLinks.toArray();
     }
 
@@ -159,7 +147,7 @@ public class MemberTest extends UnitTest {
  
         toto = Member.findByLogin(login);
         assertEquals(1, toto.accounts.size());
-        assertSame(ta, toto.accounts.iterator().next());
+        assertSame(ta, toto.accounts.values().iterator().next());
     }
         
     @Test public void addBadge() {
