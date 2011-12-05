@@ -49,7 +49,19 @@
                                 <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">Les sponsors</a></li>
                             </ul>
                         </li>
-
+                        
+                        <li class="dropdown" data-dropdown="dropdown">
+                            <a href="#" class="dropdown-toggle">Infos Pratiques</a>
+                            <ul class="dropdown-menu">
+                                <li #{if request.action=="Infos.orga"}class="active"#{/if}><a href="@{Infos.orga()}">Organisation</a></li>
+                                <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">FAQ</a></li>
+                                <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">kit Multimedia</a></li>
+                                <li #{if request.action=="Infos.contacts"}class="active"#{/if}><a href="@{Infos.contacts()}">Contacts</a></li>
+                                <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">Accès</a></li>
+                                <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a href="@{Infos.hotels()}">Hôtels</a></li>
+                            </ul>
+                        </li>
+                        
                         #{secure.check 'admin'}
                         <li class="dropdown" data-dropdown="dropdown">
                             <a href="#" class="dropdown-toggle">Admin</a>
