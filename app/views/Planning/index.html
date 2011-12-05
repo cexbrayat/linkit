@@ -11,27 +11,7 @@
 #{set 'moreStyles'}
 
 <style>
-/*
 
- -----
-| .agenda
-|  ------------- 
-| | .heures     |
-| |  --------- 
-| | | heure9  | |
-| |  --------- 
-| |  --------- 
-| | | heure10 |
-| |  --------- 
-| |  ---------
-| | | heureXX |
-| |  ---------
-| | 
-|
-|
-|
-|
-*/    
     .agenda{
         position: relative;
         height: 600px;
@@ -65,7 +45,10 @@
         border: 1px dotted;
         position: absolute;
         margin-left: 20px;
-        width:200px;
+        width: 200px;
+        -moz-border-radius: 10px;
+        border-radius: 5px;
+        padding-left: 5px;
     }
 #{list items:models.planning.Slot, as:'slot'}
     .agenda #slot${slot.name()} {
