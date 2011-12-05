@@ -990,3 +990,15 @@ Member(mrbadges) :
          - TwoDaysInARow
          - FiveDaysInARow
          - MixITAddict
+
+models.planning.GeneralPlanning(planning):
+
+models.planning.PlanedSlot(ps1) :
+    planning: planning
+    slot: TenEleven
+    session: sessionhadoop
+
+models.planning.PlanedSlot(ps2) :
+    planning: planning
+    slot: TenEleven
+    session: sessionlightning2

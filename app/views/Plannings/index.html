@@ -3,7 +3,7 @@
 
 %{
     int[] heures = 9..18;   // Heures affichées sur l'agenda
-    double minuteHeight = 1d;   // Hauteur en px d'une minute
+    double minuteHeight = 1.0d;   // Hauteur en px d'une minute
     double hourHeight = minuteHeight * 60d;  // Hauteur en px d'une heure
     int midnightOffset = -(heures[0]*hourHeight);    // Position relative de minuit : calculé pour que l'agenda se positionne à la première heure affichée.
 %}
@@ -32,7 +32,7 @@
 #{list items:heures, as:'heure'}
     .agenda #heure${heure} {
         top:${heure*hourHeight + midnightOffset}px;
-        height:${hourHeight - 1}px; /* -1 for border */
+        height:${hourHeight - 1}px; *{ // -1 for border }*
     }
 #{/list}
     .agenda .slots {
@@ -45,15 +45,15 @@
         border: 1px dotted;
         position: absolute;
         margin-left: 20px;
-        width: 200px;
         -moz-border-radius: 10px;
         border-radius: 5px;
         padding-left: 5px;
+        width: 300px;
     }
 #{list items:models.planning.Slot, as:'slot'}
     .agenda #slot${slot.name()} {
         top:${slot.getStartMinutesFromMidnight()*minuteHeight + midnightOffset}px;
-        height:${slot.getDuration().getMinutes() * minuteHeight - 1}px; /* -1 for border */
+        height:${slot.getDuration().getMinutes() * minuteHeight - 1}px;  *{ // -1 for border }*
     }
 #{/list}
     
@@ -74,20 +74,18 @@
         </div>
         <div class="slots">
             #{list items:models.planning.Slot, as:'slot'}
-                <div id="slot${slot.name()}" class="slot">${slot}</div>
+                <div id="slot${slot.name()}" class="slot">${slot}<br/>
+                #{list items:planning.getPlan(slot), as:'talk'}
+                    #{session talk /}, 
+                #{/list}
+                </div>
             #{/list}
         </div>
         <div class="sessions">
-            <h2>Les sessions</h2>
+            <h2>Les sessions à planifier</h2>
             <ul>
             #{list items:sessions, as:'talk'}
                 <li>#{session talk /}</li>
-            #{/list}
-            </ul>
-            <h2>Les Lightning-talks</h2>
-            <ul>
-            #{list items:lightningTalks, as:'talk'}
-                <li><a href="@{LightningTalks.show(talk.id)}">${talk.title}</a></li>
             #{/list}
             </ul>
         </div>

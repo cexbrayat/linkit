@@ -1,61 +1,37 @@
 package models.planning;
 
-import java.util.EnumMap;
-import java.util.Map;
-import javax.persistence.CascadeType;
+import com.google.common.base.Function;
+import java.util.Set;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapKey;
-import javax.persistence.OneToMany;
-import models.Member;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import models.Session;
 import play.db.jpa.Model;
 
 /**
- * A {@link Member}'s planing : he may choose a {@link Session} per {@link Slot} 
+ * A planning, collection of {@link PlanedSlot}
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public class Planning extends Model {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Planning extends Model {
     
-    @ManyToOne(optional = false)
-    public Member member;
-
-    @OneToMany(mappedBy="planning", cascade = CascadeType.ALL)
-    @MapKey(name="slot")
-    Map<Slot, PlanedSlot> planedSlots = new EnumMap<Slot, PlanedSlot>(Slot.class);
-
-    public Planning(Member member) {
-        this.member = member;
-    }
-
+    protected static final Function<PlanedSlot, Session> SESSION_FILTER = new Function<PlanedSlot, Session>() {
+        public Session apply(PlanedSlot ps) {
+            return ps.session;
+        }
+    };
+    
     /**
-     * Plans given session on given slot.
+     * Plans given slot for given session
      * @param slot
-     * @param session
-     * @return Previous planed Session, if any.
+     * @param s
+     * @return Potential previous session planed, if planning accept only a single session per slot. May be null
      */
-    public Session addPlan(Slot slot, Session session) {
-        Session previousSession = null;
-        
-        PlanedSlot plan = new PlanedSlot(slot, session);
-        plan.planning = this;
-        PlanedSlot previousPlan = planedSlots.put(slot, plan);
-        if (previousPlan != null) {
-            previousSession = previousPlan.session;
-            previousPlan.delete();
-        }
-        return previousSession;
-    }
+    public abstract Session addPlan(final Slot slot, final Session s);
     
-    public Session getPlan(Slot slot) {
-        Session session = null;
-        
-        PlanedSlot plan = planedSlots.get(slot);
-        if (plan != null) {
-            session = plan.session;
-        }
-        
-        return session;
-    }
+    /**
+     * @return already planned session
+     */
+    public abstract Set<Session> getPlannedSessions();
 }

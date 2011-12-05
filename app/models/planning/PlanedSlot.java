@@ -28,7 +28,8 @@ public class PlanedSlot extends Model {
     @Required
     public Session session;
 
-    public PlanedSlot(Slot slot, Session session) {
+    public PlanedSlot(Planning planning, Slot slot, Session session) {
+        this.planning = planning;
         this.slot = slot;
         this.session = session;
     }
