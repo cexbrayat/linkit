@@ -11,6 +11,7 @@ import org.joda.time.format.DateTimeFormatter;
  */
 public enum Slot {
 
+    HeightThirtyNine(LocalTime.parse("8H30", Const.FORMAT), LocalTime.parse("9H00", Const.FORMAT)),
     NineTen(LocalTime.parse("9H00", Const.FORMAT), LocalTime.parse("10H00", Const.FORMAT)),
     TenEleven(LocalTime.parse("10H00", Const.FORMAT), LocalTime.parse("11H00", Const.FORMAT)),
     ElevenNoon(LocalTime.parse("11H00", Const.FORMAT), LocalTime.parse("12H00", Const.FORMAT)),
@@ -41,6 +42,14 @@ public enum Slot {
 
     public LocalTime getStart() {
         return start;
+    }
+    
+    public int getStartMinutesFromMidnight() {
+        return Minutes.minutesBetween(LocalTime.MIDNIGHT, start).getMinutes();
+    }
+    
+    public int getEndMinutesFromMidnight() {
+        return Minutes.minutesBetween(LocalTime.MIDNIGHT, end).getMinutes();
     }
     
     public Minutes getDuration() {

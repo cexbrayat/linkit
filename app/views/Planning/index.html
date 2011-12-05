@@ -1,55 +1,100 @@
 #{extends 'main.html' /}
 #{set title:'Agenda' /}
-#{set 'moreStyles'}
 
 %{
-    int minuteHeight = 1;   // Hauteur en px d'une minute
-    int hourHeight = minuteHeight * 60;  // Hauteur en px d'une heure
+    int[] heures = 9..18;   // Heures affichées sur l'agenda
+    double minuteHeight = 1d;   // Hauteur en px d'une minute
+    double hourHeight = minuteHeight * 60d;  // Hauteur en px d'une heure
+    int midnightOffset = -(heures[0]*hourHeight);    // Position relative de minuit : calculé pour que l'agenda se positionne à la première heure affichée.
 %}
 
+#{set 'moreStyles'}
+
 <style>
+/*
+
+ -----
+| .agenda
+|  ------------- 
+| | .heures     |
+| |  --------- 
+| | | heure9  | |
+| |  --------- 
+| |  --------- 
+| | | heure10 |
+| |  --------- 
+| |  ---------
+| | | heureXX |
+| |  ---------
+| | 
+|
+|
+|
+|
+*/    
     .agenda{
         position: relative;
+        height: 600px;
+        width: 600px;
+    }
+    .agenda .heures {
+        position: relative;
+        margin-left: 20px;
         top: 30px;
     }
-#{list items:9..18, as:'heure'}
     .agenda .heure {
         border-top: 1px solid black;
+        position: absolute;
+        width:35px;
+        height: ${hourHeight}px;
     }
 
+#{list items:heures, as:'heure'}
     .agenda #heure${heure} {
-        position: relative;
-        // top:${heure_index*hourHeight}px;
+        top:${heure*hourHeight + midnightOffset}px;
         height:${hourHeight - 1}px; /* -1 for border */
     }
 #{/list}
+    .agenda .slots {
+        position: relative;
+        margin-left: 40px;
+        top: 30px;
+    }
 
     .agenda .slot {
         border: 1px dotted;
+        position: absolute;
+        margin-left: 20px;
+        width:200px;
     }
 #{list items:models.planning.Slot, as:'slot'}
     .agenda #slot${slot.name()} {
-        // top:${slot.getStart().getHourOfDay()}px;
-        height:${slot.getDuration().getMinutes() * minuteHeight - 2}px; /* -2 for border */
+        top:${slot.getStartMinutesFromMidnight()*minuteHeight + midnightOffset}px;
+        height:${slot.getDuration().getMinutes() * minuteHeight - 1}px; /* -1 for border */
     }
 #{/list}
+    
+    .agenda .sessions {
+        position: relative;
+        left: 400px;
+    }
 </style>
 
 #{/set}
 
 <div class="container">
     <div class="row agenda">
-        <div class="span1">
-            #{list items:9..18, as:'heure'}
+        <div class="heures">
+            #{list items:heures, as:'heure'}
                 <div id="heure${heure}" class="heure">${heure}H</div>
             #{/list}
         </div>
-        <div class="span5">
+        <div class="slots">
             #{list items:models.planning.Slot, as:'slot'}
                 <div id="slot${slot.name()}" class="slot">${slot}</div>
             #{/list}
         </div>
-        <div class="span10">
+        <div class="sessions">
             <h2>Les sessions</h2>
             <ul>
             #{list items:sessions, as:'talk'}
