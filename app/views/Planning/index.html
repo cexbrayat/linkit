@@ -1,17 +1,55 @@
 #{extends 'main.html' /}
 #{set title:'Agenda' /}
+#{set 'moreStyles'}
+
+%{
+    int minuteHeight = 1;   // Hauteur en px d'une minute
+    int hourHeight = minuteHeight * 60;  // Hauteur en px d'une heure
+%}
+
+<style>
+    .agenda{
+        position: relative;
+        top: 30px;
+    }
+#{list items:9..18, as:'heure'}
+    .agenda .heure {
+        border-top: 1px solid black;
+    }
+
+    .agenda #heure${heure} {
+        position: relative;
+        // top:${heure_index*hourHeight}px;
+        height:${hourHeight - 1}px; /* -1 for border */
+    }
+#{/list}
+
+    .agenda .slot {
+        border: 1px dotted;
+    }
+#{list items:models.planning.Slot, as:'slot'}
+    .agenda #slot${slot.name()} {
+        // top:${slot.getStart().getHourOfDay()}px;
+        height:${slot.getDuration().getMinutes() * minuteHeight - 2}px; /* -2 for border */
+    }
+#{/list}
+</style>
+
+#{/set}
 
 <div class="container">
-    <div class="row">
-        <div class="span8">
-            <h2>Agenda</h2>
-            <ol>
-            #{list items:models.planning.Slot, as:'slot'}
-                <li>${slot}</li>
+    <div class="row agenda">
+        <div class="span1">
+            #{list items:9..18, as:'heure'}
+                <div id="heure${heure}" class="heure">${heure}H</div>
             #{/list}
-            </ol>
         </div>
-        <div class="span8">
+        <div class="span5">
+            #{list items:models.planning.Slot, as:'slot'}
+                <div id="slot${slot.name()}" class="slot">${slot}</div>
+            #{/list}
+        </div>
+        <div class="span10">
             <h2>Les sessions</h2>
             <ul>
             #{list items:sessions, as:'talk'}
