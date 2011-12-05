@@ -27,7 +27,9 @@
                     class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
         </td>
         <td>
-            #{member talk.speaker /}
+            #{list items:talk.speakers, as:'speaker'}
+                #{member speaker /}#{if !speaker_isLast}, #{/if}
+            #{/list}
         </td>
         <td>
             <div class="vote-counter" id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>

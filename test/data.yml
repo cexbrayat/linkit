@@ -51,7 +51,7 @@ GoogleAccount(rguyLinkIt):
     member: rguy
     googleId: 111962077049890418486
 
-Session(sessionTest):
+Talk(sessionTest):
     title: Test title
     track: Techy
     summary: Test summary

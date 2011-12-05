@@ -4,28 +4,13 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import models.activity.StatusActivity;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import play.test.Fixtures;
-import play.test.UnitTest;
 
 /**
  * Unit tests for {@link TwitterAccount}
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class TwitterAccountTest extends UnitTest {
-
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
+public class TwitterAccountTest extends BaseDataUnitTest {
     
     protected static StatusActivity buildTweet(Member author, String content) {
         return new StatusActivity(author, new Date(), ProviderType.Twitter, content, null, null);

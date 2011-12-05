@@ -1,27 +1,14 @@
 package models;
 
-
 import java.util.List;
 import java.util.Map;
 import org.junit.*;
-import play.test.*;
 
 /**
  * Unit tests for {@link Interest} domain object
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class InterestTest extends UnitTest {
-
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
+public class InterestTest extends BaseDataUnitTest {
 
     @Test
     public void testFindMembersInterestedIn() {

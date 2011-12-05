@@ -26,13 +26,13 @@
                     </ul>
                 #{/if}
 
-                #{if member.lightningTalks}
+                #{if member.sessions}
                     <h5>Mes propositions de lightning talks :</h5>
                     <ul>
-                    #{list items:member.lightningTalks, as:'lt'}
+                    #{list items:member.sessions, as:'lt'}
+                        #{if lt instanceof models.LightningTalk}
                         <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a> : ${lt.getNumberOfVotes()} vote${lt.getNumberOfVotes().pluralize()}</li>
-                        #{if member.linkers.size()<=1} linker #{/if}
-                            #{else} linker${member.linkers.size().pluralize()} #{/else}
+                        #{/if}
                     #{/list}
                     </ul>
                 #{/if}
