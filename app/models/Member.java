@@ -1,8 +1,6 @@
 package models;
 
-import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import controllers.JobFetchUserTimeline;
@@ -40,7 +38,7 @@ import play.data.validation.Valid;
                         + "left outer join fetch m.linkers "
                         + "left outer join fetch m.badges "
                         + "left outer join fetch m.interests "
-                        + "left outer join fetch m.lightningTalks "
+                        + "left outer join fetch m.sessions "
                         + "left outer join fetch m.sharedLinks "
                         + "where m.login=:login")
 })
@@ -99,8 +97,8 @@ public class Member extends Model implements Lookable {
     public Set<Member> linkers = new HashSet<Member>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
-    public Set<Account> accounts = new HashSet<Account>();
+    @MapKey(name="provider")
+    public Map<ProviderType,Account> accounts = new EnumMap<ProviderType, Account>(ProviderType.class);
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
@@ -108,8 +106,8 @@ public class Member extends Model implements Lookable {
     @ElementCollection
     public Set<Badge> badges = EnumSet.noneOf(Badge.class);
 
-    @OneToMany(mappedBy = "speaker", cascade = CascadeType.ALL, orphanRemoval = true)
-    public Set<LightningTalk> lightningTalks = new HashSet<LightningTalk>();
+    @ManyToMany(mappedBy="speakers")
+    public Set<Session> sessions = new HashSet<Session>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @OrderColumn(name = "ordernum")
@@ -129,13 +127,13 @@ public class Member extends Model implements Lookable {
     public final void addAccount(Account account) {
         if (account != null) {
             account.member = this;
-            this.accounts.add(account);
+            this.accounts.put(account.provider, account);
         }
     }
 
     public final void removeAccount(Account account) {
         if (account != null) {
-            this.accounts.remove(account);
+            this.accounts.remove(account.provider);
             account.member = null;
             StatusActivity.deleteForMember(this, account.provider);
         }
@@ -148,13 +146,7 @@ public class Member extends Model implements Lookable {
      * @return Activated account found, null otherwise
      */
     public Account getAccount(final ProviderType provider) {
-        // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
-        Predicate<Account> p = new Predicate<Account>() {
-            public boolean apply(Account a) {
-                return a.provider == provider;
-            }
-        };
-        return Iterables.find(accounts, p, null);
+        return accounts.get(provider);
     }
 
     public GoogleAccount getGoogleAccount() {
@@ -171,12 +163,7 @@ public class Member extends Model implements Lookable {
      * @return All providers where the member has an activated social network account
      */
     public List<ProviderType> getAccountProviders() {
-        // FIXME CLA Refactor Member.accounts to Map<ProviderType,Account>?
-        List<ProviderType> providers = Lists.newArrayList(Collections2.transform(this.accounts, new Function<Account, ProviderType>() {
-            public ProviderType apply(Account a) {
-                return a.provider;
-            }
-        }));
+        List<ProviderType> providers = Lists.newArrayList(accounts.keySet());
         providers.add(ProviderType.LinkIt);   // LinkIt est toujours un provider actif
         Collections.sort(providers);    // Ensure enumeration order
         return providers;
@@ -188,7 +175,7 @@ public class Member extends Model implements Lookable {
      * @return All social network accounts
      */
     public List<Account> getOrderedAccounts() {
-        List<Account> orderedAccounts = Lists.newArrayList(accounts);
+        List<Account> orderedAccounts = Lists.newArrayList(accounts.values());
         Collections.sort(orderedAccounts);
         return orderedAccounts;
     }
@@ -359,11 +346,6 @@ public class Member extends Model implements Lookable {
                 previous.delete();
             }
         }
-    }
-
-    public void addLightningTalk(LightningTalk talk) {
-        talk.speaker = this;
-        this.lightningTalks.add(talk);
     }
 
     /**

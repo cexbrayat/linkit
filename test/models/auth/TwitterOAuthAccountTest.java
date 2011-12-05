@@ -1,29 +1,15 @@
 package models.auth;
 
+import models.BaseDataUnitTest;
 import models.Member;
 import models.TwitterAccount;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import play.test.Fixtures;
-import play.test.UnitTest;
 
 /**
  * Unit tests for {@link TwitterOAuthAccount} 
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class TwitterOAuthAccountTest extends UnitTest {
-
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
+public class TwitterOAuthAccountTest extends BaseDataUnitTest {
 
     @Test
     public void testInitMemberProfileNull() {

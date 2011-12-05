@@ -43,7 +43,7 @@ public class LightningTalks extends PageController {
             talk.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
         }
         Member member = Member.findByLogin(Security.connected());
-        talk.speaker = member;
+        talk.addSpeaker(member);
         talk.save();
         flash.success("LightningTalk " + talk + " enregistré");
         Logger.info("LightningTalk " + talk + " enregistré");

@@ -1,0 +1,143 @@
+#{extends 'main.html' /}
+#{set title:'Agenda' /}
+
+%{
+    int[] heures = 9..18;   // Heures affichées sur l'agenda
+    double minuteHeight = 1.0d;   // Hauteur en px d'une minute
+    double hourHeight = minuteHeight * 60d;  // Hauteur en px d'une heure
+    int midnightOffset = -(heures[0]*hourHeight);    // Position relative de minuit : calculé pour que l'agenda se positionne à la première heure affichée.
+%}
+
+#{set 'moreStyles'}
+
+<style>
+
+    .agenda{
+        position: relative;
+        height: 600px;
+        width: 600px;
+    }
+    .agenda .heures {
+        position: relative;
+        margin-left: 20px;
+        top: 30px;
+    }
+    .agenda .heure {
+        border-top: 1px solid black;
+        position: absolute;
+        width:35px;
+        height: ${hourHeight}px;
+    }
+
+#{list items:heures, as:'heure'}
+    .agenda #heure${heure} {
+        top:${heure*hourHeight + midnightOffset}px;
+        height:${hourHeight - 1}px; *{ // -1 for border }*
+    }
+#{/list}
+    .agenda .slots {
+        position: relative;
+        margin-left: 40px;
+        top: 30px;
+    }
+
+    .agenda .slot {
+        border: 1px dotted;
+        position: absolute;
+        margin-left: 20px;
+        -moz-border-radius: 10px;
+        border-radius: 5px;
+        padding-left: 5px;
+        width: 300px;
+    }
+    .slot.hovered {
+        background-color: lightgrey;
+    }
+#{list items:models.planning.Slot, as:'slot'}
+    .agenda #slot${slot.name()} {
+        top:${slot.getStartMinutesFromMidnight()*minuteHeight + midnightOffset}px;
+        height:${slot.getDuration().getMinutes() * minuteHeight - 1}px;  *{ // -1 for border }*
+    }
+#{/list}
+    
+    .agenda .sessions {
+        position: relative;
+        left: 400px;
+    }
+
+    .sessions .session {
+    }
+    .session:hover{
+        cursor: move;
+    }
+    .session.ui-draggable-dragging {
+        font-weight: bolder;
+    }
+</style>
+
+#{/set}
+#{set 'moreScripts'}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+<script lang="text/javascript">
+
+$( init );
+function init() {
+  $('.session').draggable({
+      cursor: 'move',
+      revert: 'valid',
+      connectToSortable: 'ul#plannedSessions'
+  });
+  $('.slot').droppable( {
+      accept: '.session',
+      hoverClass: 'hovered',
+      drop: handleSessionDrop,
+      tolerance: 'pointer'
+  });
+}
+
+var planAction = #{jsAction @Plannings.plan(':planningId', ':slot', ':sessionId') /};
+function handleSessionDrop(event, ui) {
+    var draggable = ui.draggable;
+    var sessionId = draggable.attr('data-id');
+    var slot = $(this).attr('data-id');
+    alert('drop session '+sessionId+' sur slot '+slot);
+    $.get(planAction({planningId:${planning.id}, slot:slot, sessionId:sessionId}), function (data) {
+        if (data) {
+            draggable.draggable('option', "revert", "invalid");
+        } else {
+            alert('Erreur pendant la sauvegarde de votre agenda');
+        }
+    });
+}
+
+</script>
+
+#{/set}
+
+<div class="container">
+    <div class="row agenda">
+        <div class="heures">
+            #{list items:heures, as:'heure'}
+                <div id="heure${heure}" class="heure">${heure}H</div>
+            #{/list}
+        </div>
+        <div class="slots">
+            #{list items:models.planning.Slot, as:'slot'}
+                <div id="slot${slot.name()}" class="slot" data-id="${slot.name()}">${slot}
+                <ul id="plannedSessions">
+                #{list items:planning.getPlan(slot), as:'talk'}
+                    <li>#{session talk /}</li>
+                #{/list}
+                </div>
+            #{/list}
+        </div>
+        <div class="sessions">
+            <h2>Les sessions à planifier</h2>
+            <ul>
+            #{list items:sessions, as:'talk'}
+                <li>#{session talk /}</li>
+            #{/list}
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,27 +1,12 @@
 package models;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import play.test.Fixtures;
-import play.test.UnitTest;
 
 /**
  * Unit tests for {@link Speaker}
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class SpeakerTest extends UnitTest {
-
-    @Before
-    public void setUp() {
-        Fixtures.deleteAllModels();
-        Fixtures.loadModels("data.yml");
-    }
-
-    @After
-    public void tearDown() {
-        Fixtures.deleteAllModels();
-    }
+public class SpeakerTest extends BaseDataUnitTest {
         
     @Test public void load() {
         final String speakerLogin = "rguy";
