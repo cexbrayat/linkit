@@ -1,5 +1,6 @@
 package models.planning;
 
+import org.joda.time.Minutes;
 import org.junit.Test;
 import play.test.UnitTest;
 
@@ -11,9 +12,7 @@ public class SlotTest extends UnitTest {
     
     @Test
     public void getDuration() {
-        for (Slot slot : Slot.values()) {
-            assertTrue(slot.getDuration().getMinutes() >= 60);
-        }
+        assertEquals(Minutes.minutes(60), Slot.NineTen.getDuration());
     }
     
     @Test
