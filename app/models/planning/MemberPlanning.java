@@ -35,18 +35,15 @@ public class MemberPlanning extends Planning {
      * Plans given session on given slot.
      * @param slot
      * @param session
-     * @return Previous planed Session, if any.
      */
-    public Session addPlan(Slot slot, Session session) {
-        Session previousSession = null;
+    public void addPlan(Slot slot, Session session) {
+        // FIXME CLA a member shouldn't be able to plan the same session on two different slot
         
         PlanedSlot plan = new PlanedSlot(this, slot, session);
         PlanedSlot previousPlan = planedSlots.put(slot, plan);
         if (previousPlan != null) {
-            previousSession = previousPlan.session;
             previousPlan.delete();
         }
-        return previousSession;
     }
     
     public Session getPlan(Slot slot) {
