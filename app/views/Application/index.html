@@ -12,7 +12,7 @@
         auto: true,
         pause:5e3,
         controls: false,
-        onAfterSlide: function(currentSlide, totalSlides){
+        onBeforeSlide: function(currentSlide, totalSlides){
             $("ul.slider > li").removeClass("active");
             $('#slide-'+currentSlide).addClass("active");
         }
@@ -72,11 +72,12 @@ $(document).ready(function() {
             </div>
         </div>
     </div>
-    <ul class="tabs slider">
+    <ul class="tabs slider" style="margin-bottom: 0px">
         <li id="slide-0" class="active"><a href="#">Derniers articles</a></li>
         <li id="slide-1"><a href="#">Dernières sessions</a></li>
         <li id="slide-2"><a href="#">Derniers inscrits</a></li>
     </ul>
+    <div id="slider-container">
     <ul id="slider">
         <li>
             <div class="row">
