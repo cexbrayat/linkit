@@ -68,7 +68,7 @@ public class Sessions extends PageController {
         renderBinary(captcha);
     }
 
-    public static void save(@Valid Session talk, String[] interests, String newInterests) {
+    public static void save(@Valid Talk talk, String[] interests, String newInterests) {
         Logger.info("Tentative d'enregistrement de la session " + talk);
         if (interests != null) {
             talk.updateInterests(interests);
