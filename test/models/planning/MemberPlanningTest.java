@@ -40,7 +40,7 @@ public class MemberPlanningTest extends BaseDataUnitTest {
         assertNull(p.getPlan(Slot.ElevenNoon));
         
         // Replanning : s1 was the previous session planned
-        assertSame(s1, p.addPlan(Slot.NineTen, s3));
+        p.addPlan(Slot.NineTen, s3);
         p.save();
         p = MemberPlanning.findById(p.id);
         assertSame(s3, p.getPlan(Slot.NineTen));
@@ -57,6 +57,7 @@ public class MemberPlanningTest extends BaseDataUnitTest {
         p.addPlan(Slot.NineTen, s2);
         p.addPlan(Slot.ElevenNoon, s2);
         p.addPlan(Slot.ElevenNoon, s3);
+        // FIXME CLA a member shouldn't be able to plan the same session on two different slot
 
         assertEquals(Sets.newHashSet(s1, s2, s3), p.getPlannedSessions());
     }
