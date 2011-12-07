@@ -82,28 +82,31 @@
 
 $( init );
 function init() {
-  $('.session').draggable({
-      cursor: 'move',
-      revert: 'valid',
-      connectToSortable: 'ul#plannedSessions'
-  });
+
   $('.slot').droppable( {
-      accept: '.session',
+      accept: 'li.session',
       hoverClass: 'hovered',
       drop: handleSessionDrop,
       tolerance: 'pointer'
+  });
+  $('li.session').draggable( {
+      cursor: 'move',
+      revert: 'invalid',
+      stack: '.slot > ul'
   });
 }
 
 var planAction = #{jsAction @Plannings.plan(':planningId', ':slot', ':sessionId') /};
 function handleSessionDrop(event, ui) {
     var draggable = ui.draggable;
-    var sessionId = draggable.attr('data-id');
+    var sessionId = draggable.children('.session').attr('data-id');
     var slot = $(this).attr('data-id');
-    alert('drop session '+sessionId+' sur slot '+slot);
+    var plannedSessionsUL = $(this).children('ul'); // Use this when available
+//    alert('drop session '+sessionId+' sur slot '+slot);
     $.get(planAction({planningId:${planning.id}, slot:slot, sessionId:sessionId}), function (data) {
         if (data) {
-            draggable.draggable('option', "revert", "invalid");
+            draggable.css('top', 0).css('left', 0); // Don't know why CSS attributes are touched after drop.
+            draggable.appendTo(plannedSessionsUL);
         } else {
             alert('Erreur pendant la sauvegarde de votre agenda');
         }
@@ -124,10 +127,11 @@ function handleSessionDrop(event, ui) {
         <div class="slots">
             #{list items:models.planning.Slot, as:'slot'}
                 <div id="slot${slot.name()}" class="slot" data-id="${slot.name()}">${slot}
-                <ul id="plannedSessions">
-                #{list items:planning.getPlan(slot), as:'talk'}
-                    <li>#{session talk /}</li>
-                #{/list}
+                    <ul id="plannedSessions">
+                    #{list items:planning.getPlan(slot), as:'talk'}
+                        <li class="session">#{session talk /}</li>
+                    #{/list}
+                    </ul>
                 </div>
             #{/list}
         </div>
@@ -135,7 +139,7 @@ function handleSessionDrop(event, ui) {
             <h2>Les sessions à planifier</h2>
             <ul>
             #{list items:sessions, as:'talk'}
-                <li>#{session talk /}</li>
+                <li class="session">#{session talk /}</li>
             #{/list}
             </ul>
         </div>
