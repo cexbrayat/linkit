@@ -2,7 +2,6 @@ package models.planning;
 
 import com.google.common.collect.Sets;
 import models.BaseDataUnitTest;
-import models.Member;
 import models.Session;
 import models.Talk;
 import org.junit.Test;
@@ -12,10 +11,6 @@ import org.junit.Test;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class GeneralPlanningTest extends BaseDataUnitTest {
-    
-    private static Member createMember(String login) {
-        return new Member(login).save();
-    }
     
     private static Session createSession(String text) {
         return new Talk().save();
@@ -38,14 +33,14 @@ public class GeneralPlanningTest extends BaseDataUnitTest {
         assertEquals(Sets.newHashSet(s3), p.getPlan(Slot.ElevenNoon));
         assertTrue(p.getPlan(Slot.MidDayBreak).isEmpty());
 
-        // Add same plan again : s1 was already planned
-        p.addPlan(Slot.NineTen, s1);
-        p.addPlan(Slot.NineTen, s1);
+        // Add new plan
+        p.addPlan(Slot.ElevenNoon, s1);
+        p.addPlan(Slot.ElevenNoon, s1);
         p.save();
         p = GeneralPlanning.findById(p.id);
-        assertEquals(Sets.newHashSet(s1, s2), p.getPlan(Slot.NineTen));
+        assertEquals(Sets.newHashSet(s1, s3), p.getPlan(Slot.ElevenNoon));
         // Just to be sure that there is no duplicated data in DB
-        assertEquals(2l, PlanedSlot.count("session = ?", s1));
+        assertEquals(1l, PlanedSlot.count("session = ?", s1));
     }
     
     @Test

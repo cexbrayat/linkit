@@ -26,9 +26,8 @@ public abstract class Planning extends Model {
      * Plans given slot for given session
      * @param slot
      * @param s
-     * @return Potential previous session planed, if planning accept only a single session per slot. May be null
      */
-    public abstract Session addPlan(final Slot slot, final Session s);
+    public abstract void addPlan(final Slot slot, final Session s);
     
     /**
      * @return already planned session
