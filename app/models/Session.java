@@ -39,7 +39,7 @@ public abstract class Session extends Model implements Lookable {
     public String description;
 
     @ManyToMany
-    @MinSize(1)
+    @Required
     public Set<Member> speakers = new HashSet<Member>();
 
     @ManyToMany(cascade = CascadeType.PERSIST)
