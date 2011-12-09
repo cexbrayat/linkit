@@ -14,3 +14,5 @@ eclipse/
 .idea/
 out/
 lib/
+
+cobertura.ser
