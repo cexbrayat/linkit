@@ -7,6 +7,7 @@ import org.scribe.model.Response;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
+import play.Logger;
 import play.Play;
 import play.libs.WS;
 import play.mvc.Http;
@@ -37,7 +38,9 @@ abstract class AbstractOAuthProviderImpl implements OAuthProvider {
     protected abstract OAuthService buildService();
 
     protected String getCallbackUrl() {
-        return Login.getCallbackUrl(provider);
+        String callback = Login.getCallbackUrl(provider);
+        Logger.info("OAuth Callback URL for %s : %s", provider, callback);
+        return callback;
     }
     
     /**
