@@ -179,7 +179,7 @@
             <h2>Intérêts</h2>
             <p>
                 #{list items:member.interests, as:'interest'}
-                <a href="@{Application.sessionsAndMembersByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
+                <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
                 #{/list}
             </p>
         </div>

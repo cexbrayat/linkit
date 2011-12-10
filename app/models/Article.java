@@ -18,6 +18,8 @@ import org.hibernate.annotations.Table;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+import play.modules.search.Field;
+import play.modules.search.Indexed;
 
 /**
  * An article, i.e. a blog post
@@ -28,10 +30,13 @@ import play.db.jpa.Model;
 indexes = {
     @Index(name = "Article_IDX", columnNames = {Article.POSTEDAT})
 })
+@Indexed
 public class Article extends Model implements Lookable {
 
-    public final static String POSTEDAT = "postedAt";
-    
+    public final static String TITLE = "title";
+    public final static String HEADLINE = "headline";
+    public final static String CONTENT = "content";
+    public final static String POSTEDAT = "postedAt";    
     
     @Required
     @ManyToOne(optional = false)
@@ -42,18 +47,24 @@ public class Article extends Model implements Lookable {
     @Temporal(TemporalType.TIMESTAMP)
     public Date postedAt = new Date();
     
+    @Column(name = TITLE)
     @Required
     @MaxSize(50)
+    @Field
     public String title;
 
     /** Markdown enabled */
+    @Column(name = HEADLINE)
     @Required
     @MaxSize(500)
+    @Field
     public String headline;
 
     /** Markdown enabled */
+    @Column(name = CONTENT)
     @Lob
     @Required
+    @Field
     public String content;
 
     /** Eventual comments */

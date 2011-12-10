@@ -3,12 +3,14 @@ package models;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
+import play.modules.search.Indexed;
 
 /**
  * Don't mess with us.
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
+@Indexed
 public class Staff extends Member {
     
     /**

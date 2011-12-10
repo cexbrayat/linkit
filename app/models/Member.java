@@ -22,6 +22,8 @@ import javax.persistence.*;
 import java.util.*;
 import play.data.validation.Email;
 import play.data.validation.Valid;
+import play.modules.search.Field;
+import play.modules.search.Indexed;
 
 /**
  * A LinkIT member.
@@ -42,7 +44,14 @@ import play.data.validation.Valid;
                         + "left outer join fetch m.sharedLinks "
                         + "where m.login=:login")
 })
+@Indexed
 public class Member extends Model implements Lookable {
+
+    public static final String FIRSTNAME = "firstname";
+    public static final String LASTNAME = "lastname";
+    public static final String COMPANY = "company";
+    public static final String SHORTDESCRIPTION = "shortDescription";
+    public static final String LONGDESCRIPTION = "longDescription";
 
     static final String QUERY_BYLOGIN = "MemberByLogin";
     static final String QUERY_FORPROFILE = "MemberForProfile";
@@ -59,13 +68,19 @@ public class Member extends Model implements Lookable {
     @Email
     public String email;
 
+    @Column(name = FIRSTNAME)
     @Required
+    @Field
     public String firstname;
 
+    @Column(name = LASTNAME)
     @Required
+    @Field
     public String lastname;
 
+    @Column(name = COMPANY)
     @Required
+    @Field
     public String company;
 
     @Required
@@ -75,14 +90,18 @@ public class Member extends Model implements Lookable {
     /**
      * User-defined description, potentially as MarkDown
      */
+    @Column(name = SHORTDESCRIPTION)
     @Required
     @MaxSize(140)
+    @Field
     public String shortDescription;
 
     /**
      * User-defined description, potentially as MarkDown
      */
+    @Column(name = LONGDESCRIPTION)
     @Lob
+    @Field
     public String longDescription;
 
     /**

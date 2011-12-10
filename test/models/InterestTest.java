@@ -10,8 +10,28 @@ import org.junit.*;
  */
 public class InterestTest extends BaseDataUnitTest {
 
+    private static Interest createInterest(String name) {
+        return new Interest(name).save();
+    }
+    
     @Test
-    public void testFindMembersInterestedIn() {
+    public void findByName() {
+        final String name = "toto";
+        assertNull(Interest.findByName(name));
+        createInterest(name);
+        assertNotNull(Interest.findByName(name));
+    }
+    
+    @Test
+    public void findOrCreateByName() {
+        final String name = "toto";
+        assertNull(Interest.find("byName", name).first());
+        createInterest(name);
+        assertNotNull(Interest.findByName(name));
+    }
+    
+    @Test
+    public void getCloud() {
         Member bob = Member.findByLogin("bob");
         Member ced = Member.findByLogin("ced");
 

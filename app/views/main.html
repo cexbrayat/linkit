@@ -74,7 +74,7 @@
                         </li>
                         #{/secure.check}
                     </ul>
-                    <ul class="nav secondary-nav">
+                    <ul class="nav secondary-nav pull-right">
                         #{if session.username} 
                         <li class="dropdown" data-dropdown="dropdown">
                             <a href="#" class="dropdown-toggle">#{member models.Member.findByLogin(session.username), static:true /}</a>
@@ -91,6 +91,11 @@
                         <li><a href="@{Login.index(request.url)}">Se connecter</a></li>
                         #{/else}
                     </ul>
+                    <form action="@{Application.search}" method="GET" class="pull-right">
+                        #{field 'query'}
+                        <input type="search" id="${field.id}" name="${field.name}" placeholder="Rechercher" value="${params.query}" />
+                        #{/field}
+                    </form> 
                 </div>
             </div>
         </div>
