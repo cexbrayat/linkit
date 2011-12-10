@@ -14,6 +14,7 @@ public class PopulateOnStart extends Job {
         if (!"test".equals(Play.id)) {
             // Check if the database is empty
             if(Member.count() == 0) {
+                Fixtures.deleteAllModels();
                 Fixtures.loadModels("init-data.yml");
             }
         }
