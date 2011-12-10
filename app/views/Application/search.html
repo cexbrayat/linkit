@@ -1,33 +1,29 @@
 #{extends 'main.html' /}
 #{set title:'Résultats de recherche' /}
 
-<div class="container">
+<hr/>
+#{if articles}
+    <h4>Voici les articles liées à la recherche ${query} :</h4>
+    #{articles articles:articles /}
+#{/if}
+#{else}
+    <h4>Aucun article liée à la recherche ${query}!</h4>
+#{/else}
 
-    <hr/>
-    #{if articles}
-        <h4>Voici les articles liées à la recherche ${query} :</h4>
-        #{articles articles:articles /}
-    #{/if}
-    #{else}
-        <h4>Aucun article liée à la recherche ${query}!</h4>
-    #{/else}
+<hr/>
+#{if sessions}
+    <h4>Voici les sessions liées à la recherche ${query} :</h4>
+    #{sessions sessions:sessions/}
+#{/if}
+#{else}
+    <h4>Aucune session liée à la recherche ${query}!</h4>
+#{/else}
 
-    <hr/>
-    #{if sessions}
-        <h4>Voici les sessions liées à la recherche ${query} :</h4>
-        #{sessions sessions:sessions/}
-    #{/if}
-    #{else}
-        <h4>Aucune session liée à la recherche ${query}!</h4>
-    #{/else}
-
-    <hr/>
-    #{if members}
-        <h4>Voici les participants liés à la recherche ${query} :</h4>
-        #{members members:members/}
-    #{/if}
-    #{else}
-        <h4>Aucun participant lié à la recherche ${query}!</h4>
-    #{/else}
-
-</div>
+<hr/>
+#{if members}
+    <h4>Voici les participants liés à la recherche ${query} :</h4>
+    #{members members:members/}
+#{/if}
+#{else}
+    <h4>Aucun participant lié à la recherche ${query}!</h4>
+#{/else}

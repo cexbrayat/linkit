@@ -1,15 +1,14 @@
 #{extends 'main.html' /}
 #{set title:'Connexion à Link-IT' /}
 
-<div class="container">
     <div class="hero-unit">
-
-        <h1>Se connecter à Link-IT</h1>
+        <h1>Connexion à Link-IT</h1>
+    </div>
 
         <div class="row">
-            <div class="span8">
-                <h2>avec login/mot de passe</h1>
-                #{form @loginLinkIt()}
+            <div class="span5" style="border-right: 2px solid; padding-right: 20px">
+                <h3>login/mot de passe</h3>
+                <form class="form-stacked" action="@{loginLinkIt()}">
                 <fieldset>
                     
                     #{ifErrors}
@@ -44,11 +43,11 @@
                         <input type="submit" formaction="@{signup()}" class="btn" value="S'enregistrer">
                     </div>
                 </fieldset>
-                #{/form}
+                </form>
             </div>
 
-            <div class="span6">
-                <h2>avec un compte existant</h2>
+            <div class="span5">
+                <h3>avec un compte existant</h3>
                 <p>
                     <a href="@{loginWith('Twitter')}" class="btn large primary">&{'provider.Twitter'}</a>
                 </p>
@@ -57,5 +56,3 @@
                 </p>
             </div>
         </div>
-    </div>
-</div><!-- /container --> 

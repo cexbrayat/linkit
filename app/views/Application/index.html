@@ -36,10 +36,9 @@
 </script>|
 #{/set}
 
-<div class="container">
     <div class="hero-unit">
         <div class="row">
-            <div class="span7">
+            <div class="span5">
                 <h1>Mix-it</h1> 
                 <h2>Des idées pour tout de suite !</h2>
                 <p>X Avril 2012</p>
@@ -50,7 +49,7 @@
                 <a class="btn primary large" href="@{Dashboard.index()}">Mon Dashboard</a>
                 #{/else}
             </div>
-            <div class="span7"> 
+            <div class="span5"> 
                 <!-- You must explicitly specify the dimensions of the container element -->
                 <div id="wordcloud" style="width: 250px; height: 250px; position: relative;"></div>
                 <script type="text/javascript">
@@ -108,8 +107,7 @@ $(document).ready(function() {
         </li>
     </ul>
     </div>
-    <div class="row">
-        <div class="span16">
+
         <h4>Activités récentes</h4>
         <p id="activities"></p>
         <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>  
@@ -140,6 +138,3 @@ $(document).ready(function() {
     // Initial loading : first page
     loadMoreActivities();
 </script>     
-        </div>
-      </div>
-</div><!-- /container --> 

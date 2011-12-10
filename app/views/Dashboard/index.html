@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
 #{set title:member.toString() + ' - Dashboard Link-IT' /}
-<div class="container">
+
     <div class="hero-unit">
         <h2>Mon dashboard</h2>
         <div class="row">
@@ -13,8 +13,8 @@
                 <p>Votre profil a été consulté ${member.getNbLooks()} fois.</p>
 
                 <p>
-                    <a href="@{Profile.show(session.username)}" class="btn">Voir mon profil</a>
-                    <a href="@{Profile.edit()}" class="btn">Editer mon profil</a>
+                    <a href="@{Profile.show(session.username)}" class="btn small">Voir mon profil</a>
+                    <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
                 </p>
 
                 #{if member instanceof models.Speaker}
@@ -90,10 +90,10 @@
                 #{/if}
             </div>
 
-            <div class="span8" > <!-- timeline -->
+            <div class="span6" > <!-- timeline -->
                 <h3>Activités de vos links</h3>
                 <div class="row">
-                    <div class="span8">
+                    <div class="span6">
                         <a class="service-button linkit" id="LinkIt" onClick="handleProvider('LinkIt')"></a>
                         <a class="service-button twitter" id="Twitter" onClick="handleProvider('Twitter')"></a>
                         <a class="service-button google" id="Google" onClick="handleProvider('Google')"></a>
@@ -101,7 +101,7 @@
                     </div>
                     <br/>
                     <br/>
-                    <div class="span8">
+                    <div class="span6">
                         <div id="activities" style="max-height: 400px"></div>
                     </div>
                     <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>

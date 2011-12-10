@@ -1,7 +1,5 @@
 *{ Display all articles "articles" }*
 
-<div class="container">
-
     #{secure.check models.Role.ADMIN_ARTICLE}
     <p>
         Ami du staff, veux-tu <a class="btn danger" href="@{Articles.create()}">Créer un article</a> ?
@@ -18,4 +16,4 @@
     #{/if}
 
     #{/list}
-</div><!-- /container --> 
+ 
