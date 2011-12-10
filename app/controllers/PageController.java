@@ -16,7 +16,7 @@ public abstract class PageController extends Controller {
 
     @Before
     public static void loadDefaultData() {
-        List<Sponsor> sponsors = Cache.get("SPONSORS", null);
+        List<Sponsor> sponsors = Cache.get(SPONSORS, null);
         if (sponsors == null) {
             sponsors = Sponsor.findAll();
             Cache.add(SPONSORS, sponsors, "2h");
