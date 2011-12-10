@@ -22,13 +22,13 @@ body {
 // Fluid layouts (left aligned, with fixed sidebar)
 .container-fluid {
   position: relative;
-  min-width: 940px;
-  padding-left: 260px;
-  padding-right: 20px;
+  max-width: 940px;
+  padding-right: 260px;
+  padding-left: 20px;
   .clearfix();
   > .sidebar {
-    float: left;
-    margin-left: -240px;
+    float: right;
+    margin-right: -240px;
     width: 220px;
   }
   // TODO in v2: rename this and .popover .content to be more specific
@@ -40,7 +40,7 @@ body {
 
   // Don't use the sidebar margin in the topbar
   .topbar & {
-    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 
