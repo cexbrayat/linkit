@@ -19,22 +19,29 @@ body {
   .fixed-container();
 }
 
-// Fluid layouts (left aligned, with sidebar, min- & max-width content)
+// Fluid layouts (left aligned, with fixed sidebar)
 .container-fluid {
   position: relative;
-  min-width: 940px;
+  max-width: 940px;
+  padding-right: 260px;
   padding-left: 20px;
-  padding-right: 20px;
   .clearfix();
   > .sidebar {
-    position: absolute;
-    top: 0;
-    left: 20px;
+    float: right;
+    margin-right: -240px;
     width: 220px;
   }
   // TODO in v2: rename this and .popover .content to be more specific
   > .content {
-    margin-left: 240px;
+    float: left;
+    margin-right: 260px;
+    width: 100%;
+  }
+
+  // Don't use the sidebar margin in the topbar
+  .topbar & {
+    max-width: 100%;
+    padding-right: 20px;
   }
 }
 

@@ -14,7 +14,7 @@
     }
 </script>
 #{/set}
-<div class="container">
+
     <div class="hero-unit">
         <h2>${member}</h2>
         <div class="row">
@@ -109,7 +109,7 @@
                 </div>
             </div>
 
-            <div class="span8" > <!-- timeline -->
+            <div class="span6" > <!-- timeline -->
                 <h3>Ses activités</h3>
                 <div class="span8">
                     #{list items:member.getAccountProviders(), as:'provider'}       
@@ -119,7 +119,7 @@
                 </div>
                 <br/>
                 <br/>
-                <div class="span8">
+                <div class="span6">
                     <div id="activities" style="max-height: 400px"></div>
                 </div>
                 <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
@@ -175,15 +175,15 @@
     </div>
 
     <div class="row">
-        <div class="span8">
+        <div class="span6">
             <h2>Intérêts</h2>
             <p>
                 #{list items:member.interests, as:'interest'}
-                <a href="@{Application.sessionsAndMembersByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
+                <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
                 #{/list}
             </p>
         </div>
-        <div class="span8">
+        <div class="span6">
             <h2>Badges</h2>
             <p>
                 #{badges member.badges /}
@@ -193,7 +193,7 @@
 
     #{if session.get("username")?.equals(member.login)}
     <div class="row">
-        <div class="span16 actions">
+        <div class="span12 actions">
             <a class="btn primary" href="@{Profile.edit()}">Editer mon profil</a>
             <a class="btn danger" href="@{Profile.delete()}">Supprimer mon compte (sans confirmation pour le moment!)</a>
         </div>

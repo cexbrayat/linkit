@@ -43,27 +43,25 @@
     }
 </script>
 #{/set}
-</br>
-</br>
 
-<div class="container">
     <div class="page-header"> 
         <h1>Edition de votre profil</h1> 
     </div>
+
     #{form @Profile.save(member.id)} 
     <div class="row"> 
-        <div class="span4 columns"> 
+        <div class="span2 columns"> 
             <h2>Informations</h2> 
             <p>Vos coordonnées</p> 
         </div> 
-        <div class="span12 columns"> 
+        <div class="span10 columns"> 
             <fieldset> 
                 <legend>Profil</legend>
                 #{field 'login'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="10" type="text" value="${member.login}" />
+                        <input class="span6" id="${field.id}" name="${field.name}" size="10" type="text" value="${member.login}" />
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -74,7 +72,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.lastname}" />
+                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.lastname}" />
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -85,7 +83,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.firstname}" /> 
+                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.firstname}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
@@ -96,7 +94,7 @@
                 <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label>
                     <div class="input">
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.company}" />
+                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.company}" />
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -107,7 +105,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="email" value="${member?.email}" /> 
+                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="email" value="${member?.email}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
@@ -118,7 +116,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <textarea class="xlarge" id="${field.id}" name="${field.name}" size="30" rows="2">${member?.shortDescription}</textarea>
+                        <textarea class="span6" id="${field.id}" name="${field.name}" size="30" rows="2">${member?.shortDescription}</textarea>
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+'.note'}</span>
                     </div> 
@@ -129,7 +127,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="30" rows="4">${member?.longDescription}</textarea>
+                        <textarea class="span6" id="${field.id}" name="${field.name}" size="30" rows="4">${member?.longDescription}</textarea>
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+'.note'}</span>
                     </div> 
@@ -140,12 +138,12 @@
     </div>
     <hr/>
     <div class="row"> 
-        <div class="span4 columns"> 
+        <div class="span2 columns"> 
             <h2>Réseaux sociaux</h2> 
             <p>Vos comptes sur les différents réseaux sociaux.</p> 
             <p>Les données publiques des comptes que vous indiquerez seront <strong>automatiquement récupérées et publiquement affichées</strong></p> 
         </div> 
-        <div class="span12 columns">
+        <div class="span10 columns">
             <fieldset>
                 <legend>Vos comptes sociaux</legend>
  
@@ -153,7 +151,7 @@
                 <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Twitter)?.screenName}" /> 
+                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Twitter)?.screenName}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
@@ -164,7 +162,7 @@
                 <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Google)?.googleId}" /> 
+                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Google)?.googleId}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -177,11 +175,11 @@
     </div>
     <hr/>
     <div class="row"> 
-        <div class="span4 columns"> 
+        <div class="span2 columns"> 
             <h2>Vos liens</h2> 
             <p>Des liens que vous voulez faire apparaître sur votre profil et que vous aimeriez partager.</p> 
         </div> 
-        <div class="span12 columns">
+        <div class="span10 columns">
             <fieldset>
                 <legend>Vos liens</legend>
  
@@ -191,7 +189,7 @@
                         <div class="input">
                             <div class="inline-inputs">
                                 <input class="span2" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" value="${sharedLinks[i]?.name}" /> 
-                                <input class="span6" id="sharedLinks${i}_URL" name="${field.name}.URL" placeholder="URL du lien" type="text" value="${sharedLinks[i]?.URL}" /> 
+                                <input class="span3" id="sharedLinks${i}_URL" name="${field.name}.URL" placeholder="URL du lien" type="text" value="${sharedLinks[i]?.URL}" /> 
                                 <a class="btn small" onclick="moveUpSharedLink(${i})">&#x21A5;</a>
                                 <a class="btn small" onclick="moveDownSharedLink(${i})">&#x21A7;</a>
                                 <a class="btn small" onclick="deleteSharedLink(${i})">X</a>
@@ -207,11 +205,11 @@
     </div>
     <hr/>
     <div class="row"> 
-        <div class="span4 columns"> 
+        <div class="span2 columns"> 
             <h2>Centres d'intérêt</h2> 
             <p>Les sujets qui vous intéressent, et que vous souhaitez creuser à Mix-IT et sur ce site.</p> 
         </div> 
-        <div class="span12 columns">
+        <div class="span10 columns">
             <fieldset>
                 <legend>Intérêts</legend>
  
@@ -240,7 +238,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="200" type="text" value="${newInterests}" /> 
+                        <input class="span6" id="${field.id}" name="${field.name}" size="200" type="text" value="${newInterests}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
@@ -254,4 +252,3 @@
         </div>
     </div>
     #{/form}
-</div>

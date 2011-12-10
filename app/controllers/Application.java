@@ -1,10 +1,14 @@
 package controllers;
 
+import com.google.common.collect.Sets;
+import java.util.Iterator;
 import models.*;
 import play.Logger;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import play.modules.search.Search;
 
 public class Application extends PageController {
     
@@ -48,11 +52,79 @@ public class Application extends PageController {
         render("Application/list.html", members);
     }
 
-    public static void sessionsAndMembersByInterest(String interest) {
+    public static void searchByInterest(String interest) {
         List<Member> members = Member.findMembersInterestedIn(interest);
         Logger.info(Member.count() + " membres interested by " + interest);
         List<Session> sessions = Session.findSessionsLinkedWith(interest);
         Logger.info(Session.count() + " session linked with " + interest);
-        render("Interests/list.html", members, sessions, interest);
+        String query = interest;
+        render("Application/search.html", members, sessions, query);
+    }
+
+    static class LuceneQueryBuilder {
+        private String searchTerm;
+        private Set<String> fields = Sets.newHashSet();
+
+        protected static String escape(String query) {
+            return new StringBuilder("\"").append(query).append("\"").toString();
+        }
+        
+        public LuceneQueryBuilder(final String searchTerm) {
+            this.searchTerm = escape(searchTerm);
+        }
+
+        public LuceneQueryBuilder orField(String name) {
+            fields.add(name);
+            return this;
+        }
+        
+        public String toQuery() {
+            StringBuilder query = new StringBuilder();
+            for (Iterator<String> iField = fields.iterator(); iField.hasNext(); ) {
+                query.append(iField.next()).append(":").append(searchTerm);
+                if (iField.hasNext()) {
+                    query.append(" OR ");
+                }
+            }
+            return query.toString();
+        }
+
+        @Override
+        public String toString() {
+            return toQuery();
+        }
+    }
+    
+    // CLA 10/12/2011 : is this controller method is named find(), main.html template doesn't work...
+    public static void search(String query) {
+
+        final String articlesQuery = new LuceneQueryBuilder(query)
+                .orField(Article.TITLE)
+                .orField(Article.HEADLINE)
+                .orField(Article.CONTENT)
+                .toQuery();
+        Logger.debug("Search articles with query : %s", articlesQuery);
+        List<Article> articles = Search.search(articlesQuery, Article.class).fetch();
+
+        final String sessionsQuery = new LuceneQueryBuilder(query)
+                .orField(Session.TITLE)
+                .orField(Session.SUMMARY)
+                .orField(Session.DESCRIPTION)
+                .toQuery();
+        Logger.debug("Search sessions with query : %s", sessionsQuery);
+        List<Session> sessions = Search.search(sessionsQuery, Session.class).fetch();
+
+        final String membersQuery = new LuceneQueryBuilder(query)
+                .orField(Member.FIRSTNAME)
+                .orField(Member.LASTNAME)
+                .orField(Member.COMPANY)
+                .orField(Member.SHORTDESCRIPTION)
+                .orField(Member.LONGDESCRIPTION).toQuery();
+        Logger.debug("Search members with query : %s", membersQuery);
+        List<Member> members = Search.search(membersQuery, Member.class).fetch();
+
+        Interest interest = Interest.findByName(query);
+        
+        render("Application/search.html", query, articles, sessions, members);
     }
 }

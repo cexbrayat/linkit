@@ -5,12 +5,13 @@ import models.activity.LookSessionActivity;
 import models.activity.UpdateSessionActivity;
 import org.apache.commons.lang.StringUtils;
 import play.data.validation.MaxSize;
-import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.*;
 import java.util.*;
+import play.modules.search.Field;
+import play.modules.search.Indexed;
 
 /**
  * A session
@@ -19,14 +20,23 @@ import java.util.*;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Indexed
 public abstract class Session extends Model implements Lookable {
 
+    public static final String TITLE = "title";
+    public static final String SUMMARY = "summary";
+    public static final String DESCRIPTION = "description";
+    
+    @Column(name = TITLE)
     @Required
     @MaxSize(50)
+    @Field
     public String title;
 
+    @Column(name = SUMMARY)
     @Required
     @MaxSize(140)
+    @Field
     public String summary;
 
     @Required
@@ -34,8 +44,10 @@ public abstract class Session extends Model implements Lookable {
     public Date addedAt = new Date();
 
     /** Markdown enabled */
+    @Column(name = DESCRIPTION)
     @Lob
     @Required
+    @Field
     public String description;
 
     @ManyToMany

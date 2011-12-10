@@ -3,7 +3,12 @@
 <h3 class="session title">${_arg.title}</h3>
 <blockquote class="article headline">
     ${_arg.summary}
-    <small>Proposée par<br/>#{list items:_arg.speakers, as:'s'}<a href="@{Profile.show(s.login)}">#{member s /}</a> #{/list}</small>
+    <small>Proposée par
+        #{list items:_arg.speakers, as:'s'}
+            #{member s /}
+            #{if !s_isLast}, #{/if}
+        #{/list}
+    </small>
 </blockquote>
 <p>
     → <a href="@{Sessions.show(_arg.id)}" class="session link">Afficher cette session</a><br/>

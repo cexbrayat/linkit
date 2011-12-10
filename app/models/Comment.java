@@ -15,6 +15,8 @@ import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+import play.modules.search.Field;
+import play.modules.search.Indexed;
 
 /**
  * A generic comment entity
@@ -30,6 +32,7 @@ import play.db.jpa.Model;
             @Index(name="ArticleComment_IDX", columnNames={ArticleComment.ARTICLE_FK, Comment.POSTEDAT})
         }
 )
+@Indexed
 public abstract class Comment extends Model {
 
     static final String AUTHOR_FK = "author_id";
@@ -43,6 +46,7 @@ public abstract class Comment extends Model {
     /** Markdown enabled */
     @Lob
     @Required
+    @Field
     public String content;
     
     @Column(name=POSTEDAT)

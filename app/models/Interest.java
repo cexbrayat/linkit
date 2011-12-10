@@ -2,6 +2,7 @@ package models;
 
 import java.util.List;
 import java.util.Map;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -11,13 +12,14 @@ import play.db.jpa.Model;
 /**
  * Member Interest
  * @author agnes007
+ * @author Sryl
  */
 @Entity
 public class Interest extends Model implements Comparable<Interest> {
 
     public String name;
     
-    private Interest(String name) {
+    protected Interest(String name) {
         this.name = name;
     }
 
@@ -36,6 +38,15 @@ public class Interest extends Model implements Comparable<Interest> {
     }
 
     /**
+     * Find existing interest (no lazy creation)
+     * @param name Interest named
+     * @return Interest found, or null.
+     */
+    public static Interest findByName(String name) {
+        return Interest.find("byName", name).first();
+    }
+
+    /**
      * We use a handy Hibernate feature that allows to return a custom object from a JPA query
      * It will result a List containing for each interest a Map with two attributes:
      *     - name for the interest name
@@ -48,9 +59,6 @@ public class Interest extends Model implements Comparable<Interest> {
                 + "from Member m join m.interests as i group by i.name order by i.name").fetch();
         return result;
     }
-
-
-    
 
     public int compareTo(Interest otherInterest) {
         return name.compareTo(otherInterest.name);

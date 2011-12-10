@@ -1,9 +1,8 @@
 #{extends 'main.html' /}
 #{set title:article.title /}
 
-<div class="container">
     <div class="row">
-        <div class="span12">
+        <div class="span8">
             <h1>${article.title}</h1>
             <strong>${article.headline}</strong>
         </div>
@@ -25,8 +24,6 @@
         </div>
     </div>
 
-    <div class="row">
-        
         <blockquote class="article content">
             ${article.content.markdown().raw()}
             <br/><br/>
@@ -50,7 +47,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input offset3"> 
-                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
+                        <textarea class="xlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -66,5 +63,3 @@
             <a href="@{Login.index(request.url+'#post')}">Connectez-vous pour commenter cet article</a>
             #{/else}
         </section>
-    </div>
-</div>

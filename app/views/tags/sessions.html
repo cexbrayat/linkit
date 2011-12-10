@@ -5,9 +5,8 @@
         $("table#sortSession").tablesorter({ sortList: [[1,0]] });
     });
 </script>
-<div class="container">
 
-    #{secure.check models.Role.ADMIN_SESSION}
+#{secure.check models.Role.ADMIN_SESSION}
     <p>
         Ami du staff, veux-tu <a class="btn danger" href="@{Sessions.create()}">Créer un session</a> ?
     </p>
@@ -39,4 +38,4 @@
             #{/list}
         </tbody> 
     </table>
-</div><!-- /container --> 
+ 

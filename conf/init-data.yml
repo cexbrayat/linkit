@@ -49,6 +49,12 @@ Interest(scrum):
 Interest(kanban):
     name: Kanban
     
+Interest(kotlin):
+    name: Kotlin
+    
+Interest(dart):
+    name: Dart
+    
 Staff(cedric) :
     firstname: Cédric
     lastname: Exbrayat
