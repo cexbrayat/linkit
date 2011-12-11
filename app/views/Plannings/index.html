@@ -1,6 +1,15 @@
 #{extends 'main.html' /}
 #{set title:'Agenda' /}
 
+*{
+    Display a graphical agenda.
+    Parameters :
+    - String divId : ID de la DIV où afficher l'agenda
+    - planning : le planning
+    - int[] heures : heures affichées sur l'agenda
+    - double minuteHeight : hauteur en pixels d'une minute dans l'agenda
+}*
+
 %{
     int[] heures = 9..18;   // Heures affichées sur l'agenda
     double minuteHeight = 1.0d;   // Hauteur en px d'une minute

@@ -1,0 +1,19 @@
+*{ Display all articles "articles" }*
+
+    #{secure.check models.Role.ADMIN_ARTICLE}
+    <p>
+        Ami du staff, veux-tu <a class="btn danger" href="@{Articles.create()}">Créer un article</a> ?
+    </p>
+    #{/secure.check} 
+    
+    #{list items:_articles, as:'article'}
+
+    <p>
+        #{article article /}
+    </p>
+    #{if !article_isLast}
+        <hr/>
+    #{/if}
+
+    #{/list}
+ 

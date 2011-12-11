@@ -74,7 +74,7 @@
                         </li>
                         #{/secure.check}
                     </ul>
-                    <ul class="nav secondary-nav">
+                    <ul class="nav secondary-nav pull-right">
                         #{if session.username} 
                         <li class="dropdown" data-dropdown="dropdown">
                             <a href="#" class="dropdown-toggle">#{member models.Member.findByLogin(session.username), static:true /}</a>
@@ -91,6 +91,11 @@
                         <li><a href="@{Login.index(request.url)}">Se connecter</a></li>
                         #{/else}
                     </ul>
+                    <form action="@{Application.search}" method="GET" class="pull-right">
+                        #{field 'query'}
+                        <input type="search" style="width: auto" id="${field.id}" name="${field.name}" placeholder="Rechercher" value="${params.query}" />
+                        #{/field}
+                    </form> 
                 </div>
             </div>
         </div>
@@ -140,18 +145,16 @@
             #{doLayout /}
 
             <footer>
-                <div class="container">
-                    #{if sponsors}
-                    <ul class="media-grid">
-                    #{list items:sponsors, as:'sponsor'}
-                        <li class="sponsor">
-                            <a href="@{Profile.show(sponsor.login)}"><img src="${sponsor.logoUrl}" /></a>
-                        </li>
-                    #{/list}
-                    </ul>
-                    #{/if}
-                    <p>&copy; 2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
-                </div>
+                #{if sponsors}
+                <ul class="media-grid">
+                #{list items:sponsors, as:'sponsor'}
+                    <li class="sponsor">
+                        <a href="@{Profile.show(sponsor.login)}"><img src="${sponsor.logoUrl}" /></a>
+                    </li>
+                #{/list}
+                </ul>
+                #{/if}
+                <p>&copy; 2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
             </footer>
         </div>
         </div>

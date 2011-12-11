@@ -25,7 +25,8 @@ GET     /speakers                               Application.speakers
 GET     /staff                                  Application.staff
 GET     /sponsors                               Application.sponsors
 GET     /members                                Application.members
-GET     /sessions/members                       Application.sessionsAndMembersByInterest
+GET     /interest/{interest}                    Application.searchByInterest
+GET     /search/{query}                         Application.search  # I fucking don't know why this route is not used!
 
 # Activities    
 GET     /activities                             Activities.general

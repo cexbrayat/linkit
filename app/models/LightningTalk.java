@@ -4,11 +4,13 @@ import play.Logger;
 
 import javax.persistence.*;
 import java.util.List;
+import play.modules.search.Indexed;
 
 /**
  * @author Julien Ripault <tluapir@gmail.com>
  */
 @Entity
+@Indexed
 public class LightningTalk extends Session {
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
