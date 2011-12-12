@@ -14,14 +14,13 @@ import models.Session;
 import models.SessionComment;
 import models.SharedLink;
 import models.TwitterAccount;
+import play.Logger;
 
 /**
  * Creates dummy data for load tests.
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public final class DataGenerator {
-
-    private DataGenerator() {}
     
     private static AtomicInteger nbMembers = new AtomicInteger(0);
     protected static Member createMember() {
@@ -71,6 +70,9 @@ public final class DataGenerator {
     public static Set<Member> createMembers(int nb) {
         Set<Member> members = new HashSet<Member>(nb);
         for (int i = 0; i < nb; i++) {
+                    
+            Logger.info("Generating dummy member n°"+(i+1));
+
             members.add(createMember());
         }
         return members;
@@ -79,6 +81,9 @@ public final class DataGenerator {
     public static void generateLinks(int averageLinksPerMember) {
         List<Member> members = Member.findAll();
         for (Member m : members) {
+
+            Logger.info("Generating dummy links for member "+m);
+
             final int nbLinks = Dummy.randomInt(2*averageLinksPerMember);
             for (int i = 0; i < nbLinks; i++) {
                 m.addLink(members.get(Dummy.randomInt(members.size())));
@@ -91,6 +96,9 @@ public final class DataGenerator {
         List<Member> members = Member.findAll();
         List<Session> sessions = Session.findAll();
         for (Member m : members) {
+
+            Logger.info("Generating dummy session comments for member "+m);
+
             final int nbComments = Dummy.randomInt(2*averageCommentsPerMember);
             for (int i = 0; i < nbComments; i++) {
                 Session s = sessions.get(Dummy.randomInt(sessions.size()));
@@ -104,6 +112,9 @@ public final class DataGenerator {
         List<Member> members = Member.findAll();
         List<Article> articles = Article.findAll();
         for (Member m : members) {
+
+            Logger.info("Generating dummy article comments for member "+m);
+
             final int nbComments = Dummy.randomInt(2*averageCommentsPerMember);
             for (int i = 0; i < nbComments; i++) {
                 Article a = articles.get(Dummy.randomInt(articles.size()));
