@@ -11,7 +11,7 @@ import org.apache.commons.lang.math.RandomUtils;
 public class Dummy {
     
     static String randomString(int maxlength) {
-        return RandomStringUtils.random(randomInt(maxlength));
+        return RandomStringUtils.randomAlphabetic(randomInt(maxlength));
     }
     
     static String randomName(int maxlength) {
