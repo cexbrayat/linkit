@@ -62,19 +62,23 @@ public class TwitterAccount extends Account {
         }
         JsonElement response = fetchJson(url.toString());
         if (response != null) {
-            JsonArray array = response.getAsJsonArray();
-            DateFormat twitterFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
-            for (JsonElement element : array) {
-                JsonObject tweet = element.getAsJsonObject();
-                try {
-                    final String content = tweet.get("text").getAsString();
-                    final Date date = twitterFormatter.parse(tweet.get("created_at").getAsString());
-                    final String statusId = tweet.get("id_str").getAsString();
-                    final String statusUrl = String.format(FORMAT_STATUS_URL, this.screenName, statusId);
-                    statuses.add(new StatusActivity(this.member, date, this.provider, content, statusUrl, statusId));
-                } catch (ParseException pe) {
-                    Logger.error("ouch! parse exception " + pe.getMessage());
+            try {
+                JsonArray array = response.getAsJsonArray();
+                DateFormat twitterFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
+                for (JsonElement element : array) {
+                    JsonObject tweet = element.getAsJsonObject();
+                    try {
+                        final String content = tweet.get("text").getAsString();
+                        final Date date = twitterFormatter.parse(tweet.get("created_at").getAsString());
+                        final String statusId = tweet.get("id_str").getAsString();
+                        final String statusUrl = String.format(FORMAT_STATUS_URL, this.screenName, statusId);
+                        statuses.add(new StatusActivity(this.member, date, this.provider, content, statusUrl, statusId));
+                    } catch (ParseException pe) {
+                        Logger.error(pe, "Parse exception %s", pe.getMessage());
+                    }
                 }
+            } catch (Exception e) {
+                Logger.error(e, "Exception while parsing Twitter activities for %s : %s", this.member, e.getMessage());
             }
         }
         return statuses;
