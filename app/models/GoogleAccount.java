@@ -68,7 +68,7 @@ public class GoogleAccount extends Account {
                     }
                 }
             } catch (Exception e) {
-                Logger.error(e, "Exception while parsing Google activities for %s : %s", this.member, e.getMessage());
+                Logger.error(e, "Exception while parsing Google feed for %s. Responce received : %s", this.member, response.toString());
             }
         }
         return statuses;

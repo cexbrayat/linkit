@@ -78,7 +78,7 @@ public class TwitterAccount extends Account {
                     }
                 }
             } catch (Exception e) {
-                Logger.error(e, "Exception while parsing Twitter activities for %s : %s", this.member, e.getMessage());
+                Logger.error(e, "Exception while parsing Twitter feed for %s. Responce received : %s", this.member, response.toString());
             }
         }
         return statuses;
