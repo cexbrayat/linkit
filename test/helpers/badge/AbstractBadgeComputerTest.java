@@ -4,11 +4,7 @@ import java.util.Set;
 import models.Badge;
 import models.BaseDataUnitTest;
 import models.Member;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import play.test.Fixtures;
-import play.test.UnitTest;
 
 /**
  * Base utility class for unit tests about {@link BadgeComputer} implementations.

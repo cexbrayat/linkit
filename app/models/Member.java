@@ -504,4 +504,8 @@ public class Member extends Model implements Lookable {
     public static List<Member> recents(int page, int length) {
         return find("order by registeredAt desc").fetch(page, length);
     }
+
+    public static List<Long> findAllIds() {
+        return find("select m.id from Member m").fetch();
+    }
 }

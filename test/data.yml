@@ -1,3 +1,11 @@
+Interest(play):
+    name: Play!
+ 
+Interest(java):
+    name: Java
+ 
+Interest(tdd):
+    name: TDD
 
 Member(bob):
     email: bob@gmail.com

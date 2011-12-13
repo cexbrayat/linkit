@@ -16,22 +16,27 @@ import play.jobs.Job;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Every("5min")
+@NoTransaction
 public class JobFetchAllUsersTimelines extends Job {
 
     @Override
-    @NoTransaction
     public void doJob() {
         if (!"test".equals(Play.id)) {
             Logger.info("BEGIN fetch timelines");
-            List<? extends Member> members = Member.findAll();
-            for (Member member : members) {
 
-                JPAPlugin.startTx(false);
+            JPAPlugin.startTx(true);    // Readonly
+            List<Long> membersId = Member.findAllIds();
+            JPAPlugin.closeTx(false);   // Nothing to rollback
 
-                StatusActivity.fetchForMember(member.id);
+            for (Long id : membersId) {
 
-                JPA.em().getTransaction().commit();
-                JPAPlugin.closeTx(false);
+                try {
+                    JPAPlugin.startTx(false);
+                    StatusActivity.fetchForMember(id);
+                    JPA.em().getTransaction().commit();
+                } finally {
+                    JPAPlugin.closeTx(true);
+                }
             }
             Logger.info("END fetch timelines");
         }

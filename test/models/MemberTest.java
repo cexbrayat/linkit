@@ -306,4 +306,8 @@ public class MemberTest extends BaseDataUnitTest {
         // Relecture depuis la BDD
         assertEquals(newLinks, Member.findByLogin(login).sharedLinks);
     }
+    
+    @Test public void findAllIds() {
+        assertNotNull(Member.findAllIds());
+    }
 }
