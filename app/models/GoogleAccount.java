@@ -52,19 +52,23 @@ public class GoogleAccount extends Account {
                 .append("/activities/public?key=AIzaSyC4xOkQsEPJcUKUvQGL6T7RZkrIIxSuZAg");
         JsonElement response = fetchJson(url.toString());
         if (response != null) {
-            JsonArray activities = response.getAsJsonObject().get("items").getAsJsonArray();
-            DateFormat googleFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
-            for (JsonElement element : activities) {
-                JsonObject activity = element.getAsJsonObject();
-                try {
-                    String content = activity.get("object").getAsJsonObject().get("content").getAsString();
-                    Date date = googleFormatter.parse(activity.get("published").getAsString());
-                    String statusId = activity.get("id").getAsString();
-                    String statusUrl = activity.get("url").getAsString();
-                    statuses.add(new StatusActivity(this.member, date, this.provider, content, statusUrl, statusId));
-                } catch (ParseException pe) {
-                    Logger.error("ouch! parse exception " + pe.getMessage());
+            try {
+                JsonArray activities = response.getAsJsonObject().get("items").getAsJsonArray();
+                DateFormat googleFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
+                for (JsonElement element : activities) {
+                    JsonObject activity = element.getAsJsonObject();
+                    try {
+                        String content = activity.get("object").getAsJsonObject().get("content").getAsString();
+                        Date date = googleFormatter.parse(activity.get("published").getAsString());
+                        String statusId = activity.get("id").getAsString();
+                        String statusUrl = activity.get("url").getAsString();
+                        statuses.add(new StatusActivity(this.member, date, this.provider, content, statusUrl, statusId));
+                    } catch (ParseException pe) {
+                        Logger.error(pe, "Parse exception %s", pe.getMessage());
+                    }
                 }
+            } catch (Exception e) {
+                Logger.error(e, "Exception while parsing Google feed for %s. Responce received : %s", this.member, response.toString());
             }
         }
         return statuses;

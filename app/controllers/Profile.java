@@ -101,7 +101,9 @@ public class Profile extends PageController {
     }
 
     public static void show(String login) {
-        Member member = Member.fetchForProfile(login);
+// FIXME CLA Not using fetchForProfile
+//      Member member = Member.fetchForProfile(login);
+        Member member = Member.findByLogin(login);
         member.lookedBy(Member.findByLogin(Security.connected()));
         Logger.info("Profil " + member);
         render(member);
