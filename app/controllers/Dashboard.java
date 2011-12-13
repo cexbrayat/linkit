@@ -13,7 +13,9 @@ import models.Suggestion;
 public class Dashboard extends PageController {
 
     public static void index() {
-        Member member = Member.fetchForProfile(Security.connected());
+// FIXME CLA Not using fetchForProfile
+//        Member member = Member.fetchForProfile(Security.connected());
+        Member member = Member.findByLogin(Security.connected());
 
         Set<Member> suggestedMembers = Suggestion.suggestedMembersFor(member);
         Set<Session> suggestedSessions = Suggestion.suggestedSessionsFor(member);
