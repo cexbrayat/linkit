@@ -1,22 +1,24 @@
 package controllers;
 
 import helpers.TransactionCallback;
-import helpers.TransactionCallbackWithoutResult;
 import helpers.TransactionTemplate;
 import helpers.badge.BadgeComputationContext;
 import java.util.List;
 import models.activity.Activity;
-import play.Logger;
 import play.Play;
+import play.db.jpa.NoTransaction;
 import play.jobs.Every;
 import play.jobs.Job;
 
 /**
- * Asynchronous computations of new badges granted to all users. Based on new (uncomputed) {@link Activity}.
+ * Asynchronous computations of new badges granted to all users. Based on new (uncomputed) {@link Activity}s.
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Every("20s")
+@NoTransaction
 public class JobComputeBadges extends Job {
+
+    private TransactionTemplate txTemplate = new TransactionTemplate(true);
 
     @Override
     public void doJob() {
@@ -25,10 +27,17 @@ public class JobComputeBadges extends Job {
             final BadgeComputationContext context = new BadgeComputationContext();
 
             // Retrieving uncomputedIds activities
-            List<Long> uncomputedActivityIds = Activity.uncomputedIds();            
+            List<Long> uncomputedActivityIds = txTemplate.execute(new TransactionCallback() {
+                public List<Long> doInTransaction() {
+                    return Activity.uncomputedIds();
+                }
+            });
+            
+            // Not read-only transactions
+            txTemplate.setReadOnly(false);
             for (final Long activityId : uncomputedActivityIds) {
-                // Start a dedicated job for this activity to have a dedicated transaction
-                new JobComputeBadgesForActivity(activityId, context).now();
+                Activity activity = Activity.findById(activityId);
+                activity.computeBadges(context);
             }
         }   
     }

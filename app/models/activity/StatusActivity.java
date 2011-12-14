@@ -43,32 +43,30 @@ public class StatusActivity extends Activity {
         this.statusId = statusId;
     }
 
-    static public void fetchForMember(Long memberId) {
+    static public void fetchForAccount(Long accountId) {
 
-        Member member = Member.findById(memberId);
-        for (Account account : member.accounts.values()) {
-            
-            Logger.info("Fetch timeline for %s on %s", member, account.provider);
-            List<StatusActivity> statuses = account.fetchActivities();
-            if (!statuses.isEmpty()) {
-                // Memorizing most recent id
-                Collections.sort(statuses);
-                account.lastStatusId = statuses.get(0).statusId;
-                account.save();
+        Account account = Account.findById(accountId);
 
-                account.enhance(statuses);
+        Logger.info("Fetch timeline for %s on %s", account.member, account.provider);
+        List<StatusActivity> statuses = account.fetchActivities();
+        if (!statuses.isEmpty()) {
+            // Memorizing most recent id
+            Collections.sort(statuses);
+            account.lastStatusId = statuses.get(0).statusId;
+            account.save();
+
+            account.enhance(statuses);
+        }
+
+        for (StatusActivity status : statuses) {
+            boolean add = true;
+            // Google hack : workaround for lack of "since" parameter in API, returning already fetched statuses.
+            if (ProviderType.Google == account.provider) {
+                // We add this status only if we don't have it already in DB
+                long count = StatusActivity.count("provider = ? and statusId = ? ", account.provider, status.statusId);
+                add = (count <= 0l);
             }
-
-            for (StatusActivity status : statuses) {
-                boolean add = true;
-                // Google hack : workaround for lack of "since" parameter in API, returning already fetched statuses.
-                if (ProviderType.Google == account.provider) {
-                    // We add this status only if we don't have it already in DB
-                    long count = StatusActivity.count("provider = ? and statusId = ? ", account.provider, status.statusId);
-                    add = (count <= 0l);
-                }
-                if (add) status.save();
-            }
+            if (add) status.save();
         }
     }
     
