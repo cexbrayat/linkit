@@ -78,8 +78,8 @@ public class ActivityTest extends AbstractActivityTest {
     }
 
     @Test
-    public void uncomputed() {
-        assertNotNull(Activity.uncomputed());
+    public void uncomputedIds() {
+        assertNotNull(Activity.uncomputedIds());
     }
     
     @Test

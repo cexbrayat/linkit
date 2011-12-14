@@ -13,7 +13,10 @@ import models.Member;
 import models.ProviderType;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.IndexColumn;
+import org.joda.time.DateTime;
+import org.joda.time.Minutes;
 import play.Logger;
+import play.Play;
 import play.i18n.Messages;
 
 /**
@@ -34,6 +37,8 @@ public class StatusActivity extends Activity {
     /** Pattern for detecting content dealing with Mix-IT */
     private static final Pattern MIXIT_PATTERN = Pattern.compile(".*\\bmix-?it\\b.*", Pattern.CASE_INSENSITIVE);
     
+    private static final int FETCH_PERIOD = Integer.valueOf(Play.configuration.getProperty("linkit.timeline.fetch.period"));
+    
     public StatusActivity(Member author, Date at, ProviderType provider, String content, String url, String statusId) {
         super(provider, at);
         this.member = author;
@@ -43,12 +48,22 @@ public class StatusActivity extends Activity {
         this.statusId = statusId;
     }
 
-    static public void fetchForMember(Long memberId) {
+    static public void fetchForAccount(Long accountId) {
 
-        Member member = Member.findById(memberId);
-        for (Account account : member.accounts.values()) {
-            
-            Logger.info("Fetch timeline for %s on %s", member, account.provider);
+        Account account = Account.findById(accountId);
+
+        // FIXME CLA simple API quota management 
+        boolean fetch = true;
+        if (account.lastFetched != null) {
+            DateTime lastFetch = new DateTime(account.lastFetched);
+            int delay = Minutes.minutesBetween(lastFetch, new DateTime()).getMinutes();
+            if (delay < FETCH_PERIOD) {
+                fetch = false;
+                Logger.info("Fetch timeline for %s on %s : already done %d minutes ago (< %d configured period)", account.member, account.provider, delay, FETCH_PERIOD);
+            }
+        }
+        if (fetch) {
+            Logger.info("Fetch timeline for %s on %s", account.member, account.provider);
             List<StatusActivity> statuses = account.fetchActivities();
             if (!statuses.isEmpty()) {
                 // Memorizing most recent id
