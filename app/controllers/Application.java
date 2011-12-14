@@ -8,6 +8,7 @@ import play.Logger;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.apache.commons.lang.StringUtils;
 import play.modules.search.Search;
 
 public class Application extends PageController {
@@ -65,12 +66,25 @@ public class Application extends PageController {
         private String searchTerm;
         private Set<String> fields = Sets.newHashSet();
 
-        protected static String escape(String query) {
-            return new StringBuilder("\"").append(query).append("\"").toString();
+        protected static boolean isPhraseQuery(String query) {
+            return StringUtils.contains(query, ' ');
+        }
+        protected static String wrap(String query) {
+            query = StringUtils.trim(query);
+            if (isPhraseQuery(query)) {
+                return new StringBuilder()
+                    .append('"')
+                    .append(query)
+                    .append('"').toString();
+            } else {
+                return new StringBuilder(query)
+                    .append('*')    // Wilcarded search is not available on phrase query
+                    .toString();
+            }
         }
         
         public LuceneQueryBuilder(final String searchTerm) {
-            this.searchTerm = escape(searchTerm);
+            this.searchTerm = wrap(searchTerm);
         }
 
         public LuceneQueryBuilder orField(String name) {
