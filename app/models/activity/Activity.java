@@ -195,10 +195,15 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     public abstract String getUrl();
     
     /**
-     * @return Activities for which badge computation hasn't been done yet
+     * @return IDs of Activities for which badge computation hasn't been done yet
      */
-    public static List<Activity> uncomputed() {
-        return Activity.find("badgeComputationDone=false").fetch();
+    public static List<Long> uncomputedIds() {
+        return Activity.find("select a.id from Activity a where a.badgeComputationDone=false").fetch();
+    }
+
+    // CLA 14/12/2011 : inherits Play! findById generates "org.hibernate.PropertyAccessException", wich seems related to far more eager fetching.
+    public static <T extends Activity> T findById(Long id) {
+        return find("id=?", id).first();
     }
 
     public final void computeBadges(BadgeComputationContext context) {

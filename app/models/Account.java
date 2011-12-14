@@ -1,8 +1,8 @@
 package models;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import models.activity.StatusActivity;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -41,7 +43,11 @@ public abstract class Account extends Model implements Comparable<Account> {
     /** ID of last status retrieved */
     public String lastStatusId;
     
-    /** Timeout for WS fetching. Short because we can't do it again next time. */
+    /** Timestamp of last feed fetched */
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date lastFetched;
+    
+    /** Timeout for WS fetching. Short because we can do it again next time. */
     protected static final String FETCH_TIMEOUT = Play.configuration.getProperty("linkit.timeline.fetch.timeout");
     
     public Account(ProviderType provider) {
@@ -75,6 +81,7 @@ public abstract class Account extends Model implements Comparable<Account> {
         JsonElement data = null;
         try {
             data = WS.url(url).timeout(FETCH_TIMEOUT).get().getJson();
+            this.lastFetched = new Date();
         } catch (Exception e) {
             Logger.warn(e, "Error while fetching %s", url);
             data = null;
@@ -82,6 +89,10 @@ public abstract class Account extends Model implements Comparable<Account> {
         return data;
     }
     
+    public static List<Long> findAllIds() {
+        return find("select a.id from Account a").fetch();
+    }
+
     @Override
     public String toString(){
         return "provider {" + provider + "}";
