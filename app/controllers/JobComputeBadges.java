@@ -1,6 +1,7 @@
 package controllers;
 
 import helpers.TransactionCallback;
+import helpers.TransactionCallbackWithoutResult;
 import helpers.TransactionTemplate;
 import helpers.badge.BadgeComputationContext;
 import java.util.List;
@@ -36,8 +37,13 @@ public class JobComputeBadges extends Job {
             // Not read-only transactions
             txTemplate.setReadOnly(false);
             for (final Long activityId : uncomputedActivityIds) {
-                Activity activity = Activity.findById(activityId);
-                activity.computeBadges(context);
+                
+                txTemplate.execute(new TransactionCallbackWithoutResult() {
+                    public void doInTransaction() {
+                        Activity activity = Activity.findById(activityId);
+                        activity.computeBadges(context);
+                    }
+                });
             }
         }   
     }
