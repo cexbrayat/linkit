@@ -1,5 +1,8 @@
 package controllers;
 
+import helpers.TransactionCallback;
+import helpers.TransactionCallbackWithoutResult;
+import helpers.TransactionTemplate;
 import helpers.badge.BadgeComputationContext;
 import java.util.List;
 import models.activity.Activity;
@@ -18,16 +21,15 @@ public class JobComputeBadges extends Job {
     @Override
     public void doJob() {
         if (!"test".equals(Play.id)) {
-            Logger.debug("BEGIN badges computation");
 
-            BadgeComputationContext context = new BadgeComputationContext();
+            final BadgeComputationContext context = new BadgeComputationContext();
 
-            // Retrieving uncomputed activities
-            List<? extends Activity> uncomputedActivities = Activity.uncomputed();
-            for (Activity activity : uncomputedActivities) {
-                activity.computeBadges(context);
+            // Retrieving uncomputedIds activities
+            List<Long> uncomputedActivityIds = Activity.uncomputedIds();            
+            for (final Long activityId : uncomputedActivityIds) {
+                // Start a dedicated job for this activity to have a dedicated transaction
+                new JobComputeBadgesForActivity(activityId, context).now();
             }
-            Logger.debug("END badges computation");
         }   
     }
 }
