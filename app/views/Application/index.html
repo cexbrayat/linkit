@@ -7,25 +7,31 @@
 <script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 #{/set}
 
-    <div class="hero-unit">
-        <div class="row">
-            <h1><img src="@{'/public/images/mixit.png'}" alt="Mix-it" style="zoom:0.7"></h1>
-            <div class="span8 offset8"><h2>Des idées pour tout de suite !</h2></div>
-        </div>
-        <br/>
-        <div class="row">
-            <div class="span3 offset4"><h2>26 Avril 2012</h2></div>
-            <div class="span4">
-                #{if session.get("username") == null}
-                <a class="btn primary large" href="@{Login.index()}">Se connecter</a>
-                #{/if}
-                #{else}
-                <a class="btn primary large" href="@{Dashboard.index()}">Mon Dashboard</a>
-                #{/else}
+    <div class="row">
+        <div class="span-two-thirds">
+            <div class="hero-unit">
+                <div class="row">
+                    <h2>26 Avril 2012</h2>
+                </div>
+                <div class="row">
+                    <h1><img src="@{'/public/images/mixit.png'}" alt="Mix-it" style="zoom:0.45"></h1>
+                </div>
+                <div class="row">
+                    <div class="span6 offset4"><h3>Des idées pour tout de suite !</h3></div>
+                </div>
             </div>
         </div>
+        <div class="span-one-third welcome">
+            <ul>
+                <li>Se #{a @Login.index()}connecter#{/a}</li>
+                <li>Voir #{a @Sessions.index()}les sessions#{/a}</li>
+                <li>Consulter #{a @Application.members()}les profils#{/a}</li>
+                <li>Voter pour #{a @LightningTalks.list()}des Lightning talks#{/a}</li>
+                <li>.. et bla bla bla</li>
+            </ul>
+        </div>
     </div>
-    <ul class="pills" data-tabs="tabs">
+    <ul class="tabs" data-tabs="tabs">
         <li class="active"><a href="#articles">Derniers articles</a></li>
         <li><a href="#sessions">Dernières sessions</a></li>
         <li><a href="#inscrits">Derniers inscrits</a></li>
