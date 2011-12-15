@@ -1,15 +1,13 @@
 *{ Displays _arg session in a short way }*
 
-<h3 class="session title">${_arg.title}</h3>
+<a href="@{Sessions.show(_arg.id)}" class="session link"><h3 class="session title">${_arg.title}</h3></a>
 <blockquote class="article headline">
     ${_arg.summary}
-    <small>Proposée par
+    <br/>
+    <small>
         #{list items:_arg.speakers, as:'s'}
             #{member s /}
             #{if !s_isLast}, #{/if}
         #{/list}
     </small>
 </blockquote>
-<p>
-    → <a href="@{Sessions.show(_arg.id)}" class="session link">Afficher cette session</a><br/>
-</p>
