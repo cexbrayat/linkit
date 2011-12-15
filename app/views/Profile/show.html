@@ -70,7 +70,9 @@
                     <div id="longDescription" style="display: none">
                         ${member.longDescription?.markdown().raw()}
                     </div>
-                    <a id="showMore" href="#" onclick="toggleShowMore()">&#x21CA; Plus de détails &#x21CA;</a>
+                    <div class="showMore">
+                        <a id="showMore" href="#" onclick="toggleShowMore()">&#x21CA; Plus de détails &#x21CA;</a>
+                    </div>
                 </p>
                 #{/if}
                 
