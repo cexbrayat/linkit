@@ -16,7 +16,7 @@ import play.jobs.Job;
  * Asynchronous fetch of user timelines on external providers (Google+, Twitter)
  * @author Sryl <cyril.lacote@gmail.com>
  */
-@Every("5min") // CLA 14/12/2011 : avoid Twitter blacklisting if we make more than 150 requests / hour
+@Every("1h") // CLA 14/12/2011 : avoid Twitter blacklisting if we make more than 150 requests / hour
 @NoTransaction
 public class JobFetchAllUsersTimelines extends Job {
 
