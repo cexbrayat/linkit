@@ -49,13 +49,8 @@ public class LinkItEmail extends Model {
     @Required
     public List<Member> recipients = new ArrayList<Member>();
 
-    public LinkItEmail(Member from, String subject, String message, List<Member> recipients) {
-        this.from = from;
-        this.message = message;
-        this.subject = subject;
-        this.recipients = recipients;
+    public LinkItEmail() {
         this.sentAt = new Date();
-
     }
 
     @Override

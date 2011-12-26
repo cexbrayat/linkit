@@ -57,12 +57,12 @@ talk.summary.lt.note=Un résumé de votre lightning talk
 talk.description.lt.note=La description complète de votre lightning talk.<br/>&{markdown.note}
 
 # Email LinkIT
-linkitemail.from=Votre Email
-linkitemail.from.note=
-linkitemail.subject=Sujet
-linkitemail.subject.note=
-linkitemail.message=Message
-linkitemail.message.note=
+email.from=Votre Email
+email.from.note=
+email.subject=Sujet
+email.subject.note=
+email.message=Message
+email.message.note=
 
 # Activities
 activities.more=Afficher plus...
