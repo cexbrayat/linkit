@@ -3,14 +3,14 @@
 
 <div class="hero-unit">
     <h1>Contactez-nous!</h1>
-    <h3>Contactez <a href="@{Infos.orga()}">l'organisation</a> en remplissant le formulaire suivant.</h3>
+    <h3>Contactez l'organisation en remplissant le formulaire suivant.</h3>
 </div>
 <div class="row"> 
-    <div class="span12 columns"> 
+    <div class="span12 columns">
         #{if session.username}
         #{form @Infos.sendStaff()}
         <fieldset> 
-            #{field 'linkitemail.subject'}
+            #{field 'email.subject'}
             <div class="clearfix ${field.error?'error':''}"> 
                 <label for="${field.name}">&{field.name}</label> 
                 <div class="input"> 
@@ -22,11 +22,11 @@
             #{/}
 
 
-            #{field 'linkitemail.message'}
+            #{field 'email.message'}
             <div class="clearfix ${field.error?'error':''}"> 
                 <label for="${field.name}">&{field.name}</label> 
                 <div class="input"> 
-                    <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="20">${field.value}</textarea>
+                    <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="10">${field.value}</textarea>
                     <span class="help-inline">${field.error}</span>
                     <span class="help-block">&{field.name+".note"}</span>
                 </div> 
