@@ -206,6 +206,22 @@
     <hr/>
     <div class="row"> 
         <div class="span2 columns"> 
+            <h2>Inscription</h2> 
+        </div>
+        <div class="span10 columns">
+          <fieldset>
+                <legend>Achat du billet</legend>
+           <div class="clearfix">
+               <div class="input">
+                #{inscription /}
+               </div>
+           </div>
+          </fieldset>
+        </div>
+    </div>
+    </hr>
+    <div class="row"> 
+        <div class="span2 columns"> 
             <h2>Centres d'intérêt</h2> 
             <p>Les sujets qui vous intéressent, et que vous souhaitez creuser à Mix-IT et sur ce site.</p> 
         </div> 
@@ -245,10 +261,11 @@
                 </div><!-- /clearfix -->
                 #{/}
             </fieldset>
-            <div class="actions">
+          </div>
+        </div>
+        <div class="actions">
                 <input type="submit" class="btn primary large" value="Enregistrer"/>
                 <a href="@{Profile.show(member.login)}" class="btn large">Annuler</a>
-            </div>
         </div>
-    </div>
+
     #{/form}
