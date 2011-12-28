@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.ticketing.WeezEvent;
 import java.util.ArrayList;
 import java.util.List;
 import models.*;
@@ -13,7 +14,7 @@ import play.data.validation.Required;
 import play.data.validation.Validation.ValidationResult;
 
 public class Profile extends PageController {
-    
+
     public static void edit() {
         Member member = Member.findByLogin(Security.connected());
         Logger.info("Edition du profil " + member);
@@ -22,8 +23,8 @@ public class Profile extends PageController {
     }
 
     public static void save(@Required Long id, @Required String login, String firstname, String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription, String twitterName, String googlePlusId,
-                            String[] interests, String newInterests,
-                            List<SharedLink> sharedLinks) {
+            String[] interests, String newInterests,
+            List<SharedLink> sharedLinks) {
         Logger.info("Save Profile login {" + login + "}, firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
 
@@ -35,7 +36,7 @@ public class Profile extends PageController {
         member.email = email;
         member.lastname = lastname;
         member.company = company;
-        
+
         TwitterAccount twitter = member.getTwitterAccount();
         if (StringUtils.isNotBlank(twitterName)) {
             if (twitter == null) {
@@ -48,7 +49,7 @@ public class Profile extends PageController {
                 member.removeAccount(twitter);
             }
         }
-        
+
         GoogleAccount google = member.getGoogleAccount();
         if (StringUtils.isNotBlank(googlePlusId)) {
             if (google == null) {
@@ -74,7 +75,7 @@ public class Profile extends PageController {
         for (int i = 0; i < sharedLinks.size(); i++) {
             SharedLink link = sharedLinks.get(i);
             if (StringUtils.isNotBlank(link.name) && StringUtils.isNotBlank(link.URL)) {
-                ValidationResult result = validation.valid("sharedLinks["+i+"]", link);
+                ValidationResult result = validation.valid("sharedLinks[" + i + "]", link);
                 if (result.ok) {
                     validatedSharedLinks.add(link);
                 }
@@ -91,8 +92,10 @@ public class Profile extends PageController {
             Logger.error(validation.errors().toString());
             render("Profile/edit.html", member, newInterests, sharedLinks);
         }
-
+        
+        WeezEvent.updateRegisteredAttendee(email);
         session.put("username", member.login);
+
         member.updateProfile();
         flash.success("Profil enregistré!");
         Logger.info("Profil enregistré");
