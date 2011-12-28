@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.regex.Pattern;
 import javax.persistence.Entity;
 import jodd.lagarto.dom.jerry.JerryFunction;
 import models.activity.StatusActivity;
@@ -42,8 +41,6 @@ public class GoogleAccount extends Account {
 
     //2011-10-04T14:41:40.837Z
     static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    
-    static final private Pattern PATTERN_MENTION = Pattern.compile("<span class=\"proflinkWrapper\"><span class=\"proflinkPrefix\">+</span><a href=\"https://plus.google.com/(\\d+)\" class=\"proflink\" oid=\"(\\d+)\">[ \\S]+</a></span>");
 
     static class PlusRequestInitializer implements JsonHttpRequestInitializer {
 
