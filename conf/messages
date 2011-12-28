@@ -56,6 +56,14 @@ talk.title.lt.note=Un court titre pour votre lightning talk
 talk.summary.lt.note=Un résumé de votre lightning talk
 talk.description.lt.note=La description complète de votre lightning talk.<br/>&{markdown.note}
 
+# Email LinkIT
+email.from=Votre Email
+email.from.note=
+email.subject=Sujet
+email.subject.note=
+email.message=Message
+email.message.note=
+
 # Activities
 activities.more=Afficher plus...
 LinkActivity.message=%1$s s'est linké à %2$s

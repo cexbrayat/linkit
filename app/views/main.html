@@ -14,12 +14,12 @@
         <script src="@{'/public/javascripts/bootstrap-dropdown.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         <script> 
             $(function () {
-              $("a[rel=twipsy]").twipsy({
-                live: true,
-                placement: 'below'
-              })
+                $("a[rel=twipsy]").twipsy({
+                    live: true,
+                    placement: 'below'
+                })
             })
-          </script> 
+        </script> 
         #{get 'moreScripts' /}
     </head>
     <body style="padding-top: 60px;"> *{ 60px is navigation bar space }*
@@ -32,14 +32,14 @@
                         <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">Dashboard</a></li>
                         #{/if}
                         <li #{if request.controller=="Articles"}class="active"#{/if}><a href="@{Articles.index()}">Actualités</a></li>
-                            <li class="dropdown" data-dropdown="dropdown">
-                                <a href="@{Application.members()}" class="dropdown-toggle">Programme</a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="@{Sessions.index()}">Sessions</a></li>
-                                    <li><a href="@{LightningTalks.list()}">Lightning talks</a></li>
-                                    <li><a href="@{Plannings.index()}">Agenda</a></li>
-                                </ul>
-                            </li>
+                        <li class="dropdown" data-dropdown="dropdown">
+                            <a href="@{Application.members()}" class="dropdown-toggle">Programme</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@{Sessions.index()}">Sessions</a></li>
+                                <li><a href="@{LightningTalks.list()}">Lightning talks</a></li>
+                                <li><a href="@{Plannings.index()}">Agenda</a></li>
+                            </ul>
+                        </li>
                         <li class="dropdown" data-dropdown="dropdown">
                             <a href="#" class="dropdown-toggle">Participants</a>
                             <ul class="dropdown-menu">
@@ -49,19 +49,19 @@
                                 <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">Les sponsors</a></li>
                             </ul>
                         </li>
-                        
+
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a href="#" class="dropdown-toggle">Infos Pratiques</a>
+                            <a href="#" class="dropdown-toggle">Infos</a>
                             <ul class="dropdown-menu">
-                                <li #{if request.action=="Infos.orga"}class="active"#{/if}><a href="@{Infos.orga()}">Organisation</a></li>
+                                <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">A propos de Mix-IT</a></li>
                                 <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">FAQ</a></li>
                                 <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">Kit Multimedia</a></li>
-                                <li #{if request.action=="Infos.contacts"}class="active"#{/if}><a href="@{Infos.contacts()}">Contacts</a></li>
+                                <li #{if request.action=="Infos.contact"}class="active"#{/if}><a href="@{Infos.contact()}">Contact</a></li>
                                 <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">Accès</a></li>
                                 <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a href="@{Infos.hotels()}">Hôtels</a></li>
                             </ul>
                         </li>
-                        
+
                         #{secure.check 'admin'}
                         <li class="dropdown" data-dropdown="dropdown">
                             <a href="#" class="dropdown-toggle">Admin</a>
@@ -99,64 +99,64 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="container-fluid">
-        <div class="sidebar">
-            <div class="well">
-                <h2>Sidebar</h2>
-                <p>Lorem ipsum</p>
-                <h3>Partagez!</h3>
-                <ol>
-                    <li>Remplissez votre profil</li>
-                    <li>Lier des gens</li>
-                    <li>Commenter des articles ou des sessions</li>
-                </ol>
-                <h3>Actualités</h3>
-                <ul>
-                    <li>Article 1</li>
-                    <li>Article 2</li>
-                    <li>Article 3</li>
-                </ul>
-                <h3>Nouveaux membres</h3>
-                <ul>
-                    <li>Membre 1</li>
-                    <li>Membre 2</li>
-                    <li>Membre 3</li>
-                </ul>
-                <h3>Nouvelles sessions</h3>
-                <ul>
-                    <li>Session 1</li>
-                    <li>Session 2</li>
-                    <li>Session 3</li>
-                </ul>
-                <p>extends sidebar with setting <code>moreSidebar</code> template variable in your view.</p>
-                #{get 'moreSidebar' /}
+            <div class="sidebar">
+                <div class="well">
+                    <h2>Sidebar</h2>
+                    <p>Lorem ipsum</p>
+                    <h3>Partagez!</h3>
+                    <ol>
+                        <li>Remplissez votre profil</li>
+                        <li>Lier des gens</li>
+                        <li>Commenter des articles ou des sessions</li>
+                    </ol>
+                    <h3>Actualités</h3>
+                    <ul>
+                        <li>Article 1</li>
+                        <li>Article 2</li>
+                        <li>Article 3</li>
+                    </ul>
+                    <h3>Nouveaux membres</h3>
+                    <ul>
+                        <li>Membre 1</li>
+                        <li>Membre 2</li>
+                        <li>Membre 3</li>
+                    </ul>
+                    <h3>Nouvelles sessions</h3>
+                    <ul>
+                        <li>Session 1</li>
+                        <li>Session 2</li>
+                        <li>Session 3</li>
+                    </ul>
+                    <p>extends sidebar with setting <code>moreSidebar</code> template variable in your view.</p>
+                    #{get 'moreSidebar' /}
+                </div>
             </div>
-        </div>
-        <div class="content">
-                    
-            #{if flash.success}
-            <div class="alert-message success">${flash.success}</div>
-            #{/if}
-            #{if flash.error}
-            <div class="alert-message error">${flash.error}</div>
-            #{/if}
+            <div class="content">
 
-            #{doLayout /}
-
-            <footer>
-                #{if sponsors}
-                <ul class="media-grid">
-                #{list items:sponsors, as:'sponsor'}
-                    <li class="sponsor">
-                        <a href="@{Profile.show(sponsor.login)}"><img src="${sponsor.logoUrl}" /></a>
-                    </li>
-                #{/list}
-                </ul>
+                #{if flash.success}
+                <div class="alert-message success">${flash.success}</div>
                 #{/if}
-                <p>&copy; 2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
-            </footer>
-        </div>
+                #{if flash.error}
+                <div class="alert-message error">${flash.error}</div>
+                #{/if}
+
+                #{doLayout /}
+
+                <footer>
+                    #{if sponsors}
+                    <ul class="media-grid">
+                        #{list items:sponsors, as:'sponsor'}
+                        <li class="sponsor">
+                            <a href="@{Profile.show(sponsor.login)}"><img src="${sponsor.logoUrl}" /></a>
+                        </li>
+                        #{/list}
+                    </ul>
+                    #{/if}
+                    <p>&copy; 2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
+                </footer>
+            </div>
         </div>
     </body>
 </html>
