@@ -1,5 +1,6 @@
 package helpers;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -24,6 +25,14 @@ public class JSON {
     public static String getStringProperty(JsonObject object, String property) {
         if (object.get(property) != null) {
             return object.get(property).getAsString();
+        } else {
+            return null;
+        }
+    }
+    
+    public static JsonArray getArrayProperty(JsonObject object, String property) {
+        if (object.get(property) != null) {
+            return object.get(property).getAsJsonArray();
         } else {
             return null;
         }
