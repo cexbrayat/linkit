@@ -1,10 +1,10 @@
 package models;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import models.activity.StatusActivity;
-import org.junit.Ignore;
 import org.junit.Test;
-import play.test.UnitTest;
 
 /**
  * Unit tests for {@link GoogleAccount}
@@ -28,9 +28,33 @@ public class GoogleAccountTest extends BaseDataUnitTest {
         return new GoogleAccount(gplusId);
     }
     
+    private static String buildMention(String gPlusId, String name) {
+        return "<span class=\"proflinkWrapper\"><span class=\"proflinkPrefix\">+</span><a href=\"https://plus.google.com/"+gPlusId+"\" class=\"proflink\" oid=\""+gPlusId+"\">"+name+"</a></span>";
+    }
+    
     @Test
-    @Ignore // TODO Google enhance
-    public void enhance() {
+    public void enhanceMentions() {
+        GoogleAccount auteurAccount = createMemberAndAccount("auteur", "1234");
+        GoogleAccount mentionnedAccount = createMemberAndAccount("mentioned", "9876");
+        final String content1 = "Hey " + buildMention(mentionnedAccount.googleId, mentionnedAccount.member.toString()) + " did you speak about " + buildMention("5434567", "Toto") + " or not?";
+        final StatusActivity post1 = buildPost(auteurAccount.member, content1);
+        final String content2 = "no mention";
+        final StatusActivity post2 = buildPost(auteurAccount.member, content2);
+        
+        List<StatusActivity> activities = Arrays.asList(post1, post2);
+        // Tested method
+        auteurAccount.enhance(activities);
+
+        // List preserved
+        assertEquals(2, activities.size());
+        assertSame(post1, activities.get(0));
+        assertSame(post2, activities.get(1));
+        // Content enhanced on post1
+        assertFalse(content1.equals(post1.content));
+        assertTrue(post1.content.contains("href=\"/profile/"+mentionnedAccount.member.login+"\""));
+        assertTrue(post1.content.contains(buildMention("5434567", "Toto")));
+        // Content same on post2
+        assertEquals(content2, post2.content);
     }
     
     @Test

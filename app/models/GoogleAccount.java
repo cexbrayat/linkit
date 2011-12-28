@@ -1,5 +1,6 @@
 package models;
 
+import jodd.lagarto.dom.jerry.Jerry;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.http.json.JsonHttpRequest;
 import com.google.api.client.http.json.JsonHttpRequestInitializer;
@@ -18,12 +19,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 import javax.persistence.Entity;
+import jodd.lagarto.dom.jerry.JerryFunction;
 import models.activity.StatusActivity;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Required;
 import play.templates.TemplateLoader;
+import static jodd.lagarto.dom.jerry.Jerry.jerry;
 
 /**
  * A Google account
@@ -38,6 +42,8 @@ public class GoogleAccount extends Account {
 
     //2011-10-04T14:41:40.837Z
     static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    
+    static final private Pattern PATTERN_MENTION = Pattern.compile("<span class=\"proflinkWrapper\"><span class=\"proflinkPrefix\">+</span><a href=\"https://plus.google.com/(\\d+)\" class=\"proflink\" oid=\"(\\d+)\">[ \\S]+</a></span>");
 
     static class PlusRequestInitializer implements JsonHttpRequestInitializer {
 
@@ -88,9 +94,12 @@ public class GoogleAccount extends Account {
     }
 
     static private String mention(ActivityObjectActor actor) {
-        // Display name by default
-        String mention = actor.getDisplayName();
-        Member mentionedMember = findMemberByGoogleId(actor.getId());
+        return mention(actor.getId(), actor.getDisplayName());
+    }
+
+    static private String mention(String googleId, String defaultMention) {
+        String mention = defaultMention;
+        Member mentionedMember = findMemberByGoogleId(googleId);
         if (mentionedMember != null) {
             Map<String, Object> renderArgs = Maps.newHashMap();
             renderArgs.put("_arg", mentionedMember);
@@ -98,9 +107,24 @@ public class GoogleAccount extends Account {
         }
         return mention;
     }
-    
+
     public void enhance(Collection<StatusActivity> activities) {
-        // TODO Google enhance
+        for (StatusActivity activity : activities) {
+            activity.content = replaceMentions(activity.content);
+        }
+    }
+    
+    protected static String replaceMentions(String content) {
+        Jerry doc = jerry(content);
+        doc.$(".proflinkWrapper").each(new JerryFunction() {
+
+            public boolean onNode(Jerry mentionHtml, int i) {
+                final String mentionedId = mentionHtml.$("a").attr("oid");
+                mentionHtml.html(mention(mentionedId, mentionHtml.html()));
+                return true;
+            }
+        });
+        return doc.html();
     }
 
     @Override

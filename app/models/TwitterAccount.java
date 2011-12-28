@@ -32,13 +32,13 @@ public class TwitterAccount extends Account {
     public String screenName;
 
     //Wed Oct 05 12:42:55 +0000 2011
-    static final String DATE_FORMAT = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+    static final private String DATE_FORMAT = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
     
-    static final Pattern PATTERN_MENTION = Pattern.compile("@([A-Za-z0-9_]+)");
-    static final Pattern PATTERN_URL = Pattern.compile("(http://|https://)([a-zA-Z0-9]+\\.[a-zA-Z0-9\\-]+|[a-zA-Z0-9\\-]+)\\.[a-zA-Z\\.]{2,6}(/[a-zA-Z0-9\\.\\?=/#%&\\+-]+|/|)");
-    static final String FORMAT_USER_URL = "http://www.twitter.com/%s";
-    static final String FORMAT_STATUS_URL = FORMAT_USER_URL+"/status/%s";
-    static final String FORMAT_LINK = "<a href=\"%s\" target=\"_new\">%s</a>";
+    static final private Pattern PATTERN_MENTION = Pattern.compile("@([A-Za-z0-9_]+)");
+    static final private Pattern PATTERN_URL = Pattern.compile("(http://|https://)([a-zA-Z0-9]+\\.[a-zA-Z0-9\\-]+|[a-zA-Z0-9\\-]+)\\.[a-zA-Z\\.]{2,6}(/[a-zA-Z0-9\\.\\?=/#%&\\+-]+|/|)");
+    static final private String FORMAT_USER_URL = "http://www.twitter.com/%s";
+    static final private String FORMAT_STATUS_URL = FORMAT_USER_URL+"/status/%s";
+    static final private String FORMAT_LINK = "<a href=\"%s\" target=\"_new\">%s</a>";
     
     public TwitterAccount(final String screenName) {    
         super(ProviderType.Twitter);
