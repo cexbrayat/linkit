@@ -43,7 +43,7 @@ public class TwitterAccountTest extends BaseDataUnitTest {
         assertSame(tweet2, activities.get(1));
         // Content enhanced on tweet1
         assertFalse(content1.equals(tweet1.content));
-        assertTrue(tweet1.content.contains("<a href=\"/profile/"+mentionnedAccount.member.login+"\" target=\"_new\">@"+mentionnedAccount.screenName+"</a>"));
+        assertTrue(tweet1.content.contains("href=\"/profile/"+mentionnedAccount.member.login+"\""));
         assertTrue(tweet1.content.contains("<a href=\"http://www.twitter.com/toto\" target=\"_new\">@toto</a>"));
         // Content same on tweet2
         assertEquals(content2, tweet2.content);

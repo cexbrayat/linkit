@@ -1,5 +1,6 @@
 package models;
 
+import com.google.common.collect.Maps;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -11,13 +12,14 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.Entity;
 import models.activity.StatusActivity;
 import play.Logger;
 import play.data.validation.Required;
-import play.mvc.Router;
+import play.templates.TemplateLoader;
 
 /**
  * A Twitter account
@@ -96,16 +98,20 @@ public class TwitterAccount extends Account {
         StringBuffer enhancedContent = new StringBuffer();
         Matcher m = PATTERN_MENTION.matcher(content);
         while (m.find()) {
-            final String mention = m.group(1);
-            // By default, we link on Twitter's profile of mentionned user
-            String mentionLink = String.format(FORMAT_USER_URL, mention);
-            final Member mentionedMember = findMemberByScreenName(mention);
+            final String mentionName = m.group(1);
+            // By default, we mention a link on Twitter's profile of mentionned user
+            final String mentionLink = String.format(FORMAT_USER_URL, mentionName);
+            String mention = String.format(FORMAT_LINK, mentionLink, "@"+mentionName);
+            final Member mentionedMember = findMemberByScreenName(mentionName);
             if (mentionedMember != null) {
-                // If mentionned user is a Link-IT user : we link to its Link-IT profile
-                mentionLink = Router.reverse("Profile.show").add("login", mentionedMember.login).url;
+                // If mentionned user is a Link-IT user : we render member with usual tag "member.html"
+                // mention = Router.reverse("Profile.show").add("login", mentionedMember.login).url;
+                Map<String, Object> renderArgs = Maps.newHashMap();
+                renderArgs.put("_arg", mentionedMember);
+                mention = TemplateLoader.load("tags/member.html").render(renderArgs);
             }
-            // Replace original content with enhanced link
-            m.appendReplacement(enhancedContent, String.format(FORMAT_LINK, mentionLink, "@"+mention));
+            // Replace original content with enhanced mention
+            m.appendReplacement(enhancedContent, mention);
         }
         m.appendTail(enhancedContent);
         return enhancedContent.toString();
