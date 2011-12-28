@@ -213,7 +213,13 @@
                 <legend>Achat du billet</legend>
            <div class="clearfix">
                <div class="input">
-                #{inscription /}
+                #{if member?.ticketingRegistered}
+                    <span class="label success">J'ai déjà payé mon billet</span> sur <a target="blank" href="http://www.weezevent.com">Weezevent</a>
+                #{/if}
+                #{else}
+                <p><span class="label important">Je n'ai pas encore payé mon billet!</span></p>
+                  #{inscription /}
+                #{/else}
                </div>
            </div>
           </fieldset>

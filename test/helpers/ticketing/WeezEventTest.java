@@ -1,7 +1,7 @@
 package helpers.ticketing;
 
 import com.google.gson.JsonArray;
-import org.junit.Before;
+import java.util.List;
 import org.junit.Test;
 import play.Play;
 import play.test.UnitTest;
@@ -12,81 +12,74 @@ import play.test.UnitTest;
  */
 public class WeezEventTest extends UnitTest {
 
-    WeezEvent we;
-
-    @Before
-    public void before() {
-        we = new WeezEvent();
-    }
-
     @Test
     public void testLoginOK() {
         //identifiants weezevent corrects
-        String sessionID = we.login();
-        assertTrue(we.isLogged(sessionID));
-        we.logout(sessionID);
+        String sessionID = WeezEvent.login();
+        assertTrue(WeezEvent.isLogged(sessionID));
+        WeezEvent.logout(sessionID);
     }
 
     @Test
     public void testLoginKO() {
         final String weezevent_url = Play.configuration.getProperty("weezevent_url");
         //identifiants weezevent INcorrects
-        String sessionID = we.login(weezevent_url, "toto@toto.fr", "toto", "fr");
-        assertFalse(we.isLogged(sessionID));
+        String sessionID = WeezEvent.login(weezevent_url, "toto@toto.fr", "toto", "fr");
+        assertFalse(WeezEvent.isLogged(sessionID));
     }
 
     @Test
     public void testSetEventOK() {
-        String sessionID = we.login();
+        String sessionID = WeezEvent.login();
         //event id correct
-        assertTrue(we.setEvent(sessionID));
-        we.logout(sessionID);
+        assertTrue(WeezEvent.setEvent(sessionID));
+        WeezEvent.logout(sessionID);
     }
 
     @Test
     public void testSetEventKO() {
         //identifiants weezevent corrects
-        String sessionID = we.login();
+        String sessionID = WeezEvent.login();
         //event id INcorrect
-        assertFalse(we.setEvent("00000", sessionID));
-        we.logout(sessionID);
+        assertFalse(WeezEvent.setEvent("00000", sessionID));
+        WeezEvent.logout(sessionID);
     }
 
     @Test
     public void testGetAttendeesOK() {
         //identifiants weezevent corrects
-        String sessionID = we.login();
+        String sessionID = WeezEvent.login();
         //event id correct
-        we.setEvent(sessionID);
-        assertNotNull(we.getAttendees(sessionID));
+        WeezEvent.setEvent(sessionID);
+        assertNotNull(WeezEvent.getAttendees(sessionID));
     }
 
     @Test
     public void testGetAttendeesKO() {
         //identifiants weezevent corrects
-        String sessionID = we.login();
+        String sessionID = WeezEvent.login();
         //event id INcorrect
-        we.setEvent("00000", sessionID);
-        assertNull(we.getAttendees(sessionID));
+        WeezEvent.setEvent("00000", sessionID);
+        assertNull(WeezEvent.getAttendees(sessionID));
     }
 
     @Test
     public void testIsRegisteredAttendeeOK() {
         //identifiants weezevent corrects
-        String sessionID = we.login();
+        String sessionID = WeezEvent.login();
         //event id correct
-        we.setEvent(sessionID);
-        JsonArray allAttendees = we.getAttendees(sessionID);
-        assertTrue(we.isRegisteredAttendee("agnes.crepet@gmail.com", allAttendees));
+        WeezEvent.setEvent(sessionID);
+        List<String> allAttendees = WeezEvent.getAttendees(sessionID);
+        assertTrue(WeezEvent.isRegisteredAttendee("agnes.crepet@gmail.com", allAttendees));
     }
 
     @Test
     public void testIsRegisteredAttendeeKO() {
         //identifiants weezevent corrects
-        String sessionID = we.login();
+        String sessionID = WeezEvent.login();
         //event id correct
-        we.setEvent(sessionID);
-        JsonArray allAttendees = we.getAttendees(sessionID);
-        assertFalse(we.isRegisteredAttendee("toto.toto@gmail.com", allAttendees));
+        WeezEvent.setEvent(sessionID);
+        List<String> allAttendees = WeezEvent.getAttendees(sessionID);
+        assertFalse(WeezEvent.isRegisteredAttendee("toto.toto@gmail.com", allAttendees));
     }
 }
