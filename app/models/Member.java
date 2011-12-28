@@ -82,6 +82,8 @@ public class Member extends Model implements Lookable {
     @Required
     @Field
     public String company;
+    
+    public boolean ticketingRegistered = false;
 
     @Required
     @Temporal(TemporalType.TIMESTAMP)

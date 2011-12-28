@@ -17,10 +17,6 @@ public class Infos extends PageController {
         render("Infos/faq.html");
     }
 
-    public static void inscription() {
-        render("Infos/inscription.html");
-    }
-
     public static void kit() {
         render("Infos/kit.html");
     }
