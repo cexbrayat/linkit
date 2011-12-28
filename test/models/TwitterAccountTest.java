@@ -80,4 +80,12 @@ public class TwitterAccountTest extends BaseDataUnitTest {
         TwitterAccount ta = createMemberAndAccount("toto", "toto69");
         assertEquals("http://www.twitter.com/toto69", ta.url());
     }
+    
+    @Test
+    public void findMemberByScreenName() {
+        final String screenName = "screen";
+        TwitterAccount account = createMemberAndAccount("login", screenName);
+        assertSame(account.member, TwitterAccount.findMemberByScreenName(screenName));
+        assertNull(TwitterAccount.findMemberByScreenName("toto"));
+    }
 }

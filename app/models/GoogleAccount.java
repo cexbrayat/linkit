@@ -8,6 +8,8 @@ import com.google.api.services.plus.Plus;
 import com.google.api.services.plus.PlusRequest;
 import com.google.api.services.plus.model.Activity;
 import com.google.api.services.plus.model.ActivityFeed;
+import com.google.api.services.plus.model.ActivityObjectActor;
+import com.google.common.collect.Maps;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,10 +17,13 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.persistence.Entity;
 import models.activity.StatusActivity;
+import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Required;
+import play.templates.TemplateLoader;
 
 /**
  * A Google account
@@ -30,6 +35,7 @@ public class GoogleAccount extends Account {
     /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumber} as seen on Google+' profile link */
     @Required
     public String googleId;     // 114128610730314333831
+
     //2011-10-04T14:41:40.837Z
     static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 
@@ -52,9 +58,9 @@ public class GoogleAccount extends Account {
     public String toString() {
         return "Google+ account " + googleId;
     }
-
-    public static GoogleAccount findByEmail(final String email) {
-        return GoogleAccount.find("member.email = ?", email).first();
+    
+    public static Member findMemberByGoogleId(final String googleId) {
+        return find("select ga.member from GoogleAccount ga where ga.googleId=?", googleId).first();
     }
 
     public List<StatusActivity> fetchActivities() {
@@ -65,6 +71,13 @@ public class GoogleAccount extends Account {
             ActivityFeed feed = api.activities().list(this.googleId, "public").execute();
             for (Activity activity : feed.getItems()) {
                 String content = activity.getPlusObject().getContent();
+                if ("share".equals(activity.getVerb())) {
+                    content = "<br/>Message original de " + mention(activity.getPlusObject().getActor()) + " : <div class='google reshare'>" + content + "</div>";
+                }
+                String annotation = activity.getAnnotation();
+                if (StringUtils.isNotBlank(annotation)) {
+                    content = annotation + content;
+                }
                 Date date = googleFormatter.parse(activity.getPublished().toStringRfc3339());
                 statuses.add(new StatusActivity(this.member, date, this.provider, content, activity.getUrl(), activity.getId()));
             }
@@ -74,6 +87,18 @@ public class GoogleAccount extends Account {
         return statuses;
     }
 
+    static private String mention(ActivityObjectActor actor) {
+        // Display name by default
+        String mention = actor.getDisplayName();
+        Member mentionedMember = findMemberByGoogleId(actor.getId());
+        if (mentionedMember != null) {
+            Map<String, Object> renderArgs = Maps.newHashMap();
+            renderArgs.put("_arg", mentionedMember);
+            mention = TemplateLoader.load("tags/member.html").render(renderArgs);
+        }
+        return mention;
+    }
+    
     public void enhance(Collection<StatusActivity> activities) {
         // TODO Google enhance
     }
