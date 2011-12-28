@@ -23,7 +23,7 @@ public class JobFetchRegisteredTicketingUser extends Job {
 
     @Override
     public void doJob() {
-
+        Logger.info("BEGIN JOB JobFetchRegisteredTicketingUser for all members");
         txTemplate.execute(new TransactionCallbackWithoutResult() {
 
             public void doInTransaction() {
