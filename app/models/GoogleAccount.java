@@ -1,20 +1,33 @@
 package models;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import jodd.lagarto.dom.jerry.Jerry;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.http.json.JsonHttpRequest;
+import com.google.api.client.http.json.JsonHttpRequestInitializer;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.plus.Plus;
+import com.google.api.services.plus.PlusRequest;
+import com.google.api.services.plus.model.Activity;
+import com.google.api.services.plus.model.ActivityFeed;
+import com.google.api.services.plus.model.ActivityObjectActor;
+import com.google.common.collect.Maps;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import javax.persistence.Entity;
+import jodd.lagarto.dom.jerry.JerryFunction;
 import models.activity.StatusActivity;
+import org.apache.commons.lang.StringUtils;
 import play.Logger;
+import play.Play;
 import play.data.validation.Required;
+import play.templates.TemplateLoader;
+import static jodd.lagarto.dom.jerry.Jerry.jerry;
 
 /**
  * A Google account
@@ -22,60 +35,94 @@ import play.data.validation.Required;
  */
 @Entity
 public class GoogleAccount extends Account {
-    
+
     /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumber} as seen on Google+' profile link */
     @Required
     public String googleId;     // 114128610730314333831
 
     //2011-10-04T14:41:40.837Z
     static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
-    
+
+    static class PlusRequestInitializer implements JsonHttpRequestInitializer {
+
+        public void initialize(JsonHttpRequest request) {
+            PlusRequest plusRequest = (PlusRequest) request;
+            plusRequest.setPrettyPrint(true);
+            plusRequest.setKey(Play.configuration.getProperty("Google.apiKey"));
+        }
+    }
+    static final Plus api = Plus.builder(new NetHttpTransport(), new GsonFactory()).setJsonHttpRequestInitializer(new PlusRequestInitializer()).build();
+
     public GoogleAccount(final String googleId) {
         super(ProviderType.Google);
         this.googleId = googleId;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Google+ account " + googleId;
     }
-
-    public static GoogleAccount findByEmail(final String email) {
-        return GoogleAccount.find("member.email = ?", email).first();
+    
+    public static Member findMemberByGoogleId(final String googleId) {
+        return find("select ga.member from GoogleAccount ga where ga.googleId=?", googleId).first();
     }
 
     public List<StatusActivity> fetchActivities() {
         List<StatusActivity> statuses = new ArrayList<StatusActivity>();
-        
-        StringBuilder url = new StringBuilder("https://www.googleapis.com/plus/v1/people/")
-                .append(this.googleId)
-                .append("/activities/public?key=AIzaSyC4xOkQsEPJcUKUvQGL6T7RZkrIIxSuZAg");
-        JsonElement response = fetchJson(url.toString());
-        if (response != null) {
-            try {
-                JsonArray activities = response.getAsJsonObject().get("items").getAsJsonArray();
-                DateFormat googleFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
-                for (JsonElement element : activities) {
-                    JsonObject activity = element.getAsJsonObject();
-                    try {
-                        String content = activity.get("object").getAsJsonObject().get("content").getAsString();
-                        Date date = googleFormatter.parse(activity.get("published").getAsString());
-                        String statusId = activity.get("id").getAsString();
-                        String statusUrl = activity.get("url").getAsString();
-                        statuses.add(new StatusActivity(this.member, date, this.provider, content, statusUrl, statusId));
-                    } catch (ParseException pe) {
-                        Logger.error(pe, "Parse exception %s", pe.getMessage());
-                    }
+
+        DateFormat googleFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
+        try {
+            ActivityFeed feed = api.activities().list(this.googleId, "public").execute();
+            for (Activity activity : feed.getItems()) {
+                String content = activity.getPlusObject().getContent();
+                if ("share".equals(activity.getVerb())) {
+                    content = "<br/>Message original de " + mention(activity.getPlusObject().getActor()) + " : <div class='google reshare'>" + content + "</div>";
                 }
-            } catch (Exception e) {
-                Logger.error(e, "Exception while parsing Google feed for %s. Responce received : %s", this.member, response.toString());
+                String annotation = activity.getAnnotation();
+                if (StringUtils.isNotBlank(annotation)) {
+                    content = annotation + content;
+                }
+                Date date = googleFormatter.parse(activity.getPublished().toStringRfc3339());
+                statuses.add(new StatusActivity(this.member, date, this.provider, content, activity.getUrl(), activity.getId()));
             }
+        } catch (Exception e) {
+            Logger.error(e, "Exception while fetching Google feed for %s : %s", this.member, e.getMessage());
         }
         return statuses;
-     }
+    }
+
+    static private String mention(ActivityObjectActor actor) {
+        return mention(actor.getId(), actor.getDisplayName());
+    }
+
+    static private String mention(String googleId, String defaultMention) {
+        String mention = defaultMention;
+        Member mentionedMember = findMemberByGoogleId(googleId);
+        if (mentionedMember != null) {
+            Map<String, Object> renderArgs = Maps.newHashMap();
+            renderArgs.put("_arg", mentionedMember);
+            mention = TemplateLoader.load("tags/member.html").render(renderArgs);
+        }
+        return mention;
+    }
 
     public void enhance(Collection<StatusActivity> activities) {
-        // TODO Google enhance
+        for (StatusActivity activity : activities) {
+            activity.content = replaceMentions(activity.content);
+        }
+    }
+    
+    protected static String replaceMentions(String content) {
+        Jerry doc = jerry(content);
+        doc.$(".proflinkWrapper").each(new JerryFunction() {
+
+            public boolean onNode(Jerry mentionHtml, int i) {
+                final String mentionedId = mentionHtml.$("a").attr("oid");
+                mentionHtml.html(mention(mentionedId, mentionHtml.html()));
+                return true;
+            }
+        });
+        return doc.html();
     }
 
     @Override
