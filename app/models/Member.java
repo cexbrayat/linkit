@@ -4,6 +4,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import controllers.JobFetchUserTimeline;
+import controllers.JobMajUserRegisteredTicketing;
 import helpers.badge.BadgeComputationContext;
 import helpers.badge.BadgeComputer;
 import helpers.badge.BadgeComputerFactory;
@@ -401,6 +402,7 @@ public class Member extends Model implements Lookable {
         save();
         new UpdateProfileActivity(this).save();
         new JobFetchUserTimeline(this).now();
+        new JobMajUserRegisteredTicketing(this.id).now();
         return this;
     }
 

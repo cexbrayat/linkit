@@ -41,6 +41,7 @@ public class WeezEvent {
 
         } catch (RuntimeException e) {
             Logger.error(e, "Exception while sending a request to WeezEvent WebService for login with user %s", weezevent_login);
+            return null;
         }
 
         if (JSON.getStringProperty(object, "stat").equals("0")) {
@@ -50,7 +51,7 @@ public class WeezEvent {
     }
 
     public static boolean logout(String sessionId) {
-        return get("lougout", sessionId);
+        return get("logout", sessionId);
 
     }
 
@@ -72,6 +73,7 @@ public class WeezEvent {
             object = JSON.getAsObject(WS.url(url.toString()).setHeader("Cookie", sessionId).post().getString());
         } catch (RuntimeException e) {
             Logger.error(e, "Exception while sending a request to WeezEvent WebService for setEvent with id event %s", weezevent_event);
+            return false;
         }
         if (JSON.getStringProperty(object, "stat").equals("0")) {
             Logger.error("Problem while sending a request to WeezEvent WebService for setEvent with id event %s. Code error=%s. Complete URL=%s", weezevent_event, JSON.getStringProperty(object, "data"), url.toString());
@@ -89,6 +91,7 @@ public class WeezEvent {
             object = JSON.getAsObject(WS.url(url.toString()).setHeader("Cookie", sessionId).get().getString());
         } catch (RuntimeException e) {
             Logger.error(e, "Exception while sending a request to WeezEvent WebService for getAttendees");
+            return null;
         }
         if (JSON.getStringProperty(object, "stat").equals("0")) {
             Logger.error("Problem while sending a request to WeezEvent WebService for getAttendees. Code error=%s", JSON.getStringProperty(object, "data"));
@@ -106,23 +109,21 @@ public class WeezEvent {
     }
 
     public static boolean isRegisteredAttendee(String email, List<String> emailsAllAttendees) {
-        if (emailsAllAttendees.contains(email)) {
+        if (emailsAllAttendees != null && emailsAllAttendees.contains(email)) {
             return true;
         }
         return false;
     }
 
-    public static void updateRegisteredAttendee(String email) {
-        List<Member> members = Member.findAll();
+    public static void updateRegisteredAttendee(Member member) {
         String sessionID = WeezEvent.login();
         WeezEvent.setEvent(sessionID);
         final List<String> allAttendees = WeezEvent.getAttendees(sessionID);
-        for (final Member member : members) {
-            if (WeezEvent.isRegisteredAttendee(member.email, allAttendees)) {
-                member.ticketingRegistered = true;
-                member.save();
-            }
+        if (WeezEvent.isRegisteredAttendee(member.email, allAttendees)) {
+            member.ticketingRegistered = true;
+            member.save();
         }
+
     }
 
     public static String getSessionId(String cookie) {
@@ -142,6 +143,7 @@ public class WeezEvent {
             object = JSON.getAsObject(WS.url(url.toString()).setHeader("Cookie", sessionId).get().getString());
         } catch (RuntimeException e) {
             Logger.error(e, "Exception while sending a request to WeezEvent WebService for %s", parameter);
+            return false;
         }
         if (JSON.getStringProperty(object, "stat").equals("0")) {
             Logger.error("Problem while sending a request to WeezEvent WebService for %s. Stat=%s. Code error=%s. sessionId=%s.", parameter, JSON.getStringProperty(object, "stat"), JSON.getStringProperty(object, "data"), sessionId);
