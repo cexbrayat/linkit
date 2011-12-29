@@ -24,6 +24,7 @@ import jodd.lagarto.dom.jerry.JerryFunction;
 import models.activity.StatusActivity;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
+import play.Play;
 import play.data.validation.Required;
 import play.templates.TemplateLoader;
 import static jodd.lagarto.dom.jerry.Jerry.jerry;
@@ -47,7 +48,7 @@ public class GoogleAccount extends Account {
         public void initialize(JsonHttpRequest request) {
             PlusRequest plusRequest = (PlusRequest) request;
             plusRequest.setPrettyPrint(true);
-            plusRequest.setKey("AIzaSyC4xOkQsEPJcUKUvQGL6T7RZkrIIxSuZAg");
+            plusRequest.setKey(Play.configuration.getProperty("Google.apiKey"));
         }
     }
     static final Plus api = Plus.builder(new NetHttpTransport(), new GsonFactory()).setJsonHttpRequestInitializer(new PlusRequestInitializer()).build();
