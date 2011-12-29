@@ -12,12 +12,12 @@ import play.jobs.Every;
 import play.jobs.Job;
 
 /**
- * Asynchronous fetch to check if users are registered at the ticketing partner
+ * Asynchronous fetch to check if member is registered at the ticketing partner
  * @author Agnes <agnes.crepet@gmail.com>
  */
 @Every("10800s")
 @NoTransaction
-public class JobFetchRegisteredTicketingUser extends Job {
+public class JobFetchRegisteredTicketingForAllUsers extends Job {
 
     private TransactionTemplate txTemplate = new TransactionTemplate();
 

@@ -93,7 +93,6 @@ public class Profile extends PageController {
             render("Profile/edit.html", member, newInterests, sharedLinks);
         }
         
-        WeezEvent.updateRegisteredAttendee(email);
         session.put("username", member.login);
 
         member.updateProfile();
