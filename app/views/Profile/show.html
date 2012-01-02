@@ -1,197 +1,181 @@
 #{extends 'main.html' /}
 #{set title:member.toString() /}
 #{set 'moreScripts'}
-<script type="text/javascript">
-    function toggleShowMore() {
-        var longDescription = $('#longDescription');
-        var showMore = $('#showMore');
-        if (longDescription.css('display')=='none') {
-            showMore.html('&#x21C8; Moins de détails &#x21C8;');
-        } else {
-            showMore.html('&#x21CA; Plus de détails &#x21CA;');
-        }
-        longDescription.slideToggle();
-    }
-</script>
+<script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 #{/set}
-
-    <div class="hero-unit">
-        <h2>${member}</h2>
-        <div class="row">
-            <div class="span6">
-                <div class="row">
-                    <div class="span3">
-                        #{if member.email}
-                        #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
-                        #{/if}
-                    </div>
-                    <div class="span3">
-                        ${member.getNbLooks()} consultation${member.getNbLooks().pluralize()}
-                        <br/>
-                        ${member?.company}
-                        <br/>
-                        #{list items:member.getOrderedAccounts(), as:'account'}       
-                            <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}"></a>
-                        #{/list}
-                    </div>
-                </div>
-                <div id="shortDescription" class="row">
-                    ${member.shortDescription?.markdown().raw()}
-                </div>
-
+<div class="hero-unit">
+    <div class="row">
+        <div class="span2 offset1">
+            #{if member.email}
+            #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
+            #{/if}
+            ${member.getNbLooks()} consultation${member.getNbLooks().pluralize()}
+            #{if session.get("username") != null && !session.get("username").equals(member.login)}
+                #{if !member.hasForLinker(session.get("username"))}
+                    <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
+                #{/if}
+                #{else}
+                    <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>
+                #{/else}
+            #{/if}
+        </div>
+        <div class="span10 offset1">
+            <div class="row">
+                <h2 style="font-size: 40px; line-height: 44px;">${member}</h2>
+            </div>
+            <br/>
+            <div class="row">
+                ${member.shortDescription?.markdown().raw()}
+            </div>
+            <div class="row">
+            #{list items:member.getOrderedAccounts(), as:'account'}
+                <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}"></a>
+            #{/list}
+            #{if member.sharedLinks}
+                #{list items:member.sharedLinks, as:'link'}
+                    <a class="sharedLink" href="${link.URL}" target="_blank"><img src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/></a>
+                #{/list}
+                </ul>
+            #{/if}
+            </div>
+        </div>
+    </div>
+    <br/><br/>
+    <div class="row">
+        <div class="span6 offset1">
+            <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
+                #{else} link${member.links.size().pluralize()} #{/else}
+            </h3>
+            #{list items:member.links, as:'link'}
+                #{member link, short:true, elementId:'linkTo${link.login}' /}
+            #{/list}
+        </div>
+        <div class="span6 offset1">
+            <h3>${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
+                #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
+            #{list items:member.linkers, as:'linker'}
+                #{member linker, short:true, elementId:'linkerTo${link.login}' /}
+            #{/list}
+        </div>
+    </div>
+    <br/><br/>
+    <!--div class="row">
+        <div class="span6">
+            <p>
+            <h2>#{socialbar/}</h2>
+            </p>
+        </div>
+    </div-->
+    <div class="row">
+        <div class="span12 offset1">
+            <ul class="pills" data-pills="pills">
+                <li class="active"><a href="#activites">Mes activites</a></li>
+                #{if !member.longDescription?.isEmpty()}
+                <li><a href="#bio">Ma biographie</a></li>
+                #{/if}
                 #{if member instanceof models.Speaker}
-                    <h5>Session${member.sessions.size().pluralize()} :</h5>
-                    <ul>
-                    #{list items:member.sessions, as:'talk'}
-                        <li>#{session talk /}</li>
-                    #{/list}
-                    </ul>
+                <li><a href="#talks">Mes talks</a></li>
                 #{/if}
-
                 #{if member.sessions}
-                    <h5>Lightning Talk${member.sessions.size().pluralize()} :</h5>
-                    <ul>
-                    #{list items:member.sessions, as:'lt'}
-                        <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a></li>
-                    #{/list}
-                    </ul>
+                <li><a href="#ligthnings">Mes lightnings talks</a></li>
                 #{/if}
-                #{if member.sharedLinks}
-                    <h5>Mes liens :</h5>
-                    <ul>
-                    #{list items:member.sharedLinks, as:'link'}
-                        <li><a class="sharedLink" href="${link.URL}" target="_blank"><img src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/>${link.name}</a></li>
-                    #{/list}
-                    </ul>
-                #{/if}
+                <li><a href="#interets">Mes intérêts</a></li>
+                <li><a href="#badges">Mes badges</a></li>
+            </ul>
+            <div id="tab-content" class="tab-content">
+                <div class="tab-pane active" id="activites">
+                    <div class="span8">
+                        #{list items:member.getAccountProviders(), as:'provider'}
+                            <a class="service-button ${provider.name().toLowerCase()}" id="${provider}" onClick="handleProvider('${provider}')"></a>
+                        #{/list}
+                        (Cliquez pour activer/désactiver un flux)
+                    </div>
+                    <br/>
+                    <div id="activities" style="max-height: 400px">
+                        <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a><br/>
+                        <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
+                        <script type="text/javascript">
+                            var providers = ['${member.getAccountProviders().join("','")}'];
+                            var page = 1;
+                            var size = 5;
+                            var activitiesAction = #{jsAction @Activities.of(':login', ':providers', ':page',':size') /};
+                            var spinner = $('#activitiesSpinner');
+                            var btnMoreActivities = $('#moreActivities');
+                            function loadMoreActivities() {
+                                if (providers.length > 0) {
+                                    btnMoreActivities.addClass('disabled');
+                                    spinner.css("visibility", "visible");
+                                    $.get(activitiesAction({login: '${member.login}', providers: providers.join("${controllers.Activities.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
+                                        $('#activities').append(data);
+                                        if (data) {
+                                            btnMoreActivities.css('visibility','visible');
+                                            page++;
+                                        } else {
+                                            btnMoreActivities.css('visibility','hidden');
+                                        }
+                                        spinner.css("visibility", "hidden");
+                                        btnMoreActivities.removeClass('disabled');
+                                    });
+                                }
+                            };
+
+                            function handleProvider(provider){
+                                var contain = providers.indexOf(provider);
+                                if(contain != -1){
+                                    providers = providers.filter(function(x){return x != provider})
+                                    $('#'+provider).removeClass(provider.toLowerCase()).addClass(provider.toLowerCase()+'-off');
+                                }else{
+                                    providers.push(provider);
+                                    $('#'+provider).removeClass(provider.toLowerCase()+'-off').addClass(provider.toLowerCase());
+                                }
+                                $('#activities').empty();
+                                page = 1;
+                                size = 5;
+                                console.log(providers);
+                                loadMoreActivities();
+                            };
+
+                            // Initial loading : first page
+                            loadMoreActivities();
+                        </script>
+                    </div>
+                </div>
                 #{if member.longDescription}
-                <p>
-                    <div id="longDescription" style="display: none">
+                <div class="tab-pane" id="bio">
+                     <div id="longDescription" style="display: none">
                         ${member.longDescription?.markdown().raw()}
                     </div>
-                    <div class="showMore">
-                        <a id="showMore" href="#" onclick="toggleShowMore()">&#x21CA; Plus de détails &#x21CA;</a>
-                    </div>
-                </p>
-                #{/if}
-                
-                #{if session.get("username") != null && !session.get("username").equals(member.login)}
-                    #{if !member.hasForLinker(session.get("username"))}
-                        <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
-                    #{/if}
-                    #{else}
-                        <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>
-                    #{/else}
-                #{/if}
-
-                <div class="row">
-                    <div class="span3">
-                        <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
-                            #{else} link${member.links.size().pluralize()} #{/else}
-                        </h3>
-                        #{list items:member.links, as:'link'}
-                            #{member link, short:true, elementId:'linkTo${link.login}' /}
-                        #{/list}
-                    </div>
-                    <div class="span3">
-                        <h3>${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
-                            #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
-                        #{list items:member.linkers, as:'linker'}
-                            #{member linker, short:true, elementId:'linkerTo${link.login}' /}
-                        #{/list}
-                    </div>
                 </div>
-                <div class="row">
-                    <div class="span6">
-                        <p>
-                        <h2>#{socialbar/}</h2>
-                        </p>
-                    </div>
+                #{/if}
+                #{if member instanceof models.Speaker}
+                <div class="tab-pane" id="talks">
+                    <ul>
+                    #{list items:member.sessions, as:'talk'}
+                        <li>#{session-small talk /}</li>
+                    #{/list}
+                    </ul>
+                </div>
+                #{/if}
+                #{if member.sessions}
+                <div class="tab-pane" id="ligthnings">
+                    <ul>
+                    #{list items:member.sessions, as:'lt'}
+                        <li>#{session-small lt /}</li>
+                    #{/list}
+                    </ul>
+                </div>
+                #{/if}
+                <div class="tab-pane" id="interets">
+                    #{list items:member.interests, as:'interest'}
+                    <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
+                    #{/list}
+                </div>
+                <div class="tab-pane" id="badges">
+                    #{badges member.badges /}
                 </div>
             </div>
-
-            <div class="span6" > <!-- timeline -->
-                <h3>Ses activités</h3>
-                <div class="span8">
-                    #{list items:member.getAccountProviders(), as:'provider'}       
-                        <a class="service-button ${provider.name().toLowerCase()}" id="${provider}" onClick="handleProvider('${provider}')"></a>
-                    #{/list}
-                    (Cliquez pour activer/désactiver un flux)
-                </div>
-                <br/>
-                <br/>
-                <div class="span6">
-                    <div id="activities" style="max-height: 400px"></div>
-                </div>
-                <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
-                <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
-
-                <script type="text/javascript">
-                    var providers = ['${member.getAccountProviders().join("','")}'];
-                    var page = 1;
-                    var size = 5;
-                    var activitiesAction = #{jsAction @Activities.of(':login', ':providers', ':page',':size') /};
-                    var spinner = $('#activitiesSpinner');
-                    var btnMoreActivities = $('#moreActivities');
-
-                    function loadMoreActivities() {
-                        if (providers.length > 0) {
-                            btnMoreActivities.addClass('disabled');
-                            spinner.css("visibility", "visible");
-                            $.get(activitiesAction({login: '${member.login}', providers: providers.join("${controllers.Activities.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
-                                $('#activities').append(data);
-                                if (data) {
-                                    btnMoreActivities.css('visibility','visible');
-                                    page++;
-                                } else {
-                                    btnMoreActivities.css('visibility','hidden');
-                                }
-                                spinner.css("visibility", "hidden");
-                                btnMoreActivities.removeClass('disabled');
-                            });
-                        }
-                    };
-
-                    function handleProvider(provider){
-                        var contain = providers.indexOf(provider);
-                        if(contain != -1){
-                            providers = providers.filter(function(x){return x != provider})
-                            $('#'+provider).removeClass(provider.toLowerCase()).addClass(provider.toLowerCase()+'-off');
-                        }else{
-                            providers.push(provider);
-                            $('#'+provider).removeClass(provider.toLowerCase()+'-off').addClass(provider.toLowerCase());
-                        }
-                        $('#activities').empty();
-                        page = 1;
-                        size = 5;
-                        console.log(providers);
-                        loadMoreActivities();
-                    };
-
-                    // Initial loading : first page
-                    loadMoreActivities();
-                </script>
-            </div>            
         </div>
     </div>
-
-    <div class="row">
-        <div class="span6">
-            <h2>Intérêts</h2>
-            <p>
-                #{list items:member.interests, as:'interest'}
-                <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
-                #{/list}
-            </p>
-        </div>
-        <div class="span6">
-            <h2>Badges</h2>
-            <p>
-                #{badges member.badges /}
-            </p>
-        </div>
-    </div>
-
     #{if session.get("username")?.equals(member.login)}
     <div class="row">
         <div class="span12 actions">
