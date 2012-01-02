@@ -4,99 +4,58 @@
 <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/jqcloud.css'}">
 #{/set}
 #{set 'moreScripts'}
-<script src="@{'/public/javascripts/jqcloud-0.2.4.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-<script src="http://bxslider.com/sites/default/files/jquery.bxSlider.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    var slider = $('#slider').bxSlider({
-        auto: true,
-        pause:5e3,
-        controls: false,
-        onBeforeSlide: function(currentSlide, totalSlides){
-            $("ul.slider > li").removeClass("active");
-            $('#slide-'+currentSlide).addClass("active");
-        }
-    });
-    $('#slide-0 > a').click(function(){
-        slider.goToSlide(0);
-        slider.startShow();
-        return true;
-    });
-    $('#slide-1 > a').click(function(){
-        slider.goToSlide(1);
-        slider.startShow();
-        return true;
-    });
-    $('#slide-2 > a').click(function(){
-        slider.goToSlide(2);
-        slider.startShow();
-        return true;
-    });
-  });
-</script>|
+<script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 #{/set}
 
-    <div class="hero-unit">
-        <div class="row">
-            <div class="span5">
-                <h1>Mix-it</h1> 
-                <h2>Des idées pour tout de suite !</h2>
-                <p>X Avril 2012</p>
-                #{if session.get("username") == null} 
-                <a class="btn primary large" href="@{Login.index()}">Se connecter</a>
-                #{/if}
-                #{else}  
-                <a class="btn primary large" href="@{Dashboard.index()}">Mon Dashboard</a>
-                #{/else}
-            </div>
-            <div class="span5"> 
-                <!-- You must explicitly specify the dimensions of the container element -->
-                <div id="wordcloud" style="width: 250px; height: 250px; position: relative;"></div>
-                <script type="text/javascript">
-var word_list = [
-#{list items:tags, as:'tag'}
-%{
-    String url = play.mvc.Router.reverse("Application.searchByInterest").add("interest",tag.get('interest')).url;
-    url = java.net.URLDecoder.decode(url, "UTF-8");
-}%
-    {text: "${tag.get('interest')}", url: "${url}", weight: ${tag.get('pound')} }      
-    #{if !tag_isLast} , #{/if} 
-#{/list}
-    ];
-$(document).ready(function() {
-	// Call jQCloud on a jQuery object passing the word list as the first argument. Chainability of methods is maintained.
-	$("#wordcloud").jQCloud(word_list);
-});
-                </script>
+    <div class="row">
+        <div class="span-two-thirds">
+            <div class="hero-unit">
+                <div class="row">
+                    <h2>26 Avril 2012</h2>
+                </div>
+                <div class="row">
+                    <h1><img src="@{'/public/images/mixit.png'}" alt="Mix-it" style="zoom:0.45"></h1>
+                </div>
+                <div class="row">
+                    <div class="span6 offset4"><h3>Des idées pour tout de suite !</h3></div>
+                </div>
             </div>
         </div>
+        <div class="span-one-third welcome">
+            <ul>
+                <li>Se #{a @Login.index()}connecter#{/a}</li>
+                <li>Voir #{a @Sessions.index()}les sessions#{/a}</li>
+                <li>Consulter #{a @Application.members()}les profils#{/a}</li>
+                <li>Voter pour #{a @LightningTalks.list()}des Lightning talks#{/a}</li>
+                <li>.. et bla bla bla</li>
+            </ul>
+        </div>
     </div>
-    <ul class="tabs slider" style="margin-bottom: 0px">
-        <li id="slide-0" class="active"><a href="#">Derniers articles</a></li>
-        <li id="slide-1"><a href="#">Dernières sessions</a></li>
-        <li id="slide-2"><a href="#">Derniers inscrits</a></li>
+    <ul class="tabs" data-tabs="tabs">
+        <li class="active"><a href="#articles">Derniers articles</a></li>
+        <li><a href="#sessions">Dernières sessions</a></li>
+        <li><a href="#inscrits">Derniers inscrits</a></li>
     </ul>
-    <div id="slider-container">
-    <ul id="slider">
-        <li>
+    <div id="tab-content" class="tab-content">
+        <div class="tab-pane active" id="articles">
             <div class="row">
                 #{list items:articles, as:'article'}
-                <div class="span-one-third">
+                <div class="span8">
                     #{article article /}
                 </div>
                 #{/list}
             </div>
-        </li>
-        <li>
+        </div>
+        <div class="tab-pane" id="sessions">
             <div class="row">
                 #{list items:sessions, as:'s'}
-                <div class="span-one-third">
+                <div class="span8">
                     #{session-small s /}
                 </div>
                 #{/list}
             </div>
-        </li>
-        <li>
+        </div>
+        <div class="tab-pane" id="inscrits">
             <div class="row">
                 #{list items:members, as:'member'}
                 <div style="padding-top: 10px" class="span-one-third">
@@ -104,37 +63,5 @@ $(document).ready(function() {
                 </div>
                 #{/list}
             </div>
-        </li>
-    </ul>
+        </div>
     </div>
-
-        <h4>Activités récentes</h4>
-        <p id="activities"></p>
-        <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>  
-        <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
-        
-<script type="text/javascript">
-    var page = 1;
-    var size = 5;
-    var activitiesAction = #{jsAction @Activities.general(':page',':size') /};
-    var spinner = $('#activitiesSpinner');
-    var btnMoreActivities = $('#moreActivities');
-   
-    function loadMoreActivities() {
-        btnMoreActivities.addClass('disabled');
-        spinner.css("visibility", "visible");
-        $.get(activitiesAction({page: page, size: size}), function(data) {
-            $('#activities').append(data);
-            if (data) {
-                page++;
-            } else {
-                btnMoreActivities.css('visibility','hidden');
-            }
-            spinner.css("visibility", "hidden");
-            btnMoreActivities.removeClass('disabled');
-        });
-    }
-    
-    // Initial loading : first page
-    loadMoreActivities();
-</script>     

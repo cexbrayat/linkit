@@ -1,162 +1,176 @@
-<!DOCTYPE html>
+#{extends 'main.html' /}
+#{set title:member.toString() + ' - Dashboard Link-IT' /}
 
-<html>
-    <head>
-        <title>#{get 'title' /} - Mix-IT</title>
-        <meta charset="${_response_encoding}">
-        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/bootstrap.less'}">
-        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/linkit.less'}">
-        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/networks.css'}">
-        #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/bootstrap-twipsy.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/bootstrap-dropdown.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script> 
-            $(function () {
-                $("a[rel=twipsy]").twipsy({
-                    live: true,
-                    placement: 'below'
-                })
-            })
-        </script> 
-        #{get 'moreScripts' /}
-    </head>
-    <body style="padding-top: 60px;"> *{ 60px is navigation bar space }*
-        <div class="topbar">
-            <div class="topbar-inner">
-                <div class="container-fluid">
-                    <a class="brand" href="@{Application.index()}">Mix-IT</a>
-                    <ul class="nav">
-                        #{if session.username}
-                        <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">Dashboard</a></li>
-                        #{/if}
-                        <li #{if request.controller=="Articles"}class="active"#{/if}><a href="@{Articles.index()}">Actualités</a></li>
-                        <li class="dropdown" data-dropdown="dropdown">
-                            <a href="@{Application.members()}" class="dropdown-toggle">Programme</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="@{Sessions.index()}">Sessions</a></li>
-                                <li><a href="@{LightningTalks.list()}">Lightning talks</a></li>
-                                <li><a href="@{Plannings.index()}">Agenda</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown" data-dropdown="dropdown">
-                            <a href="#" class="dropdown-toggle">Participants</a>
-                            <ul class="dropdown-menu">
-                                <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">Les speakers</a></li>
-                                <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">Tous les participants</a></li>
-                                <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">Les membres du staff</a></li>
-                                <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">Les sponsors</a></li>
-                            </ul>
-                        </li>
+<div class="hero-unit">
+    <h2>Mon dashboard</h2>
 
-                        <li class="dropdown" data-dropdown="dropdown">
-                            <a href="#" class="dropdown-toggle">Infos</a>
-                            <ul class="dropdown-menu">
-                                <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">A propos de Mix-IT</a></li>
-                                <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">FAQ</a></li>
-                                <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">Kit Multimedia</a></li>
-                                <li #{if request.action=="Infos.contact"}class="active"#{/if}><a href="@{Infos.contact()}">Contact</a></li>
-                                <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">Accès</a></li>
-                                <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a href="@{Infos.hotels()}">Hôtels</a></li>
-                            </ul>
-                        </li>
+    <div class="row">
+        <div class="span6">
+            <!-- profil -->
+            #{if member.email}
+            #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
+            #{/if}
 
-                        #{secure.check 'admin'}
-                        <li class="dropdown" data-dropdown="dropdown">
-                            <a href="#" class="dropdown-toggle">Admin</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/admin">On dirait le CRUD</a></li>
-                                <li class="divider"></li>
-                                <li><a href="@{Articles.create()}">Créer un article</a></li>
-                                <li><a href="@{Sessions.create()}">Créer une session</a></li>
-                            </ul>
-                        </li>
-                        #{/secure.check}
-                    </ul>
-                    <ul class="nav secondary-nav pull-right">
-                        #{if session.username} 
-                        <li class="dropdown" data-dropdown="dropdown">
-                            <a href="#" class="dropdown-toggle">#{member models.Member.findByLogin(session.username), static:true /}</a>
-                            <ul class="dropdown-menu">
-                                <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">Mon dashboard</a></li>
-                                <li><a href="@{Profile.show(session.username)}">Voir mon profil</a></li>
-                                <li><a href="@{Profile.edit()}">Editer mon profil</a></li>
-                                <li class="divider"></li>
-                                <li><a href="@{Secure.logout()}">Se deconnecter</a></li>
-                            </ul>
-                        </li>
-                        #{/if}
-                        #{else}
-                        <li><a href="@{Login.index(request.url)}">Se connecter</a></li>
-                        #{/else}
-                    </ul>
-                    <form action="@{Application.search}" method="GET" class="pull-right">
-                        #{field 'query'}
-                        <input type="search" style="width: auto" id="${field.id}" name="${field.name}" placeholder="Rechercher" value="${params.query}" />
-                        #{/field}
-                    </form> 
-                </div>
-            </div>
-        </div>
+            <p>Votre profil a été consulté ${member.getNbLooks()} fois.</p>
 
-        <div class="container-fluid">
-            <div class="sidebar">
-                <div class="well">
-                    <h2>Sidebar</h2>
-                    <p>Lorem ipsum</p>
-                    <h3>Partagez!</h3>
-                    <ol>
-                        <li>Remplissez votre profil</li>
-                        <li>Lier des gens</li>
-                        <li>Commenter des articles ou des sessions</li>
-                    </ol>
-                    <h3>Actualités</h3>
-                    <ul>
-                        <li>Article 1</li>
-                        <li>Article 2</li>
-                        <li>Article 3</li>
-                    </ul>
-                    <h3>Nouveaux membres</h3>
-                    <ul>
-                        <li>Membre 1</li>
-                        <li>Membre 2</li>
-                        <li>Membre 3</li>
-                    </ul>
-                    <h3>Nouvelles sessions</h3>
-                    <ul>
-                        <li>Session 1</li>
-                        <li>Session 2</li>
-                        <li>Session 3</li>
-                    </ul>
-                    <p>extends sidebar with setting <code>moreSidebar</code> template variable in your view.</p>
-                    #{get 'moreSidebar' /}
-                </div>
-            </div>
-            <div class="content">
+            <p>
+                <a href="@{Profile.show(session.username)}" class="btn small">Voir mon profil</a>
+                <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
+            </p>
 
-                #{if flash.success}
-                <div class="alert-message success">${flash.success}</div>
+            #{if member instanceof models.Speaker}
+            <h5>Mes session${member.sessions.size().pluralize()} :</h5>
+            <ul>
+                #{list items:member.sessions, as:'talk'}
+                <li>#{session talk /}</li>
+                #{/list}
+            </ul>
+            #{/if}
+
+            #{if member.sessions}
+            <h5>Mes propositions de lightning talks :</h5>
+            <ul>
+                #{list items:member.sessions, as:'lt'}
+                #{if lt instanceof models.LightningTalk}
+                <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a> : ${lt.getNumberOfVotes()}
+                    vote${lt.getNumberOfVotes().pluralize()}
+                </li>
                 #{/if}
-                #{if flash.error}
-                <div class="alert-message error">${flash.error}</div>
-                #{/if}
+                #{/list}
+            </ul>
+            #{/if}
 
-                #{doLayout /}
-
-                <footer>
-                    #{if sponsors}
-                    <ul class="media-grid">
-                        #{list items:sponsors, as:'sponsor'}
-                        <li class="sponsor">
-                            <a href="@{Profile.show(sponsor.login)}"><img src="${sponsor.logoUrl}" /></a>
-                        </li>
-                        #{/list}
-                    </ul>
+            #{if comments}
+            <h5>Mes commentaires récents :</h5>
+            <ul>
+                #{list items:comments, as:'comment'}
+                <li>${comment.postedAt.since()},
+                    #{if comment instanceof models.SessionComment}
+                    sur la session #{session comment.session /}
                     #{/if}
-                    <p>&copy; 2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
-                </footer>
+                    #{if comment instanceof models.ArticleComment}
+                    sur l'<a href="@{Articles.show(comment.article.id)}#comment${comment.id}">article
+                        ${comment.article.title}</a>
+                    #{/if}
+                </li>
+                #{/list}
+            </ul>
+            #{/if}
+
+            #{if member.links}
+            <h3>Vous êtes lié à :</h3>
+            #{list items:member.links, as:'link'}
+            #{member link, short:true /}
+            #{/list}
+            #{/if}
+            #{if member.linkers}
+            <h3>Ils vous ont lié :</h3>
+            #{list items:member.linkers, as:'link'}
+            #{member link, short:true /}
+            #{/list}
+            #{/if}
+            #{if suggestedMembers}
+            <h3>Suggestions de liens :</h3>
+            <ul>
+                #{list suggestedMembers, as:'suggest'}
+                <li>
+                    <a class="btn primary small" title="Link" href="@{link(suggest.login)}">Link</a>
+                    <a href="@{Profile.show(suggest.login)}" title="${suggest}">#{member suggest /}</a>
+                </li>
+                #{/list}
+            </ul>
+            #{/if}
+            #{if suggestedSessions}
+            <h3>Suggestions de sessions :</h3>
+            <ul>
+                #{list suggestedSessions, as:'suggest'}
+                <li>#{session suggest /}</li>
+                #{/list}
+            </ul>
+            #{/if}
+            #{if suggestedBadges}
+            <h3>Les badges qu'il vous manque :</h3>
+            #{badges suggestedBadges /}
+            #{/if}
+        </div>
+
+        <div class="span6"> <!-- timeline -->
+            <h3>Activités de vos links</h3>
+
+            <div class="row">
+                <div class="span6">
+                    <a class="service-button linkit" id="LinkIt" onClick="handleProvider('LinkIt')"></a>
+                    <a class="service-button twitter" id="Twitter" onClick="handleProvider('Twitter')"></a>
+                    <a class="service-button google" id="Google" onClick="handleProvider('Google')"></a>
+                    (Cliquez pour activer/désactiver un flux)
+                </div>
+                <br/>
+                <br/>
+
+                <div class="span6">
+                    <div id="activities" style="max-height: 400px"></div>
+                </div>
+                <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
+                <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..."/>
+
+                <script type="text/javascript">
+                    var providers = ['${models.ProviderType.values().join("','")}'];
+                    var page = 1;
+                    var size = 10;
+                    var activitiesAction = #{jsAction @Activities.incoming(':providers', ':page',':size') /};
+                    var spinner = $('#activitiesSpinner');
+                    var btnMoreActivities = $('#moreActivities');
+
+                    function loadMoreActivities() {
+                        if (providers.length > 0) {
+                            btnMoreActivities.addClass('disabled');
+                            spinner.css("visibility", "visible");
+                            $.get(activitiesAction({providers: providers.join("${controllers.Activities.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
+                                $('#activities').append(data);
+                                if (data) {
+                                    btnMoreActivities.css('visibility', 'visible');
+                                    page++;
+                                } else {
+                                    btnMoreActivities.css('visibility', 'hidden');
+                                }
+                                spinner.css("visibility", "hidden");
+                                btnMoreActivities.removeClass('disabled');
+                            });
+                        }
+                    }
+
+                    function handleProvider(provider) {
+                        var contain = providers.indexOf(provider);
+                        if (contain != -1) {
+                            providers = providers.filter(function(x) {
+                                return x != provider
+                            })
+                            $('#' + provider).removeClass(provider.toLowerCase()).addClass(provider.toLowerCase() + '-off');
+                        } else {
+                            providers.push(provider);
+                            $('#' + provider).removeClass(provider.toLowerCase() + '-off').addClass(provider.toLowerCase());
+                        }
+                        $('#activities').empty();
+                        page = 1;
+                        size = 5;
+                        console.log(providers);
+                        loadMoreActivities();
+                    }
+                    ;
+
+                    // Initial loading : first page
+                    loadMoreActivities();
+                </script>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+</div>
+
+<div class="row">
+    #{list items:articles, as:'article'}
+    <div class="span-one-third">
+        #{article article /}
+    </div>
+    #{/list}
+</div>
+</div>

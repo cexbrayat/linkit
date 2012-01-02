@@ -83,7 +83,7 @@
 }
 
 .active {
-    color: #00cc00;
+    /*color: #00cc00;*/
 }
 
 .inactive {
@@ -142,4 +142,22 @@ h2.inactive {
     border-left: 1px solid #ccc;
     padding: 2px;
     .border-radius(0 0 6px 6px);
+}
+
+body {
+  background-color: lighten(@grayLight,10%);
+}
+
+.hero-unit {
+    background-color: #FFFAFA;//darken(#F5F5F5, 30%);
+}
+
+.welcome {
+}
+.welcome ul {
+    list-style: none;
+}
+.welcome ul li:before {
+    font-weight: bolder;
+    content: "\27A5 \0020";
 }
