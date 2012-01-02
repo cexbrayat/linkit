@@ -145,11 +145,19 @@ h2.inactive {
 }
 
 body {
-  background-color: lighten(@grayLight,10%);
+  background-color: #eee;
 }
 
 .hero-unit {
-    background-color: #FFFAFA;//darken(#F5F5F5, 30%);
+    background-color: @white;
+    -moz-border-radius: 10px;
+    -moz-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+    background-color: @black;
 }
 
 .welcome {

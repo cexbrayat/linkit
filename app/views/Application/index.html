@@ -6,62 +6,69 @@
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 #{/set}
-
+<div class="hero-unit">
     <div class="row">
-        <div class="span-two-thirds">
-            <div class="hero-unit">
-                <div class="row">
-                    <h2>26 Avril 2012</h2>
-                </div>
-                <div class="row">
-                    <h1><img src="@{'/public/images/mixit.png'}" alt="Mix-it" style="zoom:0.45"></h1>
-                </div>
-                <div class="row">
-                    <div class="span6 offset4"><h3>Des idées pour tout de suite !</h3></div>
-                </div>
+        <div class="span10">
+            <div class="row">
+                <h2>26 Avril 2012</h2>
+            </div>
+            <div class="row">
+                <h1><img src="@{'/public/images/logo-mixit2011.png'}" alt="Mix-it" style="zoom:0.45"></h1>
+            </div>
+            <div class="row">
+                <div class="span6 offset4"><h3>Des idées pour tout de suite !</h3></div>
             </div>
         </div>
-        <div class="span-one-third welcome">
-            <ul>
-                <li>Se #{a @Login.index()}connecter#{/a}</li>
-                <li>Voir #{a @Sessions.index()}les sessions#{/a}</li>
-                <li>Consulter #{a @Application.members()}les profils#{/a}</li>
-                <li>Voter pour #{a @LightningTalks.list()}des Lightning talks#{/a}</li>
-                <li>.. et bla bla bla</li>
-            </ul>
-        </div>
-    </div>
-    <ul class="tabs" data-tabs="tabs">
-        <li class="active"><a href="#articles">Derniers articles</a></li>
-        <li><a href="#sessions">Dernières sessions</a></li>
-        <li><a href="#inscrits">Derniers inscrits</a></li>
-    </ul>
-    <div id="tab-content" class="tab-content">
-        <div class="tab-pane active" id="articles">
+        <div class="span4">
+            <br/><br/>
             <div class="row">
-                #{list items:articles, as:'article'}
-                <div class="span8">
-                    #{article article /}
-                </div>
-                #{/list}
+                <a href="@{Login.index()}" class="btn primary">Se connecter</a><br/><br/>
             </div>
-        </div>
-        <div class="tab-pane" id="sessions">
             <div class="row">
-                #{list items:sessions, as:'s'}
-                <div class="span8">
-                    #{session-small s /}
-                </div>
-                #{/list}
+                <a href="@{Sessions.index()}" class="btn primary">Voir les sessions</a><br/><br/>
             </div>
-        </div>
-        <div class="tab-pane" id="inscrits">
             <div class="row">
-                #{list items:members, as:'member'}
-                <div style="padding-top: 10px" class="span-one-third">
-                    #{member member /}
-                </div>
-                #{/list}
+                <a href="@{Application.members()}" class="btn primary">Consulter les profils</a><br/><br/>
+            </div>
+            <div class="row">
+                <a href="@{LightningTalks.list()}" class="btn primary">Voter pour des Lightning talks</a><br/><br/>
             </div>
         </div>
     </div>
+    <div class="row">
+        <ul class="tabs" data-tabs="tabs">
+            <li class="active"><a href="#articles">Derniers articles</a></li>
+            <li><a href="#sessions">Dernières sessions</a></li>
+            <li><a href="#inscrits">Derniers inscrits</a></li>
+        </ul>
+        <div id="tab-content" class="tab-content">
+            <div class="tab-pane active" id="articles">
+                <div class="row">
+                    #{list items:articles, as:'article'}
+                    <div class="span10 offset1">
+                        #{article article /}
+                    </div>
+                    #{/list}
+                </div>
+            </div>
+            <div class="tab-pane" id="sessions">
+                <div class="row">
+                    #{list items:sessions, as:'s'}
+                    <div class="span10 offset1">
+                        #{session-small s /}
+                    </div>
+                    #{/list}
+                </div>
+            </div>
+            <div class="tab-pane" id="inscrits">
+                <div class="row">
+                    #{list items:members, as:'member'}
+                    <div class="span5 offset1">
+                        #{member member /}
+                    </div>
+                    #{/list}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

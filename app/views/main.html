@@ -37,7 +37,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="@{Sessions.index()}">Sessions</a></li>
                                     <li><a href="@{LightningTalks.list()}">Lightning talks</a></li>
-                                    <li><a href="@{Plannings.index()}">Agenda</a></li>
+                                    <!--<li><a href="@{Plannings.index()}">Agenda</a></li>-->
                                 </ul>
                             </li>
                         <li class="dropdown" data-dropdown="dropdown">
@@ -147,23 +147,24 @@
         <!--/div-->
     </body>
     <footer>
-        #{if sponsors}
-        <div class="row">
-            <!--ul class="media-grid"-->
-            #{list items:sponsors, as:'sponsor'}
-            <!--li class="sponsor"-->
-            <div class="span3">
-                <a href="@{Profile.show(sponsor.login)}"><!--img src="${sponsor.logoUrl}" /-->${sponsor.firstname}
-                    ${sponsor.lastname}</a>
+        <div class="container">
+            #{if sponsors}
+            <div class="row">
+                <!--ul class="media-grid"-->
+                #{list items:sponsors, as:'sponsor'}
+                <!--li class="sponsor"-->
+                <div class="span3">
+                    <a href="@{Profile.show(sponsor.login)}"><!--img src="${sponsor.logoUrl}" /-->${sponsor.firstname}
+                        ${sponsor.lastname}</a>
+                </div>
+                <!--/li-->
+                #{/list}
+                <!--/ul-->
             </div>
-            <!--/li-->
-            #{/list}
-            <!--/ul-->
-        </div>
-        #{/if}
-        <br/>
+            #{/if}
+            <br/>
 
-        <p>&copy; 2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les
-            suggestions</a></p>
+            <p>&copy; 2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
+        </div>
     </footer>
 </html>
