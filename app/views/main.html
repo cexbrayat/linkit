@@ -44,7 +44,9 @@
                             <a href="#" class="dropdown-toggle">Participants</a>
                             <ul class="dropdown-menu">
                                 <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">Les speakers</a></li>
+                                #{if session.username}
                                 <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">Tous les participants</a></li>
+                                #{/if}
                                 <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">Les membres du staff</a></li>
                                 <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">Les sponsors</a></li>
                             </ul>
