@@ -10,7 +10,7 @@
                 <h2>26 Avril 2012</h2>
             </div>
             <div class="row">
-                <h1><img src="@{'/public/images/logo-mixit2011.png'}" alt="Mix-it" style="zoom:0.45"></h1>
+                <h1><img src="@{'/public/images/logo-mixit2011.png'}" alt="Mix-it" style="width:500px"></h1>
             </div>
             <div class="row">
                 <div class="span6 offset4"><h3>Des idées pour tout de suite !</h3></div>
@@ -18,9 +18,11 @@
         </div>
         <div class="span4">
             <br/><br/>
+            #{if !session.username}
             <div class="row">
                 <a href="@{Login.index()}" class="btn primary">Se connecter</a><br/><br/>
             </div>
+            #{/if}
             <div class="row">
                 <a href="@{Sessions.index()}" class="btn primary">Voir les sessions</a><br/><br/>
             </div>
