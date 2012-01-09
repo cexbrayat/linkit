@@ -1,5 +1,6 @@
 package models;
 
+import java.util.regex.Matcher;
 import jodd.lagarto.dom.jerry.Jerry;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.http.json.JsonHttpRequest;
@@ -19,6 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 import javax.persistence.Entity;
 import jodd.lagarto.dom.jerry.JerryFunction;
 import models.activity.StatusActivity;
@@ -42,6 +44,8 @@ public class GoogleAccount extends Account {
 
     //2011-10-04T14:41:40.837Z
     static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    
+    static final Pattern PROFILE_URL = Pattern.compile("^https://plus.google.com/(\\d+)/?$");
 
     static class PlusRequestInitializer implements JsonHttpRequestInitializer {
 
@@ -114,11 +118,16 @@ public class GoogleAccount extends Account {
     
     protected static String replaceMentions(String content) {
         Jerry doc = jerry(content);
-        doc.$(".proflinkWrapper").each(new JerryFunction() {
+        doc.$("a").each(new JerryFunction() {
 
-            public boolean onNode(Jerry mentionHtml, int i) {
-                final String mentionedId = mentionHtml.$("a").attr("oid");
-                mentionHtml.html(mention(mentionedId, mentionHtml.html()));
+            public boolean onNode(Jerry linkHtml, int i) {
+                final String link = linkHtml.attr("href");
+                Matcher matcher = PROFILE_URL.matcher(link);
+                if (matcher.matches()) {
+                    final String mentionedId = matcher.group(1);
+                    final Jerry mentionHtml = linkHtml.parent();
+                    mentionHtml.html(mention(mentionedId, mentionHtml.html()));
+                }
                 return true;
             }
         });
