@@ -68,7 +68,7 @@
     <div class="row">
         <div class="span12 offset1">
             <ul class="tabs" data-tabs="tabs">
-                <li class="active"><a href="#activites">Mes activites</a></li>
+                <li class="active"><a href="#tabActivites">Mes activites</a></li>
                 #{if !member.longDescription?.isEmpty()}
                 <li><a href="#bio">Ma biographie</a></li>
                 #{/if}
@@ -82,7 +82,7 @@
                 <li><a href="#badges">Mes badges</a></li>
             </ul>
             <div id="tab-content" class="tab-content">
-                <div class="tab-pane active" id="activites">
+                <div class="tab-pane active" id="tabActivites">
                     <div class="span8">
                         #{list items:member.getAccountProviders(), as:'provider'}
                             <a class="service-button ${provider.name().toLowerCase()}" id="${provider}" onClick="handleProvider('${provider}')"></a>

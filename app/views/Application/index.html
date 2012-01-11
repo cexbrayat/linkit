@@ -10,7 +10,7 @@
                 <h2>26 Avril 2012</h2>
             </div>
             <div class="row">
-                <h1><img src="@{'/public/images/logo-mixit2011.png'}" alt="Mix-it" style="width:500px"></h1>
+                <h1><img src="@{'/public/images/logo-mixit2011.png'}" alt="Mix-IT" style="width:500px"></h1>
             </div>
             <div class="row">
                 <div class="span6 offset4"><h3>Des idées pour tout de suite !</h3></div>
@@ -36,37 +36,65 @@
     </div>
     <div class="row">
         <ul class="tabs" data-tabs="tabs">
-            <li class="active"><a href="#articles">Derniers articles</a></li>
-            <li><a href="#sessions">Dernières sessions</a></li>
-            <li><a href="#inscrits">Derniers inscrits</a></li>
+            <li class="active"><a href="#tabActivities">Dernières activitiés</a></li>
+            <li><a href="#tabArticles">Derniers articles</a></li>
+            <li><a href="#tabSessions">Dernières sessions</a></li>
+            <li><a href="#tabInscrits">Derniers inscrits</a></li>
         </ul>
-        <div id="tab-content" class="tab-content">
-            <div class="tab-pane active" id="articles">
-                <div class="row">
-                    #{list items:articles, as:'article'}
-                    <div class="span10 offset1">
-                        #{article article /}
-                    </div>
-                    #{/list}
-                </div>
+        <div id="tab-content" class="tab-content">            
+            <div class="tab-pane active" id="tabActivities">
+                <p id="activities"></p>
+                <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>  
+                <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
+        
+<script type="text/javascript">
+    var page = 1;
+    var size = 5;
+    var activitiesAction = #{jsAction @Activities.general(':page',':size') /};
+    var spinner = $('#activitiesSpinner');
+    var btnMoreActivities = $('#moreActivities');
+   
+    function loadMoreActivities() {
+        btnMoreActivities.addClass('disabled');
+        spinner.css("visibility", "visible");
+        $.get(activitiesAction({page: page, size: size}), function(data) {
+            $('#activities').append(data);
+            if (data) {
+                page++;
+            } else {
+                btnMoreActivities.css('visibility','hidden');
+            }
+            spinner.css("visibility", "hidden");
+            btnMoreActivities.removeClass('disabled');
+        });
+    }
+    
+    // Initial loading : first page
+    loadMoreActivities();
+</script>
+
+                
             </div>
-            <div class="tab-pane" id="sessions">
-                <div class="row">
-                    #{list items:sessions, as:'s'}
-                    <div class="span10 offset1">
-                        #{session-small s /}
-                    </div>
-                    #{/list}
+            <div class="tab-pane" id="tabArticles">
+                #{list items:articles, as:'article'}
+                <div class="span10 offset1">
+                    #{article article /}
                 </div>
+                #{/list}
             </div>
-            <div class="tab-pane" id="inscrits">
-                <div class="row">
-                    #{list items:members, as:'member'}
-                    <div class="span5 offset1">
-                        #{member member /}
-                    </div>
-                    #{/list}
+            <div class="tab-pane" id="tabSessions">
+                #{list items:sessions, as:'s'}
+                <div class="span10 offset1">
+                    #{session-small s /}
                 </div>
+                #{/list}
+            </div>
+            <div class="tab-pane" id="tabInscrits">
+                #{list items:members, as:'member'}
+                <div class="span5 offset1">
+                    #{member member /}
+                </div>
+                #{/list}
             </div>
         </div>
     </div>
