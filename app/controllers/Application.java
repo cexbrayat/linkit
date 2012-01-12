@@ -6,7 +6,6 @@ import models.*;
 import play.Logger;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import play.modules.search.Search;

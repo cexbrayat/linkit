@@ -14,11 +14,11 @@ import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 import play.Logger;
+import play.cache.Cache;
 import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.libs.OAuth;
 import play.mvc.Router;
-import play.mvc.Router.ActionDefinition;
 
 /**
  * OAuth Login controller
@@ -96,9 +96,9 @@ public class Login extends PageController {
 //        Router.ActionDefinition ad = Router.reverse("Login.loginWith").add("provider", provider);
 //        ad.absolute();
 //        return ad.url;
-        Map<String,Object> params = Maps.newHashMapWithExpectedSize(1);
-        params.put("provider", provider);
-        return Router.getFullUrl("Login.loginWith", params);
+        Map<String,Object> callbackParams = Maps.newHashMapWithExpectedSize(1);
+        callbackParams.put("provider", provider);
+        return Router.getFullUrl("Login.loginWith", callbackParams);
     }
 
     protected static void manageNewAuthenticationFrom(OAuthAccount oAuthAccount) {
@@ -108,8 +108,8 @@ public class Login extends PageController {
             // On crée un nouveau member, qu'on invitera à renseigner son profil
             member = new Member(oAuthAccount.getOAuthLogin());
             member.register(oAuthAccount);
-            session.put("username", member.login);
-            Profile.edit();
+            Cache.add(member.login, member);
+            Profile.register(member.login);
         } else {
             // Un membre existant s'est connecté avec un nouveau provider
             // On se contente de lui ajouter le nouvel account utilisé
@@ -151,7 +151,7 @@ public class Login extends PageController {
         }
         Member member = new Member(login);
         member.register(new LinkItAccount(password));
-        session.put("username", member.login);
-        Profile.edit();
+        Cache.add(login, member);
+        Profile.register(login);
     }
 }

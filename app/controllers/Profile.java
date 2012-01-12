@@ -1,6 +1,5 @@
 package controllers;
 
-import helpers.ticketing.WeezEvent;
 import java.util.ArrayList;
 import java.util.List;
 import models.*;
@@ -8,6 +7,7 @@ import models.*;
 import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
+import play.cache.Cache;
 import play.data.validation.Email;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
@@ -18,8 +18,13 @@ public class Profile extends PageController {
     public static void edit() {
         Member member = Member.findByLogin(Security.connected());
         Logger.info("Edition du profil " + member);
-        List<SharedLink> sharedLinks = member.sharedLinks;
-        render(member, sharedLinks);
+        render(member);
+    }
+
+    public static void register(String login) {
+        Member member = (Member) Cache.get(login);
+        Logger.info("Création du profil %s", member);
+        render("Profile/edit.html", member);
     }
 
     public static void save(@Required Long id, @Required String login, String firstname, String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription, String twitterName, String googlePlusId,
@@ -109,24 +114,22 @@ public class Profile extends PageController {
 
         member.updateProfile();
         flash.success("Profil enregistré!");
-        Logger.info("Profil enregistré");
+        Logger.info("Profil %s enregistré", member.toString());
 
         show(member.login);
     }
 
     public static void show(String login) {
-// FIXME CLA Not using fetchForProfile
-//      Member member = Member.fetchForProfile(login);
-        Member member = Member.findByLogin(login);
+        Member member = Member.fetchForProfile(login);
         member.lookedBy(Member.findByLogin(Security.connected()));
-        Logger.info("Profil " + member);
+        Logger.info("Show profil %s", member);
         render(member);
     }
 
     public static void delete() throws Throwable {
         Member member = Member.findByLogin(Security.connected());
         member.delete();
-        Logger.info("Deleted profile " + member);
+        Logger.info("Deleted profile %s", member);
         flash.success("Votre compte a été supprimé");
         Secure.logout();
     }

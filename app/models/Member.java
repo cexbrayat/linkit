@@ -371,7 +371,7 @@ public class Member extends Model implements Lookable {
     }
 
     /**
-     * Register a new SharedLink-IT user with given authentication account
+     * Register a new Link-IT user with given authentication account
      */
     public Member register(AuthAccount account) {
         save();

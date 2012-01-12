@@ -188,8 +188,8 @@
                     <div class="clearfix ${field.error?'error':''}">
                         <div class="input">
                             <div class="inline-inputs">
-                                <input class="span2" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" value="${sharedLinks[i]?.name}" /> 
-                                <input class="span3" id="sharedLinks${i}_URL" name="${field.name}.URL" placeholder="URL du lien" type="text" value="${sharedLinks[i]?.URL}" /> 
+                                <input class="span2" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" value="${member.sharedLinks[i]?.name}" /> 
+                                <input class="span3" id="sharedLinks${i}_URL" name="${field.name}.URL" placeholder="URL du lien" type="text" value="${member.sharedLinks[i]?.URL}" /> 
                                 <a class="btn small" onclick="moveUpSharedLink(${i})">&#x21A5;</a>
                                 <a class="btn small" onclick="moveDownSharedLink(${i})">&#x21A7;</a>
                                 <a class="btn small" onclick="deleteSharedLink(${i})">X</a>
