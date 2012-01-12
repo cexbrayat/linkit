@@ -39,6 +39,12 @@ public class Profile extends PageController {
 
         TwitterAccount twitter = member.getTwitterAccount();
         if (StringUtils.isNotBlank(twitterName)) {
+            
+            final Member other = TwitterAccount.findMemberByScreenName(twitterName);
+            if (other != null && !member.equals(other)) {
+                validation.addError("twitterName", "validation.unique", twitterName, other.toString());
+            }
+
             if (twitter == null) {
                 member.addAccount(new TwitterAccount(twitterName));
             } else {
@@ -52,6 +58,12 @@ public class Profile extends PageController {
 
         GoogleAccount google = member.getGoogleAccount();
         if (StringUtils.isNotBlank(googlePlusId)) {
+            
+            final Member other = GoogleAccount.findMemberByGoogleId(googlePlusId);
+            if (other != null && !member.equals(other)) {
+                validation.addError("googlePlusId", "validation.unique", googlePlusId, other.toString());
+            }
+
             if (google == null) {
                 member.addAccount(new GoogleAccount(googlePlusId));
             } else {
@@ -85,7 +97,7 @@ public class Profile extends PageController {
 
         Member other = Member.findByLogin(login);
         if (other != null && !member.equals(other)) {
-            validation.addError("login", "validation.login.unique", login);
+            validation.addError("login", "validation.unique", login);
         }
 
         if (validation.hasErrors()) {
