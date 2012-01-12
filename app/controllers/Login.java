@@ -92,7 +92,10 @@ public class Login extends PageController {
     public static String getCallbackUrl(ProviderType provider) {
         Router.ActionDefinition ad = Router.reverse("Login.loginWith").add("provider", provider);
         ad.absolute();
-        return ad.url;
+        final String url = ad.url;
+        // FIXME CLA Trace for OAuth DEBUG
+        Logger.info("Callback URL = %s", url);
+        return url;
     }
 
     protected static void manageNewAuthenticationFrom(OAuthAccount oAuthAccount) {
