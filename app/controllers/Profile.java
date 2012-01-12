@@ -7,7 +7,6 @@ import models.*;
 import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
-import play.cache.Cache;
 import play.data.validation.Email;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
@@ -18,22 +17,31 @@ public class Profile extends PageController {
     public static void edit() {
         Member member = Member.findByLogin(Security.connected());
         Logger.info("Edition du profil " + member);
-        render(member);
+        String originalLogin = member.login;
+        render(member, originalLogin);
     }
 
     public static void register(String login) {
-        Member member = (Member) Cache.get(login);
+        Member member = Member.getPreregistered(login);
         Logger.info("Création du profil %s", member);
-        render("Profile/edit.html", member);
+        String originalLogin = login;
+        render("Profile/edit.html", member, originalLogin);
     }
 
-    public static void save(@Required Long id, @Required String login, String firstname, String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription, String twitterName, String googlePlusId,
+    public static void save(Long id, @Required String originalLogin, @Required String login, String firstname, String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription, String twitterName, String googlePlusId,
             String[] interests, String newInterests,
             List<SharedLink> sharedLinks) {
-        Logger.info("Save Profile login {" + login + "}, firstname {" + firstname + "}, lastname {" + lastname + "}, "
+        Logger.info("Save Profile originalLogin {" + originalLogin + "}, firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
 
-        Member member = Member.findById(id);
+        boolean registration = (id == null);
+        Member member = null;
+        if (registration) {
+            member = Member.getPreregistered(originalLogin);
+        } else {
+            member = Member.findById(id);
+        }
+        
         member.login = login;
         member.firstname = firstname;
         member.shortDescription = shortDescription;
@@ -107,12 +115,18 @@ public class Profile extends PageController {
 
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
-            render("Profile/edit.html", member, newInterests, sharedLinks);
+            flash.error("Quelques erreurs doivent être corrigées dans ta saisie mon ami!");
+            render("Profile/edit.html", member, originalLogin, newInterests, sharedLinks);
+        }
+
+        if (registration) {
+            member.register(originalLogin);
+        } else {
+            member.updateProfile();
         }
         
         session.put("username", member.login);
 
-        member.updateProfile();
         flash.success("Profil enregistré!");
         Logger.info("Profil %s enregistré", member.toString());
 

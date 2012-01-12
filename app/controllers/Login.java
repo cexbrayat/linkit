@@ -14,7 +14,6 @@ import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 import play.Logger;
-import play.cache.Cache;
 import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.libs.OAuth;
@@ -107,8 +106,7 @@ public class Login extends PageController {
         if (member == null) {
             // On crée un nouveau member, qu'on invitera à renseigner son profil
             member = new Member(oAuthAccount.getOAuthLogin());
-            member.register(oAuthAccount);
-            Cache.add(member.login, member);
+            member.preregister(oAuthAccount);
             Profile.register(member.login);
         } else {
             // Un membre existant s'est connecté avec un nouveau provider
@@ -150,8 +148,7 @@ public class Login extends PageController {
             render(login, password);
         }
         Member member = new Member(login);
-        member.register(new LinkItAccount(password));
-        Cache.add(login, member);
+        member.preregister(new LinkItAccount(password));
         Profile.register(login);
     }
 }

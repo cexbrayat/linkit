@@ -34,9 +34,9 @@ GET     /activities/incoming/{providers}        Activities.for
 GET     /activities/{login}/{providers}         Activities.of
 
 # Profile
-POST    /profile                                Profile.save
+POST    /profile/save/{originalLogin}           Profile.save
 GET     /profile/edit                           Profile.edit
-GET     /profile/register                       Profile.register
+GET     /profile/register/{login}               Profile.register
 GET     /profile/delete                         Profile.delete
 GET     /profile/link                           Profile.link
 GET     /profile/unlink                         Profile.unlink

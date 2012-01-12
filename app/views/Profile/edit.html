@@ -48,7 +48,7 @@
         <h1>Edition de votre profil</h1> 
     </div>
 
-    #{form @Profile.save(member.id)} 
+    #{form @Profile.save(member.id, originalLogin)} 
     <div class="row"> 
         <div class="span2 columns"> 
             <h2>Informations</h2> 

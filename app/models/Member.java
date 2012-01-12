@@ -57,6 +57,8 @@ public class Member extends Model implements Lookable {
     static final String QUERY_BYLOGIN = "MemberByLogin";
     static final String QUERY_FORPROFILE = "MemberForProfile";
 
+    static final String CACHE_ACCOUNT_PREFIX = "account_";
+    
     /**
      * Internal login : functional key
      */
@@ -371,14 +373,40 @@ public class Member extends Model implements Lookable {
     }
 
     /**
-     * Register a new Link-IT user with given authentication account
+     * Pre-register a new Link-IT user with given authentication account.
+     * This member is not yet persisted. It will be when he fills in his profile, and when {@link #register(models.auth.AuthAccount)} is called.
      */
-    public Member register(AuthAccount account) {
-        save();
+    public void preregister(AuthAccount account) {
+        play.cache.Cache.add(login, this);
+        play.cache.Cache.add(CACHE_ACCOUNT_PREFIX+this.login, account);        
         authenticate(account);
-        account.save();
+    }
+
+    /**
+     * @param login
+     * @return Pre-registered Member with given login if exists.
+     */
+    public static Member getPreregistered(String login) {
+        return (Member) play.cache.Cache.get(login);
+    }
+
+    /**
+     * Register pre-registered member
+     */
+    public Member register() {
+        return register(login);
+    }
+
+    /**
+     * Register pre-registered member of given login (before hypothetical update of login)
+     */
+    public Member register(final String originalLogin) {
+        AuthAccount account = (AuthAccount) play.cache.Cache.get(CACHE_ACCOUNT_PREFIX+originalLogin);
         save();
+        account.save();
         new SignUpActivity(this).save();
+        new JobFetchUserTimeline(this).now();
+        new JobMajUserRegisteredTicketing(this.id).now();
         return this;
     }
 

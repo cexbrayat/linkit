@@ -220,9 +220,10 @@ public class MemberTest extends BaseDataUnitTest {
         // Some accounts
         member.addAccount(new GoogleAccount("1234"));
         member.addAccount(new TwitterAccount("@member"));
-        member.register(new LinkItAccount("password"));
-        member.register(new GoogleOAuthAccount("token", "secret"));
-        member.register(new TwitterOAuthAccount("token", "secret"));
+        member.preregister(new LinkItAccount("password"));
+        member.preregister(new GoogleOAuthAccount("token", "secret"));
+        member.preregister(new TwitterOAuthAccount("token", "secret"));
+        member.register();
         // Some shared links
         member.addSharedLink(new SharedLink("Google", "http://www.google.com"));
         member.addSharedLink(new SharedLink("Yahoo", "http://www.yahoo.fr"));
