@@ -43,8 +43,8 @@
         </ul>
         <div id="tab-content" class="tab-content">            
             <div class="tab-pane active" id="tabActivities">
-                <p id="activities"></p>
-                <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>  
+                <p id="activities" style="max-height: 200px"></p>
+                <a id="moreActivities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>  
                 <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
         
 <script type="text/javascript">
@@ -72,29 +72,26 @@
     // Initial loading : first page
     loadMoreActivities();
 </script>
-
                 
             </div>
             <div class="tab-pane" id="tabArticles">
                 #{list items:articles, as:'article'}
-                <div class="span10 offset1">
                     #{article article /}
-                </div>
                 #{/list}
             </div>
             <div class="tab-pane" id="tabSessions">
                 #{list items:sessions, as:'s'}
-                <div class="span10 offset1">
                     #{session-small s /}
-                </div>
                 #{/list}
             </div>
             <div class="tab-pane" id="tabInscrits">
-                #{list items:members, as:'member'}
-                <div class="span5 offset1">
-                    #{member member /}
+                <div class="row">
+                    #{list items:members, as:'member'}
+                    <div class="span6">
+                        #{member member /}
+                    </div>
+                    #{/list}
                 </div>
-                #{/list}
             </div>
         </div>
     </div>
