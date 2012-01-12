@@ -123,6 +123,6 @@ since.years=il y a %d ans
 # Validation errors
 validation.required=La saisie du champ %s est obligatoire
 validation.email=Saisir un email valide
-validation.minSize=Le nombre maximum de %s est %d.
+validation.minSize=Le nombre maximum de %s est %d
 validation.maxSize=Le nombre maximum de %s est %d
-validation.login.unique=Trop tard, le login %s est déjà utilisé! Trouvez-en un autre.
+validation.unique=La valeur du champ %s est déjà utilisée par l'utilisateur %s
