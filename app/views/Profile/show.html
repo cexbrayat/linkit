@@ -83,61 +83,57 @@
             </ul>
             <div id="tab-content" class="tab-content">
                 <div class="tab-pane active" id="tabActivites">
-                    <div class="span8">
-                        #{list items:member.getAccountProviders(), as:'provider'}
-                            <a class="service-button ${provider.name().toLowerCase()}" id="${provider}" onClick="handleProvider('${provider}')"></a>
-                        #{/list}
-                        (Cliquez pour activer/désactiver un flux)
-                    </div>
-                    <br/>
-                    <div id="activities" style="max-height: 400px">
-                        <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a><br/>
-                        <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
-                        <script type="text/javascript">
-                            var providers = ['${member.getAccountProviders().join("','")}'];
-                            var page = 1;
-                            var size = 5;
-                            var activitiesAction = #{jsAction @Activities.of(':login', ':providers', ':page',':size') /};
-                            var spinner = $('#activitiesSpinner');
-                            var btnMoreActivities = $('#moreActivities');
-                            function loadMoreActivities() {
-                                if (providers.length > 0) {
-                                    btnMoreActivities.addClass('disabled');
-                                    spinner.css("visibility", "visible");
-                                    $.get(activitiesAction({login: '${member.login}', providers: providers.join("${controllers.Activities.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
-                                        $('#activities').append(data);
-                                        if (data) {
-                                            btnMoreActivities.css('visibility','visible');
-                                            page++;
-                                        } else {
-                                            btnMoreActivities.css('visibility','hidden');
-                                        }
-                                        spinner.css("visibility", "hidden");
-                                        btnMoreActivities.removeClass('disabled');
-                                    });
-                                }
-                            };
+                    #{list items:member.getAccountProviders(), as:'provider'}
+                        <a class="service-button ${provider.name().toLowerCase()}" id="${provider}" onClick="handleProvider('${provider}')"></a>
+                    #{/list}
+                    <br/><br/>
+                    <div id="activities" style="max-height: 400px"></div>
+                    <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
+                    <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
+                    <script type="text/javascript">
+                        var providers = ['${member.getAccountProviders().join("','")}'];
+                        var page = 1;
+                        var size = 5;
+                        var activitiesAction = #{jsAction @Activities.of(':login', ':providers', ':page',':size') /};
+                        var spinner = $('#activitiesSpinner');
+                        var btnMoreActivities = $('#moreActivities');
+                        function loadMoreActivities() {
+                            if (providers.length > 0) {
+                                btnMoreActivities.addClass('disabled');
+                                spinner.css("visibility", "visible");
+                                $.get(activitiesAction({login: '${member.login}', providers: providers.join("${controllers.Activities.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
+                                    $('#activities').append(data);
+                                    if (data) {
+                                        btnMoreActivities.css('visibility','visible');
+                                        page++;
+                                    } else {
+                                        btnMoreActivities.css('visibility','hidden');
+                                    }
+                                    spinner.css("visibility", "hidden");
+                                    btnMoreActivities.removeClass('disabled');
+                                });
+                            }
+                        };
 
-                            function handleProvider(provider){
-                                var contain = providers.indexOf(provider);
-                                if(contain != -1){
-                                    providers = providers.filter(function(x){return x != provider})
-                                    $('#'+provider).removeClass(provider.toLowerCase()).addClass(provider.toLowerCase()+'-off');
-                                }else{
-                                    providers.push(provider);
-                                    $('#'+provider).removeClass(provider.toLowerCase()+'-off').addClass(provider.toLowerCase());
-                                }
-                                $('#activities').empty();
-                                page = 1;
-                                size = 5;
-                                console.log(providers);
-                                loadMoreActivities();
-                            };
-
-                            // Initial loading : first page
+                        function handleProvider(provider){
+                            var contain = providers.indexOf(provider);
+                            if(contain != -1){
+                                providers = providers.filter(function(x){return x != provider})
+                                $('#'+provider).removeClass(provider.toLowerCase()).addClass(provider.toLowerCase()+'-off');
+                            }else{
+                                providers.push(provider);
+                                $('#'+provider).removeClass(provider.toLowerCase()+'-off').addClass(provider.toLowerCase());
+                            }
+                            $('#activities').empty();
+                            page = 1;
+                            size = 5;
+                            console.log(providers);
                             loadMoreActivities();
-                        </script>
-                    </div>
+                        };
+
+                        // Initial loading : first page
+                        loadMoreActivities();
+                    </script>
                 </div>
                 #{if member.longDescription}
                 <div class="tab-pane" id="bio">
