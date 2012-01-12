@@ -1,7 +1,9 @@
 package controllers;
 
+import com.google.common.collect.Maps;
 import helpers.oauth.OAuthProvider;
 import helpers.oauth.OAuthProviderFactory;
+import java.util.Map;
 import models.Member;
 import models.ProviderType;
 import models.auth.AuthAccount;
@@ -16,6 +18,7 @@ import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.libs.OAuth;
 import play.mvc.Router;
+import play.mvc.Router.ActionDefinition;
 
 /**
  * OAuth Login controller
@@ -90,12 +93,12 @@ public class Login extends PageController {
     }
 
     public static String getCallbackUrl(ProviderType provider) {
-        Router.ActionDefinition ad = Router.reverse("Login.loginWith").add("provider", provider);
-        ad.absolute();
-        final String url = ad.url;
-        // FIXME CLA Trace for OAuth DEBUG
-        Logger.info("Callback URL = %s", url);
-        return url;
+//        Router.ActionDefinition ad = Router.reverse("Login.loginWith").add("provider", provider);
+//        ad.absolute();
+//        return ad.url;
+        Map<String,Object> params = Maps.newHashMapWithExpectedSize(1);
+        params.put("provider", provider);
+        return Router.getFullUrl("Login.loginWith", params);
     }
 
     protected static void manageNewAuthenticationFrom(OAuthAccount oAuthAccount) {
