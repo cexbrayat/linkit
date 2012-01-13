@@ -36,6 +36,7 @@ public class BadgeComputerFactory {
         COMPUTERS.put(Badge.TwoDaysInARow, usage);
         COMPUTERS.put(Badge.FiveDaysInARow, usage);
         COMPUTERS.put(Badge.MixITAddict, usage);
+        COMPUTERS.put(Badge.Speaker, new SpeakerBadgeComputer());
     }
     
     /**

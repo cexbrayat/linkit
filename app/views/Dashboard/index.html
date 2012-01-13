@@ -15,24 +15,31 @@
                 <p>
                     <a href="@{Profile.show(session.username)}" class="btn small">Voir mon profil</a>
                     <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
+                    <a href="@{Sessions.create(session.username)}" class="btn small">Proposer une session</a>
                 </p>
 
-                #{if member instanceof models.Speaker}
-                    <h5>Mes session${member.sessions.size().pluralize()} :</h5>
+                #{if member.getProposedTalks()}
+                    <h5>Mes propositions de sessions :</h5>
                     <ul>
-                    #{list items:member.sessions, as:'talk'}
+                    #{list items:member.getProposedTalks(), as:'talk'}
                         <li>#{session talk /}</li>
                     #{/list}
                     </ul>
                 #{/if}
 
-                #{if member.sessions}
-                    <h5>Mes propositions de lightning talks :</h5>
+                #{if member.getLightningTalks()}
+                    <h5>Mes lightning talks :</h5>
                     <ul>
-                    #{list items:member.sessions, as:'lt'}
-                        #{if lt instanceof models.LightningTalk}
+                    #{list items:member.getLightningTalks(), as:'lt'}
                         <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a> : ${lt.getNumberOfVotes()} vote${lt.getNumberOfVotes().pluralize()}</li>
-                        #{/if}
+                    #{/list}
+                    </ul>
+                #{/if}
+                #{if member.getValidatedTalks()}
+                    <h5>Mes sessions validées :</h5>
+                    <ul>
+                    #{list items:member.getValidatedTalks(), as:'talk'}
+                        <li>#{session talk /}</li>
                     #{/list}
                     </ul>
                 #{/if}

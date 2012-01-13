@@ -4,9 +4,10 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 import models.Badge;
-import models.Speaker;
+import models.Member;
 import models.Sponsor;
 import models.Staff;
+import models.Talk;
 import org.junit.Test;
 
 /**
@@ -33,8 +34,8 @@ public class FriendBadgeComputerTest extends AbstractBadgeComputerTest {
     @Test
     public void grantedSpeakerFan() {
         // Member links all speaker Members
-        final List<Speaker> speakers = Speaker.findAll();
-        for (Speaker s : speakers) {
+        final List<Member> speakers = Talk.findAllSpeakers();
+        for (Member s : speakers) {
             member.addLink(s);
         }
         final Set<Badge> actualBadges = computer.compute(member, new BadgeComputationContext());

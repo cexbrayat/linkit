@@ -1,9 +1,4 @@
 *{ Display all members "members" }*
 #{list items:_members, as:'member'}
     #{member-card member/}
-    #{if member instanceof models.Speaker}
-        #{secure.check models.Role.ADMIN_SESSION}
-            <a class="btn" href="@{Sessions.create(member.login)}">Créer une session</a>
-        #{/secure.check}
-   #{/if}
 #{/list}

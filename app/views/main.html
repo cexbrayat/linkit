@@ -37,6 +37,9 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="@{Sessions.index()}">Sessions</a></li>
                                     <li><a href="@{LightningTalks.list()}">Lightning talks</a></li>
+                                #{if session.username}
+                                    <li><a href="@{Sessions.create(session.username)}">Proposer une session</a></li>
+                                #{/if}
                                     <!--<li><a href="@{Plannings.index()}">Agenda</a></li>-->
                                 </ul>
                             </li>

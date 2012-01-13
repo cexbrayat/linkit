@@ -6,33 +6,23 @@
     });
 </script>
 
-#{secure.check models.Role.ADMIN_SESSION}
-    <p>
-        Ami du staff, veux-tu <a class="btn danger" href="@{Sessions.create()}">Créer un session</a> ?
-    </p>
-    #{/secure.check} 
+    Proposer <a class="btn" href="@{Sessions.create(session.username)}">une session</a> ?
 
     <table class="zebra-striped" id="sortSession"> 
         <thead> 
             <tr> 
                 <th>Session</th> 
                 <th>Speaker(s)</th>
-                <th>Actions</th>
             </tr> 
         </thead> 
         <tbody>        
             #{list items:_sessions, as:'talk'}
-            <tr>
+            <tr class="talk ${talk.valid?'active':'inactive'}">
                 <td>#{session talk /}</td>
                 <td>
                     #{list items:talk.speakers, as:'speaker'}
                         #{member speaker /}#{if !speaker_isLast}, #{/if}
                     #{/list}
-                </td>
-                <td>
-                    #{secure.check models.Role.ADMIN_SESSION}
-                        <a class="btn" href="@{Sessions.edit(talk.id)}">Editer</a>
-                    #{/secure.check} 
                 </td>
             </tr>
             #{/list}
