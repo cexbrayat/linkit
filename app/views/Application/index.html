@@ -17,7 +17,12 @@
             </div>
         </div>
         <div class="span4">
-            <br/><br/>
+            <div class="row">
+                <iframe allowtransparency="true" frameborder="0" scrolling="no"
+                        src="//platform.twitter.com/widgets/follow_button.html?screen_name=mixit_lyon&lang=fr&show_count=false"
+                        style="width:300px; height:20px;">
+                </iframe>
+            </div><br/><br/>
             #{if !session.username}
             <div class="row">
                 <a href="@{Login.index()}" class="btn primary">Se connecter</a><br/><br/>

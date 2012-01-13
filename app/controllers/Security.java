@@ -21,14 +21,15 @@ public class Security extends Secure.Security {
     }
         
     public static boolean check(String profile) {
-      Member user = Member.findByLogin(connected());
-      if(ADMIN.equals(profile))
-      {
-        return user.hasRole(Role.ADMIN_SESSION) && user.hasRole(Role.ADMIN_MEMBER) &&user.hasRole(Role.ADMIN_PLANNING) &&user.hasRole(Role.ADMIN_SPEAKER);
-      }
-        return user.hasRole(profile);
+        if (isConnected()) {
+            Member user = Member.findByLogin(connected());
+            if (ADMIN.equals(profile)) {
+                return user.hasRole(Role.ADMIN_SESSION) && user.hasRole(Role.ADMIN_MEMBER) && user.hasRole(Role.ADMIN_PLANNING) && user.hasRole(Role.ADMIN_SPEAKER);
+            }
+            return user.hasRole(profile);
+        }
+        return false;
     }
-
     
     static void onDisconnected() {
         Application.index();

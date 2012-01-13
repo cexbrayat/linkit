@@ -6,7 +6,6 @@ import models.*;
 import play.Logger;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import play.modules.search.Search;
@@ -43,7 +42,7 @@ public class Application extends PageController {
     }
 
     public static void speakers() {
-        List<Speaker> members = Speaker.findAll();
+        List<Member> members = Talk.findAllSpeakers();
         Logger.info(members.size() + " speakers");
         render("Application/list.html", members);
     }

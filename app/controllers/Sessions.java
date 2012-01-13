@@ -5,8 +5,8 @@ import play.*;
 import java.util.*;
 import models.SessionComment;
 import models.Member;
+import models.Role;
 import models.Session;
-import models.Speaker;
 import models.Talk;
 import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
@@ -19,13 +19,18 @@ import play.libs.Images;
 public class Sessions extends PageController {
 
     public static void index() {
-        List<Session> sessions = Talk.findAll();
+        List<Talk> sessions = null;
+        if (Security.check(Role.ADMIN_SESSION)) {
+            sessions = Talk.findAll();
+        } else {
+            sessions = Talk.findAllValidated();
+        }
         Logger.info(sessions.size() + " sessions");
         render("Sessions/list.html", sessions);
     }
 
     public static void create(final String speakerLogin) {
-        Speaker speaker = Speaker.findByLogin(speakerLogin);
+        Member speaker = Member.findByLogin(speakerLogin);
         Talk talk = new Talk();
         talk.addSpeaker(speaker);
         render("Sessions/edit.html", talk);
@@ -42,7 +47,7 @@ public class Sessions extends PageController {
         if (!noCount) {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
-        List<Activity> activities = Activity.recentsBySession(talk, 1, 10);
+        List<Activity> activities = Activity.recentsBySession(talk, 1, 5);
         render(talk, activities);
     }
 
@@ -84,5 +89,17 @@ public class Sessions extends PageController {
         flash.success("Session " + talk + " enregistrée");
         Logger.info("Session " + talk + " enregistrée");
         show(talk.id, null, true);
+    }
+    
+    public static void validate(long talkId) {
+        Talk talk = Talk.findById(talkId);
+        talk.validate();
+        show(talkId, null, true);
+    }
+    
+    public static void unvalidate(long talkId) {
+        Talk talk = Talk.findById(talkId);
+        talk.unvalidate();
+        show(talkId, null, true);
     }
 }

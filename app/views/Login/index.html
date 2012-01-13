@@ -1,14 +1,14 @@
 #{extends 'main.html' /}
-#{set title:'Connexion à Link-IT' /}
+#{set title:'Connexion à Mix-IT' /}
 
     <div class="hero-unit">
-        <h1>Connexion à Link-IT</h1>
+        <h1>Connexion à Mix-IT</h1>
     </div>
 
         <div class="row">
-            <div class="span5" style="border-right: 2px solid; padding-right: 20px">
-                <h3>login/mot de passe</h3>
-                <form class="form-stacked" action="@{loginLinkIt()}">
+            <div class="span7">
+                <h3>Se créer un compte Mix-IT</h3>
+                <form action="@{loginLinkIt()}">
                 <fieldset>
                     
                     #{ifErrors}
@@ -46,8 +46,9 @@
                 </form>
             </div>
 
-            <div class="span5">
-                <h3>avec un compte existant</h3>
+            <div class="offset8">
+                <h3>Se connecter avec un compte existant</h3>
+                <br/>
                 <p>
                     <a href="@{loginWith('Twitter')}" class="btn large primary">&{'provider.Twitter'}</a>
                 </p>

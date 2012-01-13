@@ -6,12 +6,32 @@
         <p>${talk.summary}</p>
         ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
         #{if talk.comments}
-        <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+            &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
         #{/if}
+        &mdash; #{socialbar/}
+        
+        #{if !talk.valid}
+            <div class="alert-message block-message">
+                <p><strong>Cette session n'est pas validée!</strong> Elle n'est pas publiquement visible.</p>
+            </div>
+        #{/if}
+        
+        #{secure.check models.Role.ADMIN_SESSION}
+        <p>
+            Staff :
+            <a class="btn" href="@{Sessions.edit(talk.id)}">Editer cette session</a>
+        #{if talk.valid}
+            <a class="btn danger" href="@{Sessions.unvalidate(talk.id)}">Invalider cette session</a>
+        #{/if}
+        #{else}
+            <a class="btn danger" href="@{Sessions.validate(talk.id)}">Valider cette session</a>
+        #{/else}
+        </p>
+        #{/secure.check} 
     </div>
 
         <div class="row">
-            <div class="span3 columns">
+            <div class="span3">
                 <h4>Speaker${talk.speakers.size().pluralize()}</h4>
                 #{list items:talk.speakers, as:'speaker'}
                 <p>
@@ -36,10 +56,12 @@
 
                 
             </div>
-
-            <blockquote>
-            ${talk.description.markdown().raw()}
-            </blockquote>
+            
+            <div class="span13">            
+                <blockquote>
+                ${talk.description.markdown().raw()}
+                </blockquote>
+            </div>
         </div>
 
         #{comments talk.comments /}
@@ -53,7 +75,7 @@
                 #{field 'content'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
-                    <div class="input offset3"> 
+                    <div class="input offset4"> 
                         <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>

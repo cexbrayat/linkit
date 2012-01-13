@@ -13,11 +13,14 @@ public class SignUpActivityTest extends AbstractActivityTest {
     @Test
     public void signup() {
         
+        final String login = "new";
         // Unknown user
-        Member nouveau = Member.findByLogin("new");
+        Member nouveau = Member.findByLogin(login);
         assertNull(nouveau);
         
-        nouveau = new Member("new").register(new LinkItAccount("password"));
+        nouveau = new Member(login);
+        nouveau.preregister(new LinkItAccount("password"));
+        nouveau.register();
         
         // One activity for nouveau
         Activity a = Activity.find("select a from Activity a where a.member = ?", nouveau).first();
