@@ -36,4 +36,8 @@ public class Talk extends Session {
     public static long countTalksByMember(Member member) {
         return find("select count(distinct t) from Talk t inner join t.speakers as s where t.valid=true and ? = s", member).first();
     }
+    
+    public static List<Talk> findAllValidated() {
+        return find("valid=true").fetch();
+    }
 }

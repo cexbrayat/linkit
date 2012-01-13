@@ -18,7 +18,7 @@ import play.libs.Images;
 public class Sessions extends PageController {
 
     public static void index() {
-        List<Session> sessions = Talk.findAll();
+        List<Talk> sessions = Talk.findAllValidated();
         Logger.info(sessions.size() + " sessions");
         render("Sessions/list.html", sessions);
     }

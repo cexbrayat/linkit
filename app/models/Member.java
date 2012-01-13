@@ -3,6 +3,7 @@ package models;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import controllers.JobFetchUserTimeline;
 import controllers.JobMajUserRegisteredTicketing;
 import helpers.badge.BadgeComputationContext;
@@ -537,17 +538,46 @@ public class Member extends Model implements Lookable {
         return find("order by registeredAt desc").fetch(page, length);
     }
 
-    public boolean isSpeaker() {
-        return Iterables.any(sessions, new Predicate<Session>() {
+    static class TalkPredicate implements Predicate<Session> {
 
-            public boolean apply(Session s) {
-                if (s instanceof Talk) {
-                    Talk t = (Talk) s;
-                    return t.valid;
-                } else {
-                    return false;
-                }
+        private boolean validated;
+
+        public TalkPredicate(boolean validated) {
+            this.validated = validated;
+        }
+        
+        public boolean apply(Session s) {
+            if (s instanceof Talk) {
+                Talk t = (Talk) s;
+                return t.valid == this.validated;
+            } else {
+                return false;
             }
-        });
+        }
+        
+    }
+    
+    private static final Predicate<Session> VALIDATED_TALK = new TalkPredicate(true);
+    private static final Predicate<Session> PROPOSED_TALK = new TalkPredicate(false);
+    private static final Predicate<Session> LIGHTNING_TALK = new Predicate<Session>() {
+        public boolean apply(Session s) {
+            return (s instanceof LightningTalk);
+        }
+    };
+    
+    public boolean isSpeaker() {
+        return Iterables.any(sessions, VALIDATED_TALK);
+    }
+    
+    public Set<Session> getValidatedTalks() {
+        return Sets.filter(sessions, VALIDATED_TALK);
+    }
+    
+    public Set<Session> getProposedTalks() {
+        return Sets.filter(sessions, PROPOSED_TALK);
+    }
+    
+    public Set<Session> getLightningTalks() {
+        return Sets.filter(sessions, LIGHTNING_TALK);
     }
 }
