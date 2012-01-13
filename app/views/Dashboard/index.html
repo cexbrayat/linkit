@@ -15,6 +15,7 @@
                 <p>
                     <a href="@{Profile.show(session.username)}" class="btn small">Voir mon profil</a>
                     <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
+                    <a href="@{Sessions.create(session.username)}" class="btn small">Proposer une session</a>
                 </p>
 
                 #{if member.getProposedTalks()}
