@@ -11,19 +11,20 @@
         <h1>${talk.title}</h1>
         <p>${talk.summary}</p>
 
-        <p>
-            ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
-            #{if talk.comments}
-                <br/><a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
-            #{/if}
-        </p>
+        ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
+        #{if talk.comments}
+            &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+        #{/if}
+        &mdash; #{socialbar/}
 
         #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
         
-        <div class="vote-counter" id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>
-        #{if session.username && !talk.hasSpeaker(session.username)}
-            <div id="vote-${talk.id}" class="vote-up #{if talk.hasVoteFrom(session.username)}inactive#{/if}#{else}active#{/else}" onclick="vote(${talk.id}, '${session.username}')">+1</div>
-        #{/if}
+        <p>
+            <div class="vote-counter" id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>
+            #{if session.username && !talk.hasSpeaker(session.username)}
+                <div id="vote-${talk.id}" class="vote-up #{if talk.hasVoteFrom(session.username)}inactive#{/if}#{else}active#{/else}" onclick="vote(${talk.id}, '${session.username}')">+1</div>
+            #{/if}
+        </p>
     </div>
         <div class="row">
             <div class="span3">

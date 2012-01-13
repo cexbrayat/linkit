@@ -6,8 +6,9 @@
         <p>${talk.summary}</p>
         ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
         #{if talk.comments}
-        <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+            &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
         #{/if}
+        &mdash; #{socialbar/}
         
         #{if !talk.valid}
             <div class="alert-message block-message">

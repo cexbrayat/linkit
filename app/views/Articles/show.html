@@ -10,11 +10,12 @@
             Par #{member article.author /}<br/>
             le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}<br/>
             <br/>
-            ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}<br/>
+            ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}
             #{if article.comments}
-            <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
+              <br/><a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
             #{/if}
-        
+            <br/> #{socialbar/}
+
             #{secure.check models.Role.ADMIN_ARTICLE}
             <p>
                 Staff : <a class="btn danger" href="@{Articles.edit(article.id)}">Editer cet article</a>
