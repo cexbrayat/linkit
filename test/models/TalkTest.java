@@ -32,8 +32,7 @@ public class TalkTest extends BaseDataUnitTest {
         assertEquals(initialNbSpeakers, Talk.countSpeakers());
         
         // Validate talk
-        t.valid = true;
-        t.save();
+        t.validate();
         
         assertEquals(initialNbSpeakers+2, Talk.countSpeakers());
     }
@@ -51,8 +50,7 @@ public class TalkTest extends BaseDataUnitTest {
         assertFalse(Talk.findAllSpeakers().contains(speaker));
         
         // Validate talk
-        t.valid = true;
-        t.save();
+        t.validate();
         
         assertTrue(Talk.findAllSpeakers().contains(speaker));
     }
@@ -73,9 +71,9 @@ public class TalkTest extends BaseDataUnitTest {
         
         // Validate talks
         t1.valid = true;
-        t1.save();
+        t1.validate();
         t2.valid = true;
-        t2.save();
+        t2.validate();
         
         assertEquals(2, Talk.countTalksByMember(speaker));
     }
@@ -90,8 +88,7 @@ public class TalkTest extends BaseDataUnitTest {
         assertEquals(initialCount, Talk.findAllValidated().size());
         
         // Validate talk
-        t.valid = true;
-        t.save();
+        t.validate();
         
         assertEquals(initialCount+1, Talk.findAllValidated().size());
         assertTrue(Talk.findAllValidated().contains(t));

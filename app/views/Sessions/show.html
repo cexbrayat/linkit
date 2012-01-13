@@ -9,9 +9,22 @@
         <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
         #{/if}
         
+        #{if !talk.valid}
+            <div class="alert-message block-message">
+                <p><strong>Cette session n'est pas validée!</strong> Elle n'est pas publiquement visible.</p>
+            </div>
+        #{/if}
+        
         #{secure.check models.Role.ADMIN_SESSION}
         <p>
-            Staff : <a class="btn danger" href="@{Sessions.edit(talk.id)}">Editer cette session</a>
+            Staff :
+            <a class="btn" href="@{Sessions.edit(talk.id)}">Editer cette session</a>
+        #{if talk.valid}
+            <a class="btn danger" href="@{Sessions.unvalidate(talk.id)}">Invalider cette session</a>
+        #{/if}
+        #{else}
+            <a class="btn danger" href="@{Sessions.validate(talk.id)}">Valider cette session</a>
+        #{/else}
         </p>
         #{/secure.check} 
     </div>

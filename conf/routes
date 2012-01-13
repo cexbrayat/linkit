@@ -51,6 +51,8 @@ GET     /sessions                               Sessions.index
 GET     /session/new                            Sessions.create
 POST    /session                                Sessions.save
 GET     /session/edit                           Sessions.edit
+GET     /session/validate/{talkId}              Sessions.validate
+GET     /session/unvalidate/{talkId}            Sessions.unvalidate
 POST    /session/comment                        Sessions.postComment
 GET     /session/{sessionId}/{slugify}          Sessions.show
 GET     /session/{sessionId}                    Sessions.show   # Just in case we forget the slugified title as parameter

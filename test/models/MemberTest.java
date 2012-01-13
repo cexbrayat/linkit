@@ -317,8 +317,7 @@ public class MemberTest extends BaseDataUnitTest {
         t.save();
         assertFalse(m.isSpeaker());
         // Validation du talk
-        t.valid=true;
-        t.save();
+        t.validate();
         assertTrue(m.isSpeaker());
     }
 }

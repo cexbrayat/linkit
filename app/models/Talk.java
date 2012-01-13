@@ -40,4 +40,14 @@ public class Talk extends Session {
     public static List<Talk> findAllValidated() {
         return find("valid=true").fetch();
     }
+    
+    public void validate() {
+        this.valid = true;
+        save();
+    }
+    
+    public void unvalidate() {
+        this.valid = false;
+        save();
+    }
 }

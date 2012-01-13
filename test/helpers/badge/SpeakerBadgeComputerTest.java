@@ -38,8 +38,7 @@ public class SpeakerBadgeComputerTest extends AbstractBadgeComputerTest {
         // Member become speaker of a validated talk
         final Talk t = Talk.all().first();
         t.addSpeaker(member);
-        t.valid = true;
-        t.save();
+        t.validate();
         final Set<Badge> actualBadges = computer.compute(member, new BadgeComputationContext());
         assertEquals(EnumSet.of(Badge.Speaker), actualBadges);
     }

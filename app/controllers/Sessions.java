@@ -5,6 +5,7 @@ import play.*;
 import java.util.*;
 import models.SessionComment;
 import models.Member;
+import models.Role;
 import models.Session;
 import models.Talk;
 import models.activity.Activity;
@@ -18,7 +19,12 @@ import play.libs.Images;
 public class Sessions extends PageController {
 
     public static void index() {
-        List<Talk> sessions = Talk.findAllValidated();
+        List<Talk> sessions = null;
+        if (Security.check(Role.ADMIN_SESSION)) {
+            sessions = Talk.findAll();
+        } else {
+            sessions = Talk.findAllValidated();
+        }
         Logger.info(sessions.size() + " sessions");
         render("Sessions/list.html", sessions);
     }
@@ -83,5 +89,17 @@ public class Sessions extends PageController {
         flash.success("Session " + talk + " enregistrée");
         Logger.info("Session " + talk + " enregistrée");
         show(talk.id, null, true);
+    }
+    
+    public static void validate(long talkId) {
+        Talk talk = Talk.findById(talkId);
+        talk.validate();
+        show(talkId, null, true);
+    }
+    
+    public static void unvalidate(long talkId) {
+        Talk talk = Talk.findById(talkId);
+        talk.unvalidate();
+        show(talkId, null, true);
     }
 }
