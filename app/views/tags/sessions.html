@@ -8,7 +8,7 @@
 
 #{secure.check models.Role.ADMIN_SESSION}
     <p>
-        Ami du staff, veux-tu <a class="btn danger" href="@{Sessions.create()}">Créer un session</a> ?
+        Ami du staff, veux-tu <a class="btn danger" href="@{Sessions.create()}">Créer une session</a> ?
     </p>
     #{/secure.check} 
 
@@ -17,7 +17,6 @@
             <tr> 
                 <th>Session</th> 
                 <th>Speaker(s)</th>
-                <th>Actions</th>
             </tr> 
         </thead> 
         <tbody>        
@@ -28,11 +27,6 @@
                     #{list items:talk.speakers, as:'speaker'}
                         #{member speaker /}#{if !speaker_isLast}, #{/if}
                     #{/list}
-                </td>
-                <td>
-                    #{secure.check models.Role.ADMIN_SESSION}
-                        <a class="btn" href="@{Sessions.edit(talk.id)}">Editer</a>
-                    #{/secure.check} 
                 </td>
             </tr>
             #{/list}

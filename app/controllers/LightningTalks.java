@@ -7,6 +7,8 @@ import play.data.validation.Valid;
 import play.data.validation.Validation;
 
 import java.util.List;
+import models.activity.Activity;
+import play.data.validation.Required;
 
 public class LightningTalks extends PageController {
 
@@ -25,10 +27,15 @@ public class LightningTalks extends PageController {
         render(talk);
     }
 
-    public static void show(final Long sessionId) {
+    public static void show(final Long sessionId, boolean noCount) {
         LightningTalk talk = LightningTalk.findById(sessionId);
         notFoundIfNull(talk);
-        render(talk);
+        // Don't count look when coming from internal redirect
+        if (!noCount) {
+            talk.lookedBy(Member.findByLogin(Security.connected()));
+        }
+        List<Activity> activities = Activity.recentsBySession(talk, 1, 5);
+        render(talk, activities);
     }
 
     public static void save(@Valid LightningTalk talk, String[] interests, String newInterests) {
@@ -47,7 +54,23 @@ public class LightningTalks extends PageController {
         talk.save();
         flash.success("LightningTalk " + talk + " enregistré");
         Logger.info("LightningTalk " + talk + " enregistré");
-        show(talk.id);
+        show(talk.id, true);
+    }
+
+    public static void postComment(
+            Long talkId,
+            @Required String content) {
+
+        LightningTalk talk = LightningTalk.findById(talkId);
+        if (Validation.hasErrors()) {
+            render("LightningTalks/show.html", talk);
+        }
+
+        Member author = Member.findByLogin(Security.connected());
+        talk.addComment(new SessionComment(author, talk, content));
+        talk.save();
+        flash.success("Merci pour votre commentaire %s", author);
+        show(talkId, true);
     }
 
     public static void delete(final Long sessionId) {
@@ -55,6 +78,4 @@ public class LightningTalks extends PageController {
         talk.delete();
         list();
     }
-
-   
 }

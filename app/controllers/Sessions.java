@@ -42,7 +42,7 @@ public class Sessions extends PageController {
         if (!noCount) {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
-        List<Activity> activities = Activity.recentsBySession(talk, 1, 10);
+        List<Activity> activities = Activity.recentsBySession(talk, 1, 5);
         render(talk, activities);
     }
 
