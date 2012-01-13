@@ -81,7 +81,7 @@ SharedLinkActivity.message=%1$s a partagé le lien "%2$s"
 
 # Providers
 provider.LinkIt=Link-IT
-provider.Google=Google+
+provider.Google=Google
 provider.Twitter=Twitter
 
 # Badges

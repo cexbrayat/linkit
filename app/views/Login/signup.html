@@ -1,20 +1,19 @@
 #{extends 'main.html' /}
-#{set title:'Enregistrement sur Link-IT' /}
+#{set title:'Enregistrement sur Mix-IT' /}
 
     <div class="hero-unit">
-
-        <h1>S'enregistrer sur Link-IT</h1>
+        <h1>S'enregistrer sur Mix-IT</h1>
     </div>
 
         <div class="row">
-            <div class="span8">
-                <h2>Saisissez votre login/mot de passe</h2>
+            <div class="span7">
+                <h3>Saisissez votre login/mot de passe</h3>
                 <form action="@{signup()}">
                 <fieldset>
                     
                     #{ifErrors}
                         <p class="error">
-                            Please correct these errors.
+                            Corrigez les erreurs.
                         </p>
                     #{/ifErrors}
 
@@ -34,16 +33,6 @@
                         <div class="input">
                           <input type="password" name="${field.name}" 
                             value="${password}" class="${field.errorClass}" />
-                        </div>
-                    </div>
-                    #{/field}
-
-                    #{field 'remember'}
-                    <div class="clearfix">
-                        <label for="${field.name}">Se souvenir de moi :</label>
-                        <div class="input">
-                          <input type="checkbox" name="${field.name}" 
-                            value="${remember}" class="${field.errorClass}" />
                         </div>
                     </div>
                     #{/field}

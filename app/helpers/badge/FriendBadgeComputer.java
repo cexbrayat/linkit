@@ -6,7 +6,6 @@ import java.util.EnumSet;
 import java.util.Set;
 import models.Badge;
 import models.Member;
-import models.Speaker;
 import models.Sponsor;
 import models.Staff;
 
@@ -31,8 +30,8 @@ class FriendBadgeComputer implements BadgeComputer {
 
         // Checking speaker people linked by member
         Set<Member> speakersLinked = Sets.filter(member.links, new Predicate<Member>() {
-            public boolean apply(Member t) {
-                return t instanceof Speaker;
+            public boolean apply(Member m) {
+                return m.isSpeaker();
             }
         });
         if (speakersLinked.size() >= context.getNbSpeakers()) {

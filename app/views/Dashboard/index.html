@@ -15,34 +15,42 @@
                 <p>
                     <a href="@{Profile.show(session.username)}" class="btn small">Voir mon profil</a>
                     <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
+                    <a href="@{Sessions.create(session.username)}" class="btn small">Proposer une session</a>
                 </p>
 
-                #{if member instanceof models.Speaker}
-                    <h5>Mes session${member.sessions.size().pluralize()} :</h5>
+                #{if member.getProposedTalks()}
+                    <h5>Mes propositions de sessions :</h5>
                     <ul>
-                    #{list items:member.sessions, as:'talk'}
+                    #{list items:member.getProposedTalks(), as:'talk'}
                         <li>#{session talk /}</li>
                     #{/list}
                     </ul>
                 #{/if}
 
-                #{if member.sessions}
-                    <h5>Mes propositions de lightning talks :</h5>
+                #{if member.getLightningTalks()}
+                    <h5>Mes lightning talks :</h5>
                     <ul>
-                    #{list items:member.sessions, as:'lt'}
-                        #{if lt instanceof models.LightningTalk}
+                    #{list items:member.getLightningTalks(), as:'lt'}
                         <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a> : ${lt.getNumberOfVotes()} vote${lt.getNumberOfVotes().pluralize()}</li>
-                        #{/if}
                     #{/list}
                     </ul>
                 #{/if}
-                
+                #{if member.getValidatedTalks()}
+                    <h5>Mes sessions validées :</h5>
+                    <ul>
+                    #{list items:member.getValidatedTalks(), as:'talk'}
+                        <li>#{session talk /}</li>
+                    #{/list}
+                    </ul>
+                #{/if}
+                <!-- FIXME on January the 19th : the ticketing will open on January the 19th, not before!
                 #{if member?.ticketingRegistered}
                     <span class="label success">J'ai déjà payé mon billet</span> sur <a target="blank" href="http://www.weezevent.com">Weezevent</a>
                 #{/if}
                 #{else}
                      <a href="https://www.weezevent.com/widget_billeterie.php?id_evenement=12302&code=30544" onclick="var w=window.open('https://www.weezevent.com/widget_billeterie.php?id_evenement=12302&code=30544', 'Billetterie_weezevent', 'width=650, height=450, top=100, left=100, toolbar=no, resizable=yes, scrollbars=yes, status=no'); w.focus(); return false;"><span class="label important">Je n'ai pas encore payé mon billet!</span></a>
                 #{/else}
+                    -->
                 #{if comments}
                     <h5>Mes commentaires récents :</h5>
                     <ul>

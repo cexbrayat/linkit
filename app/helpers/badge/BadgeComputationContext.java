@@ -1,7 +1,7 @@
 package helpers.badge;
 
-import models.Speaker;
 import models.Staff;
+import models.Talk;
 
 /**
  * Context holding data regarding a batch of badge computations. Stores cached data used through several computations.
@@ -30,7 +30,7 @@ public class BadgeComputationContext {
      */
     public Long getNbSpeakers() {
         if (nbSpeakers == null) {
-            nbSpeakers = Speaker.count();
+            nbSpeakers = Talk.countSpeakers();
         }
         return nbSpeakers;
     }

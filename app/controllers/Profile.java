@@ -1,6 +1,5 @@
 package controllers;
 
-import helpers.ticketing.WeezEvent;
 import java.util.ArrayList;
 import java.util.List;
 import models.*;
@@ -18,17 +17,31 @@ public class Profile extends PageController {
     public static void edit() {
         Member member = Member.findByLogin(Security.connected());
         Logger.info("Edition du profil " + member);
-        List<SharedLink> sharedLinks = member.sharedLinks;
-        render(member, sharedLinks);
+        String originalLogin = member.login;
+        render(member, originalLogin);
     }
 
-    public static void save(@Required Long id, @Required String login, String firstname, String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription, String twitterName, String googlePlusId,
+    public static void register(String login) {
+        Member member = Member.getPreregistered(login);
+        Logger.info("Création du profil %s", member);
+        String originalLogin = login;
+        render("Profile/edit.html", member, originalLogin);
+    }
+
+    public static void save(Long id, @Required String originalLogin, @Required String login, String firstname, String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription, String twitterName, String googlePlusId,
             String[] interests, String newInterests,
             List<SharedLink> sharedLinks) {
-        Logger.info("Save Profile login {" + login + "}, firstname {" + firstname + "}, lastname {" + lastname + "}, "
+        Logger.info("Save Profile originalLogin {" + originalLogin + "}, firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
 
-        Member member = Member.findById(id);
+        boolean registration = (id == null);
+        Member member = null;
+        if (registration) {
+            member = Member.getPreregistered(originalLogin);
+        } else {
+            member = Member.findById(id);
+        }
+        
         member.login = login;
         member.firstname = firstname;
         member.shortDescription = shortDescription;
@@ -102,31 +115,35 @@ public class Profile extends PageController {
 
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
-            render("Profile/edit.html", member, newInterests, sharedLinks);
+            flash.error("Quelques erreurs doivent être corrigées dans ta saisie mon ami!");
+            render("Profile/edit.html", member, originalLogin, newInterests, sharedLinks);
+        }
+
+        if (registration) {
+            member.register(originalLogin);
+        } else {
+            member.updateProfile();
         }
         
         session.put("username", member.login);
 
-        member.updateProfile();
         flash.success("Profil enregistré!");
-        Logger.info("Profil enregistré");
+        Logger.info("Profil %s enregistré", member.toString());
 
         show(member.login);
     }
 
     public static void show(String login) {
-// FIXME CLA Not using fetchForProfile
-//      Member member = Member.fetchForProfile(login);
-        Member member = Member.findByLogin(login);
+        Member member = Member.fetchForProfile(login);
         member.lookedBy(Member.findByLogin(Security.connected()));
-        Logger.info("Profil " + member);
+        Logger.info("Show profil %s", member);
         render(member);
     }
 
     public static void delete() throws Throwable {
         Member member = Member.findByLogin(Security.connected());
         member.delete();
-        Logger.info("Deleted profile " + member);
+        Logger.info("Deleted profile %s", member);
         flash.success("Votre compte a été supprimé");
         Secure.logout();
     }

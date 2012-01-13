@@ -3,6 +3,7 @@ package models;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import controllers.JobFetchUserTimeline;
 import controllers.JobMajUserRegisteredTicketing;
 import helpers.badge.BadgeComputationContext;
@@ -57,6 +58,8 @@ public class Member extends Model implements Lookable {
     static final String QUERY_BYLOGIN = "MemberByLogin";
     static final String QUERY_FORPROFILE = "MemberForProfile";
 
+    static final String CACHE_ACCOUNT_PREFIX = "account_";
+    
     /**
      * Internal login : functional key
      */
@@ -371,14 +374,40 @@ public class Member extends Model implements Lookable {
     }
 
     /**
-     * Register a new SharedLink-IT user with given authentication account
+     * Pre-register a new Link-IT user with given authentication account.
+     * This member is not yet persisted. It will be when he fills in his profile, and when {@link #register(models.auth.AuthAccount)} is called.
      */
-    public Member register(AuthAccount account) {
-        save();
+    public void preregister(AuthAccount account) {
+        play.cache.Cache.add(login, this);
+        play.cache.Cache.add(CACHE_ACCOUNT_PREFIX+this.login, account);        
         authenticate(account);
-        account.save();
+    }
+
+    /**
+     * @param login
+     * @return Pre-registered Member with given login if exists.
+     */
+    public static Member getPreregistered(String login) {
+        return (Member) play.cache.Cache.get(login);
+    }
+
+    /**
+     * Register pre-registered member
+     */
+    public Member register() {
+        return register(login);
+    }
+
+    /**
+     * Register pre-registered member of given login (before hypothetical update of login)
+     */
+    public Member register(final String originalLogin) {
+        AuthAccount account = (AuthAccount) play.cache.Cache.get(CACHE_ACCOUNT_PREFIX+originalLogin);
         save();
+        account.save();
         new SignUpActivity(this).save();
+        new JobFetchUserTimeline(this).now();
+        new JobMajUserRegisteredTicketing(this.id).now();
         return this;
     }
 
@@ -507,5 +536,48 @@ public class Member extends Model implements Lookable {
 
     public static List<Member> recents(int page, int length) {
         return find("order by registeredAt desc").fetch(page, length);
+    }
+
+    static class TalkPredicate implements Predicate<Session> {
+
+        private boolean validated;
+
+        public TalkPredicate(boolean validated) {
+            this.validated = validated;
+        }
+        
+        public boolean apply(Session s) {
+            if (s instanceof Talk) {
+                Talk t = (Talk) s;
+                return t.valid == this.validated;
+            } else {
+                return false;
+            }
+        }
+        
+    }
+    
+    private static final Predicate<Session> VALIDATED_TALK = new TalkPredicate(true);
+    private static final Predicate<Session> PROPOSED_TALK = new TalkPredicate(false);
+    private static final Predicate<Session> LIGHTNING_TALK = new Predicate<Session>() {
+        public boolean apply(Session s) {
+            return (s instanceof LightningTalk);
+        }
+    };
+    
+    public boolean isSpeaker() {
+        return Iterables.any(sessions, VALIDATED_TALK);
+    }
+    
+    public Set<Session> getValidatedTalks() {
+        return Sets.filter(sessions, VALIDATED_TALK);
+    }
+    
+    public Set<Session> getProposedTalks() {
+        return Sets.filter(sessions, PROPOSED_TALK);
+    }
+    
+    public Set<Session> getLightningTalks() {
+        return Sets.filter(sessions, LIGHTNING_TALK);
     }
 }

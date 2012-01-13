@@ -10,11 +10,21 @@
     <div class="hero-unit">
         <h1>${talk.title}</h1>
         <p>${talk.summary}</p>
-        #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
-        <div class="vote-counter" id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>
-        #{if session.username && !talk.hasSpeaker(session.username)}
-            <div id="vote-${talk.id}" class="vote-up #{if talk.hasVoteFrom(session.username)}inactive#{/if}#{else}active#{/else}" onclick="vote(${talk.id}, '${session.username}')">+1</div>
+
+        ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
+        #{if talk.comments}
+            &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
         #{/if}
+        &mdash; #{socialbar/}
+
+        #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
+        
+        <p>
+            <div class="vote-counter" id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>
+            #{if session.username && !talk.hasSpeaker(session.username)}
+                <div id="vote-${talk.id}" class="vote-up #{if talk.hasVoteFrom(session.username)}inactive#{/if}#{else}active#{/else}" onclick="vote(${talk.id}, '${session.username}')">+1</div>
+            #{/if}
+        </p>
     </div>
         <div class="row">
             <div class="span3">
@@ -40,8 +50,39 @@
                 #{activities activities:activities /}
                 </div>
             </div>
-            <div class="span5">
-                ${talk.description?.markdown().raw()}
+
+            <div class="span13">            
+                <blockquote>
+                ${talk.description.markdown().raw()}
+                </blockquote>
             </div>
         </div>
 
+        #{comments talk.comments /}
+
+        <hr/>
+        <section id="post">
+            #{if session.username}
+            <div class="row">
+                #{form @LightningTalks.postComment(talk.id)}
+
+                #{field 'content'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input offset4"> 
+                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
+                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
+                </div>
+                #{/}
+                <div class="actions">
+                    <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
+                </div>
+                #{/form}
+            </div>
+            #{/if}
+            #{else}
+            <a href="@{Login.index(request.url+'#post')}">Connectez-vous pour commenter ce lightning-talk</a>
+            #{/else}
+        </section>
