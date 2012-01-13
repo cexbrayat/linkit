@@ -69,7 +69,7 @@
         <div class="span12 offset1">
             <ul class="tabs" data-tabs="tabs">
                 <li class="active"><a href="#tabActivites">Mes activites</a></li>
-                #{if !member.longDescription?.isEmpty()}
+                #{if org.apache.commons.lang.StringUtils.isNotBlank(member.longDescription)}
                 <li><a href="#bio">Ma biographie</a></li>
                 #{/if}
                 #{if member.getValidatedTalks()}
@@ -137,7 +137,7 @@
                 </div>
                 #{if member.longDescription}
                 <div class="tab-pane" id="bio">
-                     <div id="longDescription" style="display: none">
+                     <div id="longDescription">
                         ${member.longDescription?.markdown().raw()}
                     </div>
                 </div>
