@@ -1,8 +1,8 @@
 package helpers.badge;
 
 import models.BaseDataUnitTest;
-import models.Speaker;
 import models.Staff;
+import models.Talk;
 import org.junit.Test;
 
 /**
@@ -22,6 +22,6 @@ public class BadgeComputationContextTest extends BaseDataUnitTest {
     public void getNbSpeaker() {
         final Long actualNbSpeaker = new BadgeComputationContext().getNbSpeakers();
         assertNotNull(actualNbSpeaker);
-        assertEquals(Speaker.count(), actualNbSpeaker.longValue());
+        assertEquals(Talk.countSpeakers(), actualNbSpeaker.longValue());
     }
 }

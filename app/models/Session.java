@@ -72,9 +72,9 @@ public abstract class Session extends Model implements Lookable {
         }
     }
 
-    public Session updateSpeakers(Collection<Speaker> speakers) {
+    public Session updateSpeakers(Collection<Member> speakers) {
         this.speakers.clear();
-        for (Speaker speaker : speakers) {
+        for (Member speaker : speakers) {
             addSpeaker(speaker);
         }
         return this;

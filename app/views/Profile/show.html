@@ -72,10 +72,10 @@
                 #{if !member.longDescription?.isEmpty()}
                 <li><a href="#bio">Ma biographie</a></li>
                 #{/if}
-                #{if member instanceof models.Speaker}
+                #{if member.getValidatedTalks()}
                 <li><a href="#talks">Mes talks</a></li>
                 #{/if}
-                #{if member.sessions}
+                #{if member.getLightningTalks()}
                 <li><a href="#ligthnings">Mes lightnings talks</a></li>
                 #{/if}
                 <li><a href="#interets">Mes intérêts</a></li>
@@ -142,19 +142,19 @@
                     </div>
                 </div>
                 #{/if}
-                #{if member instanceof models.Speaker}
+                #{if member.getValidatedTalks()}
                 <div class="tab-pane" id="talks">
                     <ul>
-                    #{list items:member.sessions, as:'talk'}
+                    #{list items:member.getValidatedTalks(), as:'talk'}
                         <li>#{session-small talk /}</li>
                     #{/list}
                     </ul>
                 </div>
                 #{/if}
-                #{if member.sessions}
+                #{if member.getLightningTalks()}
                 <div class="tab-pane" id="ligthnings">
                     <ul>
-                    #{list items:member.sessions, as:'lt'}
+                    #{list items:member.getLightningTalks(), as:'lt'}
                         <li>#{session-small lt /}</li>
                     #{/list}
                     </ul>

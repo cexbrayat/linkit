@@ -11,7 +11,6 @@
             le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}<br/>
             <br/>
             ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}<br/>
-            <br/>
             #{if article.comments}
             <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
             #{/if}
@@ -40,15 +39,18 @@
         <hr/>
         <section id="post">
             #{if session.username}
+
             <div class="row">
                 #{form @Articles.postComment(article.id)}
 
                 #{field 'content'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
+                <div class="clearfix ${field.error?'error':''}">
+                    <div class="span3">
+                        <label for="${field.name}">&{field.name}</label> 
+                    </div>
                     <div class="input offset3"> 
-                        <textarea class="xlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
-                        <span class="help-inline">${field.error}</span>
+                        <textarea class="span13" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
                 </div>

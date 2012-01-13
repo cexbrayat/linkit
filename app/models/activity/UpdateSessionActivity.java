@@ -1,7 +1,10 @@
 package models.activity;
 
 import helpers.badge.BadgeComputationContext;
+import java.util.EnumSet;
 import javax.persistence.Entity;
+import models.Badge;
+import models.Member;
 import models.ProviderType;
 import models.Session;
 import play.i18n.Messages;
@@ -17,8 +20,6 @@ public class UpdateSessionActivity extends Activity {
     public UpdateSessionActivity(Session session) {
         super(ProviderType.LinkIt);
         this.session = session;
-        // Useless badge computation
-        this.badgeComputationDone = true;
     }
 
     @Override
@@ -36,6 +37,8 @@ public class UpdateSessionActivity extends Activity {
 
     @Override
     protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
-        // No badge computation;
+        for (Member speaker : session.speakers) {
+            speaker.computeBadges(EnumSet.of(Badge.Speaker), context);
+        }
     }
 }
