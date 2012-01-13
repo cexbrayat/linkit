@@ -25,7 +25,7 @@ public class Talk extends Session {
     public boolean valid;
 
     public static List<Talk> recents(int page, int length) {
-        return find("order by addedAt desc").fetch(page, length);
+        return find("valid=true order by addedAt desc").fetch(page, length);
     }
     
     public static long countSpeakers() {
