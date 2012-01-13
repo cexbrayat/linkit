@@ -6,7 +6,9 @@
     });
 </script>
 
+#{if session.username}
     Proposer <a class="btn" href="@{Sessions.create(session.username)}">une session</a> ?
+#{/if}
 
     <table class="zebra-striped" id="sortSession"> 
         <thead> 
