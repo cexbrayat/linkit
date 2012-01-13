@@ -536,4 +536,18 @@ public class Member extends Model implements Lookable {
     public static List<Member> recents(int page, int length) {
         return find("order by registeredAt desc").fetch(page, length);
     }
+
+    public boolean isSpeaker() {
+        return Iterables.any(sessions, new Predicate<Session>() {
+
+            public boolean apply(Session s) {
+                if (s instanceof Talk) {
+                    Talk t = (Talk) s;
+                    return t.valid;
+                } else {
+                    return false;
+                }
+            }
+        });
+    }
 }

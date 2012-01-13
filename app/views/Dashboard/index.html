@@ -17,7 +17,7 @@
                     <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
                 </p>
 
-                #{if member instanceof models.Speaker}
+                #{if member.isSpeaker()}
                     <h5>Mes session${member.sessions.size().pluralize()} :</h5>
                     <ul>
                     #{list items:member.sessions, as:'talk'}

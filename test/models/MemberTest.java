@@ -307,4 +307,18 @@ public class MemberTest extends BaseDataUnitTest {
         // Relecture depuis la BDD
         assertEquals(newLinks, Member.findByLogin(login).sharedLinks);
     }
+    
+    @Test public void isSpeaker() {
+        final Member m = createMember("toto");
+        assertFalse(m.isSpeaker());
+        // Creation d'un talk non valide
+        Talk t = new Talk();
+        t.addSpeaker(m);
+        t.save();
+        assertFalse(m.isSpeaker());
+        // Validation du talk
+        t.valid=true;
+        t.save();
+        assertTrue(m.isSpeaker());
+    }
 }

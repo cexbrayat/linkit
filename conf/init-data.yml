@@ -494,7 +494,7 @@ GoogleAccount(mathieuGoogle):
     member: mathieu
     googleId: 114873422112541119407
 
-Speaker(nmartignole) :
+Member(nmartignole) :
     firstname: Nicolas
     lastname: Martignole
     login: nmartignole
@@ -548,9 +548,6 @@ Speaker(nmartignole) :
     interests:
          - scrum
          - java
-    badges:
-         - Speaker
-         - Sponsor
 
 models.auth.LinkItAccount(nmartignoleAccount):
     provider: LinkIt
@@ -567,7 +564,7 @@ GoogleAccount(nmartignoleGoogle):
     member: nmartignole
     googleId: 112895425540987915280
     
-Speaker(rguy):
+Member(rguy):
     firstname: Romain
     lastname: Guy
     login: rguy
@@ -620,8 +617,6 @@ Speaker(rguy):
         This creates a HTML version of the file
     interests:
          - java
-    badges:
-         - Speaker
 
 TwitterAccount(rguyTwitter):
     provider: Twitter
@@ -637,6 +632,7 @@ Talk(sessionplayframework):
     title: Play! Framework for dummies
     track: Techy
     summary: Intro sur le framework de la mort qui déchire tout!
+    valid: false
     description : |
         # Session description : Markdown sample
         I've recently adopted Markdown as a markup language for editing my blog posts.
@@ -715,6 +711,7 @@ Talk(sessionhadoop):
     title: Hadoop c'est Hype!
     track: Trendy
     summary: Hadoop c'est un nom pourri mais c'est de la balle!
+    valid: true
     description : |
         # Session description : Markdown sample
         I've recently adopted Markdown as a markup language for editing my blog posts.

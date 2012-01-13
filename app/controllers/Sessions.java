@@ -6,7 +6,6 @@ import java.util.*;
 import models.SessionComment;
 import models.Member;
 import models.Session;
-import models.Speaker;
 import models.Talk;
 import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
@@ -25,7 +24,7 @@ public class Sessions extends PageController {
     }
 
     public static void create(final String speakerLogin) {
-        Speaker speaker = Speaker.findByLogin(speakerLogin);
+        Member speaker = Member.findByLogin(speakerLogin);
         Talk talk = new Talk();
         talk.addSpeaker(speaker);
         render("Sessions/edit.html", talk);

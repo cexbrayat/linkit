@@ -40,7 +40,7 @@ models.auth.LinkItAccount(cedLinkIt):
     member: ced
     password: secret
     
-Speaker(rguy) :
+Member(rguy) :
     firstname: Romain
     lastname: Guy
     login: rguy
@@ -64,6 +64,7 @@ Talk(sessionTest):
     track: Techy
     summary: Test summary
     description : Test description
+    valid: true
     speakers:
            - rguy
 

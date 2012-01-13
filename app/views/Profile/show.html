@@ -72,7 +72,7 @@
                 #{if !member.longDescription?.isEmpty()}
                 <li><a href="#bio">Ma biographie</a></li>
                 #{/if}
-                #{if member instanceof models.Speaker}
+                #{if member.isSpeaker()}
                 <li><a href="#talks">Mes talks</a></li>
                 #{/if}
                 #{if member.sessions}
@@ -142,7 +142,7 @@
                     </div>
                 </div>
                 #{/if}
-                #{if member instanceof models.Speaker}
+                #{if member.isSpeaker()}
                 <div class="tab-pane" id="talks">
                     <ul>
                     #{list items:member.sessions, as:'talk'}
