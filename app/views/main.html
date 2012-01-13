@@ -118,39 +118,6 @@
             </div>
         </div>
         
-        <!--div class="container-fluid">
-        <div class="sidebar">
-            <div class="well">
-                <h2>Sidebar</h2>
-                <p>Lorem ipsum</p>
-                <h3>Partagez!</h3>
-                <ol>
-                    <li>Remplissez votre profil</li>
-                    <li>Lier des gens</li>
-                    <li>Commenter des articles ou des sessions</li>
-                </ol>
-                <h3>Actualités</h3>
-                <ul>
-                    <li>Article 1</li>
-                    <li>Article 2</li>
-                    <li>Article 3</li>
-                </ul>
-                <h3>Nouveaux membres</h3>
-                <ul>
-                    <li>Membre 1</li>
-                    <li>Membre 2</li>
-                    <li>Membre 3</li>
-                </ul>
-                <h3>Nouvelles sessions</h3>
-                <ul>
-                    <li>Session 1</li>
-                    <li>Session 2</li>
-                    <li>Session 3</li>
-                </ul>
-                <p>extends sidebar with setting <code>moreSidebar</code> template variable in your view.</p>
-                #{get 'moreSidebar' /}
-            </div>
-        </div-->
         <div class="container">
                     
             #{if flash.success}
@@ -165,27 +132,31 @@
         <!--/div-->
     </body>
     <footer>
-        #{if sponsors}
-        <div class="row" style="margin-left:70px">
-            <!--ul class="media-grid"-->
-            #{list items:sponsors, as:'sponsor'}
-            <!--li class="sponsor"-->
-            <div class="span3">
-                <a href="@{Profile.show(sponsor.login)}"><!--img src="${sponsor.logoUrl}" /-->${sponsor.firstname}
-                    ${sponsor.lastname}</a>
+        <div class="container">
+            #{if sponsors}
+            <div class="row">
+                <!--ul class="media-grid"-->
+                #{list items:sponsors, as:'sponsor'}
+                <!--li class="sponsor"-->
+                <div class="span3" style="text-align: center">
+                    <a href="@{Profile.show(sponsor.login)}"><!--img src="${sponsor.logoUrl}" /-->${sponsor.toString()}</a>
+                </div>
+                <!--/li-->
+                #{/list}
+                <!--/ul-->
             </div>
-            <!--/li-->
-            #{/list}
-            <!--/ul-->
-        </div>
-        #{/if}
-        <br/>
-        <div class="row">
-            <div class="span15">
-                <p>&copy; 2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
-            </div>
-            <div class="span1 offset4">
-                <a href="http://twitter.com/mixit_lyon"><img src="http://www.mix-it.fr/public/images/icon-twitter.png" style="max-width:30px"></img></a>
+            #{/if}
+            <br/>
+            <div class="row">
+                <div class="span8">
+                    <iframe allowtransparency="true" frameborder="0" scrolling="no"
+                        src="//platform.twitter.com/widgets/follow_button.html?screen_name=MixIT_Lyon&lang=fr&show_count=true"
+                        style="width:350px; height:20px;">
+                    </iframe>
+                </div>
+                <div class="span8" style="text-align: right">
+                    <p>&copy; 2012 Mix-IT</p>
+                </div>
             </div>
         </div>
     </footer>

@@ -944,16 +944,6 @@ Sponsor(charcuterie):
     shortDescription : Les meilleures tripes françaises depuis 1984.
     badges:
          - Sponsor
-
-Sponsor(anpe):
-    logoUrl: http://upload.wikimedia.org/wikipedia/fr/c/cd/Logo_P%C3%B4le_Emploi.png
-    firstname: Pôle
-    lastname: Emploi
-    login: anpe
-    email: info@pole-emploi.fr
-    shortDescription : Vous n'avez pas de boulot? Nous non plus!
-    badges:
-         - Sponsor
     
 Member(mrbadges) :
     firstname: Monsieur
