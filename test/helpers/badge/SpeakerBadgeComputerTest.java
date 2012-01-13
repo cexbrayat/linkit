@@ -21,25 +21,20 @@ public class SpeakerBadgeComputerTest extends AbstractBadgeComputerTest {
         super(new SpeakerBadgeComputer());
     }
 
-    protected void comment(Member m, Session s, final int nbComments) {
-        for (int i = 0; i < nbComments; i++) {
-            s.addComment(new SessionComment(member, s, "Un commentaire"));
+    private Talk createTalk(Member... speakers) {
+        Talk t = new Talk();
+        for (Member s : speakers) {
+            t.addSpeaker(s);
         }
+        return t.save();
     }
 
-    protected void comment(Member m, Article a, final int nbComments) {
-        for (int i = 0; i < nbComments; i++) {
-            a.addComment(new ArticleComment(member, a, "Un commentaire"));
-        }
-    }
-    
     @Test
     public void grantedSpeaker() {
         // Member become speaker of a validated talk
-        final Talk t = Talk.all().first();
-        t.addSpeaker(member);
+        final Talk t = createTalk(member);
+        assertEquals(EnumSet.noneOf(Badge.class), computer.compute(member, new BadgeComputationContext()));
         t.validate();
-        final Set<Badge> actualBadges = computer.compute(member, new BadgeComputationContext());
-        assertEquals(EnumSet.of(Badge.Speaker), actualBadges);
+        assertEquals(EnumSet.of(Badge.Speaker), computer.compute(member, new BadgeComputationContext()));
     }
 }

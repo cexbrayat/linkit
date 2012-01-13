@@ -5,6 +5,7 @@ import play.Logger;
 import javax.persistence.*;
 import java.util.List;
 import play.modules.search.Indexed;
+import play.mvc.Router;
 
 /**
  * @author Julien Ripault <tluapir@gmail.com>
@@ -29,12 +30,19 @@ public class LightningTalk extends Session {
     }
 
     public long getNumberOfVotes() {
-        long numberOfVotesBySession = Vote.findNumberOfVotesBySession(this);
-        return numberOfVotesBySession;
+        return Vote.findNumberOfVotesBySession(this);
     }
 
     @Override
     public String toString() {
         return title;
+    }
+
+    @Override
+    public String getShowUrl() {
+        return Router
+                .reverse("LightningTalks.show")
+                .add("sessionId", this.id)
+                .url;
     }
 }

@@ -4,8 +4,11 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import models.activity.NewTalkActivity;
+import models.activity.UpdateSessionActivity;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
+import play.mvc.Router;
 
 /**
  * A talk session
@@ -40,14 +43,32 @@ public class Talk extends Session {
     public static List<Talk> findAllValidated() {
         return find("valid=true").fetch();
     }
+
+    @Override
+    public void update() {
+        save();
+        // On ne déclenche une activité publique de mise à jour que si la session est valide (donc visible publiquement)
+        if (valid) {
+            new UpdateSessionActivity(this).save();
+        }
+    }
     
     public void validate() {
         this.valid = true;
         save();
+        new NewTalkActivity(this).save();
     }
     
     public void unvalidate() {
         this.valid = false;
         save();
+    }
+
+    @Override
+    public String getShowUrl() {
+        return Router
+                .reverse("Sessions.show")
+                .add("sessionId", this.id)
+                .url;
     }
 }

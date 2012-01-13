@@ -4,26 +4,22 @@ import helpers.badge.BadgeComputationContext;
 import java.util.EnumSet;
 import javax.persistence.Entity;
 import models.Badge;
-import models.LightningTalk;
 import models.Member;
 import models.ProviderType;
 import models.Session;
-import models.Talk;
 import play.i18n.Messages;
 import play.mvc.Router;
 
 /**
- * An "update session" activity : a publicly visible session ({@link Activity#session}), i.e any {@link LightningTalk} or a valid {@link Talk}, has been updated.
+ * An "new talk" activity : a talk ({@link Activity#session}) has been validated
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public class UpdateSessionActivity extends Activity {
+public class NewTalkActivity extends Activity {
 
-    public UpdateSessionActivity(Session session) {
+    public NewTalkActivity(Session session) {
         super(ProviderType.LinkIt);
         this.session = session;
-        // Useless badge computation
-        this.badgeComputationDone = true;
     }
 
     @Override
@@ -33,11 +29,16 @@ public class UpdateSessionActivity extends Activity {
 
     @Override
     public String getUrl() {
-        return this.session.getShowUrl();
+        return Router
+                .reverse("Sessions.show")
+                .add("sessionId", session.id)
+                .url;
     }
 
     @Override
     protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
-        // No badge computation
+        for (Member speaker : session.speakers) {
+            speaker.computeBadges(EnumSet.of(Badge.Speaker), context);
+        }
     }
 }

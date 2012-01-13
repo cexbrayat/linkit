@@ -148,4 +148,9 @@ public abstract class Session extends Model implements Lookable {
             }
         }
     }
+    
+    /**
+     * @return URL of display page for this session
+     */
+    public abstract String getShowUrl();
 }
