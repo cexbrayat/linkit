@@ -39,7 +39,7 @@ talk.description.note=La description complète de votre session.<br/>&{markdown.
 talk.speakers=Speaker(s)
 talk.speakers.note=Choisissez le ou les speakers
 talk.track=Track Mix-IT
-talk.track.note=
+talk.track.note=Obligatoire
 content=Votre commentaire
 content.note=&{markdown.note}
 
@@ -82,7 +82,7 @@ SharedLinkActivity.message=%1$s a partagé le lien "%2$s"
 
 # Providers
 provider.LinkIt=Link-IT
-provider.Google=Google
+provider.Google=Google+
 provider.Twitter=Twitter
 
 # Badges
