@@ -1,6 +1,12 @@
 *{ Displays _arg session in a short way }*
-
-<a href="@{Sessions.show(_arg.id)}" class="session link"><h3 class="session title">${_arg.title}</h3></a>
+#{if _arg instanceof models.Talk}
+<a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">
+#{/if}
+#{else}
+<a href="@{LightningTalks.show(_arg.id)}" title="${_arg.title}">
+#{/else}
+    <h3 class="session title">${_arg.title}</h3>
+</a>
 <blockquote class="article headline">
     ${_arg.summary}
     <br/>
