@@ -65,6 +65,14 @@ public class Talk extends Session {
     }
 
     @Override
+    public void lookedBy(Member member) {
+        if (valid) {
+            super.lookedBy(member);
+        }
+        // Un talk non validé n'est pas consultable par le public : on ne compte pas les visites, ni ne génère d'activité
+    }
+
+    @Override
     public String getShowUrl() {
         return Router
                 .reverse("Sessions.show")

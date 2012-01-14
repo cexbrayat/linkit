@@ -96,4 +96,25 @@ public class TalkTest extends BaseDataUnitTest {
         final Talk t = createTalk();
         assertNotNull(t.getShowUrl());
     }
+        
+    @Test public void lookBy() {
+        final Talk talk = new Talk();
+        assertEquals(0, talk.getNbLooks());
+        
+        // Any look is not counted if session not valid
+        talk.valid = false;
+        talk.lookedBy(null);
+        assertEquals(0, talk.getNbLooks());
+
+        talk.valid = true;
+        talk.lookedBy(null);
+        assertEquals(1, talk.getNbLooks());
+        talk.lookedBy(null);
+        assertEquals(2, talk.getNbLooks());
+
+        talk.valid = false;
+        talk.lookedBy(null);
+        assertEquals(2, talk.getNbLooks());
+    }
+
 }
