@@ -494,6 +494,33 @@ GoogleAccount(mathieuGoogle):
     member: mathieu
     googleId: 114873422112541119407
 
+Staff(clacote) :
+    firstname: Cyril
+    lastname: Lacôte
+    login: clacote
+    email: cyril.lacote@gmail.com
+    shortDescription : Freelance Java Developer (of this website amongst other stuff)
+    interests:
+         - java
+         - javascript
+    badges:           
+         - Staff
+
+models.auth.LinkItAccount(clacoteLinkIt):
+    provider: LinkIt
+    member: clacote
+    password: clacote
+
+TwitterAccount(clacoteTwitter):
+    provider: Twitter
+    member: clacote
+    screenName: clacote
+
+GoogleAccount(clacoteGoogle):
+    provider: Google
+    member: clacote
+    googleId: 114128610730314333831
+
 Member(nmartignole) :
     firstname: Nicolas
     lastname: Martignole
