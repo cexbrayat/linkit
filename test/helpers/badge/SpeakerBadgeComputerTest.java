@@ -1,13 +1,9 @@
 package helpers.badge;
 
 import java.util.EnumSet;
-import java.util.Set;
-import models.Article;
-import models.ArticleComment;
 import models.Badge;
-import models.SessionComment;
+import models.LightningTalk;
 import models.Member;
-import models.Session;
 import models.Talk;
 import org.junit.Test;
 
@@ -21,25 +17,35 @@ public class SpeakerBadgeComputerTest extends AbstractBadgeComputerTest {
         super(new SpeakerBadgeComputer());
     }
 
-    protected void comment(Member m, Session s, final int nbComments) {
-        for (int i = 0; i < nbComments; i++) {
-            s.addComment(new SessionComment(member, s, "Un commentaire"));
+    private Talk createTalk(Member... speakers) {
+        Talk t = new Talk();
+        for (Member s : speakers) {
+            t.addSpeaker(s);
         }
+        return t.save();
     }
 
-    protected void comment(Member m, Article a, final int nbComments) {
-        for (int i = 0; i < nbComments; i++) {
-            a.addComment(new ArticleComment(member, a, "Un commentaire"));
+    private LightningTalk createLT(Member... speakers) {
+        LightningTalk lt = new LightningTalk();
+        for (Member s : speakers) {
+            lt.addSpeaker(s);
         }
+        return lt.save();
     }
-    
+
     @Test
     public void grantedSpeaker() {
         // Member become speaker of a validated talk
-        final Talk t = Talk.all().first();
-        t.addSpeaker(member);
+        final Talk t = createTalk(member);
+        assertEquals(EnumSet.noneOf(Badge.class), computer.compute(member, new BadgeComputationContext()));
         t.validate();
-        final Set<Badge> actualBadges = computer.compute(member, new BadgeComputationContext());
-        assertEquals(EnumSet.of(Badge.Speaker), actualBadges);
+        assertEquals(EnumSet.of(Badge.Speaker), computer.compute(member, new BadgeComputationContext()));
+    }
+
+    @Test
+    public void grantedSpeakerPadawan() {
+        // Member become speaker of a LT
+        final LightningTalk lt = createLT(member);
+        assertEquals(EnumSet.of(Badge.SpeakerPadawan), computer.compute(member, new BadgeComputationContext()));
     }
 }

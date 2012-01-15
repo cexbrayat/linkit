@@ -20,8 +20,9 @@
         <p>
             Staff :
             <a class="btn" href="@{Sessions.edit(talk.id)}">Editer cette session</a>
-        #{if talk.valid}
+        #{if talk.valid}            
             <a class="btn danger" href="@{Sessions.unvalidate(talk.id)}">Invalider cette session</a>
+            <strong>Attention : invalider une session ne supprimera pas les éventuelles activités existantes sur cette session (elle restera consultable en cliquant sur ces activités).
         #{/if}
         #{else}
             <a class="btn danger" href="@{Sessions.validate(talk.id)}">Valider cette session</a>

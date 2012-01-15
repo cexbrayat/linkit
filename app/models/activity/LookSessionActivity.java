@@ -25,9 +25,6 @@ public class LookSessionActivity extends LookActivity {
 
     @Override
     public String getUrl() {
-        return Router
-                .reverse("Sessions.show")
-                .add("sessionId", session.id)
-                .url;
+        return session.getShowUrl();
     }
 }

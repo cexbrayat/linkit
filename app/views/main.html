@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>#{get 'title' /} - Mix-IT</title>
+        <title>#{get 'title' /} - Mix-IT 2012</title>
         <meta charset="${_response_encoding}">
         <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/bootstrap.less'}">
         <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/linkit.less'}">
@@ -21,49 +21,62 @@
             })
           </script> 
         #{get 'moreScripts' /}
+        <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', '${play.configuration.getProperty("application.analytics.trackingId")}']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+
+        </script>
     </head>
     <body style="padding-top: 60px;"> *{ 60px is navigation bar space }*
         <div class="topbar">
             <div class="topbar-inner">
                 <div class="container-fluid">
-                    <a class="brand" href="@{Application.index()}"><img src="@{'/public/images/mixit.png'}" style="width:50px"/></a>
+                    <a class="brand" href="@{Application.index()}"><img src="@{'/public/images/mini-mixit.png'}"/></a>
                     <ul class="nav">
                         #{if session.username}
-                        <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">Dashboard</a></li>
+                        <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
                         #{/if}
-                        <li #{if request.controller=="Articles"}class="active"#{/if}><a href="@{Articles.index()}">Actualités</a></li>
+                        <li #{if request.controller=="Articles"}class="active"#{/if}><a href="@{Articles.index()}">&{'menu.news'}</a></li>
                             <li class="dropdown" data-dropdown="dropdown">
-                                <a href="@{Application.members()}" class="dropdown-toggle">Programme</a>
+                                <a href="@{Application.members()}" class="dropdown-toggle">&{'menu.agenda'}</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="@{Sessions.index()}">Sessions</a></li>
-                                    <li><a href="@{LightningTalks.list()}">Lightning talks</a></li>
+                                    <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
+                                    <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
                                 #{if session.username}
-                                    <li><a href="@{Sessions.create(session.username)}">Proposer une session</a></li>
+                                    <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                                 #{/if}
                                     <!--<li><a href="@{Plannings.index()}">Agenda</a></li>-->
                                 </ul>
                             </li>
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a href="#" class="dropdown-toggle">Participants</a>
+                            <a href="#" class="dropdown-toggle">&{'menu.members'}</a>
                             <ul class="dropdown-menu">
-                                <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">Les speakers</a></li>
+                                <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">&{'menu.members.speakers'}</a></li>
                                 #{if session.username}
-                                <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">Tous les participants</a></li>
+                                <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">&{'menu.members.all'}</a></li>
                                 #{/if}
-                                <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">Les membres du staff</a></li>
-                                <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">Les sponsors</a></li>
+                                <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">&{'menu.members.staff'}</a></li>
+                                <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
                             </ul>
                         </li>
                         
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a href="#" class="dropdown-toggle">Infos Pratiques</a>
+                            <a href="#" class="dropdown-toggle">&{'menu.infos'}</a>
                             <ul class="dropdown-menu">
-                                <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">A propos de Mix-IT</a></li>
-                                <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">FAQ</a></li>
-                                <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">Kit Multimedia</a></li>
-                                <li #{if request.action=="Infos.contact"}class="active"#{/if}><a href="@{Infos.contact()}">Contact</a></li>
-                                <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">Accès</a></li>
-                                <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a href="@{Infos.hotels()}">Hôtels</a></li>
+                                <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">&{'menu.infos.about'}</a></li>
+                                <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">&{'menu.infos.faq'}</a></li>
+                                <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">&{'menu.infos.kit'}</a></li>
+                                <li #{if request.action=="Infos.contact"}class="active"#{/if}><a href="@{Infos.contact()}">&{'menu.infos.contact'}</a></li>
+                                <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">&{'menu.infos.access'}</a></li>
+                                <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a href="@{Infos.hotels()}">&{'menu.infos.hotels'}</a></li>
                             </ul>
                         </li>
                         
@@ -84,60 +97,27 @@
                         <li class="dropdown" data-dropdown="dropdown">
                             <a href="#" class="dropdown-toggle">#{member models.Member.findByLogin(session.username), static:true /}</a>
                             <ul class="dropdown-menu">
-                                <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">Mon dashboard</a></li>
-                                <li><a href="@{Profile.show(session.username)}">Voir mon profil</a></li>
-                                <li><a href="@{Profile.edit()}">Editer mon profil</a></li>
+                                <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.login.dashboard'}</a></li>
+                                <li><a href="@{Profile.show(session.username)}">&{'menu.login.profile'}</a></li>
+                                <li><a href="@{Profile.edit()}">&{'menu.login.edit'}</a></li>
                                 <li class="divider"></li>
-                                <li><a href="@{Secure.logout()}">Se deconnecter</a></li>
+                                <li><a href="@{Secure.logout()}">&{'menu.login.logout'}</a></li>
                             </ul>
                         </li>
                         #{/if}
                         #{else}
-                        <li><a href="@{Login.index(request.url)}">Se connecter</a></li>
+                        <li><a href="@{Login.index(request.url)}">&{'menu.login'}</a></li>
                         #{/else}
                     </ul>
                     <form action="@{Application.search}" method="GET" class="pull-right">
                         #{field 'query'}
-                        <input type="search" style="width: auto" id="${field.id}" name="${field.name}" placeholder="Rechercher" value="${params.query}" />
+                        <input type="search" style="width: auto" id="${field.id}" name="${field.name}" placeholder="&{'menu.search'}" value="${params.query}" />
                         #{/field}
                     </form> 
                 </div>
             </div>
         </div>
         
-        <!--div class="container-fluid">
-        <div class="sidebar">
-            <div class="well">
-                <h2>Sidebar</h2>
-                <p>Lorem ipsum</p>
-                <h3>Partagez!</h3>
-                <ol>
-                    <li>Remplissez votre profil</li>
-                    <li>Lier des gens</li>
-                    <li>Commenter des articles ou des sessions</li>
-                </ol>
-                <h3>Actualités</h3>
-                <ul>
-                    <li>Article 1</li>
-                    <li>Article 2</li>
-                    <li>Article 3</li>
-                </ul>
-                <h3>Nouveaux membres</h3>
-                <ul>
-                    <li>Membre 1</li>
-                    <li>Membre 2</li>
-                    <li>Membre 3</li>
-                </ul>
-                <h3>Nouvelles sessions</h3>
-                <ul>
-                    <li>Session 1</li>
-                    <li>Session 2</li>
-                    <li>Session 3</li>
-                </ul>
-                <p>extends sidebar with setting <code>moreSidebar</code> template variable in your view.</p>
-                #{get 'moreSidebar' /}
-            </div>
-        </div-->
         <div class="container">
                     
             #{if flash.success}
@@ -152,27 +132,31 @@
         <!--/div-->
     </body>
     <footer>
-        #{if sponsors}
-        <div class="row" style="margin-left:70px">
-            <!--ul class="media-grid"-->
-            #{list items:sponsors, as:'sponsor'}
-            <!--li class="sponsor"-->
-            <div class="span3">
-                <a href="@{Profile.show(sponsor.login)}"><!--img src="${sponsor.logoUrl}" /-->${sponsor.firstname}
-                    ${sponsor.lastname}</a>
+        <div class="container">
+            #{if sponsors}
+            <div class="row">
+                <!--ul class="media-grid"-->
+                #{list items:sponsors, as:'sponsor'}
+                <!--li class="sponsor"-->
+                <div class="span3" style="text-align: center">
+                    <a href="@{Profile.show(sponsor.login)}"><!--img src="${sponsor.logoUrl}" /-->${sponsor.toString()}</a>
+                </div>
+                <!--/li-->
+                #{/list}
+                <!--/ul-->
             </div>
-            <!--/li-->
-            #{/list}
-            <!--/ul-->
-        </div>
-        #{/if}
-        <br/>
-        <div class="row">
-            <div class="span15">
-                <p>&copy; 2012 Mix-IT - <a href="https://trello.com/board/link-it/4e723ede171d7c0000032cae">Trello pour les suggestions</a></p>
-            </div>
-            <div class="span1 offset4">
-                <a href="http://twitter.com/mixit_lyon"><img src="http://www.mix-it.fr/public/images/icon-twitter.png" style="max-width:30px"></img></a>
+            #{/if}
+            <br/>
+            <div class="row">
+                <div class="span8">
+                    <iframe allowtransparency="true" frameborder="0" scrolling="no"
+                        src="//platform.twitter.com/widgets/follow_button.html?screen_name=MixIT_Lyon&lang=fr&show_count=true"
+                        style="width:350px; height:20px;">
+                    </iframe>
+                </div>
+                <div class="span8" style="text-align: right">
+                    <p>&copy; 2012 Mix-IT</p>
+                </div>
             </div>
         </div>
     </footer>

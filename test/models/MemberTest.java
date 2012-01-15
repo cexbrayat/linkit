@@ -320,4 +320,14 @@ public class MemberTest extends BaseDataUnitTest {
         t.validate();
         assertTrue(m.isSpeaker());
     }
+    
+    @Test public void isLightningTalkSpeaker() {
+        final Member m = createMember("toto");
+        assertFalse(m.isLightningTalkSpeaker());
+        // Creation d'un LT
+        LightningTalk lt = new LightningTalk();
+        lt.addSpeaker(m);
+        lt.save();
+        assertTrue(m.isLightningTalkSpeaker());
+    }
 }

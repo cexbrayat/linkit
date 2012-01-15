@@ -494,6 +494,33 @@ GoogleAccount(mathieuGoogle):
     member: mathieu
     googleId: 114873422112541119407
 
+Staff(clacote) :
+    firstname: Cyril
+    lastname: Lacôte
+    login: clacote
+    email: cyril.lacote@gmail.com
+    shortDescription : Freelance Java Developer (of this website amongst other stuff)
+    interests:
+         - java
+         - javascript
+    badges:           
+         - Staff
+
+models.auth.LinkItAccount(clacoteLinkIt):
+    provider: LinkIt
+    member: clacote
+    password: clacote
+
+TwitterAccount(clacoteTwitter):
+    provider: Twitter
+    member: clacote
+    screenName: clacote
+
+GoogleAccount(clacoteGoogle):
+    provider: Google
+    member: clacote
+    googleId: 114128610730314333831
+
 Member(nmartignole) :
     firstname: Nicolas
     lastname: Martignole
@@ -944,16 +971,6 @@ Sponsor(charcuterie):
     shortDescription : Les meilleures tripes françaises depuis 1984.
     badges:
          - Sponsor
-
-Sponsor(anpe):
-    logoUrl: http://upload.wikimedia.org/wikipedia/fr/c/cd/Logo_P%C3%B4le_Emploi.png
-    firstname: Pôle
-    lastname: Emploi
-    login: anpe
-    email: info@pole-emploi.fr
-    shortDescription : Vous n'avez pas de boulot? Nous non plus!
-    badges:
-         - Sponsor
     
 Member(mrbadges) :
     firstname: Monsieur
@@ -977,8 +994,11 @@ Member(mrbadges) :
          - StaffBestFriend
          - SpeakerFan
          - SponsorFriendly
+         - Supporter
+         - Enlightened,
          - Brave
          - Troller
+         - SpeakerPadawan
          - NewBorn
          - Friendly
          - SocialBeast
