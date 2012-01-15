@@ -44,15 +44,15 @@ public enum Badge {
     /** Being linked by 200 members */
     Idol,
     /** Having tweeted about Mix-IT */
-    Twittos('t'),
+    Twittos,
     /** Being posted on Google+ about Mix-IT */
-    Plusoner('+'),
+    Plusoner,
     /** Having used Link-IT for two consecutives days */
-    TwoDaysInARow('2'),
+    TwoDaysInARow,
     /** Having used Link-IT for five consecutives days */
-    FiveDaysInARow('5'),
+    FiveDaysInARow,
     /** Having used Link-IT for 10 consecutives days */
-    MixITAddict('\u263A');
+    MixITAddict;
 
     /**
      * Base folder storing badges image files.
