@@ -8,7 +8,7 @@ package models;
 public enum Badge {
 
     /** A speaker member */
-    Speaker('\u2655'),
+    Speaker,
     /** A staff member */
     Staff,
     /** A sponsor member */
@@ -21,10 +21,16 @@ public enum Badge {
     SpeakerFan,
     /** A friend of all sponsor members */
     SponsorFriendly,
+    /** Having voted for one Lightning Talk */
+    Supporter,
+    /** Having voted for ten Lightning Talks */
+    Enlightened,
     /** Having made one comment */
     Brave,
     /** Having made 10 comments */
     Troller,
+    /** Having submitted a Lightning-Talk */
+    SpeakerPadawan,
     /** Having linked 1 member */
     NewBorn,
     /** Having linked 10 members */
@@ -44,15 +50,15 @@ public enum Badge {
     /** Being linked by 200 members */
     Idol,
     /** Having tweeted about Mix-IT */
-    Twittos('t'),
+    Twittos,
     /** Being posted on Google+ about Mix-IT */
-    Plusoner('+'),
+    Plusoner,
     /** Having used Link-IT for two consecutives days */
-    TwoDaysInARow('2'),
+    TwoDaysInARow,
     /** Having used Link-IT for five consecutives days */
-    FiveDaysInARow('5'),
+    FiveDaysInARow,
     /** Having used Link-IT for 10 consecutives days */
-    MixITAddict('\u263A');
+    MixITAddict;
 
     /**
      * Base folder storing badges image files.

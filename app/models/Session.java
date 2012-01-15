@@ -64,6 +64,9 @@ public abstract class Session extends Model implements Lookable {
     
     /** Number of consultation */
     public long nbConsults;
+    
+    /** Is session validated (publicly visible) */
+    public boolean valid;
 
     public final void addSpeaker(Member speaker) {
         if (speaker != null) {
@@ -127,7 +130,10 @@ public abstract class Session extends Model implements Lookable {
      */
     public void update() {
         save();
-        new UpdateSessionActivity(this).save();
+        // On ne déclenche une activité publique de mise à jour que si la session est valide (donc visible publiquement)
+        if (valid) {
+            new UpdateSessionActivity(this).save();
+        }
     }
     
     @Override
@@ -148,4 +154,9 @@ public abstract class Session extends Model implements Lookable {
             }
         }
     }
+    
+    /**
+     * @return URL of display page for this session
+     */
+    public abstract String getShowUrl();
 }

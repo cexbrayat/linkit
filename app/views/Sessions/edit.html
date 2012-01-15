@@ -13,7 +13,22 @@
                 #{/}
 
             <fieldset> 
-                <legend>Descriptif</legend>
+                <legend>Descriptif de cette session</legend>
+
+                #{field 'talk.track'}
+                <div class="clearfix ${field.error?'error':''}"> 
+                    <label for="${field.name}">&{field.name}</label> 
+                    <div class="input"> 
+                        <ul class="inputs-list">
+                            #{list items:models.Track.values(), as:'track'}
+                            <li><label><input type="radio" name="${field.name}" value="${track}" ${talk.track == track?'checked':''} /> <span>${track}</span></label></li>
+                            #{/list}
+                        </ul>
+                        <span class="help-block">${field.error}</span>
+                        <span class="help-block">&{field.name+".note"}</span>
+                    </div>
+                </div><!-- /clearfix -->
+                #{/}
 
                 #{field 'talk.title'}
                 <div class="clearfix ${field.error?'error':''}"> 
@@ -66,26 +81,6 @@
                     </div>
                 </div><!-- /clearfix -->
                 #{/}
-
-                #{field 'talk.track'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <ul class="inputs-list">
-                            #{list items:models.Track.values(), as:'track'}
-                            <li><label><input type="radio" name="${field.name}" value="${track}" ${talk.track == track?'checked':''} /> <span>${track}</span></label></li>
-                            #{/list}
-                        </ul>
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div>
-                </div><!-- /clearfix -->
-                #{/}
-
-            </fieldset>
-                            </fieldset>
-            <fieldset>
-                <legend>Intérêts</legend>
 
                 #{field 'interests'}
                 <div class="clearfix ${field.error?'error':''}"> 

@@ -34,10 +34,6 @@ public class CommentSessionActivity extends CommentActivity {
 
     @Override
     public String getUrl() {
-        return Router
-                .reverse("Sessions.show")
-                .add("sessionId", session.id)
-                .addRef("comment"+comment.id)
-                .url;
+        return session.getShowUrl()+"#comment"+comment.id;
     }
 }

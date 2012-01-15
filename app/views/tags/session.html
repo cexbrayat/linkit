@@ -1,7 +1,13 @@
 *{ Displays _arg session }*
 <span id="session${_arg.id}" data-id="${_arg.id}" class="session">
+    #{if !_arg.valid}<span class="label important">NON VALIDE</span> #{/if}
 <span class="label track ${(_arg instanceof models.Talk)?_arg.track:''}">
     ${(_arg instanceof models.Talk)?_arg.track:"Lightning Talk"}
 </span>&nbsp;
+#{if _arg instanceof models.Talk}
 <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg.title}</a>
+#{/if}
+#{else}
+<a href="@{LightningTalks.show(_arg.id)}" title="${_arg.title}">${_arg.title}</a>
+#{/else}
 </span>

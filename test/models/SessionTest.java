@@ -43,7 +43,7 @@ public class SessionTest extends BaseDataUnitTest {
         final Member speaker = session.speakers.iterator().next();
         final Member ced = Member.findByLogin("ced");
         final long nbLooks = session.getNbLooks();
-        
+
         // If a speaker looks at his session, it is not counted
         session.lookedBy(speaker);
         assertEquals(nbLooks, session.getNbLooks());
