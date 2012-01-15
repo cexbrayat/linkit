@@ -42,41 +42,41 @@
                     <a class="brand" href="@{Application.index()}"><img src="@{'/public/images/mixit.png'}" style="width:50px"/></a>
                     <ul class="nav">
                         #{if session.username}
-                        <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">Dashboard</a></li>
+                        <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
                         #{/if}
-                        <li #{if request.controller=="Articles"}class="active"#{/if}><a href="@{Articles.index()}">Actualités</a></li>
+                        <li #{if request.controller=="Articles"}class="active"#{/if}><a href="@{Articles.index()}">&{'menu.news'}</a></li>
                             <li class="dropdown" data-dropdown="dropdown">
-                                <a href="@{Application.members()}" class="dropdown-toggle">Programme</a>
+                                <a href="@{Application.members()}" class="dropdown-toggle">&{'menu.agenda'}</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="@{Sessions.index()}">Sessions</a></li>
-                                    <li><a href="@{LightningTalks.list()}">Lightning talks</a></li>
+                                    <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
+                                    <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
                                 #{if session.username}
-                                    <li><a href="@{Sessions.create(session.username)}">Proposer une session</a></li>
+                                    <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                                 #{/if}
                                     <!--<li><a href="@{Plannings.index()}">Agenda</a></li>-->
                                 </ul>
                             </li>
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a href="#" class="dropdown-toggle">Participants</a>
+                            <a href="#" class="dropdown-toggle">&{'menu.members'}</a>
                             <ul class="dropdown-menu">
-                                <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">Les speakers</a></li>
+                                <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">&{'menu.members.speakers'}</a></li>
                                 #{if session.username}
-                                <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">Tous les participants</a></li>
+                                <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">&{'menu.members.all'}</a></li>
                                 #{/if}
-                                <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">Les membres du staff</a></li>
-                                <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">Les sponsors</a></li>
+                                <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">&{'menu.members.staff'}</a></li>
+                                <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
                             </ul>
                         </li>
                         
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a href="#" class="dropdown-toggle">Infos Pratiques</a>
+                            <a href="#" class="dropdown-toggle">&{'menu.infos'}</a>
                             <ul class="dropdown-menu">
-                                <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">A propos de Mix-IT</a></li>
-                                <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">FAQ</a></li>
-                                <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">Kit Multimedia</a></li>
-                                <li #{if request.action=="Infos.contact"}class="active"#{/if}><a href="@{Infos.contact()}">Contact</a></li>
-                                <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">Accès</a></li>
-                                <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a href="@{Infos.hotels()}">Hôtels</a></li>
+                                <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">&{'menu.infos.about'}</a></li>
+                                <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">&{'menu.infos.faq'}</a></li>
+                                <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">&{'menu.infos.kit'}</a></li>
+                                <li #{if request.action=="Infos.contact"}class="active"#{/if}><a href="@{Infos.contact()}">&{'menu.infos.contact'}</a></li>
+                                <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">&{'menu.infos.access'}</a></li>
+                                <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a href="@{Infos.hotels()}">&{'menu.infos.hotels'}</a></li>
                             </ul>
                         </li>
                         
@@ -97,21 +97,21 @@
                         <li class="dropdown" data-dropdown="dropdown">
                             <a href="#" class="dropdown-toggle">#{member models.Member.findByLogin(session.username), static:true /}</a>
                             <ul class="dropdown-menu">
-                                <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">Mon dashboard</a></li>
-                                <li><a href="@{Profile.show(session.username)}">Voir mon profil</a></li>
-                                <li><a href="@{Profile.edit()}">Editer mon profil</a></li>
+                                <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.login.dashboard'}</a></li>
+                                <li><a href="@{Profile.show(session.username)}">&{'menu.login.profile'}</a></li>
+                                <li><a href="@{Profile.edit()}">&{'menu.login.edit'}</a></li>
                                 <li class="divider"></li>
-                                <li><a href="@{Secure.logout()}">Se deconnecter</a></li>
+                                <li><a href="@{Secure.logout()}">&{'menu.login.logout'}</a></li>
                             </ul>
                         </li>
                         #{/if}
                         #{else}
-                        <li><a href="@{Login.index(request.url)}">Se connecter</a></li>
+                        <li><a href="@{Login.index(request.url)}">&{'menu.login'}</a></li>
                         #{/else}
                     </ul>
                     <form action="@{Application.search}" method="GET" class="pull-right">
                         #{field 'query'}
-                        <input type="search" style="width: auto" id="${field.id}" name="${field.name}" placeholder="Rechercher" value="${params.query}" />
+                        <input type="search" style="width: auto" id="${field.id}" name="${field.name}" placeholder="&{'menu.search'}" value="${params.query}" />
                         #{/field}
                     </form> 
                 </div>

@@ -2,6 +2,33 @@
 # For example, for English create a messages.en file
 #
 
+# Menu bar
+menu.dashboard=Dashboard
+menu.news=Actualités
+menu.agenda=Programme
+menu.agenda.sessions=Sessions
+menu.agenda.lightningtalks=Lightning talks
+menu.agenda.submit=Proposer une session
+menu.members=Participants
+menu.members.speakers=Les speakers
+menu.members.all=Tous les participants
+menu.members.staff=Les membres du staff
+menu.members.sponsors=Les sponsors
+menu.infos=Infos Pratiques
+menu.infos.about=A propos de Mix-IT
+menu.infos.faq=FAQ
+menu.infos.kit=Kit Multimédia
+menu.infos.contact=Contact
+menu.infos.access=Accès à la conférence
+menu.infos.hotels=Hôtels à proximité
+menu.admin=Admin
+menu.search=Rechercher
+menu.login=Se connecter
+menu.login.dashboard=Mon dashboard
+menu.login.profile=Voir mon profil
+menu.login.edit=Editer mon profil
+menu.login.logout=Se déconnecter
+
 # Member fields
 
 # FIXME conflict with (Member.)description and (Session.)description : needs a deep refactoring
