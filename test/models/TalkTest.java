@@ -12,6 +12,14 @@ public class TalkTest extends BaseDataUnitTest {
     private Member createMember(String login) {
         return new Member(login).save();
     }
+
+    private Talk createTalk(Member... speakers) {
+        Talk t = new Talk();
+        for (Member s : speakers) {
+            t.addSpeaker(s);
+        }
+        return t.save();
+    }
     
     @Test public void recents() {
         assertNotNull(Talk.recents(1, 10));
@@ -24,10 +32,7 @@ public class TalkTest extends BaseDataUnitTest {
         final Member speaker2 = createMember("speaker2");
         
         // add new invalid talk
-        Talk t = new Talk();
-        t.addSpeaker(speaker1);
-        t.addSpeaker(speaker2);
-        t.save();
+        Talk t = createTalk(speaker1, speaker2);
         
         assertEquals(initialNbSpeakers, Talk.countSpeakers());
         
@@ -43,9 +48,7 @@ public class TalkTest extends BaseDataUnitTest {
         final Member speaker = createMember("speaker");
         
         // add new invalid talk
-        Talk t = new Talk();
-        t.addSpeaker(speaker);
-        t.save();
+        Talk t = createTalk(speaker);
         
         assertFalse(Talk.findAllSpeakers().contains(speaker));
         
@@ -54,36 +57,12 @@ public class TalkTest extends BaseDataUnitTest {
         
         assertTrue(Talk.findAllSpeakers().contains(speaker));
     }
-
-    @Test public void countTalksByMember() {
-        final Member speaker = createMember("speaker");
-        assertEquals(0, Talk.countTalksByMember(speaker));
-
-        // add 2 new invalid talks
-        Talk t1 = new Talk();
-        t1.addSpeaker(speaker);
-        t1.save();
-        Talk t2 = new Talk();
-        t2.addSpeaker(speaker);
-        t2.save();
-        
-        assertEquals(0, Talk.countTalksByMember(speaker));
-        
-        // Validate talks
-        t1.valid = true;
-        t1.validate();
-        t2.valid = true;
-        t2.validate();
-        
-        assertEquals(2, Talk.countTalksByMember(speaker));
-    }
     
     @Test public void findAllValidated() {
         final long initialCount = Talk.findAllValidated().size();
 
         // add new invalid talk
-        Talk t = new Talk();
-        t.save();
+        Talk t = createTalk();
         
         assertEquals(initialCount, Talk.findAllValidated().size());
         
@@ -93,4 +72,30 @@ public class TalkTest extends BaseDataUnitTest {
         assertEquals(initialCount+1, Talk.findAllValidated().size());
         assertTrue(Talk.findAllValidated().contains(t));
     }
+    
+    @Test public void getShowUrl() {
+        final Talk t = createTalk();
+        assertNotNull(t.getShowUrl());
+    }
+        
+    @Test public void lookBy() {
+        final Talk talk = new Talk();
+        assertEquals(0, talk.getNbLooks());
+        
+        // Any look is not counted if session not valid
+        talk.valid = false;
+        talk.lookedBy(null);
+        assertEquals(0, talk.getNbLooks());
+
+        talk.valid = true;
+        talk.lookedBy(null);
+        assertEquals(1, talk.getNbLooks());
+        talk.lookedBy(null);
+        assertEquals(2, talk.getNbLooks());
+
+        talk.valid = false;
+        talk.lookedBy(null);
+        assertEquals(2, talk.getNbLooks());
+    }
+
 }

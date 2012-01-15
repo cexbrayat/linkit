@@ -78,12 +78,13 @@ public class Sessions extends PageController {
         if (interests != null) {
             talk.updateInterests(interests);
         }
-        if (Validation.hasErrors()) {
-            Logger.error(Validation.errors().toString());
-            render("Sessions/edit.html", talk);
-        }
         if (newInterests != null) {
             talk.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
+        }
+        if (Validation.hasErrors()) {
+            Logger.error(Validation.errors().toString());
+            flash.error("Des erreurs sont à corriger dans ta saisie mon ami!");
+            render("Sessions/edit.html", talk);
         }
         talk.update();
         flash.success("Session " + talk + " enregistrée");

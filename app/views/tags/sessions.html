@@ -19,7 +19,7 @@
         </thead> 
         <tbody>        
             #{list items:_sessions, as:'talk'}
-            <tr class="talk ${talk.valid?'active':'inactive'}">
+            <tr class="talk">
                 <td>#{session talk /}</td>
                 <td>
                     #{list items:talk.speakers, as:'speaker'}

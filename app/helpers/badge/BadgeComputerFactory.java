@@ -19,6 +19,8 @@ public class BadgeComputerFactory {
         BadgeComputer commentator = new CommentatorBadgeComputer();
         BadgeComputer social = new SocialBadgeComputer();
         BadgeComputer usage = new UsageBadgeComputer();
+        BadgeComputer speaker = new SpeakerBadgeComputer();
+        BadgeComputer vote = new VoteBadgeComputer();
         COMPUTERS.put(Badge.StaffBestFriend, friend);
         COMPUTERS.put(Badge.SpeakerFan, friend);
         COMPUTERS.put(Badge.SponsorFriendly, friend);
@@ -36,7 +38,10 @@ public class BadgeComputerFactory {
         COMPUTERS.put(Badge.TwoDaysInARow, usage);
         COMPUTERS.put(Badge.FiveDaysInARow, usage);
         COMPUTERS.put(Badge.MixITAddict, usage);
-        COMPUTERS.put(Badge.Speaker, new SpeakerBadgeComputer());
+        COMPUTERS.put(Badge.Speaker, speaker);
+        COMPUTERS.put(Badge.SpeakerPadawan, speaker);
+        COMPUTERS.put(Badge.Supporter, vote);
+        COMPUTERS.put(Badge.Enlightened, vote);
     }
     
     /**

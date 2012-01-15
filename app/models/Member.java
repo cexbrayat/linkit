@@ -569,6 +569,10 @@ public class Member extends Model implements Lookable {
         return Iterables.any(sessions, VALIDATED_TALK);
     }
     
+    public boolean isLightningTalkSpeaker() {
+        return Iterables.any(sessions, LIGHTNING_TALK);
+    }
+    
     public Set<Session> getValidatedTalks() {
         return Sets.filter(sessions, VALIDATED_TALK);
     }
