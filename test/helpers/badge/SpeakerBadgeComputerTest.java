@@ -1,13 +1,9 @@
 package helpers.badge;
 
 import java.util.EnumSet;
-import java.util.Set;
-import models.Article;
-import models.ArticleComment;
 import models.Badge;
-import models.SessionComment;
+import models.LightningTalk;
 import models.Member;
-import models.Session;
 import models.Talk;
 import org.junit.Test;
 
@@ -29,6 +25,14 @@ public class SpeakerBadgeComputerTest extends AbstractBadgeComputerTest {
         return t.save();
     }
 
+    private LightningTalk createLT(Member... speakers) {
+        LightningTalk lt = new LightningTalk();
+        for (Member s : speakers) {
+            lt.addSpeaker(s);
+        }
+        return lt.save();
+    }
+
     @Test
     public void grantedSpeaker() {
         // Member become speaker of a validated talk
@@ -36,5 +40,12 @@ public class SpeakerBadgeComputerTest extends AbstractBadgeComputerTest {
         assertEquals(EnumSet.noneOf(Badge.class), computer.compute(member, new BadgeComputationContext()));
         t.validate();
         assertEquals(EnumSet.of(Badge.Speaker), computer.compute(member, new BadgeComputationContext()));
+    }
+
+    @Test
+    public void grantedSpeakerPadawan() {
+        // Member become speaker of a LT
+        final LightningTalk lt = createLT(member);
+        assertEquals(EnumSet.of(Badge.SpeakerPadawan), computer.compute(member, new BadgeComputationContext()));
     }
 }

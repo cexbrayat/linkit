@@ -10,7 +10,6 @@ import models.ProviderType;
 import models.Session;
 import models.Talk;
 import play.i18n.Messages;
-import play.mvc.Router;
 
 /**
  * An "update session" activity : a publicly visible session ({@link Activity#session}), i.e any {@link LightningTalk} or a valid {@link Talk}, has been updated.
@@ -22,8 +21,6 @@ public class UpdateSessionActivity extends Activity {
     public UpdateSessionActivity(Session session) {
         super(ProviderType.LinkIt);
         this.session = session;
-        // Useless badge computation
-        this.badgeComputationDone = true;
     }
 
     @Override
@@ -38,6 +35,8 @@ public class UpdateSessionActivity extends Activity {
 
     @Override
     protected void computedBadgesForConcernedMembers(BadgeComputationContext context) {
-        // No badge computation
+        for (Member speaker : session.speakers) {
+            speaker.computeBadges(EnumSet.of(Badge.Speaker, Badge.SpeakerFan), context);
+        }
     }
 }

@@ -25,6 +25,8 @@ public enum Badge {
     Brave,
     /** Having made 10 comments */
     Troller,
+    /** Having submitted a Lightning-Talk */
+    SpeakerPadawan,
     /** Having linked 1 member */
     NewBorn,
     /** Having linked 10 members */
