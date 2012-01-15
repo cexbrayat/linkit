@@ -21,6 +21,10 @@ public enum Badge {
     SpeakerFan,
     /** A friend of all sponsor members */
     SponsorFriendly,
+    /** Having voted for one Lightning Talk */
+    Supporter,
+    /** Having voted for ten Lightning Talks */
+    Enlightened,
     /** Having made one comment */
     Brave,
     /** Having made 10 comments */

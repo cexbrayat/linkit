@@ -1,11 +1,13 @@
 package models;
 
 import play.data.validation.Required;
+import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
 import java.util.List;
 import javax.persistence.ManyToOne;
+import models.activity.NewVoteActivity;
 
 /**
  * @author Julien Ripault <tluapir@gmail.com>
@@ -31,19 +33,24 @@ public class Vote extends Model {
         this.value = value;
     }
 
-    public static List<Vote> findVotesBySession(LightningTalk session) {
-        return Vote.find("select v from Vote where session = ? and value is true", session).fetch();
-    }
-
     public static long findNumberOfVotesBySession(LightningTalk session) {
         return Vote.count("session = ? and value is true", session);
     }
 
-    public static List<Vote> findVotesByMember(Member member) {
-        return Vote.find("select v from Vote where member = ?", member).fetch();
+    public static long countVotesByMember(Member member) {
+        return find("select count(v) from Vote v where v.member = :member").bind("member", member).first();
     }
 
     public static Vote findVote(LightningTalk session, Member member) {
         return Vote.find("select v from Vote v where v.member = :member and v.session = :session").bind("member", member).bind("session", session).first();
+    }
+
+    @Override
+    public Vote save() {
+        Vote v = super.save();
+        if (value) {
+            new NewVoteActivity(member, session).save();
+        }
+        return v;
     }
 }

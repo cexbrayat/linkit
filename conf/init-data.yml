@@ -967,8 +967,11 @@ Member(mrbadges) :
          - StaffBestFriend
          - SpeakerFan
          - SponsorFriendly
+         - Supporter
+         - Enlightened,
          - Brave
          - Troller
+         - SpeakerPadawan
          - NewBorn
          - Friendly
          - SocialBeast

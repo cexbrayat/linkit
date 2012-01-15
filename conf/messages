@@ -79,6 +79,7 @@ LookSessionActivity.message=%1$s a consulté la session "%2$s"
 LookProfileActivity.message=%1$s a consulté le profil de %2$s
 LookArticleActivity.message=%1$s a consulté l'article "%2$s"
 SharedLinkActivity.message=%1$s a partagé le lien "%2$s"
+NewVoteActivity.message=%1$s a voté pour le Lightning Talk "%2$s"
 
 # Providers
 provider.LinkIt=Link-IT
@@ -93,6 +94,8 @@ badge.Attendee=Participant (Membre inscrit pour la conférence)
 badge.StaffBestFriend=Staff best friend (vous avez linké tous les membres du staff)
 badge.SpeakerFan=Speaker fan (vous avez linké tous les speakers)
 badge.SponsorFriendly=Sponsor friendly (vous avez linké tous les sponsors)
+badge.Supporter=Supporter (vous avez voté pour un Lightning Talk)
+badge.Enlightened=Enlightened (vous avez voté pour dix Lightning Talks)
 badge.Brave=Brave (vous avez posté au moins un commentaire)
 badge.Troller=Troller (vous avez posté au moins dix commentaires)
 badge.SpeakerPadawan=Speaker Padawan (vous avez proposé un Lightning Talk)
