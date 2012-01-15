@@ -14,7 +14,7 @@
             #{if article.comments}
               <br/><a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
             #{/if}
-            <br/> #{socialbar/}
+            <br/>#{socialbar/}
 
             #{secure.check models.Role.ADMIN_ARTICLE}
             <p>
@@ -23,6 +23,11 @@
             #{/secure.check} 
         </div>
     </div>
+        
+        <p>
+            #{if following} >>> <a href="@{Articles.show(following.id)}">Article suivant : ${following.title}</a><br/> #{/if}
+            #{if previous} <<< <a href="@{Articles.show(previous.id)}">Article précédent : ${previous.title}</a> #{/if}
+        </p>
 
         <blockquote class="article content">
             ${article.content.markdown().raw()}
