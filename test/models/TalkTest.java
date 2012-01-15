@@ -57,25 +57,6 @@ public class TalkTest extends BaseDataUnitTest {
         
         assertTrue(Talk.findAllSpeakers().contains(speaker));
     }
-
-    @Test public void countTalksByMember() {
-        final Member speaker = createMember("speaker");
-        assertEquals(0, Talk.countTalksByMember(speaker));
-
-        // add 2 new invalid talks
-        Talk t1 = createTalk(speaker);
-        Talk t2 = createTalk(speaker);
-        
-        assertEquals(0, Talk.countTalksByMember(speaker));
-        
-        // Validate talks
-        t1.valid = true;
-        t1.validate();
-        t2.valid = true;
-        t2.validate();
-        
-        assertEquals(2, Talk.countTalksByMember(speaker));
-    }
     
     @Test public void findAllValidated() {
         final long initialCount = Talk.findAllValidated().size();
