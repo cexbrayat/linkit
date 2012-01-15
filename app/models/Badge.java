@@ -8,7 +8,7 @@ package models;
 public enum Badge {
 
     /** A speaker member */
-    Speaker('\u2655'),
+    Speaker,
     /** A staff member */
     Staff,
     /** A sponsor member */
