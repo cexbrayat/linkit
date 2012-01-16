@@ -41,6 +41,10 @@ public class Vote extends Model {
         return find("select count(v) from Vote v where v.member = :member").bind("member", member).first();
     }
 
+    public static long deleteForMember(Member member) {
+        return delete("delete Vote v where v.member = ?1", member);
+    }
+
     public static Vote findVote(LightningTalk session, Member member) {
         return Vote.find("select v from Vote v where v.member = :member and v.session = :session").bind("member", member).bind("session", session).first();
     }

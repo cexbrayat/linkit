@@ -141,14 +141,6 @@ public class Profile extends PageController {
         render(member);
     }
 
-    public static void delete() throws Throwable {
-        Member member = Member.findByLogin(Security.connected());
-        member.delete();
-        Logger.info("Deleted profile %s", member);
-        flash.success("Votre compte a été supprimé");
-        Secure.logout();
-    }
-
     public static void link(String login, String loginToLink) {
         if (login == null || login.isEmpty()) {
             redirect("/secure/login");
