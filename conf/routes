@@ -37,7 +37,6 @@ GET     /activities/{login}/{providers}         Activities.of
 POST    /profile/save/{originalLogin}           Profile.save
 GET     /profile/edit                           Profile.edit
 GET     /profile/register/{login}               Profile.register
-GET     /profile/delete                         Profile.delete
 GET     /profile/link                           Profile.link
 GET     /profile/unlink                         Profile.unlink
 GET     /profile/{login}                        Profile.show
@@ -45,6 +44,7 @@ GET     /profile/{login}                        Profile.show
 # Dashboard
 GET     /dashboard                              Dashboard.index
 GET     /dashboard/link                         Dashboard.link
+GET     /dashboard/delete                       Dashboard.delete
 
 # Sessions
 GET     /sessions                               Sessions.index

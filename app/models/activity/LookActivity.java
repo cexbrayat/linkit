@@ -17,6 +17,7 @@ public abstract class LookActivity extends Activity {
     protected LookActivity(Member member) {
         super(ProviderType.LinkIt);
         this.member = member;
+        this.important = false;
     }
 
     @Override

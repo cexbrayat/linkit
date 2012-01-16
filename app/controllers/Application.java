@@ -31,13 +31,13 @@ public class Application extends PageController {
 
     public static void members() {
         List<Member> members = Member.findAll();
-        Logger.info(members.size() + " membres");
+        Logger.debug(members.size() + " membres");
         render("Application/list.html", members);
     }
 
     public static void staff() {
         List<Staff> members = Staff.findAll();
-        Logger.info(members.size() + " membres du staff");
+        Logger.debug(members.size() + " membres du staff");
         render("Application/list.html", members);
     }
 
@@ -49,15 +49,15 @@ public class Application extends PageController {
 
     public static void sponsors() {
         List<Sponsor> members = Sponsor.findAll();
-        Logger.info(members.size() + " sponsors");
+        Logger.debug(members.size() + " sponsors");
         render("Application/list.html", members);
     }
 
     public static void searchByInterest(String interest) {
         List<Member> members = Member.findMembersInterestedIn(interest);
-        Logger.info(Member.count() + " membres interested by " + interest);
+        Logger.debug(Member.count() + " membres interested by " + interest);
         List<Session> sessions = Session.findSessionsLinkedWith(interest);
-        Logger.info(Session.count() + " session linked with " + interest);
+        Logger.debug(Session.count() + " session linked with " + interest);
         String query = interest;
         render("Application/search.html", members, sessions, query);
     }
