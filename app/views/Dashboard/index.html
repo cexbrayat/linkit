@@ -116,9 +116,9 @@
                     <br/>
                     <br/>
                     <div class="span6">
-                        <div id="activities" style="max-height: 400px"></div>
+                        <p id="activities" style="max-height: 400px"></p>
                     </div>
-                    <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
+                    <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>
                     <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
 
                     <script type="text/javascript">
@@ -129,7 +129,7 @@
                         var spinner = $('#activitiesSpinner');
                         var btnMoreActivities = $('#moreActivities');
 
-                        function loadMoreActivities() {
+                        function loadMoreActivities(autoscroll) {
                             if (providers.length > 0) {
                                 btnMoreActivities.addClass('disabled');
                                 spinner.css("visibility", "visible");
@@ -143,6 +143,9 @@
                                     }
                                     spinner.css("visibility", "hidden");
                                     btnMoreActivities.removeClass('disabled');
+                                    if (autoscroll) {
+                                        $("#activities").animate({ scrollTop: $("#activities").attr("scrollHeight") - $('#activities').height() }, 1000);
+                                    }
                                 });
                             }
                         }
@@ -160,11 +163,11 @@
                             page = 1;
                             size = 5;
                             console.log(providers);
-                            loadMoreActivities();
+                            loadMoreActivities(false);
                         };
 
                         // Initial loading : first page
-                        loadMoreActivities();
+                        loadMoreActivities(false);
                     </script>
                 </div>
             </div>
