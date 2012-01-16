@@ -134,12 +134,12 @@ public class SuggestionTest extends BaseDataUnitTest {
         Member member = createMember("toto");
         member.addBadge(Badge.Brave);
         member.addBadge(Badge.FiveDaysInARow);
-        assertEquals(EnumSet.complementOf(EnumSet.of(Badge.Brave, Badge.FiveDaysInARow)), Suggestion.missingBadgesFor(member));
+        assertEquals(EnumSet.complementOf(EnumSet.of(Badge.Brave, Badge.FiveDaysInARow, Badge.Sponsor, Badge.Staff)), Suggestion.missingBadgesFor(member));
     }
     
     @Test
     public void missingBadgesForMemberWithNoBadge() {
         Member member = createMember("toto");
-        assertEquals(EnumSet.allOf(Badge.class), Suggestion.missingBadgesFor(member));
+        assertEquals(Badge.EarnableBadges, Suggestion.missingBadgesFor(member));
     }
 }
