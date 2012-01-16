@@ -1,5 +1,10 @@
 package models;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Sets;
+import java.util.EnumSet;
+import java.util.Set;
+
 /**
  * A badge rewarding some kind of awesome activity on LinkIT.
  * Every badge MUST be displayable with an icon, either with an image file URL {@link Badge#iconUrl} OR with an Unicode character {@link Badge#iconChar}.
@@ -10,9 +15,9 @@ public enum Badge {
     /** A speaker member */
     Speaker,
     /** A staff member */
-    Staff,
+    Staff(false),
     /** A sponsor member */
-    Sponsor,
+    Sponsor(false),
     /** A registered attendee */
     Attendee,
     /** A friend of all staff members */
@@ -79,11 +84,24 @@ public enum Badge {
      */
     private Character iconChar;
     
+    /** True if this badge can be earn by some action */
+    private boolean earnable = true;
+    
+    public static final Set<Badge> EarnableBadges = Sets.filter(EnumSet.allOf(Badge.class), new Predicate<Badge>() {
+        public boolean apply(Badge t) {
+            return t.earnable;
+        }
+    });
+    
     /**
      * Use enum.name()+".png" as default filename
      */
     Badge() {
         this.iconUrl = BASE_URL + name().toLowerCase() + DEFAULT_IMAGE_EXT;
+    }
+    
+    Badge(boolean earnable) {
+        this.earnable = earnable;
     }
     
     /**

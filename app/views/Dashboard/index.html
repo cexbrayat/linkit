@@ -1,22 +1,35 @@
 #{extends 'main.html' /}
 #{set title:'Mon dashboard' /}
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+#{/set}
 
     <div class="hero-unit">
-        <h2>Mon dashboard</h2>
         <div class="row">
-            <div class="span6">
-                <!-- profil -->
-                #{if member.email}
-                #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
+            <div class="span8">
+                <h2>Mon dashboard</h2>
+                <div class="row">
+                    <div class="span2">
+                        #{if member.email}
+                        #{gravatar.img member.email, size:100, default:'mm', rating:'pg', secure:true/}
+                        #{/if}
+                   </div>
+                    <div class="span6">
+                        <div class="alert-message block-message info">
+                            Profil consulté ${member.getNbLooks()} fois.
+
+                            <div class='alert-actions'>
+                                <a href="@{Profile.show(session.username)}" class="btn small">Voir mon profil</a>
+                                <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
+                                <a href="@{Profile.delete()}"class="btn small danger" >Supprimer mon compte</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                #{if suggestedBadges}
+                    <h5>Il vous manque <a href="@{badges()}" title="badges manquants">${suggestedBadges.size()} badges</a>.</h5>
                 #{/if}
-
-                <p>Votre profil a été consulté ${member.getNbLooks()} fois.</p>
-
-                <p>
-                    <a href="@{Profile.show(session.username)}" class="btn small">Voir mon profil</a>
-                    <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
-                    <a href="@{Sessions.create(session.username)}" class="btn small">Proposer une session</a>
-                </p>
 
                 #{if member.getProposedTalks()}
                     <h5>Mes propositions de sessions :</h5>
@@ -66,46 +79,60 @@
                     #{/list}
                     </ul>
                 #{/if}
+                
+                <div class="row">
+                    #{if member.links}
+                        <div class="span4">
+                            <h4>Vous êtes lié à :</h4>
+                            #{list items:member.links, as:'link'}
+                               #{member link, short:true /}
+                            #{/list}
+                        </div>
+                    #{/if}
+                    #{if member.linkers}
+                        <div class="span4">
+                            <h4>Ils vous ont lié :</h4>
+                            #{list items:member.linkers, as:'link'}
+                               #{member link, short:true /}
+                            #{/list}
+                        </div>
+                    #{/if}
+                </div>
 
-                #{if member.links}
-                    <h3>Vous êtes lié à :</h3>
-                    #{list items:member.links, as:'link'}
-                       #{member link, short:true /}
-                    #{/list}
-                #{/if}
-                #{if member.linkers}
-                    <h3>Ils vous ont lié :</h3>
-                    #{list items:member.linkers, as:'link'}
-                       #{member link, short:true /}
-                    #{/list}
-                #{/if}
-                #{if suggestedMembers}
-                    <h3>Suggestions de liens :</h3>
-                    <ul>
-                    #{list suggestedMembers, as:'suggest'}
-                        <li>
-                            <a class="btn primary small" title="Link" href="@{link(suggest.login)}">Link</a>
-                            <a href="@{Profile.show(suggest.login)}" title="${suggest}">#{member suggest /}</a>
-                        </li>
-                    #{/list}
+                <br/>
+                <div class="row">
+                    <ul class="tabs" data-tabs="tabs">
+                    #{if suggestedMembers}
+                        <li class="active"><a href="#tabSuggestedMembers">Suggestions de liens</a></li>
+                    #{/if}
+                    #{if suggestedSessions}
+                        <li><a href="#tabSuggestedSessions">Suggestions de sessions</a></li>
+                    #{/if}
                     </ul>
-                #{/if}
-                #{if suggestedSessions}
-                    <h3>Suggestions de sessions :</h3>
-                    <ul>
-                    #{list suggestedSessions, as:'suggest'}
-                        <li>#{session suggest /}</li>
-                    #{/list}
-                    </ul>
-                #{/if}
-                #{if suggestedBadges}
-                    <h3>Les badges qu'il vous manque :</h3>
-                    #{badges suggestedBadges /}
-                #{/if}
+                    <div id="tab-content" class="tab-content">
+                    #{if suggestedMembers}
+                        <div class="tab-pane active" id="tabSuggestedMembers">
+                            #{list suggestedMembers, as:'suggest'}
+                                <a class="btn primary small" title="Link" href="@{link(suggest.login)}">Link</a>
+                                <a href="@{Profile.show(suggest.login)}" title="${suggest}">#{member suggest /}</a>
+                                <br/>
+                            #{/list}
+                        </div>
+                    #{/if}
+                    #{if suggestedSessions}
+                        <div class="tab-pane" id="tabSuggestedSessions">
+                            #{list suggestedSessions, as:'suggest'}
+                                #{session suggest /}<br/>
+                            #{/list}
+                        </div>
+                    #{/if}
+                    </div>
+                </div>
+
             </div>
 
             <div class="span6" > <!-- timeline -->
-                <h3>Activités de vos links</h3>
+                <h2>Activités de vos links</h2>
                 <div class="row">
                     <div class="span6">
                         <a class="service-button linkit" id="LinkIt" onClick="handleProvider('LinkIt')"></a>
@@ -116,10 +143,10 @@
                     <br/>
                     <br/>
                     <div class="span6">
-                        <div id="activities" style="max-height: 400px"></div>
+                        <p id="activities" style="max-height: 400px"></p>
+                        <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>
+                        <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
                     </div>
-                    <a id="moreActivities" href="#activities" class="btn small" onclick="loadMoreActivities()">&{'activities.more'}</a>
-                    <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
 
                     <script type="text/javascript">
                         var providers = ['${models.ProviderType.values().join("','")}'];
@@ -129,7 +156,7 @@
                         var spinner = $('#activitiesSpinner');
                         var btnMoreActivities = $('#moreActivities');
 
-                        function loadMoreActivities() {
+                        function loadMoreActivities(autoscroll) {
                             if (providers.length > 0) {
                                 btnMoreActivities.addClass('disabled');
                                 spinner.css("visibility", "visible");
@@ -143,6 +170,9 @@
                                     }
                                     spinner.css("visibility", "hidden");
                                     btnMoreActivities.removeClass('disabled');
+                                    if (autoscroll) {
+                                        $("#activities").animate({ scrollTop: $("#activities").attr("scrollHeight") - $('#activities').height() }, 1000);
+                                    }
                                 });
                             }
                         }
@@ -160,11 +190,11 @@
                             page = 1;
                             size = 5;
                             console.log(providers);
-                            loadMoreActivities();
+                            loadMoreActivities(false);
                         };
 
                         // Initial loading : first page
-                        loadMoreActivities();
+                        loadMoreActivities(false);
                     </script>
                 </div>
             </div>
