@@ -76,6 +76,9 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     @Index(name = AT + "_idx")
     public Date at;
     
+    /** True if activity is important, and should be displayed in general feed */
+    public boolean important = true;
+    
     /** True if badge computation has been done for this activity (or if it is pointless). */
     public boolean badgeComputationDone = false;
 
@@ -89,7 +92,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     }
 
     public static List<Activity> recents(int page, int length) {
-        return Activity.find("provider=? order by at desc", ProviderType.LinkIt).fetch(page, length);
+        return Activity.find("provider=? and important=true order by at desc", ProviderType.LinkIt).fetch(page, length);
     }
 
     /**
@@ -201,7 +204,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return Activity.find("select a.id from Activity a where a.badgeComputationDone=false").fetch();
     }
 
-    // CLA 14/12/2011 : inherits Play! findById generates "org.hibernate.PropertyAccessException", wich seems related to far more eager fetching.
+    // CLA 14/12/2011 : inherits Play! findById generates "org.hibernate.PropertyAccessException", which seems related to far more eager fetching.
     public static <T extends Activity> T findById(Long id) {
         return find("id=?", id).first();
     }
