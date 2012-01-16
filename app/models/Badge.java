@@ -101,6 +101,7 @@ public enum Badge {
     }
     
     Badge(boolean earnable) {
+        this();
         this.earnable = earnable;
     }
     

@@ -14,6 +14,7 @@ import play.cache.Cache;
 import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.data.validation.Validation;
+import play.i18n.Messages;
 import play.libs.Images;
 
 public class Sessions extends PageController {
@@ -83,7 +84,7 @@ public class Sessions extends PageController {
         }
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
-            flash.error("Des erreurs sont à corriger dans ta saisie mon ami!");
+            flash.error(Messages.get("validation.errors"));
             render("Sessions/edit.html", talk);
         }
         talk.update();

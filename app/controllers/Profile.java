@@ -11,6 +11,7 @@ import play.data.validation.Email;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.data.validation.Validation.ValidationResult;
+import play.i18n.Messages;
 
 public class Profile extends PageController {
 
@@ -115,7 +116,7 @@ public class Profile extends PageController {
 
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
-            flash.error("Quelques erreurs doivent être corrigées dans ta saisie mon ami!");
+            flash.error(Messages.get("validation.errors"));
             render("Profile/edit.html", member, originalLogin, newInterests, sharedLinks);
         }
 
