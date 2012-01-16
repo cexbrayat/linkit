@@ -219,30 +219,44 @@ public class MemberTest extends BaseDataUnitTest {
         Member member = createMember("member");
         // Some accounts
         member.addAccount(new GoogleAccount("1234"));
-        member.addAccount(new TwitterAccount("@member"));
-        member.preregister(new LinkItAccount("password"));
-        member.preregister(new GoogleOAuthAccount("token", "secret"));
-        member.preregister(new TwitterOAuthAccount("token", "secret"));
-        member.register();
+        member.addAccount(new TwitterAccount("member"));
+        member.authenticate(new LinkItAccount("password"));
+        member.authenticate(new GoogleOAuthAccount("token", "secret"));
+        member.authenticate(new TwitterOAuthAccount("token", "secret"));
         // Some shared links
         member.addSharedLink(new SharedLink("Google", "http://www.google.com"));
         member.addSharedLink(new SharedLink("Yahoo", "http://www.yahoo.fr"));
         // Add some activities
         member.updateProfile();
-        Member other = createMember("other");
+        Member other1 = createMember("other1");
+        Member other2 = createMember("other2");
         // Add links
-        member.addLink(other);
-        other.addLink(member);
+        member.addLink(other1);
+        member.addLink(other2);
+        other1.addLink(member);
+        other2.addLink(member);
         member.save();
-        other.save();
+        other1.save();
+        other2.save();
         // Some comments
         final Session session = Session.all().first();
         session.addComment(new SessionComment(member, session, "commentaire"));
         final Article article = Article.all().first();
         article.addComment(new ArticleComment(member, article, "commentaire"));
+        // Speaker on LT
+        LightningTalk lt = new LightningTalk();
+        lt.addSpeaker(member);
+        lt.addSpeaker(other1);
+        lt.save();
+        // Speaker on session
+        Talk t = new Talk();
+        t.addSpeaker(member);
+        t.save();
         
         assertNotNull(member.delete());
-        assertSame(other, Member.findById(other.id));
+        assertNull(Member.findById(member.id));
+        assertSame(other1, Member.findById(other1.id));
+        assertSame(other2, Member.findById(other2.id));
     }
     
     private static SharedLink createSharedLink(String name) {

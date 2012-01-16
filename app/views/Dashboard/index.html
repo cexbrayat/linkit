@@ -16,12 +16,11 @@
                    </div>
                     <div class="span6">
                         <div class="alert-message block-message info">
-                            Profil consulté ${member.getNbLooks()} fois.
+                            <a href="@{Profile.show(session.username)}" title="Voir mon profil">Profil</a> consulté ${member.getNbLooks()} fois.
 
                             <div class='alert-actions'>
-                                <a href="@{Profile.show(session.username)}" class="btn small">Voir mon profil</a>
-                                <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
-                                <a href="@{Profile.delete()}"class="btn small danger" >Supprimer mon compte</a>
+                                <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a><br/>
+                                <a href="@{Dashboard.delete()}"class="btn small danger" >Supprimer mon compte</a>
                             </div>
                         </div>
                     </div>
