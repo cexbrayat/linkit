@@ -13,9 +13,7 @@ import models.Suggestion;
 public class Dashboard extends PageController {
 
     public static void index() {
-// FIXME CLA Not using fetchForProfile
-//        Member member = Member.fetchForProfile(Security.connected());
-        Member member = Member.findByLogin(Security.connected());
+        Member member = Member.fetchForProfile(Security.connected());
 
         Set<Member> suggestedMembers = Suggestion.suggestedMembersFor(member);
         Set<Session> suggestedSessions = Suggestion.suggestedSessionsFor(member);
@@ -28,6 +26,12 @@ public class Dashboard extends PageController {
         List<Comment> comments = Comment.recentsByMember(member, 5);
 
         render(member, suggestedMembers, suggestedSessions, suggestedBadges, articles, comments);
+    }
+    
+    public static void badges() {
+        Member member = Member.findByLogin(Security.connected());
+        Set<Badge> suggestedBadges = Suggestion.missingBadgesFor(member);
+        render(member, suggestedBadges);
     }
 
     public static void link(String loginToLink) {
