@@ -144,9 +144,9 @@
                     <br/>
                     <div class="span6">
                         <p id="activities" style="max-height: 400px"></p>
+                        <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>
+                        <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
                     </div>
-                    <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>
-                    <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
 
                     <script type="text/javascript">
                         var providers = ['${models.ProviderType.values().join("','")}'];
