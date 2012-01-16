@@ -17,7 +17,8 @@ Member(bob):
 models.auth.LinkItAccount(bobAccount):
     provider: LinkIt
     member: bob
-    password: secret
+    #password: secret
+    password: pN+dT70QYhAIoMzVg8vCzQmDyJ7MxhmwCoMnHu+4L00=
 
 Staff(ced):
     firstname: Ced
@@ -38,7 +39,8 @@ TwitterAccount(cedTwitter):
 models.auth.LinkItAccount(cedLinkIt):
     provider: LinkIt
     member: ced
-    password: secret
+    #password: secret
+    password: pN+dT70QYhAIoMzVg8vCzQmDyJ7MxhmwCoMnHu+4L00=
     
 Member(rguy) :
     firstname: Romain

@@ -120,7 +120,8 @@ Staff(cedric) :
 models.auth.LinkItAccount(cedLinkIt):
     provider: LinkIt
     member: cedric
-    password: ced
+    #password: ced
+    password: wBwZK4RAmC0QYepj1gqkQsMzAFdVPvEZqin1l536fPs=
 
 TwitterAccount(cedTwitter):
     provider: Twitter
@@ -211,7 +212,8 @@ SharedLink(juLink1):
 models.auth.LinkItAccount(juLinkIt):
     provider: LinkIt
     member: julien
-    password: julien
+    #password: julien
+    password: 6eZDiYfyb+WLEqDA+jIvdrGh20Q2JsaTYUfir9MK8R4=
 
 TwitterAccount(juTwitter):
     provider: Twitter
@@ -241,7 +243,8 @@ Staff(agnes) :
 models.auth.LinkItAccount(agnesAccount):
     provider: LinkIt
     member: agnes
-    password: agnes
+    #password: agnes
+    password: 0lRrZMdxhqH6oAGG+cHvAjJpAOyaltooDM0fnCmfO10=
 
 TwitterAccount(agnesTwitter):
     provider: Twitter
@@ -313,7 +316,8 @@ Staff(franck) :
 models.auth.LinkItAccount(franckLinkIt):
     provider: LinkIt
     member: franck
-    password: franck
+    #password: franck
+    password: mFBmUOjEN+QKtxBXXYGQ0Kygiwgp6iW1+hobp6eavcU=
 
 TwitterAccount(franckTwitter):
     provider: Twitter
@@ -385,7 +389,8 @@ Staff(romain) :
 models.auth.LinkItAccount(romainLinkIt):
     provider: LinkIt
     member: romain
-    password: romain
+    #password: romain
+    password: QcoZcBEjWHxmsXetM1Xp/jxM71eq/+6c0BtjkqoRZl8=
 
 TwitterAccount(romainTwitter):
     provider: Twitter
@@ -456,7 +461,8 @@ Staff(nicolas) :
 models.auth.LinkItAccount(nicolasLinkIt):
     provider: LinkIt
     member: nicolas
-    password: nicolas
+    #password: nicolas
+    password: 2NlOQ+QV47f1N+qoX/OTAsaxP5CjOamLrLleNKTE2j8=
 
 TwitterAccount(nicolasTwitter):
     provider: Twitter
@@ -482,7 +488,8 @@ Staff(mathieu) :
 models.auth.LinkItAccount(mathieuLinkIt):
     provider: LinkIt
     member: mathieu
-    password: mathieu
+    #password: mathieu
+    password: Q8ZCnQXbEZu7EnAtOG4N1fu3s16uYuYkf/WwbHbw+H8=
 
 TwitterAccount(mathieuTwitter):
     provider: Twitter
@@ -509,7 +516,8 @@ Staff(clacote) :
 models.auth.LinkItAccount(clacoteLinkIt):
     provider: LinkIt
     member: clacote
-    password: clacote
+    #password: clacote
+    password: P1V0ZieYpj3ToyLW2IVeN6JV2dp5Y65fPL3/gluKT88=
 
 TwitterAccount(clacoteTwitter):
     provider: Twitter
@@ -579,7 +587,8 @@ Member(nmartignole) :
 models.auth.LinkItAccount(nmartignoleAccount):
     provider: LinkIt
     member: nmartignole
-    password: nicolas
+    #password: nicolas
+    password: 2NlOQ+QV47f1N+qoX/OTAsaxP5CjOamLrLleNKTE2j8=
 
 TwitterAccount(nmartignoleTwitter):
     provider: Twitter
