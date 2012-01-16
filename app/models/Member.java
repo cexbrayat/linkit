@@ -524,6 +524,7 @@ public class Member extends Model implements Lookable {
         Activity.deleteForMember(this);
         AuthAccount.deleteForMember(this);
         Comment.deleteForMember(this);
+        Vote.deleteForMember(this);
         Set<Member> copyLinks = new HashSet(this.links);    // Avoid ConcurrentModificationException
         for (Member linked : copyLinks) {
             this.removeLink(linked);

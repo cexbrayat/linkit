@@ -244,14 +244,18 @@ public class MemberTest extends BaseDataUnitTest {
         final Article article = Article.all().first();
         article.addComment(new ArticleComment(member, article, "commentaire"));
         // Speaker on LT
-        LightningTalk lt = new LightningTalk();
-        lt.addSpeaker(member);
-        lt.addSpeaker(other1);
-        lt.save();
+        LightningTalk lt1 = new LightningTalk();
+        lt1.addSpeaker(member);
+        lt1.addSpeaker(other1);
+        lt1.save();
         // Speaker on session
         Talk t = new Talk();
         t.addSpeaker(member);
         t.save();
+        // Some votes on LT
+        LightningTalk lt2 = new LightningTalk().save();
+        new Vote(lt1, member, true).save();
+        new Vote(lt2, member, true).save();
         
         assertNotNull(member.delete());
         assertNull(Member.findById(member.id));

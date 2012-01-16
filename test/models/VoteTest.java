@@ -1,6 +1,5 @@
 package models;
 
-import java.util.Collections;
 import org.junit.*;
 
 /**
@@ -27,5 +26,15 @@ public class VoteTest extends BaseDataUnitTest {
     
     @Test public void findVote() {
         assertNull(Vote.findVote(createLT(), createMember("toto")));
+    }
+    
+    @Test public void deleteForMember() {
+        Member m = createMember("toto");
+        LightningTalk lt = createLT();
+        new Vote(lt, m, true).save();
+        assertEquals(1, Vote.countVotesByMember(m));
+        
+        Vote.deleteForMember(m);
+        assertEquals(0, Vote.countVotesByMember(m));
     }
 }
