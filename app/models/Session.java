@@ -75,6 +75,13 @@ public abstract class Session extends Model implements Lookable {
         }
     }
 
+    public final void removeSpeaker(Member speaker) {
+        if (speaker != null) {
+            speakers.remove(speaker);
+            speaker.sessions.remove(this);
+        }
+    }
+
     public Session updateSpeakers(Collection<Member> speakers) {
         this.speakers.clear();
         for (Member speaker : speakers) {

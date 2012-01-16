@@ -1,0 +1,15 @@
+#{extends 'main.html' /}
+#{set title:'Suppression de compte' /}
+
+<h1>Supprimer votre compte ?</h1>
+
+<p>
+Sans rire?<br/>
+Vous voulez supprimer votre compte ?<br/>
+On supprimera toutes les données associées, il ne restera plus trace de vous, rien!
+</p>
+
+<p>
+<a href="@{index()}" class="btn">Je reviens sagement à mon Dashboard</a><br>
+<a href="@{confirmDelete()}" class="btn primary danger">Je confirme la suppression!</a>.
+</p>

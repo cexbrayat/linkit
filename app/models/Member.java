@@ -524,12 +524,21 @@ public class Member extends Model implements Lookable {
         Activity.deleteForMember(this);
         AuthAccount.deleteForMember(this);
         Comment.deleteForMember(this);
-        for (Member linked : this.links) {
+        Vote.deleteForMember(this);
+        Set<Member> copyLinks = new HashSet(this.links);    // Avoid ConcurrentModificationException
+        for (Member linked : copyLinks) {
             this.removeLink(linked);
         }
-        for (Member linker : this.linkers) {
+        Set<Member> copyLinkers = new HashSet(this.linkers);    // Avoid ConcurrentModificationException
+        for (Member linker : copyLinkers) {
             linker.removeLink(this);
             linker.save();
+        }
+        for (Session session : this.sessions) {
+            session.removeSpeaker(this);
+            session.save();
+            // FIXME What should happen is no more speakers in session?
+            // For now, better to have a "no-speakers" session than to delete important ones.
         }
         return super.delete();
     }

@@ -44,12 +44,15 @@
                 </p>
                 #{/list}
 
+                #{if talk.interests}
                 <h4>Intérêts</h4>
                 <p>
                     #{list items:talk.interests, as:'interest'}
                         <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
                     #{/list}
                 </p>
+                #{/if}
+                
                 <h4>Activité récente</h4>
                 <div id="activities">
                 #{activities activities:activities /}
