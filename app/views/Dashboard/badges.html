@@ -1,0 +1,13 @@
+#{extends 'main.html' /}
+#{set title:'Les badges' /}
+
+#{if member.badges}
+    <h2>Les badges que vous possédez :</h4>
+    #{badges member.badges /}
+#{/if}
+
+#{if suggestedBadges}
+    <h2>Les badges qu'il vous manque :</h4>
+    #{badges suggestedBadges /}
+#{/if}
+

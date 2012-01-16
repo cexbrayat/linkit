@@ -174,12 +174,4 @@
             </div>
         </div>
     </div>
-    #{if session.get("username")?.equals(member.login)}
-    <div class="row">
-        <div class="span12 actions">
-            <a class="btn primary" href="@{Profile.edit()}">Editer mon profil</a>
-            <a class="btn danger" href="@{Profile.delete()}">Supprimer mon compte (sans confirmation pour le moment!)</a>
-        </div>
-    </div>
-    #{/if}
 </div>
