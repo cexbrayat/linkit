@@ -153,6 +153,7 @@ since.months=il y a %d mois
 since.years=il y a %d ans
 
 # Validation errors
+validation.errors=Quelques erreurs sont à corriger dans ta saisie mon ami !
 validation.required=La saisie du champ %s est obligatoire
 validation.email=Saisir un email valide
 validation.minSize=Le nombre maximum de %s est %d
