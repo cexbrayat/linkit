@@ -9,6 +9,7 @@ import play.data.validation.Validation;
 import java.util.List;
 import models.activity.Activity;
 import play.data.validation.Required;
+import play.i18n.Messages;
 
 public class LightningTalks extends PageController {
 
@@ -50,7 +51,7 @@ public class LightningTalks extends PageController {
         validation.valid(talk);
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
-            flash.error("Des erreurs sont à corriger dans ta saisie mon ami!");
+            flash.error(Messages.get("validation.errors"));
             render("LightningTalks/edit.html", talk);
         }
         talk.update();
