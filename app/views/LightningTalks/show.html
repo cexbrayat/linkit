@@ -31,10 +31,20 @@
                 <h4>Speaker${talk.speakers.size().pluralize()}</h4>
                 #{list items:talk.speakers, as:'speaker'}
                 <p>
+                #{if session.username}
                     <a href="@{Profile.show(speaker.login)}">${speaker}</a>
+                #{/if}
+                #{else}
+                    <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil">${speaker}</a>
+                #{/else}
                     <br/>
                     #{if speaker.email}
-                    <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                        #{if session.username}
+                            <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                        #{/if}
+                        #{else}
+                            <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                        #{/else}
                     #{/if}
                 </p>
                 #{/list}
