@@ -2,7 +2,6 @@ package models;
 
 import java.util.List;
 import java.util.Map;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -60,6 +59,10 @@ public class Interest extends Model implements Comparable<Interest> {
         return result;
     }
 
+    public static List<Interest> findAllOrdered() { // Can't be named findAll() : DuplicateMemberException
+        return find("order by name").fetch();
+    }
+    
     public int compareTo(Interest otherInterest) {
         return name.compareTo(otherInterest.name);
     }

@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import org.junit.*;
@@ -20,6 +22,16 @@ public class InterestTest extends BaseDataUnitTest {
         assertNull(Interest.findByName(name));
         createInterest(name);
         assertNotNull(Interest.findByName(name));
+    }
+    
+    @Test
+    public void findAllOrdered() {
+        List<Interest> all = Interest.findAllOrdered();
+        assertNotNull(all);
+        // Vérifier le tri par ordre alphabétique
+        List<Interest> sortedAll = new ArrayList<Interest>(all);
+        Collections.sort(sortedAll);
+        assertEquals(sortedAll, all);
     }
     
     @Test

@@ -58,7 +58,7 @@
                     <div class="input"> 
 
                         <ul class="inputs-list">
-                            #{list items:models.Interest.findAll(), as:'interest'}
+                            #{list items:models.Interest.findAllOrdered(), as:'interest'}
                             <span class="checkbox">
                                 <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
                             </span>

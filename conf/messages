@@ -67,6 +67,8 @@ talk.speakers=Speaker(s)
 talk.speakers.note=Choisissez le ou les speakers
 talk.track=Track Mix-IT
 talk.track.note=Obligatoire
+talk.interests=Intérets existants
+talk.interests.note=Ces intérêts seront associés à la session, et permettront aux utilisateurs de trouver cette session en recherchant par intérêt.
 content=Votre commentaire
 content.note=&{markdown.note}
 
