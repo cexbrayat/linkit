@@ -3,7 +3,7 @@
 <a href="@{Articles.show(_arg.id)}" class="article link"><h3 class="article title">${_arg.title}</h3></a>
 <blockquote class="article headline">
     ${_arg.headline.markdown().raw()}
-    <!--small>Posté par #{member _arg.author /} le ${_arg.postedAt.format('dd/MM/yyyy à hh:mm')}</small-->
+    <small>Le ${_arg.postedAt.format('dd/MM/yyyy à hh:mm')}</small>
 </blockquote>
 <!--p>
     → <a href="@{Articles.show(_arg.id)}" class="article link">Afficher cet article</a><br/>
