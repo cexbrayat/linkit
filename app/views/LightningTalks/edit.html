@@ -6,7 +6,7 @@
         <h1>Saisie d'un lightning talk</h1>
     </div>
     <div class="row"> 
-        <div class="span12 columns"> 
+        <div class="span16 columns"> 
             #{form @LightningTalks.save()}
                 #{field 'talk.id'}
                     <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="hidden" value="${field.value}" />
@@ -52,7 +52,7 @@
             <fieldset>
                 <legend>Intérêts</legend>
 
-                #{field 'interests'}
+                #{field 'talk.interests'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
@@ -60,7 +60,7 @@
                         <ul class="inputs-list">
                             #{list items:models.Interest.findAllOrdered(), as:'interest'}
                             <span class="checkbox">
-                                <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
+                                <li><label><input type="checkbox" name="interests" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
                             </span>
 
                             #{/list}
@@ -73,11 +73,11 @@
 
                 #{/}
 
-                #{field 'newInterests'}
+                #{field 'talk.newInterests'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="200" type="text" value="${newInterests}" /> 
+                        <input class="xlarge" id="${field.id}" name="newInterests" size="200" type="text" value="${newInterests}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
