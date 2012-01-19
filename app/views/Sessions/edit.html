@@ -21,7 +21,7 @@
                     <div class="input"> 
                         <ul class="inputs-list">
                             #{list items:models.Track.values(), as:'track'}
-                            <li><label><input type="radio" name="${field.name}" value="${track}" ${talk.track == track?'checked':''} /> <span>${track}</span></label></li>
+                            <li><label><input type="radio" name="${field.name}" value="${track}" ${talk.track == track?'checked':''} /><span>${track} : ${track.getDescription()}</span></label></li>
                             #{/list}
                         </ul>
                         <span class="help-block">${field.error}</span>

@@ -1,5 +1,7 @@
 package models;
 
+import play.i18n.Messages;
+
 /**
  *
  * @author agnes007
@@ -16,4 +18,14 @@ public enum Track {
     Gamy,
     /** web */
     Weby;
+    
+    private String description;
+
+    private Track() {
+        this.description = Messages.get("track."+name()+".description");
+    }
+    
+    public String getDescription() {
+        return description;
+    }
 }

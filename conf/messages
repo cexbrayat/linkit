@@ -141,6 +141,13 @@ badge.TwoDaysInARow=2 days in a row (vous avez utilisé le site deux jours de su
 badge.FiveDaysInARow=5 days in a row (vous avez utilisé le site cinq jours de suite)
 badge.MixITAddict=Mix-IT addict (vous avez utilisé le site dix jours de suite)
 
+# Tracks
+track.Agility.description=L'agilité pour les débutants et les passionnés
+track.Techy.description=L'univers Java et son écosystème
+track.Weby.description=Les dernières tendances et technologies dédiées au Web
+track.Trendy.description=Les tendances novatrices et avant-gardistes
+track.Gamy.description=Des jeux agiles et des coding dojos pour apprendre
+
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new" tabindex="-1"><strong>MarkDown</strong></a> accepté.
 
