@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import models.Member;
 import models.Session;
 import play.i18n.Messages;
-import play.mvc.Router;
+import play.mvc.Scope;
 
 /**
  * A consultation of session : someone ({@link Activity#member}) looked at a session ({@link Activity#session}).
@@ -19,7 +19,7 @@ public class LookSessionActivity extends LookActivity {
     }
 
     @Override
-    public String getMessage(String lang) {
+    public String getMessage(Scope.Session session) {
         return Messages.get(getMessageKey(), member, session);
     }
 

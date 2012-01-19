@@ -10,6 +10,7 @@ import models.ProviderType;
 import models.Session;
 import models.Talk;
 import play.i18n.Messages;
+import play.mvc.Scope;
 
 /**
  * An "update session" activity : a publicly visible session ({@link Activity#session}), i.e any {@link LightningTalk} or a valid {@link Talk}, has been updated.
@@ -24,7 +25,7 @@ public class UpdateSessionActivity extends Activity {
     }
 
     @Override
-    public String getMessage(String lang) {
+    public String getMessage(Scope.Session session) {
         return Messages.get(getMessageKey(), session);
     }
 

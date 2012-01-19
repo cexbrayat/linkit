@@ -5,6 +5,7 @@ import javax.persistence.ManyToOne;
 import models.Member;
 import play.i18n.Messages;
 import play.mvc.Router;
+import play.mvc.Scope;
 
 /**
  * A consultation of profile activity : someone ({@link Activity#member} looked at someone else's ({@link LookProfileActivity#other} profile.
@@ -22,7 +23,7 @@ public class LookProfileActivity extends LookActivity {
     }
 
     @Override
-    public String getMessage(String lang) {
+    public String getMessage(Scope.Session session) {
         return Messages.get(getMessageKey(), member, other);
     }
 

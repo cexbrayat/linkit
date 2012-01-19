@@ -27,6 +27,7 @@ import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+import play.mvc.Scope;
 
 /**
  * An activity on Link-IT site, i.e a persisted event
@@ -187,10 +188,9 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     }
 
     /**
-     * @param lang Language selected by user
      * @return i18n (HTML) message to be displayed on GUI for this activity
      */
-    public abstract String getMessage(final String lang);
+    public abstract String getMessage(Scope.Session session);
 
     /**
      * @return URL to be linked on this activity.

@@ -1,9 +1,12 @@
 package models.activity;
 
+import com.google.common.collect.Maps;
 import helpers.badge.BadgeComputationContext;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -18,6 +21,8 @@ import org.joda.time.Minutes;
 import play.Logger;
 import play.Play;
 import play.i18n.Messages;
+import play.mvc.Scope;
+import play.templates.TemplateLoader;
 
 /**
  * A status activity : someone ({@link Activity#member} posted a status on an external provider ({@link Activity#session}
@@ -38,6 +43,9 @@ public class StatusActivity extends Activity {
     private static final Pattern MIXIT_PATTERN = Pattern.compile(".*\\bmix-?it\\b.*", Pattern.CASE_INSENSITIVE);
     
     private static final int FETCH_PERIOD = Integer.valueOf(Play.configuration.getProperty("linkit.timeline.fetch.period"));
+
+    public static final String MENTION_FORMAT = "$LINKIT${%s}";
+    private static final Pattern MENTION_PATTERN = Pattern.compile("\\$LINKIT\\$\\{([^}]+)\\}");
     
     public StatusActivity(Member author, Date at, ProviderType provider, String content, String url, String statusId) {
         super(provider, at);
@@ -87,11 +95,27 @@ public class StatusActivity extends Activity {
         }
     }
     
-    @Override
-    public String getMessage(String lang) {
-        return Messages.get(getMessageKey(), member, content);
+    public static String buildMentionFor(Member mentionned) {
+        return String.format(MENTION_FORMAT, mentionned.login);
     }
-
+    
+    @Override
+    public String getMessage(Scope.Session session) {
+        StringBuffer message = new StringBuffer();
+        String rawMessage = Messages.get(getMessageKey(), member, content);
+        Matcher matcher = MENTION_PATTERN.matcher(rawMessage);
+        while (matcher.find()) {
+            final String login = matcher.group(1);
+            final Member member = Member.findByLogin(login);
+            Map<String, Object> renderArgs = Maps.newHashMap();
+            renderArgs.put("_arg", member);
+            renderArgs.put("session", session);
+            matcher.appendReplacement(message, TemplateLoader.load("tags/member.html").render(renderArgs));
+        }
+        matcher.appendTail(message);
+        return message.toString();
+    }
+    
     @Override
     public String getUrl() {
         return url;

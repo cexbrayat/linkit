@@ -51,7 +51,7 @@ public class GoogleAccountTest extends BaseDataUnitTest {
         assertSame(post2, activities.get(1));
         // Content enhanced on post1
         assertFalse(content1.equals(post1.content));
-        assertTrue(post1.content.contains("href=\"/profile/"+mentionnedAccount.member.login+"\""));
+        assertTrue(post1.content.contains(StatusActivity.buildMentionFor(mentionnedAccount.member)));
         assertTrue(post1.content.contains(buildMention("5434567", "Toto")));
         // Content same on post2
         assertEquals(content2, post2.content);

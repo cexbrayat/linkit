@@ -8,6 +8,7 @@ import models.Member;
 import models.ProviderType;
 import play.i18n.Messages;
 import play.mvc.Router;
+import play.mvc.Scope;
 
 /**
  * An update profile activity : someone ({@link Activity#member} updated his profile
@@ -22,7 +23,7 @@ public class UpdateProfileActivity extends Activity {
     }
 
     @Override
-    public String getMessage(String lang) {
+    public String getMessage(Scope.Session session) {
         return Messages.get(getMessageKey(), member);
     }
 

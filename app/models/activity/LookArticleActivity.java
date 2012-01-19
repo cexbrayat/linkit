@@ -5,6 +5,7 @@ import models.Article;
 import models.Member;
 import play.i18n.Messages;
 import play.mvc.Router;
+import play.mvc.Scope;
 
 /**
  * A consultation of an article : someone ({@link Activity#member}) looked at an article ({@link Activity#article}).
@@ -19,7 +20,7 @@ public class LookArticleActivity extends LookActivity {
     }
 
     @Override
-    public String getMessage(String lang) {
+    public String getMessage(Scope.Session session) {
         return Messages.get(getMessageKey(), member, article);
     }
 

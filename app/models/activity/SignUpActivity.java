@@ -6,6 +6,7 @@ import models.Member;
 import models.ProviderType;
 import play.i18n.Messages;
 import play.mvc.Router;
+import play.mvc.Scope;
 
 /**
  * A sign-up activity : someone ({@link Activity#member} registered on Link-IT
@@ -22,7 +23,7 @@ public class SignUpActivity extends Activity {
     }
 
     @Override
-    public String getMessage(String lang) {
+    public String getMessage(Scope.Session session) {
         return Messages.get(getMessageKey(), member);
     }
 

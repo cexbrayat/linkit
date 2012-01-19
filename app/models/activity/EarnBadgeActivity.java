@@ -9,6 +9,7 @@ import models.Member;
 import models.ProviderType;
 import play.i18n.Messages;
 import play.mvc.Router;
+import play.mvc.Scope;
 
 /**
  * A "badge earned" activity : someone ({@link Activity#member}) earned a badge ({@link EarnBadgeActivity#badge})
@@ -29,7 +30,7 @@ public class EarnBadgeActivity extends Activity {
     }
 
     @Override
-    public String getMessage(String lang) {
+    public String getMessage(Scope.Session session) {
         return Messages.get(getMessageKey(), member, badge);
     }
 
