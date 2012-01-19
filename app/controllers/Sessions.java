@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.Lists;
 import play.*;
 
 import java.util.*;
@@ -34,14 +35,30 @@ public class Sessions extends PageController {
         Member speaker = Member.findByLogin(speakerLogin);
         Talk talk = new Talk();
         talk.addSpeaker(speaker);
-        render("Sessions/edit.html", talk);
+        List<Member> speakers = speakersFor(talk, speaker);
+        render("Sessions/edit.html", talk, speakers);
     }
 
     public static void edit(final Long sessionId) {
         Session talk = Session.findById(sessionId);
-        render(talk);
+        Member member = Member.findByLogin(Security.connected());
+        
+        List<Member> speakers = speakersFor(talk, member);
+ 
+        render(talk, speakers);
     }
-
+    
+    private static List<Member> speakersFor(Session talk, Member member) {
+        List<Member> speakers = Member.findAll();
+        // Put actual speakers in top of list
+        List<Member> actualSpeakers = new ArrayList<Member>(talk.speakers);
+        Collections.sort(actualSpeakers);
+        speakers = Lists.putOnTop(speakers, actualSpeakers);
+        // Put current user on top.
+        speakers = Lists.putOnTop(speakers, member);
+        return speakers;
+    }
+    
     public static void show(final Long sessionId, String slugify, boolean noCount) {
         Session talk = Session.findById(sessionId);
         // Don't count look when coming from internal redirect

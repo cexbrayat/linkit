@@ -72,7 +72,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <ul class="inputs-list">
-                            #{list items:models.Member.findAll(), as:'speaker'}
+                            #{list items:speakers, as:'speaker'}
                             <li><label><input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} /> <span>${speaker}</span></label></li>
                             #{/list}
                         </ul>
