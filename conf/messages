@@ -69,6 +69,8 @@ talk.track=Track Mix-IT
 talk.track.note=Obligatoire
 talk.interests=Intérets existants
 talk.interests.note=Ces intérêts seront associés à la session, et permettront aux utilisateurs de trouver cette session en recherchant par intérêt.
+talk.newInterests=Autres intérêts
+talk.newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 content=Votre commentaire
 content.note=&{markdown.note}
 
