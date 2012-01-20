@@ -86,7 +86,7 @@
             <div id="tab-content" class="tab-content">
                 <div class="tab-pane active" id="tabActivites">
                     #{list items:member.getAccountProviders(), as:'provider'}
-                        <a class="service-button ${provider.name().toLowerCase()}" id="${provider}" onClick="handleProvider('${provider}')"></a>
+                        <a class="service-button ${provider.name().toLowerCase()}" id="${provider}" onClick="handleProvider('${provider}')" rel='twipsy' title="Cliquer pour filtrer le flux &{'provider.'+provider}"></a>
                     #{/list}
                     <br/><br/>
                     <p id="activities" style="max-height: 200px"></p>

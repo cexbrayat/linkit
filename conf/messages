@@ -107,7 +107,7 @@ SharedLinkActivity.message=%1$s a partagé le lien "%2$s"
 NewVoteActivity.message=%1$s a voté pour le Lightning Talk "%2$s"
 
 # Providers
-provider.LinkIt=Link-IT
+provider.LinkIt=Mix-IT
 provider.Google=Google+
 provider.Twitter=Twitter
 
