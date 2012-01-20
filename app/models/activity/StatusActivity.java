@@ -25,7 +25,7 @@ import play.mvc.Scope;
 import play.templates.TemplateLoader;
 
 /**
- * A status activity : someone ({@link Activity#member} posted a status on an external provider ({@link Activity#session}
+ * A status activity : someone ({@link Activity#mentionedMember} posted a status on an external provider ({@link Activity#session}
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
@@ -106,10 +106,10 @@ public class StatusActivity extends Activity {
         Matcher matcher = MENTION_PATTERN.matcher(rawMessage);
         while (matcher.find()) {
             final String login = matcher.group(1);
-            final Member member = Member.findByLogin(login);
+            final Member mentionedMember = Member.findByLogin(login);
             Map<String, Object> renderArgs = Maps.newHashMap();
-            renderArgs.put("_arg", member);
-            renderArgs.put("session", session);
+            renderArgs.put("_arg", mentionedMember);
+            renderArgs.put("session", s);
             matcher.appendReplacement(message, TemplateLoader.load("tags/member.html").render(renderArgs));
         }
         matcher.appendTail(message);
