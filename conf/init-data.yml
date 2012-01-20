@@ -850,6 +850,7 @@ Article(article1):
         Vous l'attendiez tous... et bien voilà la conf [Mix-IT](http://www.mix-it.fr) 2012 aura lieu le 26 avril 2012 à Lyon! Stay tuned! Au programme on vous prépare toujours un bon mix de #Java #Agilité, autres langages, technos innovantes, etc.
     author: agnes
     postedAt: 2011-11-25
+    valid: true
 
 Article(article2):
     title: Un nouveau sample
@@ -927,6 +928,15 @@ Article(article2):
         [Pandoc]: http://johnmacfarlane.net/Pandoc/
     author: cedric
     postedAt: 2011-11-26
+    valid: true
+
+Article(article3):
+    title: Un article initialement non valide
+    headline: Cet article ne devrait pas être public au départ.
+    content: |
+        Cet article initialement non validé ne devrait être visible que du staff, qui se voit proposé des boutons d'actions.
+    author: clacote
+    postedAt: 2012-01-20
     
 Sponsor(od):
     logoUrl: http://www.springsource.com/files/images/Objet%20Direct_RVB%20BD.jpg

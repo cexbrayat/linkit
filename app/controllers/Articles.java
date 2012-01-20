@@ -6,6 +6,7 @@ import java.util.*;
 import models.Article;
 import models.ArticleComment;
 import models.Member;
+import models.Role;
 import play.data.validation.Required;
 import play.data.validation.Validation;
 
@@ -17,7 +18,13 @@ public class Articles extends PageController {
 
     public static void list(int size) {
         List<Article> articles = Article.recents(1, size);
-        render(articles, size);
+
+        List<Article> nonPublishedArticles = null;
+        if (Security.check(Role.ADMIN_SESSION)) {
+            nonPublishedArticles = Article.findAllInvalid();
+        }
+
+        render(articles, size, nonPublishedArticles);
     }
 
     public static void create() {
@@ -74,5 +81,26 @@ public class Articles extends PageController {
         flash.success("Article " + article + " enregistré");
         Logger.info("Article " + article + " enregistré");
         show(article.id, true);
+    }
+    
+    public static void validate(long articleId) {
+        Article article = Article.findById(articleId);
+        article.validate();
+        flash.success("L'article \"%s\" a été publié", article);
+        show(article.id, true);
+    }
+    
+    public static void unvalidate(long articleId) {
+        Article article = Article.findById(articleId);
+        article.unvalidate();
+        flash.success("L'article \"%s\" a été invalidé", article);
+        show(article.id, true);
+    }
+    
+    public static void delete(long articleId) {
+        Article article = Article.findById(articleId);
+        article.delete();
+        flash.success("L'article \"%s\" a été supprimé", article);
+        index();
     }
 }

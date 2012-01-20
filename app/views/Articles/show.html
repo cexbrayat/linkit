@@ -5,6 +5,24 @@
         <div class="span10">
             <h2>${article.title}</h2>
             <strong>${article.headline}</strong>
+
+            #{secure.check models.Role.ADMIN_ARTICLE}
+            <div class="alert-message block-message warning">
+                #{if !article.valid}
+                Cet article n'est pas publié.
+                #{/if}
+                <div class='alert-actions'>
+                    #{if article.valid}
+                    <a href="@{Articles.unvalidate(article.id)}" class="btn small" >Invalider</a>
+                    #{/if}
+                    #{else}
+                    <a href="@{Articles.validate(article.id)}" class="btn small primary" >Publier</a>
+                    #{/else}
+                    <a href="@{Articles.edit(article.id)}" class="btn small">Editer</a>
+                    <a href="@{Articles.delete(article.id)}" class="btn small danger">Supprimer</a>
+                </div>
+            </div>
+            #{/secure.check} 
         </div>
         <div class="span6">
             Par #{member article.author /}<br/>
@@ -12,22 +30,20 @@
             <br/>
             ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}
             #{if article.comments}
-              <br/><a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
+                - <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
             #{/if}
             <br/>#{socialbar/}
-
-            #{secure.check models.Role.ADMIN_ARTICLE}
-            <p>
-                Staff : <a class="btn danger" href="@{Articles.edit(article.id)}">Editer cet article</a>
-            </p>
-            #{/secure.check} 
         </div>
     </div>
         
-        <p>
-            #{if following} >>> <a href="@{Articles.show(following.id)}">Article suivant : ${following.title}</a><br/> #{/if}
-            #{if previous} <<< <a href="@{Articles.show(previous.id)}">Article précédent : ${previous.title}</a> #{/if}
-        </p>
+        <div class="row">
+            <div class="span8">
+                #{if previous}<p><<< <a href="@{Articles.show(previous.id)}">Article précédent : "${previous.title}"</a></p>#{/if}&nbsp;
+            </div>
+            <div class="span8" style="text-align: right">
+                #{if following}<p><a href="@{Articles.show(following.id)}">Article suivant : "${following.title}"</a> >>></p>#{/if}
+            </div>
+        </div>
 
         <blockquote class="article content">
             ${article.content.markdown().raw()}
@@ -35,10 +51,14 @@
             <small>Posté par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a> le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}</small>
         </blockquote>
         
-        <p>
-            #{if following} >>> <a href="@{Articles.show(following.id)}">Article suivant : ${following.title}</a><br/> #{/if}
-            #{if previous} <<< <a href="@{Articles.show(previous.id)}">Article précédent : ${previous.title}</a> #{/if}
-        </p>
+        <div class="row">
+            <div class="span8">
+                #{if previous}<p><<< <a href="@{Articles.show(previous.id)}">Article précédent : "${previous.title}"</a></p>#{/if}&nbsp;
+            </div>
+            <div class="span8" style="text-align: right">
+                #{if following}<p><a href="@{Articles.show(following.id)}">Article suivant : "${following.title}"</a> >>></p>#{/if}
+            </div>
+        </div>
         
         #{comments article.comments /}
 

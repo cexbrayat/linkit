@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -11,12 +12,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import models.activity.Activity;
 import models.activity.CommentArticleActivity;
 import models.activity.LookArticleActivity;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
+import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
@@ -67,10 +70,13 @@ public class Article extends Model implements Lookable {
     @Field
     public String content;
 
+    /** True if Article validated : publicly visible */
+    public boolean valid;
+    
     /** Eventual comments */
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     @OrderBy("postedAt ASC")
-    List<ArticleComment> comments;
+    List<ArticleComment> comments = new ArrayList<ArticleComment>();
     
     /** Number of consultation */
     public long nbConsults;
@@ -81,15 +87,19 @@ public class Article extends Model implements Lookable {
     }
 
     public static List<Article> recents(int page, int length) {
-        return find("order by postedAt desc").fetch(page, length);
+        return find("valid=true order by postedAt desc").fetch(page, length);
+    }
+
+    public static List<Article> findAllInvalid() {
+        return find("valid=false order by postedAt desc").fetch();
     }
     
     public Article findPrevious() {
-        return find("postedAt<? order by postedAt desc", this.postedAt).first();
+        return find("valid = true and postedAt<? order by postedAt desc", this.postedAt).first();
     }
     
     public Article findFollowing() {
-        return find("postedAt>? order by postedAt desc", this.postedAt).first();
+        return find("valid = true and postedAt>? order by postedAt desc", this.postedAt).first();
     }
     
     /**
@@ -102,6 +112,24 @@ public class Article extends Model implements Lookable {
         comments.add(comment);
         
         new CommentArticleActivity(comment.author, this, comment).save();
+    }
+
+    @Override
+    public Article delete() {
+        // Delete activities
+        Activity.deleteForArticle(this);
+        return super.delete();
+    }
+    
+    public void validate() {
+        this.valid = true;
+        this.postedAt = new Date();
+        this.save();
+    }
+    
+    public void unvalidate() {
+        this.valid = false;
+        this.save();
     }
     
     @Override
