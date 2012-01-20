@@ -24,7 +24,7 @@ public class NewTalkActivity extends Activity {
     }
 
     @Override
-    public String getMessage(Scope.Session session) {
+    public String getMessage(Scope.Session s) {
         return Messages.get(getMessageKey(), session);
     }
 

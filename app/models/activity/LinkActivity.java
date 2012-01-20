@@ -31,7 +31,7 @@ public class LinkActivity extends Activity {
     }
 
     @Override
-    public String getMessage(Scope.Session session) {
+    public String getMessage(Scope.Session s) {
         return Messages.get(getMessageKey(), member, other);
     }
 

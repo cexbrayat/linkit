@@ -100,7 +100,7 @@ public class StatusActivity extends Activity {
     }
     
     @Override
-    public String getMessage(Scope.Session session) {
+    public String getMessage(Scope.Session s) {
         StringBuffer message = new StringBuffer();
         String rawMessage = Messages.get(getMessageKey(), member, content);
         Matcher matcher = MENTION_PATTERN.matcher(rawMessage);

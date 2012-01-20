@@ -20,7 +20,7 @@ public class LookArticleActivity extends LookActivity {
     }
 
     @Override
-    public String getMessage(Scope.Session session) {
+    public String getMessage(Scope.Session s) {
         return Messages.get(getMessageKey(), member, article);
     }
 
