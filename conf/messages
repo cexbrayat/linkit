@@ -3,7 +3,7 @@
 #
 
 # Menu bar
-menu.dashboard=Dashboard
+menu.dashboard=Mon dashboard
 menu.news=Actualités
 menu.agenda=Programme
 menu.agenda.sessions=Sessions
@@ -24,7 +24,6 @@ menu.infos.hotels=Hôtels à proximité
 menu.admin=Admin
 menu.search=Rechercher
 menu.login=Se connecter
-menu.login.dashboard=Mon dashboard
 menu.login.profile=Voir mon profil
 menu.login.edit=Editer mon profil
 menu.login.logout=Se déconnecter

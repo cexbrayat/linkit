@@ -1,4 +1,4 @@
-menu.dashboard=Dashboard
+menu.dashboard=My dashboard
 menu.news=News
 menu.agenda=Agenda
 menu.agenda.sessions=Talks
@@ -19,7 +19,6 @@ menu.infos.hotels=Close hotels
 menu.admin=Admin
 menu.search=Search
 menu.login=Login
-menu.login.dashboard=My dashboard
 menu.login.profile=See my profile
 menu.login.edit=Update my profile
 menu.login.logout=Logout
