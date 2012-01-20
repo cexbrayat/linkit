@@ -165,11 +165,13 @@
                     </ul>
                 </div>
                 #{/if}
+                #{if member.interests}
                 <div class="tab-pane" id="interets">
                     #{list items:member.interests, as:'interest'}
                     <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
                     #{/list}
                 </div>
+                #{/if}
                 <div class="tab-pane" id="badges">
                     #{badges member.badges /}
                 </div>
