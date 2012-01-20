@@ -22,9 +22,11 @@ import java.util.regex.Pattern;
 import javax.persistence.Entity;
 import jodd.lagarto.dom.jerry.JerryFunction;
 import models.activity.StatusActivity;
+import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.Play;
+import play.data.validation.CheckWith;
 import play.data.validation.Required;
 import static jodd.lagarto.dom.jerry.Jerry.jerry;
 
@@ -37,6 +39,7 @@ public class GoogleAccount extends Account {
 
     /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumber} as seen on Google+' profile link */
     @Required
+    @CheckWith(GoogleIDCheck.class)
     public String googleId;     // 114128610730314333831
 
     //2011-10-04T14:41:40.837Z

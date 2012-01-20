@@ -496,9 +496,6 @@ public class Member extends Model implements Lookable, Comparable<Member> {
                 .append(firstname)
                 .append(' ')
                 .append(lastname)
-                .append(" (")
-                .append(login)
-                .append(')')
                 .toString();
     }
 
@@ -549,11 +546,7 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     }
 
     public int compareTo(Member t) {
-        return new CompareToBuilder()
-                .append(this.firstname, t.firstname)
-                .append(this.lastname, t.lastname)
-                .append(this.login, t.login)
-                .toComparison();
+        return toString().compareTo(t.toString());
     }
 
     static class TalkPredicate implements Predicate<Session> {
