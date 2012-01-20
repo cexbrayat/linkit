@@ -19,12 +19,8 @@
 
         #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
         
-        <p>
-            <div class="vote-counter" id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>
-            #{if session.usernamef && !talk.hasSpeaker(session.username)}
-                <div id="vote-${talk.id}" class="vote-up #{if talk.hasVoteFrom(session.username)}inactive#{/if}#{else}active#{/else}" onclick="vote(${talk.id}, '${session.username}')">+1</div>
-            #{/if}
-        </p>
+        <br/><br/>#{vote talk /}
+
     </div>
         <div class="row">
             <div class="span3">

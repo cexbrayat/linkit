@@ -32,13 +32,7 @@
             #{/list}
         </td>
         <td>
-            <div class="vote-counter" id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>
-            #{if session.username && !talk.hasSpeaker(session.username)}
-            <div id="vote-${talk.id}"
-                 class="vote-up #{if talk.hasVoteFrom(session.username)}inactive#{/if}#{else}active#{/else}"
-                 onclick="vote(${talk.id}, '${session.username}')">+1
-            </div>
-            #{/if}
+            #{vote talk /}
         </td>
     </tr>
     #{/list}
