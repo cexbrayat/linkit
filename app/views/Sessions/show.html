@@ -1,9 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'Session ' + talk.title /}
+#{set 'canonical'}@@{Sessions.show(talk.id, talk.title?.slugify())}#{/set}
 
     <div class="hero-unit">
-        <h2>${talk.title}</h2>
-        <p>${talk.summary}</p>
+        <h2 itemprop="name">${talk.title}</h2>
+        <p itemprop="description">${talk.summary}</p>
         ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
         #{if talk.comments}
             &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>

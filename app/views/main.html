@@ -7,6 +7,7 @@
         <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/bootstrap.less'}">
         <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/linkit.less'}">
         <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/networks.css'}">
+        #{if canonical}<link rel="canonical" href="#{get 'canonical' /}">#{/if}
         #{get 'moreStyles' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
         <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
@@ -35,11 +36,11 @@
 
         </script>
     </head>
-    <body style="padding-top: 60px;"> *{ 60px is navigation bar space }*
+    <body itemscope itemtype="http://schema.org/Product" style="padding-top: 60px;" > *{ 60px is navigation bar space }*
         <div class="topbar">
             <div class="topbar-inner">
                 <div class="container-fluid">
-                    <a class="brand" href="@{Application.index()}"><img src="@{'/public/images/mini-mixit.png'}"/></a>
+                    <a class="brand" href="@{Application.index()}"><img src="@{'/public/images/mini-mixit.png'}" itemprop="image"/></a>
                     <ul class="nav">
                         #{if session.username}
                         <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>

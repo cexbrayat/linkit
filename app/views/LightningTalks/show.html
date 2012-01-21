@@ -1,5 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Lightning Talk ' + talk.title /}
+#{set 'canonical'}@@{LightningTalks.show(talk.id)}#{/set}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/vote.js'}"></script>
 <script>
@@ -8,8 +9,8 @@
 #{/set}
 
     <div class="hero-unit">
-        <h2>${talk.title}</h2>
-        <p>${talk.summary}</p>
+        <h2 itemprop="name">${talk.title}</h2>
+        <p itemprop="description">${talk.summary}</p>
 
         ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
         #{if talk.comments}
