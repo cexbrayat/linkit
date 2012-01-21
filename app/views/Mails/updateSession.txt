@@ -1,0 +1,6 @@
+Link-IT vous informe,
+
+Une nouvelle session a été soumise : "${talk}".
+Affectueusement,
+
+    Link-IT's bot.

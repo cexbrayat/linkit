@@ -1,5 +1,6 @@
 package models;
 
+import controllers.Mails;
 import models.activity.CommentSessionActivity;
 import models.activity.LookSessionActivity;
 import models.activity.UpdateSessionActivity;
@@ -141,6 +142,7 @@ public abstract class Session extends Model implements Lookable {
         if (valid) {
             new UpdateSessionActivity(this).save();
         }
+        Mails.updateSession(this);
     }
     
     @Override
