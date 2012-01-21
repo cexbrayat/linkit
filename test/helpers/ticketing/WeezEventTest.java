@@ -1,6 +1,5 @@
 package helpers.ticketing;
 
-import com.google.gson.JsonArray;
 import java.util.List;
 import org.junit.Test;
 import play.Play;
@@ -8,6 +7,7 @@ import play.test.UnitTest;
 
 /**
  * Unit tests for {@link WeezEvent}
+ * Pour ces tests on presuppose d'un user contact@mix-it.fr a un billet pour l'event MIX-IT 2012 sous WeezEvent
  * @author agnes <agnes.crepet@gmail.com>
  */
 public class WeezEventTest extends UnitTest {
@@ -70,7 +70,7 @@ public class WeezEventTest extends UnitTest {
         //event id correct
         WeezEvent.setEvent(sessionID);
         List<String> allAttendees = WeezEvent.getAttendees(sessionID);
-        assertTrue(WeezEvent.isRegisteredAttendee("agnes.crepet@gmail.com", allAttendees));
+        assertTrue(WeezEvent.isRegisteredAttendee("contact@mix-it.fr", allAttendees));
     }
 
     @Test

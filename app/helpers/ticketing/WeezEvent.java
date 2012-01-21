@@ -121,8 +121,11 @@ public class WeezEvent {
         final List<String> allAttendees = WeezEvent.getAttendees(sessionID);
         if (WeezEvent.isRegisteredAttendee(member.email, allAttendees)) {
             member.ticketingRegistered = true;
-            member.save();
         }
+        else {
+            member.ticketingRegistered = false;
+        }
+        member.save();
 
     }
 
