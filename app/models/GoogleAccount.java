@@ -11,7 +11,6 @@ import com.google.api.services.plus.PlusRequest;
 import com.google.api.services.plus.model.Activity;
 import com.google.api.services.plus.model.ActivityFeed;
 import com.google.api.services.plus.model.ActivityObjectActor;
-import com.google.common.collect.Maps;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,16 +18,16 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Pattern;
 import javax.persistence.Entity;
 import jodd.lagarto.dom.jerry.JerryFunction;
 import models.activity.StatusActivity;
+import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.Play;
+import play.data.validation.CheckWith;
 import play.data.validation.Required;
-import play.templates.TemplateLoader;
 import static jodd.lagarto.dom.jerry.Jerry.jerry;
 
 /**
@@ -40,6 +39,7 @@ public class GoogleAccount extends Account {
 
     /** Google+ ID, i.e https://plus.google.com/{ThisFuckingLongNumber} as seen on Google+' profile link */
     @Required
+    @CheckWith(GoogleIDCheck.class)
     public String googleId;     // 114128610730314333831
 
     //2011-10-04T14:41:40.837Z
@@ -103,9 +103,7 @@ public class GoogleAccount extends Account {
         String mention = defaultMention;
         Member mentionedMember = findMemberByGoogleId(googleId);
         if (mentionedMember != null) {
-            Map<String, Object> renderArgs = Maps.newHashMap();
-            renderArgs.put("_arg", mentionedMember);
-            mention = TemplateLoader.load("tags/member.html").render(renderArgs);
+            mention = StatusActivity.buildMentionFor(mentionedMember);
         }
         return mention;
     }

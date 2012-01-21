@@ -6,7 +6,7 @@
         <h1>Saisie d'une session</h1> 
     </div>
     <div class="row"> 
-        <div class="span12 columns"> 
+        <div class="span16 columns"> 
             #{form @Sessions.save()} 
                 #{field 'talk.id'}
                     <input id="${field.id}" name="${field.name}" type="hidden" value="${field.value}" />
@@ -21,7 +21,7 @@
                     <div class="input"> 
                         <ul class="inputs-list">
                             #{list items:models.Track.values(), as:'track'}
-                            <li><label><input type="radio" name="${field.name}" value="${track}" ${talk.track == track?'checked':''} /> <span>${track}</span></label></li>
+                            <li><label><input type="radio" name="${field.name}" value="${track}" ${talk.track == track?'checked':''} /><span>${track} : ${track.getDescription()}</span></label></li>
                             #{/list}
                         </ul>
                         <span class="help-block">${field.error}</span>
@@ -72,7 +72,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <ul class="inputs-list">
-                            #{list items:models.Member.findAll(), as:'speaker'}
+                            #{list items:speakers, as:'speaker'}
                             <li><label><input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} /> <span>${speaker}</span></label></li>
                             #{/list}
                         </ul>
@@ -82,15 +82,15 @@
                 </div><!-- /clearfix -->
                 #{/}
 
-                #{field 'interests'}
+                #{field 'talk.interests'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
 
                         <ul class="inputs-list">
-                            #{list items:models.Interest.findAll(), as:'interest'}
+                            #{list items:models.Interest.findAllOrdered(), as:'interest'}
                             <span class="checkbox">
-                                <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
+                                <li><label><input type="checkbox" name="interests" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
                             </span>
 
                             #{/list}
@@ -103,11 +103,11 @@
 
                 #{/}
 
-                #{field 'newInterests'}
+                #{field 'talk.newInterests'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="${field.name}" size="200" type="text" value="${newInterests}" /> 
+                        <input class="xlarge" id="${field.id}" name="newInterests" size="200" type="text" value="${newInterests}" /> 
                         <span class="help-inline">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 

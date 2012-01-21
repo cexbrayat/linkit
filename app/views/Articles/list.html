@@ -1,6 +1,18 @@
 #{extends 'main.html' /}
 #{set title:'Les actualités' /}
 
+#{secure.check models.Role.ADMIN_ARTICLE}
+<p>
+    Ami du staff, veux-tu <a class="btn danger" href="@{Articles.create()}">Créer un article</a> ?
+</p>
+#{/secure.check} 
+
+#{if nonPublishedArticles}
+    <h2>Articles non publiés</h2>
+    #{articles articles:nonPublishedArticles /}
+    <h2>Articles publiés</h2>
+#{/if}
+
 #{articles articles:articles /}
 
 #{if articles.size() >= size}

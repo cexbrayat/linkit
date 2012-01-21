@@ -8,6 +8,7 @@ import models.LightningTalk;
 import models.Member;
 import models.ProviderType;
 import play.i18n.Messages;
+import play.mvc.Scope;
 
 /**
  * An "new vote" activity : someone {@link Activity#member} has voted for a lightning talk ({@link Activity#session})
@@ -23,7 +24,7 @@ public class NewVoteActivity extends Activity {
     }
 
     @Override
-    public String getMessage(String lang) {
+    public String getMessage(Scope.Session s) {
         return Messages.get(getMessageKey(), member, session);
     }
 

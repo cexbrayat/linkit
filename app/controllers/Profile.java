@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import models.*;
 
+import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
 
 import play.Logger;
+import play.data.validation.CheckWith;
 import play.data.validation.Email;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
@@ -29,7 +31,17 @@ public class Profile extends PageController {
         render("Profile/edit.html", member, originalLogin);
     }
 
-    public static void save(Long id, @Required String originalLogin, @Required String login, String firstname, String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription, String twitterName, String googlePlusId,
+    private static String cleanTwitterName(String twitterName) {
+        String result = StringUtils.trim(twitterName);
+        return StringUtils.remove(result, '@');
+    }
+
+    private static String cleanGoogleId(String googleId) {
+        return StringUtils.trim(googleId);
+    }
+    
+    public static void save(Long id, @Required String originalLogin, @Required String login, @Required String firstname, @Required String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription,
+            String twitterName, @CheckWith(GoogleIDCheck.class) String googlePlusId,
             String[] interests, String newInterests,
             List<SharedLink> sharedLinks) {
         Logger.info("Save Profile originalLogin {" + originalLogin + "}, firstname {" + firstname + "}, lastname {" + lastname + "}, "
@@ -51,6 +63,7 @@ public class Profile extends PageController {
         member.lastname = lastname;
         member.company = company;
 
+        twitterName = cleanTwitterName(twitterName);
         TwitterAccount twitter = member.getTwitterAccount();
         if (StringUtils.isNotBlank(twitterName)) {
             
@@ -70,6 +83,7 @@ public class Profile extends PageController {
             }
         }
 
+        googlePlusId = cleanGoogleId(googlePlusId);
         GoogleAccount google = member.getGoogleAccount();
         if (StringUtils.isNotBlank(googlePlusId)) {
             
@@ -135,7 +149,9 @@ public class Profile extends PageController {
     }
 
     public static void show(String login) {
-        Member member = Member.fetchForProfile(login);
+// FIXME CLA Member.fetchForProfile
+//      Member member = Member.fetchForProfile(login);
+        Member member = Member.findByLogin(login);
         member.lookedBy(Member.findByLogin(Security.connected()));
         Logger.info("Show profil %s", member);
         render(member);

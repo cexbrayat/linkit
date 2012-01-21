@@ -8,6 +8,7 @@ import models.Article;
 import play.data.validation.Required;
 import play.i18n.Messages;
 import play.mvc.Router;
+import play.mvc.Scope;
 
 /**
  * A comment activity : someone ({@link Activity#member} commented on a Article ({@link Activity#Article}
@@ -28,7 +29,7 @@ public class CommentArticleActivity extends CommentActivity {
     }
 
     @Override
-    public String getMessage(String lang) {
+    public String getMessage(Scope.Session s) {
         return Messages.get(getMessageKey(), member, article, comment);
     }
 
