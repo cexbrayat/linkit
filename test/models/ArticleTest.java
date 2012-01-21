@@ -85,7 +85,7 @@ public class ArticleTest extends BaseDataUnitTest {
         final long nbPublicArticles = Article.count("valid=true");
         
         a.unvalidate();
-        assertEquals(nbPublicArticles+1, Article.count("valid=true"));
+        assertEquals(nbPublicArticles-1, Article.count("valid=true"));
     }
     
     @Test public void delete() {

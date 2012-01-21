@@ -9,7 +9,7 @@
         <p>
             Une nouvelle session a été soumise :
         #{if talk instanceof models.Talk }
-            "<a href="@@{Sessions.show(talk.id, talk.title.slugify())}">${talk}</a>".
+            "<a href="@@{Sessions.show(talk.id, talk.title?.slugify())}">${talk}</a>".
         #{/if}
         #{if talk instanceof models.LightningTalk }
             "<a href="@@{LightningTalks.show(talk.id)}">${talk}</a>".
