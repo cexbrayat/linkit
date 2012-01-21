@@ -24,6 +24,7 @@ Staff(ced):
     firstname: Ced
     lastname: Name
     login: ced
+    email: ced@ced.fr
     shortDescription: is ced
     links:           
          - bob
@@ -76,6 +77,15 @@ Article(articleTest):
     content: Test content
     author: ced
     postedAt: 2011-11-26
+    valid: true
+
+Article(articleNonValid):
+    title: Non public
+    headline: Article non publié
+    content: Test content
+    author: ced
+    postedAt: 2012-01-20
+    valid: false
 
 Sponsor(sponsor) :
     firstname: ACME

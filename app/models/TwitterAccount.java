@@ -1,6 +1,5 @@
 package models;
 
-import com.google.common.collect.Maps;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -12,14 +11,12 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.Entity;
 import models.activity.StatusActivity;
 import play.Logger;
 import play.data.validation.Required;
-import play.templates.TemplateLoader;
 
 /**
  * A Twitter account
@@ -94,7 +91,7 @@ public class TwitterAccount extends Account {
         }
     }
     
-    protected static String replaceMentions(String content) {
+   protected static String replaceMentions(String content) {
         StringBuffer enhancedContent = new StringBuffer();
         Matcher m = PATTERN_MENTION.matcher(content);
         while (m.find()) {
@@ -104,11 +101,7 @@ public class TwitterAccount extends Account {
             String mention = String.format(FORMAT_LINK, mentionLink, "@"+mentionName);
             final Member mentionedMember = findMemberByScreenName(mentionName);
             if (mentionedMember != null) {
-                // If mentionned user is a Link-IT user : we render member with usual tag "member.html"
-                // mention = Router.reverse("Profile.show").add("login", mentionedMember.login).url;
-                Map<String, Object> renderArgs = Maps.newHashMap();
-                renderArgs.put("_arg", mentionedMember);
-                mention = TemplateLoader.load("tags/member.html").render(renderArgs);
+                mention = Matcher.quoteReplacement(StatusActivity.buildMentionFor(mentionedMember));
             }
             // Replace original content with enhanced mention
             m.appendReplacement(enhancedContent, mention);

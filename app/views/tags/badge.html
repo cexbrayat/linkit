@@ -1,5 +1,5 @@
 *{ Display a badge "badge" }*
-<a href="#" rel="twipsy" title="&{'badge.'+_badge}">
+<a rel="twipsy" title="&{'badge.'+_badge}">
 #{if _badge.getIconChar()}
 <span id="badge${_badge}" class="badge">${_badge.getIconChar()}</span>
 #{/if}
@@ -7,6 +7,6 @@
 %{
     String url = play.mvc.Router.reverse(play.vfs.VirtualFile.fromRelativePath(_badge.getIconUrl()));
 %}
-<img id="badge${_badge}" src="${url}" class="badge" alt="&{'badge.'+_badge}" />
+<img id="badge${_badge}" src="${url}" class="badge" alt="&{'badge.'+_badge}" itemprop="image" />
 #{/else}
 </a>

@@ -88,6 +88,12 @@ public class ActivityTest extends AbstractActivityTest {
     }
     
     @Test
+    public void deleteForArticle() {
+        final Article article = Article.all().first();
+        assertNotNull(Activity.deleteForArticle(article));
+    }
+    
+    @Test
     public void deleteForMemberWithProvider() {
         assertNotNull(Activity.deleteForMember(member, ProviderType.Twitter));
     }

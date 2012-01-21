@@ -3,6 +3,7 @@ package models.activity;
 import models.BaseDataUnitTest;
 import models.Member;
 import org.apache.commons.lang.StringUtils;
+import play.mvc.Scope;
 
 /**
  * Abstract class for units tests of {@link Activity} and derived classes.
@@ -10,7 +11,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public abstract class AbstractActivityTest extends BaseDataUnitTest {
 
-    public static final String DEFAULT_LANG = "fr";
+    public static final Scope.Session DEFAULT_SESSION = null;
         
     /** One alone member (no links, no linker) */
     protected Member member;
@@ -28,7 +29,7 @@ public abstract class AbstractActivityTest extends BaseDataUnitTest {
     protected void assertActivity(final Activity activity) {
         assertNotNull(activity);
         assertNotNull(activity.at);
-        assertTrue(StringUtils.isNotBlank(activity.getMessage(LinkActivityTest.DEFAULT_LANG)));
-        assertFalse(activity.getMessage(LinkActivityTest.DEFAULT_LANG).equals(activity.getMessageKey()));
+        assertTrue(StringUtils.isNotBlank(activity.getMessage(DEFAULT_SESSION)));
+        assertFalse(activity.getMessage(DEFAULT_SESSION).equals(activity.getMessageKey()));
     }
 }

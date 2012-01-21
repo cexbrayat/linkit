@@ -1,5 +1,6 @@
 #{extends 'main.html' /}
 #{set title:member.toString() /}
+#{set 'canonical'}@@{Profile.show(member.login)}#{/set}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 #{/set}
@@ -21,10 +22,10 @@
         </div>
         <div class="span10 offset1">
             <div class="row">
-                <h2 style="font-size: 40px; line-height: 44px;">${member}</h2>
+                <h2 style="font-size: 40px; line-height: 44px;" itemprop="name">${member}</h2>
             </div>
             <br/>
-            <div class="row">
+            <div class="row" itemprop="description">
                 ${member.shortDescription?.markdown().raw()}
             </div>
             <div class="row">
@@ -78,13 +79,15 @@
                 #{if member.getLightningTalks()}
                 <li><a href="#ligthnings">Mes lightnings talks</a></li>
                 #{/if}
+                #{if member.interests}
                 <li><a href="#interets">Mes intérêts</a></li>
+                #{/if}
                 <li><a href="#badges">Mes badges</a></li>
             </ul>
             <div id="tab-content" class="tab-content">
                 <div class="tab-pane active" id="tabActivites">
                     #{list items:member.getAccountProviders(), as:'provider'}
-                        <a class="service-button ${provider.name().toLowerCase()}" id="${provider}" onClick="handleProvider('${provider}')"></a>
+                        <a class="service-button ${provider.name().toLowerCase()}" id="${provider}" onClick="handleProvider('${provider}')" rel='twipsy' title="Cliquer pour filtrer le flux &{'provider.'+provider}"></a>
                     #{/list}
                     <br/><br/>
                     <p id="activities" style="max-height: 200px"></p>
@@ -163,11 +166,13 @@
                     </ul>
                 </div>
                 #{/if}
+                #{if member.interests}
                 <div class="tab-pane" id="interets">
                     #{list items:member.interests, as:'interest'}
                     <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
                     #{/list}
                 </div>
+                #{/if}
                 <div class="tab-pane" id="badges">
                     #{badges member.badges /}
                 </div>

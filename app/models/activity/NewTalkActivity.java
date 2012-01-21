@@ -9,6 +9,7 @@ import models.ProviderType;
 import models.Session;
 import play.i18n.Messages;
 import play.mvc.Router;
+import play.mvc.Scope;
 
 /**
  * An "new talk" activity : a talk ({@link Activity#session}) has been validated
@@ -23,7 +24,7 @@ public class NewTalkActivity extends Activity {
     }
 
     @Override
-    public String getMessage(String lang) {
+    public String getMessage(Scope.Session s) {
         return Messages.get(getMessageKey(), session);
     }
 

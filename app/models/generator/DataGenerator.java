@@ -49,7 +49,7 @@ public final class DataGenerator {
         // Some existing interests
         // Some new interests
         final int nbExistingInterests = Dummy.randomInt(5);
-        List<Interest> interests = Interest.findAll();
+        List<Interest> interests = Interest.findAllOrdered();
         for (int i = 0; i < nbExistingInterests; i++) {
             m.addInterest(interests.get(Dummy.randomInt(interests.size())).name);
         }

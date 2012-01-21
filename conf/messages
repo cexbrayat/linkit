@@ -3,7 +3,7 @@
 #
 
 # Menu bar
-menu.dashboard=Dashboard
+menu.dashboard=Mon dashboard
 menu.news=Actualités
 menu.agenda=Programme
 menu.agenda.sessions=Sessions
@@ -24,7 +24,6 @@ menu.infos.hotels=Hôtels à proximité
 menu.admin=Admin
 menu.search=Rechercher
 menu.login=Se connecter
-menu.login.dashboard=Mon dashboard
 menu.login.profile=Voir mon profil
 menu.login.edit=Editer mon profil
 menu.login.logout=Se déconnecter
@@ -36,9 +35,9 @@ menu.login.logout=Se déconnecter
 login=Nom d'utilisateur
 login.note=Votre login, nom d'utilisateur, pseudonyme. Si vous le modifiez, les éventuelles URL vous concernant que vous auriez bookmarkées ne seront plus valides.
 lastname=Nom
-lastname.note=Facultatif
+lastname.note=Obligatoire
 firstname=Prénom
-firstname.note=Facultatif
+firstname.note=Obligatoire
 company=Entreprise
 company.note=Facultatif
 email=Email
@@ -48,9 +47,9 @@ shortDescription.note=Obligatoire. Une courte description de vous, qui sera visi
 longDescription=Biographie
 longDescription.note=Une longue biographie, si vous le souhaitez (ou ce que vous voulez raconter de vous), qui sera visible sur votre profil.<br/>&{markdown.note}
 twitterName=Twitter
-twitterName.note=Votre compte twitter si vous en avez un (ex : mix_it).
+twitterName.note=Votre compte twitter si vous en avez un (ex : mix_it). Le "@" n'est pas nécessaire.
 googlePlusId=Google+
-googlePlusId.note=Votre ID Google+ si vous en avez un, i.e celui numérique affiché sur https://plus.google.com/{ID}
+googlePlusId.note=Votre ID Google+ si vous en avez un, i.e celui numérique affiché dans l'URL de votre profil : https://plus.google.com/{ID}
 interests=Intérets existants
 interests.note=Ces intérêts seront affichés sur votre profil et nous serviront à vous proposer de nouvelles connaissances.
 newInterests=Autres intérêts
@@ -58,30 +57,29 @@ newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant pa
 
 # Session fields
 talk.title=Titre
-talk.title.note=Un court titre pour votre session
+talk.title.note=Obligatoire. Un court titre pour votre session
 talk.summary=Résumé
-talk.summary.note=Un résumé de votre session
+talk.summary.note=Obligatoire. Un résumé de votre session
 talk.description=Description
-talk.description.note=La description complète de votre session.<br/>&{markdown.note}
+talk.description.note=Obligatoire. La description complète de votre session.<br/>&{markdown.note}
 talk.speakers=Speaker(s)
-talk.speakers.note=Choisissez le ou les speakers
+talk.speakers.note=Obligatoire. Choisissez le ou les speakers
 talk.track=Track Mix-IT
 talk.track.note=Obligatoire
+talk.interests=Intérets existants
+talk.interests.note=Ces intérêts seront associés à la session, et permettront aux utilisateurs de trouver cette session en recherchant par intérêt.
+talk.newInterests=Autres intérêts
+talk.newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 content=Votre commentaire
 content.note=&{markdown.note}
 
 # Article fields
 article.title=Titre	  	
-article.title.note=Un court titre pour cet article
+article.title.note=Obligatoire. Un court titre pour cet article
 article.headline=Accroche
-article.headline.note=Introduction, qui sera affichée dans les listes d'actualité<br/>&{markdown.note}
+article.headline.note=Obligatoire. Introduction, qui sera affichée dans les listes d'actualité<br/>&{markdown.note}
 article.content=Contenu	  	
-article.content.note=Le contenu de votre article.<br/>&{markdown.note}
-
-# LightningTalk fields
-talk.title.lt.note=Un court titre pour votre lightning talk
-talk.summary.lt.note=Un résumé de votre lightning talk
-talk.description.lt.note=La description complète de votre lightning talk.<br/>&{markdown.note}
+article.content.note=Obligatoire. Le contenu de votre article.<br/>&{markdown.note}
 
 # Email LinkIT
 email.from=Votre Email
@@ -109,7 +107,7 @@ SharedLinkActivity.message=%1$s a partagé le lien "%2$s"
 NewVoteActivity.message=%1$s a voté pour le Lightning Talk "%2$s"
 
 # Providers
-provider.LinkIt=Link-IT
+provider.LinkIt=Mix-IT
 provider.Google=Google+
 provider.Twitter=Twitter
 
@@ -141,6 +139,13 @@ badge.TwoDaysInARow=2 days in a row (vous avez utilisé le site deux jours de su
 badge.FiveDaysInARow=5 days in a row (vous avez utilisé le site cinq jours de suite)
 badge.MixITAddict=Mix-IT addict (vous avez utilisé le site dix jours de suite)
 
+# Tracks
+track.Agility.description=L'agilité pour les débutants et les passionnés
+track.Techy.description=L'univers Java et son écosystème
+track.Weby.description=Les dernières tendances et technologies dédiées au Web
+track.Trendy.description=Les tendances novatrices et avant-gardistes
+track.Gamy.description=Des jeux agiles et des coding dojos pour apprendre
+
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new" tabindex="-1"><strong>MarkDown</strong></a> accepté.
 
@@ -155,7 +160,8 @@ since.years=il y a %d ans
 # Validation errors
 validation.errors=Quelques erreurs sont à corriger dans ta saisie mon ami !
 validation.required=La saisie du champ %s est obligatoire
-validation.email=Saisir un email valide
-validation.minSize=Le nombre maximum de %s est %d
-validation.maxSize=Le nombre maximum de %s est %d
+validation.email=Le champ &{%1$s} n'est pas un email valide
+validation.minSize=Le nombre minimum de &{%1$s} est %d
+validation.maxSize=Le nombre maximum de &{%1$s} est %d
 validation.unique=La valeur du champ %s est déjà utilisée par l'utilisateur %s
+validation.googleID=Le champ &{%1$s} ne correspond pas à un Google ID valide

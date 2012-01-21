@@ -6,6 +6,7 @@ import javax.persistence.ManyToOne;
 import models.ProviderType;
 import models.SharedLink;
 import play.i18n.Messages;
+import play.mvc.Scope;
 
 /**
  * A link sharing activity : someone ({@link Activity#member} shared a new link ({@link SharedLinkActivity#link}).
@@ -31,7 +32,7 @@ public class SharedLinkActivity extends Activity {
     }
 
     @Override
-    public String getMessage(String lang) {
+    public String getMessage(Scope.Session s) {
         return Messages.get(getMessageKey(), member, link);
     }
 

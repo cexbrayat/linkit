@@ -1,5 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Lightning Talk ' + talk.title /}
+#{set 'canonical'}@@{LightningTalks.show(talk.id)}#{/set}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/vote.js'}"></script>
 <script>
@@ -8,8 +9,8 @@
 #{/set}
 
     <div class="hero-unit">
-        <h2>${talk.title}</h2>
-        <p>${talk.summary}</p>
+        <h2 itemprop="name">${talk.title}</h2>
+        <p itemprop="description">${talk.summary}</p>
 
         ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
         #{if talk.comments}
@@ -19,22 +20,28 @@
 
         #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
         
-        <p>
-            <div class="vote-counter" id="counter-${talk.id}">${talk.getNumberOfVotes()}</div>
-            #{if session.usernamef && !talk.hasSpeaker(session.username)}
-                <div id="vote-${talk.id}" class="vote-up #{if talk.hasVoteFrom(session.username)}inactive#{/if}#{else}active#{/else}" onclick="vote(${talk.id}, '${session.username}')">+1</div>
-            #{/if}
-        </p>
+        <br/><br/>#{vote talk /}
+
     </div>
         <div class="row">
             <div class="span3">
                 <h4>Speaker${talk.speakers.size().pluralize()}</h4>
                 #{list items:talk.speakers, as:'speaker'}
                 <p>
+                #{if session.username}
                     <a href="@{Profile.show(speaker.login)}">${speaker}</a>
+                #{/if}
+                #{else}
+                    <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil">${speaker}</a>
+                #{/else}
                     <br/>
                     #{if speaker.email}
-                    <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                        #{if session.username}
+                            <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                        #{/if}
+                        #{else}
+                            <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                        #{/else}
                     #{/if}
                 </p>
                 #{/list}

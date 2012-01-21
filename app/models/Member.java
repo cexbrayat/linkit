@@ -22,6 +22,7 @@ import play.db.jpa.Model;
 
 import javax.persistence.*;
 import java.util.*;
+import org.apache.commons.lang.builder.CompareToBuilder;
 import play.data.validation.Email;
 import play.data.validation.Valid;
 import play.modules.search.Field;
@@ -47,7 +48,7 @@ import play.modules.search.Indexed;
                         + "where m.login=:login")
 })
 @Indexed
-public class Member extends Model implements Lookable {
+public class Member extends Model implements Lookable, Comparable<Member> {
 
     public static final String FIRSTNAME = "firstname";
     public static final String LASTNAME = "lastname";
@@ -495,9 +496,6 @@ public class Member extends Model implements Lookable {
                 .append(firstname)
                 .append(' ')
                 .append(lastname)
-                .append(" (")
-                .append(login)
-                .append(')')
                 .toString();
     }
 
@@ -545,6 +543,10 @@ public class Member extends Model implements Lookable {
 
     public static List<Member> recents(int page, int length) {
         return find("order by registeredAt desc").fetch(page, length);
+    }
+
+    public int compareTo(Member t) {
+        return toString().compareTo(t.toString());
     }
 
     static class TalkPredicate implements Predicate<Session> {
