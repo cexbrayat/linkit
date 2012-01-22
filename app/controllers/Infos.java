@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.List;
-import models.Email;
+import models.mailing.Mailing;
 import models.Member;
 import models.Staff;
 import models.mailing.MailingStatus;
@@ -36,7 +36,7 @@ public class Infos extends PageController {
         render();
     }
 
-    public static void sendStaff(Email email) {
+    public static void sendStaff(Mailing email) {
         Member from = Member.findByLogin(Security.connected());
         List<Member> staff = Staff.findAll();
         email.recipients = MembersSet.Staff;

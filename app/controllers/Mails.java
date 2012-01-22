@@ -1,7 +1,7 @@
 package controllers;
 
 import java.util.List;
-import models.Email;
+import models.mailing.Mailing;
 import models.Member;
 import models.Session;
 import models.mailing.MailingStatus;
@@ -25,18 +25,19 @@ public class Mails extends Mailer {
         send(talk);
     }
     
-    public static void contact(Email email) {
+    public static void contact(Mailing email) {
         setSubject(email.subject);
         setFrom(email.from != null ? email.from.email : FROM);
         addRecipients(email.recipients);
         send(email);
     }
     
-    public static void mailing(Email email, Member recipient) {
-        setSubject("Contact utilisateur Link-IT : " + email.subject);
-        setFrom(email.from.email);
+    public static void mailing(Mailing mailing, Member recipient) {
+        setSubject("Contact utilisateur Link-IT : " + mailing.subject);
+        setFrom(mailing.from.email);
         addRecipient(recipient.email);
-        send(email);
+        send(mailing);
+        mailing.addActualRecipient(recipient);
     }
     
     private static void addRecipients(MembersSet set) {

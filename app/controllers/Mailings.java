@@ -1,7 +1,8 @@
 package controllers;
 
+import java.util.Date;
 import java.util.List;
-import models.Email;
+import models.mailing.Mailing;
 import models.Member;
 import models.Role;
 import play.Logger;
@@ -18,26 +19,32 @@ import play.mvc.With;
 public class Mailings extends PageController {
 
     public static void index() {
-        List<Email> mailings = Email.findAll();
+        List<Mailing> mailings = Mailing.findAll();
         render(mailings);
     }
     
     public static void create() {
-        render("Mailings/edit.html", new Email());
+        render("Mailings/edit.html", new Mailing());
     }
     
     public static void edit(long mailingId) {
-        Email mailing = Email.findById(mailingId);
-        render("Mailings/edit.html", mailing);
+        Mailing mailing = Mailing.findById(mailingId);
+        render(mailing);
+    }
+    
+    public static void show(long mailingId) {
+        Mailing mailing = Mailing.findById(mailingId);
+        render(mailing);
     }
     
     public static void preview(long mailingId) {
-        Email mailing = Email.findById(mailingId);
+        Mailing mailing = Mailing.findById(mailingId);
         render("Mails/mailing.html", mailing);
     }
     
-    public static void save(Email mailing) {
+    public static void save(Mailing mailing) {
         mailing.from = Member.findByLogin(Security.connected());
+        mailing.sentAt = new Date();
         validation.valid(mailing);
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
@@ -50,9 +57,20 @@ public class Mailings extends PageController {
     }
     
     public static void send(long mailingId) {
-        Email mailing = Email.findById(mailingId);
+        Mailing mailing = Mailing.findById(mailingId);
         mailing.send();
-        flash.success("Le mailing \"%s\" est en cours d'envoi", mailing);
+        flash.success("La demande d'envoi du mailing \"%s\" a bien été enregistré. Il partira dans la nuit à un premier lot de destinataires.", mailing);
+        index();
+    }
+    
+    public static void cancel(long mailingId) {
+        Mailing mailing = Mailing.findById(mailingId);
+        if (mailing.isUpdatable()) {
+            mailing.cancel();
+            flash.success("L'envoi du mailing \"%s\" a bien été annulé.", mailing);
+        } else {
+            flash.error("Le mailing \"%s\" ne peut pas être annulé : son envoi a déjà commencé", mailing);
+        }
         index();
     }
 }

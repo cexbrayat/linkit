@@ -12,7 +12,7 @@
 
 <div class="alert-message block-message info">
     <div class='alert-actions'>
-        <a class="btn primary" href="@{Mailings.create()}">Créer</a>
+        <a class="btn primary" href="@{Mailings.create()}">Créer</a> un nouveau mailing.
     </div>
 </div>
 
@@ -31,7 +31,7 @@
             #{list items:mailings, as:'mailing'}
             <tr class="mailing">
                 <td>
-                    <a href="@{preview(mailing.id)}" target="_blank">${mailing.subject}</a>
+                    <a href="@{show(mailing.id)}" target="_blank">${mailing.subject}</a>
                 </td>
                 <td>
                     #{if mailing.from}
@@ -48,8 +48,10 @@
                     ${mailing.status}
                 </td>
                 <td>
-                    #{if mailing.isModifiable()}
-                    <a class="btn primary" href="@{Mailings.edit(mailing.id)}" title="Editer">Editer</a>
+                    <a class="btn primary" href="@{Mailings.show(mailing.id)}" title="Consulter">Consulter</a>
+                    #{if mailing.isUpdatable()}
+                    <a class="btn" href="@{Mailings.edit(mailing.id)}" title="Editer">Editer</a>
+                    <a class="btn danger" href="@{Mailings.cancel(mailing.id)}" title="Annuler">Annuler</a>
                     <a class="btn danger" href="@{Mailings.send(mailing.id)}" title="Envoyer">Envoyer</a>
                     #{/if}
                 </td>

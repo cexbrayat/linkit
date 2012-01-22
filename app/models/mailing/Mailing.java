@@ -1,10 +1,9 @@
-package models;
+package models.mailing;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,8 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import models.mailing.MailingStatus;
-import models.mailing.MembersSet;
+import models.Member;
 import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.db.jpa.Model;
@@ -25,7 +23,7 @@ import play.db.jpa.Model;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity
-public class Email extends Model {
+public class Mailing extends Model {
 
     @ManyToOne
     public Member from;
@@ -55,18 +53,22 @@ public class Email extends Model {
     @Required
     public MailingStatus status;
     
-    public Email() {
+    public Mailing() {
         this.status = MailingStatus.Planned;
         this.sentAt = new Date();
     }
 
-    public boolean isModifiable() {
-        return status == MailingStatus.Planned;
+    public boolean isUpdatable() {
+        return status != MailingStatus.Sent && actualRecipients.isEmpty();
     }
     
     public void send() {
         this.status = MailingStatus.Sending;
-        // FIXME CLA Start job for batch sending mailings?
+        save();
+    }
+    
+    public void cancel() {
+        this.status = MailingStatus.Planned;
         save();
     }
     
@@ -75,7 +77,24 @@ public class Email extends Model {
         return subject;
     }
 
-    public static List<Email> recents(int page, int length) {
+    public void addActualRecipient(Member recipient) {
+        this.actualRecipients.add(recipient);
+        this.save();
+    }
+    
+    public Set<Member> getPendingRecipients() {
+        // All recipients
+        Set<Member> pendings = new HashSet<Member>(MembersSetQueryFactory.create(recipients).find());
+        // Minus the ones already contacted
+        pendings.removeAll(this.actualRecipients);
+        return pendings;
+    }
+    
+    public static List<Mailing> recents(int page, int length) {
         return find("order by sentAt desc").fetch(page, length);
+    }
+
+    public static List<Mailing> pending() {
+        return find("status <> ? order by sentAt asc", MailingStatus.Sent).fetch();
     }
 }
