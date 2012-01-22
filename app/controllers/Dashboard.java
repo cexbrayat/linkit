@@ -9,7 +9,6 @@ import models.Comment;
 import models.Member;
 import models.Session;
 import models.Suggestion;
-import play.Logger;
 
 public class Dashboard extends PageController {
 
@@ -41,18 +40,5 @@ public class Dashboard extends PageController {
         Member.addLink(Security.connected(), loginToLink);
         flash.success("Link ajouté!");
         index();
-    }
-    
-    public static void delete() throws Throwable {
-        Member member = Member.findByLogin(Security.connected());
-        render(member);
-    }
-    
-    public static void confirmDelete() throws Throwable {
-        Member member = Member.findByLogin(Security.connected());
-        member.delete();
-        Logger.info("Deleted profile %s", member);
-        flash.success("Votre compte a été supprimé");
-        Secure.logout();
     }
 }

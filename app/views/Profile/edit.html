@@ -272,8 +272,9 @@
           </div>
         </div>
         <div class="actions">
-                <input type="submit" class="btn primary large" value="Enregistrer"/>
-                <a href="@{Profile.show(originalLogin)}" class="btn large">Annuler</a>
+            <a href="@{Profile.show(originalLogin)}" class="btn large">Annuler</a>
+            <a href="@{Profile.delete()}" class="btn danger large" >Supprimer mon compte</a>
+            <input type="submit" class="btn primary large" value="Enregistrer"/>
         </div>
 
     #{/form}

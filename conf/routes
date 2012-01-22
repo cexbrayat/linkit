@@ -26,7 +26,8 @@ GET     /staff                                  Application.staff
 GET     /sponsors                               Application.sponsors
 GET     /members                                Application.members
 GET     /interest/{interest}                    Application.searchByInterest
-GET     /search/{query}                         Application.search  # I fucking don't know why this route is not used!
+# I fucking don't know why this route is not used!
+GET     /search/{query}                         Application.search 
 
 # Activities    
 GET     /activities                             Activities.general
@@ -39,12 +40,13 @@ GET     /profile/edit                           Profile.edit
 GET     /profile/register/{login}               Profile.register
 GET     /profile/link                           Profile.link
 GET     /profile/unlink                         Profile.unlink
+GET     /profile/delete                         Profile.delete
+GET     /profile/confirmdelete                  Profile.confirmDelete
 GET     /profile/{login}                        Profile.show
 
 # Dashboard
 GET     /dashboard                              Dashboard.index
 GET     /dashboard/link                         Dashboard.link
-GET     /dashboard/delete                       Dashboard.delete
 
 # Sessions
 GET     /sessions                               Sessions.index
@@ -55,7 +57,8 @@ GET     /session/validate/{talkId}              Sessions.validate
 GET     /session/unvalidate/{talkId}            Sessions.unvalidate
 POST    /session/comment                        Sessions.postComment
 GET     /session/{sessionId}/{slugify}          Sessions.show
-GET     /session/{sessionId}                    Sessions.show   # Just in case we forget the slugified title as parameter
+# Just in case we forget the slugified title as parameter
+GET     /session/{sessionId}                    Sessions.show   
 
 # Lightning
 GET     /lightnings                             LightningTalks.list
