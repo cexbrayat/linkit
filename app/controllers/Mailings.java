@@ -31,6 +31,11 @@ public class Mailings extends PageController {
         render("Mailings/edit.html", mailing);
     }
     
+    public static void preview(long mailingId) {
+        Email mailing = Email.findById(mailingId);
+        render("Mails/mailing.html", mailing);
+    }
+    
     public static void save(Email mailing) {
         mailing.from = Member.findByLogin(Security.connected());
         validation.valid(mailing);

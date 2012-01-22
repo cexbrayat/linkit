@@ -10,19 +10,17 @@
 </script>
 #{/set}
 
-#{secure.check models.Role.ADMIN_MEMBER}
 <div class="alert-message block-message info">
     <div class='alert-actions'>
         <a class="btn primary" href="@{Mailings.create()}">Créer</a>
     </div>
 </div>
-#{/secure.check}
 
     <table class="zebra-striped" id="sortMailings"> 
         <thead> 
             <tr> 
-                <th>From</th> 
                 <th>Subject</th>
+                <th>From</th> 
                 <th>Recipients</th>
                 <th>Submitted at</th>
                 <th>Status</th>
@@ -33,12 +31,12 @@
             #{list items:mailings, as:'mailing'}
             <tr class="mailing">
                 <td>
+                    <a href="@{preview(mailing.id)}" target="_blank">${mailing.subject}</a>
+                </td>
+                <td>
                     #{if mailing.from}
                         #{member mailing.from /}
                     #{/if}
-                </td>
-                <td>
-                    ${mailing.subject}
                 </td>
                 <td>
                     ${mailing.recipients}
