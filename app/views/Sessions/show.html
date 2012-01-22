@@ -2,7 +2,7 @@
 #{set title:'Session ' + talk.title /}
 #{set 'canonical'}@@{Sessions.show(talk.id, talk.title?.slugify())}#{/set}
 
-    <div class="hero-unit">
+    <div class="hero-unit" style="padding: 30px 60px;">
         <h2 itemprop="name">${talk.title}</h2>
         <p itemprop="description">${talk.summary}</p>
         ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
