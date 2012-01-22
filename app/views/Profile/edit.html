@@ -62,7 +62,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="span6" id="${field.id}" name="${field.name}" size="10" type="text" value="${member.login}" />
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.lastname}" />
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.firstname}" /> 
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
                 </div><!-- /clearfix -->
@@ -95,7 +95,7 @@
                     <label for="${field.name}">&{field.name}</label>
                     <div class="input">
                         <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.company}" />
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
                 </div><!-- /clearfix -->
@@ -106,7 +106,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="span6" id="${field.id}" name="${field.name}" size="30" type="email" value="${member?.email}" /> 
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
                 </div><!-- /clearfix -->
@@ -117,7 +117,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <textarea class="span6" id="${field.id}" name="${field.name}" size="30" rows="2">${member?.shortDescription}</textarea>
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+'.note'}</span>
                     </div> 
                 </div><!-- /clearfix -->
@@ -128,7 +128,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <textarea class="span6" id="${field.id}" name="${field.name}" size="30" rows="4">${member?.longDescription}</textarea>
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+'.note'}</span>
                     </div> 
                 </div><!-- /clearfix -->
@@ -152,7 +152,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Twitter)?.screenName}" /> 
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
                 </div><!-- /clearfix -->
@@ -163,7 +163,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Google)?.googleId}" /> 
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
 
@@ -193,8 +193,8 @@
                                 <a class="btn small" onclick="moveUpSharedLink(${i})">&#x21A5;</a>
                                 <a class="btn small" onclick="moveDownSharedLink(${i})">&#x21A7;</a>
                                 <a class="btn small" onclick="deleteSharedLink(${i})">X</a>
-                                <span class="help-inline span2">#{error 'sharedLinks['+i+'].name' /}</span>
-                                <span class="help-inline span6">#{error 'sharedLinks['+i+'].URL' /}</span>
+                                <span class="help-block span2">#{error 'sharedLinks['+i+'].name' /}</span>
+                                <span class="help-block span6">#{error 'sharedLinks['+i+'].URL' /}</span>
                             </div>
                         </div> 
                     </div><!-- /clearfix -->
@@ -250,7 +250,7 @@
 
                             #{/list}
                         </ul>                        
-                        <span class="help-inline newline">${field.error}</span>
+                        <span class="help-block newline">${field.error}</span>
                         <span class="help-block newline">&{field.name+".note"}</span>
                     </div>
 
@@ -263,7 +263,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="span6" id="${field.id}" name="${field.name}" size="200" type="text" value="${newInterests}" /> 
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
                 </div><!-- /clearfix -->
@@ -273,7 +273,7 @@
         </div>
         <div class="actions">
                 <input type="submit" class="btn primary large" value="Enregistrer"/>
-                <a href="@{Profile.show(member.login)}" class="btn large">Annuler</a>
+                <a href="@{Profile.show(originalLogin)}" class="btn large">Annuler</a>
         </div>
 
     #{/form}
