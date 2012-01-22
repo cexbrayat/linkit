@@ -1,0 +1,62 @@
+#{extends 'main.html' /}
+#{set title:'Liste des mailings' /}
+
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
+<script >
+    $(function() {
+        $("table#sortMailings").tablesorter({ sortList: [[1,0]] });
+    });
+</script>
+#{/set}
+
+<div class="alert-message block-message info">
+    <div class='alert-actions'>
+        <a class="btn primary" href="@{Mailings.create()}">Créer</a> un nouveau mailing.
+    </div>
+</div>
+
+    <table class="zebra-striped" id="sortMailings"> 
+        <thead> 
+            <tr> 
+                <th>Subject</th>
+                <th>From</th> 
+                <th>Recipients</th>
+                <th>Submitted at</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr> 
+        </thead> 
+        <tbody>        
+            #{list items:mailings, as:'mailing'}
+            <tr class="mailing">
+                <td>
+                    <a href="@{show(mailing.id)}">${mailing.subject}</a>
+                </td>
+                <td>
+                    #{if mailing.from}
+                        #{member mailing.from /}
+                    #{/if}
+                </td>
+                <td>
+                    ${mailing.recipients}
+                </td>
+                <td>
+                    ${mailing.sentAt.format('dd/MM/yyyy hh:mm:ss')}
+                </td>
+                <td>
+                    ${mailing.status}
+                </td>
+                <td>
+                    <a class="btn primary" href="@{Mailings.show(mailing.id)}" title="Consulter">Consulter</a>
+                    #{if mailing.isUpdatable()}
+                    <a class="btn" href="@{Mailings.edit(mailing.id)}" title="Editer">Editer</a>
+                    <a class="btn danger" href="@{Mailings.cancel(mailing.id)}" title="Annuler">Annuler</a>
+                    <a class="btn danger" href="@{Mailings.send(mailing.id)}" title="Envoyer">Envoyer</a>
+                    #{/if}
+                </td>
+            </tr>
+            #{/list}
+        </tbody> 
+    </table>
+ 

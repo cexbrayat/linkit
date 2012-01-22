@@ -5,6 +5,7 @@ import java.util.List;
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
+import models.mailing.Mailing;
 import org.apache.commons.lang.StringUtils;
 import org.junit.*;
 
@@ -256,6 +257,15 @@ public class MemberTest extends BaseDataUnitTest {
         LightningTalk lt2 = new LightningTalk().save();
         new Vote(lt1, member, true).save();
         new Vote(lt2, member, true).save();
+        // Recipient of mailings
+        Mailing m1 = new Mailing();
+        m1.actualRecipients.add(member);
+        m1.actualRecipients.add(other1);
+        m1.save();
+        // Source of contact mailing
+        Mailing m2 = new Mailing();
+        m2.from = member;
+        m2.save();
         
         assertNotNull(member.delete());
         assertNull(Member.findById(member.id));
