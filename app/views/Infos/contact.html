@@ -1,47 +1,36 @@
 #{extends 'main.html' /}
 #{set title:'Contacts' /}
 
-<div class="hero-unit">
-    <h1>Contactez-nous!</h1>
-    <h3>Contactez l'organisation en remplissant le formulaire suivant.</h3>
+<h3>Envoi d'un message à l'organisation.</h3>
+
+#{form @Infos.send()}
+<fieldset> 
+    #{field 'email.subject'}
+    <div class="clearfix ${field.error?'error':''}"> 
+        <label for="${field.name}">&{field.name}</label> 
+        <div class="input"> 
+            <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" /> 
+            <span class="help-block">${field.error}</span>
+            <span class="help-block">&{field.name+".note"}</span>
+        </div> 
+    </div><!-- /clearfix -->
+    #{/}
+
+
+    #{field 'email.message'}
+    <div class="clearfix ${field.error?'error':''}"> 
+        <label for="${field.name}">&{field.name}</label> 
+        <div class="input"> 
+            <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="10">${field.value}</textarea>
+            <span class="help-block">${field.error}</span>
+            <span class="help-block">&{field.name+".note"}</span>
+        </div> 
+    </div><!-- /clearfix -->
+    #{/}
+
+</fieldset>
+
+<div class="actions">
+    <input type="submit" class="btn primary large" value="Envoyer"/>
 </div>
-<div class="row"> 
-    <div class="span16 columns">
-        #{if session.username}
-        #{form @Infos.sendStaff()}
-        <fieldset> 
-            #{field 'email.subject'}
-            <div class="clearfix ${field.error?'error':''}"> 
-                <label for="${field.name}">&{field.name}</label> 
-                <div class="input"> 
-                    <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" /> 
-                    <span class="help-inline">${field.error}</span>
-                    <span class="help-block">&{field.name+".note"}</span>
-                </div> 
-            </div><!-- /clearfix -->
-            #{/}
-
-
-            #{field 'email.message'}
-            <div class="clearfix ${field.error?'error':''}"> 
-                <label for="${field.name}">&{field.name}</label> 
-                <div class="input"> 
-                    <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="10">${field.value}</textarea>
-                    <span class="help-inline">${field.error}</span>
-                    <span class="help-block">&{field.name+".note"}</span>
-                </div> 
-            </div><!-- /clearfix -->
-            #{/}
-
-        </fieldset>
-
-        <div class="actions">
-            <input type="submit" class="btn primary large" value="Envoyer"/>
-        </div>
-        #{/form}
-        #{/if}
-        #{else}
-        <a href="@{Login.index(request.url+'#post')}">Connectez-vous pour envoyer un email</a>
-        #{/else}
-    </div>
-</div>
+#{/form}

@@ -36,7 +36,7 @@ public class Infos extends PageController {
         render();
     }
 
-    public static void sendStaff(Mailing email) {
+    public static void send(Mailing email) {
         Member from = Member.findByLogin(Security.connected());
         List<Member> staff = Staff.findAll();
         email.recipients = MembersSet.Staff;
@@ -45,14 +45,14 @@ public class Infos extends PageController {
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
             flash.error(Messages.get("validation.errors"));
-            validation.keep();
-            contact();
+            render("Infos/contact.html", email);
         }
         email.save();
         Mails.contact(email);
+        email.actualRecipients.addAll(staff);
         email.status = MailingStatus.Sent;
         email.save();
-        flash.success("Merci pour votre email!");
-        contact();
+        flash.success("Votre message a bien été envoyé!");
+        Application.index();
     }
 }
