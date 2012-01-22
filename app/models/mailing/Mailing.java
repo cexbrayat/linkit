@@ -10,11 +10,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Query;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import models.Member;
 import play.data.validation.Required;
 import play.data.validation.Valid;
+import play.db.jpa.JPA;
 import play.db.jpa.Model;
 
 /**
@@ -96,5 +98,15 @@ public class Mailing extends Model {
 
     public static List<Mailing> pending() {
         return find("status <> ? order by sentAt asc", MailingStatus.Sent).fetch();
+    }
+
+    public static void deleteForMember(Member member) {
+        List<Mailing> recipientMailings = find("select distinct m from Mailing m inner join m.actualRecipients as ar where ar = ?", member).fetch();
+        for (Mailing m : recipientMailings) {
+            m.actualRecipients.remove(member);
+            m.save();
+        }
+        Query q = JPA.em().createQuery("update Mailing m set m.from = null where m.from = :member").setParameter("member", member);
+        q.executeUpdate();
     }
 }
