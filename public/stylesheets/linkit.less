@@ -110,11 +110,18 @@ h2.inactive {
     color: @grayLight;
 }
 
+/* Couleurs Mix-IT 2011 officielles
 @colorTrackAgility: #E45635;
 @colorTrackTechy:   #7FD2FF;
 @colorTrackTrendy:  #C3FF68;
 @colorTrackGamy:    #FBB829;
-@colorTrackWeby:    lightskyblue;
+// Mais la track Weby n'existait pas...
+*/
+@colorTrackAgility: lighten(#C43C35, 30%);
+@colorTrackTechy:   lighten(#0064CD, 40%);
+@colorTrackTrendy:  lighten(#62c462, 20%);
+@colorTrackGamy:    lighten(#339BB9, 30%);
+@colorTrackWeby:    #9DF8FC; // ? quelle couleur choisie?
 
 .track.Agility {
     background-color: @colorTrackAgility;
@@ -129,6 +136,22 @@ h2.inactive {
     background-color: @colorTrackGamy;
 }
 .track.Weby {
+    background-color: @colorTrackWeby;
+}
+
+.hero-unit.agility{
+    background-color: @colorTrackAgility;
+}
+.hero-unit.techy{
+    background-color: @colorTrackTechy;
+}
+.hero-unit.trendy{
+    background-color: @colorTrackTrendy;
+}
+.hero-unit.gamy{
+    background-color: @colorTrackGamy;
+}
+.hero-unit.weby {
     background-color: @colorTrackWeby;
 }
 
@@ -192,18 +215,5 @@ footer {
     p {
         font-size: 14px;
     }
-}
-
-.hero-unit.trendy{
-    background-color: lighten(#62c462, 20%);
-}
-.hero-unit.agility{
-    background-color: lighten(#C43C35, 30%);
-}
-.hero-unit.gamy{
-    background-color: lighten(#339BB9, 30%);
-}
-.hero-unit.techy{
-    background-color: lighten(#0064CD, 40%);
 }
 

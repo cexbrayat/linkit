@@ -30,7 +30,7 @@
     <br/>
     #{list items:_sessions, as:'talk'}
     <div class="row">
-        <div class="span10 offset2 hero-unit member-card session ${(talk instanceof models.Talk)?talk.track.toString().toLowerCase() : ''}">
+        <div class="span10 offset2 hero-unit member-card session track ${(talk instanceof models.Talk)?talk.track.toString().toLowerCase() : ''}">
         <div>#{session-card talk /}</div>
         <div>
             #{list items:talk.speakers, as:'speaker'}
