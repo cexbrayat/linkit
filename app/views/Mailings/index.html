@@ -31,7 +31,7 @@
             #{list items:mailings, as:'mailing'}
             <tr class="mailing">
                 <td>
-                    <a href="@{show(mailing.id)}" target="_blank">${mailing.subject}</a>
+                    <a href="@{show(mailing.id)}">${mailing.subject}</a>
                 </td>
                 <td>
                     #{if mailing.from}
