@@ -1,0 +1,62 @@
+#{extends 'main.html' /}
+#{set title:'Liste des mailings' /}
+
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
+<script >
+    $(function() {
+        $("table#sortMailings").tablesorter({ sortList: [[1,0]] });
+    });
+</script>
+#{/set}
+
+#{secure.check models.Role.ADMIN_MEMBER}
+<div class="alert-message block-message info">
+    <div class='alert-actions'>
+        <a class="btn primary" href="@{Mailings.create()}">Créer</a>
+    </div>
+</div>
+#{/secure.check}
+
+    <table class="zebra-striped" id="sortMailings"> 
+        <thead> 
+            <tr> 
+                <th>From</th> 
+                <th>Subject</th>
+                <th>Recipients</th>
+                <th>Submitted at</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr> 
+        </thead> 
+        <tbody>        
+            #{list items:mailings, as:'mailing'}
+            <tr class="mailing">
+                <td>
+                    #{if mailing.from}
+                        #{member mailing.from /}
+                    #{/if}
+                </td>
+                <td>
+                    ${mailing.subject}
+                </td>
+                <td>
+                    ${mailing.recipients}
+                </td>
+                <td>
+                    ${mailing.sentAt.format('dd/MM/yyyy hh:mm:ss')}
+                </td>
+                <td>
+                    ${mailing.status}
+                </td>
+                <td>
+                    #{if mailing.isModifiable()}
+                    <a class="btn primary" href="@{Mailings.edit(mailing.id)}" title="Editer">Editer</a>
+                    <a class="btn danger" href="@{Mailings.send(mailing.id)}" title="Envoyer">Envoyer</a>
+                    #{/if}
+                </td>
+            </tr>
+            #{/list}
+        </tbody> 
+    </table>
+ 

@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Notification Link-IT : proposition de session "${talk}"</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <p>Link-IT vous informe,</p>
-        <p>
-            Une nouvelle session a été soumise :
-        #{if talk instanceof models.Talk }
-            "<a href="@@{Sessions.show(talk.id, talk.title?.slugify())}">${talk}</a>".
-        #{/if}
-        #{if talk instanceof models.LightningTalk }
-            "<a href="@@{LightningTalks.show(talk.id)}">${talk}</a>".
-        #{/if}
-            <br/>
-            Affectueusement,
-        </p>
-        <p>
-            Link-IT's bot.
-        </p>
-    </body>
-</html>
+﻿#{extends 'Mails/mail.html' /}
+#{set title:'Notification Link-IT : proposition de session "${talk}"' /}
+
+<p>Link-IT vous informe,</p>
+<p>
+    Une nouvelle session a été soumise :
+#{if talk instanceof models.Talk }
+    "<a href="@@{Sessions.show(talk.id, talk.title?.slugify())}">${talk}</a>".
+#{/if}
+#{if talk instanceof models.LightningTalk }
+    "<a href="@@{LightningTalks.show(talk.id)}">${talk}</a>".
+#{/if}
+    <br/>
+    Affectueusement,
+</p>
+<p>
+    Link-IT's bot.
+</p>

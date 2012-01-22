@@ -1,51 +1,57 @@
 package controllers;
 
 import java.util.List;
-import models.LinkItEmail;
+import models.Email;
 import models.Member;
 import models.Staff;
+import models.mailing.MailingStatus;
+import models.mailing.MembersSet;
 import play.Logger;
 import play.data.validation.Validation;
+import play.i18n.Messages;
 
 public class Infos extends PageController {
 
     public static void about() {
-        render("Infos/about.html");
+        render();
     }
 
     public static void faq() {
-        render("Infos/faq.html");
+        render();
     }
 
     public static void kit() {
-        render("Infos/kit.html");
+        render();
     }
 
     public static void contact() {
-        render("Infos/contact.html");
+        render();
     }
 
     public static void acces() {
-        render("Infos/acces.html");
+        render();
     }
 
     public static void hotels() {
-        render("Infos/hotels.html");
+        render();
     }
 
-    public static void sendStaff(LinkItEmail email) {
+    public static void sendStaff(Email email) {
         Member from = Member.findByLogin(Security.connected());
-        List<Member> members = Staff.findAll();
-        email.recipients = members;
+        List<Member> staff = Staff.findAll();
+        email.recipients = MembersSet.Staff;
         email.from = from;
         validation.valid(email);
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
-            flash.error("Des erreurs dans votre saisie!");
+            flash.error(Messages.get("validation.errors"));
             validation.keep();
             contact();
         }
-        email.send();
+        email.save();
+        Mails.contact(email);
+        email.status = MailingStatus.Sent;
+        email.save();
         flash.success("Merci pour votre email!");
         contact();
     }

@@ -1,0 +1,56 @@
+#{extends 'main.html' /}
+#{set title:'Editer un mailing' /}
+
+#{errors /}
+
+#{form @save()}
+<fieldset> 
+
+    #{field 'mailing.id'}
+        <input id="${field.id}" name="${field.name}" type="hidden" value="${field.value}" />
+    #{/}
+
+    #{field 'mailing.recipients'}
+    <div class="clearfix ${field.error?'error':''}"> 
+        <label for="${field.name}">&{field.name}</label> 
+        <div class="input"> 
+            <ul class="inputs-list">
+                #{list items:models.mailing.MembersSet.values(), as:'set'}
+                <li><label><input type="radio" name="${field.name}" value="${set}" ${field.value == set?'checked':''} />${set}</label></li>
+                #{/list}
+            </ul>
+            <span class="help-block">${field.error}</span>
+            <span class="help-block">&{field.name+".note"}</span>
+        </div>
+    </div><!-- /clearfix -->
+    #{/}
+
+    #{field 'mailing.subject'}
+    <div class="clearfix ${field.error?'error':''}"> 
+        <label for="${field.name}">&{field.name}</label> 
+        <div class="input"> 
+            <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" /> 
+            <span class="help-block">${field.error}</span>
+            <span class="help-block">&{field.name+".note"}</span>
+        </div> 
+    </div><!-- /clearfix -->
+    #{/}
+
+    #{field 'mailing.message'}
+    <div class="clearfix ${field.error?'error':''}"> 
+        <label for="${field.name}">&{field.name}</label> 
+        <div class="input"> 
+            <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="10">${field.value}</textarea>
+            <span class="help-block">${field.error}</span>
+            <span class="help-block">&{field.name+".note"}</span>
+        </div> 
+    </div><!-- /clearfix -->
+    #{/}
+
+</fieldset>
+
+<div class="actions">
+    <input type="submit" class="btn primary" value="Enregistrer"/>
+    <a href="@{index()}" class="btn">Annuler</a>
+</div>
+#{/form}
