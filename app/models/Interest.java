@@ -17,7 +17,7 @@ import play.db.jpa.Model;
 public class Interest extends Model implements Comparable<Interest> {
 
     public String name;
-    
+
     protected Interest(String name) {
         this.name = name;
     }
@@ -62,7 +62,57 @@ public class Interest extends Model implements Comparable<Interest> {
     public static List<Interest> findAllOrdered() { // Can't be named findAll() : DuplicateMemberException
         return find("order by name").fetch();
     }
-    
+
+    /**
+     * Delete existing interest by name
+     * @param name Interest name
+     */
+    public static void deleteByName(String name) {
+        Interest interestToBeDeleted = Interest.findByName(name);
+        List<Member> members = Member.findMembersInterestedIn(name);
+        for (Member member : members) {
+            member.interests.remove(interestToBeDeleted);
+            member.save();
+        }
+        List<Session> sessions = Session.findSessionsLinkedWith(name);
+        for (Session session : sessions) {
+            session.interests.remove(interestToBeDeleted);
+            session.save();
+        }
+        delete("name", name);
+    }
+
+    public static void deleteByName(String... interests) {
+        for (String interet : interests) {
+            deleteByName(interet);
+        }
+    }
+
+    /**
+     * Merge to another Interest
+     * 1 - First : Retrieve the members and the sessions linked to this interest and relinked these elements to the survivor interest 
+     * 2 - Then : Delete this interest
+     * @param survivorInterest the survivor interest (the interest which we keep)
+     */
+    public void merge(String survivorInterestName) {
+        Interest survivorInterest = Interest.findByName(survivorInterestName);
+        List<Member> members = Member.findMembersInterestedIn(this.name);
+        for (Member member : members) {
+            member.interests.remove(this);
+            member.save();
+            member.interests.add(survivorInterest);
+            member.save();
+        }
+        List<Session> sessions = Session.findSessionsLinkedWith(this.name);
+        for (Session session : sessions) {
+            session.interests.remove(this);
+            session.save();
+            session.interests.add(survivorInterest);
+            session.save();
+        }
+        delete("name",this.name);
+    }
+
     public int compareTo(Interest otherInterest) {
         return name.compareTo(otherInterest.name);
     }
