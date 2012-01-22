@@ -89,6 +89,8 @@
                                 <li class="divider"></li>
                                 <li><a href="@{Articles.create()}">Créer un article</a></li>
                                 <li><a href="@{Sessions.create()}">Créer une session</a></li>
+                                <li class="divider"></li>
+                                <li><a href="@{Mailings.index()}">Mailings</a></li>
                             </ul>
                         </li>
                         #{/secure.check}
@@ -149,13 +151,16 @@
             #{/if}
             <br/>
             <div class="row">
-                <div class="span8">
+                <div class="span6">
                     <iframe allowtransparency="true" frameborder="0" scrolling="no"
                         src="//platform.twitter.com/widgets/follow_button.html?screen_name=MixIT_Lyon&lang=fr&show_count=true"
                         style="width:350px; height:20px;">
                     </iframe>
                 </div>
-                <div class="span8" style="text-align: right">
+                <div class="span4" style="text-align: right">
+                    <p><a href="http://www.cloudbees.com/" target="blank"><img src="@{'/public/images/powered-by-cloudbees-button-120x30.png'}" alt="Powered by Cloudbees" width="100px"></a></p>
+                </div>
+                <div class="span6" style="text-align: right">
                     <p>&copy; 2012 Mix-IT</p>
                 </div>
             </div>

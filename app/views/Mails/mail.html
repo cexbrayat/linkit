@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>#{get 'title' /} - Mix-IT 2012</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link type="text/css" rel="stylesheet" href="@@{'/public/stylesheets/bootstrap.less'}">
+        <link type="text/css" rel="stylesheet" href="@@{'/public/stylesheets/linkit.less'}">
+    </head>
+    <body style="padding-top: 60px;" > *{ 60px is navigation bar space }*
+        <div class="topbar">
+            <div class="topbar-inner">
+                <div class="container-fluid">
+                    <a class="brand" href="@@{Application.index()}"><img src="@@{'/public/images/mini-mixit.png'}" /></a>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="content">
+                #{doLayout /}
+            </div>
+        </div>
+    </body>
+    <footer>
+        <p>Mix-IT 2012</p>
+    </footer>
+</html>

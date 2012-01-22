@@ -1,0 +1,11 @@
+-------------------------------
+#{if email.from}
+L'utilisateur ${email.from} de login ${email.from}
+#{/if}
+#{else}
+Un utilisateur non connecté
+#{/else}
+vous envoit le message suivant.
+-------------------------------
+
+${email.message}

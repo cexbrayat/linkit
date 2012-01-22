@@ -22,7 +22,7 @@ import play.db.jpa.Model;
 
 import javax.persistence.*;
 import java.util.*;
-import org.apache.commons.lang.builder.CompareToBuilder;
+import models.mailing.Mailing;
 import play.data.validation.Email;
 import play.data.validation.Valid;
 import play.modules.search.Field;
@@ -524,6 +524,7 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         Comment.deleteForMember(this);
         Vote.deleteForMember(this);
         Set<Member> copyLinks = new HashSet(this.links);    // Avoid ConcurrentModificationException
+        Mailing.deleteForMember(this);
         for (Member linked : copyLinks) {
             this.removeLink(linked);
         }

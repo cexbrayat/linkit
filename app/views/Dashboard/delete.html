@@ -3,13 +3,18 @@
 
 <h1>Supprimer votre compte ?</h1>
 
+<div class="alert-message block-message warning">
 <p>
 Sans rire?<br/>
 Vous voulez supprimer votre compte ?<br/>
-On supprimera toutes les données associées, il ne restera plus trace de vous, rien!
+On supprimera <strong>toutes les données</strong> associées, il ne restera plus trace de vous, rien!
 </p>
+    <div class='alert-actions'>
+        <a href="@{index()}" class="btn primary">Je reviens sagement à mon Dashboard</a>
+        <a href="@{confirmDelete()}" class="btn danger">Je confirme la suppression!</a>
+    </div>
+</div>
+
 
 <p>
-<a href="@{index()}" class="btn">Je reviens sagement à mon Dashboard</a><br>
-<a href="@{confirmDelete()}" class="btn primary danger">Je confirme la suppression!</a>.
 </p>
