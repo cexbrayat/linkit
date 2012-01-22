@@ -4,30 +4,48 @@
     $(function() {
         $("table#sortSession").tablesorter({ sortList: [[1,0]] });
     });
+    var track = function(type){
+        if($("#"+type).attr('disabled') === 'disabled'){
+            $("#"+type).removeAttr('disabled');
+            $("."+type).show();
+        } else {
+            $("#"+type).attr('disabled','disabled');
+            $("."+type).hide();
+        }
+    }
 </script>
 
 #{if session.username}
     Proposer <a class="btn" href="@{Sessions.create(session.username)}">une session</a> ?
 #{/if}
 
-    <table class="zebra-striped" id="sortSession"> 
-        <thead> 
-            <tr> 
-                <th>Session</th> 
-                <th>Speaker(s)</th>
-            </tr> 
-        </thead> 
-        <tbody>        
-            #{list items:_sessions, as:'talk'}
-            <tr class="talk">
-                <td>#{session talk /}</td>
-                <td>
-                    #{list items:talk.speakers, as:'speaker'}
-                        #{member speaker /}#{if !speaker_isLast}, #{/if}
-                    #{/list}
-                </td>
-            </tr>
+    <div class="row">
+        <br/>
+        <div class="span1 offset4">
+            <a id="techy" class="btn large primary" onclick="track('techy')">Techy</a>
+        </div>
+        <div class="span1 offset1">
+            <a id="trendy" class="btn large success" onclick="track('trendy')">Trendy</a>
+        </div>
+        <div class="span1 offset1">
+            <a id="agility" class="btn large danger" onclick="track('agility')">Agility</a>
+        </div>
+        <div class="span1 offset1">
+            <a id="gamy" class="btn large info" onclick="track('gamy')">Gamy</a>
+        </div>
+    </div>
+
+    <br/>
+    #{list items:_sessions, as:'talk'}
+    <div class="row">
+        <div class="span10 offset2 hero-unit member-card ${(talk instanceof models.Talk)?talk.track.toString().toLowerCase() : ''}">
+        <div>#{session-card talk /}</div>
+        <div>
+            #{list items:talk.speakers, as:'speaker'}
+                #{member speaker /}#{if !speaker_isLast}, #{/if}
             #{/list}
-        </tbody> 
-    </table>
+        </div>
+        </div>
+    </div>
+    #{/list}
  
