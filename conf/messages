@@ -116,6 +116,7 @@ NewVoteActivity.message=%1$s a voté pour le Lightning Talk "%2$s"
 provider.LinkIt=Mix-IT
 provider.Google=Google+
 provider.Twitter=Twitter
+provider.LinkedIn=LinkedIn
 
 # Badges
 badge.Speaker=Speaker (intervenant sur une session)

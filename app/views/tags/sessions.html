@@ -6,11 +6,11 @@
     });
     var track = function(type){
         if($("#"+type).attr('disabled') === 'disabled'){
-            $("#"+type).removeAttr('disabled');
-            $("."+type).show();
+            $("a#"+type).removeAttr('disabled');
+            $(".session."+type).show();
         } else {
-            $("#"+type).attr('disabled','disabled');
-            $("."+type).hide();
+            $("a#"+type).attr('disabled','disabled');
+            $(".session."+type).hide();
         }
     }
 </script>
@@ -20,25 +20,17 @@
 #{/if}
 
     <div class="row">
-        <br/>
-        <div class="span1 offset4">
-            <a id="techy" class="btn large primary" onclick="track('techy')">Techy</a>
-        </div>
-        <div class="span1 offset1">
-            <a id="trendy" class="btn large success" onclick="track('trendy')">Trendy</a>
-        </div>
-        <div class="span1 offset1">
-            <a id="agility" class="btn large danger" onclick="track('agility')">Agility</a>
-        </div>
-        <div class="span1 offset1">
-            <a id="gamy" class="btn large info" onclick="track('gamy')">Gamy</a>
+        <div class="span11 offset2" style="text-align: center">
+            #{list items:models.Track.values(), as:'track'}
+            <a id="${track.name().toLowerCase()}" class="btn large track ${track}" style="margin-left: 10px; margin-right: 10px" onclick="track('${track.name().toLowerCase()}')" rel='twipsy' data-placement="above" title="&{'track.'+track.name()+'.description'}">${track.name()}</a>
+            #{/list}
         </div>
     </div>
 
     <br/>
     #{list items:_sessions, as:'talk'}
     <div class="row">
-        <div class="span10 offset2 hero-unit member-card ${(talk instanceof models.Talk)?talk.track.toString().toLowerCase() : ''}">
+        <div class="span10 offset2 hero-unit member-card session track ${(talk instanceof models.Talk)?talk.track.toString().toLowerCase() : ''}">
         <div>#{session-card talk /}</div>
         <div>
             #{list items:talk.speakers, as:'speaker'}

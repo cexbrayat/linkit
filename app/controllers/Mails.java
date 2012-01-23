@@ -34,7 +34,7 @@ public class Mails extends Mailer {
     
     public static void mailing(Mailing mailing, Member recipient) {
         setSubject("Contact utilisateur Link-IT : " + mailing.subject);
-        setFrom(mailing.from.email);
+        setFrom(FROM);
         addRecipient(recipient.email);
         send(mailing);
         mailing.addActualRecipient(recipient);

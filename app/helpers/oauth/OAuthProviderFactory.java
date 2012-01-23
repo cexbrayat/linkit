@@ -14,6 +14,7 @@ public class OAuthProviderFactory {
     static {
         providers.put(ProviderType.Twitter, new Twitter());
         providers.put(ProviderType.Google, new Google());
+        providers.put(ProviderType.LinkedIn, new LinkedIn());
     }
 
     public static OAuthProvider getProvider(ProviderType type) {

@@ -1,5 +1,5 @@
 play deps --sync
 play run
 
-## test cloudbees
-
+## Deploy cloudbees
+play bees:app:deploy --%cloudbees
