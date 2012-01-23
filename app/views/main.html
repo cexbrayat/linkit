@@ -52,6 +52,7 @@
                                     <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
                                     <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
                                 #{if session.username}
+                                    <li class="divider"></li>
                                     <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                                 #{/if}
                                     <!--<li><a href="@{Plannings.index()}">Agenda</a></li>-->
@@ -74,6 +75,7 @@
                             <ul class="dropdown-menu">
                                 <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">&{'menu.infos.about'}</a></li>
                                 <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">&{'menu.infos.faq'}</a></li>
+                                <li #{if request.action=="Infos.inscription"}class="active"#{/if}><a href="@{Infos.inscription()}">&{'menu.infos.inscription'}</a></li>
                                 <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">&{'menu.infos.kit'}</a></li>
                                 <li #{if request.action=="Infos.contact"}class="active"#{/if}><a href="@{Infos.contact()}">&{'menu.infos.contact'}</a></li>
                                 <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">&{'menu.infos.access'}</a></li>
@@ -90,6 +92,9 @@
                                 <li><a href="@{Articles.create()}">Créer un article</a></li>
                                 <li><a href="@{Sessions.create()}">Créer une session</a></li>
                                 <li><a href="@{Interests.edit()}">Modérer les intérêts</a></li>
+                                <li class="divider"></li>
+                                <li><a href="@{Mailings.index()}">Mailings</a></li>
+
                             </ul>
                         </li>
                         #{/secure.check}

@@ -1,52 +1,63 @@
 package controllers;
 
 import java.util.List;
-import models.LinkItEmail;
+import models.mailing.Mailing;
 import models.Member;
 import models.Staff;
+import models.mailing.MailingStatus;
+import models.mailing.MembersSet;
 import play.Logger;
 import play.data.validation.Validation;
+import play.i18n.Messages;
 
 public class Infos extends PageController {
 
     public static void about() {
-        render("Infos/about.html");
+        render();
     }
 
     public static void faq() {
-        render("Infos/faq.html");
+        render();
+    }
+    
+    public static void inscription() {
+        Member member = Member.findByLogin(Security.connected());
+        render(member);
     }
 
     public static void kit() {
-        render("Infos/kit.html");
+        render();
     }
 
     public static void contact() {
-        render("Infos/contact.html");
+        render();
     }
 
     public static void acces() {
-        render("Infos/acces.html");
+        render();
     }
 
     public static void hotels() {
-        render("Infos/hotels.html");
+        render();
     }
 
-    public static void sendStaff(LinkItEmail email) {
+    public static void send(Mailing email) {
         Member from = Member.findByLogin(Security.connected());
-        List<Member> members = Staff.findAll();
-        email.recipients = members;
+        List<Member> staff = Staff.findAll();
+        email.recipients = MembersSet.Staff;
         email.from = from;
         validation.valid(email);
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
-            flash.error("Des erreurs dans votre saisie!");
-            validation.keep();
-            contact();
+            flash.error(Messages.get("validation.errors"));
+            render("Infos/contact.html", email);
         }
-        email.send();
-        flash.success("Merci pour votre email!");
-        contact();
+        email.save();
+        Mails.contact(email);
+        email.actualRecipients.addAll(staff);
+        email.status = MailingStatus.Sent;
+        email.save();
+        flash.success("Votre message a bien été envoyé!");
+        Application.index();
     }
 }

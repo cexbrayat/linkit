@@ -5,36 +5,87 @@
 #{/set}
 <div class="hero-unit">
     <div class="row">
-        <div class="span10">
+        <div class="span6 offset1">
             <div class="row">
-                <h2>26 Avril 2012</h2>
+                <div class="span4">
+                    <h2>26 Avril 2012</h2>
+                </div>
             </div>
             <div class="row">
-                <h1><img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" style="width:500px"></h1>
+                <div class="span4">
+                    <h1><img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" style="width:500px"></h1>
+                </div>
             </div>
             <div class="row">
-                <div class="span6 offset4"><h3 itemprop="description">Des idées pour tout de suite !</h3></div>
+                <div class="span5 offset4">
+                    <h3 itemprop="description">Des idées pour tout de suite !</h3>
+                </div>
             </div>
-        </div>
-        <div class="span4">
-            #{if !session.username}
-            <div class="row">
-                <a href="@{Login.index()}" class="btn primary">Se connecter / Créer son compte</a><br/><br/>
-            </div>
-            #{/if}
-            <div class="row">
-                <a href="@{Sessions.index()}" class="btn primary">Voir les sessions</a><br/><br/>
-            </div>
+         </div>
+         <div class="span4 offset3" style="font-size: 16px" >
+                    <div class="well" style="padding: 10px 10px;">
+                        <strong>Mix-it en chiffre</strong>
+                        <ul>
+                            <li>350 participants</li>
+                            <li>30 speakers</li>
+                            <li>5 tracks</li>
+                            <li>Des ligthnings talks</li>
+                            <li>700 bouteilles d'eau</li>
+                            <li>du fun!</li>
+                        </ul>
+                    </div>
+         </div>
+      </div>
+    <br/>
+    <div class="row">
+        <div class="span12 offset1">
             #{if session.username}
             <div class="row">
-                <a href="@{Application.members()}" class="btn primary">Consulter les profils</a><br/><br/>
+                <div class="span3">
+                    <a href="@{Infos.inscription()}" class="btn primary" rel='twipsy' title="Prix: 30 euros" data-html="true">Payer mon billet</a>
+                </div>
+                <div class="span3">
+                    <a href="@{Application.members()}" class="btn primary">Consulter Profils</a>
+                </div>
+                <div class="span5"> 
+                    <a href="@{LightningTalks.list()}" class="btn primary">Voter pour LightningTalks</a>
+                </div>
             </div>
             #{/if}
+            #{else}
             <div class="row">
-                <a href="@{LightningTalks.list()}" class="btn primary">Voter pour des Lightning talks</a><br/><br/>
+                <div class="span3 offset1">
+                    <a href="@{Infos.about()}" target="blank" class="btn primary">A propos de Mix-IT</a>
+                </div>
+                <div class="span3 offset1">
+                    <a href="@{Sessions.index()}" class="btn primary">Sessions</a>
+                </div>
+                <div class="span3 ">
+                    <a href="@{Infos.inscription()}" class="btn primary">Inscription</a>
+                </div>
             </div>
+            #{/else}
         </div>
     </div>
+    <br/>
+    <br/>
+    <!-- <div class="row">
+        <div class="span9">
+            <p style="text-align:justify;">Mix-it c’est une journée de conférences à Lyon sur l’agilité, les technologies java et les dernières tendances et innovations IT, Web ou mobile. Le 26 avril, le staff de Mix-it vous accueille à Supinfo pour des sessions d’expertise, des jeux et des rencontres. Entrepreneurs, managers, développeurs vous trouverez forcément des idées pour vos projets !</p>
+        </div>
+        <div class="span4 offset1" style="font-size: 16px">
+            <b>Mix-it en chiffre</b>
+            <ul>
+                <li>350 participants</li>
+                <li>30 speakers</li>
+                <li>5 tracks</li>
+                <li>des ligthnings talks</li>
+                <li>du fun!</li>
+            </ul>
+        </div>
+    </div>
+    <br/>
+    -->
     <div class="row">
         <ul class="tabs" data-tabs="tabs">
             <li class="active"><a href="#tabActivities">Dernières activitiés</a></li>

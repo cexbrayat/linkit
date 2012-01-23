@@ -1,0 +1,33 @@
+#{extends 'main.html' /}
+#{set title:'Détails du mailing ${mailing}' /}
+
+<h2>Détails du mailing ${mailing}</h2>
+
+<dl>
+    <dt>Sujet</dt>
+    <dd>${mailing.subject}</dd>
+
+    <dt>Destinataires prévus</dt>
+    <dd>${mailing.recipients}</dd>
+
+    <dt>Destinataires déjà traités</dt>
+    #{if mailing.actualRecipients}
+    <dd>
+        #{list items:mailing.actualRecipients, as:'recipient'}
+            ${recipient}#{if !recipient_isLast}, #{/if}
+        #{/list}
+    </dd>
+    #{/if}
+    #{else}
+    <dd><em>Aucun destinataire déjà traité</em></dd>
+    #{/else}
+</dl>
+
+<div class="alert-message block-message info">
+    <strong>Prévisualisation de ce mailing</strong>.<br/>
+    <p>La prévisualisation s'ouvrira dans un <strong>nouvel onglet</strong>.</p>
+    <p>Cette prévisualisation est le code HTML tel que les destinataires le recevront par email.</p>
+    <div class='alert-actions'>
+        <a href="@{preview(mailing.id)}" class="btn primary" title="Ouvrir la prévisualisation du mailing" target="mailingPreview">Prévisualiser</a><br/>
+    </div>
+</div>
