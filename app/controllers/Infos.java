@@ -19,6 +19,11 @@ public class Infos extends PageController {
     public static void faq() {
         render();
     }
+    
+    public static void inscription() {
+        Member member = Member.findByLogin(Security.connected());
+        render(member);
+    }
 
     public static void kit() {
         render();

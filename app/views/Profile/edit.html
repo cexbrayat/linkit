@@ -204,7 +204,7 @@
         </div>
     </div>
     <hr/>
-    <!-- FIXME on January the 19th : the ticketing will open on January the 19th, not before!
+    <!-- FIXME on January the 19th : the ticketing will open on January the 19th, not before!-->
     <div class="row"> 
         <div class="span2 columns"> 
             <h2>Inscription</h2> 
@@ -214,20 +214,13 @@
                 <legend>Achat du billet</legend>
            <div class="clearfix">
                <div class="input">
-                #{if member?.ticketingRegistered}
-                    <span class="label success">J'ai déjà payé mon billet</span> sur <a target="blank" href="http://www.weezevent.com">Weezevent</a>
-                #{/if}
-                #{else}
-                <p><span class="label important">Je n'ai pas encore payé mon billet!</span></p>
-                  #{inscription /}
-                #{/else}
+                  #{ticketing member/}
                </div>
            </div>
           </fieldset>
         </div>
     </div>
     <hr/>
-    -->
     <div class="row"> 
         <div class="span2 columns"> 
             <h2>Centres d'intérêt</h2> 
