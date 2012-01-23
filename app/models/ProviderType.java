@@ -8,5 +8,6 @@ public enum ProviderType {
     
     LinkIt,
     Twitter,
-    Google
+    Google,
+    LinkedIn
 }

@@ -10,7 +10,7 @@ Vous voulez supprimer votre compte ?<br/>
 On supprimera <strong>toutes les données</strong> associées, il ne restera plus trace de vous, rien!
 </p>
     <div class='alert-actions'>
-        <a href="@{index()}" class="btn primary">Je reviens sagement à mon Dashboard</a>
+        <a href="@{show(session.username)}" class="btn primary">Je reviens sagement à mon profil</a>
         <a href="@{confirmDelete()}" class="btn danger">Je confirme la suppression!</a>
     </div>
 </div>

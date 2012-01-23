@@ -36,22 +36,22 @@
             <div class="span3">
                 <h4>Speaker${talk.speakers.size().pluralize()}</h4>
                 #{list items:talk.speakers, as:'speaker'}
-                <p>
+                <p style="text-align: center">
+                #{if speaker.email}
+                    #{if session.username}
+                        <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                    #{/if}
+                    #{else}
+                        <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                    #{/else}
+                #{/if}
+                    <br/>
                 #{if session.username}
                     <a href="@{Profile.show(speaker.login)}">${speaker}</a>
                 #{/if}
                 #{else}
-                    <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil">${speaker}</a>
+                    <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">${speaker}</a>
                 #{/else}
-                    <br/>
-                    #{if speaker.email}
-                        #{if session.username}
-                            <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
-                        #{/if}
-                        #{else}
-                            <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
-                        #{/else}
-                    #{/if}
                 </p>
                 #{/list}
 
@@ -92,7 +92,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input offset4"> 
                         <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
                 </div>

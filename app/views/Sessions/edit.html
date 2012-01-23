@@ -35,7 +35,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxsize="50" type="text" value="${field.value}" />
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="140" rows="2">${field.value}</textarea>
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
                 </div><!-- /clearfix -->
@@ -57,7 +57,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="20">${field.value}</textarea>
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
                 </div><!-- /clearfix -->
@@ -95,7 +95,7 @@
 
                             #{/list}
                         </ul>                        
-                        <span class="help-inline newline">${field.error}</span>
+                        <span class="help-block newline">${field.error}</span>
                         <span class="help-block newline">&{field.name+".note"}</span>
                     </div>
 
@@ -108,7 +108,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xlarge" id="${field.id}" name="newInterests" size="200" type="text" value="${newInterests}" /> 
-                        <span class="help-inline">${field.error}</span>
+                        <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
                 </div><!-- /clearfix -->
