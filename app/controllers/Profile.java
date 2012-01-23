@@ -24,11 +24,12 @@ public class Profile extends PageController {
         render(member, originalLogin);
     }
 
-    public static void register(String login) {
+    public static void register(String login, ProviderType provider) {
         Member member = Member.getPreregistered(login);
         Logger.info("Création du profil %s", member);
         String originalLogin = login;
-        render("Profile/edit.html", member, originalLogin);
+        ProviderType registrationProvider = provider;
+        render("Profile/edit.html", member, originalLogin, registrationProvider);
     }
 
     private static String cleanTwitterName(String twitterName) {

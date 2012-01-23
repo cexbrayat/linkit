@@ -45,8 +45,14 @@
 #{/set}
 
     <div class="page-header"> 
-        <h1>Edition de votre profil</h1> 
+        <h1>${registrationProvider ? 'Création' : 'Edition'} de votre profil</h1> 
     </div>
+
+    #{if registrationProvider}
+    <div class="alert-message block-message warning">
+        Création d'un nouveau profil suite à votre connexion via &{'provider.'+registrationProvider}.
+    </div>
+    #{/if}
 
     #{form @Profile.save(member.id, originalLogin)} 
     <div class="row"> 
@@ -267,8 +273,11 @@
         <div class="actions">
 #{if member.id} *{création de profil si member.id == null}*
             <a href="@{Profile.delete()}" class="btn danger" >Supprimer mon compte</a>
-#{/if}
             <a href="@{Profile.show(originalLogin)}" class="btn">Annuler</a>
+#{/if}
+#{else}
+            <a href="@{Application.index()}" class="btn">Annuler</a>
+#{/else}
             <input type="submit" class="btn primary" value="Enregistrer"/>
         </div>
 
