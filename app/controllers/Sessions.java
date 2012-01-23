@@ -55,7 +55,9 @@ public class Sessions extends PageController {
         Collections.sort(actualSpeakers);
         speakers = Lists.putOnTop(speakers, actualSpeakers);
         // Put current user on top.
-        speakers = Lists.putOnTop(speakers, member);
+        if (member != null) {
+            speakers = Lists.putOnTop(speakers, member);
+        }
         return speakers;
     }
     
@@ -102,7 +104,8 @@ public class Sessions extends PageController {
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
             flash.error(Messages.get("validation.errors"));
-            render("Sessions/edit.html", talk);
+            List<Member> speakers = speakersFor(talk, Member.findByLogin(Security.connected()));
+            render("Sessions/edit.html", talk, speakers);
         }
         talk.update();
         flash.success("Session " + talk + " enregistrée");

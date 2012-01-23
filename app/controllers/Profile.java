@@ -174,4 +174,22 @@ public class Profile extends PageController {
         flash.success("Link supprimé!");
         show(loginToLink);
     }
+    
+    public static void delete() throws Throwable {
+        Member member = Member.findByLogin(Security.connected());
+        render(member);
+    }
+    
+    public static void confirmDelete() throws Throwable {
+        Member member = Member.findByLogin(Security.connected());
+        if (member instanceof Staff) {
+            flash.error("Désolé mec, on ne supprime pas les mecs du staff! Trop tard, on est dans le même bateau, on coule avec! Non plus sérieusement, c'est parce que tu es potentiellement auteur d'articles et lié à d'autres données qu'on ne peut pas supprimer...");
+            show(member.login);
+        } else {
+        member.delete();
+            Logger.info("Deleted profile %s", member);
+            flash.success("Votre compte a été supprimé");
+            Secure.logout();
+        }
+    }
 }

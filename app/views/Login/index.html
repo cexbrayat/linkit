@@ -50,10 +50,13 @@
                 <h3>Se connecter avec un compte existant</h3>
                 <br/>
                 <p>
-                    <a href="@{loginWith('Twitter')}" class="btn large primary">Twitter</a>
+                    <a href="@{loginWith(models.ProviderType.Twitter)}" class="btn large primary">Twitter</a>
                 </p>
                 <p>
-                    <a href="@{loginWith('Google')}" class="btn large primary">Google</a>
+                    <a href="@{loginWith(models.ProviderType.Google)}" class="btn large primary">Google</a>
+                </p>
+                <p>
+                    <a href="@{loginWith(models.ProviderType.LinkedIn)}" class="btn large primary">LinkedIn</a>
                 </p>
             </div>
         </div>
