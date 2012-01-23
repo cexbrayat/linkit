@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Interest;
+import play.Logger;
 
 public class Interests extends PageController {
 
@@ -15,6 +16,7 @@ public class Interests extends PageController {
     public static void delete(String[] interestsToBeDeleted) {
         if (interestsToBeDeleted != null) {
             Interest.deleteByName(interestsToBeDeleted);
+            flash.success("Intérêt(s) supprimé(s)");
         }
         render("Interests/edit.html");
     }
@@ -24,10 +26,13 @@ public class Interests extends PageController {
     }
 
     public static void merge(String[] interestsToBeDeleted, String survivorInterestName) {
+
+        Interest survivorInterest = Interest.findByName(survivorInterestName);
         if (interestsToBeDeleted != null) {
             for (String interestNameToBeDeleted : interestsToBeDeleted) {
                 Interest interestToBeDeleted = Interest.findByName(interestNameToBeDeleted);
-                interestToBeDeleted.merge(survivorInterestName);
+                Logger.info("######### interet %s à supprimer et à merger avec %s",interestToBeDeleted,survivorInterestName);
+                interestToBeDeleted.merge(survivorInterest);
             }
         }
         render("Interests/edit.html");

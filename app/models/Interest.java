@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import play.Logger;
 import play.db.jpa.Model;
 
 /**
@@ -94,23 +95,25 @@ public class Interest extends Model implements Comparable<Interest> {
      * 2 - Then : Delete this interest
      * @param survivorInterest the survivor interest (the interest which we keep)
      */
-    public void merge(String survivorInterestName) {
-        Interest survivorInterest = Interest.findByName(survivorInterestName);
+    public void merge(Interest survivorInterest) {
+        if (this.equals(survivorInterest)) {
+            Logger.info("impossible de merger des interets identiques!");
+            return;
+        }
         List<Member> members = Member.findMembersInterestedIn(this.name);
         for (Member member : members) {
             member.interests.remove(this);
-            member.save();
             member.interests.add(survivorInterest);
             member.save();
         }
         List<Session> sessions = Session.findSessionsLinkedWith(this.name);
         for (Session session : sessions) {
             session.interests.remove(this);
-            session.save();
             session.interests.add(survivorInterest);
             session.save();
         }
-        delete("name",this.name);
+        delete("name", this.name);
+
     }
 
     public int compareTo(Interest otherInterest) {

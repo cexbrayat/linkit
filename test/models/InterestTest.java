@@ -94,7 +94,7 @@ public class InterestTest extends BaseDataUnitTest {
 
         // Merge Java Interest and java Interest : keep Java
         Interest interestToDeleted = Interest.findByName("java");
-        interestToDeleted.merge("Java");
+        interestToDeleted.merge(Interest.findByName("Java"));
         assertEquals(2, ced.interests.size());
         assertEquals(2, bob.interests.size());
         // Check Interests Cloud
