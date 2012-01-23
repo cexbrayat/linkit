@@ -1,0 +1,61 @@
+#{extends 'main.html' /}
+#{set title:'Modérer les intérêts' /}
+
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
+<script >
+    $(function() {
+        $("table#sortSession").tablesorter({sortList: [[0,0]], headers: { 1:{sorter: false}}});
+    });
+</script>
+#{/set}
+
+<p>
+<h3>Ami du staff, tu peux modérer les intérêts de deux façons:</h3>
+<h5><ul><li><strong>Suppression</strong> définitive des intérêts</li>
+        <li><strong>Fusion d'intérêts</strong>: il est possible, par exemple, de merger les intérêts "Agile" et "Agilité" pour ne garder que l'intérêt "Agilité"</li>
+    </ul>
+</h5>
+</p>
+
+
+#{form @Interests.delete()} 
+
+<div class="row">
+    <fieldset>
+    <div class="span16 columns">
+        #{field 'interests'}
+        <div class="clearfix ${field.error?'error':''}">
+            <table class="zebra-striped" id="sortSession"> 
+                <thead> 
+                    <tr> 
+                        <th>
+                            <div style="text-align: center">Intérêt</div>
+                        </th> 
+                        <th>
+                            <div class="alert-actions" style="text-align: center">
+                                <input type="submit"  class="btn small danger" value="Supprimer"/>
+                                <input type="submit" formaction="@{Interests.chooseInterestForMerge()}"  class="btn small" value="Fusionner"/>
+                            </div>
+                        </th>
+                    </tr> 
+                </thead> 
+                <tbody>       
+                    #{list items:models.Interest.findAllOrdered(), as:'interest'}
+                    <tr>
+                        <td>${interest.name}</td>
+                        <td>
+                            <div style="text-align: center"><input type="checkbox" name="interestsToBeDeleted" value="${interest.name}" /></div>
+                        </td>
+                    </tr>
+                #{/list}
+                </tbody> 
+            </table>
+            <span class="help-inline newline">${field.error}</span>
+        </div><!-- /clearfix -->
+        #{/field}
+        </fieldset>
+    </div>
+</div>
+
+#{/form}

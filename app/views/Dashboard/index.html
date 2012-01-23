@@ -16,6 +16,8 @@
                    </div>
                     <div class="span6">
                         <div class="alert-message block-message info">
+                            #{ticketing member/}
+                            <br />
                             <a href="@{Profile.show(session.username)}" title="Voir mon profil">Profil</a> consulté ${member.getNbLooks()} fois.
 
                             <div class='alert-actions'>
@@ -55,14 +57,6 @@
                     #{/list}
                     </ul>
                 #{/if}
-                <!-- FIXME on January the 19th : the ticketing will open on January the 19th, not before!
-                #{if member?.ticketingRegistered}
-                    <span class="label success">J'ai déjà payé mon billet</span> sur <a target="blank" href="http://www.weezevent.com">Weezevent</a>
-                #{/if}
-                #{else}
-                     <a href="https://www.weezevent.com/widget_billeterie.php?id_evenement=12302&code=30544" onclick="var w=window.open('https://www.weezevent.com/widget_billeterie.php?id_evenement=12302&code=30544', 'Billetterie_weezevent', 'width=650, height=450, top=100, left=100, toolbar=no, resizable=yes, scrollbars=yes, status=no'); w.focus(); return false;"><span class="label important">Je n'ai pas encore payé mon billet!</span></a>
-                #{/else}
-                    -->
                 #{if comments}
                     <h5>Mes commentaires récents :</h5>
                     <ul>
