@@ -31,9 +31,9 @@ public class Interests extends PageController {
         if (interestsToBeDeleted != null) {
             for (String interestNameToBeDeleted : interestsToBeDeleted) {
                 Interest interestToBeDeleted = Interest.findByName(interestNameToBeDeleted);
-                Logger.info("######### interet %s à supprimer et à merger avec %s",interestToBeDeleted,survivorInterestName);
                 interestToBeDeleted.merge(survivorInterest);
             }
+            flash.success("Intérêts fusionnés");
         }
         render("Interests/edit.html");
     }
