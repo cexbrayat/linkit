@@ -17,10 +17,10 @@
                 <div class="row">
                     <div class="span7" style="margin-left:0px">
                     #{if session.username}
-                        <a href="@{Profile.show(_arg.login)}"><h2>${_arg}</h2></a>
+                        <h2><a href="@{Profile.show(_arg.login)}">${_arg}</a></h2>
                     #{/if}
                     #{else}
-                        <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil complet."><h2>${_arg}</h2></a>
+                        <h2><a href="@{Login.index()}" rel='twipsy' data-placement="right" title="Connectez-vous pour consulter son profil complet.">${_arg}</a></h2>
                     #{/else}
                     </div>
                     <div class="span1">
