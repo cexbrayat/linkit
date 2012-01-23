@@ -54,7 +54,7 @@
             <h2>Informations</h2> 
             <p>Vos coordonnées</p> 
         </div> 
-        <div class="span10 columns"> 
+        <div class="span8 columns"> 
             <fieldset> 
                 <legend>Profil</legend>
                 #{field 'login'}
@@ -143,7 +143,7 @@
             <p>Vos comptes sur les différents réseaux sociaux.</p> 
             <p>Les données publiques des comptes que vous indiquerez seront <strong>automatiquement récupérées et publiquement affichées</strong></p> 
         </div> 
-        <div class="span10 columns">
+        <div class="span8 columns">
             <fieldset>
                 <legend>Vos comptes sociaux</legend>
  
@@ -226,7 +226,7 @@
             <h2>Centres d'intérêt</h2> 
             <p>Les sujets qui vous intéressent, et que vous souhaitez creuser à Mix-IT et sur ce site.</p> 
         </div> 
-        <div class="span10 columns">
+        <div class="span14 columns">
             <fieldset>
                 <legend>Intérêts</legend>
  
@@ -265,9 +265,11 @@
           </div>
         </div>
         <div class="actions">
-            <a href="@{Profile.show(originalLogin)}" class="btn large">Annuler</a>
-            <a href="@{Profile.delete()}" class="btn danger large" >Supprimer mon compte</a>
-            <input type="submit" class="btn primary large" value="Enregistrer"/>
+#{if member.id} *{création de profil si member.id == null}*
+            <a href="@{Profile.delete()}" class="btn danger" >Supprimer mon compte</a>
+#{/if}
+            <a href="@{Profile.show(originalLogin)}" class="btn">Annuler</a>
+            <input type="submit" class="btn primary" value="Enregistrer"/>
         </div>
 
     #{/form}

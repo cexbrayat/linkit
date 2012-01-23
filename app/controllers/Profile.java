@@ -123,9 +123,16 @@ public class Profile extends PageController {
         }
         member.updateSharedLinks(validatedSharedLinks);
 
+        // Login unicity
         Member other = Member.findByLogin(login);
         if (other != null && !member.equals(other)) {
             validation.addError("login", "validation.unique", login);
+        }
+
+        // Email unicity
+        other = Member.findByEmail(email);
+        if (other != null && !member.equals(other)) {
+            validation.addError("email", "validation.unique", email);
         }
 
         if (validation.hasErrors()) {
