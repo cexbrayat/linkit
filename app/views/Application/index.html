@@ -42,27 +42,27 @@
         <div class="span12 offset1">
             #{if session.username}
             <div class="row">
-                <div class="span3">
+                <div class="span4" style="text-align: center">
                     <a href="@{Infos.inscription()}" class="btn primary" rel='twipsy' title="Prix: 30 euros" data-html="true">Payer mon billet</a>
                 </div>
-                <div class="span3">
+                <div class="span4" style="text-align: center">
                     <a href="@{Application.members()}" class="btn primary">Consulter les profils</a>
                 </div>
-                <div class="span5"> 
+                <div class="span4" style="text-align: center"> 
                     <a href="@{LightningTalks.list()}" class="btn primary">Voter pour des lightning talks</a>
                 </div>
             </div>
             #{/if}
             #{else}
             <div class="row">
-                <div class="span3 offset1">
+                <div class="span4" style="text-align: center">
                     <a href="@{Infos.about()}" target="blank" class="btn primary">A propos de Mix-IT</a>
                 </div>
-                <div class="span3 offset1">
-                    <a href="@{Sessions.index()}" class="btn primary">Consulter les sessions</a>
+                <div class="span4" style="text-align: center">
+                    <a href="@{Sessions.index()}" class="btn primary">Les sessions</a>
                 </div>
-                <div class="span3 ">
-                    <a href="@{Infos.inscription()}" class="btn primary">Comment s'inscrire</a>
+                <div class="span4 " style="text-align: center">
+                    <a href="@{Infos.inscription()}" class="btn primary">S'inscrire</a>
                 </div>
             </div>
             #{/else}
