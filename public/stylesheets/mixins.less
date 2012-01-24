@@ -111,7 +111,7 @@
 
 // Transitions
 .transition(@transition) {
--webkit-transform-style: e(%("preserve-3d"));
+//-webkit-transform-style: e(%("preserve-3d")); // Cyril 23/01/2012 : fix placeholder display in Chrome, cf. https://github.com/twitter/bootstrap/issues/630 and https://github.com/twitter/bootstrap/commit/a560eb651d24bd3a6183c78ab8a9b88bfa57c3cc#lib/mixins.less
      -webkit-transition: @transition;
         -moz-transition: @transition;
          -ms-transition: @transition;

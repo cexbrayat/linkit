@@ -22,7 +22,7 @@
     <div class="row">
         <div class="span11 offset2" style="text-align: center">
             #{list items:models.Track.values(), as:'track'}
-            <a id="${track.name().toLowerCase()}" class="btn large track ${track}" style="margin-left: 10px; margin-right: 10px" onclick="track('${track.name().toLowerCase()}')" rel='twipsy' data-placement="above" title="&{'track.'+track.name()+'.description'}">${track.name()}</a>
+            <a id="${track.name().toLowerCase()}" class="btn large track ${track}" style="margin-left: 10px; margin-right: 10px" onclick="track('${track.name().toLowerCase()}')" rel='twipsy' data-placement="below" title="&{'track.'+track.name()+'.description'}">${track.name()}</a>
             #{/list}
         </div>
     </div>

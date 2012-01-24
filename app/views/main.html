@@ -113,7 +113,14 @@
                         </li>
                         #{/if}
                         #{else}
-                        <li><a href="@{Login.index(request.url)}">&{'menu.login'}</a></li>
+                        <li class="dropdown" data-dropdown="dropdown">
+                            <a class="dropdown-toggle">&{'menu.login'}</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@{Login.loginWith(models.ProviderType.Twitter)}" title="Login via Twitter"><img src="@{'/public/images/login/sign-in-with-twitter-l.png'}"/></a></li>
+                                <li><a href="@{Login.loginWith(models.ProviderType.Google)}" title="Login via Google"><img src="@{'/public/images/login/google.png'}"/></a></li>
+                                <li><a href="@{Login.loginWith(models.ProviderType.LinkedIn)}" title="Login via LinkedIn"><img src="@{'/public/images/login/linkedin-small.png'}"/></a></li>
+                            </ul>
+                        </li>
                         #{/else}
                     </ul>
                     <form action="@{Application.search}" method="GET" class="pull-right">
