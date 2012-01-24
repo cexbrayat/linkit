@@ -1,62 +1,21 @@
 #{extends 'main.html' /}
 #{set title:'Connexion à Mix-IT' /}
 
-    <div class="hero-unit">
-        <h1>Connexion à Mix-IT</h1>
-    </div>
 
-        <div class="row">
-            <div class="span7">
-                <h3>Se créer un compte Mix-IT</h3>
-                <form action="@{loginLinkIt()}">
-                <fieldset>
-                    
-                    #{ifErrors}
-                        <p class="error">
-                            Corrigez les erreurs.
-                        </p>
-                    #{/ifErrors}
-
-                    #{field 'login'}
-                    <div class="clearfix">
-                        <label for="${field.name}">Login :</label>
-                        <div class="input">
-                          <input type="text" name="${field.name}" 
-                            value="${login}" class="${field.errorClass}" />
-                        </div>
-                    </div>
-                    #{/field}
-
-                    #{field 'password'}
-                    <div class="clearfix">
-                        <label for="${field.name}">Mot de passe :</label>
-                        <div class="input">
-                          <input type="password" name="${field.name}" 
-                            value="${password}" class="${field.errorClass}" />
-                        </div>
-                    </div>
-                    #{/field}
-                
-                    <div class="actions">
-                        <input type="submit" class="btn primary" value="Se connecter"/>
-                        &nbsp;
-                        <input type="submit" formaction="@{signup()}" class="btn" value="S'enregistrer">
-                    </div>
-                </fieldset>
-                </form>
-            </div>
-
-            <div class="offset8">
-                <h3>Se connecter avec un compte existant</h3>
-                <br/>
-                <p>
-                    <a href="@{loginWith(models.ProviderType.Twitter)}" class="btn large primary">Twitter</a>
-                </p>
-                <p>
-                    <a href="@{loginWith(models.ProviderType.Google)}" class="btn large primary">Google</a>
-                </p>
-                <p>
-                    <a href="@{loginWith(models.ProviderType.LinkedIn)}" class="btn large primary">LinkedIn</a>
-                </p>
+<div class="hero-unit">
+    <h2>Connexion à Mix-IT</h2>
+    <div class="row">
+        <div class="span4">
+            <div class="well">
+                <a href="@{Login.loginWith(models.ProviderType.Twitter)}" title="Login via Twitter"><img src="@{'/public/images/login/sign-in-with-twitter-l.png'}"/></a>
+                <a href="@{Login.loginWith(models.ProviderType.Google)}" title="Login via Google"><img src="@{'/public/images/login/google.png'}"/></a>
+                <a href="@{Login.loginWith(models.ProviderType.LinkedIn)}" title="Login via LinkedIn"><img src="@{'/public/images/login/linkedin-small.png'}"/></a>
             </div>
         </div>
+        <div class="span10">
+            <p>
+                En s'enregistrant sur ce site, vous pourrez consulter les profils des participants (speakers comme participants), se lier avec ceux que vous souhaitez (pour suivre l'activité de chacun), commenter les sessions (et pouvoir enfin troller), et plus encore (dès qu'on aura fini de le coder)!
+            </p>
+        </div> 
+    </div>
+</div>
