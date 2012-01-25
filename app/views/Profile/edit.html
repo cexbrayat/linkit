@@ -78,7 +78,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.lastname}" />
+                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" x-autocompletetype="surname" value="${member?.lastname}" />
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -89,7 +89,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.firstname}" /> 
+                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" x-autocompletetype="given-name" value="${member?.firstname}" /> 
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
@@ -100,7 +100,7 @@
                 <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label>
                     <div class="input">
-                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.company}" />
+                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" x-autocompletetype="organization" value="${member?.company}" />
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -111,7 +111,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="email" value="${member?.email}" /> 
+                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="email" x-autocompletetype="email" value="${member?.email}" /> 
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
