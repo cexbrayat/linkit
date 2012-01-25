@@ -12,23 +12,27 @@
         &mdash; #{socialbar/}
         
         #{if !talk.valid}
-            <div class="alert-message block-message">
+            <div class="alert-message block-message warning">
                 <p>Cette session a bien été soumise au comité d’organisation, mais n'est pas encore acceptée.<br/>Consulter votre dashboard régulièrement pour connaitre son statut.</p>
             </div>
         #{/if}
         
         #{secure.check models.Role.ADMIN_SESSION}
-        <p>
-            Staff :
-            <a class="btn" href="@{Sessions.edit(talk.id)}">Editer cette session</a>
-        #{if talk.valid}            
-            <a class="btn danger" href="@{Sessions.unvalidate(talk.id)}">Invalider cette session</a>
-            <strong>Attention : invalider une session ne supprimera pas les éventuelles activités existantes sur cette session</strong> (elle restera consultable en cliquant sur ces activités).
-        #{/if}
-        #{else}
-            <a class="btn danger" href="@{Sessions.validate(talk.id)}">Valider cette session</a>
-        #{/else}
-        </p>
+            <div class="alert-message block-message info">
+                <p><strong>Staff</strong></p>
+                #{if talk.valid}            
+                <p>Attention : invalider une session ne supprimera pas les éventuelles activités existantes sur cette session.</p>
+                #{/if}
+                <div class='alert-actions'>
+                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer cette session</a>
+                #{if talk.valid}            
+                    <a class="btn danger" href="@{Sessions.unvalidate(talk.id)}">Invalider cette session</a>
+                #{/if}
+                #{else}
+                    <a class="btn danger" href="@{Sessions.validate(talk.id)}">Valider cette session</a>
+                #{/else}
+                </div>
+            </div>
         #{/secure.check} 
     </div>
 
@@ -79,6 +83,11 @@
             </div>
         </div>
 
+        #{if !session.username}
+        <hr/>
+        <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter cette session.
+        #{/if}
+        
         #{comments talk.comments /}
 
         <hr/>
@@ -104,6 +113,6 @@
             </div>
             #{/if}
             #{else}
-            <a href="@{Login.index(request.url+'#post')}">Connectez-vous pour commenter cette session</a>
+            <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter cette session.
             #{/else}
         </section>
