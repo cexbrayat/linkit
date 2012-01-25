@@ -1,5 +1,0 @@
-play deps --sync
-play run
-
-## test cloudbees
-

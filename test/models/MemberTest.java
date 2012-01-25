@@ -46,6 +46,14 @@ public class MemberTest extends BaseDataUnitTest {
         assertNull(Member.fetchForProfile("toto"));
     }
     
+    @Test public void findByEmailKO() {
+        assertNull(Member.findByEmail("toto"));
+    }
+
+    @Test public void findByEmailOK() {
+        assertNotNull(Member.findByEmail("ced@ced.fr"));
+    }
+
     @Test
     public void saveWithBigDescription() {
         Member bob = Member.findByLogin("bob");

@@ -107,7 +107,7 @@ public class Login extends PageController {
             // On crée un nouveau member, qu'on invitera à renseigner son profil
             member = new Member(oAuthAccount.getOAuthLogin());
             member.preregister(oAuthAccount);
-            Profile.register(member.login);
+            Profile.register(member.login, oAuthAccount.provider);
         } else {
             // Un membre existant s'est connecté avec un nouveau provider
             // On se contente de lui ajouter le nouvel account utilisé
@@ -149,6 +149,6 @@ public class Login extends PageController {
         }
         Member member = new Member(login);
         member.preregister(new LinkItAccount(password));
-        Profile.register(login);
+        Profile.register(login, ProviderType.LinkIt);
     }
 }

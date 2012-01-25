@@ -47,7 +47,7 @@ public class GoogleOAuthAccount extends OAuthAccount {
 
     @Override
     public Member findCorrespondingMember() {
-        return Member.find("byEmail", this.email).first();
+        return Member.findByEmail(this.email);
     }
 
     @Override

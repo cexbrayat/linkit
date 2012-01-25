@@ -45,8 +45,14 @@
 #{/set}
 
     <div class="page-header"> 
-        <h1>Edition de votre profil</h1> 
+        <h1>${registrationProvider ? 'Création' : 'Edition'} de votre profil</h1> 
     </div>
+
+    #{if registrationProvider}
+    <div class="alert-message block-message warning">
+        Création d'un nouveau profil suite à votre connexion via &{'provider.'+registrationProvider}.
+    </div>
+    #{/if}
 
     #{form @Profile.save(member.id, originalLogin)} 
     <div class="row"> 
@@ -54,7 +60,7 @@
             <h2>Informations</h2> 
             <p>Vos coordonnées</p> 
         </div> 
-        <div class="span10 columns"> 
+        <div class="span8 columns"> 
             <fieldset> 
                 <legend>Profil</legend>
                 #{field 'login'}
@@ -127,7 +133,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <textarea class="span6" id="${field.id}" name="${field.name}" size="30" rows="4">${member?.longDescription}</textarea>
+                        <textarea class="span9" id="${field.id}" name="${field.name}" size="30" rows="4">${member?.longDescription}</textarea>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+'.note'}</span>
                     </div> 
@@ -143,7 +149,7 @@
             <p>Vos comptes sur les différents réseaux sociaux.</p> 
             <p>Les données publiques des comptes que vous indiquerez seront <strong>automatiquement récupérées et publiquement affichées</strong></p> 
         </div> 
-        <div class="span10 columns">
+        <div class="span8 columns">
             <fieldset>
                 <legend>Vos comptes sociaux</legend>
  
@@ -179,7 +185,7 @@
             <h2>Vos liens</h2> 
             <p>Des liens que vous voulez faire apparaître sur votre profil et que vous aimeriez partager.</p> 
         </div> 
-        <div class="span10 columns">
+        <div class="span14 columns">
             <fieldset>
                 <legend>Vos liens</legend>
  
@@ -188,11 +194,11 @@
                     <div class="clearfix ${field.error?'error':''}">
                         <div class="input">
                             <div class="inline-inputs">
-                                <input class="span2" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" value="${member.sharedLinks[i]?.name}" /> 
-                                <input class="span3" id="sharedLinks${i}_URL" name="${field.name}.URL" placeholder="URL du lien" type="text" value="${member.sharedLinks[i]?.URL}" /> 
-                                <a class="btn small" onclick="moveUpSharedLink(${i})">&#x21A5;</a>
-                                <a class="btn small" onclick="moveDownSharedLink(${i})">&#x21A7;</a>
-                                <a class="btn small" onclick="deleteSharedLink(${i})">X</a>
+                                <input class="span3" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" value="${member.sharedLinks[i]?.name}" /> 
+                                <input class="span6" id="sharedLinks${i}_URL" name="${field.name}.URL" placeholder="URL du lien" type="text" value="${member.sharedLinks[i]?.URL}" /> 
+                                <a class="btn small" rel='twipsy' title="Déplacer ce lien vers le haut" onclick="moveUpSharedLink(${i})">&#x2B06;</a>
+                                <a class="btn small" rel='twipsy' title="Déplacer ce lien vers le bas" onclick="moveDownSharedLink(${i})">&#x2B07;</a>
+                                <a class="btn small" rel='twipsy' title="Supprimer ce lien" onclick="deleteSharedLink(${i})"><strong>X</strong></a>
                                 <span class="help-block span2">#{error 'sharedLinks['+i+'].name' /}</span>
                                 <span class="help-block span6">#{error 'sharedLinks['+i+'].URL' /}</span>
                             </div>
@@ -226,7 +232,7 @@
             <h2>Centres d'intérêt</h2> 
             <p>Les sujets qui vous intéressent, et que vous souhaitez creuser à Mix-IT et sur ce site.</p> 
         </div> 
-        <div class="span10 columns">
+        <div class="span14 columns">
             <fieldset>
                 <legend>Intérêts</legend>
  
@@ -265,9 +271,14 @@
           </div>
         </div>
         <div class="actions">
-            <a href="@{Profile.show(originalLogin)}" class="btn large">Annuler</a>
-            <a href="@{Profile.delete()}" class="btn danger large" >Supprimer mon compte</a>
-            <input type="submit" class="btn primary large" value="Enregistrer"/>
+#{if member.id} *{création de profil si member.id == null}*
+            <a href="@{Profile.delete()}" class="btn danger" >Supprimer mon compte</a>
+            <a href="@{Profile.show(originalLogin)}" class="btn">Annuler</a>
+#{/if}
+#{else}
+            <a href="@{Application.index()}" class="btn">Annuler</a>
+#{/else}
+            <input type="submit" class="btn primary" value="Enregistrer"/>
         </div>
 
     #{/form}
