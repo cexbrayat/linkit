@@ -61,6 +61,11 @@
             </div>
         </div>
         
+        #{if !session.username}
+        <hr/>
+        <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter cet article.
+        #{/if}
+
         #{comments article.comments /}
 
         <hr/>
@@ -89,6 +94,6 @@
             </div>
             #{/if}
             #{else}
-            <a href="@{Login.index(request.url+'#post')}">Connectez-vous pour commenter cet article</a>
+            <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter cet article.
             #{/else}
         </section>
