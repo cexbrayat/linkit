@@ -1,24 +1,84 @@
 #{extends 'main.html' /}
 #{set title:'Inscription' /}
+#{set 'moreScripts'}
+<script language="Javascript" type="text/javascript" src="@{'/public/javascripts/jquery.lwtCountdown-1.0.js'}"></script>
+<script language="javascript" type="text/javascript">
+    jQuery(document).ready(function()
+    {
+        $('#countdown').countDown({
+              targetDate: {
+                  'day': 07,
+                  'month': 2,
+                  'year': 2012,
+                  'hour': 12,
+                  'min': 0,
+                  'sec': 0
+              }
+                });
+    });
+</script>
+#{/set}
 
 <div class="hero-unit">
     <h1>Inscription</h1>
+    <p><h5>Le prix du billet est unique : <b>30 euros</b></h5></p>
+    <!-- FIXME le 07/02: the ticketing will open on January the 19th, not before!-->
+<!-- {if session.username} <p>
+{ticketing member/}</p>
+{/if}
+-->
+</div>
+<div id="container">
+<h1>Ouverture de la billeterie dans:</h1>
+<div id="countdown">
+    <div class="dash weeks_dash">
+    <span class="dash_title">semaines</span>
+
+    <div class="digit">0</div>
+    <div class="digit">0</div>
+    </div>
+
+    <div class="dash days_dash">
+    <span class="dash_title">jours</span>
+
+    <div class="digit">0</div>
+    <div class="digit">0</div>
+    </div>
+
+    <div class="dash hours_dash">
+    <span class="dash_title">heures</span>
+
+    <div class="digit">0</div>
+    <div class="digit">0</div>
+    </div>
+
+    <div class="dash minutes_dash">
+    <span class="dash_title">minutes</span>
+
+    <div class="digit">0</div>
+    <div class="digit">0</div>
+    </div>
+
+    <div class="dash seconds_dash">
+    <span class="dash_title">secondes</span>
+
+    <div class="digit">0</div>
+    <div class="digit">0</div>
+    </div>
+
+</div>
 </div>
 
-<!-- FIXME on January the 19th : the ticketing will open on January the 19th, not before!-->
-<!--<p><h4>Les inscriptions seront ouvertes le <b>19 janvier</b>!</h4>-->
-<p><h5>Le prix du billet est unique : <b>30 euros</b>.
-    <br />
-    Le paiement est effectué via notre partenaire <a target="blank" href="http://www.weezevent.com">Weezevent</a>
-   </h5>
-</p>
-#{if session.username}
-    <p>#{ticketing member/}</p>   
-#{/if}
-#{else}
+#{if !session.username}
+<!--
+<ol>
+    <li><h4><a href="@{Login.index()}">Créer-vous un compte Mix-IT</a></h4></li>
+    <li><h4>Payez votre billet lorsque vous renseignerez votre profil Mix-IT*</h4></li>
+</ol>
 
-<p><h5><a href="@{Login.index()}">Connectez-vous ou créer-vous un compte MIX-IT</a> puis payez votre inscription lorsque vous renseignerez votre profil MIX-IT</h5>
-Vous pouvez également directement payer votre billet via notre partenaire Weezevent si vous ne voulez pas vous inscrire sur le site MIX-IT (mais ce serait dommage!). Pour ce faire, cliquez sur l'icône ci-dessous:
-</p>
+*Vous pouvez également directement payer votre billet via notre partenaire Weezevent si vous ne voulez pas vous inscrire sur le site MIX-IT (mais ce serait dommage!).
+Pour ce faire, cliquez sur l'icône ci-dessous:<br />
 <a href="https://www.weezevent.com/widget_billeterie.php?id_evenement=13062&code=63337" onclick="var w=window.open('https://www.weezevent.com/widget_billeterie.php?id_evenement=13062&code=63337', 'Billetterie_weezevent', 'width=650, height=450, top=100, left=100, toolbar=no, resizable=yes, scrollbars=yes, status=no'); w.focus(); return false;"><img src="http://www.weezevent.com/images/statique/billetterie_en_ligne_v2_noir.png" alt="Billetterie en ligne" style="border:none" /></a>
-#{/else}
+-->
+#{/if}
+
