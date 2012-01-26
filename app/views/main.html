@@ -76,8 +76,9 @@
                                 <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">&{'menu.infos.about'}</a></li>
                                 <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">&{'menu.infos.faq'}</a></li>
                                 <li #{if request.action=="Infos.inscription"}class="active"#{/if}><a href="@{Infos.inscription()}">&{'menu.infos.inscription'}</a></li>
-                                <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">&{'menu.infos.kit'}</a></li>
+                                <li #{if request.action=="Infos.sponsors"}class="active"#{/if}><a href="@{Infos.sponsors()}">&{'menu.infos.sponsors'}</a></li>
                                 <li #{if request.action=="Infos.contact"}class="active"#{/if}><a href="@{Infos.contact()}">&{'menu.infos.contact'}</a></li>
+                                <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">&{'menu.infos.kit'}</a></li>
                                 <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">&{'menu.infos.access'}</a></li>
                                 <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a href="@{Infos.hotels()}">&{'menu.infos.hotels'}</a></li>
                             </ul>
@@ -173,14 +174,4 @@
             </div>
         </div>
     </footer>
-    <div class="container">  
-        <div class="row" style="margin-bottom: 20px; margin-top: 20px;">
-            <div class="span8" style="text-align: center"> 
-                     <a href="http://www.lyonjug.org/" target="blank"><img src="@{'/public/images/logo-lyonjug.png'}" title="LyonJUG" height="70px"/></a>
-            </div>
-            <div class="span8" style="text-align: center"> 
-                     <a href="http://www.clubagilerhonealpes.org/" target="blank"><img src="@{'/public/images/logo-cara.png'}" title="CARA" height="70px"/></a>
-            </div>
-        </div>
-    </div>
 </html>

@@ -29,10 +29,13 @@ public class Infos extends PageController {
         render();
     }
 
+    public static void sponsors() {
+        render();
+    }
+    
     public static void contact() {
         render();
     }
-
     public static void acces() {
         render();
     }
