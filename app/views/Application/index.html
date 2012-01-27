@@ -3,6 +3,9 @@
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 #{/set}
+#{set 'moreStyles'}
+
+#{/set}
 <div class="hero-unit">
     <div class="row">
         <div class="span7">
@@ -12,8 +15,9 @@
                 </div>
             </div>
             <div class="row">
+                <div class="soon">Ouverture prochaine<br/>de la billetterie!</div>
                 <div class="span4">
-                    <h1><img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" style="width:500px"></h1>
+                    <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" style="width:500px">
                 </div>
             </div>
             <div class="row">
@@ -70,23 +74,7 @@
     </div>
     <br/>
     <br/>
-    <!-- <div class="row">
-        <div class="span9">
-            <p style="text-align:justify;">Mix-it c’est une journée de conférences à Lyon sur l’agilité, les technologies java et les dernières tendances et innovations IT, Web ou mobile. Le 26 avril, le staff de Mix-it vous accueille à Supinfo pour des sessions d’expertise, des jeux et des rencontres. Entrepreneurs, managers, développeurs vous trouverez forcément des idées pour vos projets !</p>
-        </div>
-        <div class="span4 offset1" style="font-size: 16px">
-            <b>Mix-it en chiffre</b>
-            <ul>
-                <li>350 participants</li>
-                <li>30 speakers</li>
-                <li>5 tracks</li>
-                <li>des ligthnings talks</li>
-                <li>du fun!</li>
-            </ul>
-        </div>
-    </div>
-    <br/>
-    -->
+   
     <div class="row">
         <ul class="tabs" data-tabs="tabs">
             <li class="active"><a href="#tabActivities">Dernières activitiés</a></li>
