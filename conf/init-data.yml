@@ -333,3 +333,15 @@ Article(article1):
     author: agnes
     postedAt: 2011-11-25
     valid: true
+    
+Sponsor(zenika):
+    logoUrl: http://www.zenika.com/templates/zenika/images/logo.gif
+    firstname: Zenika
+    lastname: Lyon
+    login: zenika
+    company: Zenika
+    email: info@zenika.com
+    shortDescription : Zenika, experts en technologies Open Source et méthodes Agiles
+
+    badges:
+         - Sponsor
