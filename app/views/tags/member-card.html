@@ -8,9 +8,14 @@
         <div class="row">
             <div class="span2">
                 <div class="row">
-                    #{if _arg.email}
-                        #{gravatar.img _arg.email, size:100, default:'mm', rating:'pg', secure:true/}
+                    #{if _arg instanceof models.Sponsor}
+                        <img src="${_arg.logoUrl}" style="max-width: 100px; max-height: 100px" />
                     #{/if}
+                    #{else}
+                        #{if _arg.email}
+                            #{gravatar.img _arg.email, size:100, default:'mm', rating:'pg', secure:true/}
+                        #{/if}
+                    #{/else}
                 </div>
             </div>
             <div class="span8">
