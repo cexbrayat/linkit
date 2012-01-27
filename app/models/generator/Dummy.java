@@ -28,7 +28,7 @@ public class Dummy {
         return GOOGLE_IDS[randomInt(GOOGLE_IDS.length)];
     }
     
-    static private String[] EMAILS = {"cexbrayat@gmail.com", "tluapir@gmail.com", "agnes.crepet@gmail.com", "franck.depierre@gmail.com", "couturier.romain@gmail.com", "nicolaspellouxprayer@gmail.com", "mathieu.calba@gmail.com", "nicolas@touilleur-express.fr", "rguy@google.com", "test@test.fr", "toto@toto.fr", "tata@tata.fr", "steve@apple.com", "bill@microsoft.com"};
+    static private String[] EMAILS = {"nicolas@touilleur-express.fr", "rguy@google.com", "test@test.fr", "toto@toto.fr", "tata@tata.fr", "steve@apple.com", "bill@microsoft.com"};
     static String randomEmail() {
         return EMAILS[randomInt(EMAILS.length)];
     }

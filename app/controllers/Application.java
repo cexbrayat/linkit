@@ -31,26 +31,22 @@ public class Application extends PageController {
 
     public static void members() {
         List<Member> members = Member.findAll();
-        Logger.debug(members.size() + " membres");
         render("Application/list.html", members);
     }
 
     public static void staff() {
         List<Staff> members = Staff.findAll();
-        Logger.debug(members.size() + " membres du staff");
         render("Application/list.html", members);
     }
 
     public static void speakers() {
         List<Member> members = Talk.findAllSpeakers();
-        Logger.info(members.size() + " speakers");
         render("Application/list.html", members);
     }
 
     public static void sponsors() {
-        List<Sponsor> members = Sponsor.findAll();
-        Logger.debug(members.size() + " sponsors");
-        render("Application/list.html", members);
+        List<Sponsor> sponsors = Sponsor.findAll();
+        render(sponsors);
     }
 
     public static void searchByInterest(String interest) {

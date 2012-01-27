@@ -30,11 +30,11 @@
             </div>
             <div class="row">
             #{list items:member.getOrderedAccounts(), as:'account'}
-                <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}"></a>
+                <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}" rel="twipsy" title="&{'provider.'+account.provider.name()}"></a>
             #{/list}
             #{if member.sharedLinks}
                 #{list items:member.sharedLinks, as:'link'}
-                    <a class="sharedLink" href="${link.URL}" target="_blank"><img src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/></a>
+                    <a class="sharedLink" href="${link.URL}" rel="twipsy" title="${link.name}" target="_blank"><img src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/></a>
                 #{/list}
             #{/if}
             </div>

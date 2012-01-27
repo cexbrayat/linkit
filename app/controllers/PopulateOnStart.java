@@ -20,12 +20,18 @@ public class PopulateOnStart extends Job {
                 
                 // Dummy data
                 int nbDummyMembers = Integer.valueOf(Play.configuration.getProperty("dummy.members"));
-                DataGenerator.createMembers(nbDummyMembers);
+                if (nbDummyMembers > 0) {
+                    DataGenerator.createMembers(nbDummyMembers);
+                }
                 int nbAverageLinksPerMember = Integer.valueOf(Play.configuration.getProperty("dummy.averageLinksPerMember"));
-                DataGenerator.generateLinks(nbAverageLinksPerMember);
+                if (nbAverageLinksPerMember > 0) {
+                    DataGenerator.generateLinks(nbAverageLinksPerMember);
+                }
                 int nbAverageCommentsPerMember = Integer.valueOf(Play.configuration.getProperty("dummy.averageCommentsPerMember"));
-                DataGenerator.generateSessionComments(nbAverageCommentsPerMember);
-                DataGenerator.generateArticleComments(nbAverageCommentsPerMember);
+                if (nbAverageCommentsPerMember > 0) {
+                    DataGenerator.generateSessionComments(nbAverageCommentsPerMember);
+                    DataGenerator.generateArticleComments(nbAverageCommentsPerMember);
+                }
             }
         }
     }
