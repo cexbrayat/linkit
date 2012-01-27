@@ -84,13 +84,11 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     public String lastname;
 
     @Column(name = COMPANY)
-    @Required
     @Field
     public String company;
     
     public boolean ticketingRegistered = false;
 
-    @Required
     @Temporal(TemporalType.TIMESTAMP)
     public Date registeredAt = new Date();
 
