@@ -13,6 +13,9 @@ Interest(hadoop):
 Interest(javascript):
     name: JavaScript
 
+Interest(coffeescript):
+    name: CoffeeScript
+
 Interest(spring):
     name: Spring
 
@@ -63,56 +66,6 @@ Staff(cedric) :
     company : SQLi
     shortDescription : |
         Je m'appelle Cédric, et je me présente qu'avec moins de 140 caractères.
-    longDescription : |
-        ## Profile description : (long) Markdown sample
-
-        ### Overview
-
-        Great features of Markdown are:
-
-        * It's plain text (e.g., support for version control, create with code)  
-        * It's simple to learn and use
-        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
-        * It's quicker to type than HTML 
-        * It's easy to convert to other formats
-        * Several websites such as Stack Exchange and Github use it
-        * HTML code can be interspersed when features such as tables are not supported 
-
-        It's not for everything, but it's a good tool for certain tasks.
-        I'm still exploring the options, but in the case of blog posts and readme files it works well.
-
-
-        ### Learning the Syntax
-        The markup is simple to learn.
-        I first installed the Markdown Editor in Eclipse  
-        and associated `.md` files with the Markdown editor.
-
-        I then:
-
-        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
-        2. opened the Markdown HTML Preview: 
-        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
-        3. worked through the [Markdown syntax guide][msg]
-        creating simple proof of concept examples, bouncing between
-        the Markdown Editor and the Markdown HTML Preview.
-
-        [msg]: http://daringfireball.net/projects/markdown/syntax
-
-
-        ### Conversion
-        #### Markdown to HTML
-        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
-        can be obtained in several ways.
-
-        * Right click the Markdown HTML Preview and click "View Source"
-        * When in the Markdown editor, go to File -- Export HTML. 
-        This creates a HTML version of the file
-    interests:           
-         - java
-         - hadoop
-         - nodejs
-         - javascript
-         - kanban
     badges:           
          - Staff
          - Attendee
@@ -151,57 +104,9 @@ Staff(julien) :
     login: julien
     email: tluapir@gmail.com
     shortDescription : Entretenir mes cheveux et ma guitare sont mes activités principales.
-    longDescription : |
-        ## Profile description : (long) Markdown sample
-
-        ### Overview
-
-        Great features of Markdown are:
-
-        * It's plain text (e.g., support for version control, create with code)  
-        * It's simple to learn and use
-        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
-        * It's quicker to type than HTML 
-        * It's easy to convert to other formats
-        * Several websites such as Stack Exchange and Github use it
-        * HTML code can be interspersed when features such as tables are not supported 
-
-        It's not for everything, but it's a good tool for certain tasks.
-        I'm still exploring the options, but in the case of blog posts and readme files it works well.
-
-
-        ### Learning the Syntax
-        The markup is simple to learn.
-        I first installed the Markdown Editor in Eclipse  
-        and associated `.md` files with the Markdown editor.
-
-        I then:
-
-        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
-        2. opened the Markdown HTML Preview: 
-        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
-        3. worked through the [Markdown syntax guide][msg]
-        creating simple proof of concept examples, bouncing between
-        the Markdown Editor and the Markdown HTML Preview.
-
-        [msg]: http://daringfireball.net/projects/markdown/syntax
-
-
-        ### Conversion
-        #### Markdown to HTML
-        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
-        can be obtained in several ways.
-
-        * Right click the Markdown HTML Preview and click "View Source"
-        * When in the Markdown editor, go to File -- Export HTML. 
-        This creates a HTML version of the file
-    interests:           
-         - java
-         - play
-         - javascript
-         - kanban
     badges:           
          - Staff
+         - Attendee
 
 SharedLink(juLink1):
     member: julien
@@ -232,13 +137,9 @@ Staff(agnes) :
     email: agnes.crepet@gmail.com
     company: Laboratoires Boiron
     shortDescription : Joe Strummer et Gérald Quintana sont mes deux idôles.
-    interests:
-         - java
-         - spring
-         - tdd
-         - play
     badges:           
          - Staff
+         - Attendee
 
 models.auth.LinkItAccount(agnesAccount):
     provider: LinkIt
@@ -263,55 +164,12 @@ Staff(franck) :
     email: franck.depierre@gmail.com
     company: Arkoon
     shortDescription : CARA *for ever*!
-    longDescription : |
-        ## Profile description : (long) Markdown sample
-
-        ### Overview
-
-        Great features of Markdown are:
-
-        * It's plain text (e.g., support for version control, create with code)  
-        * It's simple to learn and use
-        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
-        * It's quicker to type than HTML 
-        * It's easy to convert to other formats
-        * Several websites such as Stack Exchange and Github use it
-        * HTML code can be interspersed when features such as tables are not supported 
-
-        It's not for everything, but it's a good tool for certain tasks.
-        I'm still exploring the options, but in the case of blog posts and readme files it works well.
-
-
-        ### Learning the Syntax
-        The markup is simple to learn.
-        I first installed the Markdown Editor in Eclipse  
-        and associated `.md` files with the Markdown editor.
-
-        I then:
-
-        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
-        2. opened the Markdown HTML Preview: 
-        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
-        3. worked through the [Markdown syntax guide][msg]
-        creating simple proof of concept examples, bouncing between
-        the Markdown Editor and the Markdown HTML Preview.
-
-        [msg]: http://daringfireball.net/projects/markdown/syntax
-
-
-        ### Conversion
-        #### Markdown to HTML
-        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
-        can be obtained in several ways.
-
-        * Right click the Markdown HTML Preview and click "View Source"
-        * When in the Markdown editor, go to File -- Export HTML. 
-        This creates a HTML version of the file
     interests:
          - scrum
          - kanban
     badges:           
          - Staff
+         - Attendee
 
 models.auth.LinkItAccount(franckLinkIt):
     provider: LinkIt
@@ -336,55 +194,12 @@ Staff(romain) :
     email: couturier.romain@gmail.com
     company: WinMagine
     shortDescription : WinMagine *for ever*!
-    longDescription : |
-        ## Profile description : (long) Markdown sample
-
-        ### Overview
-
-        Great features of Markdown are:
-
-        * It's plain text (e.g., support for version control, create with code)  
-        * It's simple to learn and use
-        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
-        * It's quicker to type than HTML 
-        * It's easy to convert to other formats
-        * Several websites such as Stack Exchange and Github use it
-        * HTML code can be interspersed when features such as tables are not supported 
-
-        It's not for everything, but it's a good tool for certain tasks.
-        I'm still exploring the options, but in the case of blog posts and readme files it works well.
-
-
-        ### Learning the Syntax
-        The markup is simple to learn.
-        I first installed the Markdown Editor in Eclipse  
-        and associated `.md` files with the Markdown editor.
-
-        I then:
-
-        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
-        2. opened the Markdown HTML Preview: 
-        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
-        3. worked through the [Markdown syntax guide][msg]
-        creating simple proof of concept examples, bouncing between
-        the Markdown Editor and the Markdown HTML Preview.
-
-        [msg]: http://daringfireball.net/projects/markdown/syntax
-
-
-        ### Conversion
-        #### Markdown to HTML
-        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
-        can be obtained in several ways.
-
-        * Right click the Markdown HTML Preview and click "View Source"
-        * When in the Markdown editor, go to File -- Export HTML. 
-        This creates a HTML version of the file
     interests:
          - scrum
          - kanban
     badges:           
          - Staff
+         - Attendee
 
 models.auth.LinkItAccount(romainLinkIt):
     provider: LinkIt
@@ -408,55 +223,12 @@ Staff(nicolas) :
     login: nicolas
     email: nicolaspellouxprayer@gmail.com
     shortDescription : CARA *for ever*!
-    longDescription : |
-        ## Profile description : (long) Markdown sample
-
-        ### Overview
-
-        Great features of Markdown are:
-
-        * It's plain text (e.g., support for version control, create with code)  
-        * It's simple to learn and use
-        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
-        * It's quicker to type than HTML 
-        * It's easy to convert to other formats
-        * Several websites such as Stack Exchange and Github use it
-        * HTML code can be interspersed when features such as tables are not supported 
-
-        It's not for everything, but it's a good tool for certain tasks.
-        I'm still exploring the options, but in the case of blog posts and readme files it works well.
-
-
-        ### Learning the Syntax
-        The markup is simple to learn.
-        I first installed the Markdown Editor in Eclipse  
-        and associated `.md` files with the Markdown editor.
-
-        I then:
-
-        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
-        2. opened the Markdown HTML Preview: 
-        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
-        3. worked through the [Markdown syntax guide][msg]
-        creating simple proof of concept examples, bouncing between
-        the Markdown Editor and the Markdown HTML Preview.
-
-        [msg]: http://daringfireball.net/projects/markdown/syntax
-
-
-        ### Conversion
-        #### Markdown to HTML
-        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
-        can be obtained in several ways.
-
-        * Right click the Markdown HTML Preview and click "View Source"
-        * When in the Markdown editor, go to File -- Export HTML. 
-        This creates a HTML version of the file
     interests:
          - scrum
          - kanban
     badges:           
          - Staff
+         - Attendee
 
 models.auth.LinkItAccount(nicolasLinkIt):
     provider: LinkIt
@@ -479,11 +251,12 @@ Staff(mathieu) :
     lastname: Calba
     login: mathieu
     email: mathieu.calba@gmail.com
-    shortDescription : Androïd *for ever*!
+    shortDescription : Android *for ever*!
     interests:
          - java
     badges:           
          - Staff
+         - Attendee
 
 models.auth.LinkItAccount(mathieuLinkIt):
     provider: LinkIt
@@ -512,6 +285,7 @@ Staff(clacote) :
          - javascript
     badges:           
          - Staff
+         - Attendee
 
 models.auth.LinkItAccount(clacoteLinkIt):
     provider: LinkIt
@@ -529,518 +303,66 @@ GoogleAccount(clacoteGoogle):
     member: clacote
     googleId: 114128610730314333831
 
-Member(nmartignole) :
-    firstname: Nicolas
-    lastname: Martignole
-    login: nmartignole
-    email: nicolas@touilleur-express.fr
-    company: I'me CEO, bitch!
-    shortDescription : Je travaille pour les banques, et suis un cador en personal branding.
-    longDescription : |
-        ## Profile description : (long) Markdown sample
-
-        ### Overview
-
-        Great features of Markdown are:
-
-        * It's plain text (e.g., support for version control, create with code)  
-        * It's simple to learn and use
-        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
-        * It's quicker to type than HTML 
-        * It's easy to convert to other formats
-        * Several websites such as Stack Exchange and Github use it
-        * HTML code can be interspersed when features such as tables are not supported 
-
-        It's not for everything, but it's a good tool for certain tasks.
-        I'm still exploring the options, but in the case of blog posts and readme files it works well.
-
-
-        ### Learning the Syntax
-        The markup is simple to learn.
-        I first installed the Markdown Editor in Eclipse  
-        and associated `.md` files with the Markdown editor.
-
-        I then:
-
-        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
-        2. opened the Markdown HTML Preview: 
-        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
-        3. worked through the [Markdown syntax guide][msg]
-        creating simple proof of concept examples, bouncing between
-        the Markdown Editor and the Markdown HTML Preview.
-
-        [msg]: http://daringfireball.net/projects/markdown/syntax
-
-
-        ### Conversion
-        #### Markdown to HTML
-        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
-        can be obtained in several ways.
-
-        * Right click the Markdown HTML Preview and click "View Source"
-        * When in the Markdown editor, go to File -- Export HTML. 
-        This creates a HTML version of the file
+Member(pamelafox) :
+    firstname: Pamela
+    lastname: Fox
+    login: pamelafox
+    email: pamela.fox@gmail.com
+    shortDescription : I like to make, to teach, and to learn. Right now, I'm working on @EatDifferent, a tool to help people change how they eat.
     interests:
-         - scrum
-         - java
+         - javascript
+    badges:           
+         - Speaker
+         - Attendee
 
-models.auth.LinkItAccount(nmartignoleAccount):
-    provider: LinkIt
-    member: nmartignole
-    #password: nicolas
-    password: 2NlOQ+QV47f1N+qoX/OTAsaxP5CjOamLrLleNKTE2j8=
-
-TwitterAccount(nmartignoleTwitter):
+TwitterAccount(pamelafoxTwitter):
     provider: Twitter
-    member: nmartignole
-    screenName: nmartignole
+    member: pamelafox
+    screenName: pamelafox
 
-GoogleAccount(nmartignoleGoogle):
+GoogleAccount(pamelafoxGoogle):
     provider: Google
-    member: nmartignole
-    googleId: 112895425540987915280
-    
-Member(rguy):
-    firstname: Romain
-    lastname: Guy
-    login: rguy
-    email: rguy@google.com
-    company: Google
-    shortDescription : Googler et photographe de talent, je bosse sur Androïd.
-    longDescription : |
-        ## Profile description : (long) Markdown sample
-
-        ### Overview
-
-        Great features of Markdown are:
-
-        * It's plain text (e.g., support for version control, create with code)  
-        * It's simple to learn and use
-        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
-        * It's quicker to type than HTML 
-        * It's easy to convert to other formats
-        * Several websites such as Stack Exchange and Github use it
-        * HTML code can be interspersed when features such as tables are not supported 
-
-        It's not for everything, but it's a good tool for certain tasks.
-        I'm still exploring the options, but in the case of blog posts and readme files it works well.
-
-
-        ### Learning the Syntax
-        The markup is simple to learn.
-        I first installed the Markdown Editor in Eclipse  
-        and associated `.md` files with the Markdown editor.
-
-        I then:
-
-        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
-        2. opened the Markdown HTML Preview: 
-        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
-        3. worked through the [Markdown syntax guide][msg]
-        creating simple proof of concept examples, bouncing between
-        the Markdown Editor and the Markdown HTML Preview.
-
-        [msg]: http://daringfireball.net/projects/markdown/syntax
-
-
-        ### Conversion
-        #### Markdown to HTML
-        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
-        can be obtained in several ways.
-
-        * Right click the Markdown HTML Preview and click "View Source"
-        * When in the Markdown editor, go to File -- Export HTML. 
-        This creates a HTML version of the file
-    interests:
-         - java
-
-TwitterAccount(rguyTwitter):
-    provider: Twitter
-    member: rguy
-    screenName: romainguy
-
-GoogleAccount(rguyGoogle):
-    provider: Google
-    member: rguy
-    googleId: 111962077049890418486
-    
-Talk(sessionplayframework):
-    title: Play! Framework for dummies
-    track: Techy
-    summary: Intro sur le framework de la mort qui déchire tout!
-    valid: false
-    description : |
-        # Session description : Markdown sample
-        I've recently adopted Markdown as a markup language for editing my blog posts.
-        This post discusses 
-        (a) the benefits of Markdown,
-        (b) installing a Markdown editor,
-        (c) learning Markdown, and
-        (d) converting between formats.
-
-        <!-- more -->
-        ### Overview
-
-        Great features of Markdown are:
-
-        * It's plain text (e.g., support for version control, create with code)  
-        * It's simple to learn and use
-        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
-        * It's quicker to type than HTML 
-        * It's easy to convert to other formats
-        * Several websites such as Stack Exchange and Github use it
-        * HTML code can be interspersed when features such as tables are not supported 
-
-        It's not for everything, but it's a good tool for certain tasks.
-        I'm still exploring the options, but in the case of blog posts and readme files it works well.
-
-
-        ### Installation
-        I chose to install the Markdown Editor plugin for Eclipse developed by Daniel Winterstein. 
-        Cool features include:
-
-        * Outline View
-        * Syntax highlighting
-        * Markdown HTML Preview
-        * Integration with Eclipse
-
-        Installation instructions can be found on the [winterwell] website.
-
-        [winterwell]: http://www.winterwell.com/software/markdown-editor.php 
-
-
-        ### Learning the Syntax
-        The markup is simple to learn.
-        I first installed the Markdown Editor in Eclipse  
-        and associated `.md` files with the Markdown editor.
-
-        I then:
-
-        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
-        2. opened the Markdown HTML Preview: 
-        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
-        3. worked through the [Markdown syntax guide][msg]
-        creating simple proof of concept examples, bouncing between
-        the Markdown Editor and the Markdown HTML Preview.
-
-        [msg]: http://daringfireball.net/projects/markdown/syntax
-
-
-        ### Conversion
-        #### Markdown to HTML
-        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
-        can be obtained in several ways.
-
-        * Right click the Markdown HTML Preview and click "View Source"
-        * When in the Markdown editor, go to File -- Export HTML. 
-        This creates a HTML version of the file
-
-        #### Other options
-        [Pandoc] appears to be a good option for converting between document 
-        formats such as Markdown, LaTeX, RTF, PDF, OpenDocument, and more. 
-
-        [Pandoc]: http://johnmacfarlane.net/Pandoc/
-    speakers:
-           - nmartignole
-    
-Talk(sessionhadoop):
-    title: Hadoop c'est Hype!
-    track: Trendy
-    summary: Hadoop c'est un nom pourri mais c'est de la balle!
-    valid: true
-    description : |
-        # Session description : Markdown sample
-        I've recently adopted Markdown as a markup language for editing my blog posts.
-        This post discusses 
-        (a) the benefits of Markdown,
-        (b) installing a Markdown editor,
-        (c) learning Markdown, and
-        (d) converting between formats.
-
-        <!-- more -->
-        ### Overview
-
-        Great features of Markdown are:
-
-        * It's plain text (e.g., support for version control, create with code)  
-        * It's simple to learn and use
-        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
-        * It's quicker to type than HTML 
-        * It's easy to convert to other formats
-        * Several websites such as Stack Exchange and Github use it
-        * HTML code can be interspersed when features such as tables are not supported 
-
-        It's not for everything, but it's a good tool for certain tasks.
-        I'm still exploring the options, but in the case of blog posts and readme files it works well.
-
-
-        ### Installation
-        I chose to install the Markdown Editor plugin for Eclipse developed by Daniel Winterstein. 
-        Cool features include:
-
-        * Outline View
-        * Syntax highlighting
-        * Markdown HTML Preview
-        * Integration with Eclipse
-
-        Installation instructions can be found on the [winterwell] website.
-
-        [winterwell]: http://www.winterwell.com/software/markdown-editor.php 
-
-
-        ### Learning the Syntax
-        The markup is simple to learn.
-        I first installed the Markdown Editor in Eclipse  
-        and associated `.md` files with the Markdown editor.
-
-        I then:
-
-        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
-        2. opened the Markdown HTML Preview: 
-        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
-        3. worked through the [Markdown syntax guide][msg]
-        creating simple proof of concept examples, bouncing between
-        the Markdown Editor and the Markdown HTML Preview.
-
-        [msg]: http://daringfireball.net/projects/markdown/syntax
-
-
-        ### Conversion
-        #### Markdown to HTML
-        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
-        can be obtained in several ways.
-
-        * Right click the Markdown HTML Preview and click "View Source"
-        * When in the Markdown editor, go to File -- Export HTML. 
-        This creates a HTML version of the file
-
-        #### Other options
-        [Pandoc] appears to be a good option for converting between document 
-        formats such as Markdown, LaTeX, RTF, PDF, OpenDocument, and more. 
-
-        [Pandoc]: http://johnmacfarlane.net/Pandoc/
-    speakers:
-           - nmartignole
-           - rguy
-           - cedric
-           
-
-LightningTalk(sessionlightning):
-    title: Lightning talk on light
-    track: Techy
-    summary: Intro sur la lumière
-    description: Yeah this guy is so shinny
-    speakers:
-           - cedric
-           - julien
-
-LightningTalk(sessionlightning2):
-    title: Lightning talk on clouds
-    track: Techy
-    summary: Intro sur les nuages
-    description: From Paris, more likely to have a tedious weather
-    speakers:
-           - julien
-           - agnes
+    member: pamelafox
+    googleId: 104906919451670502090
 
 Article(article1):
     title: Mix-IT 2012!
     headline: Mix-IT seconde édition est annoncée pour le 26 avril 2012
     content: |
-        Vous l'attendiez tous... et bien voilà la conf [Mix-IT](http://www.mix-it.fr) 2012 aura lieu le 26 avril 2012 à Lyon! Stay tuned! Au programme on vous prépare toujours un bon mix de #Java #Agilité, autres langages, technos innovantes, etc.
+        Vous l'attendiez tous... et bien voilà la conf [Mix-IT](http://www.mix-it.fr) 2012 aura lieu le 26 avril 2012 à Lyon! Stay tuned! Au programme on vous prépare toujours un bon mix de Java et d'Agilité, ainsi que d'autres langages et technologies innovantes.
     author: agnes
     postedAt: 2011-11-25
     valid: true
-
-Article(article2):
-    title: Un nouveau sample
-    headline: Vous ne rêvez pas, un nouvel article est disponible.
-    content: |
-        # Article : Markdown sample
-        I've recently adopted Markdown as a markup language for editing my blog posts.
-        This post discusses 
-        (a) the benefits of Markdown,
-        (b) installing a Markdown editor,
-        (c) learning Markdown, and
-        (d) converting between formats.
-
-        <!-- more -->
-        ### Overview
-
-        Great features of Markdown are:
-
-        * It's plain text (e.g., support for version control, create with code)  
-        * It's simple to learn and use
-        * The source is highly readable (much more so than HTML or LaTeX; and arguably more so than other markup languages)
-        * It's quicker to type than HTML 
-        * It's easy to convert to other formats
-        * Several websites such as Stack Exchange and Github use it
-        * HTML code can be interspersed when features such as tables are not supported 
-
-        It's not for everything, but it's a good tool for certain tasks.
-        I'm still exploring the options, but in the case of blog posts and readme files it works well.
-
-
-        ### Installation
-        I chose to install the Markdown Editor plugin for Eclipse developed by Daniel Winterstein. 
-        Cool features include:
-
-        * Outline View
-        * Syntax highlighting
-        * Markdown HTML Preview
-        * Integration with Eclipse
-
-        Installation instructions can be found on the [winterwell] website.
-
-        [winterwell]: http://www.winterwell.com/software/markdown-editor.php 
-
-
-        ### Learning the Syntax
-        The markup is simple to learn.
-        I first installed the Markdown Editor in Eclipse  
-        and associated `.md` files with the Markdown editor.
-
-        I then:
-
-        1. created a file called `test.md` and opened it in the Markdown editor in Eclipse
-        2. opened the Markdown HTML Preview: 
-        `Window -- Show View -- Other -- Markdown -- Markdown HTML Preview`
-        3. worked through the [Markdown syntax guide][msg]
-        creating simple proof of concept examples, bouncing between
-        the Markdown Editor and the Markdown HTML Preview.
-
-        [msg]: http://daringfireball.net/projects/markdown/syntax
-
-
-        ### Conversion
-        #### Markdown to HTML
-        Using the Eclipse Markdown plugin, a HTML version of the Markdown file
-        can be obtained in several ways.
-
-        * Right click the Markdown HTML Preview and click "View Source"
-        * When in the Markdown editor, go to File -- Export HTML. 
-        This creates a HTML version of the file
-
-        #### Other options
-        [Pandoc] appears to be a good option for converting between document 
-        formats such as Markdown, LaTeX, RTF, PDF, OpenDocument, and more. 
-
-        [Pandoc]: http://johnmacfarlane.net/Pandoc/
-    author: cedric
-    postedAt: 2011-11-26
-    valid: true
-
-Article(article3):
-    title: Un article initialement non valide
-    headline: Cet article ne devrait pas être public au départ.
-    content: |
-        Cet article initialement non validé ne devrait être visible que du staff, qui se voit proposé des boutons d'actions.
-    author: clacote
-    postedAt: 2012-01-20
     
-Sponsor(od):
-    logoUrl: http://www.springsource.com/files/images/Objet%20Direct_RVB%20BD.jpg
-    firstname: Objet
-    lastname: Direct
-    login: od
-    company: Objet Direct
-    email: info@objetdirect.com
-    shortDescription : SSII trop de la balle, on fait de l'informatique et on aime ça.
+Sponsor(zenika):
+    logoUrl: http://www.zenika.com/templates/zenika/images/logo.gif
+    firstname: Zenika
+    lastname: Lyon
+    login: zenika
+    company: Zenika
+    email: info@zenika.com
+    shortDescription : Zenika, experts en technologies Open Source et méthodes Agiles
     badges:
          - Sponsor
 
-Sponsor(sqli):
-    logoUrl: http://upload.wikimedia.org/wikipedia/fr/8/89/LogoSQLI.gif
-    firstname: SQL
-    lastname: i
-    login: sqli
-    company: SQLi
-    email: info@sqli.com
-    shortDescription : SSII trop de la balle nous aussi, on fait de l'informatique *et on aime vraiment ça*.
-    badges:
-         - Sponsor
+TwitterAccount(zenikaTwitter):
+    provider: Twitter
+    member: zenika
+    screenName: ZenikaLyon
 
-Sponsor(elf):
-    logoUrl: http://neftegaz.ru/images/total(1).jpg
-    firstname: TotalFina
-    lastname: Elf
-    login: total
-    email: info@totalfina.fr
-    company: TotalFina Elf
-    shortDescription : Je ne sais pas ce qu'on fait là mais on a plein d'argent.
-    badges:
-         - Sponsor
+GoogleAccount(zenikaGoogle):
+    provider: Google
+    member: zenika
+    googleId: 113791145461957319034
 
-Sponsor(boulangerie):
-    logoUrl: http://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/FD_1.jpg/220px-FD_1.jpg
-    firstname: Boulangerie
-    lastname: Martin
-    login: martin
-    email: boulangerie.martin@hotmail.com
-    shortDescription : Les meilleures miches françaises depuis 1989.
-    badges:
-         - Sponsor
+SharedLink(zenikaLink1):
+    member: zenika
+    ordernum: 0
+    name: Site web
+    URL: http://www.zenika.com
 
-Sponsor(charcuterie):
-    logoUrl: http://blog.rayon-basque.com/images/Produits/Saucisson_Jesus.jpg
-    firstname: Charcuterie
-    lastname: Raymond
-    login: raymond
-    email: charcuterie.raymond@hotmail.fr
-    shortDescription : Les meilleures tripes françaises depuis 1984.
-    badges:
-         - Sponsor
-    
-Member(mrbadges) :
-    firstname: Monsieur
-    lastname: Badges
-    login: mrbadges
-    email: mister@badges.com
-    shortDescription : I'm a robot.
-    longDescription : |
-        Je suis un robot.
-        
-        Je porte _tous les badges_.
-        Comme ça les graphistes peuvent *tous* les voir.
-        
-        A votre service.
-        
-    badges:           
-         - Speaker
-         - Staff
-         - Sponsor
-         - Attendee
-         - StaffBestFriend
-         - SpeakerFan
-         - SponsorFriendly
-         - Supporter
-         - Enlightened,
-         - Brave
-         - Troller
-         - SpeakerPadawan
-         - NewBorn
-         - Friendly
-         - SocialBeast
-         - MadLinker
-         - YouReNotAlone
-         - LocalCelebrity
-         - RockStar
-         - Leader
-         - Idol
-         - Twittos
-         - Plusoner
-         - TwoDaysInARow
-         - FiveDaysInARow
-         - MixITAddict
-
-models.planning.GeneralPlanning(planning):
-
-models.planning.PlanedSlot(ps1) :
-    planning: planning
-    slot: TenEleven
-    session: sessionhadoop
-
-models.planning.PlanedSlot(ps2) :
-    planning: planning
-    slot: TenEleven
-    session: sessionlightning2
+SharedLink(zenikaLink2):
+    member: zenika
+    ordernum: 1
+    name: Blog
+    URL: http://blog.zenika.com

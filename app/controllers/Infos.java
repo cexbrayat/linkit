@@ -28,10 +28,6 @@ public class Infos extends PageController {
     public static void kit() {
         render();
     }
-
-    public static void sponsors() {
-        render();
-    }
     
     public static void contact() {
         render();

@@ -76,7 +76,7 @@
                                 <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">&{'menu.infos.about'}</a></li>
                                 <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">&{'menu.infos.faq'}</a></li>
                                 <li #{if request.action=="Infos.inscription"}class="active"#{/if}><a href="@{Infos.inscription()}">&{'menu.infos.inscription'}</a></li>
-                                <li #{if request.action=="Infos.sponsors"}class="active"#{/if}><a href="@{Infos.sponsors()}">&{'menu.infos.sponsors'}</a></li>
+                                <li #{if request.action=="Infos.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">&{'menu.infos.sponsors'}</a></li>
                                 <li #{if request.action=="Infos.contact"}class="active"#{/if}><a href="@{Infos.contact()}">&{'menu.infos.contact'}</a></li>
                                 <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">&{'menu.infos.kit'}</a></li>
                                 <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">&{'menu.infos.access'}</a></li>
@@ -166,7 +166,7 @@
                     <a href="http://www.cloudbees.com/" target="blank"><img src="@{'/public/images/powered-by-cloudbees-button-120x30.png'}" title="Powered by Cloudbees" height="20px"/></a>
                 </div>
                 <div class="span4" style="text-align: center">
-                    <a href="https://trello.com/board/mix-it-2012/4f1b9ce056cf07e52f0072f7" target="blank"><img src="@{'/public/images/icon_trello_sm.png'}" title="Trello (Suggestions, bugs, ...)"height="20px" /></a>
+                    Bugs, suggestions : <a href="https://trello.com/board/mix-it-2012/4f1b9ce056cf07e52f0072f7" target="blank"><img src="@{'/public/images/icon_trello_sm.png'}" title="Trello (Suggestions, bugs, ...)" height="20px" style="vertical-align: middle" /></a>
                 </div>
                 <div class="span4" style="text-align: center">
                     &copy; 2012 Mix-IT
