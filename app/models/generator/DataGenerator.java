@@ -93,33 +93,37 @@ public final class DataGenerator {
     }
     
     public static void generateSessionComments(int averageCommentsPerMember) {
-        List<Member> members = Member.findAll();
         List<Session> sessions = Session.findAll();
-        for (Member m : members) {
+        if (!sessions.isEmpty()) {
+            List<Member> members = Member.findAll();
+            for (Member m : members) {
 
-            Logger.info("Generating dummy session comments for member "+m);
+                Logger.info("Generating dummy session comments for member "+m);
 
-            final int nbComments = Dummy.randomInt(2*averageCommentsPerMember);
-            for (int i = 0; i < nbComments; i++) {
-                Session s = sessions.get(Dummy.randomInt(sessions.size()));
-                s.addComment(new SessionComment(m, s, Dummy.randomText(3000)));
-                s.save();
+                final int nbComments = Dummy.randomInt(2*averageCommentsPerMember);
+                for (int i = 0; i < nbComments; i++) {
+                    Session s = sessions.get(Dummy.randomInt(sessions.size()));
+                    s.addComment(new SessionComment(m, s, Dummy.randomText(3000)));
+                    s.save();
+                }
             }
         }
     }
     
     public static void generateArticleComments(int averageCommentsPerMember) {
-        List<Member> members = Member.findAll();
         List<Article> articles = Article.findAll();
-        for (Member m : members) {
+        if (!articles.isEmpty()) {
+            List<Member> members = Member.findAll();
+            for (Member m : members) {
 
-            Logger.info("Generating dummy article comments for member "+m);
+                Logger.info("Generating dummy article comments for member "+m);
 
-            final int nbComments = Dummy.randomInt(2*averageCommentsPerMember);
-            for (int i = 0; i < nbComments; i++) {
-                Article a = articles.get(Dummy.randomInt(articles.size()));
-                a.addComment(new ArticleComment(m, a, Dummy.randomText(3000)));
-                a.save();
+                final int nbComments = Dummy.randomInt(2*averageCommentsPerMember);
+                for (int i = 0; i < nbComments; i++) {
+                    Article a = articles.get(Dummy.randomInt(articles.size()));
+                    a.addComment(new ArticleComment(m, a, Dummy.randomText(3000)));
+                    a.save();
+                }
             }
         }
     }
