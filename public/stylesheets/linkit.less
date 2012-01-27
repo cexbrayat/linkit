@@ -1,6 +1,25 @@
 @import "variables.less";
 @import "mixins.less";
 
+.soon {/** text **/
+    font-size: 24px;
+    font-weight: 600;
+    color: red;
+    letter-spacing: 0.1em;
+    border: 3px solid red;
+    padding: 5px;
+    text-align:center;
+    position:absolute;
+    /**adjust as needed**/
+    top: 190px;
+    left: 240px;
+    /**note: CSS3 TRANSFORM: ROTATE DOESN'T WORK IN ALL BROWSERS YET**/
+    -webkit-transform: rotate(-20deg); /**safari, chrome**/
+    -moz-transform: rotate(-20deg); /**firefox**/
+    transform: rotate(-20deg); /**other browsers**/
+    .box-shadow(0 0 7px black);
+}
+
 ul.tabs {
     margin: 0px;
 }
