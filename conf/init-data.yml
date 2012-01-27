@@ -342,6 +342,27 @@ Sponsor(zenika):
     company: Zenika
     email: info@zenika.com
     shortDescription : Zenika, experts en technologies Open Source et méthodes Agiles
-
     badges:
          - Sponsor
+
+TwitterAccount(zenikaTwitter):
+    provider: Twitter
+    member: zenika
+    screenName: ZenikaLyon
+
+GoogleAccount(zenikaGoogle):
+    provider: Google
+    member: zenika
+    googleId: 113791145461957319034
+
+SharedLink(zenikaLink1):
+    member: zenika
+    ordernum: 0
+    name: Site web
+    URL: http://www.zenika.com
+
+SharedLink(zenikaLink2):
+    member: zenika
+    ordernum: 1
+    name: Blog
+    URL: http://blog.zenika.com
