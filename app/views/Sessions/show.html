@@ -4,6 +4,13 @@
 
     <div class="hero-unit" style="padding: 30px 60px;">
         <h2 itemprop="name">${talk.title}</h2>
+        #{if talk.interests}
+        <p>
+            #{list items:talk.interests, as:'interest'}
+                <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
+            #{/list}
+        </p>
+        #{/if}
         <p itemprop="description">${talk.summary}</p>
         ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
         #{if talk.comments}
@@ -58,22 +65,6 @@
                 #{/else}
                 </p>
                 #{/list}
-
-                #{if talk.interests}
-                <h4>Intérêts</h4>
-                <p>
-                    #{list items:talk.interests, as:'interest'}
-                        <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
-                    #{/list}
-                </p>
-                #{/if}
-                
-                <h4>Activité récente</h4>
-                <div id="activities">
-                #{activities activities:activities /}
-                </div>
-
-                
             </div>
             
             <div class="span13">            
@@ -82,12 +73,15 @@
                 </blockquote>
             </div>
         </div>
+        <div class="row">
+            <div class="span16">
+                <h4>Activité récente</h4>
+                <div id="activities">
+                    #{activities activities:activities /}
+                </div>
+            </div>
+        </div>
 
-        #{if !session.username}
-        <hr/>
-        <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter cette session.
-        #{/if}
-        
         #{comments talk.comments /}
 
         <hr/>
