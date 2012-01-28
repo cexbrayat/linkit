@@ -16,10 +16,9 @@
                    </div>
                     <div class="span6">
                         <div class="alert-message block-message info">
-                            #{ticketing member/}
-                            <br />
                             <a href="@{Profile.show(session.username)}" title="Voir mon profil">Profil</a> consulté ${member.getNbLooks()} fois.
-
+                            <br />
+                            #{ticketing member/}
                             <div class='alert-actions'>
                                 <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
                                 <a href="@{Sessions.create(session.username)}" class="btn small">Proposer une session</a>
