@@ -173,5 +173,6 @@ validation.required=La saisie du champ %s est obligatoire
 validation.email=Le champ &{%1$s} n'est pas un email valide
 validation.minSize=Le nombre minimum de &{%1$s} est %d
 validation.maxSize=Le nombre maximum de &{%1$s} est %d
+validation.url=Le champ URL n'est pas une URL valide.
 validation.unique=La valeur du champ %s est déjà utilisée par l'utilisateur %s
 validation.googleID=Le champ &{%1$s} ne correspond pas à un Google ID valide
