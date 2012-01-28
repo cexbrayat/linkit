@@ -30,7 +30,7 @@ public class CommentArticleActivity extends CommentActivity {
 
     @Override
     public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member, article, comment);
+        return Messages.get(getMessageKey(), renderMention(member, s), article, comment);
     }
 
     @Override

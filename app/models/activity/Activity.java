@@ -4,7 +4,9 @@ import helpers.badge.BadgeComputationContext;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,6 +30,7 @@ import org.hibernate.annotations.Table;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import play.mvc.Scope;
+import play.templates.TemplateLoader;
 
 /**
  * An activity on Link-IT site, i.e a persisted event
@@ -201,6 +204,13 @@ public abstract class Activity extends Model implements Comparable<Activity> {
      * @return i18n (HTML) message to be displayed on GUI for this activity
      */
     public abstract String getMessage(Scope.Session session);
+    
+    protected static String renderMention(Member mentionned, Scope.Session s) {
+        Map<String, Object> renderArgs = new HashMap<String, Object>(2);
+        renderArgs.put("_arg", mentionned);
+        renderArgs.put("session", s);
+        return TemplateLoader.load("tags/member.html").render(renderArgs);
+    }
 
     /**
      * @return URL to be linked on this activity.

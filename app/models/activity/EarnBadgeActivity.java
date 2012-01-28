@@ -31,7 +31,7 @@ public class EarnBadgeActivity extends Activity {
 
     @Override
     public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member, badge);
+        return Messages.get(getMessageKey(), renderMention(member, s), badge);
     }
 
     @Override

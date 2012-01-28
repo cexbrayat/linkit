@@ -24,7 +24,7 @@ public class SignUpActivity extends Activity {
 
     @Override
     public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member);
+        return Messages.get(getMessageKey(), renderMention(member, s));
     }
 
     @Override

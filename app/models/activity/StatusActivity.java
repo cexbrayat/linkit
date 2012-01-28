@@ -1,11 +1,9 @@
 package models.activity;
 
-import com.google.common.collect.Maps;
 import helpers.badge.BadgeComputationContext;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.Entity;
@@ -22,7 +20,6 @@ import play.Logger;
 import play.Play;
 import play.i18n.Messages;
 import play.mvc.Scope;
-import play.templates.TemplateLoader;
 
 /**
  * A status activity : someone ({@link Activity#mentionedMember} posted a status on an external provider ({@link Activity#session}
@@ -107,10 +104,7 @@ public class StatusActivity extends Activity {
         while (matcher.find()) {
             final String login = matcher.group(1);
             final Member mentionedMember = Member.findByLogin(login);
-            Map<String, Object> renderArgs = Maps.newHashMap();
-            renderArgs.put("_arg", mentionedMember);
-            renderArgs.put("session", s);
-            matcher.appendReplacement(message, TemplateLoader.load("tags/member.html").render(renderArgs));
+            matcher.appendReplacement(message, renderMention(mentionedMember, s));
         }
         matcher.appendTail(message);
         return message.toString();

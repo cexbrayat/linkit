@@ -32,7 +32,7 @@ public class LinkActivity extends Activity {
 
     @Override
     public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member, other);
+        return Messages.get(getMessageKey(), renderMention(member, s), renderMention(other, s));
     }
 
     @Override

@@ -25,7 +25,7 @@ public class NewVoteActivity extends Activity {
 
     @Override
     public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member, session);
+        return Messages.get(getMessageKey(), renderMention(member, s), session);
     }
 
     @Override

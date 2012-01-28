@@ -33,7 +33,7 @@ public class SharedLinkActivity extends Activity {
 
     @Override
     public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member, link);
+        return Messages.get(getMessageKey(), renderMention(member, s), link);
     }
 
     @Override
