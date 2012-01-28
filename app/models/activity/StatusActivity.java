@@ -99,7 +99,7 @@ public class StatusActivity extends Activity {
     @Override
     public String getMessage(Scope.Session s) {
         StringBuffer message = new StringBuffer();
-        String rawMessage = Messages.get(getMessageKey(), member, content);
+        String rawMessage = Messages.get(getMessageKey(), renderMention(member, s), content);
         Matcher matcher = MENTION_PATTERN.matcher(rawMessage);
         while (matcher.find()) {
             final String login = matcher.group(1);
