@@ -1,6 +1,7 @@
 package controllers;
 
 import models.*;
+import models.serialization.LightningTalkSerializer;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Valid;
@@ -15,6 +16,13 @@ public class LightningTalks extends PageController {
 
     public static void list() {
         List<LightningTalk> sessions = LightningTalk.findAll();
+
+        if(JSON.equals(request.format))
+        {
+            //TODO JRI add myVote
+            renderJSON(sessions, new LightningTalkSerializer());
+        }
+
         render(sessions);
     }
 
@@ -35,6 +43,12 @@ public class LightningTalks extends PageController {
         if (!noCount) {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
+
+        if(JSON.equals(request.format))
+        {
+            renderJSON(talk, new LightningTalkSerializer());
+        }
+
         List<Activity> activities = Activity.recentsBySession(talk, 1, 5);
         render(talk, activities);
     }
@@ -60,6 +74,7 @@ public class LightningTalks extends PageController {
         show(talk.id, true);
     }
 
+    //TODO JRI need @Check("member")
     public static void postComment(
             Long talkId,
             @Required String content) {

@@ -15,7 +15,7 @@ import play.jobs.On;
  * Asynchronous batch sending of mailings.
  * @author Sryl <cyril.lacote@gmail.com>
  */
-@On("0 0 3 * * ?")  // 3H du matin chaque jour
+//@On("0 0 3 * * ?")  // 3H du matin chaque jour
 public class JobSendMailings extends Job {
 
     private final int dailyBatchSize = Integer.valueOf(Play.configuration.getProperty("linkit.mail.dailyBatchSize"));

@@ -55,19 +55,24 @@ POST    /session                                Sessions.save
 GET     /session/edit                           Sessions.edit
 GET     /session/validate/{talkId}              Sessions.validate
 GET     /session/unvalidate/{talkId}            Sessions.unvalidate
-POST    /session/comment                        Sessions.postComment
+POST    /session/{id}/comment                   Sessions.postComment
 GET     /session/{sessionId}/{slugify}          Sessions.show
 # Just in case we forget the slugified title as parameter
-GET     /session/{sessionId}                    Sessions.show   
+GET     /session/{sessionId}                    Sessions.show
+GET     /api/sessions                           Sessions.index(format:'json')
+GET     /api/session/{sessionId}                Sessions.show(format:'json')
 
 # Lightning
 GET     /lightnings                             LightningTalks.list
 GET     /lightning/new                          LightningTalks.create
 GET     /lightning/{sessionId}                  LightningTalks.show
-POST    /lightning/vote/{id}/{name}             LightningTalks.vote
+# Two parameters needed : username and value (boolean)
+POST    /lightning/{id}/vote                    Votes.vote
 POST    /lightning                              LightningTalks.save
-POST    /lightning/comment                      LightningTalks.postComment
+POST    /lightning/{id}/comment                 LightningTalks.postComment
 DELETE  /lightning/{sessionId}                  LightningTalks.delete
+GET     /api/lightnings                         LightningTalks.list(format:'json')
+GET     /api/lightning/{sessionId}              LightningTalks.show(format:'json')
 
 # Articles
 GET     /articles                               Articles.index
@@ -80,6 +85,9 @@ GET     /article/new                            Articles.create
 GET     /article/edit                           Articles.edit
 POST    /article/comment                        Articles.postComment
 GET     /article/{articleId}                    Articles.show
+
+#Interests
+GET     /api/interests                          Interests.list(format:'json')
 
 # Secure
 GET     /logout                                 Secure.logout

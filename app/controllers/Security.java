@@ -20,6 +20,7 @@ import play.libs.Crypto.HashType;
 public class Security extends Secure.Security {
 
 	public static final String ADMIN = "admin";
+	public static final String MEMBER = "member";
 
 	public static boolean authenticate(String username, String password) {
 		LinkItAccount account = (LinkItAccount) LinkItAccount.find(
@@ -41,6 +42,11 @@ public class Security extends Secure.Security {
 						&& user.hasRole(Role.ADMIN_PLANNING)
 						&& user.hasRole(Role.ADMIN_SPEAKER);
 			}
+            else if (MEMBER.equals(profile))
+            {
+                // TODO JRI HOW TO do that, no role ...
+                return true;
+            }
 			return user.hasRole(profile);
 		}
 		return false;

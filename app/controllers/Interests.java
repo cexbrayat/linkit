@@ -1,7 +1,10 @@
 package controllers;
 
 import models.Interest;
+import models.serialization.InterestSerializer;
 import play.Logger;
+
+import java.util.List;
 
 public class Interests extends PageController {
 
@@ -36,5 +39,11 @@ public class Interests extends PageController {
             flash.success("Intérêts fusionnés");
         }
         render("Interests/edit.html");
+    }
+
+    public static void list()
+    {
+        List<Interest> interests = Interest.findAll();
+        renderJSON(interests, new InterestSerializer());
     }
 }

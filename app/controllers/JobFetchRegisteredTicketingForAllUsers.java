@@ -15,7 +15,7 @@ import play.jobs.Job;
  * Asynchronous fetch to check if member is registered at the ticketing partner
  * @author Agnes <agnes.crepet@gmail.com>
  */
-@Every("10800s")
+//@Every("10800s")
 @NoTransaction
 public class JobFetchRegisteredTicketingForAllUsers extends Job {
 

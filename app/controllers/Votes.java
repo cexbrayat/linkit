@@ -4,9 +4,12 @@ import models.*;
 import play.Logger;
 
 import play.mvc.Controller;
+import play.mvc.With;
 
+@With(Secure.class)
 public class Votes extends Controller {
 
+    @Check("member")
     public static long vote(Long talkId, String username, Boolean value) {
         LightningTalk talk = LightningTalk.findById(talkId);
         Member member = Member.findByLogin(username);

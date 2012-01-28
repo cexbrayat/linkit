@@ -1,6 +1,7 @@
 package controllers;
 
 import helpers.Lists;
+import models.serialization.SessionSerializer;
 import play.*;
 
 import java.util.*;
@@ -28,6 +29,10 @@ public class Sessions extends PageController {
             sessions = Talk.findAllValidated();
         }
         Logger.info(sessions.size() + " sessions");
+        if(JSON.equals(request.format))
+        {
+          renderJSON(sessions, new SessionSerializer());
+        }
         render("Sessions/list.html", sessions);
     }
 
@@ -67,6 +72,12 @@ public class Sessions extends PageController {
         if (!noCount) {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
+
+        if(JSON.equals(request.format))
+        {
+            renderJSON(talk, new SessionSerializer());
+        }
+
         List<Activity> activities = Activity.recentsBySession(talk, 1, 5);
         render(talk, activities);
     }
