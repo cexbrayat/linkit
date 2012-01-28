@@ -54,11 +54,9 @@ public class Application extends PageController {
 
     public static void searchByInterest(String interest) {
         List<Member> members = Member.findMembersInterestedIn(interest);
-        Logger.debug(Member.count() + " membres interested by " + interest);
-        List<Session> sessions = Session.findSessionsLinkedWith(interest);
-        Logger.debug(Session.count() + " session linked with " + interest);
+        List<Session> talks = Session.findSessionsLinkedWith(interest);
         String query = interest;
-        render("Application/search.html", members, sessions, query);
+        render("Application/search.html", members, talks, query);
     }
 
     static class LuceneQueryBuilder {
