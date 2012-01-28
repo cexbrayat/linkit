@@ -8,37 +8,28 @@
 #{/set}
 <div class="hero-unit">
     <div class="row">
-        <div class="span7">
+        <div class="span16">
             <div class="row">
                 <div class="span4">
                     <h2>26 Avril 2012</h2>
                 </div>
-            </div>
-            <div class="row">
-                <div class="soon">Ouverture prochaine<br/>de la billetterie!</div>
-                <div class="span4">
-                    <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" style="width:500px">
+                <div class="span7 offset3">
+                    <h3>Java, Agilité, Web, Innovations...</h3>
                 </div>
             </div>
             <div class="row">
-                <div class="span5 offset4">
+                <div class="span6">
+                    <div class="soon">Ouverture prochaine<br/>de la billeterie!</div>
+                </div>
+                <div class="span16">
+                    <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" style="width:700px">
+                </div>
+            </div>
+            <div class="row">
+                <div class="span5 offset8">
                     <h3 itemprop="description">Des idées pour tout de suite !</h3>
                 </div>
             </div>
-         </div>
-         <div class="span4 offset3" style="font-size: 16px" >
-             <br/>
-                    <div class="well">
-                        <strong>Mix-IT en chiffres&nbsp;:</strong>
-                        <ul>
-                            <li>350 participants</li>
-                            <li>30 speakers</li>
-                            <li>5 tracks</li>
-                            <li>Des lightnings talks</li>
-                            <li>700 bouteilles d'eau</li>
-                            <li>du fun!</li>
-                        </ul>
-                    </div>
          </div>
       </div>
     <br/>
@@ -47,7 +38,7 @@
             #{if session.username}
             <div class="row">
                 <div class="span4" style="text-align: center">
-                    <a href="@{Infos.inscription()}" class="btn primary" rel='twipsy' title="Prix: 30 euros" data-html="true">Payer mon billet</a>
+                    <a href="@{Infos.inscription()}" class="btn primary" rel='twipsy' title="Prix: 30 euros" data-html="true">Acheter mon billet</a>
                 </div>
                 <div class="span4" style="text-align: center">
                     <a href="@{Application.members()}" class="btn primary">Consulter les profils</a>
