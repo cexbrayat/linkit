@@ -8,15 +8,20 @@
 #{/set}
 <div class="hero-unit">
     <div class="row">
-        <div class="span7">
+        <div class="span9">
             <div class="row">
-                <div class="span4">
+                <div class="span3">
                     <h2>26 Avril 2012</h2>
+                </div>
+                <div class="span5 offset1">
+                    <h3>Java, Agilité, Web, Innovations...</h3>
                 </div>
             </div>
             <div class="row">
-                <div class="soon">Ouverture prochaine<br/>de la billetterie!</div>
-                <div class="span4">
+                <div class="span6">
+                    <div class="soon">Ouverture prochaine<br/>de la billeterie!</div>
+                </div>
+                <div class="span9">
                     <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" style="width:500px">
                 </div>
             </div>
@@ -26,14 +31,18 @@
                 </div>
             </div>
          </div>
-         <div class="span4 offset3" style="font-size: 16px" >
+         <div class="span4 offset1" style="font-size: 16px" >
              <br/>
                     <div class="well">
                         <strong>Mix-IT en chiffres&nbsp;:</strong>
+                        <br />
+                        <br />
                         <ul>
                             <li>350 participants</li>
                             <li>30 speakers</li>
                             <li>5 tracks</li>
+                            <li>2 keynotes</li>
+                            <li>30 bénévoles</li>
                             <li>Des lightnings talks</li>
                             <li>700 bouteilles d'eau</li>
                             <li>du fun!</li>
@@ -47,7 +56,7 @@
             #{if session.username}
             <div class="row">
                 <div class="span4" style="text-align: center">
-                    <a href="@{Infos.inscription()}" class="btn primary" rel='twipsy' title="Prix: 30 euros" data-html="true">Payer mon billet</a>
+                    <a href="@{Infos.inscription()}" class="btn primary" rel='twipsy' title="Prix: 30 euros" data-html="true">Acheter mon billet</a>
                 </div>
                 <div class="span4" style="text-align: center">
                     <a href="@{Application.members()}" class="btn primary">Consulter les profils</a>
