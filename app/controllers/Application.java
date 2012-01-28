@@ -1,6 +1,9 @@
 package controllers;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import models.*;
 import play.Logger;
@@ -51,11 +54,9 @@ public class Application extends PageController {
 
     public static void searchByInterest(String interest) {
         List<Member> members = Member.findMembersInterestedIn(interest);
-        Logger.debug(Member.count() + " membres interested by " + interest);
-        List<Session> sessions = Session.findSessionsLinkedWith(interest);
-        Logger.debug(Session.count() + " session linked with " + interest);
+        List<Session> talks = Session.findSessionsLinkedWith(interest);
         String query = interest;
-        render("Application/search.html", members, sessions, query);
+        render("Application/search.html", members, talks, query);
     }
 
     static class LuceneQueryBuilder {
@@ -122,7 +123,8 @@ public class Application extends PageController {
                 .orField(Session.DESCRIPTION)
                 .toQuery();
         Logger.debug("Search sessions with query : %s", sessionsQuery);
-        List<Session> sessions = Search.search(sessionsQuery, Session.class).fetch();
+        List<Talk> talks = Search.search(sessionsQuery, Talk.class).fetch();
+        List<LightningTalk> lightningtalks = Search.search(sessionsQuery, LightningTalk.class).fetch();
 
         final String membersQuery = new LuceneQueryBuilder(query)
                 .orField(Member.FIRSTNAME)
@@ -131,10 +133,13 @@ public class Application extends PageController {
                 .orField(Member.SHORTDESCRIPTION)
                 .orField(Member.LONGDESCRIPTION).toQuery();
         Logger.debug("Search members with query : %s", membersQuery);
+        List<Staff> staff = Search.search(membersQuery, Staff.class).fetch();
+        List<Sponsor> sponsors = Search.search(membersQuery, Sponsor.class).fetch();
         List<Member> members = Search.search(membersQuery, Member.class).fetch();
+        members.addAll(staff);
+        members.addAll(sponsors);
+        Collections.sort(members);
 
-        Interest interest = Interest.findByName(query);
-        
-        render("Application/search.html", query, articles, sessions, members);
+        render("Application/search.html", query, articles, talks, lightningtalks, members);
     }
 }

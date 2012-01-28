@@ -12,7 +12,6 @@ import play.db.jpa.Model;
 import javax.persistence.*;
 import java.util.*;
 import play.modules.search.Field;
-import play.modules.search.Indexed;
 
 /**
  * A session
@@ -21,7 +20,6 @@ import play.modules.search.Indexed;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Indexed
 public abstract class Session extends Model implements Lookable {
 
     public static final String TITLE = "title";
