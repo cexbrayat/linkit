@@ -19,8 +19,8 @@
 </script>
 #{/set}
 
-<div class="hero-unit">
-    <h1>Inscription</h1>
+
+<h1>Inscription</h1>
     <!-- FIXME le 07/02 ouverture billeterie le 07/02!
 {if session.username} <p>
 {ticketing member/}</p>
@@ -65,17 +65,15 @@
     </div>
 
 </div>
-</div>
-
 
 #{if !session.username}
     <!-- FIXME le 07/02 ouverture billeterie le 07/02! -->
 <ol>
-    <li><h4><a href="@{Login.index()}">Créer-vous un compte Mix-IT</a></h4></li>
-    <li><h4>Quand la billeterie sera ouverte : payez votre billet via votre Dashboard Mix-IT</h4></li>
+    <li><h3><a href="@{Login.index()}">Créer-vous un compte Mix-IT</a></h3></li>
+    <li><h3>Quand la billeterie sera ouverte : payez votre billet via votre Dashboard Mix-IT</h3></li>
 </ol>
 #{/if}
 #{else}
-    <h4>Quand la billeterie sera ouverte : n'oubliez pas de vérifier si vous avez payé votre billet</h4>
+    <h3>Quand la billeterie sera ouverte : n'oubliez pas de vérifier si vous avez payé votre billet</h3>
 #{/else}
 
