@@ -11,12 +11,21 @@
 #{/else}
 
 <hr/>
-#{if sessions}
+#{if talks}
     <h4>Voici les sessions correspondant à la recherche "${query}" :</h4>
-    #{sessions sessions:sessions/}
+    #{sessions sessions:talks/}
 #{/if}
 #{else}
     <h4>Aucune session correspondant à la recherche "${query}".</h4>
+#{/else}
+
+<hr/>
+#{if lightningtalks}
+    <h4>Voici les lightning talks correspondant à la recherche "${query}" :</h4>
+    #{lightning sessions:lightningtalks/}
+#{/if}
+#{else}
+    <h4>Aucun lightning talk correspondant à la recherche "${query}".</h4>
 #{/else}
 
 <hr/>

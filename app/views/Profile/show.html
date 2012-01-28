@@ -80,9 +80,11 @@
                 <li><a href="#ligthnings">Mes lightnings talks</a></li>
                 #{/if}
                 #{if member.interests}
-                <li><a href="#interets">Mes intérêts</a></li>
+                <li><a href="#interets">${member.interests.size()} intérêt${member.interests.pluralize()}</a></li>
                 #{/if}
-                <li><a href="#badges">Mes badges</a></li>
+                #{if member.badges}
+                <li><a href="#badges">${member.badges.size()} badge${member.badges.pluralize()}</a></li>
+                #{/if}
             </ul>
             <div id="tab-content" class="tab-content">
                 <div class="tab-pane active" id="tabActivites">
@@ -173,9 +175,11 @@
                     #{/list}
                 </div>
                 #{/if}
+                #{if member.badges}
                 <div class="tab-pane" id="badges">
                     #{badges member.badges /}
                 </div>
+                #{/if}
             </div>
         </div>
     </div>
