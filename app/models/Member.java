@@ -331,9 +331,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
             link.member = this;
             link.ordernum = this.sharedLinks.size();
             this.sharedLinks.add(link);
-            link.save();
 
-            if (newActivity) {
+            if (newActivity && this.id != null) {
+                link.save();
                 new SharedLinkActivity(link).save();
             }
         }
@@ -366,12 +366,6 @@ public class Member extends Model implements Lookable, Comparable<Member> {
                 addSharedLink(link, true);
             } else {
                 addSharedLink(previous, false);
-            }
-        }
-        // Deleting obsolete links
-        for (SharedLink previous : previouses) {
-            if (!this.sharedLinks.contains(previous)) {
-                previous.delete();
             }
         }
     }
