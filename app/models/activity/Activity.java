@@ -27,7 +27,6 @@ import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.Required;
 import play.db.jpa.Model;
-import play.mvc.Scope;
 
 /**
  * An activity on Link-IT site, i.e a persisted event
@@ -185,22 +184,23 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     
     /**
      * Delete all activities related to given member for given provider
-     * @param member
-     * @param provider
      * @return 
      */
     public static int deleteForArticle(Article article) {
         return delete("delete Activity a where a.article = ?", article);
     }
+    
+    /**
+     * Delete all activities related to given session
+     * @return 
+     */
+    public static int deleteForSession(Session session) {
+        return delete("delete Activity a where a.session = ?", session);
+    }
 
     final protected String getMessageKey() {
         return getClass().getSimpleName() + ".message";
     }
-
-    /**
-     * @return i18n (HTML) message to be displayed on GUI for this activity
-     */
-    public abstract String getMessage(Scope.Session session);
 
     /**
      * @return URL to be linked on this activity.

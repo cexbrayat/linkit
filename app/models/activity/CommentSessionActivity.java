@@ -6,8 +6,6 @@ import models.SessionComment;
 import models.Member;
 import models.Session;
 import play.data.validation.Required;
-import play.i18n.Messages;
-import play.mvc.Scope;
 
 /**
  * A comment activity : someone ({@link Activity#member} commented on a session ({@link Activity#session}
@@ -25,11 +23,6 @@ public class CommentSessionActivity extends CommentActivity {
         super(author);
         this.session = session;
         this.comment = comment;
-    }
-
-    @Override
-    public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member, session, getUrl());
     }
 
     @Override

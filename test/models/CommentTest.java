@@ -24,6 +24,6 @@ public class CommentTest extends BaseDataUnitTest {
     @Test
     public void deleteForMember() {
         Member member = Member.all().first();
-        Comment.deleteForMember(member);
+        assertNotNull(Comment.deleteForMember(member));
     }
 }

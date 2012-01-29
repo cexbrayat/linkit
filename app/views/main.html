@@ -47,7 +47,7 @@
                         #{/if}
                         <li #{if request.controller=="Articles"}class="active"#{/if}><a href="@{Articles.index()}">&{'menu.news'}</a></li>
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle">&{'menu.agenda'}</a>
+                            <a class="dropdown-toggle" href="#">&{'menu.agenda'}</a>
                             <ul class="dropdown-menu">
                                 <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
                                 <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
@@ -59,7 +59,7 @@
                             </ul>
                         </li>
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle">&{'menu.members'}</a>
+                            <a class="dropdown-toggle" href="#">&{'menu.members'}</a>
                             <ul class="dropdown-menu">
                                 <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">&{'menu.members.speakers'}</a></li>
                                 #{if session.username}
@@ -71,7 +71,7 @@
                         </li>
                         
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle">&{'menu.infos'}</a>
+                            <a class="dropdown-toggle" href="#">&{'menu.infos'}</a>
                             <ul class="dropdown-menu">
                                 <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">&{'menu.infos.about'}</a></li>
                                 <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">&{'menu.infos.faq'}</a></li>
@@ -87,7 +87,7 @@
                         
                         #{secure.check 'admin'}
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle">Admin</a>
+                            <a class="dropdown-toggle" href="#">Admin</a>
                             <ul class="dropdown-menu">
                                 <li><a href="/admin">On dirait le CRUD</a></li>
                                 <li class="divider"></li>
@@ -104,7 +104,7 @@
                     <ul class="nav secondary-nav pull-right">
                         #{if session.username} 
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle">#{member models.Member.findByLogin(session.username), static:true /}</a>
+                            <a class="dropdown-toggle" href="#">#{member models.Member.findByLogin(session.username), static:true /}</a>
                             <ul class="dropdown-menu">
                                 <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
                                 <li><a href="@{Profile.show(session.username)}">&{'menu.login.profile'}</a></li>

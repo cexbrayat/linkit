@@ -4,19 +4,24 @@
 
     <div class="hero-unit member-card">
         <h2 itemprop="name">${talk.title}</h2>
-        #{if talk.interests}
         <p>
             <span class="label track ${talk.track}">${talk.track}</span>
+        #{if talk.interests}
             #{list items:talk.interests, as:'interest'}
                 <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
             #{/list}
-        </p>
         #{/if}
+        </p>
         <p itemprop="description">${talk.summary}</p>
         
         #{if !talk.valid}
             <div class="alert-message block-message warning">
-                <p>Cette session a bien été soumise au comité d’organisation, mais n'est pas encore acceptée.<br/>Consulter votre dashboard régulièrement pour connaitre son statut.</p>
+                <p>Cette session a bien été soumise au comité d’organisation, <strong>mais n'est pas encore acceptée</strong>.<br/>Consulter votre dashboard régulièrement pour connaitre son statut.</p>
+                <div class='alert-actions'>
+                #{if talk.hasSpeaker(session.username)}            
+                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer votre session</a>
+                #{/if}
+                </div>
             </div>
         #{/if}
         
@@ -24,16 +29,17 @@
             <div class="alert-message block-message info">
                 <p><strong>Staff</strong></p>
                 #{if talk.valid}            
-                <p>Attention : invalider une session ne supprimera pas les éventuelles activités existantes sur cette session.</p>
+                <p>Invalider une session supprimera les éventuelles activités existantes sur cette session, mais pas les commentaires.</p>
                 #{/if}
                 <div class='alert-actions'>
-                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer cette session</a>
+                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer</a>
                 #{if talk.valid}            
-                    <a class="btn danger" href="@{Sessions.unvalidate(talk.id)}">Invalider cette session</a>
+                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment invalider cette session?')) window.location='@{Sessions.unvalidate(talk.id)}';">Invalider</a>
                 #{/if}
                 #{else}
-                    <a class="btn danger" href="@{Sessions.validate(talk.id)}">Valider cette session</a>
+                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment valider cette session?')) window.location='@{Sessions.validate(talk.id)}';">Valider</a>
                 #{/else}
+                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment supprimer cette session?')) window.location='@{Sessions.delete(talk.id)}';">Supprimer</a>
                 </div>
             </div>
         #{/secure.check}
@@ -79,6 +85,7 @@
             </div>
         </div>
     </div>
+    #{if activities}
     <div class="row">
         <div class="span16">
             <h4>Activité récente</h4>
@@ -87,6 +94,7 @@
             </div>
         </div>
     </div>
+    #{/if}
 
     #{comments talk.comments /}
 
