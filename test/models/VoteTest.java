@@ -37,4 +37,15 @@ public class VoteTest extends BaseDataUnitTest {
         Vote.deleteForMember(m);
         assertEquals(0, Vote.countVotesByMember(m));
     }
+    
+    @Test public void deleteForSession() {
+        Member m = createMember("toto");
+        LightningTalk lt = createLT();
+
+        new Vote(lt, m, true).save();
+        assertEquals(1, Vote.findNumberOfVotesBySession(lt));
+        
+        Vote.deleteForSession(lt);
+        assertEquals(0, Vote.findNumberOfVotesBySession(lt));
+    }
 }

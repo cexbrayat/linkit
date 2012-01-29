@@ -48,4 +48,22 @@ public class LightningTalkTest extends BaseDataUnitTest {
         final LightningTalk t = createLT();
         assertNotNull(t.getShowUrl());
     }
+        
+    @Test public void delete() {
+        Member speaker1 = createMember("speaker1");
+        Member speaker2 = createMember("speaker2");
+        LightningTalk lt = createLT(speaker1, speaker2);
+        // Some comments
+        Member member1 = createMember("member1");
+        Member member2 = createMember("member2");
+        lt.addComment(new SessionComment(member1, lt, "Comentaire"));
+        lt.addComment(new SessionComment(member2, lt, "Comentaire"));
+        // Some votes
+        new Vote(lt, member1, true).save();
+        new Vote(lt, member2, false).save();
+        lt.save();
+        
+        assertNotNull(lt.delete());
+        assertNull(LightningTalk.findById(lt.id));
+    }
 }

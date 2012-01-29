@@ -54,6 +54,7 @@ GET     /session/new                            Sessions.create
 POST    /session                                Sessions.save
 GET     /session/edit                           Sessions.edit
 GET     /session/validate/{talkId}              Sessions.validate
+GET     /session/delete/{talkId}                Sessions.delete
 GET     /session/unvalidate/{talkId}            Sessions.unvalidate
 POST    /session/comment                        Sessions.postComment
 GET     /session/{sessionId}/{slugify}          Sessions.show
@@ -63,11 +64,11 @@ GET     /session/{sessionId}                    Sessions.show
 # Lightning
 GET     /lightnings                             LightningTalks.list
 GET     /lightning/new                          LightningTalks.create
+GET     /lightning/delete/{sessionId}           LightningTalks.delete
 GET     /lightning/{sessionId}                  LightningTalks.show
 POST    /lightning/vote/{id}/{name}             LightningTalks.vote
 POST    /lightning                              LightningTalks.save
 POST    /lightning/comment                      LightningTalks.postComment
-DELETE  /lightning/{sessionId}                  LightningTalks.delete
 
 # Articles
 GET     /articles                               Articles.index

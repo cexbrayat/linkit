@@ -11,8 +11,9 @@ import play.db.jpa.Model;
 
 import javax.persistence.*;
 import java.util.*;
+import models.activity.Activity;
+import play.db.jpa.JPABase;
 import play.modules.search.Field;
-import play.modules.search.Indexed;
 
 /**
  * A session
@@ -21,7 +22,6 @@ import play.modules.search.Indexed;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Indexed
 public abstract class Session extends Model implements Lookable {
 
     public static final String TITLE = "title";
@@ -61,7 +61,7 @@ public abstract class Session extends Model implements Lookable {
     /** Eventual comments */
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     @OrderBy("postedAt ASC")
-    public List<SessionComment> comments;
+    public List<SessionComment> comments = new ArrayList<SessionComment>();
     
     /** Number of consultation */
     public long nbConsults;
@@ -92,6 +92,7 @@ public abstract class Session extends Model implements Lookable {
     }
 
     public boolean hasSpeaker(String username) {
+        if (StringUtils.isBlank(username)) return false;
         Member member = Member.findByLogin(username);
         return speakers.contains(member);
     }
@@ -144,7 +145,14 @@ public abstract class Session extends Model implements Lookable {
         }
         Mails.updateSession(this);
     }
-    
+
+    @Override
+    public Session delete() {
+        Activity.deleteForSession(this);
+        Vote.deleteForSession(this);
+        return super.delete();
+    }
+
     @Override
     public String toString() {
         return title;

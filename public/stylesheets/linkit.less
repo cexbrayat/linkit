@@ -2,6 +2,7 @@
 @import "mixins.less";
 
 .soon {/** text **/
+    width: 300px;
     font-size: 24px;
     font-weight: 600;
     color: red;
@@ -11,7 +12,8 @@
     text-align:center;
     position:relative;
     /**adjust as needed**/
-    top: 90px;
+    top: -130px;
+    left: 30px;
     /**note: CSS3 TRANSFORM: ROTATE DOESN'T WORK IN ALL BROWSERS YET**/
     -webkit-transform: rotate(-20deg); /**safari, chrome**/
     -moz-transform: rotate(-20deg); /**firefox**/
@@ -154,22 +156,6 @@ h2.inactive {
     background-color: @colorTrackGamy;
 }
 .track.Weby {
-    background-color: @colorTrackWeby;
-}
-
-.hero-unit.agility{
-    background-color: @colorTrackAgility;
-}
-.hero-unit.techy{
-    background-color: @colorTrackTechy;
-}
-.hero-unit.trendy{
-    background-color: @colorTrackTrendy;
-}
-.hero-unit.gamy{
-    background-color: @colorTrackGamy;
-}
-.hero-unit.weby {
     background-color: @colorTrackWeby;
 }
 

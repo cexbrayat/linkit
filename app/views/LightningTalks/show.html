@@ -8,91 +8,104 @@
 </script>
 #{/set}
 
-    <div class="hero-unit">
-        <h2 itemprop="name">${talk.title}</h2>
-        <p itemprop="description">${talk.summary}</p>
+<div class="hero-unit member-card">
+    <h2 itemprop="name">${talk.title}</h2>
+    #{if talk.interests}
+    <p>
+        #{list items:talk.interests, as:'interest'}
+            <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
+        #{/list}
+    </p>
+    #{/if}
+    <p itemprop="description">${talk.summary}</p>
 
-        ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
-        #{if talk.comments}
-            &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
-        #{/if}
-        &mdash; #{socialbar/}
+    #{if talk.hasSpeaker(session.username)}
+        <div class="alert-message block-message warning">
+            <p>Vous êtes un des speakers de ce Lightning Talk.</p>
+            <div class='alert-actions'>
+                <a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>
+                <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment supprimer ce talk?')) window.location='@{LightningTalks.delete(talk.id)}';">Supprimer</a>
+            </div>
+        </div>
+    #{/if}
 
-        #{if talk.hasSpeaker(session.username)}<a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>&nbsp;<a class="btn" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>#{/if}
-        
-        <br/><br/>#{vote talk /}
-
-    </div>
-        <div class="row">
-            <div class="span3">
-                <h4>Speaker${talk.speakers.size().pluralize()}</h4>
+    <div class="row">
+        <div class="span16">
+            <div class="row">
                 #{list items:talk.speakers, as:'speaker'}
-                <p>
+                <div class="span2" style="text-align: center">
+                #{if speaker.email}
+                    #{if session.username}
+                        <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                    #{/if}
+                    #{else}
+                        <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                    #{/else}
+                #{/if}<br/>
                 #{if session.username}
                     <a href="@{Profile.show(speaker.login)}">${speaker}</a>
                 #{/if}
                 #{else}
-                    <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil">${speaker}</a>
+                    <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">${speaker}</a>
                 #{/else}
-                    <br/>
-                    #{if speaker.email}
-                        #{if session.username}
-                            <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
-                        #{/if}
-                        #{else}
-                            <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
-                        #{/else}
-                    #{/if}
-                </p>
-                #{/list}
-
-                #{if talk.interests}
-                <h4>Intérêts</h4>
-                <p>
-                    #{list items:talk.interests, as:'interest'}
-                        <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
-                    #{/list}
-                </p>
-                #{/if}
-                
-                <h4>Activité récente</h4>
-                <div id="activities">
-                #{activities activities:activities /}
                 </div>
-            </div>
-
-            <div class="span13">            
-                <blockquote>
-                ${talk.description.markdown().raw()}
-                </blockquote>
+                #{/list}
             </div>
         </div>
-
-        #{comments talk.comments /}
-
-        <hr/>
-        <section id="post">
-            #{if session.username}
-            <div class="row">
-                #{form @LightningTalks.postComment(talk.id)}
-
-                #{field 'content'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input offset4"> 
-                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div>
-                </div>
-                #{/}
-                <div class="actions">
-                    <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
-                </div>
-                #{/form}
-            </div>
+     </div>
+     <div class="row">
+        <div class="span14" style="text-align: justify;">
+            <blockquote style="font-size: 16px;">
+            ${talk.description.markdown().raw()}
+            </blockquote>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span11">
+            ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
+            #{if talk.comments}
+                &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
             #{/if}
-            #{else}
-            <a href="@{Login.index(request.url+'#post')}">Connectez-vous pour commenter ce lightning-talk</a>
-            #{/else}
-        </section>
+            &mdash; #{socialbar/}
+        </div>
+    </div>
+</div>
+#{if activities}
+<div class="row">
+    <div class="span16">
+        <h4>Activité récente</h4>
+        <div id="activities">
+            #{activities activities:activities /}
+        </div>
+    </div>
+</div>
+#{/if}
+
+#{comments talk.comments /}
+
+<hr/>
+<section id="post">
+    #{if session.username}
+    <div class="row">
+        #{form @LightningTalks.postComment(talk.id)}
+
+        #{field 'content'}
+        <div class="clearfix ${field.error?'error':''}">
+            <label for="${field.name}">&{field.name}</label>
+            <div class="input offset4">
+                <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
+        </div>
+        #{/}
+        <div class="actions">
+            <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
+        </div>
+        #{/form}
+    </div>
+    #{/if}
+    #{else}
+    <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter ce lightning-talk.
+    #{/else}
+</section>

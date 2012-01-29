@@ -15,29 +15,30 @@
     }
 </script>
 
-#{if session.username}
-    Proposer <a class="btn" href="@{Sessions.create(session.username)}">une session</a> ?
-#{/if}
+<div class="row">
+    <div class="span11 offset2" style="text-align: center">
+        #{list items:models.Track.values(), as:'track'}
+        <a id="${track.name()}" class="btn large track ${track}" style="margin-left: 10px; margin-right: 10px" onclick="track('${track.name()}')" rel='twipsy' data-placement="below" title="&{'track.'+track.name()+'.description'}">${track.name()}</a>
+        #{/list}
+    </div>
+</div>
 
-    <div class="row">
-        <div class="span11 offset2" style="text-align: center">
-            #{list items:models.Track.values(), as:'track'}
-            <a id="${track.name().toLowerCase()}" class="btn large track ${track}" style="margin-left: 10px; margin-right: 10px" onclick="track('${track.name().toLowerCase()}')" rel='twipsy' data-placement="below" title="&{'track.'+track.name()+'.description'}">${track.name()}</a>
-            #{/list}
+<br/>
+#{list items:_sessions, as:'talk'}
+<div class="row">
+    <div class="span12 offset1 hero-unit member-card session ${(talk instanceof models.Talk)?talk.track.toString() : ''}">
+        <div class="row">
+            <div class="span1 track ${(talk instanceof models.Talk)?talk.track.toString() : ''}" style="margin: -20px 0px -20px -10px; height: 150px;">&nbsp;</div>
+            <div class="span11" style="margin-top: -10px;">
+                <div>#{session-card talk /}</div>
+                <div>
+                    #{list items:talk.speakers, as:'speaker'}
+                        #{member speaker /}#{if !speaker_isLast}, #{/if}
+                    #{/list}
+                </div>
+            </div>
         </div>
     </div>
-
-    <br/>
-    #{list items:_sessions, as:'talk'}
-    <div class="row">
-        <div class="span10 offset2 hero-unit member-card session track ${(talk instanceof models.Talk)?talk.track.toString().toLowerCase() : ''}">
-        <div>#{session-card talk /}</div>
-        <div>
-            #{list items:talk.speakers, as:'speaker'}
-                #{member speaker /}#{if !speaker_isLast}, #{/if}
-            #{/list}
-        </div>
-        </div>
-    </div>
-    #{/list}
+</div>
+#{/list}
  

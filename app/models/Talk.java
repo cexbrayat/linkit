@@ -4,6 +4,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import models.activity.Activity;
 import models.activity.NewTalkActivity;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
@@ -45,6 +46,7 @@ public class Talk extends Session {
     
     public void unvalidate() {
         this.valid = false;
+        Activity.deleteForSession(this);
         save();
     }
 

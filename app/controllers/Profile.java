@@ -12,7 +12,6 @@ import play.data.validation.CheckWith;
 import play.data.validation.Email;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
-import play.data.validation.Validation.ValidationResult;
 import play.i18n.Messages;
 
 public class Profile extends PageController {
@@ -39,6 +38,14 @@ public class Profile extends PageController {
 
     private static String cleanGoogleId(String googleId) {
         return StringUtils.trim(googleId);
+    }
+
+    private static String cleanSharedLinkURL(String url) {
+        String result = StringUtils.trim(url);
+        if (!StringUtils.startsWith(url, "http")) {
+            result = "http://"+result;
+        }
+        return result;
     }
     
     public static void save(Long id, @Required String originalLogin, @Required String login, @Required String firstname, @Required String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription,
@@ -113,16 +120,14 @@ public class Profile extends PageController {
         }
 
         List<SharedLink> validatedSharedLinks = new ArrayList<SharedLink>(sharedLinks.size());
-        for (int i = 0; i < sharedLinks.size(); i++) {
-            SharedLink link = sharedLinks.get(i);
-            if (StringUtils.isNotBlank(link.name) && StringUtils.isNotBlank(link.URL)) {
-                ValidationResult result = validation.valid("sharedLinks[" + i + "]", link);
-                if (result.ok) {
-                    validatedSharedLinks.add(link);
-                }
+        for (SharedLink link : sharedLinks) {
+            if (StringUtils.isNotBlank(link.name) || StringUtils.isNotBlank(link.URL)) {
+                link.URL = cleanSharedLinkURL(link.URL);
+                validatedSharedLinks.add(link);
             }
         }
         member.updateSharedLinks(validatedSharedLinks);
+        validation.valid("sharedLinks", member.sharedLinks);
 
         // Login unicity
         Member other = Member.findByLogin(login);

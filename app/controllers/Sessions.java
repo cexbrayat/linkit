@@ -47,6 +47,12 @@ public class Sessions extends PageController {
  
         render(talk, speakers);
     }
+
+    public static void delete(final Long sessionId) {
+        Session talk = Session.findById(sessionId);
+        talk.delete();
+        index();
+    }
     
     private static List<Member> speakersFor(Session talk, Member member) {
         List<Member> speakers = Member.findAll();
