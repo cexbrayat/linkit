@@ -26,4 +26,13 @@ public class SessionComment extends Comment {
         super(author, content);
         this.session = session;
     }
+        
+    /**
+     * Delete all comments related to given session
+     * @return 
+     */
+    public static int deleteForSession(Session session) {
+        return delete("delete SessionComment sc where sc.session = ?", session);
+    }
+
 }
