@@ -3,9 +3,7 @@ package models.activity;
 import javax.persistence.Entity;
 import models.Article;
 import models.Member;
-import play.i18n.Messages;
 import play.mvc.Router;
-import play.mvc.Scope;
 
 /**
  * A consultation of an article : someone ({@link Activity#member}) looked at an article ({@link Activity#article}).
@@ -17,11 +15,6 @@ public class LookArticleActivity extends LookActivity {
     public LookArticleActivity(Member member, Article article) {
         super(member);
         this.article = article;
-    }
-
-    @Override
-    public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), renderMention(member, s), article);
     }
 
     @Override

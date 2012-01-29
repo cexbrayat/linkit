@@ -8,9 +8,7 @@ import models.Badge;
 import models.Member;
 import models.ProviderType;
 import play.data.validation.Required;
-import play.i18n.Messages;
 import play.mvc.Router;
-import play.mvc.Scope;
 
 /**
  * A link activity : someone ({@link Activity#member} starts to follow someone else ({@link LinkActivity#other}
@@ -28,11 +26,6 @@ public class LinkActivity extends Activity {
         super(ProviderType.LinkIt);
         this.member = member;
         this.other = linked;
-    }
-
-    @Override
-    public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), renderMention(member, s), renderMention(other, s));
     }
 
     @Override

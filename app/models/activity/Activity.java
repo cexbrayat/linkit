@@ -201,18 +201,6 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     }
 
     /**
-     * @return i18n (HTML) message to be displayed on GUI for this activity
-     */
-    public abstract String getMessage(Scope.Session session);
-    
-    protected static String renderMention(Member mentionned, Scope.Session s) {
-        Map<String, Object> renderArgs = new HashMap<String, Object>(2);
-        renderArgs.put("_arg", mentionned);
-        renderArgs.put("session", s);
-        return TemplateLoader.load("tags/member.html").render(renderArgs);
-    }
-
-    /**
      * @return URL to be linked on this activity.
      */
     public abstract String getUrl();

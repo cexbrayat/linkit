@@ -3,7 +3,9 @@ package models.activity;
 import helpers.badge.BadgeComputationContext;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.Entity;
@@ -20,6 +22,7 @@ import play.Logger;
 import play.Play;
 import play.i18n.Messages;
 import play.mvc.Scope;
+import play.templates.TemplateLoader;
 
 /**
  * A status activity : someone ({@link Activity#mentionedMember} posted a status on an external provider ({@link Activity#session}
@@ -95,12 +98,18 @@ public class StatusActivity extends Activity {
     public static String buildMentionFor(Member mentionned) {
         return String.format(MENTION_FORMAT, mentionned.login);
     }
-    
-    @Override
-    public String getMessage(Scope.Session s) {
+        
+    protected static String renderMention(Member mentionned, Scope.Session s) {
+        Map<String, Object> renderArgs = new HashMap<String, Object>(3);
+        renderArgs.put("_arg", mentionned);
+        renderArgs.put("session", s);
+        renderArgs.put("_isInclude", true);
+        return TemplateLoader.load("tags/member.html").render(renderArgs);
+    }
+
+    public String getContent(Scope.Session s) {
         StringBuffer message = new StringBuffer();
-        String rawMessage = Messages.get(getMessageKey(), renderMention(member, s), content);
-        Matcher matcher = MENTION_PATTERN.matcher(rawMessage);
+        Matcher matcher = MENTION_PATTERN.matcher(content);
         while (matcher.find()) {
             final String login = matcher.group(1);
             final Member mentionedMember = Member.findByLogin(login);

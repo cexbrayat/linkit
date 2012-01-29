@@ -6,9 +6,7 @@ import models.ArticleComment;
 import models.Member;
 import models.Article;
 import play.data.validation.Required;
-import play.i18n.Messages;
 import play.mvc.Router;
-import play.mvc.Scope;
 
 /**
  * A comment activity : someone ({@link Activity#member} commented on a Article ({@link Activity#Article}
@@ -26,11 +24,6 @@ public class CommentArticleActivity extends CommentActivity {
         super(author);
         this.article = article;
         this.comment = comment;
-    }
-
-    @Override
-    public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), renderMention(member, s), article, comment);
     }
 
     @Override
