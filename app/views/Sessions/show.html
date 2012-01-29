@@ -34,12 +34,12 @@
                 <div class='alert-actions'>
                     <a class="btn" href="@{Sessions.edit(talk.id)}">Editer</a>
                 #{if talk.valid}            
-                    <a class="btn danger" href="@{Sessions.unvalidate(talk.id)}">Invalider</a>
+                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment invalider cette session?')) window.location='@{Sessions.unvalidate(talk.id)}';">Invalider</a>
                 #{/if}
                 #{else}
-                    <a class="btn danger" href="@{Sessions.validate(talk.id)}">Valider</a>
+                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment valider cette session?')) window.location='@{Sessions.validate(talk.id)}';">Valider</a>
                 #{/else}
-                    <a class="btn danger" href="@{Sessions.delete(talk.id)}">Supprimer</a>
+                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment supprimer cette session?')) window.location='@{Sessions.delete(talk.id)}';">Supprimer</a>
                 </div>
             </div>
         #{/secure.check}

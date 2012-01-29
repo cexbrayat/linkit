@@ -24,7 +24,7 @@
             <p>Vous êtes un des speakers de ce Lightning Talk.</p>
             <div class='alert-actions'>
                 <a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>
-                <a class="btn danger" href="@{LightningTalks.delete(talk.id)}">Supprimer</a>
+                <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment supprimer ce talk?')) window.location='@{LightningTalks.delete(talk.id)}';">Supprimer</a>
             </div>
         </div>
     #{/if}
