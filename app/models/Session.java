@@ -90,6 +90,7 @@ public abstract class Session extends Model implements Lookable {
     }
 
     public boolean hasSpeaker(String username) {
+        if (StringUtils.isBlank(username)) return false;
         Member member = Member.findByLogin(username);
         return speakers.contains(member);
     }

@@ -16,7 +16,12 @@
         
         #{if !talk.valid}
             <div class="alert-message block-message warning">
-                <p>Cette session a bien été soumise au comité d’organisation, mais n'est pas encore acceptée.<br/>Consulter votre dashboard régulièrement pour connaitre son statut.</p>
+                <p>Cette session a bien été soumise au comité d’organisation, <strong>mais n'est pas encore acceptée</strong>.<br/>Consulter votre dashboard régulièrement pour connaitre son statut.</p>
+                <div class='alert-actions'>
+                #{if talk.hasSpeaker(session.username)}            
+                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer votre session</a>
+                #{/if}
+                </div>
             </div>
         #{/if}
         
