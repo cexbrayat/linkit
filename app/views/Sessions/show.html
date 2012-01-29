@@ -4,14 +4,14 @@
 
     <div class="hero-unit member-card">
         <h2 itemprop="name">${talk.title}</h2>
-        #{if talk.interests}
         <p>
             <span class="label track ${talk.track}">${talk.track}</span>
+        #{if talk.interests}
             #{list items:talk.interests, as:'interest'}
                 <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
             #{/list}
-        </p>
         #{/if}
+        </p>
         <p itemprop="description">${talk.summary}</p>
         
         #{if !talk.valid}
