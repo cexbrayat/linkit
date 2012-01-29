@@ -2,14 +2,17 @@
 #{set title:'Session ' + talk.title /}
 #{set 'canonical'}@@{Sessions.show(talk.id, talk.title?.slugify())}#{/set}
 
-    <div class="hero-unit" style="padding: 30px 60px;">
+    <div class="hero-unit member-card">
         <h2 itemprop="name">${talk.title}</h2>
-        <p itemprop="description">${talk.summary}</p>
-        ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
-        #{if talk.comments}
-            &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+        #{if talk.interests}
+        <p>
+            <span class="label track ${talk.track}">${talk.track}</span>
+            #{list items:talk.interests, as:'interest'}
+                <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
+            #{/list}
+        </p>
         #{/if}
-        &mdash; #{socialbar/}
+        <p itemprop="description">${talk.summary}</p>
         
         #{if !talk.valid}
             <div class="alert-message block-message warning">
@@ -33,86 +36,83 @@
                 #{/else}
                 </div>
             </div>
-        #{/secure.check} 
-    </div>
+        #{/secure.check}
 
         <div class="row">
-            <div class="span3">
-                <h4>Speaker${talk.speakers.size().pluralize()}</h4>
-                #{list items:talk.speakers, as:'speaker'}
-                <p style="text-align: center">
-                #{if speaker.email}
+            <div class="span16">
+                <div class="row">
+                    #{list items:talk.speakers, as:'speaker'}
+                    <div class="span2" style="text-align: center">
+                    #{if speaker.email}
+                        #{if session.username}
+                            <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                        #{/if}
+                        #{else}
+                            <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                        #{/else}
+                    #{/if}<br/>
                     #{if session.username}
-                        <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                        <a href="@{Profile.show(speaker.login)}">${speaker}</a>
                     #{/if}
                     #{else}
-                        <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                        <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">${speaker}</a>
                     #{/else}
-                #{/if}
-                    <br/>
-                #{if session.username}
-                    <a href="@{Profile.show(speaker.login)}">${speaker}</a>
-                #{/if}
-                #{else}
-                    <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">${speaker}</a>
-                #{/else}
-                </p>
-                #{/list}
-
-                #{if talk.interests}
-                <h4>Intérêts</h4>
-                <p>
-                    #{list items:talk.interests, as:'interest'}
-                        <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
+                    </div>
                     #{/list}
-                </p>
-                #{/if}
-                
-                <h4>Activité récente</h4>
-                <div id="activities">
-                #{activities activities:activities /}
                 </div>
-
-                
             </div>
-            
-            <div class="span13">            
-                <blockquote>
+         </div>
+         <div class="row">
+            <div class="span14" style="text-align: justify;">
+                <blockquote style="font-size: 16px;">
                 ${talk.description.markdown().raw()}
                 </blockquote>
             </div>
         </div>
-
-        #{if !session.username}
-        <hr/>
-        <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter cette session.
-        #{/if}
-        
-        #{comments talk.comments /}
-
-        <hr/>
-        <section id="post">
-            #{if session.username}
-            <div class="row">
-                #{form @Sessions.postComment(talk.id)}
-
-                #{field 'content'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input offset4"> 
-                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div>
-                </div>
-                #{/}
-                <div class="actions">
-                    <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
-                </div>
-                #{/form}
+        <div class="row">
+            <div class="span11">
+                ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
+                #{if talk.comments}
+                    &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+                #{/if}
+                &mdash; #{socialbar/}
             </div>
-            #{/if}
-            #{else}
-            <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter cette session.
-            #{/else}
-        </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span16">
+            <h4>Activité récente</h4>
+            <div id="activities">
+                #{activities activities:activities /}
+            </div>
+        </div>
+    </div>
+
+    #{comments talk.comments /}
+
+    <hr/>
+    <section id="post">
+        #{if session.username}
+        <div class="row">
+            #{form @Sessions.postComment(talk.id)}
+
+            #{field 'content'}
+            <div class="clearfix ${field.error?'error':''}">
+                <label for="${field.name}">&{field.name}</label>
+                <div class="input offset4">
+                    <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
+                    <span class="help-block">${field.error}</span>
+                    <span class="help-block">&{field.name+".note"}</span>
+                </div>
+            </div>
+            #{/}
+            <div class="actions">
+                <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
+            </div>
+            #{/form}
+        </div>
+        #{/if}
+        #{else}
+        <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter cette session.
+        #{/else}
+    </section>

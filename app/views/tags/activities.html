@@ -1,4 +1,4 @@
 *{ Display all activities "activities" }*
 #{list items:_activities, as:'activity'}
-<p class="activity"><a href="${activity.getUrl()}" class="service-button ${activity.getProvider().toString().toLowerCase()}"></a> ${activity.at.since()} - ${activity.getMessage(session).raw()}</p>
+<p class="activity"><a href="${activity.getUrl()}" target="blank" class="service-button ${activity.getProvider().toString().toLowerCase()}"></a> ${activity.at.since()} - ${activity.getMessage(session).raw()}</p>
 #{/list}
