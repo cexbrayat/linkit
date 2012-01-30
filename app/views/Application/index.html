@@ -8,31 +8,22 @@
 #{/set}
 <div class="hero-unit">
     <div class="row">
-        <div class="span16">
-            <div class="row">
-                <div class="span4">
-                    <h2>26 Avril 2012</h2>
-                </div>
-                <div class="span7 offset3">
-                    <h3>Java, Agilité, Web, Innovations...</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <div class="soon">Ouverture prochaine<br/>de la billeterie!</div>
-                </div>
-                <div class="span16">
-                    <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" style="width:700px">
-                </div>
-            </div>
-            <div class="row">
-                <div class="span5 offset8">
-                    <h3 itemprop="description">Des idées pour tout de suite !</h3>
-                </div>
-            </div>
-         </div>
-      </div>
-    <br/>
+        <div class="span7">
+            <h2>26 Avril 2012</h2>
+        </div>
+        <div class="span7" style="text-align: right">
+            <h3>Java, Agilité, Web, Innovations...</h3>
+        </div>
+    </div>
+    <div class="row" style="text-align: center">
+        <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" style="width:700px">
+    </div>
+    <div class="row">
+        <div class="span5 offset8">
+            <h3 itemprop="description">Des idées pour tout de suite !</h3>
+        </div>
+    </div>
+    <div class="soon">Ouverture prochaine<br/>de la billeterie!</div>
     <div class="row">
         <div class="span12 offset1">
             #{if session.username}

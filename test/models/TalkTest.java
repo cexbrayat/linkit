@@ -97,5 +97,23 @@ public class TalkTest extends BaseDataUnitTest {
         talk.lookedBy(null);
         assertEquals(2, talk.getNbLooks());
     }
+        
+    @Test public void delete() {
+        Member speaker1 = createMember("speaker1");
+        Member speaker2 = createMember("speaker2");
+        Talk lt = createTalk(speaker1, speaker2);
+        // Some comments
+        Member member1 = createMember("member1");
+        Member member2 = createMember("member2");
+        lt.addComment(new SessionComment(member1, lt, "Comentaire"));
+        lt.addComment(new SessionComment(member2, lt, "Comentaire"));
+        // Some votes
+        new Vote(lt, member1, true).save();
+        new Vote(lt, member2, false).save();
+        lt.save();
+        
+        assertNotNull(lt.delete());
+        assertNull(Talk.findById(lt.id));
+    }
 
 }

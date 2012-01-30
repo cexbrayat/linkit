@@ -4,9 +4,7 @@ import helpers.badge.BadgeComputationContext;
 import javax.persistence.Entity;
 import models.Member;
 import models.ProviderType;
-import play.i18n.Messages;
 import play.mvc.Router;
-import play.mvc.Scope;
 
 /**
  * A sign-up activity : someone ({@link Activity#member} registered on Link-IT
@@ -20,11 +18,6 @@ public class SignUpActivity extends Activity {
         this.member = member;
         // Useless badge computation
         this.badgeComputationDone = true;
-    }
-
-    @Override
-    public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member);
     }
 
     @Override

@@ -1,6 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Editer mon profil' /}
 #{set 'moreScripts'}
+<!-- Requirements for managing form dirtiness -->
+<script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
+<script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
+<script src="@{'/public/javascripts/dirtiness.js'}"></script>
+<!-- End Requirements for managing form dirtiness -->
 <script lang="text/javascript">
     var nbLinks = 5;
     function inputName(i) {
@@ -281,3 +286,5 @@
         </div>
 
     #{/form}
+    
+#{dirtyDialog /}

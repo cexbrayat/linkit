@@ -1,9 +1,9 @@
 package models.activity;
 
-import com.google.common.collect.Maps;
 import helpers.badge.BadgeComputationContext;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -98,19 +98,22 @@ public class StatusActivity extends Activity {
     public static String buildMentionFor(Member mentionned) {
         return String.format(MENTION_FORMAT, mentionned.login);
     }
-    
-    @Override
-    public String getMessage(Scope.Session s) {
+        
+    protected static String renderMention(Member mentionned, Scope.Session s) {
+        Map<String, Object> renderArgs = new HashMap<String, Object>(3);
+        renderArgs.put("_arg", mentionned);
+        renderArgs.put("session", s);
+        renderArgs.put("_isInclude", true);
+        return TemplateLoader.load("tags/member.html").render(renderArgs);
+    }
+
+    public String getContent(Scope.Session s) {
         StringBuffer message = new StringBuffer();
-        String rawMessage = Messages.get(getMessageKey(), member, content);
-        Matcher matcher = MENTION_PATTERN.matcher(rawMessage);
+        Matcher matcher = MENTION_PATTERN.matcher(content);
         while (matcher.find()) {
             final String login = matcher.group(1);
             final Member mentionedMember = Member.findByLogin(login);
-            Map<String, Object> renderArgs = Maps.newHashMap();
-            renderArgs.put("_arg", mentionedMember);
-            renderArgs.put("session", s);
-            matcher.appendReplacement(message, TemplateLoader.load("tags/member.html").render(renderArgs));
+            matcher.appendReplacement(message, renderMention(mentionedMember, s));
         }
         matcher.appendTail(message);
         return message.toString();

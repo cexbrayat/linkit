@@ -53,4 +53,20 @@ public class SessionTest extends BaseDataUnitTest {
         session.lookedBy(null);
         assertEquals(nbLooks+2, session.getNbLooks());
     }
+    
+    @Test public void hasSpeakerNull() {
+        final Session session = Session.all().first();
+        assertFalse(session.hasSpeaker(null));
+    }
+    
+    @Test public void hasSpeakerBlank() {
+        final Session session = Session.all().first();
+        assertFalse(session.hasSpeaker(""));
+    }
+    
+    @Test public void hasSpeakerOK() {
+        final Session session = Session.all().first();
+        final Member speaker = session.speakers.iterator().next();
+        assertTrue(session.hasSpeaker(speaker.login));
+    }
 }
