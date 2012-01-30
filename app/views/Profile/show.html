@@ -30,7 +30,7 @@
             </div>
             <div class="row">
             #{list items:member.getOrderedAccounts(), as:'account'}
-                <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}" rel="twipsy" title="&{'provider.'+account.provider.name()}"></a>
+                <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}" target="_blank" rel="twipsy" title="&{'provider.'+account.provider.name()}"></a>
             #{/list}
             #{if member.sharedLinks}
                 #{list items:member.sharedLinks, as:'link'}

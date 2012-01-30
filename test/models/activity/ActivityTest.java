@@ -94,6 +94,12 @@ public class ActivityTest extends AbstractActivityTest {
     }
     
     @Test
+    public void deleteForSession() {
+        final Session session = Session.all().first();
+        assertNotNull(Activity.deleteForSession(session));
+    }
+    
+    @Test
     public void deleteForMemberWithProvider() {
         assertNotNull(Activity.deleteForMember(member, ProviderType.Twitter));
     }

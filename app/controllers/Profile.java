@@ -12,7 +12,6 @@ import play.data.validation.CheckWith;
 import play.data.validation.Email;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
-import play.data.validation.Validation.ValidationResult;
 import play.i18n.Messages;
 
 public class Profile extends PageController {

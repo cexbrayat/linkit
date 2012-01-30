@@ -1,0 +1,15 @@
+*{ Display an activity }*
+#{if _arg instanceof models.activity.CommentArticleActivity}#{CommentArticleActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.CommentSessionActivity}#{CommentSessionActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.EarnBadgeActivity}#{EarnBadgeActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.LinkActivity}#{LinkActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.LookArticleActivity}#{LookArticleActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.LookProfileActivity}#{LookProfileActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.LookSessionActivity}#{LookSessionActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.NewTalkActivity}#{NewTalkActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.NewVoteActivity}#{NewVoteActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.SharedLinkActivity}#{SharedLinkActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.SignUpActivity}#{SignUpActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.StatusActivity}#{StatusActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.UpdateProfileActivity}#{UpdateProfileActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.UpdateSessionActivity}#{UpdateSessionActivity _arg /}#{/if}
