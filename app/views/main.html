@@ -118,7 +118,7 @@
                         <li><a href="@{Login.index()}" title="Se connecter">&{'menu.login'}</a></li>
                         #{/else}
                     </ul>
-                    <form action="@{Application.search}" method="GET" class="pull-right">
+                    <form id="formTopbarSearch" action="@{Application.search}" method="GET" class="pull-right ignoredirty">
                         #{field 'query'}
                         <input type="search" style="width: auto" id="${field.id}" name="${field.name}" placeholder="&{'menu.search'}" value="${params.query}" />
                         #{/field}
