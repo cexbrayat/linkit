@@ -22,6 +22,7 @@ import play.db.jpa.Model;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.List;
 import models.mailing.Mailing;
 import play.data.validation.Email;
 import play.data.validation.Valid;
