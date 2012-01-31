@@ -1,0 +1,75 @@
+/*
+
+::::    ::::  ::::::::::: :::    :::             ::::::::::: ::::::::::: 
++:+:+: :+:+:+     :+:     :+:    :+:                 :+:         :+:     
++:+ +:+:+ +:+     +:+      +:+  +:+                  +:+         +:+     
++#+  +:+  +#+     +#+       +#++:+  +#++:++#++:++    +#+         +#+     
++#+       +#+     +#+      +#+  +#+                  +#+         +#+     
+#+#       #+#     #+#     #+#    #+#                 #+#         #+#     
+###       ### ########### ###    ###             ###########     ###     
+                                                                                                             
+*/
+
+/* TEAM */
+
+	Developer : Agnès Crépet
+	Twitter: @agnes_crepet
+	From: Saint-Etienne, France
+
+	Developer : Cédric Exbrayat
+	Twitter: @cedric_exbrayat
+	From: Lyon, France
+
+	Developer : Cyril Lacôte
+	Twitter: @clacote
+	From: Lyon, France
+
+	Developer : Julien Ripault
+	Twitter: @julien_ripault
+	From: Lyon, France
+
+	Product Owner : Romain Couturier
+	Twitter: @romaincouturier
+	From: Lyon, France
+
+	Product Owner : Franck Depierre
+	Twitter: @FranckDepierre
+	From: Lyon, France
+
+	Product Owner : Nicolas Peloux-Prayer
+	Twitter: @npelloux
+	From: Lyon, France
+
+/* THANKS */
+
+        Twitter for Bootstrap, Zenixity for Play! Framework, and the Internet for everything else.
+	
+/* SITE */
+
+	Web: http://www.mix-it.fr
+	Contact: contact [at] mix [-] it [.] fr
+	Twitter: @MixIT_Lyon
+	Language: French
+        Components : Twitter Bootstrap, LESS, Google API client, Markdown, Guava, jQuery, jquery.dirtyforms, jquery.lwtCountdown
+        Software : Play! framework, IntelliJ, NetBeans, CloudBees RUN@Cloud
+
+/*
+
+MMMMMMMM               MMMMMMMM  iiii                                       IIIIIIIIIITTTTTTTTTTTTTTTTTTTTTTT
+M:::::::M             M:::::::M i::::i                                      I::::::::IT:::::::::::::::::::::T
+M::::::::M           M::::::::M  iiii                                       I::::::::IT:::::::::::::::::::::T
+M:::::::::M         M:::::::::M                                             II::::::IIT:::::TT:::::::TT:::::T
+M::::::::::M       M::::::::::Miiiiiii xxxxxxx      xxxxxxx                   I::::I  TTTTTT  T:::::T  TTTTTT
+M:::::::::::M     M:::::::::::Mi:::::i  x:::::x    x:::::x                    I::::I          T:::::T        
+M:::::::M::::M   M::::M:::::::M i::::i   x:::::x  x:::::x                     I::::I          T:::::T        
+M::::::M M::::M M::::M M::::::M i::::i    x:::::xx:::::x    ---------------   I::::I          T:::::T        
+M::::::M  M::::M::::M  M::::::M i::::i     x::::::::::x     -:::::::::::::-   I::::I          T:::::T        
+M::::::M   M:::::::M   M::::::M i::::i      x::::::::x      ---------------   I::::I          T:::::T        
+M::::::M    M:::::M    M::::::M i::::i      x::::::::x                        I::::I          T:::::T        
+M::::::M     MMMMM     M::::::M i::::i     x::::::::::x                       I::::I          T:::::T        
+M::::::M               M::::::Mi::::::i   x:::::xx:::::x                    II::::::II      TT:::::::TT      
+M::::::M               M::::::Mi::::::i  x:::::x  x:::::x                   I::::::::I      T:::::::::T      
+M::::::M               M::::::Mi::::::i x:::::x    x:::::x                  I::::::::I      T:::::::::T      
+MMMMMMMM               MMMMMMMMiiiiiiiixxxxxxx      xxxxxxx                 IIIIIIIIII      TTTTTTTTTTT      
+                                                                                                             
+*/
