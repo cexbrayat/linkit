@@ -8,6 +8,7 @@ import play.Logger;
 
 import java.util.List;
 import java.util.Set;
+import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 import play.modules.search.Search;
 
@@ -32,7 +33,9 @@ public class Application extends PageController {
 
     public static void members() {
         // Members ordered by last activity
-        List<Member> members = Member.findAllOrdered();
+        Activity.OrderedMembersDTO latestActivities = Activity.findOrderedMembers();
+        List<Member> members = latestActivities.getMembers();
+        // We may use one day OrderedMembersDTO.getLatestActivityFor(member) to display with member 
         render("Application/list.html", members);
     }
 

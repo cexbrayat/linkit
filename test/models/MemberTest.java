@@ -2,10 +2,6 @@ package models;
 
 import java.util.Arrays;
 import java.util.List;
-import models.activity.Activity;
-import models.activity.LinkActivity;
-import models.activity.LookProfileActivity;
-import models.activity.SignUpActivity;
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
@@ -369,31 +365,5 @@ public class MemberTest extends BaseDataUnitTest {
         lt.addSpeaker(m);
         lt.save();
         assertTrue(m.isLightningTalkSpeaker());
-    }
-    
-    @Test public void findAllOrdered() {
-        final Member member1 = createMember("member1");
-        final Member member2 = createMember("member2");
-        final Member member3 = createMember("member3");
-        final Member member4 = createMember("member4");
-
-        assertEquals(0, Activity.find("from Activity a where a.member is not null").fetch().size());
-        List<Member> members = Member.findAllOrdered();
-        // member2 n'est pas le premier de la liste
-        assertNotSame(member2, members.get(0));
-        final int nbMembers = members.size();
-        
-        // Création d'une activité pour membre1
-        new LinkActivity(member1, member2).save();
-        // puis membre3
-        new SignUpActivity(member3).save();
-        // puis membre 2 (qui devient donc le dernier actif en date)
-        new LookProfileActivity(member2, member1).save();
-        
-        members = Member.findAllOrdered();
-        // member2 EST le premier de la liste
-        assertSame(member2, members.get(0));
-        // Et on a toujours autant de membres retournés, qu'il existe des activités ou non.
-        assertEquals(nbMembers, members.size());
     }
 }
