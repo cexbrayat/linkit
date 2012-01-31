@@ -1,5 +1,6 @@
 package models;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -22,6 +23,7 @@ import play.db.jpa.Model;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.List;
 import models.mailing.Mailing;
 import play.data.validation.Email;
 import play.data.validation.Valid;
@@ -45,7 +47,14 @@ import play.modules.search.Indexed;
                         + "left outer join fetch m.interests "
                         + "left outer join fetch m.sessions "
                         + "left outer join fetch m.sharedLinks "
-                        + "where m.login=:login")
+                        + "where m.login=:login"),
+        // Membres ordonnés par date de dernière activité (qu'il y en ai ou non)
+        @NamedQuery(name = Member.QUERY_ALLORDERED,
+                query = "select distinct(m), max(a.at) "
+                        + "from Activity a "
+                        + "right outer join a.member m "
+                        + "group by m "
+                        + "order by max(a.at) desc")
 })
 @Indexed
 public class Member extends Model implements Lookable, Comparable<Member> {
@@ -58,6 +67,7 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     static final String QUERY_BYLOGIN = "MemberByLogin";
     static final String QUERY_FORPROFILE = "MemberForProfile";
+    static final String QUERY_ALLORDERED = "MemberAllOrdered";
 
     static final String CACHE_ACCOUNT_PREFIX = "account_";
     
@@ -591,5 +601,15 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     
     public Set<Session> getLightningTalks() {
         return Sets.filter(sessions, LIGHTNING_TALK);
+    }
+
+    public static <T extends Member> List<T> findAllOrdered() {
+        List<Object[]> result = (List) em().createNamedQuery(QUERY_ALLORDERED).getResultList();
+        // result contient une liste de [Member, Date]
+        return Lists.transform(result, new Function<Object[], T>() {
+            public T apply(Object[] f) {
+                return (T) f[0];
+            }
+        });
     }
 }

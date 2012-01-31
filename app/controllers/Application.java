@@ -31,8 +31,8 @@ public class Application extends PageController {
     }
 
     public static void members() {
-        List<Member> members = Member.findAll();
-        Collections.shuffle(members);
+        // Members ordered by last activity
+        List<Member> members = Member.findAllOrdered();
         render("Application/list.html", members);
     }
 
