@@ -1,8 +1,6 @@
 package controllers;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import models.*;
@@ -34,16 +32,19 @@ public class Application extends PageController {
 
     public static void members() {
         List<Member> members = Member.findAll();
+        Collections.shuffle(members);
         render("Application/list.html", members);
     }
 
     public static void staff() {
         List<Staff> members = Staff.findAll();
+        Collections.shuffle(members);
         render("Application/list.html", members);
     }
 
     public static void speakers() {
         List<Member> members = Talk.findAllSpeakers();
+        Collections.shuffle(members);
         render("Application/list.html", members);
     }
 
