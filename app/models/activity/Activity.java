@@ -1,31 +1,7 @@
 package models.activity;
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
+import controllers.LiveActivities;
 import helpers.badge.BadgeComputationContext;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import models.Article;
 import models.Member;
 import models.ProviderType;
@@ -34,6 +10,13 @@ import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.*;
 
 /**
  * An activity on Link-IT site, i.e a persisted event
@@ -278,5 +261,11 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     
     public int compareTo(Activity other) {
         return (other.at.compareTo(this.at));
+    }
+
+    public Activity save(){
+        super.save();
+        LiveActivities.liveStream.publish(this);
+        return this;
     }
 }

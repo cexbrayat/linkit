@@ -24,30 +24,41 @@
           </script> 
         #{get 'moreScripts' /}
         <script type="text/javascript">
-
-*{ Websockets tests
-
 // Pure websockets : ne fonctionne pas sous Chrome 16 avec Play 1.2.4
+            #{if session.username}
             $(document).ready(function() {
-                var socket = new WebSocket('@@{LiveActivities.listen}');
-                socket.onmessage = function(event) {
-                    alert(event.data);
+                if(window.MozWebSocket) window.WebSocket = window.MozWebSocket;
+                window.socket = new WebSocket('@@{LiveActivities.listen}');
+                window.socket.onopen = function(event) {
+                    console.log('connect');
+                    var msg = new Object();
+                    msg.id = '${session.username}';
+                    msg.connect = true;
+                    window.socket.send(JSON.stringify(msg));
                 }
-                socket.onerror = function(event) {
-                    alert('Websocket error : ' + event);
+                window.socket.onclose = function(event) {
+                    console.log('disconnect');
+                    var msg = new Object();
+                    msg.id = '${session.username}';
+                    msg.connect = false;
+                    window.socket.send(JSON.stringify(msg));
+                }
+                window.socket.onmessage = function(event) {
+                    console.log(event.data);
+                }
+                window.socket.onerror = function(event) {
+                    console.log('Websocket error : ' + event);
                 }
             });
-}*
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', '${play.configuration.getProperty("application.analytics.trackingId")}']);
-          _gaq.push(['_trackPageview']);
-
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-
+            #{/if}
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '${play.configuration.getProperty("application.analytics.trackingId")}']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
         </script>
     </head>
     <body itemscope itemtype="http://schema.org/Product" style="padding-top: 60px;" > *{ 60px is navigation bar space }*
