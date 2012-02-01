@@ -155,10 +155,10 @@ since.years=il y a %d ans
 
 # Validation errors
 validation.errors=Quelques erreurs sont à corriger dans ta saisie mon ami !
-validation.required=La saisie du champ %s est obligatoire
-validation.email=Le champ &{%1$s} n'est pas un email valide
-validation.minSize=Le nombre minimum de &{%1$s} est %d
-validation.maxSize=Le nombre maximum de &{%1$s} est %d
-validation.url=Le champ URL n'est pas une URL valide.
+validation.required=La saisie est obligatoire
+validation.email=Ce n'est pas un email valide
+validation.minSize=La longueur minimale est %2$d
+validation.maxSize=La longueur maximale est %2$d
+validation.url=Ce n'est pas une URL valide
 validation.unique=La valeur du champ %s est déjà utilisée par l'utilisateur %s
-validation.googleID=Le champ &{%1$s} ne correspond pas à un Google ID valide
+validation.googleID=Ce n'est pas à un Google ID valide

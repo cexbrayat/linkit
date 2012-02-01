@@ -34,15 +34,18 @@ public class Sessions extends PageController {
     public static void create(final String speakerLogin) {
         Member speaker = Member.findByLogin(speakerLogin);
         Talk talk = new Talk();
-        talk.addSpeaker(speaker);
+        if (speaker != null) {
+            talk.addSpeaker(speaker);
+        }
         List<Member> speakers = speakersFor(talk, speaker);
         render("Sessions/edit.html", talk, speakers);
     }
 
     public static void edit(final Long sessionId) {
         Session talk = Session.findById(sessionId);
+        notFoundIfNull(talk);
+
         Member member = Member.findByLogin(Security.connected());
-        
         List<Member> speakers = speakersFor(talk, member);
  
         render(talk, speakers);
@@ -50,6 +53,8 @@ public class Sessions extends PageController {
 
     public static void delete(final Long sessionId) {
         Session talk = Session.findById(sessionId);
+        notFoundIfNull(talk);
+
         talk.delete();
         index();
     }
@@ -69,6 +74,8 @@ public class Sessions extends PageController {
     
     public static void show(final Long sessionId, String slugify, boolean noCount) {
         Session talk = Session.findById(sessionId);
+        notFoundIfNull(talk);
+
         // Don't count look when coming from internal redirect
         if (!noCount) {
             talk.lookedBy(Member.findByLogin(Security.connected()));
@@ -81,6 +88,8 @@ public class Sessions extends PageController {
             Long talkId,
             @Required String content) {
         Session talk = Session.findById(talkId);
+        notFoundIfNull(talk);
+
         if (Validation.hasErrors()) {
             render("Sessions/show.html", talk);
         }
@@ -121,12 +130,16 @@ public class Sessions extends PageController {
     
     public static void validate(long talkId) {
         Talk talk = Talk.findById(talkId);
+        notFoundIfNull(talk);
+
         talk.validate();
         show(talkId, null, true);
     }
     
     public static void unvalidate(long talkId) {
         Talk talk = Talk.findById(talkId);
+        notFoundIfNull(talk);
+
         talk.unvalidate();
         show(talkId, null, true);
     }
