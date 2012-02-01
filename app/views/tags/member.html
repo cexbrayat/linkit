@@ -8,7 +8,7 @@
 }*
 <span class="member">
 #{if !_static}
-<a id="#{if _elementId}${_elementId}#{/if}#{else}member${_arg.login}#{/else}" href="#{if session.username}@{Profile.show(_arg.login)}#{/if}#{else}@{Login.index()}#{/else}" rel='twipsy' data-placement='right' title="#{if _short}<strong>${_arg}</strong><br/>#{/if}${_arg.shortDescription?.markdown().raw()}#{if !session.username}<strong>Connectez-vous pour consulter son profil complet.</strong>#{/if}" data-html="true">
+<a id="#{if _elementId}${_elementId}#{/if}#{else}member${_arg.login}#{/else}" href="#{if session.username}@{Profile.show(_arg.login)}#{/if}#{else}@{Login.index()}#{/else}" rel='twipsy' data-placement='right' title="#{if _short}<strong>${_arg}</strong><br/>#{/if}${_arg.shortDescription}#{if !session.username}<strong>Connectez-vous pour consulter son profil complet.</strong>#{/if}" data-html="true">
 #{/if}
 #{if _arg.email}#{gravatar.img _arg.email, size:20, default:'mm', rating:'pg', secure:false/}#{/if}
 #{if !_short} ${_arg}#{/if}
