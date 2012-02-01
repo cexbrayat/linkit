@@ -24,6 +24,8 @@ public class LightningTalks extends PageController {
 
     public static void edit(final Long sessionId) {
         LightningTalk talk = LightningTalk.findById(sessionId);
+        notFoundIfNull(talk);
+        
         render(talk);
     }
 
@@ -64,6 +66,8 @@ public class LightningTalks extends PageController {
             @Required String content) {
 
         LightningTalk talk = LightningTalk.findById(talkId);
+        notFoundIfNull(talk);
+
         if (Validation.hasErrors()) {
             render("LightningTalks/show.html", talk);
         }

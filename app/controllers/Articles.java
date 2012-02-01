@@ -35,11 +35,15 @@ public class Articles extends PageController {
 
     public static void edit(final Long articleId) {
         Article article = Article.findById(articleId);
+        notFoundIfNull(article);
+
         render(article);
     }
 
     public static void show(final Long articleId, boolean noCount) {
         Article article = Article.findById(articleId);
+        notFoundIfNull(article);
+
         Article previous = article.findPrevious();
         Article following = article.findFollowing();
         // Don't count look when coming from internal redirect
@@ -54,6 +58,8 @@ public class Articles extends PageController {
             Long articleId,
             @Required String content) {
         Article article = Article.findById(articleId);
+        notFoundIfNull(article);
+        
         if (Validation.hasErrors()) {
             render("Articles/show.html", article);
         }
@@ -78,13 +84,15 @@ public class Articles extends PageController {
         }
 
         article.save();
-        flash.success("Article " + article + " enregistré");
-        Logger.info("Article " + article + " enregistré");
+        flash.success("L'article \"%s\" a été enregistré", article);
+        Logger.info("L'article \"%s\" a été publié", article);
         show(article.id, true);
     }
     
     public static void validate(long articleId) {
         Article article = Article.findById(articleId);
+        notFoundIfNull(article);
+
         article.validate();
         flash.success("L'article \"%s\" a été publié", article);
         show(article.id, true);
@@ -92,6 +100,8 @@ public class Articles extends PageController {
     
     public static void unvalidate(long articleId) {
         Article article = Article.findById(articleId);
+        notFoundIfNull(article);
+
         article.unvalidate();
         flash.success("L'article \"%s\" a été invalidé", article);
         show(article.id, true);
@@ -99,6 +109,8 @@ public class Articles extends PageController {
     
     public static void delete(long articleId) {
         Article article = Article.findById(articleId);
+        notFoundIfNull(article);
+
         article.delete();
         flash.success("L'article \"%s\" a été supprimé", article);
         index();
