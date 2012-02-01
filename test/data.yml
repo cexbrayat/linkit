@@ -92,6 +92,6 @@ Sponsor(sponsor) :
     lastname: Company
     login: sponsor
     email: info@acme.com
-    description : We rule the world!
+    shortDescription : We rule the world!
     badges:
          - Sponsor

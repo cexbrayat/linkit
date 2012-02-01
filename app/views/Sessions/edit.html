@@ -42,7 +42,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxsize="50" type="text" value="${field.value}" />
+                        <input class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="50" type="text" value="${field.value}" />
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
