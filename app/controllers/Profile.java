@@ -119,15 +119,14 @@ public class Profile extends PageController {
             member.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
         }
 
-        List<SharedLink> validatedSharedLinks = new ArrayList<SharedLink>(sharedLinks.size());
+        List<SharedLink> newSharedLinks = new ArrayList<SharedLink>(sharedLinks.size());
         for (SharedLink link : sharedLinks) {
             if (StringUtils.isNotBlank(link.name) || StringUtils.isNotBlank(link.URL)) {
                 link.URL = cleanSharedLinkURL(link.URL);
-                validatedSharedLinks.add(link);
+                newSharedLinks.add(link);
             }
         }
-        member.updateSharedLinks(validatedSharedLinks);
-        validation.valid("sharedLinks", member.sharedLinks);
+        validation.valid("sharedLinks", newSharedLinks);
 
         // Login unicity
         Member other = Member.findByLogin(login);
@@ -144,8 +143,13 @@ public class Profile extends PageController {
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
             flash.error(Messages.get("validation.errors"));
-            render("Profile/edit.html", member, originalLogin, newInterests, sharedLinks);
+            // Set actual new sharedLinks on member, even if not validated, to serve values typed by user
+            member.sharedLinks = newSharedLinks;
+            render("Profile/edit.html", member, originalLogin, newInterests);
         }
+
+        // Don't set new shared links on Member before being sure validation OK to avoid false new SharedLinkActivity
+        member.updateSharedLinks(newSharedLinks);
 
         if (registration) {
             member.register(originalLogin);
