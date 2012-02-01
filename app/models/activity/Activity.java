@@ -263,9 +263,9 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return (other.at.compareTo(this.at));
     }
 
-    public Activity save(){
+    /*public Activity save(){
         super.save();
         LiveActivities.liveStream.publish(this);
         return this;
-    }
+    }*/
 }
