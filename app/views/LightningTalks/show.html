@@ -18,7 +18,11 @@
     </p>
     #{/if}
     <p itemprop="description">${talk.summary}</p>
-
+    
+    <div class="alert-message block-message info">
+        <p>#{vote talk /}</p>
+    </div>
+    
     #{if talk.hasSpeaker(session.username)}
         <div class="alert-message block-message warning">
             <p>Vous êtes un des speakers de ce Lightning Talk.</p>
@@ -30,28 +34,24 @@
     #{/if}
 
     <div class="row">
-        <div class="span16">
-            <div class="row">
-                #{list items:talk.speakers, as:'speaker'}
-                <div class="span2" style="text-align: center">
-                #{if speaker.email}
-                    #{if session.username}
-                        <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
-                    #{/if}
-                    #{else}
-                        <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
-                    #{/else}
-                #{/if}<br/>
-                #{if session.username}
-                    <a href="@{Profile.show(speaker.login)}">${speaker}</a>
-                #{/if}
-                #{else}
-                    <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">${speaker}</a>
-                #{/else}
-                </div>
-                #{/list}
-            </div>
+        #{list items:talk.speakers, as:'speaker'}
+        <div class="span2" style="text-align: center">
+        #{if speaker.email}
+            #{if session.username}
+                <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+            #{/if}
+            #{else}
+                <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+            #{/else}
+        #{/if}<br/>
+        #{if session.username}
+            <a href="@{Profile.show(speaker.login)}">${speaker}</a>
+        #{/if}
+        #{else}
+            <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">${speaker}</a>
+        #{/else}
         </div>
+        #{/list}
      </div>
      <div class="row">
         <div class="span14" style="text-align: justify;">
@@ -61,13 +61,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="span11">
-            ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
-            #{if talk.comments}
-                &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
-            #{/if}
-            &mdash; #{socialbar/}
-        </div>
+        ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
+        #{if talk.comments}
+            &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+        #{/if}
+        &mdash; #{socialbar/}
     </div>
 </div>
 #{if activities}
