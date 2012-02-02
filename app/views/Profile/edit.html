@@ -201,9 +201,9 @@
                             <div class="inline-inputs">
                                 <input class="span3" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" maxlength="25" value="${member.sharedLinks[i]?.name}" /> 
                                 <input class="span6" id="sharedLinks${i}_URL" name="${field.name}.URL" placeholder="URL du lien" type="text" value="${member.sharedLinks[i]?.URL}" /> 
-                                <a class="btn small ignoredirty" rel='twipsy' title="Déplacer ce lien vers le haut" onclick="moveUpSharedLink(${i})">&#x2B06;</a>
-                                <a class="btn small ignoredirty" rel='twipsy' title="Déplacer ce lien vers le bas" onclick="moveDownSharedLink(${i})">&#x2B07;</a>
-                                <a class="btn small ignoredirty" rel='twipsy' title="Supprimer ce lien" onclick="deleteSharedLink(${i})"><strong>X</strong></a>
+                                <a class="ignoredirty" rel='twipsy' title="Déplacer ce lien vers le haut" onclick="moveUpSharedLink(${i})"><img class="action ignoredirty" src="@{'/public/images/icons/moveup.png'}" alt="Déplacer vers le haut" style="vertical-align: bottom"/></a>
+                                <a class="ignoredirty" rel='twipsy' title="Déplacer ce lien vers le bas" onclick="moveDownSharedLink(${i})"><img class="action ignoredirty" src="@{'/public/images/icons/movedown.png'}" alt="Déplacer vers le bas" style="vertical-align: bottom"/></a>
+                                <a class="ignoredirty" rel='twipsy' title="Supprimer ce lien" onclick="deleteSharedLink(${i})"><img class="action ignoredirty" src="@{'/public/images/icons/remove.png'}" alt="Supprimer" style="vertical-align: bottom"/></a>
                                 <span class="help-block">#{error 'sharedLinks['+i+'].name' /}</span>
                                 <span class="help-block">#{error 'sharedLinks['+i+'].URL' /}</span>
                             </div>
