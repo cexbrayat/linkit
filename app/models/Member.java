@@ -24,6 +24,7 @@ import javax.persistence.*;
 import java.util.*;
 import java.util.List;
 import models.mailing.Mailing;
+import org.apache.commons.lang.WordUtils;
 import play.data.validation.Email;
 import play.data.validation.Valid;
 import play.modules.search.Field;
@@ -64,6 +65,8 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     static final String QUERY_FORPROFILE = "MemberForProfile";
 
     static final String CACHE_ACCOUNT_PREFIX = "account_";
+    
+    static final char[] CHAR_DELIMITER_NAME = {'-',' ','_','.'};
     
     /**
      * Internal login : functional key
@@ -491,11 +494,12 @@ public class Member extends Model implements Lookable, Comparable<Member> {
      */
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append(LOWER_HYPHEN.to(UPPER_CAMEL,firstname))
+        return WordUtils.capitalizeFully(new StringBuilder()
+                .append(firstname)
                 .append(' ')
-                .append(LOWER_HYPHEN.to(UPPER_CAMEL,lastname))
-                .toString();
+                .append(lastname)
+                .toString()
+                ,CHAR_DELIMITER_NAME);
         
     }
 
