@@ -94,7 +94,7 @@ email.message.note=Obligatoire. Le contenu de votre message.<br/>&{markdown.note
 mailing.recipients=Destinataires
 mailing.recipients.note=Obligatoire. Ensemble des membres destinataires du mailing.
 mailing.subject=Sujet du mail
-mailing.subject.note=Il apparaîtra en sujet du mail, parce que c'est bien foutu.
+mailing.subject.note=Il apparaîtra en sujet du mail, préfixé par "[Mix-IT 2012] - ".
 mailing.message=Contenu
 mailing.message.note=Obligatoire. Le contenu du mail.<br/>&{markdown.note}
 
