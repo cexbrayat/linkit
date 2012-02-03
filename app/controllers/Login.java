@@ -9,6 +9,7 @@ import models.ProviderType;
 import models.auth.AuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.OAuthAccount;
+import org.apache.commons.lang.StringUtils;
 import org.scribe.exceptions.OAuthException;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
@@ -42,11 +43,16 @@ public class Login extends PageController {
         render();
     }
 
-    public static void loginWith(@Required String provider) {
+    public static void loginWith(@Required ProviderType provider) {
 
         flash.keep(RETURN_URL);
-        ProviderType providerType = ProviderType.valueOf(provider);
-        OAuthProvider oauthProvider = OAuthProviderFactory.getProvider(providerType);
+        
+        if (provider == null) {
+            flash.error("Mauvaise requète, le provider d'authentification n'est pas indiqué");
+            index(null);
+        }
+        
+        OAuthProvider oauthProvider = OAuthProviderFactory.getProvider(provider);
         OAuthService oauthService = oauthProvider.getService();
 
         if (OAuth.isVerifierResponse()) {
@@ -60,7 +66,7 @@ public class Login extends PageController {
                 // Fetch user oAuthAccount
                 OAuthAccount oAuthAccount = oauthProvider.getUserAccount(accessToken.getToken(), accessToken.getSecret());
                 // Retrieve existing oAuthAccount from profile
-                AuthAccount account = AuthAccount.find(providerType, oAuthAccount.getOAuthLogin());
+                AuthAccount account = AuthAccount.find(provider, oAuthAccount.getOAuthLogin());
 
                 if (account != null) {
                     onSuccessfulAuthentication(account.member.login);

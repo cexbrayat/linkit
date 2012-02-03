@@ -1,5 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'Editer un article' /}
+#{set 'moreScripts'}
+<!-- Requirements for managing form dirtiness -->
+<script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
+<script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
+<script src="@{'/public/javascripts/dirtiness.js'}"></script>
+<!-- End Requirements for managing form dirtiness -->
+#{/set}
+#{dirtyDialog/}
 
     <div class="page-header"> 
         <h1>Edition d'un article</h1> 
@@ -29,7 +37,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="3">${field.value}</textarea>
+                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="500" rows="3">${field.value}</textarea>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 

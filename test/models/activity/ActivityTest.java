@@ -1,5 +1,6 @@
 package models.activity;
 
+import com.sun.corba.se.spi.oa.OADefault;
 import java.util.EnumSet;
 import java.util.List;
 import models.Article;
@@ -102,5 +103,34 @@ public class ActivityTest extends AbstractActivityTest {
     @Test
     public void deleteForMemberWithProvider() {
         assertNotNull(Activity.deleteForMember(member, ProviderType.Twitter));
+    }
+    
+    @Test public void findOrderedMembers() {
+        final Member member1 = createMember("member1");
+        final Member member2 = createMember("member2");
+        final Member member3 = createMember("member3");
+        final Member member4 = createMember("member4");
+
+        assertEquals(0, Activity.find("from Activity a where a.member is not null").fetch().size());
+        Activity.OrderedMembersDTO members = Activity.findOrderedMembers();
+        // member2 n'est pas le premier de la liste
+        assertNotSame(member2, members.getMembers().get(0));
+        assertNull(members.getLatestActivityFor(member2));
+        final int nbMembers = members.getMembers().size();
+        
+        // Création d'une activité pour membre1
+        new LinkActivity(member1, member2).save();
+        // puis membre3
+        new SignUpActivity(member3).save();
+        // puis membre 2 (qui devient donc le dernier actif en date)
+        new LookProfileActivity(member2, member1).save();
+        
+        members = Activity.findOrderedMembers();
+        // member2 EST le premier de la liste
+        assertSame(member2, members.getMembers().get(0));
+        // il a une date de dernière activité
+        assertNotNull(members.getLatestActivityFor(member2));
+        // Et on a toujours autant de membres retournés, qu'il existe des activités ou non.
+        assertEquals(nbMembers, members.getMembers().size());
     }
 }

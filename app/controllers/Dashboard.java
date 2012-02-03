@@ -16,6 +16,7 @@ public class Dashboard extends PageController {
 // FIXME CLA Member.fetchForProfile
 //      Member member = Member.fetchForProfile(login);
         Member member = Member.findByLogin(Security.connected());
+        if (member == null) Login.index(request.url);
 
         Set<Member> suggestedMembers = Suggestion.suggestedMembersFor(member);
         Set<Session> suggestedSessions = Suggestion.suggestedSessionsFor(member);

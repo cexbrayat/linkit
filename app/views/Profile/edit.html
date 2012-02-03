@@ -1,6 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Editer mon profil' /}
 #{set 'moreScripts'}
+<!-- Requirements for managing form dirtiness -->
+<script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
+<script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
+<script src="@{'/public/javascripts/dirtiness.js'}"></script>
+<!-- End Requirements for managing form dirtiness -->
 <script lang="text/javascript">
     var nbLinks = 5;
     function inputName(i) {
@@ -122,7 +127,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <textarea class="span6" id="${field.id}" name="${field.name}" size="30" rows="2">${member?.shortDescription}</textarea>
+                        <textarea class="span6" id="${field.id}" name="${field.name}" size="30" maxlength="140" rows="2">${member?.shortDescription}</textarea>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+'.note'}</span>
                     </div> 
@@ -194,11 +199,11 @@
                     <div class="clearfix ${field.error?'error':''}">
                         <div class="input">
                             <div class="inline-inputs">
-                                <input class="span3" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" value="${member.sharedLinks[i]?.name}" /> 
+                                <input class="span3" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" maxlength="25" value="${member.sharedLinks[i]?.name}" /> 
                                 <input class="span6" id="sharedLinks${i}_URL" name="${field.name}.URL" placeholder="URL du lien" type="text" value="${member.sharedLinks[i]?.URL}" /> 
-                                <a class="btn small" rel='twipsy' title="Déplacer ce lien vers le haut" onclick="moveUpSharedLink(${i})">&#x2B06;</a>
-                                <a class="btn small" rel='twipsy' title="Déplacer ce lien vers le bas" onclick="moveDownSharedLink(${i})">&#x2B07;</a>
-                                <a class="btn small" rel='twipsy' title="Supprimer ce lien" onclick="deleteSharedLink(${i})"><strong>X</strong></a>
+                                <a class="ignoredirty" rel='twipsy' title="Déplacer ce lien vers le haut" onclick="moveUpSharedLink(${i})"><img class="action ignoredirty" src="@{'/public/images/icons/moveup.png'}" alt="Déplacer vers le haut" style="vertical-align: bottom"/></a>
+                                <a class="ignoredirty" rel='twipsy' title="Déplacer ce lien vers le bas" onclick="moveDownSharedLink(${i})"><img class="action ignoredirty" src="@{'/public/images/icons/movedown.png'}" alt="Déplacer vers le bas" style="vertical-align: bottom"/></a>
+                                <a class="ignoredirty" rel='twipsy' title="Supprimer ce lien" onclick="deleteSharedLink(${i})"><img class="action ignoredirty" src="@{'/public/images/icons/remove.png'}" alt="Supprimer" style="vertical-align: bottom"/></a>
                                 <span class="help-block">#{error 'sharedLinks['+i+'].name' /}</span>
                                 <span class="help-block">#{error 'sharedLinks['+i+'].URL' /}</span>
                             </div>
@@ -281,3 +286,5 @@
         </div>
 
     #{/form}
+    
+#{dirtyDialog /}

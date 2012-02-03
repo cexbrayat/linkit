@@ -1,8 +1,6 @@
 package controllers;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import models.*;
@@ -10,6 +8,7 @@ import play.Logger;
 
 import java.util.List;
 import java.util.Set;
+import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 import play.modules.search.Search;
 
@@ -33,17 +32,22 @@ public class Application extends PageController {
     }
 
     public static void members() {
-        List<Member> members = Member.findAll();
+        // Members ordered by last activity
+        Activity.OrderedMembersDTO latestActivities = Activity.findOrderedMembers();
+        List<Member> members = latestActivities.getMembers();
+        // We may use one day OrderedMembersDTO.getLatestActivityFor(member) to display with member 
         render("Application/list.html", members);
     }
 
     public static void staff() {
         List<Staff> members = Staff.findAll();
+        Collections.shuffle(members);
         render("Application/list.html", members);
     }
 
     public static void speakers() {
         List<Member> members = Talk.findAllSpeakers();
+        Collections.shuffle(members);
         render("Application/list.html", members);
     }
 

@@ -1,24 +1,7 @@
 package models.activity;
 
+import controllers.LiveActivities;
 import helpers.badge.BadgeComputationContext;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import models.Article;
 import models.Member;
 import models.ProviderType;
@@ -27,6 +10,13 @@ import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.Required;
 import play.db.jpa.Model;
+
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.*;
 
 /**
  * An activity on Link-IT site, i.e a persisted event
@@ -42,6 +32,15 @@ indexes = {
     @Index(name = "Activity_article_IDX", columnNames = {Activity.ARTICLE_FK, Activity.AT}),
     @Index(name = "Activity_session_IDX", columnNames = {Activity.SESSION_FK, Activity.AT})
 })
+@NamedQueries({
+       // Membres ordonnés par date de dernière activité (qu'il y en ait ou non)
+        @NamedQuery(name = Activity.QUERY_ORDEREDMEMBERS,
+                query = "select distinct(m), max(a.at) "
+                        + "from Activity a "
+                        + "right outer join a.member m "
+                        + "group by m "
+                        + "order by max(a.at) desc")
+})
 public abstract class Activity extends Model implements Comparable<Activity> {
 
     static final String ARTICLE_FK = "article_id";
@@ -49,6 +48,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     static final String MEMBER_FK = "member_id";
     static final String PROVIDER = "provider";
     static final String AT = "at";
+    static final String QUERY_ORDEREDMEMBERS = "ActivityOrderedMembers";
 
     @Required
     @Column(name = PROVIDER, nullable = false, updatable = false)
@@ -163,6 +163,35 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return Activity.find("from Activity a where a.article = ? order by a.at desc", a).fetch(page, length);
     }
     
+    public static class OrderedMembersDTO {
+        private List<Member> members = new ArrayList<Member>();
+        /** Key : Member, Value : Date of latest activity, may be null */
+        private Map<Member, Date> latestActivityDateByMember = new HashMap<Member, Date>();
+
+        protected void add(Member member, Date latestActivity) {
+            members.add(member);
+            latestActivityDateByMember.put(member, latestActivity);
+        }
+        
+        public Date getLatestActivityFor(Member member) {
+            return latestActivityDateByMember.get(member);
+        }
+
+        public List<Member> getMembers() {
+            return members;
+        }
+    }
+    
+    public static OrderedMembersDTO findOrderedMembers() {
+        OrderedMembersDTO members = new OrderedMembersDTO();
+
+        List<Object[]> resultset = (List) em().createNamedQuery(QUERY_ORDEREDMEMBERS).getResultList();
+        for (Object[] result : resultset) {
+            members.add((Member) result[0], (Date) result[1]);
+        }
+        return members;
+    }
+
     /**
      * Delete all activities related to given member
      * @param member
@@ -233,4 +262,10 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     public int compareTo(Activity other) {
         return (other.at.compareTo(this.at));
     }
+
+    /*public Activity save(){
+        super.save();
+        LiveActivities.liveStream.publish(this);
+        return this;
+    }*/
 }
