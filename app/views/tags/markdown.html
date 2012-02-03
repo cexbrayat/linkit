@@ -1,12 +1,18 @@
 *{
     Render Markdown
     - default _arg : the String containing markdown
+    - escapeHtmlAttr : true if embedded in HTML attribute (for twipsy
 }*
 #{if _arg}
 %{
     try {
 %}
+#{if _escapeHtmlAttr}
+${markdown.Markdown.transformMarkdown(_arg).escapeHtmlAttr().raw()}
+#{/if}
+#{else}
 ${markdown.Markdown.transformMarkdown(_arg).raw()}
+#{/else}
 %{
     }
     catch (Exception e) {
