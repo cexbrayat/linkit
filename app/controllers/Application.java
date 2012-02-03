@@ -1,7 +1,10 @@
 package controllers;
 
 import com.google.common.collect.Sets;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import models.*;
 import play.Logger;
@@ -137,11 +140,16 @@ public class Application extends PageController {
                 .orField(Member.SHORTDESCRIPTION)
                 .orField(Member.LONGDESCRIPTION).toQuery();
         Logger.debug("Search members with query : %s", membersQuery);
-        List<Staff> staff = Search.search(membersQuery, Staff.class).fetch();
-        List<Sponsor> sponsors = Search.search(membersQuery, Sponsor.class).fetch();
-        List<Member> members = Search.search(membersQuery, Member.class).fetch();
-        members.addAll(staff);
-        members.addAll(sponsors);
+        List<Staff> searchStaff = Search.search(membersQuery, Staff.class).fetch();
+        List<Sponsor> searchSponsors = Search.search(membersQuery, Sponsor.class).fetch();
+        List<Member> searchMembers = Search.search(membersQuery, Member.class).fetch();
+        // Building unordered (unique) set of members
+        Set<Member> uniqueMembers = new HashSet<Member>(searchStaff.size()+searchSponsors.size()+searchMembers.size());
+        uniqueMembers.addAll(searchSponsors);
+        uniqueMembers.addAll(searchStaff);
+        uniqueMembers.addAll(searchMembers);
+        // Building ordered list of unique members
+        List<Member> members = new ArrayList<Member>(uniqueMembers);
         Collections.sort(members);
 
         render("Application/search.html", query, articles, talks, lightningtalks, members);
