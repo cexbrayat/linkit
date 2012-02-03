@@ -30,7 +30,6 @@ import play.data.validation.Valid;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
 
-import static com.google.common.base.CaseFormat.*;
 
 
 /**
