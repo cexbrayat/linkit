@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    ${_arg.shortDescription?.markdown().raw()}
+                    #{markdown _arg.shortDescription /}
                 </div>
                 <div class="row">
                     #{list items:_arg.getOrderedAccounts(), as:'account'}
