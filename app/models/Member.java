@@ -136,7 +136,6 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @OrderColumn(name = "ordernum")
-    @MaxSize(5)
     @Valid
     public List<SharedLink> sharedLinks = new LinkedList<SharedLink>();
 
