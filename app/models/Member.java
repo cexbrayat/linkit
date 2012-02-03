@@ -29,6 +29,9 @@ import play.data.validation.Valid;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
 
+import static com.google.common.base.CaseFormat.*;
+
+
 /**
  * A LinkIT member.
  *
@@ -489,10 +492,11 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     @Override
     public String toString() {
         return new StringBuilder()
-                .append(firstname)
+                .append(LOWER_HYPHEN.to(UPPER_CAMEL,firstname))
                 .append(' ')
-                .append(lastname)
+                .append(LOWER_HYPHEN.to(UPPER_CAMEL,lastname))
                 .toString();
+        
     }
 
     public boolean hasRole(String profile) {
