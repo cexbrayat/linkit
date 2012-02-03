@@ -26,7 +26,7 @@
             </div>
             <br/>
             <div class="row" itemprop="description">
-                ${member.shortDescription?.markdown().raw()}
+                #{markdown member.shortDescription /}
             </div>
             <div class="row">
             #{list items:member.getOrderedAccounts(), as:'account'}
@@ -146,7 +146,7 @@
                 #{if member.longDescription}
                 <div class="tab-pane" id="bio">
                      <div id="longDescription">
-                        ${member.longDescription?.markdown().raw()}
+                        #{markdown member.longDescription /}
                     </div>
                 </div>
                 #{/if}
