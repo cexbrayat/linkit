@@ -44,7 +44,7 @@ firstname.note=Obligatoire
 company=Entreprise
 company.note=Facultatif
 email=Email
-email.note=Obligatoire
+email.note=Obligatoire, mais non diffusé. Utilisé pour définir votre <strong>avatar</strong> via <a href="http://www.gravatar.com" target="_blank" class="ignoredirty">Gravatar</a>, ainsi que pour vous envoyer des actualités. 
 shortDescription=Présentation
 shortDescription.note=Obligatoire. Une courte description de vous, qui sera visible de tous et partout.<br/>&{markdown.note}
 longDescription=Biographie
@@ -143,7 +143,7 @@ track.Trendy.description=Les tendances novatrices et avant-gardistes
 track.Gamy.description=Des jeux agiles et des coding dojos pour apprendre
 
 # Global messages
-markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new" tabindex="-1"><strong>MarkDown</strong></a> accepté.
+markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new" tabindex="-1" class="ignoredirty">MarkDown</a> accepté.
 
 # Since Java Date extension
 since.seconds=il y a %d sec
