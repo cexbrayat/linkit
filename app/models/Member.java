@@ -296,7 +296,7 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     public Member addInterest(String interest) {
         if (StringUtils.isNotBlank(interest)) {
-            interests.add(Interest.findOrCreateByName(interest));
+            interests.add(Interest.findOrCreateByName(interest.trim()));
         }
         return this;
     }
