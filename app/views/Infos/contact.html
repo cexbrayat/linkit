@@ -16,8 +16,8 @@
     #{field 'email.subject'}
     <div class="clearfix ${field.error?'error':''}"> 
         <label for="${field.name}">&{field.name}</label> 
-        <div class="input"> 
-            <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" /> 
+        <div class="input span8"> 
+            <input class="span8" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" /> 
             <span class="help-block">${field.error}</span>
             <span class="help-block">&{field.name+".note"}</span>
         </div> 
@@ -28,8 +28,8 @@
     #{field 'email.message'}
     <div class="clearfix ${field.error?'error':''}"> 
         <label for="${field.name}">&{field.name}</label> 
-        <div class="input"> 
-            <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="10">${field.value}</textarea>
+        <div class="input span8"> 
+            <textarea class="span8" id="${field.id}" name="${field.name}" size="50" rows="10">${field.value}</textarea>
             <span class="help-block">${field.error}</span>
             <span class="help-block">&{field.name+".note"}</span>
         </div> 
@@ -38,7 +38,7 @@
 
 </fieldset>
 
-<div class="actions">
+<div class="actions span8">
     <input type="submit" class="btn primary large" value="Envoyer"/>
 </div>
 #{/form}
