@@ -2,7 +2,6 @@ package controllers;
 
 import com.google.common.collect.Sets;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -14,6 +13,7 @@ import java.util.Set;
 import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 import play.modules.search.Search;
+import play.templates.JavaExtensions;
 
 public class Application extends PageController {
     
@@ -75,6 +75,8 @@ public class Application extends PageController {
         }
         protected static String wrap(String query) {
             query = StringUtils.trim(query);
+            // Ignore accents
+            query = JavaExtensions.noAccents(query);
             if (isPhraseQuery(query)) {
                 return new StringBuilder()
                     .append('"')
