@@ -118,7 +118,7 @@ public class Login extends PageController {
             // Un membre existant s'est connecté avec un nouveau provider
             // On se contente de lui ajouter le nouvel account utilisé
             member.authenticate(oAuthAccount);
-            member.updateProfile();
+            member.updateProfile(false);
             onSuccessfulAuthentication(member.login);
         }
     }

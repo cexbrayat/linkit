@@ -428,10 +428,13 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     /**
      * Update user profile
+     * @param activity true if activities must be produced
      */
-    public Member updateProfile() {
+    public Member updateProfile(boolean activity) {
         save();
-        new UpdateProfileActivity(this).save();
+        if (activity) {
+            new UpdateProfileActivity(this).save();
+        }
         new JobFetchUserTimeline(this).now();
         new JobMajUserRegisteredTicketing(this.id).now();
         return this;
