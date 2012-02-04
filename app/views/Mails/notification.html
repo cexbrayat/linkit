@@ -1,0 +1,17 @@
+﻿#{extends 'Mails/mail.html' /}
+#{set title:'Notifications Mix-IT' /}
+
+<p>Cher ${recipient},</p>
+<p>
+    Voici les activités ayant eu lieu aujourd'hui sur le site de Mix-IT 2012 :
+</p>
+<div id="activities">
+    #{activities activities:activities /}
+</div>
+
+<p>
+    Bien affectueusement,
+</p>
+<p>
+    Mix-IT's bot.
+</p>

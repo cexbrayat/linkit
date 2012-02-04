@@ -29,6 +29,7 @@ menu.search=Rechercher
 menu.login=Se connecter
 menu.login.profile=Voir mon profil
 menu.login.edit=Editer mon profil
+menu.login.settings=Mes préférences
 menu.login.logout=Se déconnecter
 
 # Member fields
@@ -97,6 +98,10 @@ mailing.subject=Sujet du mail
 mailing.subject.note=Il apparaîtra en sujet du mail, préfixé par "[Mix-IT 2012] - ".
 mailing.message=Contenu
 mailing.message.note=Obligatoire. Le contenu du mail.<br/>&{markdown.note}
+
+# Settings
+notificationOption = Notifications
+notificationOption.note=
 
 # Activities
 activities.more=Afficher plus...

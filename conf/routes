@@ -47,6 +47,8 @@ GET     /profile/{login}                        Profile.show
 # Dashboard
 GET     /dashboard                              Dashboard.index
 GET     /dashboard/link                         Dashboard.link
+POST    /dashboard/settings/save                Dashboard.saveSettings
+GET     /dashboard/settings                     Dashboard.settings
 
 # Sessions
 GET     /sessions                               Sessions.index

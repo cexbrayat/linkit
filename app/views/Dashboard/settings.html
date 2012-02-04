@@ -1,0 +1,36 @@
+#{extends 'main.html' /}
+#{set title:'Gérer vos préférences' /}
+#{set 'moreScripts'}
+<!-- Requirements for managing form dirtiness -->
+<script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
+<script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
+<script src="@{'/public/javascripts/dirtiness.js'}"></script>
+<!-- End Requirements for managing form dirtiness -->
+#{/set}
+#{dirtyDialog/}
+
+#{form @saveSettings()}
+<fieldset> 
+
+    #{field 'notificationOption'}
+    <div class="clearfix ${field.error?'error':''}"> 
+        <label for="${field.name}">&{field.name}</label> 
+        <div class="input"> 
+            <ul class="inputs-list">
+                #{list items:models.NotificationOption.values(), as:'option'}
+                <li><label><input type="radio" name="${field.name}" value="${option}" ${field.value == option?'checked':''} />${option}</label></li>
+                #{/list}
+            </ul>
+            <span class="help-block">${field.error}</span>
+            <span class="help-block">&{field.name+".note"}</span>
+        </div>
+    </div><!-- /clearfix -->
+    #{/}
+
+</fieldset>
+
+<div class="actions">
+    <input type="submit" class="btn primary" value="Enregistrer"/>
+    <a href="@{index()}" class="btn">Annuler</a>
+</div>
+#{/form}

@@ -140,6 +140,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     @Valid
     public List<SharedLink> sharedLinks = new LinkedList<SharedLink>();
 
+    @Enumerated(EnumType.STRING)
+    public NotificationOption notificationOption = NotificationOption.None;
+    
     /**
      * Number of profile consultations
      */
@@ -595,5 +598,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     
     public Set<Session> getLightningTalks() {
         return Sets.filter(sessions, LIGHTNING_TALK);
+    }
+    
+    public static List<Member> findNotified(NotificationOption option) {
+        return find("notificationOption = ?", option).fetch();
     }
 }
