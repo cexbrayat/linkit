@@ -49,6 +49,7 @@ tab.lasttalks=Dernières sessions
 tab.lastattendees=Derniers inscrits
 
 # Login
+login.why=Pourquoi ouvrir un compte sur le site Mix-IT?
 login.howto.part1=Vous créer un compte Mix-IT vous permettra de consulter les profils des speakers et de tous les participants, vous lier à ceux que vous souhaitez, commenter les sessions et plus encore (le site continuera à évolue, on travaille en mode <em>agile</em>)! Une conférence telle que Mix-IT c'est aussi un bon moment pour échanger et se faire de nouveaux contacts. La vocation de notre site est de vous préparer à cela.
 login.howto.part2= Linker des participants vous permettra de suivre leurs activités Mix-IT mais également leurs flux sociaux (Twitter, G+) : ce site est aussi un aggrégateur de flux des différents réseaux sociaux des personnes qui seront à vos côtés le jour J de la conférence! Pourquoi avoir développé cet aspect social pour notre site? Au-delà de s'être fait plaisir techniquement (ce qui reste un facteur fort motivant, on reste des développeurs : <em>"Programming, Motherfucker"</em>!) nous espérons que cela peut être un terreau fertile pour les échanges le jour de la conférence!
 login.alert=Attention : vous devez avoir un compte sur les réseaux sociaux ci-dessus pour vous connecter.

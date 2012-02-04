@@ -45,6 +45,7 @@ tab.lasttalks=Last talks
 tab.lastattendees=Last members
 
 # Login
+login.why=Why sign in?
 login.howto.part1=Creating a Mix-IT account will let you consult all members profiles (speakers, attendees), link to them, comment the talks, and more (the site will continue to evolve: it works in <em>agile</em> mode)! A conference such as Mix-IT is also a good time to talk and make new contacts. The purpose of our site is to prepare you for that.
 login.howto.part2=Linking participants will allow you to monitor their Mix-IT activities but also their social feeds (Twitter, G +): this site aggregates the social networks of people you will meet on the day of the conference! If we developed such a social part, beyond the mere pleasure we had to build it (which remains a strong motivating factor, we remain developers : <em> "Programming, Motherfucker" </em>!), that's because, in our opinion, it's a fertile ground for exchanges on the day of the conference!
 login.alert=Warning : You must have an account on these social networks to login.

@@ -2,6 +2,13 @@
 #{set title:'Accueil' /}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/bootstrap-popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script>
+            $(function () {
+              $("a[rel=popover]").popover({
+              })
+            })
+</script>
 #{/set}
 #{set 'moreStyles'}
 
@@ -48,7 +55,7 @@
                     <a href="@{Sessions.index()}" class="btn primary">&{'button.talks'}</a>
                 </div>
                 <div class="span4 " style="text-align: center">
-                    <a href="@{Infos.inscription()}" class="btn primary">&{'button.login'}</a>
+                    <a href="@{Infos.inscription()}" class="btn primary" rel="popover" data-content="&{'login.howto.part1'}" data-original-title="&{'login.why'}" data-html="true">&{'button.login'}</a>
                 </div>
             </div>
             #{/else}
