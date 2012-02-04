@@ -1,6 +1,9 @@
 # You can specialize this file for each language.
 # For example, for English create a messages.en file
 #
+# Common Buttons
+button.cancel=Annuler
+button.save=Enregistrer
 
 # Menu bar
 menu.dashboard=Mon dashboard
@@ -31,6 +34,47 @@ menu.login.profile=Voir mon profil
 menu.login.edit=Editer mon profil
 menu.login.logout=Se déconnecter
 
+# Accueil
+mixit.slogan=Des idées pour tout de suite !
+mixit.short.description=Java, Agilité, Web, Innovations...
+ticketing.alert=Ouverture prochaine<br/>de la billetterie !
+button.about.mixit=A propos de Mix-IT
+button.talks=Les sessions
+button.login=S'inscrire
+button.ticketing=Acheter mon billet
+button.vote.lightningtalks=Voter pour des lightning talks
+tab.lastactivities=Dernières activitiés
+tab.lastarticles=Derniers articles
+tab.lasttalks=Dernières sessions
+tab.lastattendees=Derniers inscrits
+
+# Login
+login.howto=En vous créant un compte sur le site Mix-IT, vous pourrez consulter les profils des participants (speakers comme participants), vous lier à ceux que vous souhaitez, commenter les sessions, et plus encore (le site continuera à évoluer : on travaille en mode "agile")! Une conférence telle que Mix-IT c'est aussi un bon moment pour échanger, se faire de nouveaux contacts. La vocation de notre site est de vous préparer à cela. Linker des participants vous permettra de suivre leurs activités Mix-IT mais également leurs flux sociaux (Twitter, G+) : ce site est aussi un aggrégateur de flux des différents réseaux sociaux des personnes qui seront à vos côtés le jour J de la conférence! La fait d'avoir développé une telle partie sociale pour notre site Mix-IT, au delà du seul fait de nous faire plaisir techniquement (ce qui reste un facteur fort motivant, on reste des développeurs : <em>"Programming, Motherfucker"</em>!) c'est aussi, selon nous, un terreau fertile pour les échanges le jour de la conférence! On espère que vous prendrez plaisir à utiliser cette partie sociale <small>(autant que nous en avons pris à la développer)</small> !
+login.alert=Attention : vous devez avoir un compte sur les réseaux sociaux ci-contre pour vous connecter.
+            
+# About
+mixit.long.description=Mix-IT est l’aboutissement de la collaboration entre <a href='http://lyonjug.org/' target='_blank'>le Lyon Java User Group</a> et <a href='http://www.clubagilerhonealpes.org/' target='_blank'>le Club Agile Rhône-Alpes</a> (première édition en 2011). Mix-it est né d’une envie commune de créer une conférence à <strong>Lyon</strong> accessible à tous, sur <strong>l’agilité</strong>, <strong>l'écosystème Java</strong> et <strong>les innovations IT</strong>, Web ou mobile. <strong>Le 26 avril</strong>, le staff de Mix-it vous accueille à <strong>Supinfo</strong> pour des sessions d’expertise, des jeux et des rencontres. Entrepreneurs, Chefs de Projet, développeurs vous trouverez forcément des idées pour vos projets ! 
+mixit.whois=Mix-IT c'est qui?
+
+# FAQ
+faq.title=Foire aux Questions
+faq.registration.question=Pourquoi et Comment s'inscrire?
+faq.registration.answer=Voir <a href="%s">la page d'aide sur les inscriptions</a> pour comprendre la partie sociale de Mix-It et accéder aux informations détaillées sur la billetterie!
+faq.gravatar.question=Comment changer l'image de votre profil?
+faq.gravatar.answer=Les avatars sont gérés par <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. Nous affichons l'avatar correspondant à l'email que vous nous indiquez sur votre profil. Connectez-vous sur le site <a href="http://www.gravatar.com" target="_blank">Gravatar</a> pour créer ou modifier votre image.
+faq.twitter.question=Twitter
+faq.twitter.answer=<a target=""blank" href="http://twitter.com/MixIT_Lyon">@MixIT_Lyon</a> est le compte Twitter de la conférence MIX-IT. Abonnez-vous au compte et utilisez le hashtag <strong>#MixIT_Lyon</strong></p>
+faq.recording.question=Enregistrement des sessions
+faq.recording.answer=Toutes les sessions seront enregistrées au format audio (peut-être vidéo pour certaines) et seront disponibles après la conférence sur notre site!
+
+# Registration
+registration.title=Ouverture d'un compte Mix-IT et Paiement du billet
+registration.ticketing.alert=Ouverture de la billeterie dans:
+registration.step1.create.account=Créer-vous un compte Mix-IT
+registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT!
+registration.step2.ticketing.unsigned=Quand la billeterie sera ouverte : payez votre billet via votre Dashboard Mix-IT
+registration.step2.ticketing.signed=Quand la billeterie sera ouverte : n'oubliez pas de vérifier si vous avez payé votre billet
+
 # Member fields
 
 # FIXME conflict with (Member.)description and (Session.)description : needs a deep refactoring
@@ -59,6 +103,7 @@ newInterests=Autres intérêts
 newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 
 # Session fields
+talk.descriptive.section=Descriptif
 talk.title=Titre
 talk.title.note=Obligatoire. Un court titre pour votre session
 talk.summary=Résumé
@@ -73,8 +118,14 @@ talk.interests=Intérets existants
 talk.interests.note=Ces intérêts seront associés à la session, et permettront aux utilisateurs de trouver cette session en recherchant par intérêt.
 talk.newInterests=Autres intérêts
 talk.newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
+talk.submit=Proposer une session
 content=Votre commentaire
 content.note=&{markdown.note}
+
+# Lightning Talk fields
+lightningtalk.description=Tout participant peut <strong>proposer un Lightning Talk</strong>.<br/>Il s'agit de sessions courtes de 5 minutes qui auront lieu entre 13 et 14H le jour de la conférence. Pourquoi ne pas tenter votre chance? C'est l'occasion de synthétiser votre connaissance sur un sujet et de donner aux autres participants envie de le connaître plus! En fonction des votes des participants, votre sujet peut être choisi. Les sujets gagnants seront annoncés le jour de la conférence.
+lightningtalk.submit=Proposer un Lightning Talk
+lightningtalk.alert.login=Connectez-vous pour proposer Lightning Talk
 
 # Article fields
 article.title=Titre	  	

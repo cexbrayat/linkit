@@ -12,7 +12,7 @@
             <h2>26 Avril 2012</h2>
         </div>
         <div class="span7" style="text-align: right">
-            <h3>Java, Agilité, Web, Innovations...</h3>
+            <h3>&{'mixit.short.description'}</h3>
         </div>
     </div>
     <div class="row" style="text-align: center">
@@ -20,35 +20,35 @@
     </div>
     <div class="row">
         <div class="span5 offset8">
-            <h3 itemprop="description">Des idées pour tout de suite !</h3>
+            <h3 itemprop="description">&{'mixit.slogan'}</h3>
         </div>
     </div>
-    <div class="soon">Ouverture prochaine<br/>de la billeterie!</div>
+    <div class="soon">&{'ticketing.alert'}</div>
     <div class="row">
         <div class="span12 offset1">
             #{if session.username}
             <div class="row">
                 <div class="span4" style="text-align: center">
-                    <a href="@{Infos.inscription()}" class="btn primary" rel='twipsy' title="Prix: 30 euros" data-html="true">Acheter mon billet</a>
+                    <a href="@{Infos.inscription()}" class="btn primary" rel='twipsy' title="Prix: 30 euros" data-html="true">&{'button.ticketing'}</a>
                 </div>
                 <div class="span4" style="text-align: center">
-                    <a href="@{Application.members()}" class="btn primary">Consulter les profils</a>
+                    <a href="@{Sessions.index()}" class="btn primary">&{'button.talks'}</a>
                 </div>
                 <div class="span4" style="text-align: center"> 
-                    <a href="@{LightningTalks.list()}" class="btn primary">Voter pour des lightning talks</a>
+                    <a href="@{LightningTalks.list()}" class="btn primary">&{'button.vote.lightningtalks'}</a>
                 </div>
             </div>
             #{/if}
             #{else}
             <div class="row">
                 <div class="span4" style="text-align: center">
-                    <a href="@{Infos.about()}" class="btn primary">A propos de Mix-IT</a>
+                    <a href="@{Infos.about()}" class="btn primary">&{'button.about.mixit'}</a>
                 </div>
                 <div class="span4" style="text-align: center">
-                    <a href="@{Sessions.index()}" class="btn primary">Les sessions</a>
+                    <a href="@{Sessions.index()}" class="btn primary">&{'button.talks'}</a>
                 </div>
                 <div class="span4 " style="text-align: center">
-                    <a href="@{Infos.inscription()}" class="btn primary">S'inscrire</a>
+                    <a href="@{Infos.inscription()}" class="btn primary">&{'button.login'}</a>
                 </div>
             </div>
             #{/else}
@@ -59,10 +59,10 @@
    
     <div class="row">
         <ul class="tabs" data-tabs="tabs">
-            <li class="active"><a href="#tabActivities">Dernières activitiés</a></li>
-            <li><a href="#tabArticles">Derniers articles</a></li>
-            <li><a href="#tabSessions">Dernières sessions</a></li>
-            <li><a href="#tabInscrits">Derniers inscrits</a></li>
+            <li class="active"><a href="#tabActivities">&{'tab.lastactivities'}</a></li>
+            <li><a href="#tabArticles">&{'tab.lastarticles'}</a></li>
+            <li><a href="#tabSessions">&{'tab.lasttalks'}</a></li>
+            <li><a href="#tabInscrits">&{'tab.lastattendees'}</a></li>
         </ul>
         <div id="tab-content" class="tab-content">            
             <div class="tab-pane active" id="tabActivities">
