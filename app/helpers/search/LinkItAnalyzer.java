@@ -5,8 +5,6 @@ import java.util.Set;
 import org.apache.lucene.analysis.ASCIIFoldingFilter;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.fr.FrenchAnalyzer;
-import org.apache.lucene.analysis.fr.FrenchStemFilter;
-import org.apache.lucene.analysis.ngram.NGramTokenFilter;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.util.Version;
 
@@ -28,7 +26,7 @@ public class LinkItAnalyzer extends StandardAnalyzer {
         // Ignore accents
         result = new ASCIIFoldingFilter(result);
         // French stemmer
-        result = new FrenchStemFilter(result);
+        // result = new FrenchStemFilter(result);
         return result;
     }
 }

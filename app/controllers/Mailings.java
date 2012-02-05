@@ -15,7 +15,7 @@ import play.mvc.With;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Check(Role.ADMIN_MEMBER)
-@With(Secure.class)
+@With(SecureLinkIt.class)
 public class Mailings extends PageController {
 
     public static void index() {
