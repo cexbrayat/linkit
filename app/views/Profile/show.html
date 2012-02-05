@@ -3,6 +3,14 @@
 #{set 'canonical'}@@{Profile.show(member.login)}#{/set}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/bootstrap-popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script>
+            $(function () {
+              $("a[rel=popover]").popover({
+                offset: 5, placement: 'below'
+              })
+            })
+</script>
 #{/set}
 <div class="hero-unit">
     <div class="row">
@@ -13,7 +21,7 @@
             ${member.getNbLooks()} consultation${member.getNbLooks().pluralize()}
             #{if session.get("username") != null && !session.get("username").equals(member.login)}
                 #{if !member.hasForLinker(session.get("username"))}
-                    <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
+                    <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}" rel="popover" data-content="&{'button.link.note'}" data-original-title="&{'button.link.title'}" data-html="true">Link</a>
                 #{/if}
                 #{else}
                     <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>

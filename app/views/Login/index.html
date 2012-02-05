@@ -17,20 +17,24 @@
                 <a href="@{Login.loginWith(models.ProviderType.Twitter)}" title="Se connecter via mon compte Twitter"><img class="loginButton" src="@{'/public/images/login/sign-in-with-twitter-l.png'}"/></a>
                 <a href="@{Login.loginWith(models.ProviderType.Google)}" title="Se connecter via mon compte Google"><img class="loginButton" src="@{'/public/images/login/google.png'}"/></a>
                 <a href="@{Login.loginWith(models.ProviderType.LinkedIn)}" title="Se connecter via mon compte LinkedIn"><img class="loginButton" src="@{'/public/images/login/linkedin-small.png'}"/></a>
+                <br />&{'login.alert'}
             </div>
         </div>
         <div class="span10">
             <p>
+                &{'login.howto.intro'}
+            </p>
+            <p>
                 &{'login.howto.part1'}
+            <ul>
+                <li>&{'login.howto.part1.1'}</li>
+                <li>&{'login.howto.part1.2'}</li>
+                <li>&{'login.howto.part1.3'}</li>
+                <li>&{'login.howto.part1.4'}</li>
+                <li>&{'login.howto.part1.5'}</li>
+            </ul>
             </p>
         </div> 
-    </div>
-    <div class="row">
-        <div class="span14">
-            <p>
-                &{'login.alert'}
-            </p>
-        </div>
     </div>
     <div class="row">
         <div class="span14">

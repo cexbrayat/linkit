@@ -2,6 +2,15 @@
 #{set title:'Mon dashboard' /}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/bootstrap-popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script>
+            $(function () {
+              $("a[rel=popover]").popover({
+                offset: 5, placement: 'above'
+              })
+            })
+            
+</script>
 #{/set}
 
     <div class="hero-unit">
@@ -105,7 +114,7 @@
                     #{if suggestedMembers}
                         <div class="tab-pane active" id="tabSuggestedMembers">
                             #{list suggestedMembers, as:'suggest'}
-                                <a class="btn primary small" title="Link" href="@{link(suggest.login)}">Link</a>
+                                <a class="btn primary small" title="Link" href="@{link(suggest.login)}" rel="popover" data-content="&{'button.link.note'}" data-original-title="&{'button.link.title'}" data-html="true">Link</a>
                                 <a href="@{Profile.show(suggest.login)}" title="${suggest}">#{member suggest /}</a>
                                 <br/>
                             #{/list}
