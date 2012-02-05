@@ -10,7 +10,7 @@ import play.libs.Crypto.HashType;
 
 /**
  * By default, the login page will accept any login/password. To customize it
- * application has to provide a Security provider which extend Secure.Security
+ * application has to provide a Security provider which extend LinkItSecure.Security
  * class
  * 
  * LinkIt authentication (not OAuth!)

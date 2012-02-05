@@ -17,16 +17,26 @@ public class LightningTalks extends PageController {
         render(sessions);
     }
 
-    public static void create() {
+    public static void create() throws Throwable {
+        SecureLinkIt.checkAccess(); // Connected
         LightningTalk talk = new LightningTalk();
         render("LightningTalks/edit.html", talk);
     }
 
-    public static void edit(final Long sessionId) {
+    public static void edit(final Long sessionId) throws Throwable {
         LightningTalk talk = LightningTalk.findById(sessionId);
         notFoundIfNull(talk);
-        
+        checkAccess(talk);
+
         render(talk);
+    }
+
+    private static void checkAccess(Session talk) throws Throwable {
+        SecureLinkIt.checkAccess();
+        Member user = Member.findByLogin(Security.connected());
+        if (!(user instanceof Staff || talk.hasSpeaker(user.login))) {
+            unauthorized();
+        }
     }
 
     public static void show(final Long sessionId, boolean noCount) {

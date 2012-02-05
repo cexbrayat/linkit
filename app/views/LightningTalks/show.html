@@ -4,7 +4,7 @@
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/vote.js'}"></script>
 <script>
-    var voteAction = #{jsAction @Votes.vote(':talk', ':member', ':value') /}
+    var voteAction = #{jsAction @Votes.vote(':talk', ':value') /}
 </script>
 #{/set}
 
