@@ -243,8 +243,8 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     
     public void addLink(Member linked) {
         if (linked != null) {
-            // Avoid activity duplication
-            if (!links.contains(linked)) {
+            // Avoid activity duplication and auto-linking
+            if (!links.contains(linked) && !equals(linked)) {
                 links.add(linked);
                 linked.linkers.add(this);
 
