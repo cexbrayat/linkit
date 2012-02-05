@@ -3,10 +3,10 @@
 
 <p>Cher ${recipient},</p>
 <p>
-    Voici les activités ayant eu lieu aujourd'hui sur le site de Mix-IT 2012 :
+    Voici les activités ayant eu lieu aujourd'hui sur le site de <a href="@@Application.index()" title="Mix-IT 2012">Mix-IT 2012</a>@nbsp;:
 </p>
-<div id="activities">
-    #{activities activities:activities /}
+<div id="activities" class="hero-unit">
+    #{mails.activities activities:activities /}
 </div>
 
 <p>

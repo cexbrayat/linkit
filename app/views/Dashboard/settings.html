@@ -18,7 +18,7 @@
         <div class="input"> 
             <ul class="inputs-list">
                 #{list items:models.NotificationOption.values(), as:'option'}
-                <li><label><input type="radio" name="${field.name}" value="${option}" ${field.value == option?'checked':''} />${option}</label></li>
+                <li><label><input type="radio" name="${field.name}" value="${option}" ${member.notificationOption == option?'checked':''} />${option}</label></li>
                 #{/list}
             </ul>
             <span class="help-block">${field.error}</span>

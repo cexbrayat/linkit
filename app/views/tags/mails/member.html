@@ -1,0 +1,11 @@
+*{
+    Display a member.
+    Parameters :
+    - default _arg : the member
+}*
+<span class="member">
+<a href="@@{Profile.show(_arg.login)}" title='${_arg}' data-html="true">
+#{if _arg.email}#{gravatar.img _arg.email, size:20, default:'mm', rating:'pg', secure:false/}#{/if}
+&nbsp;${_arg}
+</a>
+</span>

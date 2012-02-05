@@ -34,7 +34,7 @@ public class JobDailyNotifications extends Job {
             
             // Find general Activities to be notified to everyone
 // FIXME CLA
-//          List<Activity> general = Activity.notifiablesSince(lastNotification);
+//          List<Activity> general = Activity.notifiablesBetween(lastNotification, begin);
             List<Activity> general = Activity.recents(1, 20);
             
             // Find notifiable members
@@ -42,7 +42,7 @@ public class JobDailyNotifications extends Job {
             for (Member member : notifiables) {
                 // Find notifiable activities for Member
 // FIXME CLA
-//              List<Activity> activities = Activity.notifiablesForSince(member, lastNotification);
+//              List<Activity> activities = Activity.notifiablesForBetween(member, lastNotification, begin);
                 List<Activity> activities = Activity.recentsForMember(member, null, 1, 20);
                 // Merge activities for member
                 activities.addAll(general);
