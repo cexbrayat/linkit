@@ -3,6 +3,6 @@
 <a href="@{Articles.show(_arg.id)}" class="article link"><h3 class="article title">${_arg.title}</h3></a>
 #{if !_arg.valid}<span class="label important">Non publié</span>#{/if}
 <blockquote class="article headline">
-    ${_arg.headline.markdown().raw()}
+    #{markdown _arg.headline /}
     <small>Le ${_arg.postedAt.format('dd/MM/yyyy à hh:mm')}</small>
 </blockquote>

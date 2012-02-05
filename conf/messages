@@ -1,6 +1,8 @@
-# You can specialize this file for each language.
-# For example, for English create a messages.en file
-#
+# Common Buttons
+button.cancel=Annuler
+button.save=Enregistrer
+button.link.title=Pourquoi Linker des participants?
+button.link.note=Linker des participants vous permettra de suivre leurs activités Mix-IT mais également leurs flux sociaux (Twitter, G+) : ce site est un aggrégateur de flux des différents réseaux sociaux des personnes qui seront à vos côtés le jour J de la conférence!
 
 # Menu bar
 menu.dashboard=Mon dashboard
@@ -31,6 +33,59 @@ menu.login.profile=Voir mon profil
 menu.login.edit=Editer mon profil
 menu.login.logout=Se déconnecter
 
+# Accueil
+mixit.slogan=Des idées pour tout de suite !
+mixit.header=Java, Agilité, Web, Innovations...
+ticketing.alert=Ouverture prochaine<br/>de la billetterie !
+button.about.mixit=A propos de Mix-IT
+button.talks=Les sessions
+button.login=S'inscrire
+button.ticketing=Acheter mon billet
+button.ticketing.price=Prix unique : 30 euros
+button.vote.lightningtalks=Voter pour des lightning talks
+tab.lastactivities=Dernières activitiés
+tab.lastarticles=Derniers articles
+tab.lasttalks=Dernières sessions
+tab.lastattendees=Derniers inscrits
+
+# Login
+login.why=Pourquoi ouvrir un compte sur le site Mix-IT?
+login.howto.intro=Au delà du partage de connaissances, Mix-IT est aussi un bon moment pour échanger et se faire de nouveaux contacts. La vocation de notre site est de vous préparer à cela.
+login.howto.part1=Vous créer un compte Mix-IT vous permettra de:
+login.howto.part1.1=consulter les profils des speakers et de tous les participants
+login.howto.part1.2=vous lier à ceux que vous souhaitez
+login.howto.part1.3=commenter les sessions
+login.howto.part1.4=de gagner des badges en fonction de votre activité sur le site (un peu de fun!)
+login.howto.part1.5=et plus encore (le site continuera à évoluer, on travaille en mode <em>agile</em>)!
+login.howto.part2=Pourquoi avoir développé cet aspect social pour notre site? Au-delà de s'être fait plaisir techniquement (ce qui reste un facteur fort motivant, on reste des développeurs : <em>"Programming, Motherfucker"</em>!) nous espérons que cela peut être un terreau fertile pour les échanges le jour de la conférence!
+login.alert=Vous devez obligatoirement avoir au moins un compte parmi ces réseaux sociaux pour vous connecter
+            
+# About
+mixit.short.description=Découvrez ce qu'est la conférence Mix-IT (et qui se cache derrière), un mix de Java, Agilité, Web et Innovations!
+mixit.long.description=Mix-IT est l’aboutissement de la collaboration entre <a href='http://lyonjug.org/' target='_blank'>le Lyon Java User Group</a> et <a href='http://www.clubagilerhonealpes.org/' target='_blank'>le Club Agile Rhône-Alpes</a> (première édition en 2011). Mix-it est né d’une envie commune de créer une conférence à <strong>Lyon</strong> accessible à tous, sur <strong>l’agilité</strong>, <strong>l'écosystème Java</strong> et <strong>les innovations IT</strong>, Web ou mobile. <strong>Le 26 avril</strong>, le staff de Mix-it vous accueille à <strong>Supinfo</strong> pour des sessions d’expertise, des jeux et des rencontres. Entrepreneurs, Chefs de Projet, développeurs vous trouverez forcément des idées pour vos projets ! 
+mixit.whois=Mix-IT c'est qui?
+
+# FAQ
+faq.title=Foire aux Questions
+faq.login.question=Pourquoi ouvrir un compte sur le site Mix-IT?
+faq.login.answer=Voir <a href="%s">la page de login</a> pour comprendre l'intérêt de la partie sociale du site!
+faq.registration.question=Comment payer son billet?
+faq.registration.answer=Voir <a href="%s">la page des inscriptions</a> pour payer son billet.
+faq.gravatar.question=Comment changer l'image de son profil?
+faq.gravatar.answer=Les avatars sont gérés par <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. Nous affichons l'avatar correspondant à l'email que vous nous indiquez sur votre profil. Connectez-vous sur le site <a href="http://www.gravatar.com" target="_blank">Gravatar</a> pour créer ou modifier votre image.
+faq.twitter.question=Twitter
+faq.twitter.answer=<a target=""blank" href="http://twitter.com/MixIT_Lyon">@MixIT_Lyon</a> est le compte Twitter de la conférence MIX-IT. Abonnez-vous au compte et utilisez le hashtag <strong>#MixIT_Lyon</strong></p>
+faq.recording.question=Enregistrement des sessions
+faq.recording.answer=Toutes les sessions seront enregistrées au format audio (peut-être vidéo pour certaines) et seront disponibles après la conférence sur notre site!
+
+# Registration
+registration.title=Ouverture d'un compte Mix-IT et Paiement du billet
+registration.ticketing.alert=Ouverture de la billeterie dans:
+registration.step1.create.account=Créer-vous un compte Mix-IT
+registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT!
+registration.step2.ticketing.unsigned=Quand la billeterie sera ouverte : payez votre billet via votre Dashboard Mix-IT
+registration.step2.ticketing.signed=Quand la billeterie sera ouverte : n'oubliez pas de vérifier si vous avez payé votre billet
+
 # Member fields
 
 # FIXME conflict with (Member.)description and (Session.)description : needs a deep refactoring
@@ -44,7 +99,7 @@ firstname.note=Obligatoire
 company=Entreprise
 company.note=Facultatif
 email=Email
-email.note=Obligatoire
+email.note=Obligatoire, mais non diffusé. Utilisé pour définir votre <strong>avatar</strong> via <a href="http://www.gravatar.com" target="_blank" class="ignoredirty">Gravatar</a>, ainsi que pour vous envoyer des actualités. 
 shortDescription=Présentation
 shortDescription.note=Obligatoire. Une courte description de vous, qui sera visible de tous et partout.<br/>&{markdown.note}
 longDescription=Biographie
@@ -59,6 +114,8 @@ newInterests=Autres intérêts
 newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 
 # Session fields
+talks.description=Découvrez les descriptifs des sessions. Elles se dérouleront sur 5 tracks en parralèle!
+talk.descriptive.section=Descriptif
 talk.title=Titre
 talk.title.note=Obligatoire. Un court titre pour votre session
 talk.summary=Résumé
@@ -73,8 +130,15 @@ talk.interests=Intérets existants
 talk.interests.note=Ces intérêts seront associés à la session, et permettront aux utilisateurs de trouver cette session en recherchant par intérêt.
 talk.newInterests=Autres intérêts
 talk.newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
+talk.submit=Proposer une session
 content=Votre commentaire
 content.note=&{markdown.note}
+
+# Lightning Talk fields
+lightningtalk.short.description=Tout participant peut <strong>proposer</strong>  un Lightning Talk et <strong>voter</strong> pour ceux qui l'intéressent. Il s'agit de sessions courtes de 5 minutes qui auront lieu entre 13 et 14H le jour de la conférence. 
+lightningtalk.long.description=Pourquoi ne pas tenter votre chance? C'est l'occasion de synthétiser votre connaissance sur un sujet et de donner aux autres participants envie de le connaître plus! En fonction des votes des participants, votre sujet peut être choisi. Les sujets gagnants seront annoncés le jour de la conférence.
+lightningtalk.submit=Proposer un Lightning Talk
+lightningtalk.alert.login=Connectez-vous pour proposer Lightning Talk
 
 # Article fields
 article.title=Titre	  	
@@ -94,7 +158,7 @@ email.message.note=Obligatoire. Le contenu de votre message.<br/>&{markdown.note
 mailing.recipients=Destinataires
 mailing.recipients.note=Obligatoire. Ensemble des membres destinataires du mailing.
 mailing.subject=Sujet du mail
-mailing.subject.note=Il apparaîtra en sujet du mail, parce que c'est bien foutu.
+mailing.subject.note=Il apparaîtra en sujet du mail, préfixé par "[Mix-IT 2012] - ".
 mailing.message=Contenu
 mailing.message.note=Obligatoire. Le contenu du mail.<br/>&{markdown.note}
 
@@ -143,7 +207,7 @@ track.Trendy.description=Les tendances novatrices et avant-gardistes
 track.Gamy.description=Des jeux agiles et des coding dojos pour apprendre
 
 # Global messages
-markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new" tabindex="-1"><strong>MarkDown</strong></a> accepté.
+markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new" tabindex="-1" class="ignoredirty">MarkDown</a> accepté.
 
 # Since Java Date extension
 since.seconds=il y a %d sec

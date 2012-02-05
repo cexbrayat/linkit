@@ -26,7 +26,7 @@
     <br/>
     <br/>
     <blockquote class="article content">
-        ${article.content.markdown().raw()}
+        #{markdown article.content /}
         <br/>
         <small>Posté par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a> le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}</small>
     </blockquote>

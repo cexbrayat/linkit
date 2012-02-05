@@ -15,7 +15,7 @@ public class UpdateProfileActivityTest extends AbstractActivityTest {
         assertNull(Activity.find("select a from Activity a where a.member = ?", member).first());
         
         member.shortDescription = "Nouvelle description";
-        member.updateProfile();
+        member.updateProfile(true);
         
         // One activity for member
         Activity a = Activity.find("select a from Activity a where a.member = ?", member).first();

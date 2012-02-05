@@ -159,7 +159,7 @@ public class Profile extends PageController {
         if (registration) {
             member.register(originalLogin);
         } else {
-            member.updateProfile();
+            member.updateProfile(true);
         }
         
         session.put("username", member.login);

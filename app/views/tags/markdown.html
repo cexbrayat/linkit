@@ -1,0 +1,28 @@
+*{
+    Render Markdown
+    - default _arg : the String containing markdown
+    - escapeHtmlAttr : true if embedded in HTML attribute (for twipsy
+}*
+#{if _arg}
+%{
+    try {
+%}
+#{if _escapeHtmlAttr}
+${markdown.Markdown.transformMarkdown(_arg).escapeHtmlAttr().raw()}
+#{/if}
+#{else}
+${markdown.Markdown.transformMarkdown(_arg).raw()}
+#{/else}
+%{
+    }
+    catch (Exception e) {
+%}
+<div class="alert-message block-message error">
+    <p>Ce contenu contient du Markdown invalide. Il est affiché ici sans interprétation Markdown.</p>
+    <p>Merci de corriger ce contenu. Vous pouvez aussi le signaler à l'organisation via le <a href="@{Infos.contact()}" title="">formulaire de contact</a>.</p>
+</div>
+<p>${_arg}</p>
+%{
+    }
+%}
+#{/if}

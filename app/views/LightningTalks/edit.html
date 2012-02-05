@@ -21,7 +21,7 @@
                 #{/}
 
             <fieldset> 
-                <legend>Descriptif</legend>
+                <legend>&{'talk.descriptive.section'}</legend>
 
                 #{field 'talk.title'}
                 <div class="clearfix ${field.error?'error':''}"> 
@@ -93,8 +93,8 @@
                 #{/}
             </fieldset>
             <div class="actions">
-                <input type="submit" class="btn primary large" value="Enregistrer"/>
-                <a href="@{LightningTalks.list()}" class="btn large">Annuler</a>
+                <input type="submit" class="btn primary large" value="&{'button.save'}"/>
+                <a href="@{LightningTalks.list()}" class="btn large">&{'button.cancel'}</a>
             </div>
             #{/form}
         </div>

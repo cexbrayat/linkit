@@ -1,7 +1,9 @@
 package controllers;
 
 import com.google.common.collect.Sets;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import models.*;
 import play.Logger;
@@ -11,6 +13,7 @@ import java.util.Set;
 import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 import play.modules.search.Search;
+import play.templates.JavaExtensions;
 
 public class Application extends PageController {
     
@@ -72,6 +75,8 @@ public class Application extends PageController {
         }
         protected static String wrap(String query) {
             query = StringUtils.trim(query);
+            // Ignore accents
+            query = JavaExtensions.noAccents(query);
             if (isPhraseQuery(query)) {
                 return new StringBuilder()
                     .append('"')
@@ -137,11 +142,16 @@ public class Application extends PageController {
                 .orField(Member.SHORTDESCRIPTION)
                 .orField(Member.LONGDESCRIPTION).toQuery();
         Logger.debug("Search members with query : %s", membersQuery);
-        List<Staff> staff = Search.search(membersQuery, Staff.class).fetch();
-        List<Sponsor> sponsors = Search.search(membersQuery, Sponsor.class).fetch();
-        List<Member> members = Search.search(membersQuery, Member.class).fetch();
-        members.addAll(staff);
-        members.addAll(sponsors);
+        List<Staff> searchStaff = Search.search(membersQuery, Staff.class).fetch();
+        List<Sponsor> searchSponsors = Search.search(membersQuery, Sponsor.class).fetch();
+        List<Member> searchMembers = Search.search(membersQuery, Member.class).fetch();
+        // Building unordered (unique) set of members
+        Set<Member> uniqueMembers = new HashSet<Member>(searchStaff.size()+searchSponsors.size()+searchMembers.size());
+        uniqueMembers.addAll(searchSponsors);
+        uniqueMembers.addAll(searchStaff);
+        uniqueMembers.addAll(searchMembers);
+        // Building ordered list of unique members
+        List<Member> members = new ArrayList<Member>(uniqueMembers);
         Collections.sort(members);
 
         render("Application/search.html", query, articles, talks, lightningtalks, members);

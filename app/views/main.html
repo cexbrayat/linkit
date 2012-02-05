@@ -24,7 +24,7 @@
           </script> 
         #{get 'moreScripts' /}
         <script type="text/javascript">
-// Pure websockets : ne fonctionne pas sous Chrome 16 avec Play 1.2.4
+*{/ Pure websockets : ne fonctionne pas sous Chrome 16 avec Play 1.2.4
             #{if session.username}
             $(document).ready(function() {
                 if(window.MozWebSocket) window.WebSocket = window.MozWebSocket;
@@ -51,6 +51,7 @@
                 }
             });
             #{/if}
+}*
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', '${play.configuration.getProperty("application.analytics.trackingId")}']);
             _gaq.push(['_trackPageview']);
