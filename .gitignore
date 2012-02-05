@@ -2,7 +2,7 @@ tmp/
 modules/
 precompiled/
 conf/*.bees
-conf/cloudbees%
+conf/cloudbees.conf
 logs/
 test-result/
 nbproject/
