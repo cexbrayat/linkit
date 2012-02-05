@@ -95,6 +95,26 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return Activity.find("provider=? and important=true order by at desc", ProviderType.LinkIt).fetch(page, length);
     }
 
+    public static List<Activity> notifiablesBetween(Date start, Date end) {
+        CriteriaBuilder builder = em().getCriteriaBuilder();
+        CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
+        Root<Activity> activity = cq.from(Activity.class);
+        Predicate provider = builder.equal(activity.get("provider"), ProviderType.LinkIt);
+        Predicate important = builder.isTrue(activity.get("important").as(Boolean.class));
+        Predicate where = builder.and(provider, important);
+        if (start != null) {
+            Predicate after = builder.greaterThanOrEqualTo(activity.get(AT).as(Date.class), start);
+            where = builder.and(where, after);
+        }
+        if (end != null) {
+            Predicate before = builder.lessThan(activity.get(AT).as(Date.class), end);
+            where = builder.and(where, before);
+        }
+        cq.where(where);
+        cq.orderBy(builder.desc(activity.get(AT)));
+        return em().createQuery(cq).getResultList();
+    }
+
     /**
      * Recent dates of Link-IT activity by given member in desc order
      * @param member
@@ -124,7 +144,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         } else {
             cq.where(givenMember);
         }
-        cq.orderBy(builder.desc(activity.get("at")));
+        cq.orderBy(builder.desc(activity.get(AT)));
         return em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
 
     }
@@ -149,8 +169,37 @@ public abstract class Activity extends Model implements Comparable<Activity> {
             } else {
                 cq.where(linkedMembers);
             }
-            cq.orderBy(builder.desc(activity.get("at")));
+            cq.orderBy(builder.desc(activity.get(AT)));
             activities = em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
+        }
+        return activities;
+    }
+
+    /**
+     * Incoming activities for a given member between 2 dates
+     * @param m
+     * @param start may be null
+     * @param end may be null
+     * @return 
+     */
+    public static List<Activity> notifiablesForBetween(Member m, Date start, Date end) {   
+        List<Activity> activities = Collections.emptyList();
+        if (!m.links.isEmpty()) {
+            CriteriaBuilder builder = em().getCriteriaBuilder();
+            CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
+            Root<Activity> activity = cq.from(Activity.class);
+            Predicate where = builder.in(activity.get("member")).value(m.links);
+            if (start != null) {
+                Predicate after = builder.greaterThanOrEqualTo(activity.get(AT).as(Date.class), start);
+                where = builder.and(where, after);
+            }
+            if (end != null) {
+                Predicate before = builder.lessThan(activity.get(AT).as(Date.class), end);
+                where = builder.and(where, before);
+            }
+            cq.where(where);
+            cq.orderBy(builder.desc(activity.get(AT)));
+            activities = em().createQuery(cq).getResultList();
         }
         return activities;
     }

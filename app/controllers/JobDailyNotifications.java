@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import models.GeneralParameter;
 import models.Member;
@@ -27,23 +28,19 @@ public class JobDailyNotifications extends Job {
             Logger.info("BEGIN job daily notification");
             
             // Stores job start time
-            final DateTime begin = new DateTime();
+            final Date begin = new Date();
 
             // Retrieve LastNotification date
-            DateTime lastNotification = getLastNotification();
+            Date lastNotification = getLastNotification();
             
             // Find general Activities to be notified to everyone
-// FIXME CLA
-//          List<Activity> general = Activity.notifiablesBetween(lastNotification, begin);
-            List<Activity> general = Activity.recents(1, 20);
-            
+            List<Activity> general = Activity.notifiablesBetween(lastNotification, begin);
+
             // Find notifiable members
             List<Member> notifiables = Member.findNotified(MEMBERS_OPTION);
             for (Member member : notifiables) {
                 // Find notifiable activities for Member
-// FIXME CLA
-//              List<Activity> activities = Activity.notifiablesForBetween(member, lastNotification, begin);
-                List<Activity> activities = Activity.recentsForMember(member, null, 1, 20);
+                List<Activity> activities = Activity.notifiablesForBetween(member, lastNotification, begin);
                 // Merge activities for member
                 activities.addAll(general);
                 Collections.sort(activities);
@@ -61,12 +58,12 @@ public class JobDailyNotifications extends Job {
         }   
     }
 
-    private DateTime getLastNotification() {
+    private Date getLastNotification() {
         String strLastNotification = GeneralParameter.get(LAST_NOTIFICATION_PARAM_KEY);
-        return (strLastNotification == null) ? null : DateTime.parse(strLastNotification);
+        return (strLastNotification == null) ? null : DateTime.parse(strLastNotification).toDate();
     }
 
-    private void setLastNotification(DateTime value) {
-        GeneralParameter.set(LAST_NOTIFICATION_PARAM_KEY, value.toString());
+    private void setLastNotification(Date value) {
+        GeneralParameter.set(LAST_NOTIFICATION_PARAM_KEY, new DateTime(value).toString());
     }
 }
