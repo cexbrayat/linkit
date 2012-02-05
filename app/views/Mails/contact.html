@@ -1,5 +1,5 @@
 ﻿#{extends 'Mails/mail.html' /}
-#{set title:'Message via Link-IT' /}
+#{set title:'Message via Mix-IT' /}
 
 #{if email.from}
 L'utilisateur <a href="@@{Profile.show(email.from.login)}">${email.from}</a>
@@ -9,5 +9,5 @@ Un utilisateur non connecté
 #{/else}
 vous envoit le message suivant.
 <hr/>
-${email.message.markdown().raw()}
+#{markdown email.message /}
 <hr/>

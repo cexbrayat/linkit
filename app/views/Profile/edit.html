@@ -61,9 +61,13 @@
 
     #{form @Profile.save(member.id, originalLogin)} 
     <div class="row"> 
-        <div class="span2 columns"> 
+        <div class="span3 columns"> 
             <h2>Informations</h2> 
-            <p>Vos coordonnées</p> 
+            <p>Saisissez vos coordonnées</p>
+            <h4>Votre Image:</h4>
+            <p>Les avatars sont gérés par <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a>.
+Nous affichons l'avatar correspondant à l'email que vous nous indiquez.
+Connectez-vous sur le site <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a> pour créer ou modifier votre image.</p>
         </div> 
         <div class="span8 columns"> 
             <fieldset> 
@@ -149,12 +153,12 @@
     </div>
     <hr/>
     <div class="row"> 
-        <div class="span2 columns"> 
+        <div class="span3 columns"> 
             <h2>Réseaux sociaux</h2> 
             <p>Vos comptes sur les différents réseaux sociaux.</p> 
-            <p>Les données publiques des comptes que vous indiquerez seront <strong>automatiquement récupérées et publiquement affichées</strong></p> 
+            <p>Les données publiques des comptes que vous indiquerez seront <strong>automatiquement récupérées</strong> et <strong>publiquement affichées</strong>.</p>
         </div> 
-        <div class="span8 columns">
+        <div class="span7 columns">
             <fieldset>
                 <legend>Vos comptes sociaux</legend>
  
@@ -186,11 +190,11 @@
     </div>
     <hr/>
     <div class="row"> 
-        <div class="span2 columns"> 
+        <div class="span3 columns"> 
             <h2>Vos liens</h2> 
             <p>Des liens que vous voulez faire apparaître sur votre profil et que vous aimeriez partager.</p> 
         </div> 
-        <div class="span14 columns">
+        <div class="span13 columns">
             <fieldset>
                 <legend>Vos liens</legend>
  
@@ -199,7 +203,7 @@
                     <div class="clearfix ${field.error?'error':''}">
                         <div class="input">
                             <div class="inline-inputs">
-                                <input class="span3" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" maxlength="25" value="${member.sharedLinks[i]?.name}" /> 
+                                <input class="span2" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" maxlength="25" value="${member.sharedLinks[i]?.name}" /> 
                                 <input class="span6" id="sharedLinks${i}_URL" name="${field.name}.URL" placeholder="URL du lien" type="text" value="${member.sharedLinks[i]?.URL}" /> 
                                 <a class="ignoredirty" rel='twipsy' title="Déplacer ce lien vers le haut" onclick="moveUpSharedLink(${i})"><img class="action ignoredirty" src="@{'/public/images/icons/moveup.png'}" alt="Déplacer vers le haut" style="vertical-align: bottom"/></a>
                                 <a class="ignoredirty" rel='twipsy' title="Déplacer ce lien vers le bas" onclick="moveDownSharedLink(${i})"><img class="action ignoredirty" src="@{'/public/images/icons/movedown.png'}" alt="Déplacer vers le bas" style="vertical-align: bottom"/></a>
@@ -216,10 +220,10 @@
     </div>
     <hr/>
     <div class="row"> 
-        <div class="span2 columns"> 
+        <div class="span3 columns"> 
             <h2>Inscription</h2> 
         </div>
-        <div class="span10 columns">
+        <div class="span13 columns">
           <fieldset>
                 <legend>Achat du billet</legend>
            <div class="clearfix">
@@ -232,11 +236,11 @@
     </div>
     <hr/>
     <div class="row"> 
-        <div class="span2 columns"> 
+        <div class="span3 columns"> 
             <h2>Centres d'intérêt</h2> 
             <p>Les sujets qui vous intéressent, et que vous souhaitez creuser à Mix-IT et sur ce site.</p> 
         </div> 
-        <div class="span14 columns">
+        <div class="span13 columns">
             <fieldset>
                 <legend>Intérêts</legend>
  

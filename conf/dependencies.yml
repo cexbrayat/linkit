@@ -8,7 +8,7 @@ require:
     - play -> secure
     - play -> crud 1.2.4
     - play -> cobertura 2.4
-    - play -> search 2.0
+    - play -> search head
     - play -> markdown 1.5
     - play -> logisimayml 1.8
     - org.scribe -> scribe 1.2.3

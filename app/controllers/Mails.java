@@ -4,7 +4,6 @@ import java.util.List;
 import models.mailing.Mailing;
 import models.Member;
 import models.Session;
-import models.mailing.MailingStatus;
 import models.mailing.MembersSet;
 import models.mailing.MembersSetQueryFactory;
 import play.Play;
@@ -33,7 +32,7 @@ public class Mails extends Mailer {
     }
     
     public static void mailing(Mailing mailing, Member recipient) {
-        setSubject("Contact utilisateur Link-IT : " + mailing.subject);
+        setSubject("[Mix-IT 2012] - " + mailing.subject);
         setFrom(FROM);
         addRecipient(recipient.email);
         send(mailing);

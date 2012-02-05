@@ -12,7 +12,7 @@
                     ${comment.postedAt.format('dd/MM/yyyy hh:mm:ss')}
                 </div>
                 <div class="span13">
-                    <p>${comment.content.markdown().raw()}</p>
+                    <p>#{markdown comment.content /}</p>
                 </div>
             </div>
         </section>

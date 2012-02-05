@@ -236,7 +236,7 @@ public class MemberTest extends BaseDataUnitTest {
         member.addSharedLink(new SharedLink("Google", "http://www.google.com"));
         member.addSharedLink(new SharedLink("Yahoo", "http://www.yahoo.fr"));
         // Add some activities
-        member.updateProfile();
+        member.updateProfile(true);
         Member other1 = createMember("other1");
         Member other2 = createMember("other2");
         // Add links
