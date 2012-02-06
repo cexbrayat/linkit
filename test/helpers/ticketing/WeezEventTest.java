@@ -70,7 +70,7 @@ public class WeezEventTest extends UnitTest {
         //event id correct
         WeezEvent.setEvent(sessionID);
         List<String> allAttendees = WeezEvent.getAttendees(sessionID);
-        assertTrue(WeezEvent.isRegisteredAttendee("contact@mix-it.fr", allAttendees));
+        assertTrue(WeezEvent.isRegisteredAttendee("agnes.crepet@gmail.com", allAttendees));
     }
 
     @Test
