@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.JavaExtensions;
 import models.*;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
@@ -17,19 +18,29 @@ public class LightningTalks extends PageController {
         render(sessions);
     }
 
-    public static void create() {
+    public static void create() throws Throwable {
+        SecureLinkIt.checkAccess(); // Connected
         LightningTalk talk = new LightningTalk();
         render("LightningTalks/edit.html", talk);
     }
 
-    public static void edit(final Long sessionId) {
+    public static void edit(final Long sessionId) throws Throwable {
         LightningTalk talk = LightningTalk.findById(sessionId);
         notFoundIfNull(talk);
-        
+        checkAccess(talk);
+
         render(talk);
     }
 
-    public static void show(final Long sessionId, boolean noCount) {
+    private static void checkAccess(Session talk) throws Throwable {
+        SecureLinkIt.checkAccess();
+        Member user = Member.findByLogin(Security.connected());
+        if (!(user instanceof Staff || talk.hasSpeaker(user.login))) {
+            unauthorized();
+        }
+    }
+
+    public static void show(final Long sessionId, String slugify, boolean noCount) {
         LightningTalk talk = LightningTalk.findById(sessionId);
         notFoundIfNull(talk);
         // Don't count look when coming from internal redirect
@@ -58,7 +69,7 @@ public class LightningTalks extends PageController {
         talk.update();
         flash.success("LightningTalk " + talk + " enregistré");
         Logger.info("LightningTalk " + talk + " enregistré");
-        show(talk.id, true);
+        show(talk.id, JavaExtensions.slugify(talk.title), true);
     }
 
     public static void postComment(
@@ -76,7 +87,7 @@ public class LightningTalks extends PageController {
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(talkId, true);
+        show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 
     public static void delete(final Long sessionId) {

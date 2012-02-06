@@ -5,9 +5,9 @@
     ${(_arg instanceof models.Talk)?_arg.track:"Lightning Talk"}
 </span>&nbsp;
 #{if _arg instanceof models.Talk}
-<a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg.title}</a>
+<a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg}</a>
 #{/if}
 #{else}
-<a href="@{LightningTalks.show(_arg.id)}" title="${_arg.title}">${_arg.title}</a>
+<a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg}</a>
 #{/else}
 </span>

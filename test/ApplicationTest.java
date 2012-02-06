@@ -24,10 +24,15 @@ public class ApplicationTest extends FunctionalTest {
         assertContentType("text/html", response);
         assertCharset(play.Play.defaultWebEncoding, response);
     }
-
+/*
     @Test
     public void testThatProfilePageWorks() {
+        // Need to be conected...
         assertIsOk(GET("/profile/ced"));
     }
-    
+*/
+    @Test
+    public void testProfileNotConnected() {
+        assertStatus(302, GET("/profile/ced"));
+    }
 }
