@@ -7,10 +7,10 @@
     {
         $('#countdown').countDown({
               targetDate: {
-                  'day': 07,
+                  'day': 20,
                   'month': 2,
                   'year': 2012,
-                  'hour': 12,
+                  'hour': 10,
                   'min': 0,
                   'sec': 0
               }
@@ -20,14 +20,14 @@
 #{/set}
 
 
-<h1>Inscription</h1>
-    <!-- FIXME le 07/02 ouverture billeterie le 07/02!
+<h1>&{'registration.title'}</h1>
+    <!-- FIXME le 20/02 ouverture billeterie le 20/02!
 {if session.username} <p>
 {ticketing member/}</p>
 {/if}
 -->
 
-<h3>Ouverture de la billeterie dans:</h3>
+<h3>&{'registration.ticketing.alert'}</h3>
 <div id="countdown">
     <div class="dash weeks_dash">
     <span class="dash_title">semaines</span>
@@ -67,13 +67,15 @@
 </div>
 
 #{if !session.username}
-    <!-- FIXME le 07/02 ouverture billeterie le 07/02! -->
+    <!-- FIXME le 07/02 ouverture billeterie le 20/02! -->
 <ol>
-    <li><h3><a href="@{Login.index()}">Créer-vous un compte Mix-IT</a></h3></li>
-    <li><h3>Quand la billeterie sera ouverte : payez votre billet via votre Dashboard Mix-IT</h3></li>
+    <li><h3><a href="@{Login.index()}">&{'registration.step1.create.account'}</a></h3>
+        &{'registration.step1.create.account.why'}
+    </li>
+    <li><h3>&{'registration.step2.ticketing.unsigned'}</h3></li>
 </ol>
 #{/if}
 #{else}
-    <h3>Quand la billeterie sera ouverte : n'oubliez pas de vérifier si vous avez payé votre billet</h3>
+    <h3>&{'registration.step2.ticketing.signed'}</h3>
 #{/else}
 
