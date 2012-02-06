@@ -23,7 +23,7 @@
     #{list items:_sessions, as:'talk'}
     <tr>
         <td>
-            <a href="@{LightningTalks.show(talk.id)}">${talk.title}</a>
+            <a href="@{LightningTalks.show(talk.id, talk.title.slugify())}">${talk}</a>
         </td>
         <td>
             #{list items:talk.speakers, as:'speaker'}

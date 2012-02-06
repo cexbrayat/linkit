@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.JavaExtensions;
 import helpers.Lists;
 import play.*;
 
@@ -110,7 +111,7 @@ public class Sessions extends PageController {
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(talkId, null, true);
+        show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 
     public static void captcha(String id) {
@@ -137,7 +138,7 @@ public class Sessions extends PageController {
         talk.update();
         flash.success("Session " + talk + " enregistrée");
         Logger.info("Session " + talk + " enregistrée");
-        show(talk.id, null, true);
+        show(talk.id, JavaExtensions.slugify(talk.title), true);
     }
     
     public static void validate(long talkId) {
@@ -145,7 +146,7 @@ public class Sessions extends PageController {
         notFoundIfNull(talk);
 
         talk.validate();
-        show(talkId, null, true);
+        show(talkId, JavaExtensions.slugify(talk.title), true);
     }
     
     public static void unvalidate(long talkId) {
@@ -153,6 +154,6 @@ public class Sessions extends PageController {
         notFoundIfNull(talk);
 
         talk.unvalidate();
-        show(talkId, null, true);
+        show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 }

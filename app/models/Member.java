@@ -24,10 +24,13 @@ import javax.persistence.*;
 import java.util.*;
 import java.util.List;
 import models.mailing.Mailing;
+import org.apache.commons.lang.WordUtils;
 import play.data.validation.Email;
 import play.data.validation.Valid;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
+
+
 
 /**
  * A LinkIT member.
@@ -61,6 +64,8 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     static final String QUERY_FORPROFILE = "MemberForProfile";
 
     static final String CACHE_ACCOUNT_PREFIX = "account_";
+    
+    static final char[] CHAR_DELIMITER_NAME = {'-',' ','_','.'};
     
     /**
      * Internal login : functional key
@@ -136,7 +141,6 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @OrderColumn(name = "ordernum")
-    @MaxSize(5)
     @Valid
     public List<SharedLink> sharedLinks = new LinkedList<SharedLink>();
 
@@ -246,8 +250,8 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     
     public void addLink(Member linked) {
         if (linked != null) {
-            // Avoid activity duplication
-            if (!links.contains(linked)) {
+            // Avoid activity duplication and auto-linking
+            if (!links.contains(linked) && !equals(linked)) {
                 links.add(linked);
                 linked.linkers.add(this);
 
@@ -295,7 +299,7 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     public Member addInterest(String interest) {
         if (StringUtils.isNotBlank(interest)) {
-            interests.add(Interest.findOrCreateByName(interest));
+            interests.add(Interest.findOrCreateByName(interest.trim()));
         }
         return this;
     }
@@ -495,11 +499,13 @@ public class Member extends Model implements Lookable, Comparable<Member> {
      */
     @Override
     public String toString() {
-        return new StringBuilder()
+        return WordUtils.capitalizeFully(new StringBuilder()
                 .append(firstname)
                 .append(' ')
                 .append(lastname)
-                .toString();
+                .toString()
+                ,CHAR_DELIMITER_NAME);
+        
     }
 
     public boolean hasRole(String profile) {

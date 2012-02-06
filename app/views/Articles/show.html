@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set 'canonical'}@@{Articles.show(article.id)}#{/set}
+#{set 'canonical'}@@{Articles.show(article.id, article.title.slugify())}#{/set}
 #{set title:article.title /}
 <div class="hero-unit member-card">
     <h2 itemprop="name">${article.title}</h2>
@@ -40,10 +40,10 @@
 
 <div class="row">
     <div class="span8">
-        #{if previous}<p><a class="btn" href="@{Articles.show(previous.id)}"><< ${previous.title}</a></p>#{/if}&nbsp;
+        #{if previous}<p><a class="btn" href="@{Articles.show(previous.id, previous.title.slugify())}"><< ${previous}</a></p>#{/if}&nbsp;
     </div>
     <div class="span8" style="text-align: right">
-        #{if following}<p><a class="btn" href="@{Articles.show(following.id)}">${following.title} >></a></p>#{/if}
+        #{if following}<p><a class="btn" href="@{Articles.show(following.id, following.title.slugify())}">${following} >></a></p>#{/if}
     </div>
 </div>
 

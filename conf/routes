@@ -67,6 +67,8 @@ GET     /session/{sessionId}                    Sessions.show
 GET     /lightnings                             LightningTalks.list
 GET     /lightning/new                          LightningTalks.create
 GET     /lightning/delete/{sessionId}           LightningTalks.delete
+GET     /lightning/{sessionId}/{slugify}        LightningTalks.show
+# Just in case we forget the slugified title as parameter
 GET     /lightning/{sessionId}                  LightningTalks.show
 POST    /lightning/vote/{id}/{name}             LightningTalks.vote
 POST    /lightning                              LightningTalks.save
@@ -82,6 +84,8 @@ GET     /article/unvalidate/{articleId}         Articles.unvalidate
 GET     /article/new                            Articles.create
 GET     /article/edit                           Articles.edit
 POST    /article/comment                        Articles.postComment
+GET     /article/{articleId}/{slugify}          Articles.show
+# Just in case we forget the slugified title as parameter
 GET     /article/{articleId}                    Articles.show
 
 # Secure

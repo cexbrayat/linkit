@@ -21,7 +21,7 @@
                 #{/}
 
             <fieldset> 
-                <legend>Descriptif de cette session</legend>
+                <legend>&{'talk.descriptive.section'}</legend>
 
                 #{field 'talk.track'}
                 <div class="clearfix ${field.error?'error':''}"> 
@@ -73,8 +73,6 @@
 
             </fieldset>
             <fieldset>
-                <legend>Les infos</legend>
-
                 #{field 'talk.speakers'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
@@ -123,12 +121,12 @@
                 #{/}
             </fieldset>
             <div class="actions">
-                <input type="submit" class="btn primary large" value="Enregistrer"/>
+                <input type="submit" class="btn primary large" value="&{'button.save'}"/>
                 #{if talk.id}
-                <a href="@{Sessions.show(talk.id)}" class="btn large">Annuler</a>
+                <a href="@{Sessions.show(talk.id, talk.title.slugify())}" class="btn large">&{'button.cancel'}</a>
                 #{/if}
                 #{else}
-                <a href="@{Sessions.index()}" class="btn large">Annuler</a>
+                <a href="@{Sessions.index()}" class="btn large">&{'button.cancel'}</a>
                 #{/else}
             </div>
             #{/form}

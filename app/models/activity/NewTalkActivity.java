@@ -1,5 +1,6 @@
 package models.activity;
 
+import helpers.JavaExtensions;
 import helpers.badge.BadgeComputationContext;
 import java.util.EnumSet;
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ public class NewTalkActivity extends Activity {
         return Router
                 .reverse("Sessions.show")
                 .add("sessionId", session.id)
+                .add("slugify", JavaExtensions.slugify(session.title))
                 .url;
     }
 

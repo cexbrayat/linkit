@@ -335,7 +335,7 @@ Article(article1):
     valid: true
     
 Sponsor(zenika):
-    logoUrl: http://www.zenika.com/templates/zenika/images/logo.gif
+    logoUrl: /public/images/logo-zenika.jpg
     firstname: Zenika
     lastname: Lyon
     login: zenika

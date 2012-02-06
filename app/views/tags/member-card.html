@@ -20,18 +20,8 @@
             </div>
             <div class="span8">
                 <div class="row">
-                    <div class="span7" style="margin-left:0px">
+                    <div class="span8" style="margin-left:0px">
                         <h2><a href="@{Profile.show(_arg.login)}" #{if !session.username}rel='twipsy' data-placement="right" title="Connectez-vous pour consulter son profil complet."#{/if}>${_arg}</a></h2>
-                    </div>
-                    <div class="span1">
-                        #{if session.get("username") != null && !session.get("username").equals(_arg.login)}
-                            #{if !_arg.hasForLinker(session.get("username"))}
-                                <a class="btn primary" href="@{Profile.link(session.get("username"), _arg.login)}">Link</a>
-                            #{/if}
-                            #{else}
-                                <a class="btn primary" href="@{Profile.unlink(session.get("username"), _arg.login)}">Unlink</a>
-                            #{/else}
-                        #{/if}
                     </div>
                 </div>
                 <div class="row">
