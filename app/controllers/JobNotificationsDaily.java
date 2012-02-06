@@ -8,9 +8,9 @@ import play.jobs.On;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @On("0 0 2 * * ?")  // 2H du matin chaque jour
-public class JobDailyNotifications extends BaseJobNotifications {
+public class JobNotificationsDaily extends BaseJobNotifications {
 
-    public JobDailyNotifications() {
+    public JobNotificationsDaily() {
         super(NotificationOption.Daily);
     }
 }

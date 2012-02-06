@@ -46,7 +46,7 @@ public class BaseJobNotifications extends Job {
                 Collections.sort(activities);
                 if (!activities.isEmpty()) {
                     Logger.info("Notifying user %s of %d activities", member, activities.size());
-                    Mails.notification(member, activities);
+                    Mails.notification(member, activities, option);
                 }
             }
             // Set LastNotification parameter

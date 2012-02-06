@@ -7,10 +7,10 @@ import play.jobs.Every;
  * Asynchronous "instant" notifications of new activities (actually, every 5 minutes...)
  * @author Sryl <cyril.lacote@gmail.com>
  */
-@Every("5min")
-public class JobInstantNotifications extends BaseJobNotifications {
+@Every("20s")
+public class JobNotificationsInstant extends BaseJobNotifications {
 
-    public JobInstantNotifications() {
+    public JobNotificationsInstant() {
         super(NotificationOption.Instant);
     }
 }

@@ -11,5 +11,7 @@ public enum NotificationOption {
     /* Instant notifications */
     Instant,
     /** Daily notifications */
-    Daily;
+    Daily,
+    /** Weekly notifications */
+    Weekly;
 }
