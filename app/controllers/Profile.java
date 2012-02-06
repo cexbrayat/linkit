@@ -13,7 +13,9 @@ import play.data.validation.Email;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.i18n.Messages;
+import play.mvc.With;
 
+@With(SecureLinkIt.class)
 public class Profile extends PageController {
 
     public static void edit() {

@@ -1,6 +1,6 @@
 *{ Displays _arg article in a short way }*
 
-<a href="@{Articles.show(_arg.id)}" class="article link"><h3 class="article title">${_arg.title}</h3></a>
+<a href="@{Articles.show(_arg.id, _arg.title.slugify())}" class="article link" title="Consulter l'article"><h3 class="article title">${_arg.title}</h3></a>
 #{if !_arg.valid}<span class="label important">Non publié</span>#{/if}
 <blockquote class="article headline">
     #{markdown _arg.headline /}

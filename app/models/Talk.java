@@ -63,6 +63,7 @@ public class Talk extends Session {
         return Router
                 .reverse("Sessions.show")
                 .add("sessionId", this.id)
+                .add("slugify", this.title)
                 .url;
     }
 }

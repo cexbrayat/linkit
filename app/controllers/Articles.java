@@ -9,6 +9,7 @@ import models.Member;
 import models.Role;
 import play.data.validation.Required;
 import play.data.validation.Validation;
+import play.templates.JavaExtensions;
 
 public class Articles extends PageController {
 
@@ -40,7 +41,7 @@ public class Articles extends PageController {
         render(article);
     }
 
-    public static void show(final Long articleId, boolean noCount) {
+    public static void show(final Long articleId, String slugify, boolean noCount) {
         Article article = Article.findById(articleId);
         notFoundIfNull(article);
 
@@ -68,7 +69,7 @@ public class Articles extends PageController {
         article.addComment(new ArticleComment(author, article, content));
         article.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(articleId, true);
+        show(articleId, JavaExtensions.slugify(article.title), true);
     }
 
     public static void save(Article article) {
@@ -86,7 +87,7 @@ public class Articles extends PageController {
         article.save();
         flash.success("L'article \"%s\" a été enregistré", article);
         Logger.info("L'article \"%s\" a été publié", article);
-        show(article.id, true);
+        show(article.id, JavaExtensions.slugify(article.title), true);
     }
     
     public static void validate(long articleId) {
@@ -95,7 +96,7 @@ public class Articles extends PageController {
 
         article.validate();
         flash.success("L'article \"%s\" a été publié", article);
-        show(article.id, true);
+        show(article.id, JavaExtensions.slugify(article.title), true);
     }
     
     public static void unvalidate(long articleId) {
@@ -104,7 +105,7 @@ public class Articles extends PageController {
 
         article.unvalidate();
         flash.success("L'article \"%s\" a été invalidé", article);
-        show(article.id, true);
+        show(article.id, JavaExtensions.slugify(article.title), true);
     }
     
     public static void delete(long articleId) {

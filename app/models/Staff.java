@@ -23,6 +23,7 @@ public class Staff extends Member {
         ROLES.add(Role.ADMIN_MEMBER);
         ROLES.add(Role.ADMIN_PLANNING);
         ROLES.add(Role.ADMIN_ARTICLE);
+        ROLES.add(Role.ADMIN_INTEREST);
     }
 
     public Staff(String login) {

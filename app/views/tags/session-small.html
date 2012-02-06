@@ -3,7 +3,7 @@
 <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">
 #{/if}
 #{else}
-<a href="@{LightningTalks.show(_arg.id)}" title="${_arg.title}">
+<a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">
 #{/else}
     <h3 class="session title">${_arg.title}</h3>
 </a>

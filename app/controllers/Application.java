@@ -12,9 +12,11 @@ import java.util.List;
 import java.util.Set;
 import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
+import play.db.jpa.Transactional;
 import play.modules.search.Search;
 import play.templates.JavaExtensions;
 
+@Transactional(readOnly = true)
 public class Application extends PageController {
     
     public static void index() {
