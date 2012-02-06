@@ -1,8 +1,11 @@
 package controllers;
 
 import models.Interest;
-import play.Logger;
+import models.Role;
+import play.mvc.With;
 
+@With(SecureLinkIt.class)
+@Check(Role.ADMIN_INTEREST)
 public class Interests extends PageController {
 
     public static void edit() {

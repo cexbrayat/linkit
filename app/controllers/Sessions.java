@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.JavaExtensions;
 import helpers.Lists;
 import play.*;
 
@@ -8,6 +9,7 @@ import models.SessionComment;
 import models.Member;
 import models.Role;
 import models.Session;
+import models.Staff;
 import models.Talk;
 import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
@@ -32,7 +34,9 @@ public class Sessions extends PageController {
         render("Sessions/list.html", sessions);
     }
 
-    public static void create(final String speakerLogin) {
+    public static void create(final String speakerLogin) throws Throwable {
+        SecureLinkIt.checkAccess(); // Connected
+        
         Member speaker = Member.findByLogin(speakerLogin);
         Talk talk = new Talk();
         if (speaker != null) {
@@ -42,9 +46,18 @@ public class Sessions extends PageController {
         render("Sessions/edit.html", talk, speakers);
     }
 
-    public static void edit(final Long sessionId) {
+    private static void checkAccess(Session talk) throws Throwable {
+        SecureLinkIt.checkAccess();
+        Member user = Member.findByLogin(Security.connected());
+        if (!(user instanceof Staff || talk.hasSpeaker(user.login))) {
+            unauthorized();
+        }
+    }
+
+    public static void edit(final Long sessionId) throws Throwable {
         Session talk = Session.findById(sessionId);
         notFoundIfNull(talk);
+        checkAccess(talk);
 
         Member member = Member.findByLogin(Security.connected());
         List<Member> speakers = speakersFor(talk, member);
@@ -99,7 +112,7 @@ public class Sessions extends PageController {
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(talkId, null, true);
+        show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 
     public static void captcha(String id) {
@@ -126,7 +139,7 @@ public class Sessions extends PageController {
         talk.update();
         flash.success("Session " + talk + " enregistrée");
         Logger.info("Session " + talk + " enregistrée");
-        show(talk.id, null, true);
+        show(talk.id, JavaExtensions.slugify(talk.title), true);
     }
     
     public static void validate(long talkId) {
@@ -134,7 +147,7 @@ public class Sessions extends PageController {
         notFoundIfNull(talk);
 
         talk.validate();
-        show(talkId, null, true);
+        show(talkId, JavaExtensions.slugify(talk.title), true);
     }
     
     public static void unvalidate(long talkId) {
@@ -142,6 +155,6 @@ public class Sessions extends PageController {
         notFoundIfNull(talk);
 
         talk.unvalidate();
-        show(talkId, null, true);
+        show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 }
