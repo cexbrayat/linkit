@@ -21,12 +21,7 @@
             <div class="span12">
                 <div class="row">
                     <div class="span12" style="margin-left:0px">
-                    #{if session.username}
-                        <h2><a href="@{Profile.show(_arg.login)}">${_arg}</a></h2>
-                    #{/if}
-                    #{else}
-                        <h2><a href="@{Login.index()}" rel='twipsy' data-placement="right" title="Connectez-vous pour consulter son profil complet.">${_arg}</a></h2>
-                    #{/else}
+                        <h2><a href="@{Profile.show(_arg.login)}" #{if !session.username}rel='twipsy' data-placement="right" title="Connectez-vous pour consulter son profil complet."#{/if}>${_arg}</a></h2>
                     </div>
                 </div>
                 <div class="row">
