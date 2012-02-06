@@ -4,12 +4,14 @@ import models.*;
 import play.Logger;
 
 import play.mvc.Controller;
+import play.mvc.With;
 
+@With(SecureLinkIt.class)
 public class Votes extends Controller {
 
-    public static long vote(Long talkId, String username, Boolean value) {
+    public static long vote(Long talkId, Boolean value) {
         LightningTalk talk = LightningTalk.findById(talkId);
-        Member member = Member.findByLogin(username);
+        Member member = Member.findByLogin(Security.connected());
         Logger.info("Vote value: " + value);
         if (member != null && talk != null) {
             Vote vote = Vote.findVote(talk, member);

@@ -8,7 +8,7 @@
 <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}"><h2>${_arg.title}</h2></a>
 #{/if}
 #{else}
-<a href="@{LightningTalks.show(_arg.id)}" title="${_arg.title}"><h2>${_arg.title}</h2></a>
+<a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}"><h2>${_arg.title}</h2></a>
 #{/else}
 <p style="font-size: 18px">${_arg.summary}</p>
 </span>

@@ -70,6 +70,23 @@ public class MemberTest extends BaseDataUnitTest {
         Member.addLink("bob", "ced");
         assertEquals(originalLinksNb+1, bob.links.size());
     }
+    
+    @Test
+    public void addLinkAlreadyLinked() {
+        Member bob = Member.findByLogin("bob");
+        Member.addLink("bob", "ced");
+        final int linksNb = bob.links.size();
+        Member.addLink("bob", "ced");
+        assertEquals(linksNb, bob.links.size());
+    }
+    
+    @Test
+    public void addLinkMyself() {
+        Member bob = Member.findByLogin("bob");
+        final int linksNb = bob.links.size();
+        Member.addLink("bob", "bob");
+        assertEquals(linksNb, bob.links.size());
+    }
 
     @Test
     public void isLinkedTo() {
