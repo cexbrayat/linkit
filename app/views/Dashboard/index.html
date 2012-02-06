@@ -53,7 +53,7 @@
                     <h5>Mes lightning talks :</h5>
                     <ul>
                     #{list items:member.getLightningTalks(), as:'lt'}
-                        <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a> : ${lt.getNumberOfVotes()} vote${lt.getNumberOfVotes().pluralize()}</li>
+                        <li><a href="@{LightningTalks.show(lt.id, lt.title.slugify())}">${lt}</a> : ${lt.getNumberOfVotes()} vote${lt.getNumberOfVotes().pluralize()}</li>
                     #{/list}
                     </ul>
                 #{/if}
@@ -71,10 +71,10 @@
                     #{list items:comments, as:'comment'}
                         <li>${comment.postedAt.since()},
                             #{if comment instanceof models.SessionComment}
-                                sur la session #{session comment.session /}
+                                sur la session "#{session comment.session /}"
                             #{/if}
                             #{if comment instanceof models.ArticleComment}
-                                sur l'<a href="@{Articles.show(comment.article.id)}#comment${comment.id}">article ${comment.article.title}</a>
+                                sur l'<a href="@{Articles.show(comment.article.id, comment.article.title.slugify())}#comment${comment.id}">article "${comment.article}"</a>
                             #{/if}
                         </li>
                     #{/list}

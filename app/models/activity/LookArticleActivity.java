@@ -1,5 +1,6 @@
 package models.activity;
 
+import helpers.JavaExtensions;
 import javax.persistence.Entity;
 import models.Article;
 import models.Member;
@@ -22,6 +23,7 @@ public class LookArticleActivity extends LookActivity {
         return Router
                 .reverse("Articles.show")
                 .add("articleId", article.id)
+                .add("slugify", JavaExtensions.slugify(article.title))
                 .url;
     }
 }

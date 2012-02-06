@@ -1,6 +1,6 @@
-function vote(id, name) {
+function vote(id) {
     var value = $("#vote-" + id).html() === '-1';
-    $.get(voteAction({talk:id, member:name, value:value}), function (data) {
+    $.get(voteAction({talk:id, value:value}), function (data) {
         if (data == -1) {
             alert("Erreur pendant le vote");
         }
