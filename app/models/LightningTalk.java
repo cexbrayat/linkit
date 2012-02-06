@@ -1,5 +1,6 @@
 package models;
 
+import helpers.JavaExtensions;
 import play.Logger;
 
 import javax.persistence.*;
@@ -49,6 +50,7 @@ public class LightningTalk extends Session {
         return Router
                 .reverse("LightningTalks.show")
                 .add("sessionId", this.id)
+                .add("slugify", JavaExtensions.slugify(this.title))
                 .url;
     }
 }

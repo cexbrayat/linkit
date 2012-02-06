@@ -1,6 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Lightning Talk ' + talk.title /}
-#{set 'canonical'}@@{LightningTalks.show(talk.id)}#{/set}
+#{set 'canonical'}@@{LightningTalks.show(talk.id, talk.title.slugify())}#{/set}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/vote.js'}"></script>
 <script>

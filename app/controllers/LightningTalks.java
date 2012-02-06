@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.JavaExtensions;
 import models.*;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
@@ -39,7 +40,7 @@ public class LightningTalks extends PageController {
         }
     }
 
-    public static void show(final Long sessionId, boolean noCount) {
+    public static void show(final Long sessionId, String slugify, boolean noCount) {
         LightningTalk talk = LightningTalk.findById(sessionId);
         notFoundIfNull(talk);
         // Don't count look when coming from internal redirect
@@ -68,7 +69,7 @@ public class LightningTalks extends PageController {
         talk.update();
         flash.success("LightningTalk " + talk + " enregistré");
         Logger.info("LightningTalk " + talk + " enregistré");
-        show(talk.id, true);
+        show(talk.id, JavaExtensions.slugify(talk.title), true);
     }
 
     public static void postComment(
@@ -86,7 +87,7 @@ public class LightningTalks extends PageController {
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(talkId, true);
+        show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 
     public static void delete(final Long sessionId) {
