@@ -9,7 +9,7 @@ import play.mvc.Controller;
  */
 public class SecureLinkIt extends Controller {
 
-    @Before(unless={"register", "loginWith", "loginLinkIt", "signup"})
+    @Before(unless={"Profile.register", "Profile.save", "loginWith", "loginLinkIt", "signup"})
     static void checkAccess() throws Throwable {
         // Authent
         if(!session.contains("username")) {
