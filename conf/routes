@@ -28,6 +28,7 @@ GET     /members                                Application.members
 GET     /interest/{interest}                    Application.searchByInterest
 # I fucking don't know why this route is not used!
 GET     /search/{query}                         Application.search 
+GET     /search                                 Application.search 
 
 # Activities    
 GET     /activities                             Activities.general
