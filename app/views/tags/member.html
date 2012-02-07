@@ -10,7 +10,8 @@
 #{if !_static}
 <a id="#{if _elementId}${_elementId}#{/if}#{else}member${_arg.login}#{/else}" href="@{Profile.show(_arg.login)}" rel='twipsy' data-placement='right' title='#{if _short}<strong>${_arg}</strong><br/>#{/if}#{markdown _arg.shortDescription, escapeHtmlAttr:true /}#{if !session.username}<strong>Connectez-vous pour consulter son profil complet.</strong>#{/if}' data-html="true">
 #{/if}
-#{if _arg.email}#{gravatar.img _arg.email, size:20, default:'mm', rating:'pg', secure:false/}#{/if}
+#{if _arg instanceof models.Sponsor}<img src="${_arg.logoUrl}" style="max-width: 20px; max-height: 20px" alt="Logo ${_arg}" />#{/if}
+#{else}#{if _arg.email}#{gravatar.img _arg.email, size:20, default:'mm', rating:'pg', secure:false/}#{/if}#{/else}
 #{if !_short} ${_arg}#{/if}
 #{if !_static}
 </a>

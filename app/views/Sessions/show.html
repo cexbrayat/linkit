@@ -81,7 +81,9 @@
                 #{if talk.comments}
                     &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
                 #{/if}
-                &mdash; #{socialbar/}
+                #{if talk.valid}
+                    &mdash; #{socialbar/}
+                #{/if}
             </div>
         </div>
     </div>

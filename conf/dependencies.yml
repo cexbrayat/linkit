@@ -9,7 +9,7 @@ require:
     - play -> crud 1.2.4
     - play -> cobertura 2.4
     - play -> search head
-    - play -> markdown 1.5
+    - play -> markdown 1.6
     - play -> logisimayml 1.8
     - org.scribe -> scribe 1.2.3
     - com.google.guava -> guava 10.0.1
