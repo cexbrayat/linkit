@@ -120,6 +120,8 @@ public class Application extends PageController {
     // CLA 10/12/2011 : is this controller method is named find(), main.html template doesn't work...
     public static void search(String query) {
 
+        if (StringUtils.isBlank(query)) Application.index();
+        
         final String articlesQuery = new LuceneQueryBuilder(query)
                 .orField(Article.TITLE)
                 .orField(Article.HEADLINE)
@@ -156,6 +158,6 @@ public class Application extends PageController {
         List<Member> members = new ArrayList<Member>(uniqueMembers);
         Collections.sort(members);
 
-        render("Application/search.html", query, articles, talks, lightningtalks, members);
+        render(query, articles, talks, lightningtalks, members);
     }
 }

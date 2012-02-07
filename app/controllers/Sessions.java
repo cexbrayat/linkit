@@ -29,6 +29,7 @@ public class Sessions extends PageController {
         } else {
             sessions = Talk.findAllValidated();
         }
+        Collections.shuffle(sessions);
         Logger.info(sessions.size() + " sessions");
         render("Sessions/list.html", sessions);
     }
