@@ -15,9 +15,14 @@
 <div class="hero-unit">
     <div class="row">
         <div class="span2 offset1">
-            #{if member.email}
-            #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
+            #{if member instanceof models.Sponsor}
+                <img src="${member.logoUrl}" style="max-width: 120px; max-height: 120px" alt="Logo ${_arg}" />
             #{/if}
+            #{else}
+                #{if member.email}
+                #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
+                #{/if}
+            #{/else}
             ${member.getNbLooks()} consultation${member.getNbLooks().pluralize()}
             #{if session.get("username") != null && !session.get("username").equals(member.login)}
                 #{if !member.hasForLinker(session.get("username"))}
