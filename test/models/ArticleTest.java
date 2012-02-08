@@ -13,7 +13,7 @@ public class ArticleTest extends BaseDataUnitTest {
     @Test
     public void saveWithBigContent() {
         final Member author = Member.all().first();
-        Article article = new Article(author);
+        Article article = createArticle("test", author);
         String content = StringUtils.leftPad("testwith4000char", 4000+3000, "a");
         article.content = content;
         assertTrue(article.content.length()>4000);
@@ -62,12 +62,15 @@ public class ArticleTest extends BaseDataUnitTest {
         assertEquals(nbLooks+2, article.getNbLooks());
     }
     
+    private Article createArticle(String title, Member author) {
+        return new Article(author, title).save();
+    }
+    
     @Test public void validate() {
         final long nbPublicArticles = Article.count("valid=true");
         
         final Member author = Member.all().first();
-        Article a = new Article(author);
-        a.save();
+        Article a = createArticle("test", author);
         assertEquals(nbPublicArticles, Article.count("valid=true"));
         final Date initialDate = a.postedAt;
         
@@ -79,7 +82,7 @@ public class ArticleTest extends BaseDataUnitTest {
     @Test public void unvalidate() {
         
         final Member author = Member.all().first();
-        Article a = new Article(author);
+        Article a = createArticle("test", author);
         a.validate();
 
         final long nbPublicArticles = Article.count("valid=true");
@@ -91,7 +94,7 @@ public class ArticleTest extends BaseDataUnitTest {
     @Test public void delete() {
         
         final Member author = Member.all().first();
-        Article a = new Article(author);
+        Article a = createArticle("test", author);
         a.validate();
         a.addComment(new ArticleComment(author, a, "commentaire"));
         a.addComment(new ArticleComment(author, a, "autre commentaire"));

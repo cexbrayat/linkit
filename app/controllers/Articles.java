@@ -30,7 +30,7 @@ public class Articles extends PageController {
 
     public static void create() {
         Member author = Member.findByLogin(Security.connected());
-        Article article = new Article(author);
+        Article article = new Article();
         render("Articles/edit.html", article);
     }
 
@@ -75,7 +75,10 @@ public class Articles extends PageController {
     public static void save(Article article) {
         Logger.info("Tentative d'enregistrement d'article " + article);
 
-        article.author = Member.findByLogin(Security.connected());
+        // Don't change author if already set
+        if (article.author == null) {
+            article.author = Member.findByLogin(Security.connected());
+        }
         article.postedAt = new Date();
 
         validation.valid(article);

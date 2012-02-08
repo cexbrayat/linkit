@@ -25,6 +25,7 @@ import java.util.*;
 import java.util.List;
 import models.mailing.Mailing;
 import org.apache.commons.lang.WordUtils;
+import play.Play;
 import play.data.validation.Email;
 import play.data.validation.Valid;
 import play.modules.search.Field;
@@ -66,6 +67,8 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     static final String CACHE_ACCOUNT_PREFIX = "account_";
     
     static final char[] CHAR_DELIMITER_NAME = {'-',' ','_','.'};
+    
+    static final int JOBS_DELAY_AFTER_UPDATE = Integer.valueOf(Play.configuration.getProperty("linkit.job.delayAfterMemberUpdate", "2"));
     
     /**
      * Internal login : functional key
@@ -411,8 +414,8 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         save();
         account.save();
         new SignUpActivity(this).save();
-        new JobFetchUserTimeline(this).now();
-        new JobMajUserRegisteredTicketing(this.id).now();
+        new JobFetchUserTimeline(this).in(JOBS_DELAY_AFTER_UPDATE);
+        new JobMajUserRegisteredTicketing(this.id).in(JOBS_DELAY_AFTER_UPDATE);
         return this;
     }
 
@@ -438,8 +441,8 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         if (activity) {
             new UpdateProfileActivity(this).save();
         }
-        new JobFetchUserTimeline(this).now();
-        new JobMajUserRegisteredTicketing(this.id).now();
+        new JobFetchUserTimeline(this).in(JOBS_DELAY_AFTER_UPDATE);
+        new JobMajUserRegisteredTicketing(this.id).in(JOBS_DELAY_AFTER_UPDATE);
         return this;
     }
 
