@@ -70,16 +70,44 @@
         #{/if}
     </div>
 </div>
-#{if activities}
+
 <div class="row">
     <div class="span16">
         <h4>Activité récente</h4>
-        <div id="activities">
-            #{activities activities:activities /}
-        </div>
+        <p id="activities" style="min-height: 0px"></p>
+        <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>  
+        <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
+        
+<script type="text/javascript">
+    var page = 1;
+    var size = 5;
+    var activitiesAction = #{jsAction @Activities.session(':sessionId', ':page',':size') /};
+    var spinner = $('#activitiesSpinner');
+    var btnMoreActivities = $('#moreActivities');
+   
+    function loadMoreActivities(autoscroll) {
+        btnMoreActivities.addClass('disabled');
+        spinner.css("visibility", "visible");
+        $.get(activitiesAction({sessionId: ${talk.id}, page: page, size: size}), function(data) {
+            $('#activities').append(data);
+            if (data) {
+                page++;
+            } else {
+                btnMoreActivities.css('visibility','hidden');
+            }
+            spinner.css("visibility", "hidden");
+            btnMoreActivities.removeClass('disabled');
+            if (autoscroll) {
+                $("#activities").animate({ scrollTop: $("#activities").attr("scrollHeight") - $('#activities').height() }, 1000);
+            }
+        });
+    }
+    
+    // Initial loading : first page
+    loadMoreActivities(false);
+</script>
     </div>
 </div>
-#{/if}
 
 #{comments talk.comments /}
 
