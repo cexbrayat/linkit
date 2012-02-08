@@ -120,11 +120,11 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         Root<Activity> activity = cq.from(Activity.class);
         Predicate givenMember = builder.equal(activity.get("member"), m);
         Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
-//        Predicate important = builder.isTrue(activity.get("important").as(Boolean.class));
+        Predicate important = builder.equal(activity.get("important"), Boolean.TRUE);
         if (providers != null && !providers.isEmpty()) {
-            cq.where(givenMember, chosenProviders);
+            cq.where(givenMember, chosenProviders, important);
         } else {
-            cq.where(givenMember);
+            cq.where(givenMember, important);
         }
         cq.orderBy(builder.desc(activity.get("at")));
         return em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
@@ -146,12 +146,11 @@ public abstract class Activity extends Model implements Comparable<Activity> {
             Root<Activity> activity = cq.from(Activity.class);
             Predicate linkedMembers = builder.in(activity.get("member")).value(m.links);
             Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
-// FIXME CLA
-//            Predicate important = builder.isTrue(activity.get("important").as(Boolean.class));
+            Predicate important = builder.equal(activity.get("important"), Boolean.TRUE);
             if (providers != null && !providers.isEmpty()) {
-                cq.where(linkedMembers, chosenProviders);
+                cq.where(linkedMembers, chosenProviders, important);
             } else {
-                cq.where(linkedMembers);
+                cq.where(linkedMembers, important);
             }
             cq.orderBy(builder.desc(activity.get("at")));
             activities = em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
