@@ -8,15 +8,11 @@ import org.junit.*;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class NewTalkActivityTest extends AbstractActivityTest {
-
-    private Talk createTalk() {
-        return new Talk().save();
-    }
     
     @Test
     public void validateSession() {
         
-        Talk t = createTalk();
+        Talk t = createTalk("test");
         
         // No activity for the talk
         assertEquals(0, Activity.count("session = ?", t));

@@ -33,6 +33,8 @@ GET     /search                                 Application.search
 # Activities    
 GET     /activities                             Activities.general
 GET     /activities/incoming/{providers}        Activities.for
+GET     /activities/article/{articleId}         Activities.article
+GET     /activities/session/{sessionId}         Activities.session
 GET     /activities/{login}/{providers}         Activities.of
 
 # Profile

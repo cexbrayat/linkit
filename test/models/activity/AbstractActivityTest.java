@@ -1,7 +1,10 @@
 package models.activity;
 
+import models.Article;
 import models.BaseDataUnitTest;
+import models.LightningTalk;
 import models.Member;
+import models.Talk;
 
 /**
  * Abstract class for units tests of {@link Activity} and derived classes.
@@ -14,6 +17,22 @@ public abstract class AbstractActivityTest extends BaseDataUnitTest {
 
     protected Member createMember(final String login) {
         return new Member(login).save();
+    }
+    
+    protected Article createArticle(String title) {
+        return new Article(member, title).save();
+    }
+
+    protected Talk createTalk(String title) {
+        Talk t = new Talk();
+        t.title = title;
+        return t.save();
+    }
+
+    protected LightningTalk createLightningTalk(String title) {
+        LightningTalk lt = new LightningTalk();
+        lt.title = title;
+        return lt.save();
     }
 
     @Override

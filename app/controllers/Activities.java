@@ -2,8 +2,10 @@ package controllers;
 
 import java.util.List;
 import java.util.Set;
+import models.Article;
 import models.Member;
 import models.ProviderType;
+import models.Session;
 import models.activity.Activity;
 import play.data.binding.As;
 import play.db.jpa.Transactional;
@@ -37,6 +39,18 @@ public class Activities extends Controller {
     public static void incoming(@As(PROVIDERS_SEP) Set<ProviderType> providers, Integer page, Integer size) {
         Member member = Member.findByLogin(Security.connected());
         List<Activity> _activities = Activity.recentsForMember(member, providers, page, size);
+        render("tags/activities.html", _activities);
+    }
+
+    public static void session(long sessionId, Integer page, Integer size) {
+        Session talk = Session.findById(sessionId);
+        List<Activity> _activities = Activity.recentsBySession(talk, page, size);
+        render("tags/activities.html", _activities);
+    }
+
+    public static void article(long articleId, Integer page, Integer size) {
+        Article article = Article.findById(articleId);
+        List<Activity> _activities = Activity.recentsByArticle(article, page, size);
         render("tags/activities.html", _activities);
     }
 }

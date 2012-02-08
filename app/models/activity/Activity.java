@@ -119,10 +119,11 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         Root<Activity> activity = cq.from(Activity.class);
         Predicate givenMember = builder.equal(activity.get("member"), m);
         Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
+        Predicate important = builder.isTrue(activity.get("important").as(Boolean.class));
         if (providers != null && !providers.isEmpty()) {
-            cq.where(givenMember, chosenProviders);
+            cq.where(givenMember, chosenProviders, important);
         } else {
-            cq.where(givenMember);
+            cq.where(givenMember, important);
         }
         cq.orderBy(builder.desc(activity.get("at")));
         return em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
@@ -144,10 +145,11 @@ public abstract class Activity extends Model implements Comparable<Activity> {
             Root<Activity> activity = cq.from(Activity.class);
             Predicate linkedMembers = builder.in(activity.get("member")).value(m.links);
             Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
+            Predicate important = builder.isTrue(activity.get("important").as(Boolean.class));
             if (providers != null && !providers.isEmpty()) {
-                cq.where(linkedMembers, chosenProviders);
+                cq.where(linkedMembers, chosenProviders, important);
             } else {
-                cq.where(linkedMembers);
+                cq.where(linkedMembers, important);
             }
             cq.orderBy(builder.desc(activity.get("at")));
             activities = em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
@@ -227,10 +229,6 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return delete("delete Activity a where a.session = ?", session);
     }
 
-    final protected String getMessageKey() {
-        return getClass().getSimpleName() + ".message";
-    }
-
     /**
      * @return URL to be linked on this activity.
      */
@@ -252,7 +250,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
 
         computedBadgesForConcernedMembers(context);
 
-        // Flagging current activity as computed (whatever if we earned badges or not)
+        // Flagging current activity as computed (whenever we earned badges or not)
         this.badgeComputationDone = true;
         save();
     }
