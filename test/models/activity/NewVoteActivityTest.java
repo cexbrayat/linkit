@@ -9,15 +9,11 @@ import org.junit.*;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class NewVoteActivityTest extends AbstractActivityTest {
-
-    private LightningTalk createLT() {
-        return new LightningTalk().save();
-    }
     
     @Test
     public void vote() {
         
-        LightningTalk lt = createLT();
+        LightningTalk lt = createLightningTalk("test");
         
         // No activity for the talk
         assertEquals(0, Activity.count("session = ?", lt));

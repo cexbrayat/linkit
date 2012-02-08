@@ -13,8 +13,9 @@ public class LightningTalkTest extends BaseDataUnitTest {
         return new Member(login).save();
     }
 
-    private LightningTalk createLT(Member... speakers) {
+    private LightningTalk createLT(String title, Member... speakers) {
         LightningTalk lt = new LightningTalk();
+        lt.title = title;
         for (Member s : speakers) {
             lt.addSpeaker(s);
         }
@@ -22,7 +23,7 @@ public class LightningTalkTest extends BaseDataUnitTest {
     }
     
     @Test public void getNumberOfVotes() {
-        final LightningTalk lt = createLT();
+        final LightningTalk lt = createLT("test");
         assertEquals(0, lt.getNumberOfVotes());
         
         // 2 Votes
@@ -34,7 +35,7 @@ public class LightningTalkTest extends BaseDataUnitTest {
     }
     
     @Test public void hasVoteFrom() {
-        final LightningTalk lt = createLT();
+        final LightningTalk lt = createLT("test");
         final Member m = createMember("toto");
         assertFalse(lt.hasVoteFrom(m.login));
         
@@ -45,14 +46,14 @@ public class LightningTalkTest extends BaseDataUnitTest {
     }
     
     @Test public void getShowUrl() {
-        final LightningTalk t = createLT();
+        final LightningTalk t = createLT("test");
         assertNotNull(t.getShowUrl());
     }
         
     @Test public void delete() {
         Member speaker1 = createMember("speaker1");
         Member speaker2 = createMember("speaker2");
-        LightningTalk lt = createLT(speaker1, speaker2);
+        LightningTalk lt = createLT("test", speaker1, speaker2);
         // Some comments
         Member member1 = createMember("member1");
         Member member2 = createMember("member2");
