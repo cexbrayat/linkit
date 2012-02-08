@@ -1,6 +1,5 @@
 package models.activity;
 
-import controllers.LiveActivities;
 import helpers.badge.BadgeComputationContext;
 import models.Article;
 import models.Member;
@@ -48,6 +47,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     static final String MEMBER_FK = "member_id";
     static final String PROVIDER = "provider";
     static final String AT = "at";
+    static final String IMPORTANT = "important";
     static final String QUERY_ORDEREDMEMBERS = "ActivityOrderedMembers";
 
     @Required
@@ -77,6 +77,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     public Date at;
     
     /** True if activity is important, and should be displayed in general feed */
+    @Column(name = IMPORTANT)
     public boolean important = true;
     
     /** True if badge computation has been done for this activity (or if it is pointless). */
@@ -119,11 +120,11 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         Root<Activity> activity = cq.from(Activity.class);
         Predicate givenMember = builder.equal(activity.get("member"), m);
         Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
-        Predicate important = builder.isTrue(activity.get("important").as(Boolean.class));
+//        Predicate important = builder.isTrue(activity.get("important").as(Boolean.class));
         if (providers != null && !providers.isEmpty()) {
-            cq.where(givenMember, chosenProviders, important);
+            cq.where(givenMember, chosenProviders);
         } else {
-            cq.where(givenMember, important);
+            cq.where(givenMember);
         }
         cq.orderBy(builder.desc(activity.get("at")));
         return em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
@@ -145,11 +146,12 @@ public abstract class Activity extends Model implements Comparable<Activity> {
             Root<Activity> activity = cq.from(Activity.class);
             Predicate linkedMembers = builder.in(activity.get("member")).value(m.links);
             Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
-            Predicate important = builder.isTrue(activity.get("important").as(Boolean.class));
+// FIXME CLA
+//            Predicate important = builder.isTrue(activity.get("important").as(Boolean.class));
             if (providers != null && !providers.isEmpty()) {
-                cq.where(linkedMembers, chosenProviders, important);
+                cq.where(linkedMembers, chosenProviders);
             } else {
-                cq.where(linkedMembers, important);
+                cq.where(linkedMembers);
             }
             cq.orderBy(builder.desc(activity.get("at")));
             activities = em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
