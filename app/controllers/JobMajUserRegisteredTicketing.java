@@ -21,7 +21,11 @@ public class JobMajUserRegisteredTicketing extends Job {
     public void doJob() {
         Logger.info("BEGIN JOB JobMajUserRegisteredTicketing for member with id %d", idMember);
         Member member = Member.findById(idMember);
-        WeezEvent.updateRegisteredAttendee(member);
+        if (member != null) {
+            WeezEvent.updateRegisteredAttendee(member);
+        } else {
+            Logger.error("JOB JobMajUserRegisteredTicketing, member id %d not found", idMember);
+        }
         Logger.info("END JOB JobMajUserRegisteredTicketing for member %d", idMember);
 
     }
