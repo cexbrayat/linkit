@@ -15,11 +15,11 @@ import javax.persistence.TemporalType;
 import models.activity.Activity;
 import models.activity.CommentArticleActivity;
 import models.activity.LookArticleActivity;
+import models.activity.NewArticleActivity;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
-import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
@@ -81,9 +81,14 @@ public class Article extends Model implements Lookable {
     /** Number of consultation */
     public long nbConsults;
 
-    public Article(Member author) {
-        this.author = author;
+    public Article() {
         this.postedAt = new Date();
+    }
+
+    public Article(Member author, String title) {
+        this();
+        this.author = author;
+        this.title = title;
     }
 
     public static List<Article> recents(int page, int length) {
@@ -125,10 +130,12 @@ public class Article extends Model implements Lookable {
         this.valid = true;
         this.postedAt = new Date();
         this.save();
+        new NewArticleActivity(this).save();
     }
     
     public void unvalidate() {
         this.valid = false;
+        Activity.deleteForArticle(this);
         this.save();
     }
     

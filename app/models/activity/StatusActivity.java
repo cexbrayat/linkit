@@ -20,7 +20,6 @@ import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import play.Logger;
 import play.Play;
-import play.i18n.Messages;
 import play.mvc.Scope;
 import play.templates.TemplateLoader;
 
@@ -59,39 +58,43 @@ public class StatusActivity extends Activity {
     static public void fetchForAccount(Long accountId) {
 
         Account account = Account.findById(accountId);
+        if (account != null) {
 
-        // FIXME CLA simple API quota management 
-        boolean fetch = true;
-        if (account.lastFetched != null) {
-            DateTime lastFetch = new DateTime(account.lastFetched);
-            int delay = Minutes.minutesBetween(lastFetch, new DateTime()).getMinutes();
-            if (delay < FETCH_PERIOD) {
-                fetch = false;
-                Logger.info("Fetch timeline for %s on %s : already done %d minutes ago (< %d configured period)", account.member, account.provider, delay, FETCH_PERIOD);
-            }
-        }
-        if (fetch) {
-            Logger.info("Fetch timeline for %s on %s", account.member, account.provider);
-            List<StatusActivity> statuses = account.fetchActivities();
-            if (!statuses.isEmpty()) {
-                // Memorizing most recent id
-                Collections.sort(statuses);
-                account.lastStatusId = statuses.get(0).statusId;
-                account.save();
-
-                account.enhance(statuses);
-            }
-
-            for (StatusActivity status : statuses) {
-                boolean add = true;
-                // Google hack : workaround for lack of "since" parameter in API, returning already fetched statuses.
-                if (ProviderType.Google == account.provider) {
-                    // We add this status only if we don't have it already in DB
-                    long count = StatusActivity.count("provider = ? and statusId = ? ", account.provider, status.statusId);
-                    add = (count <= 0l);
+            // FIXME CLA simple API quota management 
+            boolean fetch = true;
+            if (account.lastFetched != null) {
+                DateTime lastFetch = new DateTime(account.lastFetched);
+                int delay = Minutes.minutesBetween(lastFetch, new DateTime()).getMinutes();
+                if (delay < FETCH_PERIOD) {
+                    fetch = false;
+                    Logger.info("Fetch timeline for %s on %s : already done %d minutes ago (< %d configured period)", account.member, account.provider, delay, FETCH_PERIOD);
                 }
-                if (add) status.save();
             }
+            if (fetch) {
+                Logger.info("Fetch timeline for %s on %s", account.member, account.provider);
+                List<StatusActivity> statuses = account.fetchActivities();
+                if (!statuses.isEmpty()) {
+                    // Memorizing most recent id
+                    Collections.sort(statuses);
+                    account.lastStatusId = statuses.get(0).statusId;
+                    account.save();
+
+                    account.enhance(statuses);
+                }
+
+                for (StatusActivity status : statuses) {
+                    boolean add = true;
+                    // Google hack : workaround for lack of "since" parameter in API, returning already fetched statuses.
+                    if (ProviderType.Google == account.provider) {
+                        // We add this status only if we don't have it already in DB
+                        long count = StatusActivity.count("provider = ? and statusId = ? ", account.provider, status.statusId);
+                        add = (count <= 0l);
+                    }
+                    if (add) status.save();
+                }
+            }
+        } else {
+            Logger.error("StatusActivity.fetchForAccount(), account.id = %d not found", accountId);
         }
     }
     

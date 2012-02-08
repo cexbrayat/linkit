@@ -9,19 +9,11 @@ import org.junit.*;
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class UpdateSessionActivityTest extends AbstractActivityTest {
-
-    private Talk createTalk() {
-        return new Talk().save();
-    }
-
-    private LightningTalk createLightningTalk() {
-        return new LightningTalk().save();
-    }
     
     @Test
     public void updateSessionTalk() {
         
-        Talk t = createTalk();
+        Talk t = createTalk("test");
         
         // No activity for the talk
         assertEquals(0, Activity.count("session = ?", t));
@@ -50,7 +42,7 @@ public class UpdateSessionActivityTest extends AbstractActivityTest {
     @Test
     public void updateSessionLightningTalk() {
         
-        LightningTalk lt = createLightningTalk();
+        LightningTalk lt = createLightningTalk("test");
         
         // No activity for the LT
         assertEquals(0, Activity.count("session = ?", lt));
