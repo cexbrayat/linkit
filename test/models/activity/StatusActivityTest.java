@@ -20,6 +20,7 @@ public class StatusActivityTest extends AbstractActivityTest {
         assertTrue(createActivity("zefzef MixIT azdazdad").isAboutMixIT());
         assertTrue(createActivity("ezefzef mixit azdazdad").isAboutMixIT());
         assertTrue(createActivity("ezefzef http://www.mix-it.fr azdazdad").isAboutMixIT());
+        assertTrue(createActivity("ezefzef #MixIT_Lyon azdazdad").isAboutMixIT());
         assertFalse(createActivity("ezefzefzef mixité ezefzef").isAboutMixIT());
         assertFalse(createActivity("ezefzefzefMixit ezefzef").isAboutMixIT());
         assertFalse(createActivity("ezefzefzef mixitdezefzef").isAboutMixIT());
