@@ -39,7 +39,7 @@ public class StatusActivity extends Activity {
     public String statusId;
 
     /** Pattern for detecting content dealing with Mix-IT */
-    private static final Pattern MIXIT_PATTERN = Pattern.compile(".*\\bmix-?it\\b.*", Pattern.CASE_INSENSITIVE);
+    private static final Pattern MIXIT_PATTERN = Pattern.compile(".*\\bmix-?it(?:_lyon)?\\b.*", Pattern.CASE_INSENSITIVE);
     
     private static final int FETCH_PERIOD = Integer.valueOf(Play.configuration.getProperty("linkit.timeline.fetch.period"));
 
