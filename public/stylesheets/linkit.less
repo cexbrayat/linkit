@@ -173,7 +173,21 @@ h2.inactive {
 }
 
 .btn.track {
-    background-image: none; // No gradiant image moving whith :hover.
+    &.Agility {
+        .gradientBar(lighten(@colorTrackAgility,10%), @colorTrackAgility);
+    }
+    &.Techy {
+        .gradientBar(lighten(@colorTrackTechy,10%), @colorTrackTechy);
+    }
+    &.Trendy {
+        .gradientBar(lighten(@colorTrackTrendy,10%), @colorTrackTrendy);
+    }
+    &.Gamy {
+        .gradientBar(lighten(@colorTrackGamy,10%), @colorTrackGamy);
+    }
+    &.Weby {
+        .gradientBar(lighten(@colorTrackWeby,10%), @colorTrackWeby);
+    }
 }
 
 body {

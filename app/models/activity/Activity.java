@@ -1,6 +1,5 @@
 package models.activity;
 
-import controllers.LiveActivities;
 import helpers.badge.BadgeComputationContext;
 import models.Article;
 import models.Member;
@@ -48,6 +47,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     static final String MEMBER_FK = "member_id";
     static final String PROVIDER = "provider";
     static final String AT = "at";
+    static final String IMPORTANT = "important";
     static final String QUERY_ORDEREDMEMBERS = "ActivityOrderedMembers";
 
     @Required
@@ -77,6 +77,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     public Date at;
     
     /** True if activity is important, and should be displayed in general feed */
+    @Column(name = IMPORTANT)
     public boolean important = true;
     
     /** True if badge computation has been done for this activity (or if it is pointless). */
@@ -139,10 +140,11 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         Root<Activity> activity = cq.from(Activity.class);
         Predicate givenMember = builder.equal(activity.get("member"), m);
         Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
+        Predicate important = builder.equal(activity.get("important"), Boolean.TRUE);
         if (providers != null && !providers.isEmpty()) {
-            cq.where(givenMember, chosenProviders);
+            cq.where(givenMember, chosenProviders, important);
         } else {
-            cq.where(givenMember);
+            cq.where(givenMember, important);
         }
         cq.orderBy(builder.desc(activity.get(AT)));
         return em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
@@ -164,10 +166,11 @@ public abstract class Activity extends Model implements Comparable<Activity> {
             Root<Activity> activity = cq.from(Activity.class);
             Predicate linkedMembers = builder.in(activity.get("member")).value(m.links);
             Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
+            Predicate important = builder.equal(activity.get("important"), Boolean.TRUE);
             if (providers != null && !providers.isEmpty()) {
-                cq.where(linkedMembers, chosenProviders);
+                cq.where(linkedMembers, chosenProviders, important);
             } else {
-                cq.where(linkedMembers);
+                cq.where(linkedMembers, important);
             }
             cq.orderBy(builder.desc(activity.get(AT)));
             activities = em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
@@ -276,10 +279,6 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return delete("delete Activity a where a.session = ?", session);
     }
 
-    final protected String getMessageKey() {
-        return getClass().getSimpleName() + ".message";
-    }
-
     /**
      * @return URL to be linked on this activity.
      */
@@ -301,7 +300,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
 
         computedBadgesForConcernedMembers(context);
 
-        // Flagging current activity as computed (whatever if we earned badges or not)
+        // Flagging current activity as computed (whenever we earned badges or not)
         this.badgeComputationDone = true;
         save();
     }

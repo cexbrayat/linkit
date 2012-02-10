@@ -32,14 +32,32 @@ public class ArticleTest extends BaseDataUnitTest {
     
     @Test
     public void findFollowing() {
-        final Article current = Article.all().first();
-        current.findFollowing();
+        final Member author = Member.all().first();
+        final Article a1 = createArticle("titre1 valide", author);
+        a1.validate();
+        final Article a2 = createArticle("titre2 non valide", author);
+        final Article a3 = createArticle("titre3 valide", author);
+        a3.validate();
+        final Article a4 = createArticle("titre4 non valide", author);
+        final Article a5 = createArticle("titre5 valide", author);
+        a5.validate();
+        Article current = Article.findById(a1.id);
+        assertSame(a3, current.findFollowing());
     }
     
     @Test
     public void findPrevious() {
-        final Article current = Article.all().first();
-        current.findPrevious();
+        final Member author = Member.all().first();
+        final Article a1 = createArticle("titre1 valide", author);
+        a1.validate();
+        final Article a2 = createArticle("titre2 non valide", author);
+        final Article a3 = createArticle("titre3 valide", author);
+        a3.validate();
+        final Article a4 = createArticle("titre4 non valide", author);
+        final Article a5 = createArticle("titre5 valide", author);
+        a5.validate();
+        Article current = Article.findById(a5.id);
+        assertSame(a3, current.findPrevious());
     }
     
     private Member createMember(String login) {
