@@ -104,7 +104,7 @@ public class Article extends Model implements Lookable {
     }
     
     public Article findFollowing() {
-        return find("valid = true and postedAt>? order by postedAt desc", this.postedAt).first();
+        return find("valid = true and postedAt>? order by postedAt asc", this.postedAt).first();
     }
     
     /**
