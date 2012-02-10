@@ -20,7 +20,7 @@ public class Dashboard extends PageController {
         Member member = Member.findByLogin(Security.connected());
 
         List<Member> suggestedMembers = Suggestion.suggestedMembersFor(member, 5);
-        Set<Session> suggestedSessions = Suggestion.suggestedSessionsFor(member);
+        List<Session> suggestedSessions = Suggestion.suggestedSessionsFor(member, 5);
         Set<Badge> suggestedBadges = Suggestion.missingBadgesFor(member);
 
         // Three recent articles

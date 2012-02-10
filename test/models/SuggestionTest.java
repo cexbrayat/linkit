@@ -1,6 +1,5 @@
 package models;
 
-import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -136,7 +135,31 @@ public class SuggestionTest extends BaseDataUnitTest {
         final Member member = Member.all().first();
         member.addInterest(commonInterest1).addInterest(commonInterest2).save();
  
-        assertEquals(Sets.newHashSet(s1, s2), Suggestion.suggestedSessionsFor(member));
+        assertEquals(Arrays.asList(s2, s1), Suggestion.suggestedSessionsFor(member, 10));
+    }
+    
+    @Test
+    public void suggestedSessionsForLimit() {
+        final Session s1 = createTalk("session1");
+        final Session s2 = createLightningTalk("session2");
+        final Session s3 = createTalk("session3");
+        final Session s4 = createTalk("session4");
+        final Session s5 = createLightningTalk("session5");
+        final Session s6 = createTalk("session6");
+
+        final String interest = "i1";
+        s1.addInterest(interest).save();
+        s2.addInterest(interest).save();
+        s3.addInterest(interest).save();
+        s4.addInterest(interest).save();
+        s5.addInterest(interest).save();
+        s5.addInterest(interest).save();
+
+        final Member member = createMember("toto");
+        member.addInterest(interest).save();
+ 
+        // Limit 2
+        assertEquals(2, Suggestion.suggestedSessionsFor(member, 2).size());
     }
     
     private static Member createMember(String login) {

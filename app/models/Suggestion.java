@@ -2,7 +2,6 @@ package models;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -37,11 +36,16 @@ public class Suggestion {
                 + "where i in (:interests) group by m having count(i.id) = :size").bind("interests", interests).bind("size", interests.size()).fetch();
     }
     
-     /**
+    private static final Function<Object[], Member> MEMBER_SUGGESTIONS_FUNCTION = new Function<Object[], Member>() {
+        public Member apply(Object[] tuple) {
+            return (Member) tuple[0];
+        }
+    };
+    /**
      * Suggest members sharing interests with given member. Results are ordered by the most commonly shared interests first.
      * @param member
      * @param limit max number of suggested members
-     * @return List of suggested member
+     * @return List of suggested members, ordered by most interests shared first
      */
     // FIXME CLA rewrite with Criteria
     public static List<Member> suggestedMembersFor(Member member, int limit) {
@@ -65,28 +69,38 @@ public class Suggestion {
                     jpaQuery.bind("links", member.links);
             }
             List<Object[]> result = jpaQuery.fetch(limit);
-            suggestions = Lists.transform(result, new Function<Object[], Member>() {
-                public Member apply(Object[] tuple) {
-                    return (Member) tuple[0];
-                }
-            });
+            suggestions = Lists.transform(result, MEMBER_SUGGESTIONS_FUNCTION);
         }
         return suggestions;
     }
     
-     /**
-     * Suggest all sessions sharing interests of given member
-     * @param member
-     * @return Set of suggested sessions
-     */
-    public static Set<Session> suggestedSessionsFor(Member member) {
-        Set<Session> sessions = Sets.newHashSet();
-        if (!member.interests.isEmpty()) {
-            List<Session> allSuggestedSessions = findSessionsAbout(member.interests);
-            // TODO Don't suggest a session where member has already plan to go.
-            sessions.addAll(allSuggestedSessions);
+    private static final Function<Object[], Session> SESSION_SUGGESTIONS_FUNCTION = new Function<Object[], Session>() {
+        public Session apply(Object[] tuple) {
+            return (Session) tuple[0];
         }
-        return sessions;
+    };
+     /**
+     * Suggest sessions sharing interests of given member
+     * @param member
+     * @param limit max number of suggested sessions
+     * @return List of suggested sessions, ordered by most interests shared first
+     */
+    // TODO Don't suggest sessions already selected by member, when planning available
+    // FIXME CLA rewrite with Criteria
+    public static List<Session> suggestedSessionsFor(Member member, int limit) {
+        List<Session> suggestions = Collections.emptyList();
+        if (!member.interests.isEmpty()) {
+            List<Object[]> result = Session.find("select distinct suggested, count(i) as nbShared "
+                    + "from Session suggested "
+                    + "inner join suggested.interests as i "
+                    + "where i in (:interests) "
+                    + "group by suggested "
+                    + "order by nbShared desc")
+                    .bind("interests", member.interests)
+                    .fetch(limit);
+            suggestions = Lists.transform(result, SESSION_SUGGESTIONS_FUNCTION);
+        }
+        return suggestions;
     }
     
     public static Set<Badge> missingBadgesFor(Member member) {
