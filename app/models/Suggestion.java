@@ -1,29 +1,19 @@
 package models;
 
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import play.db.jpa.GenericModel.JPAQuery;
 
 /**
  * Suggestion of new member to be linked
  * @author agnes007 <agnes.crepet@gmail.com>
  */
 public class Suggestion {
-
-    /**
-     * Find all Members Interested in AT LEAST ONE interest
-     * @param interests
-     * @return 
-     */
-    public static List<Member> findMembersInterestedInOneOf(Collection<Interest> interests) {
-        return Member.find(
-                "select distinct m from Member m join m.interests as i "
-                + "where i in (:interests) group by m").bind("interests", interests).fetch();
-    }
 
     /**
      * Find all sessions about AT LEAST ONE interest
@@ -48,25 +38,38 @@ public class Suggestion {
     }
     
      /**
-     * Suggest members sharing interest with given member
-     * Currently : algorithm is base on the findMembersInterestedInOneOf method!
-     * The suggested Members must only have AT LEAST ONE common interest with the member
-     * These members must NOT contain the member!
-     * These members must be different of the links (members he follows)
+     * Suggest members sharing interests with given member. Results are ordered by the most commonly shared interests first.
      * @param member
+     * @param limit max number of suggested members
      * @return List of suggested member
      */
-    // FIXME Suggested member should be ordered by pertinence, i.e. sharing most interests to less.
-    public static Set<Member> suggestedMembersFor(Member member) {
-        Set<Member> suggestions = Collections.emptySet();
+    // FIXME CLA rewrite with Criteria
+    public static List<Member> suggestedMembersFor(Member member, int limit) {
+        List<Member> suggestions = Collections.emptyList();
         if (!member.interests.isEmpty()) {
-            List<Member> allSuggestedMembers = findMembersInterestedInOneOf(member.interests);
-            allSuggestedMembers.remove(member);
-            Iterable suggestedMembers =
-                    Iterables.filter(allSuggestedMembers, 
-                        Predicates.not(Predicates.in(member.links))
-                    );
-            suggestions = Sets.newHashSet(suggestedMembers);
+            StringBuilder query = new StringBuilder("select distinct suggested, count(i) as nbShared "
+                    + "from Member suggested "
+                    + "inner join suggested.interests as i "
+                    + "where i in (:interests) "
+                    + "and suggested <> :member ");
+            if (!member.links.isEmpty()) {
+                query.append("and suggested not in (:links) ");
+            }
+            query.append("group by suggested ")
+                 .append("order by nbShared desc");
+            
+            JPAQuery jpaQuery = Member.find(query.toString())
+                    .bind("member", member)
+                    .bind("interests", member.interests);
+            if (!member.links.isEmpty()) {
+                    jpaQuery.bind("links", member.links);
+            }
+            List<Object[]> result = jpaQuery.fetch(limit);
+            suggestions = Lists.transform(result, new Function<Object[], Member>() {
+                public Member apply(Object[] tuple) {
+                    return (Member) tuple[0];
+                }
+            });
         }
         return suggestions;
     }
