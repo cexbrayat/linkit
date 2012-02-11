@@ -1,29 +1,19 @@
 package models;
 
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
+import play.db.jpa.GenericModel.JPAQuery;
 
 /**
  * Suggestion of new member to be linked
  * @author agnes007 <agnes.crepet@gmail.com>
  */
 public class Suggestion {
-
-    /**
-     * Find all Members Interested in AT LEAST ONE interest
-     * @param interests
-     * @return 
-     */
-    public static List<Member> findMembersInterestedInOneOf(Collection<Interest> interests) {
-        return Member.find(
-                "select distinct m from Member m join m.interests as i "
-                + "where i in (:interests) group by m").bind("interests", interests).fetch();
-    }
 
     /**
      * Find all sessions about AT LEAST ONE interest
@@ -47,48 +37,75 @@ public class Suggestion {
                 + "where i in (:interests) group by m having count(i.id) = :size").bind("interests", interests).bind("size", interests.size()).fetch();
     }
     
-     /**
-     * Suggest members sharing interest with given member
-     * Currently : algorithm is base on the findMembersInterestedInOneOf method!
-     * The suggested Members must only have AT LEAST ONE common interest with the member
-     * These members must NOT contain the member!
-     * These members must be different of the links (members he follows)
+    private static final Function<Object[], Member> MEMBER_SUGGESTIONS_FUNCTION = new Function<Object[], Member>() {
+        public Member apply(Object[] tuple) {
+            return (Member) tuple[0];
+        }
+    };
+    /**
+     * Suggest members sharing interests with given member. Results are ordered by the most commonly shared interests first.
      * @param member
-     * @return List of suggested member
+     * @param limit max number of suggested members
+     * @return List of suggested members, ordered by most interests shared first
      */
-    // FIXME Suggested member should be ordered by pertinence, i.e. sharing most interests to less.
-    public static Set<Member> suggestedMembersFor(Member member) {
-        Set<Member> suggestions = Collections.emptySet();
+    // FIXME CLA rewrite with Criteria
+    public static List<Member> suggestedMembersFor(Member member, int limit) {
+        List<Member> suggestions = Collections.emptyList();
         if (!member.interests.isEmpty()) {
-            List<Member> allSuggestedMembers = findMembersInterestedInOneOf(member.interests);
-            allSuggestedMembers.remove(member);
-            Iterable suggestedMembers =
-                    Iterables.filter(allSuggestedMembers, 
-                        Predicates.not(Predicates.in(member.links))
-                    );
-            suggestions = Sets.newHashSet(suggestedMembers);
+            StringBuilder query = new StringBuilder("select distinct suggested, count(i) as nbShared "
+                    + "from Member suggested "
+                    + "inner join suggested.interests as i "
+                    + "where i in (:interests) "
+                    + "and suggested <> :member ");
+            if (!member.links.isEmpty()) {
+                query.append("and suggested not in (:links) ");
+            }
+            query.append("group by suggested ")
+                 .append("order by nbShared desc");
+            
+            JPAQuery jpaQuery = Member.find(query.toString())
+                    .bind("member", member)
+                    .bind("interests", member.interests);
+            if (!member.links.isEmpty()) {
+                    jpaQuery.bind("links", member.links);
+            }
+            List<Object[]> result = jpaQuery.fetch(limit);
+            suggestions = Lists.transform(result, MEMBER_SUGGESTIONS_FUNCTION);
         }
         return suggestions;
     }
     
-     /**
-     * Suggest all sessions sharing interests of given member
-     * @param member
-     * @return Set of suggested sessions
-     */
-    public static Set<Session> suggestedSessionsFor(Member member) {
-        Set<Session> sessions = Sets.newHashSet();
-        if (!member.interests.isEmpty()) {
-            List<Session> allSuggestedSessions = findSessionsAbout(member.interests);
-            // TODO Don't suggest a session where member has already plan to go.
-            sessions.addAll(allSuggestedSessions);
+    private static final Function<Object[], Session> SESSION_SUGGESTIONS_FUNCTION = new Function<Object[], Session>() {
+        public Session apply(Object[] tuple) {
+            return (Session) tuple[0];
         }
-        return sessions;
+    };
+     /**
+     * Suggest sessions sharing interests of given member
+     * @param member
+     * @param limit max number of suggested sessions
+     * @return List of suggested sessions, ordered by most interests shared first
+     */
+    // TODO Don't suggest sessions already selected by member, when planning available
+    // FIXME CLA rewrite with Criteria
+    public static List<Session> suggestedSessionsFor(Member member, int limit) {
+        List<Session> suggestions = Collections.emptyList();
+        if (!member.interests.isEmpty()) {
+            List<Object[]> result = Session.find("select distinct suggested, count(i) as nbShared "
+                    + "from Session suggested "
+                    + "inner join suggested.interests as i "
+                    + "where i in (:interests) "
+                    + "group by suggested "
+                    + "order by nbShared desc")
+                    .bind("interests", member.interests)
+                    .fetch(limit);
+            suggestions = Lists.transform(result, SESSION_SUGGESTIONS_FUNCTION);
+        }
+        return suggestions;
     }
     
     public static Set<Badge> missingBadgesFor(Member member) {
-        // EnumSet.copyOf can't be used on empty collection
-        Set<Badge> badges = Badge.EarnableBadges;
+        Set<Badge> badges = EnumSet.copyOf(Badge.EarnableBadges);
         if (!member.badges.isEmpty()) {
             badges.removeAll(member.badges);
         }
