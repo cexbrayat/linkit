@@ -100,8 +100,8 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         CriteriaBuilder builder = em().getCriteriaBuilder();
         CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
         Root<Activity> activity = cq.from(Activity.class);
-        Predicate provider = builder.equal(activity.get("provider"), ProviderType.LinkIt);
-        Predicate important = builder.isTrue(activity.get("important").as(Boolean.class));
+        Predicate provider = builder.equal(activity.get(PROVIDER), ProviderType.LinkIt);
+        Predicate important = builder.equal(activity.get(IMPORTANT), Boolean.TRUE);
         Predicate where = builder.and(provider, important);
         if (start != null) {
             Predicate after = builder.greaterThanOrEqualTo(activity.get(AT).as(Date.class), start);
@@ -139,8 +139,8 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
         Root<Activity> activity = cq.from(Activity.class);
         Predicate givenMember = builder.equal(activity.get("member"), m);
-        Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
-        Predicate important = builder.equal(activity.get("important"), Boolean.TRUE);
+        Predicate chosenProviders = builder.in(activity.get(PROVIDER)).value(providers);
+        Predicate important = builder.equal(activity.get(IMPORTANT), Boolean.TRUE);
         if (providers != null && !providers.isEmpty()) {
             cq.where(givenMember, chosenProviders, important);
         } else {
@@ -165,8 +165,8 @@ public abstract class Activity extends Model implements Comparable<Activity> {
             CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
             Root<Activity> activity = cq.from(Activity.class);
             Predicate linkedMembers = builder.in(activity.get("member")).value(m.links);
-            Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
-            Predicate important = builder.equal(activity.get("important"), Boolean.TRUE);
+            Predicate chosenProviders = builder.in(activity.get(PROVIDER)).value(providers);
+            Predicate important = builder.equal(activity.get(IMPORTANT), Boolean.TRUE);
             if (providers != null && !providers.isEmpty()) {
                 cq.where(linkedMembers, chosenProviders, important);
             } else {
@@ -200,6 +200,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
                 Predicate before = builder.lessThan(activity.get(AT).as(Date.class), end);
                 where = builder.and(where, before);
             }
+            where = builder.and(where, builder.equal(activity.get(IMPORTANT), Boolean.TRUE));
             cq.where(where);
             cq.orderBy(builder.desc(activity.get(AT)));
             activities = em().createQuery(cq).getResultList();

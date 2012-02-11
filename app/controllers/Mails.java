@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Collection;
 import java.util.List;
 import models.mailing.Mailing;
 import models.Member;
@@ -41,7 +42,7 @@ public class Mails extends Mailer {
         mailing.addActualRecipient(recipient);
     }
     
-    public static void notification(Member recipient, List<Activity> activities, NotificationOption periodicity) {
+    public static void notification(Member recipient, Collection<Activity> activities, NotificationOption periodicity) {
         setSubject("[Mix-IT 2012] - Que s'est-il passé?");
         setFrom(FROM);
         addRecipient(recipient.email);
