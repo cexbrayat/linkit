@@ -16,7 +16,7 @@
 <div class="hero-unit">
     <div class="row">
         <div class="span7">
-            <h2>26 Avril 2012</h2>
+            <h1 style="font-size: 40px">26 Avril 2012</h1><h2 style="font-size: 20px">8H30-18H30</h2>
         </div>
         <div class="span7" style="text-align: right">
             <h3>&{'mixit.header'}</h3>
@@ -66,13 +66,18 @@
    
     <div class="row">
         <ul class="tabs" data-tabs="tabs">
-            <li class="active"><a href="#tabActivities">&{'tab.lastactivities'}</a></li>
-            <li><a href="#tabArticles">&{'tab.lastarticles'}</a></li>
+            <li class="active"><a href="#tabArticles">&{'tab.lastarticles'}</a></li>
+            <li><a href="#tabActivities">&{'tab.lastactivities'}</a></li>
             <li><a href="#tabSessions">&{'tab.lasttalks'}</a></li>
             <li><a href="#tabInscrits">&{'tab.lastattendees'}</a></li>
         </ul>
-        <div id="tab-content" class="tab-content">            
-            <div class="tab-pane active" id="tabActivities">
+        <div id="tab-content" class="tab-content">    
+            <div class="tab-pane active" id="tabArticles">
+                #{list items:articles, as:'article'}
+                    #{article article /}
+                #{/list}
+            </div>
+            <div class="tab-pane" id="tabActivities">
                 <p id="activities" style="max-height: 200px"></p>
                 <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>  
                 <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
@@ -106,11 +111,6 @@
     loadMoreActivities(false);
 </script>
                 
-            </div>
-            <div class="tab-pane" id="tabArticles">
-                #{list items:articles, as:'article'}
-                    #{article article /}
-                #{/list}
             </div>
             <div class="tab-pane" id="tabSessions">
                 #{list items:sessions, as:'s'}
