@@ -15,7 +15,7 @@ import play.mvc.Router;
 public class NewArticleActivity extends Activity {
 
     public NewArticleActivity(Article article) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 1);
         this.article = article;
         this.badgeComputationDone = true;
     }

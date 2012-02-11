@@ -16,7 +16,7 @@ import play.mvc.Router;
 public class UpdateProfileActivity extends Activity {
 
     public UpdateProfileActivity(Member member) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 3);
         this.member = member;
     }
 

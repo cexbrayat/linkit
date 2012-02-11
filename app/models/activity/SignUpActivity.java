@@ -14,7 +14,7 @@ import play.mvc.Router;
 public class SignUpActivity extends Activity {
 
     public SignUpActivity(Member member) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 2);
         this.member = member;
         // Useless badge computation
         this.badgeComputationDone = true;

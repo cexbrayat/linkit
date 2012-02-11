@@ -23,7 +23,7 @@ public class LinkActivity extends Activity {
     public Member other;
 
     public LinkActivity(Member member, Member linked) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 3);
         this.member = member;
         this.other = linked;
     }
