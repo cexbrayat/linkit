@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import play.db.jpa.Model;
 
 /**
@@ -11,6 +12,7 @@ import play.db.jpa.Model;
 public class GeneralParameter extends Model {
     
     @Entity
+    @Table(name="GeneralParameter")
     protected static class PersistedParameter extends Model {
 
         @Column(updatable = false, unique = true)
