@@ -6,12 +6,12 @@ package models;
  */
 public enum NotificationOption {
     
-    /** No notifications */
-    None,
     /* Instant notifications */
     Instant,
     /** Daily notifications */
     Daily,
     /** Weekly notifications */
-    Weekly;
+    Weekly,
+    /** No notifications */
+    None;
 }

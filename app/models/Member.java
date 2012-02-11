@@ -31,8 +31,6 @@ import play.data.validation.Valid;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
 
-
-
 /**
  * A LinkIT member.
  *
@@ -148,7 +146,7 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     public List<SharedLink> sharedLinks = new LinkedList<SharedLink>();
 
     @Enumerated(EnumType.STRING)
-    public NotificationOption notificationOption = NotificationOption.None;
+    public NotificationOption notificationOption = NotificationOption.Weekly;
     
     /**
      * Number of profile consultations

@@ -164,8 +164,14 @@ mailing.message=Contenu
 mailing.message.note=Obligatoire. Le contenu du mail.<br/>&{markdown.note}
 
 # Settings
-notificationOption = Notifications
+notificationOption=Fréquence de notification
 notificationOption.note=
+
+# Notification options
+NotificationOption.None.label=Pas de notifications
+NotificationOption.Instant.label=Instantanées
+NotificationOption.Daily.label=Quotidiennes
+NotificationOption.Weekly.label=Hebdomadaires
 
 # Activities
 activities.more=Afficher plus...

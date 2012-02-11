@@ -6,31 +6,42 @@
 <script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
 <script src="@{'/public/javascripts/dirtiness.js'}"></script>
 <!-- End Requirements for managing form dirtiness -->
+<script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 #{/set}
 #{dirtyDialog/}
 
 #{form @saveSettings()}
-<fieldset> 
+<ul class="tabs" data-tabs="tabs">
+    <li class="active"><a href="#tabNotifications">Notifications</a></li>
+</ul>
+<div id="tab-content" class="tab-content">
+    <div class="tab-pane active" id="tabNotifications" style="background-color: white">
+        <fieldset> 
+            <legend>Notifications par mail</legend>
 
-    #{field 'notificationOption'}
-    <div class="clearfix ${field.error?'error':''}"> 
-        <label for="${field.name}">&{field.name}</label> 
-        <div class="input"> 
-            <ul class="inputs-list">
-                #{list items:models.NotificationOption.values(), as:'option'}
-                <li><label><input type="radio" name="${field.name}" value="${option}" ${member.notificationOption == option?'checked':''} />${option}</label></li>
-                #{/list}
-            </ul>
-            <span class="help-block">${field.error}</span>
-            <span class="help-block">&{field.name+".note"}</span>
-        </div>
-    </div><!-- /clearfix -->
-    #{/}
+            #{field 'notificationOption'}
+            <div class="clearfix ${field.error?'error':''}"> 
+                <label for="${field.name}">&{field.name}</label> 
+                <div class="input"> 
+                    <ul class="inputs-list">
+                        #{list items:models.NotificationOption.values(), as:'option'}
+                        <li><label><input type="radio" name="${field.name}" value="${option}" ${member.notificationOption == option?'checked':''} />&{'NotificationOption.'+option+'.label'}</label></li>
+                        #{/list}
+                    </ul>
+                    <span class="help-block">${field.error}</span>
+                    <span class="help-block">&{field.name+".note"}</span>
+                </div>
+            </div><!-- /clearfix -->
+            #{/}
 
-</fieldset>
+        </fieldset>
+    </div>
+</div>
 
 <div class="actions">
     <input type="submit" class="btn primary" value="Enregistrer"/>
     <a href="@{index()}" class="btn">Annuler</a>
 </div>
+
 #{/form}
+
