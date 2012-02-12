@@ -16,17 +16,28 @@ update activity set level=3 where DTYPE like 'UpdateProfile%';
 update activity set level=1 where DTYPE like 'UpdateSession%';
 COMMIT;
 
-create table GeneralParameter
-add column entry varchar(255) not null,
-add column entry varchar(255);
+create table GeneralParameter (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `entry` varchar(255) default null,
+    `value` varchar(255),
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `entry` (`entry`)
+);
+
+alter table Member
+add column notificationOption varchar(255);
+update Member set notificationOption = 'Weekly';
+COMMIT;
 
 # --- !Downs
 
+alter table Member
+drop column notificationOption;
+
 drop table GeneralParameter;
 
-alter table activity DROP column level;
+alter table activity drop column level;
 alter table activity add column important bit(1);
-
 update activity set important=true where DTYPE like 'Comment%';
 update activity set important=false where DTYPE like 'Look%';
 COMMIT;
