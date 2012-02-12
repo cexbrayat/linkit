@@ -102,7 +102,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
         Root<Activity> activity = cq.from(Activity.class);
         Predicate provider = builder.equal(activity.get(PROVIDER), ProviderType.LinkIt);
-        Predicate important = builder.le(activity.<Integer>get(LEVEL), 2);
+        Predicate important = builder.le(activity.<Integer>get(LEVEL), 1);
         Predicate where = builder.and(provider, important);
         if (start != null) {
             Predicate after = builder.greaterThanOrEqualTo(activity.<Date>get(AT), start);
