@@ -1,0 +1,78 @@
+@star-colour: #eeeeee;
+@star-colour-hover: #999999;
+@star-colour-fav: #dff757;
+@width: 15px;
+
+.rotate(@angle){
+   -moz-transform:    rotate(@angle);
+   -webkit-transform: rotate(@angle);
+   -ms-transform:     rotate(@angle);
+   -o-transform:      rotate(@angle);
+}
+
+.star {
+   margin-top: 10px;
+   position: relative;
+   display: block;
+   color: @star-colour;
+   width: 0px;
+   height: 0px;
+   border-right:  @width solid transparent;
+   border-bottom: @width*(0.7) solid @star-colour;
+   border-left:   @width solid transparent;
+   .rotate(35deg);
+}
+
+.star:hover {
+    border-bottom: @width*(0.7) solid @star-colour-hover;
+}
+
+.star.fav {
+    border-bottom: @width*(0.7) solid @star-colour-fav;
+}
+
+.star:before {
+   border-bottom: @width*(0.8) solid @star-colour;
+   border-left: @width*(0.3) solid transparent;
+   border-right: @width*(0.3) solid transparent;
+   position: absolute;
+   height: 0;
+   width: 0;
+   top: -(@width*0.50);
+   left: -(@width*0.60);
+   display: block;
+   content: '';
+   .rotate(-35deg);
+
+}
+
+.star:hover:before {
+    border-bottom: @width*(0.8) solid @star-colour-hover;
+}
+
+.star.fav:before {
+    border-bottom: @width*(0.8) solid @star-colour-fav;
+}
+
+.star:after {
+   position: absolute;
+   display: block;
+   color: @star-colour;
+   top: @width*0.03;
+   left: -(@width*1.05);
+   width: 0px;
+   height: 0px;
+   border-right: @width solid transparent;
+   border-bottom: @width*(0.7) solid @star-colour;
+   border-left: @width solid transparent;
+   content: '';
+   .rotate(-70deg);
+}
+
+.star:hover:after {
+    border-bottom: @width*(0.7) solid @star-colour-hover;
+}
+
+.star.fav:after {
+    border-bottom: @width*(0.7) solid @star-colour-fav;
+}
