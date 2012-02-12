@@ -17,7 +17,7 @@ public class SharedLinkActivity extends Activity {
     public SharedLink link;
 
     public SharedLinkActivity(SharedLink link) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 2);
         this.member = link.member;
         this.link = link;
         // Useless badge computation

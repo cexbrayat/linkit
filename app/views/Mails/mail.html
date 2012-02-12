@@ -6,14 +6,10 @@
         <link type="text/css" rel="stylesheet" href="@@{'/public/stylesheets/bootstrap.less'}">
         <link type="text/css" rel="stylesheet" href="@@{'/public/stylesheets/linkit.less'}">
     </head>
-    <body style="padding-top: 60px;" > *{ 60px is navigation bar space }*
-        <div class="topbar">
-            <div class="topbar-inner">
-                <div class="container-fluid">
-                    <a class="brand" href="@@{Application.index()}"><img src="@@{'/public/images/mini-mixit.png'}" /></a>
-                </div>
-            </div>
-        </div>
+    <header>
+        <a class="brand" href="@@{Application.index()}"><img src="@@{'/public/images/mini-mixit.png'}" /></a>&nbsp;-&nbsp;26 avril 2012
+    </header>
+    <body>
         <div class="container-fluid">
             <div class="content">
                 #{doLayout /}

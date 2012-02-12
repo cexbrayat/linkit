@@ -20,7 +20,7 @@ public class EarnBadgeActivity extends Activity {
     public Badge badge;
 
     public EarnBadgeActivity(Member member, Badge badge) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 2);
         this.member = member;
         this.badge = badge;
         // Useless badge computation

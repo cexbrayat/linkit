@@ -1,0 +1,6 @@
+*{ Display all activities "activities" }*
+#{list items:_activities, as:'activity'}
+<p class="activity">
+${activity.at.format("hh'H'mm")} - #{mails.activity activity /}
+</p>
+#{/list}

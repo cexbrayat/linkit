@@ -47,7 +47,7 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     static final String MEMBER_FK = "member_id";
     static final String PROVIDER = "provider";
     static final String AT = "at";
-    static final String IMPORTANT = "important";
+    static final String LEVEL = "level";
     static final String QUERY_ORDEREDMEMBERS = "ActivityOrderedMembers";
 
     @Required
@@ -76,24 +76,45 @@ public abstract class Activity extends Model implements Comparable<Activity> {
     @Index(name = AT + "_idx")
     public Date at;
     
-    /** True if activity is important, and should be displayed in general feed */
-    @Column(name = IMPORTANT)
-    public boolean important = true;
+    /** Activity importance level (less is more important) */
+    @Column(name = LEVEL)
+    public int level;
     
     /** True if badge computation has been done for this activity (or if it is pointless). */
     public boolean badgeComputationDone = false;
 
-    protected Activity(ProviderType provider) {
-        this(provider, new Date());
+    protected Activity(ProviderType provider, int level) {
+        this(provider, level, new Date());
     }
 
-    protected Activity(ProviderType provider, Date at) {
+    protected Activity(ProviderType provider, int level, Date at) {
         this.provider = provider;
+        this.level = level;
         this.at = at;
     }
 
     public static List<Activity> recents(int page, int length) {
-        return Activity.find("provider=? and important=true order by at desc", ProviderType.LinkIt).fetch(page, length);
+        return Activity.find("provider=? and level<=2 order by at desc", ProviderType.LinkIt).fetch(page, length);
+    }
+
+    public static List<Activity> notifiablesBetween(Date start, Date end) {
+        CriteriaBuilder builder = em().getCriteriaBuilder();
+        CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
+        Root<Activity> activity = cq.from(Activity.class);
+        Predicate provider = builder.equal(activity.get(PROVIDER), ProviderType.LinkIt);
+        Predicate important = builder.le(activity.<Integer>get(LEVEL), 1);
+        Predicate where = builder.and(provider, important);
+        if (start != null) {
+            Predicate after = builder.greaterThanOrEqualTo(activity.<Date>get(AT), start);
+            where = builder.and(where, after);
+        }
+        if (end != null) {
+            Predicate before = builder.lessThan(activity.<Date>get(AT), end);
+            where = builder.and(where, before);
+        }
+        cq.where(where);
+        cq.orderBy(builder.desc(activity.get(AT)));
+        return em().createQuery(cq).getResultList();
     }
 
     /**
@@ -119,14 +140,14 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
         Root<Activity> activity = cq.from(Activity.class);
         Predicate givenMember = builder.equal(activity.get("member"), m);
-        Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
-        Predicate important = builder.equal(activity.get("important"), Boolean.TRUE);
+        Predicate chosenProviders = builder.in(activity.get(PROVIDER)).value(providers);
+        Predicate important = builder.le(activity.<Integer>get(LEVEL), 3);
         if (providers != null && !providers.isEmpty()) {
             cq.where(givenMember, chosenProviders, important);
         } else {
             cq.where(givenMember, important);
         }
-        cq.orderBy(builder.desc(activity.get("at")));
+        cq.orderBy(builder.desc(activity.get(AT)));
         return em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
 
     }
@@ -145,15 +166,45 @@ public abstract class Activity extends Model implements Comparable<Activity> {
             CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
             Root<Activity> activity = cq.from(Activity.class);
             Predicate linkedMembers = builder.in(activity.get("member")).value(m.links);
-            Predicate chosenProviders = builder.in(activity.get("provider")).value(providers);
-            Predicate important = builder.equal(activity.get("important"), Boolean.TRUE);
+            Predicate chosenProviders = builder.in(activity.get(PROVIDER)).value(providers);
+            Predicate important = builder.le(activity.<Integer>get(LEVEL), 3);
             if (providers != null && !providers.isEmpty()) {
                 cq.where(linkedMembers, chosenProviders, important);
             } else {
                 cq.where(linkedMembers, important);
             }
-            cq.orderBy(builder.desc(activity.get("at")));
+            cq.orderBy(builder.desc(activity.get(AT)));
             activities = em().createQuery(cq).setFirstResult((page-1) * length).setMaxResults(length).getResultList();
+        }
+        return activities;
+    }
+
+    /**
+     * Incoming activities for a given member between 2 dates
+     * @param m
+     * @param start may be null
+     * @param end may be null
+     * @return 
+     */
+    public static List<Activity> notifiablesForBetween(Member m, Date start, Date end) {   
+        List<Activity> activities = Collections.emptyList();
+        if (!m.links.isEmpty()) {
+            CriteriaBuilder builder = em().getCriteriaBuilder();
+            CriteriaQuery<Activity> cq = builder.createQuery(Activity.class);
+            Root<Activity> activity = cq.from(Activity.class);
+            Predicate where = builder.in(activity.get("member")).value(m.links);
+            if (start != null) {
+                Predicate after = builder.greaterThanOrEqualTo(activity.<Date>get(AT), start);
+                where = builder.and(where, after);
+            }
+            if (end != null) {
+                Predicate before = builder.lessThan(activity.<Date>get(AT), end);
+                where = builder.and(where, before);
+            }
+            where = builder.and(where, builder.le(activity.<Integer>get(LEVEL), 2));
+            cq.where(where);
+            cq.orderBy(builder.desc(activity.get(AT)));
+            activities = em().createQuery(cq).getResultList();
         }
         return activities;
     }
