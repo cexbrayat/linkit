@@ -1,12 +1,13 @@
 package models.activity;
 
-import com.sun.corba.se.spi.oa.OADefault;
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import models.Article;
 import models.Member;
 import models.ProviderType;
 import models.Session;
+import org.joda.time.DateTime;
 import org.junit.*;
 
 /**
@@ -18,6 +19,26 @@ public class ActivityTest extends AbstractActivityTest {
     @Test
     public void recents() {
         assertNotNull(Activity.recents(1, 10));
+    }
+
+    @Test
+    public void notifiablesBetween() {
+        assertNotNull(Activity.notifiablesBetween(new DateTime().minusDays(1).toDate(), new Date()));
+    }
+
+    @Test
+    public void notifiablesBetweenNullDate() {
+        assertNotNull(Activity.notifiablesBetween(null, new Date()));
+    }
+
+    @Test
+    public void notifiablesBetweenDateNull() {
+        assertNotNull(Activity.notifiablesBetween(new DateTime().minusDays(1).toDate(), null));
+    }
+
+    @Test
+    public void notifiablesBetweenNullNull() {
+        assertNotNull(Activity.notifiablesBetween(null, null));
     }
 
     @Test
@@ -38,6 +59,7 @@ public class ActivityTest extends AbstractActivityTest {
         assertEquals(Activity.recentsByMember(m,EnumSet.allOf(ProviderType.class), 1, 10),
                 Activity.recentsByMember(m,EnumSet.noneOf(ProviderType.class), 1, 10));
     }
+    
     @Test
     public void recentsForMember() {
         List<Member> members = Member.all().fetch();
@@ -64,6 +86,30 @@ public class ActivityTest extends AbstractActivityTest {
         List<Activity> activities = Activity.recentsForMember(nolinks,EnumSet.allOf(ProviderType.class), 1, 10);
         assertNotNull(activities);
         assertTrue(activities.isEmpty());
+    }
+
+    @Test
+    public void notifiablesForBetween() {
+        Member m = Member.all().first();
+        assertNotNull(Activity.notifiablesForBetween(m, new DateTime().minusDays(1).toDate(), new Date()));
+    }
+
+    @Test
+    public void notifiablesForBetweenNullDate() {
+        Member m = Member.all().first();
+        assertNotNull(Activity.notifiablesForBetween(m, null, new Date()));
+    }
+
+    @Test
+    public void notifiablesForBetweenDateNull() {
+        Member m = Member.all().first();
+        assertNotNull(Activity.notifiablesForBetween(m, new DateTime().minusDays(1).toDate(), null));
+    }
+
+    @Test
+    public void notifiablesForBetweenNullNull() {
+        Member m = Member.all().first();
+        assertNotNull(Activity.notifiablesForBetween(m, null, null));
     }
 
     @Test

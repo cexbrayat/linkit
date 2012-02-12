@@ -1,9 +1,12 @@
 package controllers;
 
+import java.util.Collection;
 import java.util.List;
 import models.mailing.Mailing;
 import models.Member;
+import models.NotificationOption;
 import models.Session;
+import models.activity.Activity;
 import models.mailing.MembersSet;
 import models.mailing.MembersSetQueryFactory;
 import play.Play;
@@ -37,6 +40,13 @@ public class Mails extends Mailer {
         addRecipient(recipient.email);
         send(mailing);
         mailing.addActualRecipient(recipient);
+    }
+    
+    public static void notification(Member recipient, Collection<Activity> activities, NotificationOption periodicity) {
+        setSubject("[Mix-IT 2012] - Que s'est-il passé?");
+        setFrom(FROM);
+        addRecipient(recipient.email);
+        send(recipient, activities, periodicity);
     }
     
     private static void addRecipients(MembersSet set) {

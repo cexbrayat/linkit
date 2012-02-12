@@ -7,8 +7,10 @@ import models.Article;
 import models.Badge;
 import models.Comment;
 import models.Member;
+import models.NotificationOption;
 import models.Session;
 import models.Suggestion;
+import play.data.validation.Required;
 import play.mvc.With;
 
 @With(SecureLinkIt.class)
@@ -36,6 +38,25 @@ public class Dashboard extends PageController {
         Member member = Member.findByLogin(Security.connected());
         Set<Badge> suggestedBadges = Suggestion.missingBadgesFor(member);
         render(member, suggestedBadges);
+    }
+    
+    public static void settings() {
+        Member member = Member.findByLogin(Security.connected());
+        if (member == null) Login.index(request.url);
+        
+        render(member);
+    }
+    
+    public static void saveSettings(@Required NotificationOption notificationOption) {
+        Member member = Member.findByLogin(Security.connected());
+        if (member == null) Login.index(request.url);
+        
+        member.notificationOption = notificationOption;
+        
+        member.save();
+        flash.success("Vos préférences ont été sauvegardées");
+
+        index();
     }
 
     public static void link(String loginToLink) {

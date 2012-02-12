@@ -15,9 +15,8 @@ import models.ProviderType;
 public abstract class LookActivity extends Activity {
 
     protected LookActivity(Member member) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 4);
         this.member = member;
-        this.important = false;
     }
 
     @Override

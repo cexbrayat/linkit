@@ -16,7 +16,7 @@ import models.Session;
 public class NewVoteActivity extends Activity {
 
     public NewVoteActivity(Member member, Session lt) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 2);
         this.member = member;
         this.session = lt;
     }

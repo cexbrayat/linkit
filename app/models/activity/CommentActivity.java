@@ -16,7 +16,7 @@ import models.ProviderType;
 public abstract class CommentActivity extends Activity {
 
     public CommentActivity(Member author) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 2);
         this.member = author;
     }
 

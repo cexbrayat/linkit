@@ -47,7 +47,7 @@ public class StatusActivity extends Activity {
     private static final Pattern MENTION_PATTERN = Pattern.compile("\\$LINKIT\\$\\{([^}]+)\\}");
     
     public StatusActivity(Member author, Date at, ProviderType provider, String content, String url, String statusId) {
-        super(provider, at);
+        super(provider, 3, at);
         this.member = author;
         this.provider = provider;
         this.content = StringUtils.substring(content, 0, 4000);
