@@ -18,7 +18,7 @@ import play.mvc.Router;
 public class NewTalkActivity extends Activity {
 
     public NewTalkActivity(Session session) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 1);
         this.session = session;
     }
 

@@ -18,7 +18,7 @@ import models.Talk;
 public class UpdateSessionActivity extends Activity {
 
     public UpdateSessionActivity(Session session) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 1);
         this.session = session;
     }
 

@@ -383,4 +383,14 @@ public class MemberTest extends BaseDataUnitTest {
         lt.save();
         assertTrue(m.isLightningTalkSpeaker());
     }
+    
+    @Test public void findNotified() {
+        final Member m = createMember("toto");
+        m.notificationOption = NotificationOption.Daily;
+        m.save();
+        
+        assertTrue(Member.findNotified(NotificationOption.Daily).contains(m));
+        assertFalse(Member.findNotified(NotificationOption.Instant).contains(m));
+        assertFalse(Member.findNotified(NotificationOption.None).contains(m));
+    }
 }

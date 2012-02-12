@@ -66,18 +66,13 @@
    
     <div class="row">
         <ul class="tabs" data-tabs="tabs">
-            <li class="active"><a href="#tabArticles">&{'tab.lastarticles'}</a></li>
-            <li><a href="#tabActivities">&{'tab.lastactivities'}</a></li>
+            <li class="active"><a href="#tabActivities">&{'tab.lastactivities'}</a></li>
+            <li><a href="#tabArticles">&{'tab.lastarticles'}</a></li>
             <li><a href="#tabSessions">&{'tab.lasttalks'}</a></li>
             <li><a href="#tabInscrits">&{'tab.lastattendees'}</a></li>
         </ul>
         <div id="tab-content" class="tab-content">    
-            <div class="tab-pane active" id="tabArticles">
-                #{list items:articles, as:'article'}
-                    #{article article /}
-                #{/list}
-            </div>
-            <div class="tab-pane" id="tabActivities">
+            <div class="tab-pane active" id="tabActivities">
                 <p id="activities" style="max-height: 200px"></p>
                 <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>  
                 <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
@@ -111,6 +106,11 @@
     loadMoreActivities(false);
 </script>
                 
+            </div>
+            <div class="tab-pane" id="tabArticles">
+                #{list items:articles, as:'article'}
+                    #{article article /}
+                #{/list}
             </div>
             <div class="tab-pane" id="tabSessions">
                 #{list items:sessions, as:'s'}
