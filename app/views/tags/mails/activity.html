@@ -8,6 +8,7 @@
 #{if _arg instanceof models.activity.LookSessionActivity}#{mails.LookSessionActivity _arg /}#{/if}
 #{if _arg instanceof models.activity.NewTalkActivity}#{mails.NewTalkActivity _arg /}#{/if}
 #{if _arg instanceof models.activity.NewVoteActivity}#{mails.NewVoteActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.NewArticleActivity}#{mails.NewArticleActivity _arg /}#{/if}
 #{if _arg instanceof models.activity.SharedLinkActivity}#{mails.SharedLinkActivity _arg /}#{/if}
 #{if _arg instanceof models.activity.SignUpActivity}#{mails.SignUpActivity _arg /}#{/if}
 #{if _arg instanceof models.activity.StatusActivity}#{mails.StatusActivity _arg /}#{/if}
