@@ -11,7 +11,6 @@ import models.Role;
 import models.Session;
 import models.Staff;
 import models.Talk;
-import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 import play.cache.Cache;
 import play.data.validation.Required;
@@ -65,9 +64,10 @@ public class Sessions extends PageController {
         render(talk, speakers);
     }
 
-    public static void delete(final Long sessionId) {
+    public static void delete(final Long sessionId) throws Throwable {
         Session talk = Session.findById(sessionId);
         notFoundIfNull(talk);
+        checkAccess(talk);
 
         talk.delete();
         index();
@@ -86,7 +86,7 @@ public class Sessions extends PageController {
         return speakers;
     }
     
-    public static void show(final Long sessionId, String slugify, boolean noCount) {
+    public static void show(final Long sessionId, String slugify, boolean noCount) throws Throwable {
         Session talk = Session.findById(sessionId);
         notFoundIfNull(talk);
 
@@ -99,7 +99,7 @@ public class Sessions extends PageController {
 
     public static void postComment(
             Long talkId,
-            @Required String content) {
+            @Required String content) throws Throwable {
         Session talk = Session.findById(talkId);
         notFoundIfNull(talk);
 
@@ -121,7 +121,7 @@ public class Sessions extends PageController {
         renderBinary(captcha);
     }
 
-    public static void save(@Valid Talk talk, String[] interests, String newInterests) {
+    public static void save(@Valid Talk talk, String[] interests, String newInterests) throws Throwable {
         Logger.info("Tentative d'enregistrement de la session " + talk);
         if (interests != null) {
             talk.updateInterests(interests);
@@ -141,7 +141,7 @@ public class Sessions extends PageController {
         show(talk.id, JavaExtensions.slugify(talk.title), true);
     }
     
-    public static void validate(long talkId) {
+    public static void validate(long talkId) throws Throwable {
         Talk talk = Talk.findById(talkId);
         notFoundIfNull(talk);
 
@@ -149,7 +149,7 @@ public class Sessions extends PageController {
         show(talkId, JavaExtensions.slugify(talk.title), true);
     }
     
-    public static void unvalidate(long talkId) {
+    public static void unvalidate(long talkId) throws Throwable {
         Talk talk = Talk.findById(talkId);
         notFoundIfNull(talk);
 

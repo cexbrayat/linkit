@@ -219,6 +219,7 @@ track.Gamy.description=Des jeux agiles et des coding dojos pour apprendre
 
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new" tabindex="-1" class="ignoredirty">MarkDown</a> accepté.
+remainingChars=caractères restants
 
 # Since Java Date extension
 since.seconds=il y a %d sec

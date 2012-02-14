@@ -38,10 +38,10 @@
         <div class="span2" style="text-align: center">
         #{if speaker.email}
             #{if session.username}
-                <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                <a href="@{Profile.show(speaker.login)}"><img src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
             #{/if}
             #{else}
-                <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right"><img src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
             #{/else}
         #{/if}<br/>
         #{if session.username}
