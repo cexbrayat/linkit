@@ -164,14 +164,17 @@ mailing.message=Contenu
 mailing.message.note=Obligatoire. Le contenu du mail.<br/>&{markdown.note}
 
 # Settings
-notificationOption=Fréquence de notification
-notificationOption.note=
+setting.notificationOption=Fréquence de notification
+setting.notificationOption.note=
+setting.timezone=Votre fuseau horaire
+setting.timezone.note=Votre fuseau horaire. Permet de vous indiquer des heures d'activités correspondantes à votre horloge.
 
 # Notification options
 NotificationOption.None.label=Pas de notifications
 NotificationOption.Instant.label=Instantanées
 NotificationOption.Daily.label=Quotidiennes
-NotificationOption.Weekly.label=Hebdomadaires
+NotificationOption.Hourly.label=Chaque heure
+NotificationOption.Weekly.label=Hedomadaires
 
 # Activities
 activities.more=Afficher plus...
@@ -238,3 +241,4 @@ validation.maxSize=La longueur maximale est %2$d
 validation.url=Ce n'est pas une URL valide
 validation.unique=La valeur du champ %s est déjà utilisée par l'utilisateur %s
 validation.googleID=Ce n'est pas à un Google ID valide
+validation.timezone=Ca ne correspond pas à un fuseau horaire connu

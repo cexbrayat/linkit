@@ -38,8 +38,11 @@ public class SessionTest extends BaseDataUnitTest {
 
     }
     
-    @Test public void lookBy() {
+    @Test public void lookByValid() {
         final Session session = Session.all().first();
+        // Ensure session valid
+        session.valid = true;
+        session.save();
         final Member speaker = session.speakers.iterator().next();
         final Member ced = Member.findByLogin("ced");
         final long nbLooks = session.getNbLooks();
@@ -52,6 +55,20 @@ public class SessionTest extends BaseDataUnitTest {
         assertEquals(nbLooks+1, session.getNbLooks());
         session.lookedBy(null);
         assertEquals(nbLooks+2, session.getNbLooks());
+    }
+    
+    @Test public void lookByNonValid() {
+        final Session session = Session.all().first();
+        // Ensure session non valid
+        session.valid = false;
+        session.save();
+        final Member ced = Member.findByLogin("ced");
+        final long nbLooks = session.getNbLooks();
+
+        // Even if a non valid session is displayed, it is not counted
+        session.lookedBy(ced);
+        session.lookedBy(null);
+        assertEquals(nbLooks, session.getNbLooks());
     }
     
     @Test public void hasSpeakerNull() {
