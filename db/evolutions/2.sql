@@ -23,6 +23,10 @@ drop column notificationOption;
 DELETE FROM activity USING activity INNER JOIN session ON activity.ID = session.ID and session.valid=false;
 COMMIT;
 
+update interest set name=lower(name);
+update interest set name=trim(name);
+COMMIT;
+
 # --- !Downs
 
 alter table Member
