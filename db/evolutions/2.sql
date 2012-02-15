@@ -18,6 +18,10 @@ COMMIT;
 alter table Member
 drop column notificationOption;
 
+# Delete false activities
+delete activity a where a.session_id in (select id from session s where s.valid=false);
+COMMIT;
+
 # --- !Downs
 
 alter table Member
