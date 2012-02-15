@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.Entity;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import play.Logger;
@@ -30,9 +32,10 @@ public class Interest extends Model implements Comparable<Interest> {
      * @return Interest
      */
     public static Interest findOrCreateByName(String name) {
-        Interest interest = Interest.find("byName", name).first();
+        String newInterest = StringUtils.lowerCase(StringUtils.trim(name));
+        Interest interest = Interest.find("byName", newInterest).first();
         if (interest == null) {
-            interest = new Interest(name);
+            interest = new Interest(newInterest);
         }
         return interest;
     }
@@ -139,6 +142,8 @@ public class Interest extends Model implements Comparable<Interest> {
 
     @Override
     public String toString() {
-        return name;
+        return WordUtils.capitalizeFully(new StringBuilder()
+                .append(name)
+                .toString());
     }
 }
