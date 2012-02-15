@@ -28,12 +28,12 @@ public class Interests extends PageController {
         render("Interests/merge.html", interestsToBeDeleted);
     }
 
-    public static void merge(String[] interestsToBeDeleted, String survivorInterestName) {
+    public static void merge(Long[] interestsToBeDeleted, Long survivorInterestName) {
 
-        Interest survivorInterest = Interest.findByName(survivorInterestName);
+        Interest survivorInterest = Interest.findById(survivorInterestName);
         if (interestsToBeDeleted != null) {
-            for (String interestNameToBeDeleted : interestsToBeDeleted) {
-                Interest interestToBeDeleted = Interest.findByName(interestNameToBeDeleted);
+            for (Long interestIdToBeDeleted : interestsToBeDeleted) {
+                Interest interestToBeDeleted = Interest.findById(interestIdToBeDeleted);
                 interestToBeDeleted.merge(survivorInterest);
             }
             flash.success("Intérêts fusionnés");

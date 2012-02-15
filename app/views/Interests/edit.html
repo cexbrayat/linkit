@@ -45,7 +45,7 @@
                     <tr>
                         <td><a href="@{Application.searchByInterest(interest.name)}" rel='twipsy' title="A quoi est linké cet intérêt?" data-html="true">'${interest}'</a></td>
                         <td>
-                            <div style="text-align: center"><input type="checkbox" name="interestsToBeDeleted" value="${interest.name}" /></div>
+                            <div style="text-align: center"><input type="checkbox" name="interestsToBeDeleted" value="${interest.id}" /></div>
                         </td>
                     </tr>
                 #{/list}
