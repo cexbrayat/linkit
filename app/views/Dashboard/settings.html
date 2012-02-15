@@ -1,5 +1,8 @@
 #{extends 'main.html' /}
 #{set title:'Gérer vos préférences' /}
+#{set 'moreStyles'}
+<link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/ui/jquery-ui-1.8.17.custom.css'}">
+#{/set}
 #{set 'moreScripts'}
 <!-- Requirements for managing form dirtiness -->
 <script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
@@ -7,6 +10,19 @@
 <script src="@{'/public/javascripts/dirtiness.js'}"></script>
 <!-- End Requirements for managing form dirtiness -->
 <script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/jquery-ui-1.8.17.custom.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script>
+    $(function() {
+        var availableTimezones = [
+        #{list items:timezones, as:'tz'}
+            "${tz}"#{if !tz_isLast},#{/if}
+        #{/list}
+        ];
+        $( "#setting_timezone" ).autocomplete({
+            source: availableTimezones
+        });
+    });
+</script>
 #{/set}
 #{dirtyDialog/}
 
@@ -42,7 +58,7 @@
             <div class="clearfix ${field.error?'error':''}"> 
                 <label for="${field.name}">&{field.name}</label> 
                 <div class="input"> 
-                    #{select field.name, items:timezones, value:field.value /}
+                    <input id="${field.id}" type="text" name="${field.name}" value="${field.value}" />
                     <span class="help-block">${field.error}</span>
                     <span class="help-block">&{field.name+".note"}</span>
                 </div>

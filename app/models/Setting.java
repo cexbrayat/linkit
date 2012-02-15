@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
+import models.validation.TimeZoneCheck;
+import play.data.validation.CheckWith;
 import play.db.jpa.Model;
 
 /**
@@ -21,6 +23,7 @@ public class Setting extends Model {
     public NotificationOption notificationOption = NotificationOption.Weekly;
 
     /** Timezone for activities hours display (in mail notification) */
+    @CheckWith(TimeZoneCheck.class)
     public String timezone = "Europe/Paris";
 
     public Setting(Member member) {

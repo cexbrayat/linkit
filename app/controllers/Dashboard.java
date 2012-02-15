@@ -50,15 +50,21 @@ public class Dashboard extends PageController {
         if (setting == null) {
             setting = new Setting(member);
         }
-        Set<String> timezones = DateTimeZone.getAvailableIDs();
-        
-        render(setting, timezones);
+        settings(setting);
+    }
+    
+    private static void settings(Setting setting) {
+        Set<String> timezones = DateTimeZone.getAvailableIDs();     
+        render("Dashboard/settings.html", setting, timezones);
     }
     
     public static void saveSettings(@Valid Setting setting) {
         Member member = Member.findByLogin(Security.connected());
         if (member == null) Login.index(request.url);
 
+        if (validation.hasErrors()) {
+            settings(setting);
+        }
         setting.member = member;
         setting.save();
         flash.success("Vos préférences ont été sauvegardées");
