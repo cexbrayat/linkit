@@ -6,6 +6,7 @@
     Voici les activités ayant eu lieu
     #{if setting.notificationOption == models.NotificationOption.Instant}à l'instant#{/if}
     #{if setting.notificationOption == models.NotificationOption.Daily}aujourd'hui#{/if}
+    #{if setting.notificationOption == models.NotificationOption.Hourly}durant la dernière heure#{/if}
     #{if setting.notificationOption == models.NotificationOption.Weekly}cette semaine#{/if}
     sur le site de <a href="@@{Application.index()}" title="Mix-IT 2012">Mix-IT 2012</a>&nbsp;:
 </p>

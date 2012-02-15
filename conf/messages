@@ -173,7 +173,8 @@ setting.timezone.note=Votre fuseau horaire. Permet de vous indiquer des heures d
 NotificationOption.None.label=Pas de notifications
 NotificationOption.Instant.label=Instantanées
 NotificationOption.Daily.label=Quotidiennes
-NotificationOption.Weekly.label=Hebdomadaires
+NotificationOption.Hourly.label=Chaque heure
+NotificationOption.Weekly.label=Hedomadaires
 
 # Activities
 activities.more=Afficher plus...
