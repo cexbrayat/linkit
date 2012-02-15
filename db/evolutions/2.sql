@@ -19,7 +19,8 @@ alter table Member
 drop column notificationOption;
 
 # Delete false activities
-delete activity a where a.session_id in (select id from session s where s.valid=false);
+#delete from activity a where a.session_id in (select id from session s where s.valid=false);
+DELETE FROM activity USING activity INNER JOIN session ON activity.ID = session.ID and session.valid=false;
 COMMIT;
 
 # --- !Downs
