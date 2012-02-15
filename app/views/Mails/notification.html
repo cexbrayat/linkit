@@ -4,13 +4,13 @@
 <p>Cher ${recipient},</p>
 <p>
     Voici les activités ayant eu lieu
-    #{if periodicity == models.NotificationOption.Instant}à l'instant#{/if}
-    #{if periodicity == models.NotificationOption.Daily}aujourd'hui#{/if}
-    #{if periodicity == models.NotificationOption.Weekly}cette semaine#{/if}
+    #{if setting.notificationOption == models.NotificationOption.Instant}à l'instant#{/if}
+    #{if setting.notificationOption == models.NotificationOption.Daily}aujourd'hui#{/if}
+    #{if setting.notificationOption == models.NotificationOption.Weekly}cette semaine#{/if}
     sur le site de <a href="@@{Application.index()}" title="Mix-IT 2012">Mix-IT 2012</a>&nbsp;:
 </p>
 <div id="activities" class="hero-unit" style="padding: 10px; margin: 10px">
-    #{mails.activities activities:activities /}
+    #{mails.activities activities:activities, setting:setting /}
 </div>
 
 <p>

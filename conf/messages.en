@@ -112,6 +112,12 @@ lightningtalk.long.description= Why not try your luck? This is an opportunity to
 lightningtalk.submit=Submit a Lightning Talk
 lightningtalk.alert.login=Sign in to propose a Lightning Talk
 
+# Settings
+setting.notificationOption=Notification frequency
+setting.notificationOption.note=
+setting.timezone=Your timezone
+setting.timezone.note=To give you activity hours matching your clock.
+
 # Global messages
 markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new" tabindex="-1" class="ignoredirty">MarkDown</a> enabled.
 remainingChars=remaining characters

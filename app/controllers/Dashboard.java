@@ -7,10 +7,11 @@ import models.Article;
 import models.Badge;
 import models.Comment;
 import models.Member;
-import models.NotificationOption;
 import models.Session;
+import models.Setting;
 import models.Suggestion;
-import play.data.validation.Required;
+import org.joda.time.DateTimeZone;
+import play.data.validation.Valid;
 import play.mvc.With;
 
 @With(SecureLinkIt.class)
@@ -20,6 +21,7 @@ public class Dashboard extends PageController {
 // FIXME CLA Member.fetchForProfile
 //      Member member = Member.fetchForProfile(login);
         Member member = Member.findByLogin(Security.connected());
+        Setting setting = Setting.findByMember(member);
 
         List<Member> suggestedMembers = Suggestion.suggestedMembersFor(member, 5);
         List<Session> suggestedSessions = Suggestion.suggestedSessionsFor(member, 5);
@@ -31,7 +33,7 @@ public class Dashboard extends PageController {
         // Five recent comments
         List<Comment> comments = Comment.recentsByMember(member, 5);
 
-        render(member, suggestedMembers, suggestedSessions, suggestedBadges, articles, comments);
+        render(member, setting, suggestedMembers, suggestedSessions, suggestedBadges, articles, comments);
     }
     
     public static void badges() {
@@ -44,16 +46,21 @@ public class Dashboard extends PageController {
         Member member = Member.findByLogin(Security.connected());
         if (member == null) Login.index(request.url);
         
-        render(member);
+        Setting setting = Setting.findByMember(member);
+        if (setting == null) {
+            setting = new Setting(member);
+        }
+        Set<String> timezones = DateTimeZone.getAvailableIDs();
+        
+        render(setting, timezones);
     }
     
-    public static void saveSettings(@Required NotificationOption notificationOption) {
+    public static void saveSettings(@Valid Setting setting) {
         Member member = Member.findByLogin(Security.connected());
         if (member == null) Login.index(request.url);
-        
-        member.notificationOption = notificationOption;
-        
-        member.save();
+
+        setting.member = member;
+        setting.save();
         flash.success("Vos préférences ont été sauvegardées");
 
         index();

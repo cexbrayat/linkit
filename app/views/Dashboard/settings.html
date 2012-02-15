@@ -19,15 +19,30 @@
         <fieldset> 
             <legend>Notifications par mail</legend>
 
-            #{field 'notificationOption'}
+            #{field 'setting.id'}
+                <input id="${field.id}" name="${field.name}" type="hidden" value="${field.value}" />
+            #{/}
+
+            #{field 'setting.notificationOption'}
             <div class="clearfix ${field.error?'error':''}"> 
                 <label for="${field.name}">&{field.name}</label> 
                 <div class="input"> 
                     <ul class="inputs-list">
                         #{list items:models.NotificationOption.values(), as:'option'}
-                        <li><label><input type="radio" name="${field.name}" value="${option}" ${member.notificationOption == option?'checked':''} />&{'NotificationOption.'+option+'.label'}</label></li>
+                        <li><label><input type="radio" name="${field.name}" value="${option}" ${setting.notificationOption == option?'checked':''} />&{'NotificationOption.'+option+'.label'}</label></li>
                         #{/list}
                     </ul>
+                    <span class="help-block">${field.error}</span>
+                    <span class="help-block">&{field.name+".note"}</span>
+                </div>
+            </div><!-- /clearfix -->
+            #{/}
+
+            #{field 'setting.timezone'}
+            <div class="clearfix ${field.error?'error':''}"> 
+                <label for="${field.name}">&{field.name}</label> 
+                <div class="input"> 
+                    #{select field.name, items:timezones, value:field.value /}
                     <span class="help-block">${field.error}</span>
                     <span class="help-block">&{field.name+".note"}</span>
                 </div>
