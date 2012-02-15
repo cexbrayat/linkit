@@ -46,7 +46,7 @@ public class Interest extends Model implements Comparable<Interest> {
      * @return Interest found, or null.
      */
     public static Interest findByName(String name) {
-        return Interest.find("byName", name).first();
+        return Interest.find("byName", StringUtils.lowerCase(name)).first();
     }
 
     /**
