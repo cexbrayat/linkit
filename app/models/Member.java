@@ -315,9 +315,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         return this;
     }
 
-    public static List<Member> findMembersInterestedIn(String interest) {
+    public static List<Member> findMembersInterestedIn(Interest interest) {
         return Member.find(
-                "select distinct m from Member m join m.interests as i where i.name = ?", interest).fetch();
+                "select distinct m from Member m join m.interests as i where i = ?", interest).fetch();
     }
 
     public void addBadge(Badge badge) {

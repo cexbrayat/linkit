@@ -55,6 +55,9 @@ Interest(kanban):
 Interest(kotlin):
     name: Kotlin
     
+Interest(kotlin2):
+    name: Kotlin
+    
 Interest(dart):
     name: Dart
     
