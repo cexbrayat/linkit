@@ -25,16 +25,16 @@ public class SessionTest extends BaseDataUnitTest {
         Session session2 = new Talk();
 
         // Well
-        assertEquals(0, Session.findSessionsLinkedWith("Java").size());
+        assertEquals(0, Session.findSessionsLinkedWith(Interest.findByName("Java")).size());
 
         // Add interest now
         session1.addInterest("Java").addInterest("TDD").addInterest("Hadoop").save();
         session2.addInterest("Java").save();
 
         // Simple Check
-        assertEquals(2, Session.findSessionsLinkedWith("Java").size());
-        assertEquals(1, Session.findSessionsLinkedWith("TDD").size());
-        assertEquals(1, Session.findSessionsLinkedWith("Hadoop").size());
+        assertEquals(2, Session.findSessionsLinkedWith(Interest.findByName("Java")).size());
+        assertEquals(1, Session.findSessionsLinkedWith(Interest.findByName("TDD")).size());
+        assertEquals(1, Session.findSessionsLinkedWith(Interest.findByName("Hadoop")).size());
 
     }
     

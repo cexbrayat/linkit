@@ -112,9 +112,9 @@ public abstract class Session extends Model implements Lookable {
         }
     }
 
-    public static List<Session> findSessionsLinkedWith(String interest) {
+    public static List<Session> findSessionsLinkedWith(Interest interest) {
         return Session.find(
-                "select distinct s from Session s join s.interests as i where i.name = ?", interest).fetch();
+                "select distinct s from Session s join s.interests as i where i = ?", interest).fetch();
     }
     
     public Session addInterest(String interest) {

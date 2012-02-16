@@ -258,7 +258,7 @@ Connectez-vous sur le site <a class="ignoredirty" href="http://www.gravatar.com"
                         <ul class="inputs-list">
                             #{list items:models.Interest.findAllOrdered(), as:'interest'}
                             <span class="checkbox">
-                                <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
+                                <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} /> <span>${interest}</span></label></li>
                             </span>
 
                             #{/list}

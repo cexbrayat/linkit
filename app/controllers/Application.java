@@ -18,15 +18,15 @@ import play.templates.JavaExtensions;
 
 @Transactional(readOnly = true)
 public class Application extends PageController {
-    
+
     public static void index() {
-        
+
         // DEV MODE : discard connected user if not found in DB (when you restarted your local dev application with initial data)
         String login = Security.connected();
         if (login != null && Member.findByLogin(login) == null) {
             session.remove("username");
         }
-        
+
         // Three recent articles
         List<Article> articles = Article.recents(1, 3);
         List<Talk> sessions = Talk.recents(1, 3);
@@ -62,35 +62,38 @@ public class Application extends PageController {
     }
 
     public static void searchByInterest(String interest) {
-        List<Member> members = Member.findMembersInterestedIn(interest);
-        List<Session> talks = Session.findSessionsLinkedWith(interest);
+        Interest i = Interest.findByName(interest);
+        List<Member> members = Collections.emptyList();
+        List<Session> talks = Collections.emptyList();
         String query = interest;
+        if (i != null) {
+            members = Member.findMembersInterestedIn(i);
+            talks = Session.findSessionsLinkedWith(i);
+        }
         render("Application/search.html", members, talks, query);
     }
 
     static class LuceneQueryBuilder {
+
         private String searchTerm;
         private Set<String> fields = Sets.newHashSet();
 
         protected static boolean isPhraseQuery(String query) {
             return StringUtils.contains(query, ' ');
         }
+
         protected static String wrap(String query) {
             query = StringUtils.trim(query);
             // Ignore accents
             query = JavaExtensions.noAccents(query);
             if (isPhraseQuery(query)) {
-                return new StringBuilder()
-                    .append('"')
-                    .append(query)
-                    .append('"').toString();
+                return new StringBuilder().append('"').append(query).append('"').toString();
             } else {
-                return new StringBuilder(query)
-                    .append('*')    // Wilcarded search is not available on phrase query
-                    .toString();
+                return new StringBuilder(query).append('*') // Wilcarded search is not available on phrase query
+                        .toString();
             }
         }
-        
+
         public LuceneQueryBuilder(final String searchTerm) {
             this.searchTerm = wrap(searchTerm);
         }
@@ -99,10 +102,10 @@ public class Application extends PageController {
             fields.add(name);
             return this;
         }
-        
+
         public String toQuery() {
             StringBuilder query = new StringBuilder();
-            for (Iterator<String> iField = fields.iterator(); iField.hasNext(); ) {
+            for (Iterator<String> iField = fields.iterator(); iField.hasNext();) {
                 query.append(iField.next()).append(":").append(searchTerm);
                 if (iField.hasNext()) {
                     query.append(" OR ");
@@ -116,41 +119,30 @@ public class Application extends PageController {
             return toQuery();
         }
     }
-    
+
     // CLA 10/12/2011 : is this controller method is named find(), main.html template doesn't work...
     public static void search(String query) {
 
-        if (StringUtils.isBlank(query)) Application.index();
-        
-        final String articlesQuery = new LuceneQueryBuilder(query)
-                .orField(Article.TITLE)
-                .orField(Article.HEADLINE)
-                .orField(Article.CONTENT)
-                .toQuery();
+        if (StringUtils.isBlank(query)) {
+            Application.index();
+        }
+
+        final String articlesQuery = new LuceneQueryBuilder(query).orField(Article.TITLE).orField(Article.HEADLINE).orField(Article.CONTENT).toQuery();
         Logger.debug("Search articles with query : %s", articlesQuery);
         List<Article> articles = Search.search(articlesQuery, Article.class).fetch();
 
-        final String sessionsQuery = new LuceneQueryBuilder(query)
-                .orField(Session.TITLE)
-                .orField(Session.SUMMARY)
-                .orField(Session.DESCRIPTION)
-                .toQuery();
+        final String sessionsQuery = new LuceneQueryBuilder(query).orField(Session.TITLE).orField(Session.SUMMARY).orField(Session.DESCRIPTION).toQuery();
         Logger.debug("Search sessions with query : %s", sessionsQuery);
         List<Talk> talks = Search.search(sessionsQuery, Talk.class).fetch();
         List<LightningTalk> lightningtalks = Search.search(sessionsQuery, LightningTalk.class).fetch();
 
-        final String membersQuery = new LuceneQueryBuilder(query)
-                .orField(Member.FIRSTNAME)
-                .orField(Member.LASTNAME)
-                .orField(Member.COMPANY)
-                .orField(Member.SHORTDESCRIPTION)
-                .orField(Member.LONGDESCRIPTION).toQuery();
+        final String membersQuery = new LuceneQueryBuilder(query).orField(Member.FIRSTNAME).orField(Member.LASTNAME).orField(Member.COMPANY).orField(Member.SHORTDESCRIPTION).orField(Member.LONGDESCRIPTION).toQuery();
         Logger.debug("Search members with query : %s", membersQuery);
         List<Staff> searchStaff = Search.search(membersQuery, Staff.class).fetch();
         List<Sponsor> searchSponsors = Search.search(membersQuery, Sponsor.class).fetch();
         List<Member> searchMembers = Search.search(membersQuery, Member.class).fetch();
         // Building unordered (unique) set of members
-        Set<Member> uniqueMembers = new HashSet<Member>(searchStaff.size()+searchSponsors.size()+searchMembers.size());
+        Set<Member> uniqueMembers = new HashSet<Member>(searchStaff.size() + searchSponsors.size() + searchMembers.size());
         uniqueMembers.addAll(searchSponsors);
         uniqueMembers.addAll(searchStaff);
         uniqueMembers.addAll(searchMembers);

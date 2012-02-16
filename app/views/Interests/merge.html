@@ -7,7 +7,7 @@
 </p>
 
 
-#{form @Interests.merge(interestsToBeDeleted)} 
+#{form @Interests.merge()} 
 
 <div class="row">
     <fieldset>
@@ -16,9 +16,9 @@
             <div class="clearfix ${field.error?'error':''}">
                 <div class="input"> 
                     <ul class="inputs-list">
-                        #{list items:interestsToBeDeleted, as:'interest'}
+                        #{list items:interests, as:'interest'}
                         <span class="checkbox">
-                            <li><label><input type="radio" name="survivorInterestName" value="${interest}" /> <span>${interest}</span></label></li>
+                            <li><label><input type="radio" name="survivorInterestId" value="${interest.id}" /> <span>${interest}</span></label></li>
                         </span>
                         #{/list}
                     </ul>                        
@@ -26,6 +26,7 @@
                 </div>
             </div><!-- /clearfix -->
             #{/field}
+            <input type="hidden" name="interests" value="#{list items:interests, as:'interest'}${interest.id},#{/list}"/>
         </div>
     </fieldset>
     <div class="alert-actions" style="text-align: center">

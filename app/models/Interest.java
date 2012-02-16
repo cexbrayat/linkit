@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import javax.persistence.Entity;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import play.Logger;
@@ -20,7 +22,7 @@ public class Interest extends Model implements Comparable<Interest> {
     public String name;
 
     protected Interest(String name) {
-        this.name = name;
+        this.name = cleanInterestName(name);
     }
 
     /**
@@ -30,9 +32,9 @@ public class Interest extends Model implements Comparable<Interest> {
      * @return Interest
      */
     public static Interest findOrCreateByName(String name) {
-        Interest interest = Interest.find("byName", name).first();
+        Interest interest = findByName(name);
         if (interest == null) {
-            interest = new Interest(name);
+            interest = new Interest(name).save();
         }
         return interest;
     }
@@ -43,7 +45,16 @@ public class Interest extends Model implements Comparable<Interest> {
      * @return Interest found, or null.
      */
     public static Interest findByName(String name) {
-        return Interest.find("byName", name).first();
+        return Interest.find("lower(name)=?", cleanInterestName(name.toLowerCase())).first();
+    }
+    
+     /**
+     * Return the name of the interest trimmed and in lower case
+     * @param name Interest named
+     * @return Interest trimmed and in lower case
+     */
+    private static String cleanInterestName(String name){
+         return StringUtils.trim(name);
     }
 
     /**
@@ -55,7 +66,7 @@ public class Interest extends Model implements Comparable<Interest> {
      */
     public static List<Map> getCloud() {
         List<Map> result = Interest.find(
-                "select new map(i.name as interest, count(m.id) as pound) "
+                "select new map(i as interest, count(m.id) as pound) "
                 + "from Member m join m.interests as i group by i.name order by i.name").fetch();
         return result;
     }
@@ -68,24 +79,24 @@ public class Interest extends Model implements Comparable<Interest> {
      * Delete existing interest by name
      * @param name Interest name
      */
-    public static void deleteByName(String name) {
-        Interest interestToBeDeleted = Interest.findByName(name);
-        List<Member> members = Member.findMembersInterestedIn(name);
+    @Override
+    public Interest delete() {
+        List<Member> members = Member.findMembersInterestedIn(this);
         for (Member member : members) {
-            member.interests.remove(interestToBeDeleted);
+            member.interests.remove(this);
             member.save();
         }
-        List<Session> sessions = Session.findSessionsLinkedWith(name);
+        List<Session> sessions = Session.findSessionsLinkedWith(this);
         for (Session session : sessions) {
-            session.interests.remove(interestToBeDeleted);
+            session.interests.remove(this);
             session.save();
         }
-        delete("name", name);
+        return super.delete();
     }
 
-    public static void deleteByName(String... interests) {
-        for (String interet : interests) {
-            deleteByName(interet);
+    public static void deleteAll(Interest... interests) {
+        for (Interest interet : interests) {
+            interet.delete();
         }
     }
 
@@ -96,23 +107,22 @@ public class Interest extends Model implements Comparable<Interest> {
      * @param survivorInterest the survivor interest (the interest which we keep)
      */
     public void merge(Interest survivorInterest) {
-        if (this.equals(survivorInterest)) {
-            Logger.info("impossible de merger des interets identiques!");
+        if (this.id== survivorInterest.id) {
             return;
         }
-        List<Member> members = Member.findMembersInterestedIn(this.name);
+        List<Member> members = Member.findMembersInterestedIn(this);
         for (Member member : members) {
             member.interests.remove(this);
             member.interests.add(survivorInterest);
             member.save();
         }
-        List<Session> sessions = Session.findSessionsLinkedWith(this.name);
+        List<Session> sessions = Session.findSessionsLinkedWith(this);
         for (Session session : sessions) {
             session.interests.remove(this);
             session.interests.add(survivorInterest);
             session.save();
         }
-        delete("name", this.name);
+        super.delete();
 
     }
 
@@ -129,12 +139,12 @@ public class Interest extends Model implements Comparable<Interest> {
             return false;
         }
         final Interest other = (Interest) obj;
-        return new EqualsBuilder().append(this.name, other.name).isEquals();
+        return new EqualsBuilder().append(this.name.toLowerCase(), other.name.toLowerCase()).isEquals();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(this.name).toHashCode();
+        return new HashCodeBuilder().append(this.name.toLowerCase()).toHashCode();
     }
 
     @Override
