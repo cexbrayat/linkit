@@ -20,10 +20,10 @@ public class Suggestion {
      * @param interests
      * @return 
      */
-    public static List<Session> findSessionsAbout(Collection<Interest> interests) {
+    public static Collection<Session> findSessionsAbout(Collection<Interest> interests) {
         return Session.find(
                 "select distinct s from Session s join s.interests as i "
-                + "where i in (:interests) group by s").bind("interests", interests).fetch();
+                + "where s.valid=true and i in (:interests) group by s").bind("interests", interests).fetch();
     }
 
     /**
@@ -94,7 +94,8 @@ public class Suggestion {
             List<Object[]> result = Session.find("select distinct suggested, count(i) as nbShared "
                     + "from Session suggested "
                     + "inner join suggested.interests as i "
-                    + "where i in (:interests) "
+                    + "where suggested.valid=true "
+                    + "and i in (:interests) "
                     + "group by suggested "
                     + "order by nbShared desc")
                     .bind("interests", member.interests)
