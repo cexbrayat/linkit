@@ -6,6 +6,7 @@
 <script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
 <script src="@{'/public/javascripts/dirtiness.js'}"></script>
 <!-- End Requirements for managing form dirtiness -->
+<script src="@{'/public/javascripts/limitcountdown.js'}"></script>
 <script lang="text/javascript">
     var nbLinks = 5;
     function inputName(i) {
@@ -46,6 +47,10 @@
             setSharedLink(i+1, valuesCurrent);
         }
     }
+    
+    $(function() {
+        registerLimited('#shortDescription', '#shortDescriptionCountdown', 140, "&{'remainingChars'}");
+    });
 </script>
 #{/set}
 
@@ -132,6 +137,7 @@ Connectez-vous sur le site <a class="ignoredirty" href="http://www.gravatar.com"
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <textarea class="span6" id="${field.id}" name="${field.name}" size="30" maxlength="140" rows="2">${member?.shortDescription}</textarea>
+                        <span class="help-inline" id="${field.id}Countdown" style="font-weight: bold"></span>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+'.note'}</span>
                     </div> 
@@ -252,7 +258,7 @@ Connectez-vous sur le site <a class="ignoredirty" href="http://www.gravatar.com"
                         <ul class="inputs-list">
                             #{list items:models.Interest.findAllOrdered(), as:'interest'}
                             <span class="checkbox">
-                                <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
+                                <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} /> <span>${interest}</span></label></li>
                             </span>
 
                             #{/list}
