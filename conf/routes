@@ -8,9 +8,6 @@ GET     /                                       Application.index
 # Import CRUD routes
 *       /admin                                  module:crud
 
-# Ignore favicon requests
-GET     /favicon.ico                            404
-
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
@@ -98,6 +95,8 @@ GET     /logout                                 Secure.logout
 WS      /live                                   LiveActivities.listen
 
 # Bots resources
+*       /favicon.ico                            staticFile:public/images/favicon.ico
+*       /favicon.png                            staticFile:public/images/favicon.png
 *       /robots.txt                             staticFile:public/robots.txt
 *       /humans.txt                             staticFile:public/humans.txt
 

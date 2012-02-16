@@ -110,18 +110,19 @@ public class MemberTest extends BaseDataUnitTest {
     public void testFindMembersInterestedIn() {
         Member bob = Member.findByLogin("bob");
         Member ced = Member.findByLogin("ced");
+        Interest interestJava = Interest.findOrCreateByName("Java");
 
         // Well
-        assertEquals(0, Member.findMembersInterestedIn("Java").size());
+        assertEquals(0, Member.findMembersInterestedIn(interestJava).size());
 
         // Add interest now
         ced.addInterest("Java").addInterest("Hadoop").save();
         bob.addInterest("TDD").addInterest("Java").save();
 
         // Simple Checks
-        assertEquals(2, Member.findMembersInterestedIn("Java").size());
-        assertEquals(1, Member.findMembersInterestedIn("TDD").size());
-        assertEquals(1, Member.findMembersInterestedIn("Hadoop").size());
+        assertEquals(2, Member.findMembersInterestedIn(interestJava).size());
+        assertEquals(1, Member.findMembersInterestedIn(Interest.findByName("TDD")).size());
+        assertEquals(1, Member.findMembersInterestedIn(Interest.findByName("Hadoop")).size());
     }
    
     protected static Member createMember(final String login) {
@@ -382,15 +383,5 @@ public class MemberTest extends BaseDataUnitTest {
         lt.addSpeaker(m);
         lt.save();
         assertTrue(m.isLightningTalkSpeaker());
-    }
-    
-    @Test public void findNotified() {
-        final Member m = createMember("toto");
-        m.notificationOption = NotificationOption.Daily;
-        m.save();
-        
-        assertTrue(Member.findNotified(NotificationOption.Daily).contains(m));
-        assertFalse(Member.findNotified(NotificationOption.Instant).contains(m));
-        assertFalse(Member.findNotified(NotificationOption.None).contains(m));
     }
 }

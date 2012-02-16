@@ -7,6 +7,7 @@ import java.util.TreeSet;
 import models.GeneralParameter;
 import models.Member;
 import models.NotificationOption;
+import models.Setting;
 import models.activity.Activity;
 import org.joda.time.DateTime;
 import play.Logger;
@@ -36,7 +37,7 @@ public class BaseJobNotifications extends Job {
             // Retrieve LastNotification date
             Date lastNotification = getLastNotification();
             // Find notifiable members
-            List<Member> notifiables = Member.findNotified(option);
+            List<Member> notifiables = Setting.findNotified(option);
             if (!notifiables.isEmpty()) {
                 // Find general Activities to be notified to everyone
                 List<Activity> general = Activity.notifiablesBetween(lastNotification, begin);
@@ -47,7 +48,8 @@ public class BaseJobNotifications extends Job {
                     activities.addAll(general);
                     if (!activities.isEmpty()) {
                         Logger.info("Notifying user %s of %d activities", member, activities.size());
-                        Mails.notification(member, activities, option);
+                        Setting setting = Setting.findByMember(member);
+                        Mails.notification(member, setting, activities);
                     }
                 }
             }
