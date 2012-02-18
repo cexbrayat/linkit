@@ -174,7 +174,7 @@ NotificationOption.None.label=Pas de notifications
 NotificationOption.Instant.label=Instantanées
 NotificationOption.Daily.label=Quotidiennes
 NotificationOption.Hourly.label=Chaque heure
-NotificationOption.Weekly.label=Hedomadaires
+NotificationOption.Weekly.label=Hebdomadaires
 
 # Activities
 activities.more=Afficher plus...
