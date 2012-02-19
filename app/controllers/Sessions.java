@@ -49,7 +49,8 @@ public class Sessions extends PageController {
         SecureLinkIt.checkAccess();
         Member user = Member.findByLogin(Security.connected());
         if (!(user instanceof Staff || talk.hasSpeaker(user.login))) {
-            unauthorized();
+            flash.error("Vous n'avez pas accès à cette fonctionnalité");
+            index();
         }
     }
 
@@ -89,6 +90,7 @@ public class Sessions extends PageController {
     public static void show(final Long sessionId, String slugify, boolean noCount) throws Throwable {
         Session talk = Session.findById(sessionId);
         notFoundIfNull(talk);
+        checkAccess(talk);
 
         // Don't count look when coming from internal redirect
         if (!noCount) {

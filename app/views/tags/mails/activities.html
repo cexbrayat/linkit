@@ -1,6 +1,6 @@
-*{ Display all activities "activities" }*
+*{ Display all activities "activities", with Setting "setting" }*
 #{list items:_activities, as:'activity'}
 <p class="activity">
-${activity.at.format("hh'H'mm")} - #{mails.activity activity /}
+${activity.at.format((_setting.notificationOption.isMoreThanDayLong())?"dd/MM HH'H'mm":"HH'H'mm", "FR", _setting.timezone)} - #{mails.activity activity /}
 </p>
 #{/list}

@@ -7,11 +7,24 @@ package models;
 public enum NotificationOption {
     
     /* Instant notifications */
-    Instant,
+    Instant(false),
+    /** Hourly notifications */
+    Hourly(false),
     /** Daily notifications */
-    Daily,
+    Daily(false),
     /** Weekly notifications */
-    Weekly,
+    Weekly(true),
     /** No notifications */
-    None;
+    None(false);
+    
+    /** true if notifications spread on more than one day */
+    private boolean moreThanDayLong = false;
+    
+    private NotificationOption(boolean moreThanDayLong) {
+        this.moreThanDayLong = moreThanDayLong;
+    }
+
+    public boolean isMoreThanDayLong() {
+        return moreThanDayLong;
+    }
 }

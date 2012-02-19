@@ -111,3 +111,13 @@ lightningtalk.short.description=Each attendee could <strong>submit</strong> a Li
 lightningtalk.long.description= Why not try your luck? This is an opportunity to synthesize your knowledge on a subject and to invite other participants to investigate more! According to the votes of the participants, your subject can be chosen. The topics winners will be announced the day of the conference.
 lightningtalk.submit=Submit a Lightning Talk
 lightningtalk.alert.login=Sign in to propose a Lightning Talk
+
+# Settings
+setting.notificationOption=Notification frequency
+setting.notificationOption.note=
+setting.timezone=Your timezone
+setting.timezone.note=To give you activity hours matching your clock.
+
+# Global messages
+markdown.note=<a href="http://daringfireball.net/projects/markdown/syntax" target="_new" tabindex="-1" class="ignoredirty">MarkDown</a> enabled.
+remainingChars=remaining characters
