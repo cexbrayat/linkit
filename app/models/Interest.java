@@ -5,10 +5,8 @@ import java.util.Map;
 import javax.persistence.Entity;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import play.Logger;
 import play.db.jpa.Model;
 
 /**

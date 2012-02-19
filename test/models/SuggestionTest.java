@@ -1,10 +1,13 @@
 package models;
 
+import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 
+import java.util.Set;
 import org.junit.*;
 
 /**
@@ -88,31 +91,41 @@ public class SuggestionTest extends BaseDataUnitTest {
 
     @Test
     public void findSessionsAbout() {
-        final Session s1 = createTalk("session1");
+        final Talk s1 = createTalk("session1");
         final Session s2 = createLightningTalk("session2");
+        final Talk s3 = createTalk("session3 invalid");
+        s3.unvalidate();
+        final Talk s4 = createTalk("session4");
 
-        s1.addInterest("Java").addInterest("Hadoop").save();
-        s2.addInterest("TDD").addInterest("Java").save();
+        final String commonInterest = "common";
+        s1.addInterest(commonInterest).addInterest("nimp").save();
+        s2.addInterests("nimp", commonInterest).save();
+        s3.addInterest(commonInterest).save();
+        s4.addInterest("nimp");
         
         List<Interest> interests = new ArrayList<Interest>();
-        interests.add(Interest.findOrCreateByName("Java"));
+        interests.add(Interest.findOrCreateByName("toto"));
+        assertEquals(Collections.emptyList(), Suggestion.findSessionsAbout(interests));
+        interests.add(Interest.findOrCreateByName(commonInterest));
+        Set<Session> expectedSessions = Sets.newHashSet(s1,s2);
         assertEquals(2, Suggestion.findSessionsAbout(interests).size());
-        interests.add(Interest.findOrCreateByName("Hadoop"));
+        assertTrue(Suggestion.findSessionsAbout(interests).containsAll(expectedSessions));
+        interests.add(Interest.findOrCreateByName("tata"));
         assertEquals(2, Suggestion.findSessionsAbout(interests).size());
-        interests.add(Interest.findOrCreateByName("TDD"));
-        assertEquals(2, Suggestion.findSessionsAbout(interests).size());
+        assertTrue(Suggestion.findSessionsAbout(interests).containsAll(expectedSessions));
     }
     
-    private static Session createTalk(String text) {
+    private static Talk createTalk(String text) {
         Talk s = new Talk();
         s.title = text;
         s.summary = text;
         s.description = text;
         s.track = Track.Agility;
-        return s.save();
+        s.validate();
+        return s;
     }
     
-    private static Session createLightningTalk(String text) {
+    private static LightningTalk createLightningTalk(String text) {
         LightningTalk t = new LightningTalk();
         t.title = text;
         t.summary = text;
@@ -122,15 +135,18 @@ public class SuggestionTest extends BaseDataUnitTest {
     
     @Test
     public void suggestedSessionsFor() {
-        final Session s1 = createTalk("session1");
+        final Talk s1 = createTalk("session1");
         final Session s2 = createLightningTalk("session2");
-        final Session s3 = createTalk("session3");
+        final Talk s3 = createTalk("session3");
+        final Talk s4 = createTalk("session4 invalide");
+        s4.unvalidate();
 
         final String commonInterest1 = "TOTO";
         final String commonInterest2 = "TATA";
         s1.addInterest(commonInterest1).addInterest("TUTU").save();
         s2.addInterest(commonInterest1).addInterest(commonInterest2).save();
         s3.addInterest("nimp").addInterest("debile").save();
+        s4.addInterest(commonInterest1).addInterest(commonInterest2).save();
 
         final Member member = Member.all().first();
         member.addInterest(commonInterest1).addInterest(commonInterest2).save();
