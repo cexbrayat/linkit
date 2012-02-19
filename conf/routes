@@ -64,7 +64,9 @@ GET     /session/unvalidate/{talkId}            Sessions.unvalidate
 POST    /session/comment                        Sessions.postComment
 GET     /session/{sessionId}/{slugify}          Sessions.show
 # Just in case we forget the slugified title as parameter
-GET     /session/{sessionId}                    Sessions.show   
+GET     /session/{sessionId}                    Sessions.show
+GET     /session/fav/{talkId}/{login}           Sessions.fav
+GET     /session/unfav/{talkId}/{login}         Sessions.unfav
 
 # Lightning
 GET     /lightnings                             LightningTalks.list

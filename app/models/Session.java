@@ -55,6 +55,10 @@ public abstract class Session extends Model implements Lookable {
     @Required
     public Set<Member> speakers = new HashSet<Member>();
 
+    @ManyToMany
+    @JoinTable(name = "session_fans")
+    public Set<Member> fans = new HashSet<Member>();
+
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
 
@@ -95,6 +99,26 @@ public abstract class Session extends Model implements Lookable {
         if (StringUtils.isBlank(username)) return false;
         Member member = Member.findByLogin(username);
         return speakers.contains(member);
+    }
+
+    public final void addFan(Member fan) {
+        if (fan != null) {
+            fans.add(fan);
+            fan.favs.add(this);
+        }
+    }
+
+    public final void removeFan(Member fan) {
+        if (fan != null) {
+            fans.remove(fan);
+            fan.favs.remove(this);
+        }
+    }
+
+    public boolean isFan(String username) {
+        if (StringUtils.isBlank(username)) return false;
+        Member member = Member.findByLogin(username);
+        return fans.contains(member);
     }
 
     /**

@@ -2,22 +2,19 @@ package controllers;
 
 import helpers.JavaExtensions;
 import helpers.Lists;
-import play.*;
-
-import java.util.*;
-import models.SessionComment;
-import models.Member;
-import models.Role;
-import models.Session;
-import models.Staff;
-import models.Talk;
+import models.*;
 import org.apache.commons.lang.StringUtils;
+import play.Logger;
 import play.cache.Cache;
 import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.data.validation.Validation;
 import play.i18n.Messages;
 import play.libs.Images;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Sessions extends PageController {
 
@@ -155,5 +152,23 @@ public class Sessions extends PageController {
 
         talk.unvalidate();
         show(talkId, JavaExtensions.slugify(talk.title), true);
+    }
+
+    public static void fav(long talkId, String login) {
+        Talk talk = Talk.findById(talkId);
+        notFoundIfNull(talk);
+        Member member = Member.findByLogin(login);
+        notFoundIfNull(member);
+        talk.addFan(member);
+        talk.save();
+    }
+
+    public static void unfav(long talkId, String login) {
+        Talk talk = Talk.findById(talkId);
+        notFoundIfNull(talk);
+        Member member = Member.findByLogin(login);
+        notFoundIfNull(member);
+        talk.removeFan(member);
+        talk.save();
     }
 }

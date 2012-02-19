@@ -140,6 +140,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     @ManyToMany(mappedBy="speakers")
     public Set<Session> sessions = new HashSet<Session>();
 
+    @ManyToMany(mappedBy="fans")
+    public Set<Session> favs = new HashSet<Session>();
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @OrderColumn(name = "ordernum")
     @Valid

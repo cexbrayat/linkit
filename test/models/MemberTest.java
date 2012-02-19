@@ -1,13 +1,14 @@
 package models;
 
-import java.util.Arrays;
-import java.util.List;
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
 import models.mailing.Mailing;
 import org.apache.commons.lang.StringUtils;
-import org.junit.*;
+import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Unit tests for {@link Member} domain object
@@ -392,5 +393,21 @@ public class MemberTest extends BaseDataUnitTest {
         assertTrue(Member.findNotified(NotificationOption.Daily).contains(m));
         assertFalse(Member.findNotified(NotificationOption.Instant).contains(m));
         assertFalse(Member.findNotified(NotificationOption.None).contains(m));
+    }
+
+    @Test public void addFavedSession() {
+        //si on a un membre et une session
+        final Member m = createMember("favGuy");
+        m.save();
+
+        Talk t = new Talk();
+        t.addSpeaker(m);
+        t.save();
+        assertFalse(t.isFan(m.login));
+        //si on ajoute un talk en fav
+        t.addFan(m);
+
+        //le membre est fan de la session
+        assertTrue(t.isFan(m.login));
     }
 }
