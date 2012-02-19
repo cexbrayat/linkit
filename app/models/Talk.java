@@ -1,14 +1,18 @@
 package models;
 
-import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import models.activity.Activity;
 import models.activity.NewTalkActivity;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
 import play.mvc.Router;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToMany;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * A talk session

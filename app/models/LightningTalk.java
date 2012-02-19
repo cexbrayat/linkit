@@ -15,35 +15,12 @@ import play.mvc.Router;
 @Indexed
 public class LightningTalk extends Session {
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
-    public List<Vote> votes;
-
     public LightningTalk() {
         super();
         // A Lightning Talk is always validated
         valid = true;
     }
-
-    public static List<LightningTalk> findLinkedWith(Interest interest) {
-        return find("? in elements(interests)", interest).fetch();
-    }
-
-    public boolean hasVoteFrom(String username) {
-        Member member = Member.findByLogin(username);
-        if (member != null) {
-            Vote vote = Vote.findVote(this, member);
-            if (vote != null) {
-                Logger.info(this.id + " - vote value: " + vote.value);
-                return vote.value;
-            }
-        }
-        return false;
-    }
-
-    public long getNumberOfVotes() {
-        return Vote.findNumberOfVotesBySession(this);
-    }
-
+    
     @Override
     public String toString() {
         return title;

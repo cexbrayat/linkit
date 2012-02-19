@@ -2,31 +2,55 @@
 #{set title:'Session ' + talk.title /}
 #{set 'canonical'}@@{Sessions.show(talk.id, talk.title?.slugify())}#{/set}
 #{set 'moreStyles'}
-    <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
+<link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
 #{/set}
     <script type="text/javascript">
+        var favAction = #{jsAction @Votes.vote(':talkId', ':fav') /};
+        var removeFromFavs = function(){
+            $('#star').removeClass('fav');
+            $.get(favAction({talkId: '${talk.id}', fav: true}), function(data) {
+                updateCounts(data);
+            });
+        };
+        var addToFavs = function(){
+            $('#star').addClass('fav');
+            $.get(favAction({talkId: '${talk.id}', fav: false}), function(data) {
+                updateCounts(data);
+            });
+        };
+        var updateCounts = function(count){
+            var text = $('#favs').text().split(' ');
+            $('#favs').html(count + " " + text[1]);
+        }
         var fav = function(){
             if($('#star').hasClass('fav')){
-                $('#star').removeClass('fav');
+                removeFromFavs();
             } else {
-                $('#star').addClass('fav');
+                addToFavs();
             }
-        }
+        };
     </script>
 
     <div class="hero-unit member-card">
         <div class="row">
             <div class="span13"><h2 itemprop="name">${talk.title}</h2></div>
-            <div id="star" class="span1 star" style="float: right" onclick="fav()"></div>
+            #{if session.username}
+            <div id="star" class="span1 star#{if talk.hasVoteFrom(session.username)} fav#{/if}" style="float: right;" onclick="fav()"></div>
+            #{/if}
         </div>
-        <p>
-            <span class="label track ${talk.track}">${talk.track}</span>
-        #{if talk.interests}
-            #{list items:talk.interests, as:'interest'}
-                <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
-            #{/list}
-        #{/if}
-        </p>
+        <div class="row">
+            <div class="span12">
+                <p>
+                    <span class="label track ${talk.track}">${talk.track}</span>
+                    #{if talk.interests}
+                        #{list items:talk.interests, as:'interest'}
+                        <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
+                        #{/list}
+                    #{/if}
+                </p>
+            </div>
+            <div id="favs" style="float: right;">${talk.getNumberOfVotes()} favoris</div>
+        </div>
         <p itemprop="description">${talk.summary}</p>
         
         #{if !talk.valid}

@@ -1,11 +1,11 @@
 package models;
 
+import models.activity.NewVoteActivity;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import models.activity.NewVoteActivity;
 
 /**
  * @author Julien Ripault <tluapir@gmail.com>
@@ -48,7 +48,7 @@ public class Vote extends Model {
         return delete("delete Vote v where v.session = ?1", session);
     }
 
-    public static Vote findVote(LightningTalk session, Member member) {
+    public static Vote findVote(Session session, Member member) {
         return Vote.find("select v from Vote v where v.member = :member and v.session = :session").bind("member", member).bind("session", session).first();
     }
 
