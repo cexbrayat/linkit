@@ -1,7 +1,9 @@
 package models;
 
+import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.junit.*;
@@ -17,11 +19,21 @@ public class InterestTest extends BaseDataUnitTest {
     }
 
     @Test
-    public void findByName() {
+    public void findByNameSimple() {
         final String name = "toto";
         assertNull(Interest.findByName(name));
         createInterest(name);
         assertNotNull(Interest.findByName(name));
+    }
+
+    @Test
+    public void findByNameDifferentsCases() {
+        final Interest interest = createInterest("Toto");
+        assertSame(interest, Interest.findByName("Toto"));
+        assertSame(interest, Interest.findByName("toto"));
+        assertSame(interest, Interest.findByName("TOTO"));
+        assertSame(interest, Interest.findByName(" Toto "));
+        assertSame(interest, Interest.findByName("   TOTO"));
     }
 
     @Test
@@ -55,13 +67,13 @@ public class InterestTest extends BaseDataUnitTest {
         // Check Interests Cloud
         // Be careful to the alphabetical order!
         List<Map> cloud = Interest.getCloud();
-        assertEquals(
-                "[{interest=Hadoop, pound=1}, {interest=Java, pound=2}, {interest=TDD, pound=1}]",
-                cloud.toString());
+        assertTrue(cloud.contains(buildCloudMap(Interest.findByName("Java"),2L)));
+        assertTrue(cloud.contains(buildCloudMap(Interest.findByName("Hadoop"),1L)));
+        assertTrue(cloud.contains(buildCloudMap(Interest.findByName("TDD"),1L)));
     }
 
     @Test
-    public void deleteByName() {
+    public void delete() {
         Member bob = Member.findByLogin("bob");
         Member ced = Member.findByLogin("ced");
 
@@ -71,15 +83,11 @@ public class InterestTest extends BaseDataUnitTest {
 
 
         // Delete Java Interest
-        Interest.deleteByName("Java");
+        Interest.findByName("Java").delete();
         assertEquals(1, ced.interests.size());
         assertEquals(1, bob.interests.size());
-        // Check Interests Cloud
-        // Be careful to the alphabetical order!
-        List<Map> cloud = Interest.getCloud();
-        assertEquals(
-                "[{interest=Hadoop, pound=1}, {interest=TDD, pound=1}]",
-                cloud.toString());
+        assertEquals(Sets.newHashSet(Interest.findByName("hadoop")), ced.interests);
+        assertEquals(Sets.newHashSet(Interest.findByName("TDD")), bob.interests);
     }
 
     @Test
@@ -88,20 +96,22 @@ public class InterestTest extends BaseDataUnitTest {
         Member ced = Member.findByLogin("ced");
 
         // Add interest now
-        ced.addInterest("Java").addInterest("Hadoop").save();
+        ced.addInterest("java6").addInterest("Hadoop").save();
         bob.addInterest("TDD").addInterest("java").save();
 
 
         // Merge Java Interest and java Interest : keep Java
-        Interest interestToDeleted = Interest.findByName("java");
-        interestToDeleted.merge(Interest.findByName("Java"));
-        assertEquals(2, ced.interests.size());
-        assertEquals(2, bob.interests.size());
-        // Check Interests Cloud
-        // Be careful to the alphabetical order!
-        List<Map> cloud = Interest.getCloud();
-        assertEquals(
-                "[{interest=Hadoop, pound=1}, {interest=Java, pound=2}, {interest=TDD, pound=1}]",
-                cloud.toString());
+        Interest interestToDeleted = Interest.findByName("java6");
+        interestToDeleted.merge(Interest.findByName("java"));
+
+        assertEquals(Sets.newHashSet(Interest.findByName("java"), Interest.findByName("hadoop")), ced.interests);
+        assertEquals(Sets.newHashSet(Interest.findByName("TDD"), Interest.findByName("java")), bob.interests);
+    }
+    
+    private Map buildCloudMap(Interest interest, Long pound){
+        Map m = new HashMap();
+        m.put("interest", interest);
+        m.put("pound", pound);
+        return m;
     }
 }

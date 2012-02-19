@@ -43,9 +43,11 @@
                 <tbody>       
                     #{list items:models.Interest.findAllOrdered(), as:'interest'}
                     <tr>
-                        <td><a href="@{Application.searchByInterest(interest.name)}" rel='twipsy' title="A quoi est linké cet intérêt?" data-html="true">${interest.name}</a></td>
+                        <td><a href="@{Application.searchByInterest(interest.name)}" rel='twipsy' title="A quoi est linké cet intérêt?" data-html="true">'${interest}'</a>
+                            <a href="@{Interests.rename(interest.id)}" class="btn small">Renommer</a>
+                        </td>
                         <td>
-                            <div style="text-align: center"><input type="checkbox" name="interestsToBeDeleted" value="${interest.name}" /></div>
+                            <div style="text-align: center"><input type="checkbox" name="interestsToBeDeleted" value="${interest.id}" /></div>
                         </td>
                     </tr>
                 #{/list}

@@ -147,9 +147,6 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     @OrderColumn(name = "ordernum")
     @Valid
     public List<SharedLink> sharedLinks = new LinkedList<SharedLink>();
-
-    @Enumerated(EnumType.STRING)
-    public NotificationOption notificationOption = NotificationOption.Weekly;
     
     /**
      * Number of profile consultations
@@ -303,7 +300,7 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     public Member addInterest(String interest) {
         if (StringUtils.isNotBlank(interest)) {
-            interests.add(Interest.findOrCreateByName(interest.trim()));
+            interests.add(Interest.findOrCreateByName(interest));
         }
         return this;
     }
@@ -321,9 +318,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         return this;
     }
 
-    public static List<Member> findMembersInterestedIn(String interest) {
+    public static List<Member> findMembersInterestedIn(Interest interest) {
         return Member.find(
-                "select distinct m from Member m join m.interests as i where i.name = ?", interest).fetch();
+                "select distinct m from Member m join m.interests as i where i = ?", interest).fetch();
     }
 
     public void addBadge(Badge badge) {
@@ -608,9 +605,5 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     
     public Set<Session> getLightningTalks() {
         return Sets.filter(sessions, LIGHTNING_TALK);
-    }
-    
-    public static List<Member> findNotified(NotificationOption option) {
-        return find("notificationOption = ?", option).fetch();
     }
 }

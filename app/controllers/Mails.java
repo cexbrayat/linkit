@@ -4,8 +4,8 @@ import java.util.Collection;
 import java.util.List;
 import models.mailing.Mailing;
 import models.Member;
-import models.NotificationOption;
 import models.Session;
+import models.Setting;
 import models.activity.Activity;
 import models.mailing.MembersSet;
 import models.mailing.MembersSetQueryFactory;
@@ -42,11 +42,11 @@ public class Mails extends Mailer {
         mailing.addActualRecipient(recipient);
     }
     
-    public static void notification(Member recipient, Collection<Activity> activities, NotificationOption periodicity) {
+    public static void notification(Member recipient, Setting setting, Collection<Activity> activities) {
         setSubject("[Mix-IT 2012] - Que s'est-il passé?");
         setFrom(FROM);
         addRecipient(recipient.email);
-        send(recipient, activities, periodicity);
+        send(recipient, setting, activities);
     }
     
     private static void addRecipients(MembersSet set) {

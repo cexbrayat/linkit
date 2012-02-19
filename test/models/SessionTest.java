@@ -25,21 +25,24 @@ public class SessionTest extends BaseDataUnitTest {
         Session session2 = new Talk();
 
         // Well
-        assertEquals(0, Session.findSessionsLinkedWith("Java").size());
+        assertEquals(0, Session.findSessionsLinkedWith(Interest.findByName("Java")).size());
 
         // Add interest now
         session1.addInterest("Java").addInterest("TDD").addInterest("Hadoop").save();
         session2.addInterest("Java").save();
 
         // Simple Check
-        assertEquals(2, Session.findSessionsLinkedWith("Java").size());
-        assertEquals(1, Session.findSessionsLinkedWith("TDD").size());
-        assertEquals(1, Session.findSessionsLinkedWith("Hadoop").size());
+        assertEquals(2, Session.findSessionsLinkedWith(Interest.findByName("Java")).size());
+        assertEquals(1, Session.findSessionsLinkedWith(Interest.findByName("TDD")).size());
+        assertEquals(1, Session.findSessionsLinkedWith(Interest.findByName("Hadoop")).size());
 
     }
     
-    @Test public void lookBy() {
+    @Test public void lookByValid() {
         final Session session = Session.all().first();
+        // Ensure session valid
+        session.valid = true;
+        session.save();
         final Member speaker = session.speakers.iterator().next();
         final Member ced = Member.findByLogin("ced");
         final long nbLooks = session.getNbLooks();
@@ -52,6 +55,20 @@ public class SessionTest extends BaseDataUnitTest {
         assertEquals(nbLooks+1, session.getNbLooks());
         session.lookedBy(null);
         assertEquals(nbLooks+2, session.getNbLooks());
+    }
+    
+    @Test public void lookByNonValid() {
+        final Session session = Session.all().first();
+        // Ensure session non valid
+        session.valid = false;
+        session.save();
+        final Member ced = Member.findByLogin("ced");
+        final long nbLooks = session.getNbLooks();
+
+        // Even if a non valid session is displayed, it is not counted
+        session.lookedBy(ced);
+        session.lookedBy(null);
+        assertEquals(nbLooks, session.getNbLooks());
     }
     
     @Test public void hasSpeakerNull() {

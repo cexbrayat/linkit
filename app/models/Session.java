@@ -129,13 +129,16 @@ public abstract class Session extends Model implements Lookable {
         comment.session = this;
         comment.save();
         comments.add(comment);
-        
-        new CommentSessionActivity(comment.author, this, comment).save();
+
+        // On ne déclenche une activité publique de mise à jour que si la session est valide (donc visible publiquement)
+        if (valid) {
+            new CommentSessionActivity(comment.author, this, comment).save();
+        }
     }
 
-    public static List<Session> findSessionsLinkedWith(String interest) {
+    public static List<Session> findSessionsLinkedWith(Interest interest) {
         return Session.find(
-                "select distinct s from Session s join s.interests as i where i.name = ?", interest).fetch();
+                "select distinct s from Session s join s.interests as i where i = ?", interest).fetch();
     }
     
     public Session addInterest(String interest) {
@@ -187,11 +190,13 @@ public abstract class Session extends Model implements Lookable {
     }
 
     public void lookedBy(Member member) {
-        if (member == null || !speakers.contains(member)) {
-            nbConsults++;
-            save();
-            if (member != null) {
-                new LookSessionActivity(member, this).save();                
+        if (valid) {
+            if (member == null || !speakers.contains(member)) {
+                nbConsults++;
+                save();
+                if (member != null) {
+                    new LookSessionActivity(member, this).save();                
+                }
             }
         }
     }
