@@ -9,7 +9,7 @@
         </a>
         #{if session.username}
     </div>
-    <div id="star" class="span2 star#{if _arg.isFan(session.username)} fav#{/if}" style="float: right; margin-right: -40px;"></div>
+    <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}"><div id="star" class="span2 star#{if _arg.isFan(session.username)} fav#{/if}" style="float: right; margin-right: -40px;"></div></a>
 </div>
 #{/if}
 #{/if}
