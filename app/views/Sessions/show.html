@@ -5,17 +5,16 @@
 <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
 #{/set}
     <script type="text/javascript">
-        var favAction = #{jsAction @Sessions.fav(':talkId', ':login') /};
-        var unfavAction = #{jsAction @Sessions.unfav(':talkId', ':login') /};
+        var favAction = #{jsAction @Sessions.fav(':talkId', ':fav') /};
         var removeFromFavs = function(){
             $('#star').removeClass('fav');
-            $.get(unfavAction({talkId: '${talk.id}', login: '${session.username}'}), function(data) {
+            $.get(favAction({talkId: '${talk.id}', fav: false}), function(data) {
                 updateCounts(-1);
             });
         };
         var addToFavs = function(){
             $('#star').addClass('fav');
-            $.get(favAction({talkId: '${talk.id}', login: '${session.username}'}), function(data) {
+            $.get(favAction({talkId: '${talk.id}', fav:true}), function(data) {
                 updateCounts(1);
             });
         };
