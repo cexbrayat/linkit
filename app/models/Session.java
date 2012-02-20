@@ -56,7 +56,7 @@ public abstract class Session extends Model implements Lookable {
     public Set<Member> speakers = new HashSet<Member>();
 
     @ManyToMany
-    @JoinTable(name = "session_fans")
+    @JoinTable(name = "session_fan")
     public Set<Member> fans = new HashSet<Member>();
 
     @ManyToMany(cascade = CascadeType.PERSIST)
