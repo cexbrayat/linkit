@@ -169,6 +169,9 @@ public class Application extends PageController {
         uniqueMembers.addAll(searchSponsors);
         uniqueMembers.addAll(searchStaff);
         uniqueMembers.addAll(searchMembers);
+        if (interest != null) {
+            uniqueMembers.addAll(Member.findMembersInterestedIn(interest));
+        }
         // Building ordered list of unique members
         List<Member> members = new ArrayList<Member>(uniqueMembers);
         Collections.sort(members);
