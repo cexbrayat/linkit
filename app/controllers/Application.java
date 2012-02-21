@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.Sets;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -139,6 +140,12 @@ public class Application extends PageController {
         final String sessionsQuery = new LuceneQueryBuilder(query).orField(Session.TITLE).orField(Session.SUMMARY).orField(Session.DESCRIPTION).toQuery();
         Logger.debug("Search sessions with query : %s", sessionsQuery);
         Set<Talk> uniqueTalks = new HashSet(Search.search(sessionsQuery, Talk.class).<Talk>fetch());
+        // FIXME CLA Lucene shouldn't index non valid Session
+        uniqueTalks = Sets.filter(uniqueTalks, new Predicate<Session>() {
+            public boolean apply(Session s) {
+                return s.valid;
+            }
+        });
         if (interest != null) {
             uniqueTalks.addAll(Talk.findLinkedWith(interest));
         }
