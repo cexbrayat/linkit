@@ -24,6 +24,10 @@ public class LightningTalk extends Session {
         valid = true;
     }
 
+    public static List<LightningTalk> findLinkedWith(Interest interest) {
+        return find("? in elements(interests)", interest).fetch();
+    }
+
     public boolean hasVoteFrom(String username) {
         Member member = Member.findByLogin(username);
         if (member != null) {
