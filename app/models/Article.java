@@ -16,6 +16,7 @@ import models.activity.Activity;
 import models.activity.CommentArticleActivity;
 import models.activity.LookArticleActivity;
 import models.activity.NewArticleActivity;
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.MaxSize;
@@ -34,7 +35,7 @@ indexes = {
     @Index(name = "Article_IDX", columnNames = {Article.POSTEDAT})
 })
 @Indexed
-public class Article extends Model implements Lookable {
+public class Article extends Model implements Lookable, Comparable<Article> {
 
     public final static String TITLE = "title";
     public final static String HEADLINE = "headline";
@@ -156,5 +157,9 @@ public class Article extends Model implements Lookable {
                 new LookArticleActivity(member, this).save();                
             }
         }
+    }
+
+    public int compareTo(Article other) {
+        return new CompareToBuilder().append(other.postedAt, this.postedAt).toComparison();
     }
 }
