@@ -64,13 +64,15 @@ public class Application extends PageController {
     public static void searchByInterest(String interest) {
         Interest i = Interest.findByName(interest);
         List<Member> members = Collections.emptyList();
-        List<Session> talks = Collections.emptyList();
+        List<Talk> talks = Collections.emptyList();
+        List<LightningTalk> lightningtalks = Collections.emptyList();
         String query = interest;
         if (i != null) {
             members = Member.findMembersInterestedIn(i);
-            talks = Session.findSessionsLinkedWith(i);
+            talks = Talk.findLinkedWith(i);
+            lightningtalks = LightningTalk.findLinkedWith(i);
         }
-        render("Application/search.html", members, talks, query);
+        render("Application/search.html", members, talks, lightningtalks, query);
     }
 
     static class LuceneQueryBuilder {
@@ -127,14 +129,28 @@ public class Application extends PageController {
             Application.index();
         }
 
+        // Cela correspond-il à un intérêt?
+        final Interest interest = Interest.findByName(query);
+        
         final String articlesQuery = new LuceneQueryBuilder(query).orField(Article.TITLE).orField(Article.HEADLINE).orField(Article.CONTENT).toQuery();
         Logger.debug("Search articles with query : %s", articlesQuery);
         List<Article> articles = Search.search(articlesQuery, Article.class).fetch();
 
         final String sessionsQuery = new LuceneQueryBuilder(query).orField(Session.TITLE).orField(Session.SUMMARY).orField(Session.DESCRIPTION).toQuery();
         Logger.debug("Search sessions with query : %s", sessionsQuery);
-        List<Talk> talks = Search.search(sessionsQuery, Talk.class).fetch();
-        List<LightningTalk> lightningtalks = Search.search(sessionsQuery, LightningTalk.class).fetch();
+        Set<Talk> uniqueTalks = new HashSet(Search.search(sessionsQuery, Talk.class).<Talk>fetch());
+        if (interest != null) {
+            uniqueTalks.addAll(Talk.findLinkedWith(interest));
+        }
+        List<Talk> talks = new ArrayList<Talk>(uniqueTalks);
+        Collections.sort(talks);
+        
+        Set<LightningTalk> uniqueLightningtalks = new HashSet<LightningTalk>(Search.search(sessionsQuery, LightningTalk.class).<LightningTalk>fetch());
+        if (interest != null) {
+            uniqueLightningtalks.addAll(LightningTalk.findLinkedWith(interest));
+        }
+        List<LightningTalk> lightningtalks = new ArrayList<LightningTalk>(uniqueLightningtalks);
+        Collections.sort(lightningtalks);
 
         final String membersQuery = new LuceneQueryBuilder(query).orField(Member.FIRSTNAME).orField(Member.LASTNAME).orField(Member.COMPANY).orField(Member.SHORTDESCRIPTION).orField(Member.LONGDESCRIPTION).toQuery();
         Logger.debug("Search members with query : %s", membersQuery);
