@@ -1,12 +1,8 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
 import models.*;
-
 import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
-
 import play.Logger;
 import play.data.validation.CheckWith;
 import play.data.validation.Email;
@@ -14,6 +10,9 @@ import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.i18n.Messages;
 import play.mvc.With;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @With(SecureLinkIt.class)
 public class Profile extends PageController {
@@ -187,8 +186,6 @@ public class Profile extends PageController {
         if (StringUtils.isBlank(login)) Login.index(null);
 
         Member.addLink(login, loginToLink);
-        flash.success("Link ajouté!");
-        show(loginToLink);
     }
 
     public static void unlink(String login, String loginToLink) {
