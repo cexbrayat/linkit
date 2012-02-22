@@ -14,7 +14,7 @@
     var unlinkAction = #{jsAction @Profile.unlink(':linker', ':linked') /};
     var link = function(){
         $.get(linkAction({linker: '${session.username}', linked: '${member.login}'}), function(data) {
-            addLinker();
+            addLinker(data);
         });
     };
     var unlink = function(){
@@ -22,12 +22,13 @@
             removeLinker();
         });
     };
-    var addLinker = function(){
+    var addLinker = function(data){
         $('#link').hide();
         $('#unlink').show();
         var linkers = $('#linkers').text();
         var count = linkers.split(' ')[0]++ + 1;
         $('#linkers').html(count + " linkers");
+        $('#portraits').append(data);
     };
     var removeLinker = function(){
         $('#unlink').hide();
@@ -35,6 +36,7 @@
         var linkers = $('#linkers').text();
         var count = linkers.split(' ')[0]++ - 1;
         $('#linkers').html(count + " linkers");
+        $('#member${session.username}').parent().remove();
     };
 </script>
 #{/set}
@@ -89,18 +91,11 @@
             <h3 id="linkers">${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
                 #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
             #{list items:member.linkers, as:'linker'}
-                #{member linker, short:true, elementId:'linkerTo${link.login}' /}
+                #{member linker, short:true /}
             #{/list}
         </div>
     </div>
     <br/><br/>
-    <!--div class="row">
-        <div class="span6">
-            <p>
-            <h2>#{socialbar/}</h2>
-            </p>
-        </div>
-    </div-->
     <div class="row">
         <div class="span12 offset1">
             <ul class="tabs" data-tabs="tabs">
