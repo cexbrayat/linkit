@@ -385,16 +385,6 @@ public class MemberTest extends BaseDataUnitTest {
         lt.save();
         assertTrue(m.isLightningTalkSpeaker());
     }
-    
-    @Test public void findNotified() {
-        final Member m = createMember("toto");
-        m.notificationOption = NotificationOption.Daily;
-        m.save();
-        
-        assertTrue(Member.findNotified(NotificationOption.Daily).contains(m));
-        assertFalse(Member.findNotified(NotificationOption.Instant).contains(m));
-        assertFalse(Member.findNotified(NotificationOption.None).contains(m));
-    }
 
     @Test public void addFavedSession() {
         //si on a un membre et une session
@@ -404,11 +394,11 @@ public class MemberTest extends BaseDataUnitTest {
         Talk t = new Talk();
         t.addSpeaker(m);
         t.save();
-        assertFalse(t.isFan(m.login));
+        assertFalse(t.hasVoteFrom(m.login));
         //si on ajoute un talk en fav
-        t.addFan(m);
+        new Vote(t, m, true).save();
 
         //le membre est fan de la session
-        assertTrue(t.isFan(m.login));
+        assertTrue(t.hasVoteFrom(m.login));
     }
 }

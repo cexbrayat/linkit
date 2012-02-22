@@ -5,6 +5,7 @@ import models.activity.CommentSessionActivity;
 import models.activity.LookSessionActivity;
 import models.activity.UpdateSessionActivity;
 import org.apache.commons.lang.StringUtils;
+import play.Logger;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -55,10 +56,6 @@ public abstract class Session extends Model implements Lookable {
     @Required
     public Set<Member> speakers = new HashSet<Member>();
 
-    @ManyToMany
-    @JoinTable(name = "session_fan")
-    public Set<Member> fans = new HashSet<Member>();
-
     @ManyToMany(cascade = CascadeType.PERSIST)
     public Set<Interest> interests = new TreeSet<Interest>();
 
@@ -66,6 +63,9 @@ public abstract class Session extends Model implements Lookable {
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     @OrderBy("postedAt ASC")
     public List<SessionComment> comments = new ArrayList<SessionComment>();
+
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Vote> votes;
     
     /** Number of consultation */
     public long nbConsults;
@@ -99,26 +99,6 @@ public abstract class Session extends Model implements Lookable {
         if (StringUtils.isBlank(username)) return false;
         Member member = Member.findByLogin(username);
         return speakers.contains(member);
-    }
-
-    public final void addFan(Member fan) {
-        if (fan != null) {
-            fans.add(fan);
-            fan.favs.add(this);
-        }
-    }
-
-    public final void removeFan(Member fan) {
-        if (fan != null) {
-            fans.remove(fan);
-            fan.favs.remove(this);
-        }
-    }
-
-    public boolean isFan(String username) {
-        if (StringUtils.isBlank(username)) return false;
-        Member member = Member.findByLogin(username);
-        return fans.contains(member);
     }
 
     /**
@@ -159,6 +139,22 @@ public abstract class Session extends Model implements Lookable {
         this.interests.clear();
         addInterests(interests);
         return this;
+    }
+
+    public boolean hasVoteFrom(String username) {
+        Member member = Member.findByLogin(username);
+        if (member != null) {
+            Vote vote = Vote.findVote(this, member);
+            if (vote != null) {
+                Logger.info(this.id + " - vote value: " + vote.value);
+                return vote.value;
+            }
+        }
+        return false;
+    }
+
+    public long getNumberOfVotes() {
+        return Vote.findNumberOfVotesBySession(this);
     }
     
     /**

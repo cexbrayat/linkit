@@ -156,16 +156,4 @@ public class Sessions extends PageController {
         show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 
-    public static void fav(long talkId, boolean fav) {
-        Talk talk = Talk.findById(talkId);
-        notFoundIfNull(talk);
-        Member member = Member.findByLogin(Security.connected());
-        notFoundIfNull(member);
-        if (fav) {
-            talk.addFan(member);
-        } else {
-            talk.removeFan(member);
-        }
-        talk.save();
-    }
 }
