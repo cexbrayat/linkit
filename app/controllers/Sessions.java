@@ -46,9 +46,12 @@ public class Sessions extends PageController {
     }
 
     private static void checkAccess(Session talk) throws Throwable {
-        SecureLinkIt.checkAccess();
+        // No need to be 
+        // SecureLinkIt.checkAccess();
         Member user = Member.findByLogin(Security.connected());
-        if (!(user instanceof Staff || talk.hasSpeaker(user.login))) {
+        if (talk.valid || (user instanceof Staff) || talk.hasSpeaker(Security.connected())) {
+            // alright!
+        } else {
             flash.error("Vous n'avez pas accès à cette fonctionnalité");
             index();
         }
