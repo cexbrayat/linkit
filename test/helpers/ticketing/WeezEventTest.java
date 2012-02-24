@@ -82,4 +82,9 @@ public class WeezEventTest extends UnitTest {
         Set<String> allAttendees = WeezEvent.getAttendees(sessionID);
         assertFalse(WeezEvent.isRegisteredAttendee("toto.toto@gmail.com", allAttendees));
     }
+    
+    @Test
+    public void testREGISTRATION_URL() {
+        assertNotNull(WeezEvent.REGISTRATION_URL);
+    }
 }

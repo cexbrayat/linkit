@@ -20,15 +20,22 @@ import play.libs.WS.HttpResponse;
  */
 public class WeezEvent {
 
+
+    private static final String API_URL = Play.configuration.getProperty("weezevent.api.url");
+    private static final String API_LOGIN = Play.configuration.getProperty("weezevent.api.login");
+    private static final String API_PWD = Play.configuration.getProperty("weezevent.api.pwd");
+    private static final String API_LANG = Play.configuration.getProperty("weezevent.api.lang");
+    private static final String EVENT = Play.configuration.getProperty("weezevent.event");
+    private static final String CODE = Play.configuration.getProperty("weezevent.code");
+
+    /** User URL for ticketing */
+    public static final String REGISTRATION_URL = String.format(Play.configuration.getProperty("weezevent.url"), EVENT, CODE);
+    
     public static String login() {
-        final String weezevent_url = Play.configuration.getProperty("weezevent_url");
-        final String weezevent_login = Play.configuration.getProperty("weezevent_login");
-        final String weezevent_pw = Play.configuration.getProperty("weezevent_pw");
-        final String weezevent_lang = Play.configuration.getProperty("weezevent_lang");
-        return login(weezevent_url, weezevent_login, weezevent_pw, weezevent_lang);
+        return login(API_URL, API_LOGIN, API_PWD, API_LANG);
     }
 
-    public static String login(String weezevent_url, String weezevent_login, String weezevent_pw, String weezevent_lang) {
+    protected static String login(String weezevent_url, String weezevent_login, String weezevent_pw, String weezevent_lang) {
         StringBuilder url = new StringBuilder();
         url.append(weezevent_url).append("?login=").append(weezevent_login).append("&").append("pw=").append(weezevent_pw).append("&").append("lang=").append(weezevent_lang).append("&t=timestamp");
         JsonObject object = null;
@@ -59,32 +66,29 @@ public class WeezEvent {
     }
 
     public static boolean setEvent(String sessionId) {
-        final String weezevent_event = Play.configuration.getProperty("weezevent_event");
-        return setEvent(weezevent_event, sessionId);
+        return setEvent(EVENT, sessionId);
     }
 
-    public static boolean setEvent(String weezevent_event, String sessionId) {
-        final String weezevent_url = Play.configuration.getProperty("weezevent_url");
+    protected static boolean setEvent(String event, String sessionId) {
         StringBuilder url = new StringBuilder();
-        url.append(weezevent_url).append("?setEvent=").append(weezevent_event);
+        url.append(API_URL).append("?setEvent=").append(event);
         JsonObject object = null;
         try {
             object = JSON.getAsObject(WS.url(url.toString()).setHeader("Cookie", sessionId).post().getString());
         } catch (RuntimeException e) {
-            Logger.error(e, "Exception while sending a request to WeezEvent WebService for setEvent with id event %s", weezevent_event);
+            Logger.error(e, "Exception while sending a request to WeezEvent WebService for setEvent with id event %s", EVENT);
             return false;
         }
         if (JSON.getStringProperty(object, "stat").equals("0")) {
-            Logger.error("Problem while sending a request to WeezEvent WebService for setEvent with id event %s. Code error=%s. Complete URL=%s", weezevent_event, JSON.getStringProperty(object, "data"), url.toString());
+            Logger.error("Problem while sending a request to WeezEvent WebService for setEvent with id event %s. Code error=%s. Complete URL=%s", EVENT, JSON.getStringProperty(object, "data"), url.toString());
             return false;
         }
         return true;
     }
 
     public static Set<String> getAttendees(String sessionId) {
-        final String weezevent_url = Play.configuration.getProperty("weezevent_url");
         StringBuilder url = new StringBuilder();
-        url.append(weezevent_url).append("?getRegistered");
+        url.append(API_URL).append("?getRegistered");
         JsonObject object = null;
         try {
             object = JSON.getAsObject(WS.url(url.toString()).setHeader("Cookie", sessionId).get().getString());
@@ -132,9 +136,8 @@ public class WeezEvent {
     }
 
     public static boolean get(String parameter, String sessionId) {
-        final String weezevent_url = Play.configuration.getProperty("weezevent_url");
         StringBuilder url = new StringBuilder();
-        url.append(weezevent_url).append("?").append(parameter);
+        url.append(API_URL).append("?").append(parameter);
         JsonObject object = null;
         try {
             object = JSON.getAsObject(WS.url(url.toString()).setHeader("Cookie", sessionId).get().getString());
