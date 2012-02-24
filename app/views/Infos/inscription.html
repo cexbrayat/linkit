@@ -22,10 +22,10 @@
 
 
 <h1>&{'registration.title'}</h1>
-    <!-- FIXME le 20/02 ouverture billeterie le 20/02!
-{if session.username} <p>
-{ticketing member/}</p>
-{/if}
+<!-- FIXME le 20/02 ouverture billeterie le 20/02!
+#{if session.username}
+<p>#{ticketing member/}</p>
+#{/if}
 -->
 
 <h3>&{'registration.ticketing.alert'}</h3>
@@ -68,7 +68,6 @@
 </div>
 
 #{if !session.username}
-    <!-- FIXME le 07/02 ouverture billeterie le 20/02! -->
 <ol>
     <li><h3><a href="@{Login.index()}">&{'registration.step1.create.account'}</a></h3>
         &{'registration.step1.create.account.why'}

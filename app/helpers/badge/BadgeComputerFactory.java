@@ -42,6 +42,7 @@ public class BadgeComputerFactory {
         COMPUTERS.put(Badge.SpeakerPadawan, speaker);
         COMPUTERS.put(Badge.Supporter, vote);
         COMPUTERS.put(Badge.Enlightened, vote);
+        COMPUTERS.put(Badge.Attendee, new AttendeeBadgeComputer());
     }
     
     /**

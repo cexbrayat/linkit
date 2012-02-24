@@ -151,7 +151,7 @@ public class ActivityTest extends AbstractActivityTest {
         assertNotNull(Activity.deleteForMember(member, ProviderType.Twitter));
     }
     
-    @Test public void findOrderedMembers() {
+    @Test public void findOrderedMembers() throws InterruptedException {
         final Member member1 = createMember("member1");
         final Member member2 = createMember("member2");
         final Member member3 = createMember("member3");
@@ -167,7 +167,9 @@ public class ActivityTest extends AbstractActivityTest {
         // Création d'une activité pour membre1
         new LinkActivity(member1, member2).save();
         // puis membre3
+        Thread.sleep(10);
         new SignUpActivity(member3).save();
+        Thread.sleep(10);
         // puis membre 2 (qui devient donc le dernier actif en date)
         new LookProfileActivity(member2, member1).save();
         
