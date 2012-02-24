@@ -3,37 +3,43 @@
 <script src="@{'/public/javascripts/vote.js'}"></script>
 <script>
     $(function () {
-        $("table#sortSession").tablesorter({ sortList:[
-            [1, 0]
-        ] });
 
+        $("table#sortSession").tablesorter({
+            textExtraction: function(node) {
+
+                var order = $(node).children(".order").html();
+                if (!order) order = $(node).html();
+                return order;
+            }
+
+        });
     });
 
     var voteAction = #{jsAction @Votes.vote(':talk', ':value') /};
 </script>
 <table class="zebra-striped" id="sortSession">
     <thead>
-    <tr>
-        <th>Titre</th>
-        <th>Speaker(s)</th>
-        <th>Vote</th>
-    </tr>
+        <tr>
+            <th>Titre</th>
+            <th>Speaker(s)</th>
+            <th>Vote</th>
+        </tr>
     </thead>
     <tbody>
-    #{list items:_sessions, as:'talk'}
-    <tr>
-        <td>
-            <a href="@{LightningTalks.show(talk.id, talk.title.slugify())}">${talk}</a>
-        </td>
-        <td>
-            #{list items:talk.speakers, as:'speaker'}
+        #{list items:_sessions, as:'talk'}
+        <tr>
+            <td>
+                <a href="@{LightningTalks.show(talk.id, talk.title.slugify())}">${talk}</a>
+            </td>
+            <td>
+                #{list items:talk.speakers, as:'speaker'}
                 #{member speaker /}#{if !speaker_isLast}, #{/if}
-            #{/list}
-        </td>
-        <td>
-            #{vote talk /}
-        </td>
-    </tr>
-    #{/list}
+                #{/list}
+            </td>
+            <td>
+                #{vote talk /}
+            </td>
+        </tr>
+        #{/list}
     </tbody>
 </table>

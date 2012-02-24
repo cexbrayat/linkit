@@ -3,7 +3,7 @@
     Parameters :
     - default _arg : the talk to vote for.
 }*
-<span class="vote-counter" id="counter-${_arg.id}">${_arg.getNumberOfVotes()}</span><span class="vote-counter"> vote${_arg.getNumberOfVotes().pluralize()}</span>
+<span class="vote-counter order" id="counter-${_arg.id}">${_arg.getNumberOfVotes()}</span><span class="vote-counter"> vote${_arg.getNumberOfVotes().pluralize()}</span>
 #{if session.username && !_arg.hasSpeaker(session.username)}
 <a id="vote-${_arg.id}" title="Voter"
      class="btn vote ${_arg.hasVoteFrom(session.username) ? 'danger' : 'primary'}"
