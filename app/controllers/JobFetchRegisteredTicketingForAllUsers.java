@@ -1,10 +1,10 @@
 package controllers;
 
-import com.google.gson.JsonArray;
 import helpers.TransactionCallbackWithoutResult;
 import helpers.TransactionTemplate;
 import helpers.ticketing.WeezEvent;
 import java.util.List;
+import java.util.Set;
 import models.Member;
 import play.Logger;
 import play.db.jpa.NoTransaction;
@@ -30,13 +30,11 @@ public class JobFetchRegisteredTicketingForAllUsers extends Job {
                 List<Member> members = Member.findAll();
                 String sessionID = WeezEvent.login();
                 WeezEvent.setEvent(sessionID);
-                final List<String> allAttendees = WeezEvent.getAttendees(sessionID);
+                final Set<String> allAttendees = WeezEvent.getAttendees(sessionID);
 
                 for (final Member member : members) {
-                    if (WeezEvent.isRegisteredAttendee(member.email, allAttendees)) {
-                        member.ticketingRegistered = true;
-                        member.save();
-                    }
+                    member.setTicketingRegistered(WeezEvent.isRegisteredAttendee(member.email, allAttendees));
+                    member.save();
                 }
             }
         });

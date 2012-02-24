@@ -1,6 +1,6 @@
 package helpers.ticketing;
 
-import java.util.List;
+import java.util.Set;
 import org.junit.Test;
 import play.Play;
 import play.test.UnitTest;
@@ -69,7 +69,7 @@ public class WeezEventTest extends UnitTest {
         String sessionID = WeezEvent.login();
         //event id correct
         WeezEvent.setEvent(sessionID);
-        List<String> allAttendees = WeezEvent.getAttendees(sessionID);
+        Set<String> allAttendees = WeezEvent.getAttendees(sessionID);
         assertTrue(WeezEvent.isRegisteredAttendee("agnes.crepet@gmail.com", allAttendees));
     }
 
@@ -79,7 +79,7 @@ public class WeezEventTest extends UnitTest {
         String sessionID = WeezEvent.login();
         //event id correct
         WeezEvent.setEvent(sessionID);
-        List<String> allAttendees = WeezEvent.getAttendees(sessionID);
+        Set<String> allAttendees = WeezEvent.getAttendees(sessionID);
         assertFalse(WeezEvent.isRegisteredAttendee("toto.toto@gmail.com", allAttendees));
     }
 }

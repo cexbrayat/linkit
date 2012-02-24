@@ -3,10 +3,9 @@ package helpers.ticketing;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import helpers.JSON;
-import java.lang.String;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import models.Member;
@@ -82,7 +81,7 @@ public class WeezEvent {
         return true;
     }
 
-    public static List<String> getAttendees(String sessionId) {
+    public static Set<String> getAttendees(String sessionId) {
         final String weezevent_url = Play.configuration.getProperty("weezevent_url");
         StringBuilder url = new StringBuilder();
         url.append(weezevent_url).append("?getRegistered");
@@ -99,7 +98,7 @@ public class WeezEvent {
         }
         JsonArray recs = JSON.getArrayProperty(object, "data");
         Iterator it = recs.iterator();
-        List<String> emailsAllAttendees = new ArrayList<String>();
+        Set<String> emailsAllAttendees = new HashSet<String>();
         while (it.hasNext()) {
             JsonObject rec = (JsonObject) it.next();
             String email_rec = JSON.getStringProperty(rec, "email");
@@ -108,7 +107,7 @@ public class WeezEvent {
         return emailsAllAttendees;
     }
 
-    public static boolean isRegisteredAttendee(String email, List<String> emailsAllAttendees) {
+    public static boolean isRegisteredAttendee(String email, Set<String> emailsAllAttendees) {
         if (emailsAllAttendees != null && emailsAllAttendees.contains(email)) {
             return true;
         }
@@ -118,13 +117,8 @@ public class WeezEvent {
     public static void updateRegisteredAttendee(Member member) {
         String sessionID = WeezEvent.login();
         WeezEvent.setEvent(sessionID);
-        final List<String> allAttendees = WeezEvent.getAttendees(sessionID);
-        if (WeezEvent.isRegisteredAttendee(member.email, allAttendees)) {
-            member.ticketingRegistered = true;
-        }
-        else {
-            member.ticketingRegistered = false;
-        }
+        final Set<String> allAttendees = WeezEvent.getAttendees(sessionID);
+        member.setTicketingRegistered(WeezEvent.isRegisteredAttendee(member.email, allAttendees));
         member.save();
 
     }

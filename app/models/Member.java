@@ -603,4 +603,11 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     public Set<Session> getLightningTalks() {
         return Sets.filter(sessions, LIGHTNING_TALK);
     }
+
+    public void setTicketingRegistered(boolean ticketingRegistered) {
+        if (!this.ticketingRegistered && ticketingRegistered) {
+            new BuyTicketActivity(this).save();
+        }
+        this.ticketingRegistered = ticketingRegistered;
+    }
 }
