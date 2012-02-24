@@ -384,4 +384,8 @@ public class MemberTest extends BaseDataUnitTest {
         lt.save();
         assertTrue(m.isLightningTalkSpeaker());
     }
+    
+    @Test public void findAllIds() {
+        assertNotNull(Member.findAllIds());
+    }
 }

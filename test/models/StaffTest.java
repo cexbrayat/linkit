@@ -24,4 +24,12 @@ public class StaffTest extends BaseDataUnitTest {
         assertTrue(s.badges.contains(Badge.Staff));
         s.save();
     }
+
+    @Test public void set() {
+        Staff s = Staff.all().first();
+        s.setTicketingRegistered(false);
+        s.save();
+        // A staff member is always registered
+        assertTrue(s.ticketingRegistered);
+    }
 }
