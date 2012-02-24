@@ -245,7 +245,11 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     public static Member findByEmail(final String email) {
         return find("email=?", email).first();
     }
-    
+        
+    public static List<Long> findAllIds() {
+        return find("select m.id from Member m").fetch();
+    }
+
     public void addLink(Member linked) {
         if (linked != null) {
             // Avoid activity duplication and auto-linking

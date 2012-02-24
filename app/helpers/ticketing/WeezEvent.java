@@ -37,7 +37,7 @@ public class WeezEvent {
 
     protected static String login(String weezevent_url, String weezevent_login, String weezevent_pw, String weezevent_lang) {
         StringBuilder url = new StringBuilder();
-        url.append(weezevent_url).append("?login=").append(weezevent_login).append("&").append("pw=").append(weezevent_pw).append("&").append("lang=").append(weezevent_lang).append("&t=timestamp");
+        url.append(weezevent_url).append("?login=").append(weezevent_login).append("&pw=").append(weezevent_pw).append("&lang=").append(weezevent_lang).append("&t=timestamp");
         JsonObject object = null;
         String cookie = null;
         try {
