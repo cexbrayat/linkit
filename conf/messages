@@ -70,8 +70,8 @@ mixit.whois=Mix-IT c'est qui?
 faq.title=Foire aux Questions
 faq.login.question=Pourquoi ouvrir un compte sur le site Mix-IT?
 faq.login.answer=Voir <a href="%s">la page de login</a> pour comprendre l'intérêt de la partie sociale du site!
-faq.registration.question=Comment payer son billet?
-faq.registration.answer=Voir <a href="%s">la page des inscriptions</a> pour payer son billet.
+faq.registration.question=Comment acheter son billet?
+faq.registration.answer=Voir <a href="%s">la page des inscriptions</a> pour acheter son billet.
 faq.gravatar.question=Comment changer l'image de son profil?
 faq.gravatar.answer=Les avatars sont gérés par <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. Nous affichons l'avatar correspondant à l'email que vous nous indiquez sur votre profil. Connectez-vous sur le site <a href="http://www.gravatar.com" target="_blank">Gravatar</a> pour créer ou modifier votre image.
 faq.twitter.question=Twitter
@@ -84,8 +84,8 @@ registration.title=Ouverture d'un compte Mix-IT et Paiement du billet
 registration.ticketing.alert=Ouverture de la billeterie dans:
 registration.step1.create.account=Créer-vous un compte Mix-IT
 registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT!
-registration.step2.ticketing.unsigned=Quand la billeterie sera ouverte : payez votre billet via votre Dashboard Mix-IT
-registration.step2.ticketing.signed=Quand la billeterie sera ouverte : n'oubliez pas de vérifier si vous avez payé votre billet
+registration.step2.ticketing.unsigned=Quand la billeterie sera ouverte : achetez votre billet via votre Dashboard Mix-IT
+registration.step2.ticketing.signed=Quand la billeterie sera ouverte : vérifiez sur votre Dashboard si vous avez acheté votre billet
 
 # Member fields
 

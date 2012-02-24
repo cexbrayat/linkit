@@ -6,11 +6,12 @@
     jQuery(document).ready(function()
     {
         $('#countdown').countDown({
+              *{ 01/03/2012 9H à Paris (GMT+1) = 8H UTC }*
               targetDate: {
-                  'day': 27,
-                  'month': 2,
+                  'day': 1,
+                  'month': 3,
                   'year': 2012,
-                  'hour': 10,
+                  'hour': 8,
                   'min': 0,
                   'sec': 0,
                   'utc': true
@@ -22,11 +23,11 @@
 
 
 <h1>&{'registration.title'}</h1>
-    <!-- FIXME le 20/02 ouverture billeterie le 20/02!
-{if session.username} <p>
-{ticketing member/}</p>
-{/if}
--->
+*{ FIXME Ticketing opening
+#{if session.username}
+<p>#{ticketing member/}</p>
+#{/if}
+}*
 
 <h3>&{'registration.ticketing.alert'}</h3>
 <div id="countdown">
@@ -68,7 +69,6 @@
 </div>
 
 #{if !session.username}
-    <!-- FIXME le 07/02 ouverture billeterie le 20/02! -->
 <ol>
     <li><h3><a href="@{Login.index()}">&{'registration.step1.create.account'}</a></h3>
         &{'registration.step1.create.account.why'}
