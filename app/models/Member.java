@@ -165,7 +165,10 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         if (account != null) {
             this.accounts.remove(account.provider);
             account.member = null;
-            StatusActivity.deleteForMember(this, account.provider);
+            // No need to delete related entities if Member not yet persisted (cf. https://trello.com/board/mix-it-2012/4f1b9ce056cf07e52f0072f7)
+            if (this.id != null) {
+                StatusActivity.deleteForMember(this, account.provider);
+            }
         }
     }
 
