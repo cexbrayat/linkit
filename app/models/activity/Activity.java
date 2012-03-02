@@ -1,5 +1,6 @@
 package models.activity;
 
+import controllers.BrowserNotifier;
 import helpers.badge.BadgeComputationContext;
 import models.Article;
 import models.Member;
@@ -7,6 +8,7 @@ import models.ProviderType;
 import models.Session;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
+import play.Logger;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
@@ -313,9 +315,9 @@ public abstract class Activity extends Model implements Comparable<Activity> {
         return (other.at.compareTo(this.at));
     }
 
-    /*public Activity save(){
+    public Activity save(){
         super.save();
-        LiveActivities.liveStream.publish(this);
+        BrowserNotifier.send(this);
         return this;
-    }*/
+    }
 }

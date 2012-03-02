@@ -1,206 +1,246 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>#{get 'title' /} - Mix-IT 2012</title>
-        <meta charset="${_response_encoding}">
-        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/bootstrap.less'}">
-        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/linkit.less'}">
-        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/networks.css'}">
-        #{if canonical}<link rel="canonical" href="#{get 'canonical' /}">#{/if}
-        #{get 'moreStyles' /}
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <link rel="author" href="humans.txt" />
-        <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/bootstrap-twipsy.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/bootstrap-dropdown.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script> 
-            $(function () {
-              $("a[rel=twipsy]").twipsy({
+<head>
+    <title>#{get 'title' /} - Mix-IT 2012</title>
+    <meta charset="${_response_encoding}">
+    <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/bootstrap.less'}">
+    <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/linkit.less'}">
+    <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/networks.css'}">
+    #{if canonical}
+    <link rel="canonical" href="#{get 'canonical' /}">
+    #{/if}
+    #{get 'moreStyles' /}
+    <link rel="shortcut icon" href="/favicon.ico"/>
+    <link rel="icon" type="image/png" href="/favicon.png"/>
+    <link rel="author" href="humans.txt"/>
+    <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript"
+            charset="${_response_encoding}"></script>
+    <script src="@{'/public/javascripts/bootstrap-twipsy.js'}" type="text/javascript"
+            charset="${_response_encoding}"></script>
+    <script src="@{'/public/javascripts/bootstrap-dropdown.js'}" type="text/javascript"
+            charset="${_response_encoding}"></script>
+    <script>
+        $(function () {
+            $("a[rel=twipsy]").twipsy({
                 live: true,
                 placement: 'below'
-              })
             })
-          </script> 
-        #{get 'moreScripts' /}
-        <script type="text/javascript">
-*{/ Pure websockets : ne fonctionne pas sous Chrome 16 avec Play 1.2.4
-            #{if session.username}
-            $(document).ready(function() {
-                if(window.MozWebSocket) window.WebSocket = window.MozWebSocket;
-                window.socket = new WebSocket('@@{LiveActivities.listen}');
-                window.socket.onopen = function(event) {
-                    console.log('connect');
-                    var msg = new Object();
-                    msg.id = '${session.username}';
-                    msg.connect = true;
-                    window.socket.send(JSON.stringify(msg));
-                }
-                window.socket.onclose = function(event) {
-                    console.log('disconnect');
-                    var msg = new Object();
-                    msg.id = '${session.username}';
-                    msg.connect = false;
-                    window.socket.send(JSON.stringify(msg));
-                }
-                window.socket.onmessage = function(event) {
-                    console.log(event.data);
-                }
-                window.socket.onerror = function(event) {
-                    console.log('Websocket error : ' + event);
-                }
+        })
+    </script>
+    #{get 'moreScripts' /}
+    <script src="http://localhost:9002/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+        #{if session.username}
+        $(document).ready(function() {
+            if (window.webkitNotifications && window.webkitNotifications.checkPermission() != 0) {
+                $('#nav').append('<li><a id="show_notif">Activer temps reel!<\/a></li>');
+            }
+            $('#show_notif').bind('click', function() {
+                window.webkitNotifications.requestPermission(function() {
+                    if (window.webkitNotifications.checkPermission() == 0) {
+                        $('#show_notif').hide();
+                    }
+                });
             });
-            #{/if}
-}*
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', '${play.configuration.getProperty("application.analytics.trackingId")}']);
-            _gaq.push(['_trackPageview']);
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-        </script>
-    </head>
-    <body itemscope itemtype="http://schema.org/Product" style="padding-top: 60px;" > *{ 60px is navigation bar space }*
-        <div class="topbar">
-            <div class="topbar-inner">
-                <div class="container-fluid">
-                    <a class="brand" href="@{Application.index()}"><img src="@{'/public/images/mini-mixit.png'}" itemprop="image"/></a>
-                    <ul class="nav">
+        });
+        //connection
+        var socket = io.connect('http://localhost:9002');
+        socket.on('connect', function(data){
+            socket.emit('user', {'name' : "${session.username}"})
+        });
+        //reception d'une activite
+        socket.on('activity', function(data) {
+            console.log(data.data);
+            var notif = window.webkitNotifications.createHTMLNotification("/public/template/notifications/empty.html?content=" + data.data);
+            notif.show();//noty
+            setTimeout(function() {
+                notif.cancel();
+            }, 10000);
+        });
+        #{/if}
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '${play.configuration.getProperty("application.analytics.trackingId")}']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</head>
+<body itemscope itemtype="http://schema.org/Product" style="padding-top: 60px;"> *{ 60px is navigation bar space }*
+<div class="topbar">
+    <div class="topbar-inner">
+        <div class="container-fluid">
+            <a class="brand" href="@{Application.index()}"><img src="@{'/public/images/mini-mixit.png'}"
+                                                                itemprop="image"/></a>
+            <ul id="nav" class="nav">
+                #{if session.username}
+                <li
+                #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
+                #{/if}
+                <li
+                #{if request.controller=="Articles"}class="active"#{/if}><a
+                    href="@{Articles.index()}">&{'menu.news'}</a></li>
+                <li class="dropdown" data-dropdown="dropdown">
+                    <a class="dropdown-toggle" href="#">&{'menu.agenda'}</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
+                        <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
                         #{if session.username}
-                        <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
+                        <li class="divider"></li>
+                        <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                         #{/if}
-                        <li #{if request.controller=="Articles"}class="active"#{/if}><a href="@{Articles.index()}">&{'menu.news'}</a></li>
-                        <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle" href="#">&{'menu.agenda'}</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
-                                <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
-                            #{if session.username}
-                                <li class="divider"></li>
-                                <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
-                            #{/if}
-                                <!--<li><a href="@{Plannings.index()}">Agenda</a></li>-->
-                            </ul>
-                        </li>
-                        <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle" href="#">&{'menu.members'}</a>
-                            <ul class="dropdown-menu">
-                                <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">&{'menu.members.speakers'}</a></li>
-                                #{if session.username}
-                                <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a href="@{Application.members()}">&{'menu.members.all'}</a></li>
-                                #{/if}
-                                <li #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">&{'menu.members.staff'}</a></li>
-                                <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
-                            </ul>
-                        </li>
-                        
-                        <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle" href="#">&{'menu.infos'}</a>
-                            <ul class="dropdown-menu">
-                                <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">&{'menu.infos.about'}</a></li>
-                                <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">&{'menu.infos.faq'}</a></li>
-                                <li #{if request.action=="Infos.inscription"}class="active"#{/if}><a href="@{Infos.inscription()}">&{'menu.infos.inscription'}</a></li>
-                                <li #{if request.action=="Infos.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">&{'menu.infos.sponsors'}</a></li>
-                                <li #{if request.action=="Infos.contact"}class="active"#{/if}><a href="@{Infos.contact()}">&{'menu.infos.contact'}</a></li>
-                                <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">&{'menu.infos.kit'}</a></li>
-                                <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">&{'menu.infos.access'}</a></li>
-                                <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a href="@{Infos.hotels()}">&{'menu.infos.hotels'}</a></li>
-                                <li><a href="http://2011.mix-it.fr" title="Mix-IT 2011">&{'menu.infos.2011'}</a></li>
-                            </ul>
-                        </li>
-                        
-                        #{secure.check 'admin'}
-                        <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle" href="#">Admin</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/admin">On dirait le CRUD</a></li>
-                                <li class="divider"></li>
-                                <li><a href="@{Articles.create()}">Créer un article</a></li>
-                                <li><a href="@{Sessions.create()}">Créer une session</a></li>
-                                <li><a href="@{Interests.edit()}">Modérer les intérêts</a></li>
-                                <li class="divider"></li>
-                                <li><a href="@{Mailings.index()}">Mailings</a></li>
-
-                            </ul>
-                        </li>
-                        #{/secure.check}
+                        <!--<li><a href="@{Plannings.index()}">Agenda</a></li>-->
                     </ul>
-                    <ul class="nav secondary-nav pull-right">
-                        #{if session.username} 
-                        <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle" href="#">#{member models.Member.findByLogin(session.username), static:true /}</a>
-                            <ul class="dropdown-menu">
-                                <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
-                                <li><a href="@{Profile.show(session.username)}">&{'menu.login.profile'}</a></li>
-                                <li><a href="@{Profile.edit()}">&{'menu.login.edit'}</a></li>
-                                <li><a href="@{Dashboard.settings()}">&{'menu.login.settings'}</a></li>
-                                <li class="divider"></li>
-                                <li><a href="@{Secure.logout()}">&{'menu.login.logout'}</a></li>
-                            </ul>
-                        </li>
-                        #{/if}
-                        #{else}
-                        <li><a href="@{Login.index()}" title="Se connecter">&{'menu.login'}</a></li>
-                        #{/else}
-                    </ul>
-                    <form id="formTopbarSearch" action="@{Application.search}" method="GET" class="pull-right ignoredirty">
-                        #{field 'query'}
-                        <input type="search" style="width: auto" id="${field.id}" name="${field.name}" placeholder="&{'menu.search'}" value="${params.query}" />
-                        #{/field}
-                    </form> 
-                </div>
-            </div>
-        </div>
-        
-        <div class="container">
-                    
-            #{if flash.success}
-            <div class="alert-message success">${flash.success}</div>
-            #{/if}
-            #{if flash.error}
-            <div class="alert-message error">${flash.error}</div>
-            #{/if}
+                </li>
+                <li class="dropdown" data-dropdown="dropdown">
+                    <a class="dropdown-toggle" href="#">&{'menu.members'}</a>
+                    <ul class="dropdown-menu">
+                        <li
+                        #{if request.action=="Application.speakers"}class="active"#{/if}><a
+                            href="@{Application.speakers()}">&{'menu.members.speakers'}</a>
+                </li>
+                #{if session.username}
+                <li
+                #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}><a
+                    href="@{Application.members()}">&{'menu.members.all'}</a></li>
+                #{/if}
+                <li
+                #{if request.action=="Application.staff"}class="active"#{/if}><a href="@{Application.staff()}">&{'menu.members.staff'}</a></li>
+                <li
+                #{if request.action=="Application.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
+            </ul>
+            </li>
 
-            #{doLayout /}
-        </div>
-        <!--/div-->
-    </body>
-    <footer>
-        <div class="container">
-            #{if sponsors}
-            <div class="row">
-                <!--ul class="media-grid"-->
-                #{list items:sponsors, as:'sponsor'}
-                <!--li class="sponsor"-->
-                <div class="span3" style="text-align: center">
-                    <a href="@{Profile.show(sponsor.login)}"><!--img src="${sponsor.logoUrl}" /-->${sponsor.toString()}</a>
-                </div>
-                <!--/li-->
-                #{/list}
-                <!--/ul-->
-            </div>
+            <li class="dropdown" data-dropdown="dropdown">
+                <a class="dropdown-toggle" href="#">&{'menu.infos'}</a>
+                <ul class="dropdown-menu">
+                    <li
+                    #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">&{'menu.infos.about'}</a>
+            </li>
+            <li
+            #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">&{'menu.infos.faq'}</a></li>
+            <li
+            #{if request.action=="Infos.inscription"}class="active"#{/if}><a href="@{Infos.inscription()}">&{'menu.infos.inscription'}</a></li>
+            <li
+            #{if request.action=="Infos.sponsors"}class="active"#{/if}><a href="@{Application.sponsors()}">&{'menu.infos.sponsors'}</a></li>
+            <li
+            #{if request.action=="Infos.contact"}class="active"#{/if}><a href="@{Infos.contact()}">&{'menu.infos.contact'}</a></li>
+            <li
+            #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">&{'menu.infos.kit'}</a></li>
+            <li
+            #{if request.action=="Infos.acces"}class="active"#{/if}><a
+                href="@{Infos.acces()}">&{'menu.infos.access'}</a></li>
+            <li
+            #{if request.action=="Infos.hotels"}class="active"#{/if}><a
+                href="@{Infos.hotels()}">&{'menu.infos.hotels'}</a></li>
+            <li><a href="http://2011.mix-it.fr" title="Mix-IT 2011">&{'menu.infos.2011'}</a></li>
+            </ul>
+            </li>
+
+            #{secure.check 'admin'}
+            <li class="dropdown" data-dropdown="dropdown">
+                <a class="dropdown-toggle" href="#">Admin</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/admin">On dirait le CRUD</a></li>
+                    <li class="divider"></li>
+                    <li><a href="@{Articles.create()}">Créer un article</a></li>
+                    <li><a href="@{Sessions.create()}">Créer une session</a></li>
+                    <li><a href="@{Interests.edit()}">Modérer les intérêts</a></li>
+                    <li class="divider"></li>
+                    <li><a href="@{Mailings.index()}">Mailings</a></li>
+                </ul>
+            </li>
+            #{/secure.check}
+            </ul>
+            <ul class="nav secondary-nav pull-right">
+                #{if session.username}
+                <li class="dropdown" data-dropdown="dropdown">
+                    <a class="dropdown-toggle" href="#">#{member models.Member.findByLogin(session.username),
+                        static:true /}</a>
+                    <ul class="dropdown-menu">
+                        <li
+                        #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.dashboard'}</a>
+                </li>
+                <li><a href="@{Profile.show(session.username)}">&{'menu.login.profile'}</a></li>
+                <li><a href="@{Profile.edit()}">&{'menu.login.edit'}</a></li>
+                <li><a href="@{Dashboard.settings()}">&{'menu.login.settings'}</a></li>
+                <li class="divider"></li>
+                <li><a href="@{Secure.logout()}">&{'menu.login.logout'}</a></li>
+            </ul>
+            </li>
             #{/if}
-            <br/>
-            <div class="row">
-                <div class="span4">
-                    <iframe allowtransparency="true" frameborder="0" scrolling="no" 
+            #{else}
+            <li><a href="@{Login.index()}" title="Se connecter">&{'menu.login'}</a></li>
+            #{/else}
+            </ul>
+            <form id="formTopbarSearch" action="@{Application.search}" method="GET" class="pull-right ignoredirty">
+                #{field 'query'}
+                <input type="search" style="width: auto" id="${field.id}" name="${field.name}"
+                       placeholder="&{'menu.search'}" value="${params.query}"/>
+                #{/field}
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    #{if flash.success}
+    <div class="alert-message success">${flash.success}</div>
+    #{/if}
+    #{if flash.error}
+    <div class="alert-message error">${flash.error}</div>
+    #{/if}
+
+    #{doLayout /}
+</div>
+<!--/div-->
+</body>
+<footer>
+    <div class="container">
+        #{if sponsors}
+        <div class="row">
+            <!--ul class="media-grid"-->
+            #{list items:sponsors, as:'sponsor'}
+            <!--li class="sponsor"-->
+            <div class="span3" style="text-align: center">
+                <a href="@{Profile.show(sponsor.login)}"><!--img src="${sponsor.logoUrl}" /-->${sponsor.toString()}</a>
+            </div>
+            <!--/li-->
+            #{/list}
+            <!--/ul-->
+        </div>
+        #{/if}
+        <br/>
+
+        <div class="row">
+            <div class="span4">
+                <iframe allowtransparency="true" frameborder="0" scrolling="no"
                         src="//platform.twitter.com/widgets/follow_button.html?screen_name=MixIT_Lyon&lang=fr&show_count=false"
                         style="width:350px; height:20px;">
-                    </iframe>
-                </div>
-                <div class="span4" style="text-align: center">  
-                    <a href="http://www.cloudbees.com/" target="blank"><img src="@{'/public/images/powered-by-cloudbees-button-120x30.png'}" title="Powered by Cloudbees" height="20px"/></a>
-                </div>
-                <div class="span4" style="text-align: center">
-                    Bugs, suggestions : <a href="https://trello.com/board/mix-it-2012/4f1b9ce056cf07e52f0072f7" target="blank"><img src="@{'/public/images/icon_trello_sm.png'}" title="Trello (Suggestions, bugs, ...)" height="20px" style="vertical-align: middle" /></a>
-                </div>
-                <div class="span4" style="text-align: right">
-                    &copy; 2012 Mix-IT
-                </div>
+                </iframe>
+            </div>
+            <div class="span4" style="text-align: center">
+                <a href="http://www.cloudbees.com/" target="blank"><img
+                        src="@{'/public/images/powered-by-cloudbees-button-120x30.png'}" title="Powered by Cloudbees"
+                        height="20px"/></a>
+            </div>
+            <div class="span4" style="text-align: center">
+                Bugs, suggestions : <a href="https://trello.com/board/mix-it-2012/4f1b9ce056cf07e52f0072f7"
+                                       target="blank"><img src="@{'/public/images/icon_trello_sm.png'}"
+                                                           title="Trello (Suggestions, bugs, ...)" height="20px"
+                                                           style="vertical-align: middle"/></a>
+            </div>
+            <div class="span4" style="text-align: right">
+                &copy; 2012 Mix-IT
             </div>
         </div>
-    </footer>
+    </div>
+</footer>
 </html>

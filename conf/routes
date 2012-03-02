@@ -92,7 +92,7 @@ GET     /article/{articleId}                    Articles.show
 GET     /logout                                 Secure.logout
 
 # Live activities
-WS      /live                                   LiveActivities.listen
+WS      /live                                   BrowserNotifier.listen
 
 # Bots resources
 *       /favicon.ico                            staticFile:public/images/favicon.ico
