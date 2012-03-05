@@ -1,73 +1,15 @@
 #{extends 'main.html' /}
 #{set title:'Inscription' /}
-#{set 'moreScripts'}
-<script language="Javascript" type="text/javascript" src="@{'/public/javascripts/jquery.lwtCountdown-1.0.js'}"></script>
-<script language="javascript" type="text/javascript">
-    jQuery(document).ready(function()
-    {
-        $('#countdown').countDown({
-              targetDate: {
-                  'day': 20,
-                  'month': 2,
-                  'year': 2012,
-                  'hour': 10,
-                  'min': 0,
-                  'sec': 0
-              }
-                });
-    });
-</script>
-#{/set}
 
 
 <h1>&{'registration.title'}</h1>
-    <!-- FIXME le 20/02 ouverture billeterie le 20/02!
-{if session.username} <p>
-{ticketing member/}</p>
-{/if}
--->
-
-<h3>&{'registration.ticketing.alert'}</h3>
-<div id="countdown">
-    <div class="dash weeks_dash">
-    <span class="dash_title">semaines</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash days_dash">
-    <span class="dash_title">jours</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash hours_dash">
-    <span class="dash_title">heures</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash minutes_dash">
-    <span class="dash_title">minutes</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash seconds_dash">
-    <span class="dash_title">secondes</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-</div>
+<p><strong>&{'button.ticketing.price'}</strong><br/>
+    &{'registration.directives'}</p>
+#{if session.username}
+<p>#{ticketing member/}</p>
+#{/if}
 
 #{if !session.username}
-    <!-- FIXME le 07/02 ouverture billeterie le 20/02! -->
 <ol>
     <li><h3><a href="@{Login.index()}">&{'registration.step1.create.account'}</a></h3>
         &{'registration.step1.create.account.why'}
@@ -75,7 +17,4 @@
     <li><h3>&{'registration.step2.ticketing.unsigned'}</h3></li>
 </ol>
 #{/if}
-#{else}
-    <h3>&{'registration.step2.ticketing.signed'}</h3>
-#{/else}
 

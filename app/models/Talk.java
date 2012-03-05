@@ -22,6 +22,10 @@ public class Talk extends Session {
     @Enumerated(EnumType.STRING)
     public Track track;
 
+    public static List<Talk> findLinkedWith(Interest interest) {
+        return find("valid=true and ? in elements(interests)", interest).fetch();
+    }
+
     public static List<Talk> recents(int page, int length) {
         return find("valid=true order by addedAt desc").fetch(page, length);
     }

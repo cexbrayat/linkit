@@ -81,7 +81,6 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     public String email;
 
     @Column(name = FIRSTNAME)
-    @Required
     @Field
     public String firstname;
 
@@ -165,7 +164,10 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         if (account != null) {
             this.accounts.remove(account.provider);
             account.member = null;
-            StatusActivity.deleteForMember(this, account.provider);
+            // No need to delete related entities if Member not yet persisted (cf. https://trello.com/board/mix-it-2012/4f1b9ce056cf07e52f0072f7)
+            if (this.id != null) {
+                StatusActivity.deleteForMember(this, account.provider);
+            }
         }
     }
 
@@ -245,7 +247,11 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     public static Member findByEmail(final String email) {
         return find("email=?", email).first();
     }
-    
+        
+    public static List<Long> findAllIds() {
+        return find("select m.id from Member m").fetch();
+    }
+
     public void addLink(Member linked) {
         if (linked != null) {
             // Avoid activity duplication and auto-linking
@@ -602,5 +608,12 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     
     public Set<Session> getLightningTalks() {
         return Sets.filter(sessions, LIGHTNING_TALK);
+    }
+
+    public void setTicketingRegistered(boolean ticketingRegistered) {
+        if (!this.ticketingRegistered && ticketingRegistered) {
+            new BuyTicketActivity(this).save();
+        }
+        this.ticketingRegistered = ticketingRegistered;
     }
 }

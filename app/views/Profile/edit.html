@@ -285,14 +285,14 @@ Connectez-vous sur le site <a class="ignoredirty" href="http://www.gravatar.com"
           </div>
         </div>
         <div class="actions">
+            <input type="submit" class="btn primary" value="Enregistrer"/>
 #{if member.id} *{création de profil si member.id == null}*
-            <a href="@{Profile.delete()}" class="btn danger" >Supprimer mon compte</a>
             <a href="@{Profile.show(originalLogin)}" class="btn">Annuler</a>
+            <a href="@{Profile.delete()}" class="btn danger" >Supprimer mon compte</a>
 #{/if}
 #{else}
             <a href="@{Application.index()}" class="btn">Annuler</a>
 #{/else}
-            <input type="submit" class="btn primary" value="Enregistrer"/>
         </div>
 
     #{/form}
