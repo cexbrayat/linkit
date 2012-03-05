@@ -37,7 +37,7 @@ menu.login.logout=Se déconnecter
 # Accueil
 mixit.slogan=Des idées pour tout de suite !
 mixit.header=Java, Agilité, Web, Innovations...
-ticketing.alert=Ouverture prochaine<br/>de la billetterie !
+ticketing.alert=La billetterie est ouverte !
 button.about.mixit=A propos de Mix-IT
 button.talks=Les sessions
 button.login=S'inscrire
@@ -70,8 +70,8 @@ mixit.whois=Mix-IT c'est qui?
 faq.title=Foire aux Questions
 faq.login.question=Pourquoi ouvrir un compte sur le site Mix-IT?
 faq.login.answer=Voir <a href="%s">la page de login</a> pour comprendre l'intérêt de la partie sociale du site!
-faq.registration.question=Comment payer son billet?
-faq.registration.answer=Voir <a href="%s">la page des inscriptions</a> pour payer son billet.
+faq.registration.question=Comment acheter son billet?
+faq.registration.answer=Voir <a href="%s">la page des inscriptions</a> pour acheter son billet.
 faq.gravatar.question=Comment changer l'image de son profil?
 faq.gravatar.answer=Les avatars sont gérés par <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. Nous affichons l'avatar correspondant à l'email que vous nous indiquez sur votre profil. Connectez-vous sur le site <a href="http://www.gravatar.com" target="_blank">Gravatar</a> pour créer ou modifier votre image.
 faq.twitter.question=Twitter
@@ -80,12 +80,11 @@ faq.recording.question=Enregistrement des sessions
 faq.recording.answer=Toutes les sessions seront enregistrées au format audio (peut-être vidéo pour certaines) et seront disponibles après la conférence sur notre site!
 
 # Registration
-registration.title=Ouverture d'un compte Mix-IT et Paiement du billet
-registration.ticketing.alert=Ouverture de la billeterie dans:
+registration.title=Ouverture d'un compte Mix-IT et Paiement du billet 
+registration.directives=Pour information cette journée sera éligible au Droit Individuel à la Formation, notre sponsor SQLi fournira les certificats sur son stand, grâce à son organisme de formation SQLi Institut. Vous pouvez donc demander à votre employeur d’assister à Mix-IT comme une formation classique, sans prendre de congés !
 registration.step1.create.account=Créer-vous un compte Mix-IT
 registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT!
-registration.step2.ticketing.unsigned=Quand la billeterie sera ouverte : payez votre billet via votre Dashboard Mix-IT
-registration.step2.ticketing.signed=Quand la billeterie sera ouverte : n'oubliez pas de vérifier si vous avez payé votre billet
+registration.step2.ticketing.unsigned=Achetez votre billet en vous rendant sur votre Dashboard Mix-IT
 
 # Member fields
 

@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Arrays;
 import org.apache.commons.lang.StringUtils;
 import org.junit.*;
 
@@ -18,24 +19,27 @@ public class SessionTest extends BaseDataUnitTest {
         assertTrue(session.description.length()>4000);
         session.save();
     }
-    
-        @Test
-    public void testInterests() {
-        Session session1 = new Talk();
-        Session session2 = new Talk();
 
-        // Well
-        assertEquals(0, Session.findSessionsLinkedWith(Interest.findByName("Java")).size());
+    @Test
+    public void findSessionsLinkedWith() {
+        final Talk talk1 = new Talk().save();
+        talk1.validate();
+        final Session lightning2 = new LightningTalk().save();
+        final Talk talkInvalid = new Talk().save();
+        talkInvalid.unvalidate();
+
+        final String interest1 = "interest1";
+        final String interest2 = "interest2";
+        assertEquals(0, Session.findLinkedWith(Interest.findOrCreateByName(interest1)).size());
 
         // Add interest now
-        session1.addInterest("Java").addInterest("TDD").addInterest("Hadoop").save();
-        session2.addInterest("Java").save();
+        talk1.addInterest(interest1).addInterest(interest2).save();
+        lightning2.addInterest(interest1).save();
+        talkInvalid.addInterest(interest1).save();
 
         // Simple Check
-        assertEquals(2, Session.findSessionsLinkedWith(Interest.findByName("Java")).size());
-        assertEquals(1, Session.findSessionsLinkedWith(Interest.findByName("TDD")).size());
-        assertEquals(1, Session.findSessionsLinkedWith(Interest.findByName("Hadoop")).size());
-
+        assertEquals(Arrays.asList(talk1, lightning2), Session.findLinkedWith(Interest.findByName(interest1)));
+        assertEquals(Arrays.asList(talk1), Session.findLinkedWith(Interest.findByName(interest2)));
     }
     
     @Test public void lookByValid() {

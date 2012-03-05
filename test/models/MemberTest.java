@@ -1,5 +1,14 @@
 package models;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+import java.util.Arrays;
+import java.util.List;
+import models.auth.AuthAccount;
+=======
+>>>>>>> favs
+>>>>>>> master
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
@@ -385,6 +394,24 @@ public class MemberTest extends BaseDataUnitTest {
         lt.save();
         assertTrue(m.isLightningTalkSpeaker());
     }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    
+    @Test public void findAllIds() {
+        assertNotNull(Member.findAllIds());
+    }
+    
+    // Test for BUG https://trello.com/card/crash-signup/4f1b9ce056cf07e52f0072f7/64
+    @Test public void removeAccountDuringSignup() {
+        final Member m = new Member("toto");
+        final TwitterOAuthAccount authAccount = new TwitterOAuthAccount("", "");
+        authAccount.screenName = "toto";
+        m.preregister(authAccount);
+        m.removeAccount(m.getTwitterAccount());
+        m.register();
+=======
+>>>>>>> master
 
     @Test public void addFavedSession() {
         //si on a un membre et une session
@@ -400,5 +427,9 @@ public class MemberTest extends BaseDataUnitTest {
 
         //le membre est fan de la session
         assertTrue(t.hasVoteFrom(m.login));
+<<<<<<< HEAD
+=======
+>>>>>>> favs
+>>>>>>> master
     }
 }

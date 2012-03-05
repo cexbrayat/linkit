@@ -13,6 +13,7 @@ import play.db.jpa.Model;
 import javax.persistence.*;
 import java.util.*;
 import models.activity.Activity;
+import org.apache.commons.lang.builder.CompareToBuilder;
 import play.db.jpa.JPABase;
 import play.modules.search.Field;
 
@@ -23,7 +24,7 @@ import play.modules.search.Field;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Session extends Model implements Lookable {
+public abstract class Session extends Model implements Lookable, Comparable<Session> {
 
     public static final String TITLE = "title";
     public static final String SUMMARY = "summary";
@@ -116,9 +117,8 @@ public abstract class Session extends Model implements Lookable {
         }
     }
 
-    public static List<Session> findSessionsLinkedWith(Interest interest) {
-        return Session.find(
-                "select distinct s from Session s join s.interests as i where i = ?", interest).fetch();
+    public static <T extends Session> List<T> findLinkedWith(Interest interest) {
+        return find("valid = true and ? in elements(interests)", interest).fetch();
     }
     
     public Session addInterest(String interest) {
@@ -201,4 +201,8 @@ public abstract class Session extends Model implements Lookable {
      * @return URL of display page for this session
      */
     public abstract String getShowUrl();
+
+    public int compareTo(Session other) {
+        return new CompareToBuilder().append(this.title, other.title).toComparison();
+    }
 }

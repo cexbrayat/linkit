@@ -20,7 +20,7 @@ public class LightningTalk extends Session {
         // A Lightning Talk is always validated
         valid = true;
     }
-
+    
     @Override
     public String toString() {
         return title;

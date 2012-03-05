@@ -100,6 +100,7 @@ WS      /live                                   LiveActivities.listen
 *       /favicon.png                            staticFile:public/images/favicon.png
 *       /robots.txt                             staticFile:public/robots.txt
 *       /humans.txt                             staticFile:public/humans.txt
+*       /sitemap.xml                            staticFile:public/sitemap.xml
 
 # Catch all
 *       /{controller}                           {controller}.index
