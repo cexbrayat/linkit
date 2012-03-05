@@ -81,7 +81,6 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     public String email;
 
     @Column(name = FIRSTNAME)
-    @Required
     @Field
     public String firstname;
 
