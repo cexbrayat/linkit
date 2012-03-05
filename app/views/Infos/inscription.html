@@ -1,72 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'Inscription' /}
-#{set 'moreScripts'}
-<script language="Javascript" type="text/javascript" src="@{'/public/javascripts/jquery.lwtCountdown-1.0.js'}"></script>
-<script language="javascript" type="text/javascript">
-    jQuery(document).ready(function()
-    {
-        $('#countdown').countDown({
-              *{ 05/03/2012 9H à Paris (GMT+1) = 8H UTC }*
-              targetDate: {
-                  'day': 5,
-                  'month': 3,
-                  'year': 2012,
-                  'hour': 8,
-                  'min': 0,
-                  'sec': 0,
-                  'utc': true
-              }
-        });
-    });
-</script>
-#{/set}
 
 
 <h1>&{'registration.title'}</h1>
-*{ FIXME Ticketing opening
+<p><strong>&{'button.ticketing.price'}</strong><br/>
+    &{'registration.directives'}</p>
 #{if session.username}
 <p>#{ticketing member/}</p>
 #{/if}
-}*
-
-<h3>&{'registration.ticketing.alert'}</h3>
-<div id="countdown">
-    <div class="dash weeks_dash">
-    <span class="dash_title">semaines</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash days_dash">
-    <span class="dash_title">jours</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash hours_dash">
-    <span class="dash_title">heures</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash minutes_dash">
-    <span class="dash_title">minutes</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash seconds_dash">
-    <span class="dash_title">secondes</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-</div>
 
 #{if !session.username}
 <ol>
@@ -76,7 +17,4 @@
     <li><h3>&{'registration.step2.ticketing.unsigned'}</h3></li>
 </ol>
 #{/if}
-#{else}
-    <h3>&{'registration.step2.ticketing.signed'}</h3>
-#{/else}
 

@@ -37,7 +37,7 @@ menu.login.logout=Logout
 # Welcome
 mixit.slogan=Ideas for now !
 mixit.header=Java, Agile, Web, Innovation...
-ticketing.alert=Ticketing will<br />open soon !
+ticketing.alert=Ticketing is opened !
 button.about.mixit=About Mix-IT
 button.talks=The talks
 button.login=Sign in
@@ -81,11 +81,10 @@ faq.recording.answer=All the talks will be recored in audio format (maybe some w
 
 # Registration
 registration.title=Account and Ticketing
-registration.ticketing.alert=How long before the ticketing opening?
+registration.directives=
 registration.step1.create.account=Create an account
 registration.step1.create.account.why=And enjoy the social side of the Mix-IT website!
-registration.step2.ticketing.unsigned=As soon as the ticketing is opened : buy your ticket from your Mix-IT's Dashboard!
-registration.step2.ticketing.signed=As soon as the ticketing is opened : check if you have already payed your ticket on your Mix-IT's Dashboard!
+registration.step2.ticketing.unsigned=Buy your ticket from your Mix-IT's Dashboard!
 
 # Talk fields
 talks.description=The talks descriptions. All the talks will be held on 5 parallel tracks
