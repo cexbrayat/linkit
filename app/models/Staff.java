@@ -36,5 +36,10 @@ public class Staff extends Member {
     public boolean hasRole(String profile) {
         return ROLES.contains(profile);
     }
-    
+
+    @Override
+    public void setTicketingRegistered(boolean ticketingRegistered) {
+        // A staff member is always registered
+        this.ticketingRegistered = true;
+    }
 }
