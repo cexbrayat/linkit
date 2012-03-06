@@ -34,4 +34,8 @@ public class LightningTalk extends Session {
                 .add("slugify", JavaExtensions.slugify(this.title))
                 .url;
     }
+
+    public static List<LightningTalk> findLinkedWith(Interest interest) {
+        return find("? in elements(interests)", interest).fetch();
+   }
 }

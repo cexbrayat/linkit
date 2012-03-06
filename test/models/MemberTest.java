@@ -2,16 +2,12 @@ package models;
 
 import java.util.Arrays;
 import java.util.List;
-import models.auth.AuthAccount;
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
 import models.mailing.Mailing;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Unit tests for {@link Member} domain object

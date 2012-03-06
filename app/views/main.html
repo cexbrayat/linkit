@@ -172,15 +172,12 @@
         <div class="container">
             #{if sponsors}
             <div class="row">
-                <!--ul class="media-grid"-->
+                <div class="span2">&nbsp;</div>
                 #{list items:sponsors, as:'sponsor'}
-                <!--li class="sponsor"-->
-                <div class="span3" style="text-align: center">
-                    <a href="@{Profile.show(sponsor.login)}"><!--img src="${sponsor.logoUrl}" /-->${sponsor.toString()}</a>
+                <div class="span2" style="text-align: center">
+                    <a href="@{Profile.show(sponsor.login)}">${sponsor.toString()}</a>
                 </div>
-                <!--/li-->
                 #{/list}
-                <!--/ul-->
             </div>
             #{/if}
             <br/>
