@@ -1,23 +1,13 @@
 package models;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 import java.util.Arrays;
 import java.util.List;
-import models.auth.AuthAccount;
-=======
->>>>>>> favs
->>>>>>> master
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
 import models.mailing.Mailing;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Unit tests for {@link Member} domain object
@@ -394,9 +384,6 @@ public class MemberTest extends BaseDataUnitTest {
         lt.save();
         assertTrue(m.isLightningTalkSpeaker());
     }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     
     @Test public void findAllIds() {
         assertNotNull(Member.findAllIds());
@@ -410,8 +397,7 @@ public class MemberTest extends BaseDataUnitTest {
         m.preregister(authAccount);
         m.removeAccount(m.getTwitterAccount());
         m.register();
-=======
->>>>>>> master
+    }
 
     @Test public void addFavedSession() {
         //si on a un membre et une session
@@ -427,9 +413,5 @@ public class MemberTest extends BaseDataUnitTest {
 
         //le membre est fan de la session
         assertTrue(t.hasVoteFrom(m.login));
-<<<<<<< HEAD
-=======
->>>>>>> favs
->>>>>>> master
     }
 }
