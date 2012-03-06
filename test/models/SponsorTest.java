@@ -23,4 +23,19 @@ public class SponsorTest extends BaseDataUnitTest {
         assertTrue(s.badges.contains(Badge.Sponsor));
         s.save();
     }
+
+    private Sponsor createSponsor(final String login, final String firstName, final String lastName) {
+        Sponsor s = new Sponsor(login);
+        s.firstname = firstName;
+        s.lastname = lastName;
+        return s;
+    }
+    
+    @Test public void testToString() {
+        assertEquals("lastName", createSponsor("toto", null, "lastName").toString());
+        assertEquals("lastName", createSponsor("toto", "", "lastName").toString());
+        assertEquals("firstName", createSponsor("toto", "firstName", null).toString());
+        assertEquals("firstName", createSponsor("toto", "firstName", "").toString());
+        assertEquals("firstName lastName", createSponsor("toto", "firstName", "lastName").toString());
+    }
 }
