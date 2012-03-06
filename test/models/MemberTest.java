@@ -1,14 +1,8 @@
 package models;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 import java.util.Arrays;
 import java.util.List;
 import models.auth.AuthAccount;
-=======
->>>>>>> favs
->>>>>>> master
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
