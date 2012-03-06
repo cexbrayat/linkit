@@ -33,7 +33,7 @@
                     #{/list}
                     #{if _arg.sharedLinks}
                         #{list items:_arg.sharedLinks, as:'link'}
-                            <a class="sharedLink" href="${link.URL}" rel="twipsy" title="${link.name}" target="_blank"><img src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/></a>
+                            <a class="sharedLink" href="${link.URL}" rel="twipsy" title="${link.name.escapeHtmlAttr()}" target="_blank"><img src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/></a>
                         #{/list}
                     #{/if}
                 </div>

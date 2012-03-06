@@ -1,20 +1,18 @@
 package models;
 
 import controllers.Mails;
+import java.util.*;
+import javax.persistence.*;
+import models.activity.Activity;
 import models.activity.CommentSessionActivity;
 import models.activity.LookSessionActivity;
 import models.activity.UpdateSessionActivity;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.CompareToBuilder;
 import play.Logger;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
-
-import javax.persistence.*;
-import java.util.*;
-import models.activity.Activity;
-import org.apache.commons.lang.builder.CompareToBuilder;
-import play.db.jpa.JPABase;
 import play.modules.search.Field;
 
 /**

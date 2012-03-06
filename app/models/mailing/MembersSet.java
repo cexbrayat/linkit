@@ -12,5 +12,9 @@ public enum MembersSet {
     /** Members having not yet registered */
     NonAttendees,
     /** Staff members */
-    Staff;
+    Staff,
+    /** Sponsor members */
+    Sponsors,
+    /** Member with validated talk */
+    Speakers;
 }
