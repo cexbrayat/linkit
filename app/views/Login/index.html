@@ -1,11 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Connexion à Mix-IT' /}
 #{set 'moreStyles' }
-<style>
-    .loginButton {
-        margin: 7px;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/zocial.css'}" />
 #{/set}
 
 
@@ -14,9 +10,15 @@
     <div class="row">
         <div class="span4">
             <div class="well">
-                <a href="@{Login.loginWith(models.ProviderType.Twitter)}" title="Se connecter via mon compte Twitter"><img class="loginButton" src="@{'/public/images/login/sign-in-with-twitter-l.png'}"/></a>
-                <a href="@{Login.loginWith(models.ProviderType.Google)}" title="Se connecter via mon compte Google"><img class="loginButton" src="@{'/public/images/login/google.png'}"/></a>
-                <a href="@{Login.loginWith(models.ProviderType.LinkedIn)}" title="Se connecter via mon compte LinkedIn"><img class="loginButton" src="@{'/public/images/login/linkedin-small.png'}"/></a>
+                <a href="@{Login.loginWith(models.ProviderType.Twitter)}" class="zocial twitter">
+                    <span>Se connecter via Twitter</span>
+                </a>
+                <a href="@{Login.loginWith(models.ProviderType.Google)}" class="zocial googleplus">
+                    <span>Se connecter via Google</span>
+                </a>
+                <a href="@{Login.loginWith(models.ProviderType.LinkedIn)}" class="zocial linkedin">
+                    <span>Se connecter via LinkedIn</span>
+                </a>
                 <br />&{'login.alert'}
             </div>
         </div>

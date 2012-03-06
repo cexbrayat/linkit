@@ -1,8 +1,8 @@
 package controllers;
 
-import models.*;
-import play.Logger;
-
+import models.Member;
+import models.Session;
+import models.Vote;
 import play.mvc.Controller;
 import play.mvc.With;
 
@@ -10,9 +10,8 @@ import play.mvc.With;
 public class Votes extends Controller {
 
     public static long vote(Long talkId, Boolean value) {
-        LightningTalk talk = LightningTalk.findById(talkId);
+        Session talk = Session.findById(talkId);
         Member member = Member.findByLogin(Security.connected());
-        Logger.info("Vote value: " + value);
         if (member != null && talk != null) {
             Vote vote = Vote.findVote(talk, member);
             if (vote != null) {
@@ -23,7 +22,6 @@ public class Votes extends Controller {
             vote.save();
             return Vote.findNumberOfVotesBySession(talk);
         }
-
         return -1;
     }
 }

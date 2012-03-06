@@ -1,12 +1,8 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
 import models.*;
-
 import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
-
 import play.Logger;
 import play.data.validation.CheckWith;
 import play.data.validation.Email;
@@ -14,6 +10,11 @@ import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.i18n.Messages;
 import play.mvc.With;
+import play.templates.Template;
+import play.templates.TemplateLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @With(SecureLinkIt.class)
 public class Profile extends PageController {
@@ -183,26 +184,25 @@ public class Profile extends PageController {
         render(member);
     }
 
-    public static void link(String login, String loginToLink) {
+    public static String link(String login, String loginToLink) {
         if (StringUtils.isBlank(login)) Login.index(null);
-
         Member.addLink(login, loginToLink);
-        flash.success("Link ajouté!");
-        show(loginToLink);
+        Member member = Member.findByLogin(login);
+        renderArgs.put("_arg", member);
+        renderArgs.put("_short", true);
+        Template template = TemplateLoader.load(template("tags/member.html"));
+        Logger.info("Template:"+template.render(renderArgs.data));
+        return template.render(renderArgs.data);
     }
 
     public static void unlink(String login, String loginToLink) {
         if (StringUtils.isBlank(login)) Login.index(null);
-
         Member.removeLink(login, loginToLink);
-        flash.success("Link supprimé!");
-        show(loginToLink);
     }
     
     public static void delete() throws Throwable {
         Member member = Member.findByLogin(Security.connected());
         if (member == null) Login.index(null);
-
         render(member);
     }
     

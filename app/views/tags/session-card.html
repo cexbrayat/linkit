@@ -1,14 +1,22 @@
 *{ Displays _arg session }*
-<span id="session${_arg.id}" data-id="${_arg.id}" class="session">
-    #{if !_arg.valid}<span class="label important">NON VALIDE</span> #{/if}
-<!--<span class="label track ${(_arg instanceof models.Talk)?_arg.track:''}" #{if _arg instanceof models.Talk}title="Track ${_arg.track} : ${_arg.track.getDescription()}"#{/if}>
-    ${(_arg instanceof models.Talk)?_arg.track:"Lightning Talk"}
-</span>&nbsp;-->
-#{if _arg instanceof models.Talk}
-<a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}"><h2>${_arg.title}</h2></a>
-#{/if}
-#{else}
-<a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}"><h2>${_arg.title}</h2></a>
-#{/else}
+<div class="row">
+    <div class="span12">
+        <span id="session${_arg.id}" data-id="${_arg.id}" class="session">
+            #{if !_arg.valid}<span class="label important">NON VALIDE</span> #{/if}
+        #{if _arg instanceof models.Talk}
+        <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">
+            <h2>${_arg.title}</h2>
+        </a>
+        #{/if}
+        #{else}
+        <a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">
+            <h2>${_arg.title}</h2>
+        </a>
+        #{/else}
+    </div>
+    #{if session.username}
+    <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}"><div id="star" class="span2 star#{if _arg.hasVoteFrom(session.username)} fav#{/if}" style="float: right; margin-right: -40px;"></div></a>
+    #{/if}
+</div>
 <p>${_arg.summary}</p>
 </span>
