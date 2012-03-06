@@ -9,13 +9,13 @@
         </a>
         #{/if}
         #{else}
-        <a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">
+        <a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="Consulter cette session">
             <h2>${_arg.title}</h2>
         </a>
         #{/else}
     </div>
     #{if session.username}
-    <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}"><div id="star" class="span2 star#{if _arg.hasVoteFrom(session.username)} fav#{/if}" style="float: right; margin-right: -40px;"></div></a>
+    <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="Consulter cette session"><i class="icon-star-empty star #{if _arg.hasVoteFrom(session.username)} fav#{/if}" style="float: right; margin-right: -40px;"></i></a>
     #{/if}
 </div>
 <p>${_arg.summary}</p>
