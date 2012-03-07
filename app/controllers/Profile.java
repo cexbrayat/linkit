@@ -73,8 +73,8 @@ public class Profile extends PageController {
 
         member.login = login;
         member.firstname = firstname;
-        member.shortDescription = shortDescription;
-        member.longDescription = longDescription;
+        member.setShortDescription(shortDescription);
+        member.setLongDescription(longDescription);
         member.email = email;
         member.lastname = lastname;
         member.company = company;
