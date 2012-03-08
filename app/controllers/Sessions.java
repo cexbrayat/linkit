@@ -124,7 +124,7 @@ public class Sessions extends PageController {
     }
 
     public static void save(@Valid Talk talk, String[] interests, String newInterests) throws Throwable {
-        Logger.info("Tentative d'enregistrement de la session " + talk);
+        Logger.info("Tentative d'enregistrement de la session %s", talk);
         if (interests != null) {
             talk.updateInterests(interests);
         }
@@ -138,8 +138,8 @@ public class Sessions extends PageController {
             render("Sessions/edit.html", talk, speakers);
         }
         talk.update();
-        flash.success("Session " + talk + " enregistrée");
-        Logger.info("Session " + talk + " enregistrée");
+        flash.success("Session %s enregistrée", talk);
+        Logger.info("Session %s enregistrée", talk);
         show(talk.id, JavaExtensions.slugify(talk.title), true);
     }
     
