@@ -1,2 +1,9 @@
 *{ Display a NewVoteActivity }*
-#{mails.member _arg.member /} a voté pour le Lightning Talk "#{mails.session _arg.session /}"
+#{mails.member _arg.member /}
+#{if _arg.session instanceof models.Talk}
+a mis en favoris la session
+#{/if}
+#{else}
+a voté pour le Lightning Talk
+#{/else}
+"#{mails.session _arg.session /}"

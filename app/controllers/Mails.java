@@ -19,23 +19,23 @@ import play.mvc.Mailer;
 public class Mails extends Mailer {
 
     private static final String FROM = Play.configuration.getProperty("linkit.mail.from");
-    
+
     public static void updateSession(Session talk) {
-        setSubject("Notification Link-IT : session \""+talk+"\" mise à jour");
+        setSubject("Notification Link-IT : session \"%s\" mise à jour", talk);
         setFrom(FROM);
         addRecipients(MembersSet.Staff);
         send(talk);
     }
     
     public static void contact(Mailing email) {
-        setSubject(email.subject);
+        setSubject("[Contact Mix-IT] - %s", email.subject);
         setFrom(email.from != null ? email.from.email : FROM);
         addRecipients(email.recipients);
         send(email);
     }
     
     public static void mailing(Mailing mailing, Member recipient) {
-        setSubject("[Mix-IT 2012] - " + mailing.subject);
+        setSubject("[Mix-IT 2012] - %s", mailing.subject);
         setFrom(FROM);
         addRecipient(recipient.email);
         send(mailing);

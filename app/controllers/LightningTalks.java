@@ -67,8 +67,8 @@ public class LightningTalks extends PageController {
             render("LightningTalks/edit.html", talk);
         }
         talk.update();
-        flash.success("LightningTalk " + talk + " enregistré");
-        Logger.info("LightningTalk " + talk + " enregistré");
+        flash.success("LightningTalk %s enregistré", talk);
+        Logger.info("LightningTalk %s enregistré", talk);
         show(talk.id, JavaExtensions.slugify(talk.title), true);
     }
 

@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import controllers.JobFetchUserTimeline;
 import controllers.JobMajUserRegisteredTicketing;
+import helpers.JavaExtensions;
 import helpers.badge.BadgeComputationContext;
 import helpers.badge.BadgeComputer;
 import helpers.badge.BadgeComputerFactory;
@@ -615,5 +616,13 @@ public class Member extends Model implements Lookable, Comparable<Member> {
             new BuyTicketActivity(this).save();
         }
         this.ticketingRegistered = ticketingRegistered;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = JavaExtensions.sanitizeHtml(longDescription);
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = JavaExtensions.sanitizeHtml(shortDescription);
     }
 }

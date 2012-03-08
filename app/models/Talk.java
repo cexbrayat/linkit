@@ -9,10 +9,8 @@ import play.mvc.Router;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.ManyToMany;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import models.activity.CommentSessionActivity;
 
 /**
  * A talk session
@@ -50,6 +48,11 @@ public class Talk extends Session {
         this.valid = true;
         save();
         new NewTalkActivity(this).save();
+        
+        // Publication des activités sur les hypothétiques commentaires existants
+        for (SessionComment comment : this.comments) {
+            new CommentSessionActivity(comment.author, this, comment).save();
+        }
     }
     
     public void unvalidate() {

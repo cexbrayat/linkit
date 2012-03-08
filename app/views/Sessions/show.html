@@ -2,7 +2,6 @@
 #{set title:'Session ' + talk.title /}
 #{set 'canonical'}@@{Sessions.show(talk.id, talk.title?.slugify())}#{/set}
 #{set 'moreStyles'}
-<link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/font-awesome.css'}">
 <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
 #{/set}
     <script type="text/javascript">
@@ -35,7 +34,7 @@
     <div class="hero-unit member-card">
         <div class="row">
             <div class="span13"><h2 itemprop="name">${talk.title}</h2></div>
-            #{if session.username}
+            #{if session.username && talk.valid}
                 <i id="star" class="icon-star-empty star #{if talk.hasVoteFrom(session.username)} fav#{/if}" style="float: right;" onclick="fav()"></i>
             #{/if}
         </div>
