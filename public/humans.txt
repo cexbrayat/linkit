@@ -42,7 +42,7 @@
 
 /* THANKS */
 
-        Twitter for Bootstrap, Zenixity for Play! Framework, and the Internet for everything else.
+        Twitter for Bootstrap, Zenixity for Play! Framework, and the Internets for everything else.
 	
 /* SITE */
 
@@ -50,7 +50,7 @@
 	Contact: contact [at] mix [-] it [.] fr
 	Twitter: @MixIT_Lyon
 	Language: French
-        Components : Twitter Bootstrap, LESS, Google API client, Markdown, Guava, jQuery, jquery.dirtyforms, jquery.lwtCountdown
+        Components : Twitter Bootstrap, LESS, Google API client, Markdown, Guava, jQuery, jquery.dirtyforms, Font Awesome
         Software : Play! framework, IntelliJ, NetBeans, CloudBees RUN@Cloud
 
 /*
