@@ -51,5 +51,16 @@ public class CommentSessionActivityTest extends AbstractActivityTest {
         
         // Still no activity for the session
         assertEquals(0, Activity.count("session = ?", t));
+        
+        t.validate();
+        // 1 comment activity amongst others
+        assertEquals(1, CommentSessionActivity.count("session = ?", t));
+        Activity a = CommentSessionActivity.find("session = ?", t).first();
+        assertActivity(a);
+        assertTrue(a instanceof CommentSessionActivity);
+        CommentSessionActivity ca = (CommentSessionActivity) a;
+        assertEquals(member, ca.member);
+        assertEquals(t, ca.session);
+        assertEquals(c, ca.comment);
     }
 }

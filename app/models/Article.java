@@ -117,7 +117,9 @@ public class Article extends Model implements Lookable, Comparable<Article> {
         comment.save();
         comments.add(comment);
         
-        new CommentArticleActivity(comment.author, this, comment).save();
+        if (valid) {
+            new CommentArticleActivity(comment.author, this, comment).save();
+        }
     }
 
     @Override
@@ -132,6 +134,11 @@ public class Article extends Model implements Lookable, Comparable<Article> {
         this.postedAt = new Date();
         this.save();
         new NewArticleActivity(this).save();
+        
+        // Publication des activités sur les hypothétiques commentaires existants
+        for (ArticleComment comment : this.comments) {
+            new CommentArticleActivity(comment.author, this, comment).save();
+        }
     }
     
     public void unvalidate() {

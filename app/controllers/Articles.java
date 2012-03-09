@@ -3,10 +3,7 @@ package controllers;
 import play.*;
 
 import java.util.*;
-import models.Article;
-import models.ArticleComment;
-import models.Member;
-import models.Role;
+import models.*;
 import play.data.validation.Required;
 import play.data.validation.Validation;
 import play.templates.JavaExtensions;
@@ -14,6 +11,7 @@ import play.templates.JavaExtensions;
 public class Articles extends PageController {
 
     public static void index() {
+        flash.keep();
         list(10);
     }
 
@@ -41,9 +39,20 @@ public class Articles extends PageController {
         render(article);
     }
 
-    public static void show(final Long articleId, String slugify, boolean noCount) {
+    private static void checkAccess(Article article) throws Throwable {
+        if (!article.valid) {
+            Member user = Member.findByLogin(Security.connected());
+            if (user == null || !(user instanceof Staff)) {
+                flash.error("Vous n'avez pas accès à cette fonctionnalité");
+                index();
+            }
+        }
+    }
+
+    public static void show(final Long articleId, String slugify, boolean noCount) throws Throwable {
         Article article = Article.findById(articleId);
         notFoundIfNull(article);
+        checkAccess(article);
 
         Article previous = article.findPrevious();
         Article following = article.findFollowing();
@@ -57,7 +66,7 @@ public class Articles extends PageController {
     
     public static void postComment(
             Long articleId,
-            @Required String content) {
+            @Required String content) throws Throwable {
         Article article = Article.findById(articleId);
         notFoundIfNull(article);
         
@@ -72,7 +81,7 @@ public class Articles extends PageController {
         show(articleId, JavaExtensions.slugify(article.title), true);
     }
 
-    public static void save(Article article) {
+    public static void save(Article article) throws Throwable {
         Logger.info("Tentative d'enregistrement d'article " + article);
 
         // Don't change author if already set
@@ -93,7 +102,7 @@ public class Articles extends PageController {
         show(article.id, JavaExtensions.slugify(article.title), true);
     }
     
-    public static void validate(long articleId) {
+    public static void validate(long articleId) throws Throwable {
         Article article = Article.findById(articleId);
         notFoundIfNull(article);
 
@@ -102,7 +111,7 @@ public class Articles extends PageController {
         show(article.id, JavaExtensions.slugify(article.title), true);
     }
     
-    public static void unvalidate(long articleId) {
+    public static void unvalidate(long articleId) throws Throwable {
         Article article = Article.findById(articleId);
         notFoundIfNull(article);
 

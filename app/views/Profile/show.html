@@ -59,7 +59,10 @@
         </div>
         <div class="span10 offset1">
             <div class="row">
-                <h2 style="font-size: 40px; line-height: 44px;" itemprop="name">${member}</h2>
+                <h2 style="font-size: 40px; line-height: 44px;" itemprop="name">
+                    #{if member.ticketingRegistered}<i class="icon-check" style="color: green"></i> #{/if}
+                    ${member}
+                </h2>
             </div>
             <br/>
             <div class="row" itemprop="description">
