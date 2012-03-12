@@ -86,6 +86,7 @@ registration.step1.create.account=Créer-vous un compte Mix-IT
 registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT!
 registration.step1.alternative=Si vous êtes allergique aux réseaux sociaux, achetez directement via notre partenaire 
 registration.step2.ticketing.unsigned=Achetez votre billet en vous rendant sur votre Dashboard Mix-IT
+registration.warning.email=Attention: vous devez utiliser le même email entre votre compte Mix-IT et votre paiement via notre partenaire WeezEvent!
 
 # Member fields
 
