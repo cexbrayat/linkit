@@ -84,6 +84,7 @@ registration.title=Account and Ticketing
 registration.directives=
 registration.step1.create.account=Create an account
 registration.step1.create.account.why=And enjoy the social side of the Mix-IT website!
+registration.step1.alternative=You can also, if you don't like Social Networks, buy your ticket via our partner  
 registration.step2.ticketing.unsigned=Buy your ticket from your Mix-IT's Dashboard!
 
 # Talk fields
