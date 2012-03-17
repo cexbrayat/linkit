@@ -79,11 +79,13 @@
                             <ul class="dropdown-menu">
                                 <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
                                 <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
+*{ Fermeture du CFP
                             #{if session.username}
                                 <li class="divider"></li>
                                 <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                             #{/if}
-                                <!--<li><a href="@{Plannings.index()}">Agenda</a></li>-->
+}*
+                            *{<li><a href="@{Plannings.index()}">Agenda</a></li>}*
                             </ul>
                         </li>
                         <li class="dropdown" data-dropdown="dropdown">
