@@ -27,10 +27,12 @@
                         <div class="alert-message block-message info">
                             <a href="@{Profile.show(session.username)}" title="Voir mon profil">Profil</a> consulté ${member.getNbLooks()} fois.<br />
                             <a href="@{Dashboard.settings()}" title="Mes préférences">Notifications</a> : #{if setting}&{'NotificationOption.'+setting.notificationOption+'.label'}#{/if}#{else}Non définies#{/else}<br />
-                            #{ticketing member/}
                             <div class='alert-actions'>
+                                #{ticketing member/}
                                 <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
+*{ Fermeture du CFP
                                 <a href="@{Sessions.create(session.username)}" class="btn small">Proposer une session</a>
+}*
                             </div>
                         </div>
                     </div>
