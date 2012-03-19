@@ -35,4 +35,6 @@ public interface OAuthProvider {
      * @return HTTP response's body
      */
     String get(String URL, String token, String secret);
+
+    OAuthAccount getEmptyUserAccount(String oauth_login);
 }

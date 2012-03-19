@@ -23,7 +23,12 @@ public class GoogleOAuthAccount extends OAuthAccount {
     public String gender;       // male
     public String birthday;     // 0000-03-26 (yes, 0000 for me?!)
     public String locale;       // en
-    
+
+    public GoogleOAuthAccount(String email) {
+        super(ProviderType.Google);
+        this.email = email;
+    }
+
     public GoogleOAuthAccount(String token, String secret) {
         super(ProviderType.Google, token, secret);
     }

@@ -1,10 +1,12 @@
 package controllers;
 
 import helpers.Lists;
+import models.serialization.SessionCommentSerializer;
 import models.serialization.SessionSerializer;
 import play.*;
 
 import java.util.*;
+
 import models.SessionComment;
 import models.Member;
 import models.Role;
@@ -29,9 +31,8 @@ public class Sessions extends PageController {
             sessions = Talk.findAllValidated();
         }
         Logger.info(sessions.size() + " sessions");
-        if(JSON.equals(request.format))
-        {
-          renderJSON(sessions, new SessionSerializer());
+        if (JSON.equals(request.format)) {
+            renderJSON(sessions, new SessionSerializer());
         }
         render("Sessions/list.html", sessions);
     }
@@ -47,12 +48,12 @@ public class Sessions extends PageController {
     public static void edit(final Long sessionId) {
         Session talk = Session.findById(sessionId);
         Member member = Member.findByLogin(Security.connected());
-        
+
         List<Member> speakers = speakersFor(talk, member);
- 
+
         render(talk, speakers);
     }
-    
+
     private static List<Member> speakersFor(Session talk, Member member) {
         List<Member> speakers = Member.findAll();
         // Put actual speakers in top of list
@@ -65,7 +66,7 @@ public class Sessions extends PageController {
         }
         return speakers;
     }
-    
+
     public static void show(final Long sessionId, String slugify, boolean noCount) {
         Session talk = Session.findById(sessionId);
         // Don't count look when coming from internal redirect
@@ -73,19 +74,34 @@ public class Sessions extends PageController {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
 
-        if(JSON.equals(request.format))
-        {
-            renderJSON(talk, new SessionSerializer());
-        }
-
         List<Activity> activities = Activity.recentsBySession(talk, 1, 5);
         render(talk, activities);
     }
 
+    public static void showSession(final Long id) {
+        Session talk = Session.findById(id);
+        notFoundIfNull(talk);
+
+        talk.lookedBy(Member.findByLogin(Security.connected()));
+
+        if (JSON.equals(request.format)) {
+            renderJSON(talk, new SessionSerializer());
+        }
+    }
+
+    public static void listComments(final Long id) {
+        Session talk = Session.findById(id);
+        notFoundIfNull(talk);
+        if (JSON.equals(request.format)) {
+            renderJSON(talk.comments, new SessionCommentSerializer());
+        }
+    }
+
+    @Check("member")
     public static void postComment(
-            Long talkId,
+            Long id,
             @Required String content) {
-        Session talk = Session.findById(talkId);
+        Session talk = Session.findById(id);
         if (Validation.hasErrors()) {
             render("Sessions/show.html", talk);
         }
@@ -94,7 +110,7 @@ public class Sessions extends PageController {
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(talkId, null, true);
+        show(id, null, true);
     }
 
     public static void captcha(String id) {
@@ -123,13 +139,13 @@ public class Sessions extends PageController {
         Logger.info("Session " + talk + " enregistrée");
         show(talk.id, null, true);
     }
-    
+
     public static void validate(long talkId) {
         Talk talk = Talk.findById(talkId);
         talk.validate();
         show(talkId, null, true);
     }
-    
+
     public static void unvalidate(long talkId) {
         Talk talk = Talk.findById(talkId);
         talk.unvalidate();

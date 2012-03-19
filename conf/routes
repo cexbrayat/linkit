@@ -55,12 +55,9 @@ POST    /session                                Sessions.save
 GET     /session/edit                           Sessions.edit
 GET     /session/validate/{talkId}              Sessions.validate
 GET     /session/unvalidate/{talkId}            Sessions.unvalidate
-POST    /session/{id}/comment                   Sessions.postComment
 GET     /session/{sessionId}/{slugify}          Sessions.show
 # Just in case we forget the slugified title as parameter
 GET     /session/{sessionId}                    Sessions.show
-GET     /api/sessions                           Sessions.index(format:'json')
-GET     /api/session/{sessionId}                Sessions.show(format:'json')
 
 # Lightning
 GET     /lightnings                             LightningTalks.list
@@ -69,10 +66,8 @@ GET     /lightning/{sessionId}                  LightningTalks.show
 # Two parameters needed : username and value (boolean)
 POST    /lightning/{id}/vote                    Votes.vote
 POST    /lightning                              LightningTalks.save
-POST    /lightning/{id}/comment                 LightningTalks.postComment
 DELETE  /lightning/{sessionId}                  LightningTalks.delete
-GET     /api/lightnings                         LightningTalks.list(format:'json')
-GET     /api/lightning/{sessionId}              LightningTalks.show(format:'json')
+
 
 # Articles
 GET     /articles                               Articles.index
@@ -86,8 +81,22 @@ GET     /article/edit                           Articles.edit
 POST    /article/comment                        Articles.postComment
 GET     /article/{articleId}                    Articles.show
 
-#Interests
+
+#API
+GET     /api                                    Application.api
 GET     /api/interests                          Interests.list(format:'json')
+GET     /api/lightnings                         LightningTalks.list(format:'json')
+GET     /api/lightning/{id}                     LightningTalks.showSession(format:'json')
+GET     /api/lightning/{id}/comments            LightningTalks.listComments(format:'json')
+POST    /api/lightning/{id}/comment             LightningTalks.postComment
+GET     /api/sessions                           Sessions.index(format:'json')
+GET     /api/session/{id}                       Sessions.showSession(format:'json')
+GET     /api/session/{id}/comments              Sessions.listComments(format:'json')
+POST    /api/session/{id}/comment               Sessions.postComment
+GET     /api/members                            Profile.list(format:'json')
+GET     /api/member/{id}                        Profile.showById(format:'json')
+GET     /api/login                              Login.login
+GET     /api/login/linkit                       Login.loginWithLinkIt
 
 # Secure
 GET     /logout                                 Secure.logout

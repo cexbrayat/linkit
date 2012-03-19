@@ -11,7 +11,7 @@ public class PopulateOnStart extends Job {
 
     @Override
     public void doJob() {
-        // Check if we are not it test mode
+        // Check if we are not in test mode
         if (!"test".equals(Play.id)) {
             // Check if the database is empty
             if(Member.count() == 0) {

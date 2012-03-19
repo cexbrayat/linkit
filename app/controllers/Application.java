@@ -1,28 +1,26 @@
 package controllers;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import models.*;
-import play.Logger;
-
-import java.util.List;
-import java.util.Set;
 import org.apache.commons.lang.StringUtils;
+import play.Logger;
 import play.modules.search.Search;
 
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 public class Application extends PageController {
-    
+
     public static void index() {
-        
+
         // DEV MODE : discard connected user if not found in DB (when you restarted your local dev application with initial data)
         String login = Security.connected();
         if (login != null && Member.findByLogin(login) == null) {
             session.remove("username");
         }
-        
+
         // Three recent articles
         List<Article> articles = Article.recents(1, 3);
         List<Talk> sessions = Talk.recents(1, 3);
@@ -66,20 +64,21 @@ public class Application extends PageController {
         protected static boolean isPhraseQuery(String query) {
             return StringUtils.contains(query, ' ');
         }
+
         protected static String wrap(String query) {
             query = StringUtils.trim(query);
             if (isPhraseQuery(query)) {
                 return new StringBuilder()
-                    .append('"')
-                    .append(query)
-                    .append('"').toString();
+                        .append('"')
+                        .append(query)
+                        .append('"').toString();
             } else {
                 return new StringBuilder(query)
-                    .append('*')    // Wilcarded search is not available on phrase query
-                    .toString();
+                        .append('*')    // Wilcarded search is not available on phrase query
+                        .toString();
             }
         }
-        
+
         public LuceneQueryBuilder(final String searchTerm) {
             this.searchTerm = wrap(searchTerm);
         }
@@ -88,7 +87,7 @@ public class Application extends PageController {
             fields.add(name);
             return this;
         }
-        
+
         public String toQuery() {
             StringBuilder query = new StringBuilder();
             for (Iterator<String> iField = fields.iterator(); iField.hasNext(); ) {
@@ -105,7 +104,7 @@ public class Application extends PageController {
             return toQuery();
         }
     }
-    
+
     // CLA 10/12/2011 : is this controller method is named find(), main.html template doesn't work...
     public static void search(String query) {
 
@@ -141,5 +140,10 @@ public class Application extends PageController {
         Collections.sort(members);
 
         render("Application/search.html", query, articles, talks, lightningtalks, members);
+    }
+
+    @Check("admin")
+    public static void api() {
+        render("Application/api.html");
     }
 }

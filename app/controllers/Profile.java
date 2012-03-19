@@ -2,8 +2,10 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import models.*;
 
+import models.serialization.MemberSerializer;
 import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
 
@@ -44,15 +46,15 @@ public class Profile extends PageController {
     private static String cleanSharedLinkURL(String url) {
         String result = StringUtils.trim(url);
         if (!StringUtils.startsWith(url, "http")) {
-            result = "http://"+result;
+            result = "http://" + result;
         }
         return result;
     }
-    
+
     public static void save(Long id, @Required String originalLogin, @Required String login, @Required String firstname, @Required String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription,
-            String twitterName, @CheckWith(GoogleIDCheck.class) String googlePlusId,
-            String[] interests, String newInterests,
-            List<SharedLink> sharedLinks) {
+                            String twitterName, @CheckWith(GoogleIDCheck.class) String googlePlusId,
+                            String[] interests, String newInterests,
+                            List<SharedLink> sharedLinks) {
         Logger.info("Save Profile originalLogin {" + originalLogin + "}, firstname {" + firstname + "}, lastname {" + lastname + "}, "
                 + "email {" + email + "}, newInterests {" + newInterests + "}");
 
@@ -63,7 +65,7 @@ public class Profile extends PageController {
         } else {
             member = Member.findById(id);
         }
-        
+
         member.login = login;
         member.firstname = firstname;
         member.shortDescription = shortDescription;
@@ -75,7 +77,7 @@ public class Profile extends PageController {
         twitterName = cleanTwitterName(twitterName);
         TwitterAccount twitter = member.getTwitterAccount();
         if (StringUtils.isNotBlank(twitterName)) {
-            
+
             final Member other = TwitterAccount.findMemberByScreenName(twitterName);
             if (other != null && !member.equals(other)) {
                 validation.addError("twitterName", "validation.unique", twitterName, other.toString());
@@ -95,7 +97,7 @@ public class Profile extends PageController {
         googlePlusId = cleanGoogleId(googlePlusId);
         GoogleAccount google = member.getGoogleAccount();
         if (StringUtils.isNotBlank(googlePlusId)) {
-            
+
             final Member other = GoogleAccount.findMemberByGoogleId(googlePlusId);
             if (other != null && !member.equals(other)) {
                 validation.addError("googlePlusId", "validation.unique", googlePlusId, other.toString());
@@ -153,13 +155,39 @@ public class Profile extends PageController {
         } else {
             member.updateProfile();
         }
-        
+
         session.put("username", member.login);
 
         flash.success("Profil enregistré!");
         Logger.info("Profil %s enregistré", member.toString());
 
         show(member.login);
+    }
+
+    @Check("member") //TODO add the test
+    public static void list() {
+        Logger.info("List of members");
+        if (Security.isConnected()) {
+            Logger.info("Connected " + Security.connected());
+            List<Member> members = Member.findAll();
+            if (JSON.equals(request.format)) {
+                renderJSON(members, new MemberSerializer());
+            }
+        }
+        else{
+            Logger.info("Not connected");
+            unauthorized();
+        }
+    }
+
+    @Check("member") //TODO add the test
+    public static void showById(final Long id) {
+        Member member = Member.findById(id);
+        notFoundIfNull(member);
+        member.lookedBy(Member.findByLogin(Security.connected()));
+        if (JSON.equals(request.format)) {
+            renderJSON(member, new MemberSerializer());
+        }
     }
 
     public static void show(String login) {
@@ -188,19 +216,19 @@ public class Profile extends PageController {
         flash.success("Link supprimé!");
         show(loginToLink);
     }
-    
+
     public static void delete() throws Throwable {
         Member member = Member.findByLogin(Security.connected());
         render(member);
     }
-    
+
     public static void confirmDelete() throws Throwable {
         Member member = Member.findByLogin(Security.connected());
         if (member instanceof Staff) {
             flash.error("Désolé mec, on ne supprime pas les mecs du staff! Trop tard, on est dans le même bateau, on coule avec! Non plus sérieusement, c'est parce que tu es potentiellement auteur d'articles et lié à d'autres données qu'on ne peut pas supprimer...");
             show(member.login);
         } else {
-        member.delete();
+            member.delete();
             Logger.info("Deleted profile %s", member);
             flash.success("Votre compte a été supprimé");
             Secure.logout();

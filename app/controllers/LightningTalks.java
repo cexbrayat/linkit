@@ -2,6 +2,7 @@ package controllers;
 
 import models.*;
 import models.serialization.LightningTalkSerializer;
+import models.serialization.SessionCommentSerializer;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.Valid;
@@ -12,7 +13,7 @@ import models.activity.Activity;
 import play.data.validation.Required;
 import play.i18n.Messages;
 
-public class LightningTalks extends PageController {
+public class  LightningTalks extends PageController {
 
     public static void list() {
         List<LightningTalk> sessions = LightningTalk.findAll();
@@ -34,6 +35,11 @@ public class LightningTalks extends PageController {
     public static void edit(final Long sessionId) {
         LightningTalk talk = LightningTalk.findById(sessionId);
         render(talk);
+    }
+    
+    public static void show(final Long id)
+    {
+        show(id, false);
     }
 
     public static void show(final Long sessionId, boolean noCount) {
@@ -74,12 +80,20 @@ public class LightningTalks extends PageController {
         show(talk.id, true);
     }
 
-    //TODO JRI need @Check("member")
+    public static void listComments(final Long id) {
+        LightningTalk talk = LightningTalk.findById(id);
+        notFoundIfNull(talk);
+        if (JSON.equals(request.format)) {
+            renderJSON(talk.comments, new SessionCommentSerializer());
+        }
+    }
+
+    @Check("member")
     public static void postComment(
-            Long talkId,
+            Long id,
             @Required String content) {
 
-        LightningTalk talk = LightningTalk.findById(talkId);
+        LightningTalk talk = LightningTalk.findById(id);
         if (Validation.hasErrors()) {
             render("LightningTalks/show.html", talk);
         }
@@ -88,7 +102,7 @@ public class LightningTalks extends PageController {
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(talkId, true);
+        show(id, true);
     }
 
     public static void delete(final Long sessionId) {

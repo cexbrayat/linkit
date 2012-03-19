@@ -59,7 +59,7 @@ public class Suggestion {
     // FIXME Suggested member should be ordered by pertinence, i.e. sharing most interests to less.
     public static Set<Member> suggestedMembersFor(Member member) {
         Set<Member> suggestions = Collections.emptySet();
-        if (!member.interests.isEmpty()) {
+        if (member != null && !member.interests.isEmpty()) {
             List<Member> allSuggestedMembers = findMembersInterestedInOneOf(member.interests);
             allSuggestedMembers.remove(member);
             Iterable suggestedMembers =
