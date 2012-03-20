@@ -60,7 +60,7 @@ public class Article extends Model implements Lookable, Comparable<Article> {
     /** Markdown enabled */
     @Column(name = HEADLINE)
     @Required
-    @MaxSize(500)
+    @MaxSize(255)
     @Field
     public String headline;
 

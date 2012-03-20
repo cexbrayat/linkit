@@ -10,7 +10,7 @@
 <script lang="text/javascript">
     $(function() {
         registerLimited('#article_title', '#article_titleCountdown', 50, "&{'remainingChars'}");
-        registerLimited('#article_headline', '#article_headlineCountdown', 500, "&{'remainingChars'}");
+        registerLimited('#article_headline', '#article_headlineCountdown', 255, "&{'remainingChars'}");
     });
 </script>
 #{/set}
@@ -45,7 +45,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="500" rows="3">${field.value}</textarea>
+                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="255" rows="3">${field.value}</textarea>
                         <span class="help-block" id="${field.id}Countdown" style="font-weight: bold">countdown</span>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
