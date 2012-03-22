@@ -27,6 +27,9 @@ public class MembersSetQueryFactory {
             case Speakers:
                 query = new MembersSetQuerySponsors();
                 break;
+            case FailedSpeakers:
+                query = new MembersSetQueryFailedSpeakers();
+                break;
         }
         return query;
     }

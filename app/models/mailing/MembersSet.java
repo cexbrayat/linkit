@@ -16,5 +16,7 @@ public enum MembersSet {
     /** Sponsor members */
     Sponsors,
     /** Member with validated talk */
-    Speakers;
+    Speakers,
+    /** Member with non-validated talk */
+    FailedSpeakers;
 }
