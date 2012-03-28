@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class MembersSetQuerySponsorsSet extends BaseDataUnitTest {
     
-    private MembersSetQuerySponsors query = new MembersSetQuerySponsors();
+    private MembersSetQuery query = MembersSetQueryFactory.create(MembersSet.Sponsors);
     
     @Test public void find() {
         assertEquals(Sponsor.findAll(), query.find());

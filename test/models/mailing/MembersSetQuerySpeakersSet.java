@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class MembersSetQuerySpeakersSet extends BaseDataUnitTest {
     
-    private MembersSetQuerySpeakers query = new MembersSetQuerySpeakers();
+    private MembersSetQuery query = MembersSetQueryFactory.create(MembersSet.Speakers);
     
     @Test public void find() {
         assertEquals(Talk.findAllSpeakers(), query.find());
