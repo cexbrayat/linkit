@@ -13,7 +13,7 @@ import play.test.Fixtures;
  */
 public class MembersSetQueryFailedSpeakersSet extends BaseDataUnitTest {
     
-    private MembersSetQueryFailedSpeakers query = new MembersSetQueryFailedSpeakers();
+    private MembersSetQuery query = MembersSetQueryFactory.create(MembersSet.FailedSpeakers);
     
     private static Member createMember(final String login){
         Member m = new Member(login);
