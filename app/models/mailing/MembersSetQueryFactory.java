@@ -25,7 +25,7 @@ public class MembersSetQueryFactory {
                 query = new MembersSetQuerySponsors();
                 break;
             case Speakers:
-                query = new MembersSetQuerySponsors();
+                query = new MembersSetQuerySpeakers();
                 break;
             case FailedSpeakers:
                 query = new MembersSetQueryFailedSpeakers();
