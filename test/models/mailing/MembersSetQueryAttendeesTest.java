@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class MembersSetQueryAttendeesTest extends BaseDataUnitTest {
     
-    private MembersSetQueryAttendees query = new MembersSetQueryAttendees();
+    private MembersSetQuery query = MembersSetQueryFactory.create(MembersSet.Attendees);
     
     @Test public void find() {
         assertEquals(Member.find("ticketingRegistered=true").fetch(), query.find());
