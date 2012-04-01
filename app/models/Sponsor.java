@@ -1,6 +1,10 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.print.DocFlavor;
+
 import org.apache.commons.lang.StringUtils;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
@@ -21,7 +25,8 @@ public class Sponsor extends Member {
 
     @Required
     public String logoUrl;
-    
+
+    @Enumerated(EnumType.STRING)
     public Level level;
 
     public Sponsor(String login) {
