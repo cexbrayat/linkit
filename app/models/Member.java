@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import controllers.JobFetchUserTimeline;
 import controllers.JobMajUserRegisteredTicketing;
+import helpers.JavaExtensions;
 import helpers.badge.BadgeComputationContext;
 import helpers.badge.BadgeComputer;
 import helpers.badge.BadgeComputerFactory;
@@ -22,7 +23,10 @@ import play.db.jpa.Model;
 
 import javax.persistence.*;
 import java.util.*;
+import java.util.List;
 import models.mailing.Mailing;
+import org.apache.commons.lang.WordUtils;
+import play.Play;
 import play.data.validation.Email;
 import play.data.validation.Valid;
 import play.modules.search.Field;
@@ -61,6 +65,10 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     static final String CACHE_ACCOUNT_PREFIX = "account_";
     
+    static final char[] CHAR_DELIMITER_NAME = {'-',' ','_','.'};
+    
+    static final int JOBS_DELAY_AFTER_UPDATE = Integer.valueOf(Play.configuration.getProperty("linkit.job.delayAfterMemberUpdate", "2"));
+    
     /**
      * Internal login : functional key
      */
@@ -74,7 +82,6 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     public String email;
 
     @Column(name = FIRSTNAME)
-    @Required
     @Field
     public String firstname;
 
@@ -135,10 +142,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @OrderColumn(name = "ordernum")
-    @MaxSize(5)
     @Valid
     public List<SharedLink> sharedLinks = new LinkedList<SharedLink>();
-
+    
     /**
      * Number of profile consultations
      */
@@ -159,7 +165,10 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         if (account != null) {
             this.accounts.remove(account.provider);
             account.member = null;
-            StatusActivity.deleteForMember(this, account.provider);
+            // No need to delete related entities if Member not yet persisted (cf. https://trello.com/board/mix-it-2012/4f1b9ce056cf07e52f0072f7)
+            if (this.id != null) {
+                StatusActivity.deleteForMember(this, account.provider);
+            }
         }
     }
 
@@ -239,11 +248,15 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     public static Member findByEmail(final String email) {
         return find("email=?", email).first();
     }
-    
+        
+    public static List<Long> findAllIds() {
+        return find("select m.id from Member m").fetch();
+    }
+
     public void addLink(Member linked) {
         if (linked != null) {
-            // Avoid activity duplication
-            if (!links.contains(linked)) {
+            // Avoid activity duplication and auto-linking
+            if (!links.contains(linked) && !equals(linked)) {
                 links.add(linked);
                 linked.linkers.add(this);
 
@@ -309,9 +322,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         return this;
     }
 
-    public static List<Member> findMembersInterestedIn(String interest) {
+    public static List<Member> findMembersInterestedIn(Interest interest) {
         return Member.find(
-                "select distinct m from Member m join m.interests as i where i.name = ?", interest).fetch();
+                "select distinct m from Member m join m.interests as i where i = ?", interest).fetch();
     }
 
     public void addBadge(Badge badge) {
@@ -331,9 +344,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
             link.member = this;
             link.ordernum = this.sharedLinks.size();
             this.sharedLinks.add(link);
-            link.save();
 
-            if (newActivity) {
+            if (newActivity && this.id != null) {
+                link.save();
                 new SharedLinkActivity(link).save();
             }
         }
@@ -366,12 +379,6 @@ public class Member extends Model implements Lookable, Comparable<Member> {
                 addSharedLink(link, true);
             } else {
                 addSharedLink(previous, false);
-            }
-        }
-        // Deleting obsolete links
-        for (SharedLink previous : previouses) {
-            if (!this.sharedLinks.contains(previous)) {
-                previous.delete();
             }
         }
     }
@@ -409,8 +416,8 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         save();
         account.save();
         new SignUpActivity(this).save();
-        new JobFetchUserTimeline(this).now();
-        new JobMajUserRegisteredTicketing(this.id).now();
+        new JobFetchUserTimeline(this).in(JOBS_DELAY_AFTER_UPDATE);
+        new JobMajUserRegisteredTicketing(this.id).in(JOBS_DELAY_AFTER_UPDATE);
         return this;
     }
 
@@ -429,12 +436,15 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     /**
      * Update user profile
+     * @param activity true if activities must be produced
      */
-    public Member updateProfile() {
+    public Member updateProfile(boolean activity) {
         save();
-        new UpdateProfileActivity(this).save();
-        new JobFetchUserTimeline(this).now();
-        new JobMajUserRegisteredTicketing(this.id).now();
+        if (activity) {
+            new UpdateProfileActivity(this).save();
+        }
+        new JobFetchUserTimeline(this).in(JOBS_DELAY_AFTER_UPDATE);
+        new JobMajUserRegisteredTicketing(this.id).in(JOBS_DELAY_AFTER_UPDATE);
         return this;
     }
 
@@ -494,11 +504,13 @@ public class Member extends Model implements Lookable, Comparable<Member> {
      */
     @Override
     public String toString() {
-        return new StringBuilder()
+        return WordUtils.capitalizeFully(new StringBuilder()
                 .append(firstname)
                 .append(' ')
                 .append(lastname)
-                .toString();
+                .toString()
+                ,CHAR_DELIMITER_NAME);
+        
     }
 
     public boolean hasRole(String profile) {
@@ -597,5 +609,20 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     
     public Set<Session> getLightningTalks() {
         return Sets.filter(sessions, LIGHTNING_TALK);
+    }
+
+    public void setTicketingRegistered(boolean ticketingRegistered) {
+        if (!this.ticketingRegistered && ticketingRegistered) {
+            new BuyTicketActivity(this).save();
+        }
+        this.ticketingRegistered = ticketingRegistered;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = JavaExtensions.sanitizeHtml(longDescription);
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = JavaExtensions.sanitizeHtml(shortDescription);
     }
 }

@@ -1,28 +1,18 @@
 package models.serialization;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import models.Member;
+import play.Logger;
 
 import java.lang.reflect.Type;
+import java.util.Set;
 
 /**
- * @author: Samil
+ * @author: jripault
  */
-public class MemberSerializer implements JsonSerializer<Member> {
-
+public class MemberSerializer extends AbstractMemberSerializer<Member> {
     @Override
     public JsonElement serialize(Member member, Type type, JsonSerializationContext jsonSerializationContext) {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("id", member.id);
-        obj.addProperty("firstname", member.firstname);
-        obj.addProperty("lastname", member.lastname);
-        obj.addProperty("login", member.login);
-        obj.addProperty("company", member.company);
-        obj.addProperty("shortdesc", member.shortDescription);
-        obj.addProperty("longdesc", member.longDescription);
-        return obj;
+        return super.serialize(member, type, jsonSerializationContext);    //To change body of overridden methods use File | Settings | File Templates.
     }
 }

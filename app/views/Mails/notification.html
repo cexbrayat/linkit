@@ -1,0 +1,25 @@
+﻿#{extends 'Mails/mail.html' /}
+#{set title:'Notifications Mix-IT' /}
+
+<p>Cher ${recipient},</p>
+<p>
+    Voici les activités ayant eu lieu
+    #{if setting.notificationOption == models.NotificationOption.Instant}à l'instant#{/if}
+    #{if setting.notificationOption == models.NotificationOption.Daily}aujourd'hui#{/if}
+    #{if setting.notificationOption == models.NotificationOption.Hourly}durant la dernière heure#{/if}
+    #{if setting.notificationOption == models.NotificationOption.Weekly}cette semaine#{/if}
+    sur le site de <a href="@@{Application.index()}" title="Mix-IT 2012">Mix-IT 2012</a>&nbsp;:
+</p>
+<div id="activities" class="hero-unit" style="padding: 10px; margin: 10px">
+    #{mails.activities activities:activities, setting:setting /}
+</div>
+
+<p>
+    Bien affectueusement,
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;Mix-IT's bot.
+</p>
+<p>
+    <small>P.S. : Vous pouvez à tout moment gérer la fréquence de ces notifications (ou les stopper complètement) dans vos <a href="@@{Dashboard.settings()}">préférences</a>.</small>
+</p>

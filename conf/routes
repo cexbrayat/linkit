@@ -8,9 +8,6 @@ GET     /                                       Application.index
 # Import CRUD routes
 *       /admin                                  module:crud
 
-# Ignore favicon requests
-GET     /favicon.ico                            404
-
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
@@ -28,10 +25,13 @@ GET     /members                                Application.members
 GET     /interest/{interest}                    Application.searchByInterest
 # I fucking don't know why this route is not used!
 GET     /search/{query}                         Application.search 
+GET     /search                                 Application.search 
 
 # Activities    
 GET     /activities                             Activities.general
 GET     /activities/incoming/{providers}        Activities.for
+GET     /activities/article/{articleId}         Activities.article
+GET     /activities/session/{sessionId}         Activities.session
 GET     /activities/{login}/{providers}         Activities.of
 
 # Profile
@@ -47,6 +47,8 @@ GET     /profile/{login}                        Profile.show
 # Dashboard
 GET     /dashboard                              Dashboard.index
 GET     /dashboard/link                         Dashboard.link
+POST    /dashboard/settings/save                Dashboard.saveSettings
+GET     /dashboard/settings                     Dashboard.settings
 
 # Sessions
 GET     /sessions                               Sessions.index
@@ -54,14 +56,19 @@ GET     /session/new                            Sessions.create
 POST    /session                                Sessions.save
 GET     /session/edit                           Sessions.edit
 GET     /session/validate/{talkId}              Sessions.validate
+GET     /session/delete/{talkId}                Sessions.delete
 GET     /session/unvalidate/{talkId}            Sessions.unvalidate
 GET     /session/{sessionId}/{slugify}          Sessions.show
 # Just in case we forget the slugified title as parameter
 GET     /session/{sessionId}                    Sessions.show
+GET     /session/fav/{talkId}/{fav}             Sessions.fav
 
 # Lightning
 GET     /lightnings                             LightningTalks.list
 GET     /lightning/new                          LightningTalks.create
+GET     /lightning/delete/{sessionId}           LightningTalks.delete
+GET     /lightning/{sessionId}/{slugify}        LightningTalks.show
+# Just in case we forget the slugified title as parameter
 GET     /lightning/{sessionId}                  LightningTalks.show
 # Two parameters needed : username and value (boolean)
 POST    /lightning/{id}/vote                    Votes.vote
@@ -79,6 +86,8 @@ GET     /article/unvalidate/{articleId}         Articles.unvalidate
 GET     /article/new                            Articles.create
 GET     /article/edit                           Articles.edit
 POST    /article/comment                        Articles.postComment
+GET     /article/{articleId}/{slugify}          Articles.show
+# Just in case we forget the slugified title as parameter
 GET     /article/{articleId}                    Articles.show
 
 
@@ -86,20 +95,34 @@ GET     /article/{articleId}                    Articles.show
 GET     /api                                    Application.api
 GET     /api/interests                          Interests.list(format:'json')
 GET     /api/lightnings                         LightningTalks.list(format:'json')
-GET     /api/lightning/{id}                     LightningTalks.showSession(format:'json')
-GET     /api/lightning/{id}/comments            LightningTalks.listComments(format:'json')
-POST    /api/lightning/{id}/comment             LightningTalks.postComment
+GET     /api/lightnings/{id}                    LightningTalks.showSession(format:'json')
+GET     /api/lightnings/{id}/comments           LightningTalks.listComments(format:'json')
+POST    /api/lightnings/{id}/comment            LightningTalks.postComment
 GET     /api/sessions                           Sessions.index(format:'json')
-GET     /api/session/{id}                       Sessions.showSession(format:'json')
-GET     /api/session/{id}/comments              Sessions.listComments(format:'json')
-POST    /api/session/{id}/comment               Sessions.postComment
+GET     /api/sessions/{id}                      Sessions.showSession(format:'json')
+GET     /api/sessions/{id}/comments             Sessions.listComments(format:'json')
+POST    /api/sessions/{id}/comment              Sessions.postComment
 GET     /api/members                            Profile.list(format:'json')
-GET     /api/member/{id}                        Profile.showById(format:'json')
+GET     /api/members/{id}                       Profile.showById(format:'json')
+GET     /api/members/{id}/activities            Profile.showById(format:'json')
+GET     /api/activities                         Activities.general(format:'json')
 GET     /api/login                              Login.login
 GET     /api/login/linkit                       Login.loginWithLinkIt
+GET     /api/suggestions/sessions               Suggestions.sessionsByInterests
+GET     /api/suggestions/members                Suggestions.membersByInterests
 
 # Secure
 GET     /logout                                 Secure.logout
+
+# Live activities
+WS      /live                                   LiveActivities.listen
+
+# Bots resources
+*       /favicon.ico                            staticFile:public/images/favicon.ico
+*       /favicon.png                            staticFile:public/images/favicon.png
+*       /robots.txt                             staticFile:public/robots.txt
+*       /humans.txt                             staticFile:public/humans.txt
+*       /sitemap.xml                            staticFile:public/sitemap.xml
 
 # Catch all
 *       /{controller}                           {controller}.index

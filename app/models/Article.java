@@ -15,11 +15,12 @@ import javax.persistence.TemporalType;
 import models.activity.Activity;
 import models.activity.CommentArticleActivity;
 import models.activity.LookArticleActivity;
+import models.activity.NewArticleActivity;
+import org.apache.commons.lang.builder.CompareToBuilder;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
-import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
@@ -34,7 +35,7 @@ indexes = {
     @Index(name = "Article_IDX", columnNames = {Article.POSTEDAT})
 })
 @Indexed
-public class Article extends Model implements Lookable {
+public class Article extends Model implements Lookable, Comparable<Article> {
 
     public final static String TITLE = "title";
     public final static String HEADLINE = "headline";
@@ -81,9 +82,14 @@ public class Article extends Model implements Lookable {
     /** Number of consultation */
     public long nbConsults;
 
-    public Article(Member author) {
-        this.author = author;
+    public Article() {
         this.postedAt = new Date();
+    }
+
+    public Article(Member author, String title) {
+        this();
+        this.author = author;
+        this.title = title;
     }
 
     public static List<Article> recents(int page, int length) {
@@ -99,7 +105,7 @@ public class Article extends Model implements Lookable {
     }
     
     public Article findFollowing() {
-        return find("valid = true and postedAt>? order by postedAt desc", this.postedAt).first();
+        return find("valid = true and postedAt>? order by postedAt asc", this.postedAt).first();
     }
     
     /**
@@ -111,7 +117,9 @@ public class Article extends Model implements Lookable {
         comment.save();
         comments.add(comment);
         
-        new CommentArticleActivity(comment.author, this, comment).save();
+        if (valid) {
+            new CommentArticleActivity(comment.author, this, comment).save();
+        }
     }
 
     @Override
@@ -125,10 +133,17 @@ public class Article extends Model implements Lookable {
         this.valid = true;
         this.postedAt = new Date();
         this.save();
+        new NewArticleActivity(this).save();
+        
+        // Publication des activités sur les hypothétiques commentaires existants
+        for (ArticleComment comment : this.comments) {
+            new CommentArticleActivity(comment.author, this, comment).save();
+        }
     }
     
     public void unvalidate() {
         this.valid = false;
+        Activity.deleteForArticle(this);
         this.save();
     }
     
@@ -149,5 +164,9 @@ public class Article extends Model implements Lookable {
                 new LookArticleActivity(member, this).save();                
             }
         }
+    }
+
+    public int compareTo(Article other) {
+        return new CompareToBuilder().append(other.postedAt, this.postedAt).toComparison();
     }
 }

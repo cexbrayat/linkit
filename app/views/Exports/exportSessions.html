@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<body>
+#{if talks}
+    #{list items:talks, as:'talk'}
+        <hr/>
+        <h1>${talk.track} - ${talk.title}</h1>
+        <h2>${talk.summary}</h2>
+        #{markdown talk.description /}
+    #{/list}
+#{/if}
+#{else}
+<h1>Aucune proposition de session non validée</h1>
+#{/else}
+</body>

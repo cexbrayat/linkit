@@ -21,6 +21,12 @@ public class MembersSetQueryFactory {
             case Staff:
                 query = new MembersSetQueryStaff();
                 break;
+            case Sponsors:
+                query = new MembersSetQuerySponsors();
+                break;
+            case Speakers:
+                query = new MembersSetQuerySponsors();
+                break;
         }
         return query;
     }

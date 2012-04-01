@@ -1,10 +1,11 @@
 package controllers;
 
-import com.google.gson.JsonArray;
+import helpers.TransactionCallback;
 import helpers.TransactionCallbackWithoutResult;
 import helpers.TransactionTemplate;
 import helpers.ticketing.WeezEvent;
 import java.util.List;
+import java.util.Set;
 import models.Member;
 import play.Logger;
 import play.db.jpa.NoTransaction;
@@ -15,7 +16,7 @@ import play.jobs.Job;
  * Asynchronous fetch to check if member is registered at the ticketing partner
  * @author Agnes <agnes.crepet@gmail.com>
  */
-//@Every("10800s")
+@Every("3h")
 @NoTransaction
 public class JobFetchRegisteredTicketingForAllUsers extends Job {
 
@@ -24,24 +25,30 @@ public class JobFetchRegisteredTicketingForAllUsers extends Job {
     @Override
     public void doJob() {
         Logger.info("BEGIN JOB JobFetchRegisteredTicketingUser for all members");
-        txTemplate.execute(new TransactionCallbackWithoutResult() {
 
-            public void doInTransaction() {
-                List<Member> members = Member.findAll();
-                String sessionID = WeezEvent.login();
-                WeezEvent.setEvent(sessionID);
-                final List<String> allAttendees = WeezEvent.getAttendees(sessionID);
-
-                for (final Member member : members) {
-                    if (WeezEvent.isRegisteredAttendee(member.email, allAttendees)) {
-                        member.ticketingRegistered = true;
-                        member.save();
-                    }
-                }
+        txTemplate.setReadOnly(true);
+        final List<Long> memberIds = txTemplate.execute(new TransactionCallback() {
+            public List<Long> doInTransaction() {
+                return Member.findAllIds();
             }
         });
 
-        Logger.info("END JOB JobFetchRegisteredTicketingUser for all members");
+        String sessionID = WeezEvent.login();
+        WeezEvent.setEvent(sessionID);
+        final Set<String> attendees = WeezEvent.getAttendees(sessionID);
 
+        txTemplate.setReadOnly(false);
+        for (final Long memberId : memberIds) {
+
+            txTemplate.execute(new TransactionCallbackWithoutResult() {
+                public void doInTransaction() {
+                    final Member member = Member.findById(memberId);
+                    member.setTicketingRegistered(WeezEvent.isRegisteredAttendee(member.email, attendees));
+                    member.save();
+                }
+            });
+        }
+
+        Logger.info("END JOB JobFetchRegisteredTicketingUser for all members");
     }
 }

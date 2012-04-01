@@ -2,6 +2,15 @@
 #{set title:'Mon dashboard' /}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/bootstrap-popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script>
+            $(function () {
+              $("a[rel=popover]").popover({
+                offset: 5, placement: 'above'
+              })
+            })
+            
+</script>
 #{/set}
 
     <div class="hero-unit">
@@ -16,12 +25,14 @@
                    </div>
                     <div class="span6">
                         <div class="alert-message block-message info">
-                            <a href="@{Profile.show(session.username)}" title="Voir mon profil">Profil</a> consulté ${member.getNbLooks()} fois.
-                            <br />
-                            #{ticketing member/}
+                            <a href="@{Profile.show(session.username)}" title="Voir mon profil">Profil</a> consulté ${member.getNbLooks()} fois.<br />
+                            <a href="@{Dashboard.settings()}" title="Mes préférences">Notifications</a> : #{if setting}&{'NotificationOption.'+setting.notificationOption+'.label'}#{/if}#{else}Non définies#{/else}<br />
                             <div class='alert-actions'>
+                                #{ticketing member/}
                                 <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
+*{ Fermeture du CFP
                                 <a href="@{Sessions.create(session.username)}" class="btn small">Proposer une session</a>
+}*
                             </div>
                         </div>
                     </div>
@@ -44,7 +55,7 @@
                     <h5>Mes lightning talks :</h5>
                     <ul>
                     #{list items:member.getLightningTalks(), as:'lt'}
-                        <li><a href="@{LightningTalks.show(lt.id)}">${lt.title}</a> : ${lt.getNumberOfVotes()} vote${lt.getNumberOfVotes().pluralize()}</li>
+                        <li><a href="@{LightningTalks.show(lt.id, lt.title.slugify())}">${lt}</a> : ${lt.getNumberOfVotes()} vote${lt.getNumberOfVotes().pluralize()}</li>
                     #{/list}
                     </ul>
                 #{/if}
@@ -62,10 +73,10 @@
                     #{list items:comments, as:'comment'}
                         <li>${comment.postedAt.since()},
                             #{if comment instanceof models.SessionComment}
-                                sur la session #{session comment.session /}
+                                sur la session "#{session comment.session /}"
                             #{/if}
                             #{if comment instanceof models.ArticleComment}
-                                sur l'<a href="@{Articles.show(comment.article.id)}#comment${comment.id}">article ${comment.article.title}</a>
+                                sur l'<a href="@{Articles.show(comment.article.id, comment.article.title.slugify())}#comment${comment.id}">article "${comment.article}"</a>
                             #{/if}
                         </li>
                     #{/list}
@@ -105,8 +116,7 @@
                     #{if suggestedMembers}
                         <div class="tab-pane active" id="tabSuggestedMembers">
                             #{list suggestedMembers, as:'suggest'}
-                                <a class="btn primary small" title="Link" href="@{link(suggest.login)}">Link</a>
-                                <a href="@{Profile.show(suggest.login)}" title="${suggest}">#{member suggest /}</a>
+                                #{member suggest /}
                                 <br/>
                             #{/list}
                         </div>
@@ -135,7 +145,7 @@
                     <br/>
                     <br/>
                     <div class="span6">
-                        <p id="activities" style="max-height: 400px"></p>
+                        <p id="activities" style="max-height: 500px"></p>
                         <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>
                         <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
                     </div>
@@ -143,7 +153,7 @@
                     <script type="text/javascript">
                         var providers = ['${models.ProviderType.values().join("','")}'];
                         var page = 1;
-                        var size = 10;
+                        var size = 5;
                         var activitiesAction = #{jsAction @Activities.incoming(':providers', ':page',':size') /};
                         var spinner = $('#activitiesSpinner');
                         var btnMoreActivities = $('#moreActivities');

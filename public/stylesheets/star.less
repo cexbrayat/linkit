@@ -1,0 +1,24 @@
+@star-colour: #eeeeee;
+@star-colour-hover: #999999;
+@star-colour-fav: gold;
+@star-colour-fav-hover: #dfe999;
+
+.star {
+    font-size: 36px;
+    color: @star-colour;
+    text-decoration: none;
+    // text-shadow: 0px 0px 3px #222;
+    &:hover {
+        color: @star-colour-hover;
+    }
+
+    &.fav {
+        color: @star-colour-fav;
+        &:before {
+            content: "\f005";
+        }
+        &:hover {
+            color: @star-colour-fav-hover;
+        }
+    }
+}

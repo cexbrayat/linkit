@@ -7,14 +7,17 @@
 <body>
    <p>GET <a href="/api/interests">/api/interests</a> : liste des intérêts</p>
    <p>GET <a href="/api/sessions">/api/sessions</a> : liste des sessions</p>
-   <p>GET <a href="/api/session/1">/api/session/{id}</a> : détail de la session portant l'id défini</p>
-   <p>GET <a href="/api/session/1/comments">/api/session/{id}/comments</a> : commentaires de la session portant l'id défini</p>
-   <p>POST <a href="/api/session/{id}/comment">/api/session/{id}/comment</a> : ajoute un commentaire à la session portant l'id défini (Connecté)</p>
+   <p>GET <a href="/api/sessions/1">/api/sessions/{id}</a> : détail de la session portant l'id défini</p>
+   <p>GET <a href="/api/sessions/1/comments">/api/sessions/{id}/comments</a> : commentaires de la session portant l'id défini</p>
+   <p>POST <a href="/api/sessions/{id}/comment">/api/sessions/{id}/comment</a> : ajoute un commentaire à la session portant l'id défini (Connecté)</p>
    <p>GET <a href="/api/lightnings">/api/lightnings</a> : liste des lightning talks</p>
-   <p>GET <a href="/api/lightning/1">/api/lightning/{id}</a> : détail du lightning talk portant l'id défini</p>
-   <p>GET <a href="/api/lightning/1/comments">/api/session/{id}/comments</a> : commentaires du lightning talk portant l'id défini</p>
-   <p>POST <a href="/api/lightning/{id}/comment">/api/lightning/{id}/comment</a> : ajoute un commentaire au lightning talk portant l'id défini (Connecté)</p>
+   <p>GET <a href="/api/lightnings/1">/api/lightnings/{id}</a> : détail du lightning talk portant l'id défini</p>
+   <p>GET <a href="/api/lightnings/1/comments">/api/sessions/{id}/comments</a> : commentaires du lightning talk portant l'id défini</p>
+   <p>POST <a href="/api/lightnings/{id}/comment">/api/lightnings/{id}/comment</a> : ajoute un commentaire au lightning talk portant l'id défini (Connecté)</p>
    <p>GET <a href="/api/members">/api/members</a> : liste des membres (Connecté)</p>
-   <p>GET <a href="/api/members">/api/member/{id}</a> : détail d'un membre (Connecté)</p>
+   <p>GET <a href="/api/members">/api/members/{id}</a> : détail d'un membre (Connecté)</p>
+   <!--p>GET <a href="/api/activities">/api/activities</a> : les dernières activités (param : page & size)</p-->
+   <p>GET <a href="/api/suggestions/sessions">/api/suggestions/sessions</a> : les suggestions de sessions par interêt</p>
+   <p>GET <a href="/api/suggestions/members">/api/suggestions/members</a> : les suggestions de membres par interêt</p>
 </body>
 </html>

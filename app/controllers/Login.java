@@ -12,6 +12,7 @@ import models.auth.AuthAccount;
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.OAuthAccount;
+import org.apache.commons.lang.StringUtils;
 import org.scribe.exceptions.OAuthException;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
@@ -45,12 +46,16 @@ public class Login extends PageController {
         render();
     }
 
-    public static void loginWith(@Required String provider) {
-        Logger.info("\n\nLoginWith");
+    public static void loginWith(@Required ProviderType provider) {
 
         flash.keep(RETURN_URL);
-        ProviderType providerType = ProviderType.valueOf(provider);
-        OAuthProvider oauthProvider = OAuthProviderFactory.getProvider(providerType);
+        
+        if (provider == null) {
+            flash.error("Mauvaise requète, le provider d'authentification n'est pas indiqué");
+            index(null);
+        }
+        
+        OAuthProvider oauthProvider = OAuthProviderFactory.getProvider(provider);
         OAuthService oauthService = oauthProvider.getService();
 
         if (OAuth.isVerifierResponse()) {
@@ -64,8 +69,7 @@ public class Login extends PageController {
                 // Fetch user oAuthAccount
                 OAuthAccount oAuthAccount = oauthProvider.getUserAccount(accessToken.getToken(), accessToken.getSecret());
                 // Retrieve existing oAuthAccount from profile
-                Logger.info("\n\nlogin " + providerType + " : " + oAuthAccount.getOAuthLogin() + "\n\n");
-                AuthAccount account = AuthAccount.find(providerType, oAuthAccount.getOAuthLogin());
+                AuthAccount account = AuthAccount.find(provider, oAuthAccount.getOAuthLogin());
 
                 if (account != null) {
                     onSuccessfulAuthentication(account.member.login);
@@ -134,9 +138,8 @@ public class Login extends PageController {
         } else {
             // Un membre existant s'est connecté avec un nouveau provider
             // On se contente de lui ajouter le nouvel account utilisé
-            Logger.info("[manageNewAuthenticationFrom]Member found");
             member.authenticate(oAuthAccount);
-            member.updateProfile();
+            member.updateProfile(false);
             onSuccessfulAuthentication(member.login);
         }
     }
@@ -144,7 +147,6 @@ public class Login extends PageController {
     protected static void onSuccessfulAuthentication(String login) {
 
         session.put("username", login);
-        Logger.info("Logged : " + login);
 
         String returnUrl = flash.get(RETURN_URL);
         if (returnUrl != null) {
@@ -158,6 +160,7 @@ public class Login extends PageController {
     }
 
     public static void loginLinkIt(@Required String login, @Required String password) throws Throwable {
+        flash.keep(RETURN_URL);
         Secure.authenticate(login, password, true);
         onSuccessfulAuthentication(login);
     }

@@ -3,6 +3,7 @@ package models.serialization;
 import com.google.gson.*;
 import models.Interest;
 import models.Member;
+import models.Session;
 import models.Talk;
 
 import java.lang.reflect.Type;
@@ -19,7 +20,6 @@ public class SessionSerializer implements JsonSerializer<Talk> {
         obj.addProperty("title", talk.title);
         obj.addProperty("summary", talk.summary);
         obj.addProperty("description", talk.description);
-        obj.addProperty("track", talk.track.name());
 
         JsonArray array = new JsonArray();
         Set<Interest> interests = talk.interests;

@@ -1,11 +1,13 @@
 package models.activity;
 
+import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import models.Article;
 import models.Member;
 import models.ProviderType;
 import models.Session;
+import org.joda.time.DateTime;
 import org.junit.*;
 
 /**
@@ -17,6 +19,26 @@ public class ActivityTest extends AbstractActivityTest {
     @Test
     public void recents() {
         assertNotNull(Activity.recents(1, 10));
+    }
+
+    @Test
+    public void notifiablesBetween() {
+        assertNotNull(Activity.notifiablesBetween(new DateTime().minusDays(1).toDate(), new Date()));
+    }
+
+    @Test
+    public void notifiablesBetweenNullDate() {
+        assertNotNull(Activity.notifiablesBetween(null, new Date()));
+    }
+
+    @Test
+    public void notifiablesBetweenDateNull() {
+        assertNotNull(Activity.notifiablesBetween(new DateTime().minusDays(1).toDate(), null));
+    }
+
+    @Test
+    public void notifiablesBetweenNullNull() {
+        assertNotNull(Activity.notifiablesBetween(null, null));
     }
 
     @Test
@@ -37,6 +59,7 @@ public class ActivityTest extends AbstractActivityTest {
         assertEquals(Activity.recentsByMember(m,EnumSet.allOf(ProviderType.class), 1, 10),
                 Activity.recentsByMember(m,EnumSet.noneOf(ProviderType.class), 1, 10));
     }
+    
     @Test
     public void recentsForMember() {
         List<Member> members = Member.all().fetch();
@@ -63,6 +86,30 @@ public class ActivityTest extends AbstractActivityTest {
         List<Activity> activities = Activity.recentsForMember(nolinks,EnumSet.allOf(ProviderType.class), 1, 10);
         assertNotNull(activities);
         assertTrue(activities.isEmpty());
+    }
+
+    @Test
+    public void notifiablesForBetween() {
+        Member m = Member.all().first();
+        assertNotNull(Activity.notifiablesForBetween(m, new DateTime().minusDays(1).toDate(), new Date()));
+    }
+
+    @Test
+    public void notifiablesForBetweenNullDate() {
+        Member m = Member.all().first();
+        assertNotNull(Activity.notifiablesForBetween(m, null, new Date()));
+    }
+
+    @Test
+    public void notifiablesForBetweenDateNull() {
+        Member m = Member.all().first();
+        assertNotNull(Activity.notifiablesForBetween(m, new DateTime().minusDays(1).toDate(), null));
+    }
+
+    @Test
+    public void notifiablesForBetweenNullNull() {
+        Member m = Member.all().first();
+        assertNotNull(Activity.notifiablesForBetween(m, null, null));
     }
 
     @Test
@@ -94,7 +141,44 @@ public class ActivityTest extends AbstractActivityTest {
     }
     
     @Test
+    public void deleteForSession() {
+        final Session session = Session.all().first();
+        assertNotNull(Activity.deleteForSession(session));
+    }
+    
+    @Test
     public void deleteForMemberWithProvider() {
         assertNotNull(Activity.deleteForMember(member, ProviderType.Twitter));
+    }
+    
+    @Test public void findOrderedMembers() throws InterruptedException {
+        final Member member1 = createMember("member1");
+        final Member member2 = createMember("member2");
+        final Member member3 = createMember("member3");
+        final Member member4 = createMember("member4");
+
+        assertEquals(0, Activity.find("from Activity a where a.member is not null").fetch().size());
+        Activity.OrderedMembersDTO members = Activity.findOrderedMembers();
+        // member2 n'est pas le premier de la liste
+        assertNotSame(member2, members.getMembers().get(0));
+        assertNull(members.getLatestActivityFor(member2));
+        final int nbMembers = members.getMembers().size();
+        
+        // Création d'une activité pour membre1
+        new LinkActivity(member1, member2).save();
+        // puis membre3
+        Thread.sleep(10);
+        new SignUpActivity(member3).save();
+        Thread.sleep(10);
+        // puis membre 2 (qui devient donc le dernier actif en date)
+        new LookProfileActivity(member2, member1).save();
+        
+        members = Activity.findOrderedMembers();
+        // member2 EST le premier de la liste
+        assertSame(member2, members.getMembers().get(0));
+        // il a une date de dernière activité
+        assertNotNull(members.getLatestActivityFor(member2));
+        // Et on a toujours autant de membres retournés, qu'il existe des activités ou non.
+        assertEquals(nbMembers, members.getMembers().size());
     }
 }

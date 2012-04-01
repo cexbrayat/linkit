@@ -1,5 +1,6 @@
 package models.activity;
 
+import helpers.JavaExtensions;
 import helpers.badge.BadgeComputationContext;
 import java.util.EnumSet;
 import javax.persistence.Entity;
@@ -7,9 +8,7 @@ import models.Badge;
 import models.Member;
 import models.ProviderType;
 import models.Session;
-import play.i18n.Messages;
 import play.mvc.Router;
-import play.mvc.Scope;
 
 /**
  * An "new talk" activity : a talk ({@link Activity#session}) has been validated
@@ -19,13 +18,8 @@ import play.mvc.Scope;
 public class NewTalkActivity extends Activity {
 
     public NewTalkActivity(Session session) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 1);
         this.session = session;
-    }
-
-    @Override
-    public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), session);
     }
 
     @Override
@@ -33,6 +27,7 @@ public class NewTalkActivity extends Activity {
         return Router
                 .reverse("Sessions.show")
                 .add("sessionId", session.id)
+                .add("slugify", JavaExtensions.slugify(session.title))
                 .url;
     }
 

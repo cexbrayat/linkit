@@ -1,55 +1,49 @@
 #{extends 'main.html' /}
-#{set 'canonical'}@@{Articles.show(article.id)}#{/set}
+#{set 'canonical'}@@{Articles.show(article.id, article.title.slugify())}#{/set}
 #{set title:article.title /}
 <div class="hero-unit member-card">
-    <div class="row">
-        <div class="span16">
-            <h2 itemprop="name">${article.title}</h2>
-            <strong itemprop="description">${article.headline}</strong>
+    <h2 itemprop="name">${article.title}</h2>
+    <strong itemprop="description">${article.headline}</strong>
 
-            #{secure.check models.Role.ADMIN_ARTICLE}
-            <div class="span4 alert-message block-message warning">
-                #{if !article.valid}
-                Cet article n'est pas publié.
-                #{/if}
-                <div class='alert-actions'>
-                    #{if article.valid}
-                    <a href="@{Articles.unvalidate(article.id)}" class="btn small" >Invalider</a>
-                    #{/if}
-                    #{else}
-                    <a href="@{Articles.validate(article.id)}" class="btn small primary" >Publier</a>
-                    #{/else}
-                    <a href="@{Articles.edit(article.id)}" class="btn small">Editer</a>
-                    <a href="@{Articles.delete(article.id)}" class="btn small danger">Supprimer</a>
-                </div>
-            </div>
-            #{/secure.check}
+    #{secure.check models.Role.ADMIN_ARTICLE}
+    <div class="alert-message block-message warning">
+        #{if !article.valid}
+        Cet article n'est pas publié.
+        #{/if}
+        <div class='alert-actions'>
+            #{if article.valid}
+            <a href="@{Articles.unvalidate(article.id)}" class="btn small" >Invalider</a>
+            #{/if}
+            #{else}
+            <a href="@{Articles.validate(article.id)}" class="btn small primary" >Publier</a>
+            #{/else}
+            <a href="@{Articles.edit(article.id)}" class="btn small">Editer</a>
+            <a href="@{Articles.delete(article.id)}" class="btn small danger">Supprimer</a>
         </div>
     </div>
+    #{/secure.check}
+
+    <br/>
     <br/>
     <blockquote class="article content">
-        ${article.content.markdown().raw()}
+        #{markdown article.content /}
+        <br/>
+        <small>Posté par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a> le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}</small>
     </blockquote>
     <br/>
-    <div class="row">
-        <div class="span16">
-            <small>Posté par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a> le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}</small>
-            <br/>
-            ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}
-            #{if article.comments}
-                - <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
-            #{/if}
-            &mdash; #{socialbar/}
-        </div>
+    ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}
+    #{if article.comments}
+        - <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
+    #{/if}
+    &mdash; #{socialbar/}
+</div>
+
+<div class="row">
+    <div class="span8">
+        #{if previous}<p><a class="btn" href="@{Articles.show(previous.id, previous.title.slugify())}"><< ${previous}</a></p>#{/if}&nbsp;
     </div>
-    <br/>
-    <div class="row">
-        <div class="span14">
-            #{if previous}<p><a class="btn" href="@{Articles.show(previous.id)}"><< ${previous.title}</a></p>#{/if}&nbsp;
-        </div>
-        <div class="span14" style="text-align: right">
-            #{if following}<p><a class="btn" href="@{Articles.show(following.id)}">${following.title} >></a></p>#{/if}
-        </div>
+    <div class="span8" style="text-align: right">
+        #{if following}<p><a class="btn" href="@{Articles.show(following.id, following.title.slugify())}">${following} >></a></p>#{/if}
     </div>
 </div>
 

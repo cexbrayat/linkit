@@ -4,12 +4,12 @@
     - default _arg : the member
 }*
 <div class="row">
-    <div class="span10 offset2 hero-unit member-card">
+    <div class="span14 hero-unit member-card">
         <div class="row">
             <div class="span2">
                 <div class="row">
                     #{if _arg instanceof models.Sponsor}
-                        <img src="${_arg.logoUrl}" style="max-width: 100px; max-height: 100px" />
+                        <img src="${_arg.logoUrl}" style="max-width: 100px; max-height: 100px" alt="Logo ${_arg}" />
                     #{/if}
                     #{else}
                         #{if _arg.email}
@@ -18,29 +18,17 @@
                     #{/else}
                 </div>
             </div>
-            <div class="span8">
+            <div class="span12">
                 <div class="row">
-                    <div class="span7" style="margin-left:0px">
-                    #{if session.username}
-                        <h2><a href="@{Profile.show(_arg.login)}">${_arg}</a></h2>
-                    #{/if}
-                    #{else}
-                        <h2><a href="@{Login.index()}" rel='twipsy' data-placement="right" title="Connectez-vous pour consulter son profil complet.">${_arg}</a></h2>
-                    #{/else}
-                    </div>
-                    <div class="span1">
-                        #{if session.get("username") != null && !session.get("username").equals(_arg.login)}
-                            #{if !_arg.hasForLinker(session.get("username"))}
-                                <a class="btn primary" href="@{Profile.link(session.get("username"), _arg.login)}">Link</a>
-                            #{/if}
-                            #{else}
-                                <a class="btn primary" href="@{Profile.unlink(session.get("username"), _arg.login)}">Unlink</a>
-                            #{/else}
-                        #{/if}
+                    <div class="span12" style="margin-left:0px">
+                        <h2>
+                            #{if _arg.ticketingRegistered}<i class="icon-check" style="color: green"></i> #{/if}
+                            <a href="@{Profile.show(_arg.login)}" #{if !session.username}rel='twipsy' data-placement="right" title="Connectez-vous pour consulter son profil complet."#{/if}>${_arg}</a>
+                        </h2>
                     </div>
                 </div>
                 <div class="row">
-                    ${_arg.shortDescription?.markdown().raw()}
+                    #{markdown _arg.shortDescription /}
                 </div>
                 <div class="row">
                     #{list items:_arg.getOrderedAccounts(), as:'account'}
@@ -48,7 +36,7 @@
                     #{/list}
                     #{if _arg.sharedLinks}
                         #{list items:_arg.sharedLinks, as:'link'}
-                            <a class="sharedLink" href="${link.URL}" rel="twipsy" title="${link.name}" target="_blank"><img src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/></a>
+                            <a class="sharedLink" href="${link.URL}" rel="twipsy" title="${link.name.escapeHtmlAttr()}" target="_blank"><img src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/></a>
                         #{/list}
                     #{/if}
                 </div>

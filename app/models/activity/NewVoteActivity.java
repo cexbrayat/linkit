@@ -4,11 +4,9 @@ import helpers.badge.BadgeComputationContext;
 import java.util.EnumSet;
 import javax.persistence.Entity;
 import models.Badge;
-import models.LightningTalk;
 import models.Member;
 import models.ProviderType;
-import play.i18n.Messages;
-import play.mvc.Scope;
+import models.Session;
 
 /**
  * An "new vote" activity : someone {@link Activity#member} has voted for a lightning talk ({@link Activity#session})
@@ -17,15 +15,10 @@ import play.mvc.Scope;
 @Entity
 public class NewVoteActivity extends Activity {
 
-    public NewVoteActivity(Member member, LightningTalk lt) {
-        super(ProviderType.LinkIt);
+    public NewVoteActivity(Member member, Session lt) {
+        super(ProviderType.LinkIt, 2);
         this.member = member;
         this.session = lt;
-    }
-
-    @Override
-    public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member, session);
     }
 
     @Override

@@ -1,11 +1,10 @@
 package models.activity;
 
+import helpers.JavaExtensions;
 import javax.persistence.Entity;
 import models.Article;
 import models.Member;
-import play.i18n.Messages;
 import play.mvc.Router;
-import play.mvc.Scope;
 
 /**
  * A consultation of an article : someone ({@link Activity#member}) looked at an article ({@link Activity#article}).
@@ -20,15 +19,11 @@ public class LookArticleActivity extends LookActivity {
     }
 
     @Override
-    public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member, article);
-    }
-
-    @Override
     public String getUrl() {
         return Router
                 .reverse("Articles.show")
                 .add("articleId", article.id)
+                .add("slugify", JavaExtensions.slugify(article.title))
                 .url;
     }
 }

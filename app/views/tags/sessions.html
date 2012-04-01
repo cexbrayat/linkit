@@ -5,44 +5,55 @@
         $("table#sortSession").tablesorter({ sortList: [[1,0]] });
     });
     var track = function(type){
-        if($("#"+type).attr('disabled') === 'disabled'){
-            $("a#"+type).removeAttr('disabled');
-            $(".session."+type).show();
+        if(isDisabled(type)){
+            enable(type);
         } else {
-            $("a#"+type).attr('disabled','disabled');
-            $(".session."+type).hide();
+            // Tous les autres boutons deviennent disabled
+            $("a.track").each(function(index) {
+                var iTrack = $(this).data('track');
+                if (iTrack != type) {
+                    disable(iTrack);
+                }
+            })
         }
+    }
+    var isDisabled = function(type) {
+        return $("a#btnFilter"+type).attr('disabled') === 'disabled';
+    }
+    var enable = function(type) {
+        $("a#btnFilter"+type).removeAttr('disabled');
+        $(".session."+type).show();
+    }
+    var disable = function(type) {
+        $("a#btnFilter"+type).attr('disabled','disabled');
+        $(".session."+type).hide();
     }
 </script>
 
-#{if session.username}
-    Proposer <a class="btn" href="@{Sessions.create(session.username)}">une session</a> ?
-#{/if}
-
-    <div class="row">
-        <div class="span11 offset2" style="text-align: center">
-            #{list items:models.Track.values(), as:'track'}
-            <a id="${track.name()}" class="btn large track ${track}" style="margin-left: 10px; margin-right: 10px" onclick="track('${track.name()}')" rel='twipsy' data-placement="below" title="&{'track.'+track.name()+'.description'}">${track.name()}</a>
-            #{/list}
-        </div>
+<div class="row">
+    <div class="span11 offset2" style="text-align: center">
+        #{list items:models.Track.values(), as:'track'}
+        <a id="btnFilter${track.name()}" data-track="${track}" class="btn large track ${track}" style="margin-left: 10px; margin-right: 10px" onclick="track('${track.name()}')" rel='twipsy' data-placement="below" title="&{'track.'+track.name()+'.description'}">${track.name()}</a>
+        #{/list}
     </div>
+</div>
 
-    <br/>
-    #{list items:_sessions, as:'talk'}
-    <div class="row">
-        <div class="span12 offset1 hero-unit member-card session ${(talk instanceof models.Talk)?talk.track.toString() : ''}">
-            <div class="row">
-                <div class="span1 track ${(talk instanceof models.Talk)?talk.track.toString() : ''}" style="margin: -20px 0px -20px -10px; height: 150px;">&nbsp;</div>
-                <div class="span11" style="margin-top: -10px;">
-                    <div>#{session-card talk /}</div>
-                    <div>
-                        #{list items:talk.speakers, as:'speaker'}
-                            #{member speaker /}#{if !speaker_isLast}, #{/if}
-                        #{/list}
-                    </div>
+<br/>
+#{list items:_sessions, as:'talk'}
+<div class="row">
+    <div class="span14 hero-unit member-card session ${(talk instanceof models.Talk)?talk.track.toString() : ''}">
+        <div class="row">
+            <div class="span1 track ${(talk instanceof models.Talk)?talk.track.toString() : ''}" style="margin: -20px 0px -20px -10px; height: 150px;">&nbsp;</div>
+            <div class="span13" style="margin-top: -10px;">
+                <div>#{session-card talk /}</div>
+                <div>
+                    #{list items:talk.speakers, as:'speaker'}
+                        #{member speaker /}#{if !speaker_isLast}, #{/if}
+                    #{/list}
                 </div>
             </div>
         </div>
     </div>
-    #{/list}
+</div>
+#{/list}
  

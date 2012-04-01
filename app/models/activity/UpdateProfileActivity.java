@@ -6,9 +6,7 @@ import javax.persistence.Entity;
 import models.Badge;
 import models.Member;
 import models.ProviderType;
-import play.i18n.Messages;
 import play.mvc.Router;
-import play.mvc.Scope;
 
 /**
  * An update profile activity : someone ({@link Activity#member} updated his profile
@@ -18,13 +16,8 @@ import play.mvc.Scope;
 public class UpdateProfileActivity extends Activity {
 
     public UpdateProfileActivity(Member member) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 3);
         this.member = member;
-    }
-
-    @Override
-    public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member);
     }
 
     @Override

@@ -88,6 +88,7 @@ public abstract class Account extends Model implements Comparable<Account> {
         }
         return data;
     }
+
     
     public static List<Long> findAllIds() {
         return find("select a.id from Account a").fetch();

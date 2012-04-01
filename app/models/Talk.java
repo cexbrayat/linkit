@@ -1,13 +1,16 @@
 package models;
 
-import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import models.activity.Activity;
 import models.activity.NewTalkActivity;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
 import play.mvc.Router;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import java.util.List;
+import models.activity.CommentSessionActivity;
 
 /**
  * A talk session
@@ -20,6 +23,10 @@ public class Talk extends Session {
     @Required
     @Enumerated(EnumType.STRING)
     public Track track;
+
+    public static List<Talk> findLinkedWith(Interest interest) {
+        return find("valid=true and ? in elements(interests)", interest).fetch();
+    }
 
     public static List<Talk> recents(int page, int length) {
         return find("valid=true order by addedAt desc").fetch(page, length);
@@ -41,10 +48,16 @@ public class Talk extends Session {
         this.valid = true;
         save();
         new NewTalkActivity(this).save();
+        
+        // Publication des activités sur les hypothétiques commentaires existants
+        for (SessionComment comment : this.comments) {
+            new CommentSessionActivity(comment.author, this, comment).save();
+        }
     }
     
     public void unvalidate() {
         this.valid = false;
+        Activity.deleteForSession(this);
         save();
     }
 
@@ -61,6 +74,7 @@ public class Talk extends Session {
         return Router
                 .reverse("Sessions.show")
                 .add("sessionId", this.id)
+                .add("slugify", this.title)
                 .url;
     }
 }

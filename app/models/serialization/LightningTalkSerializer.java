@@ -1,9 +1,12 @@
 package models.serialization;
 
 import com.google.gson.*;
+import controllers.Security;
 import models.Interest;
 import models.LightningTalk;
 import models.Member;
+import models.Vote;
+import play.Logger;
 
 import java.lang.reflect.Type;
 import java.util.Set;
@@ -12,6 +15,14 @@ import java.util.Set;
  * @author: jripault
  */
 public class LightningTalkSerializer implements JsonSerializer<LightningTalk> {
+
+
+    private Member member;
+
+    public LightningTalkSerializer(Member member) {
+        this.member = member;
+    }
+
     @Override
     public JsonElement serialize(LightningTalk talk, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject obj = new JsonObject();
@@ -20,6 +31,11 @@ public class LightningTalkSerializer implements JsonSerializer<LightningTalk> {
         obj.addProperty("summary", talk.summary);
         obj.addProperty("description", talk.description);
         obj.addProperty("nbVotes", talk.getNumberOfVotes());
+
+        if(member != null){
+            Vote vote = Vote.findVote(talk, member);
+            obj.addProperty("myVote", vote == null ? false : vote.value);
+        }
 
         JsonArray array = new JsonArray();
         Set<Interest> interests = talk.interests;

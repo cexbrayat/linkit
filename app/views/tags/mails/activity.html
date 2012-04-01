@@ -1,0 +1,17 @@
+*{ Display an activity }*
+#{if _arg instanceof models.activity.CommentArticleActivity}#{mails.CommentArticleActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.CommentSessionActivity}#{mails.CommentSessionActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.EarnBadgeActivity}#{mails.EarnBadgeActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.LinkActivity}#{mails.LinkActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.LookArticleActivity}#{mails.LookArticleActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.LookProfileActivity}#{mails.LookProfileActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.LookSessionActivity}#{mails.LookSessionActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.NewTalkActivity}#{mails.NewTalkActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.NewVoteActivity}#{mails.NewVoteActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.NewArticleActivity}#{mails.NewArticleActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.SharedLinkActivity}#{mails.SharedLinkActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.SignUpActivity}#{mails.SignUpActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.StatusActivity}#{mails.StatusActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.UpdateProfileActivity}#{mails.UpdateProfileActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.UpdateSessionActivity}#{mails.UpdateSessionActivity _arg /}#{/if}
+#{if _arg instanceof models.activity.BuyTicketActivity}#{mails.BuyTicketActivity _arg /}#{/if}

@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Arrays;
+import java.util.Collections;
 import org.junit.*;
 
 /**
@@ -97,5 +99,41 @@ public class TalkTest extends BaseDataUnitTest {
         talk.lookedBy(null);
         assertEquals(2, talk.getNbLooks());
     }
+        
+    @Test public void delete() {
+        Member speaker1 = createMember("speaker1");
+        Member speaker2 = createMember("speaker2");
+        Talk lt = createTalk(speaker1, speaker2);
+        // Some comments
+        Member member1 = createMember("member1");
+        Member member2 = createMember("member2");
+        lt.addComment(new SessionComment(member1, lt, "Comentaire"));
+        lt.addComment(new SessionComment(member2, lt, "Comentaire"));
+        // Some votes
+        new Vote(lt, member1, true).save();
+        new Vote(lt, member2, false).save();
+        lt.save();
+        
+        assertNotNull(lt.delete());
+        assertNull(Talk.findById(lt.id));
+    }
 
+    @Test
+    public void findLinkedWith() {
+        final Talk talk1 = new Talk().save();
+        talk1.validate();
+        final Session lightning2 = new LightningTalk().save();
+        final Talk talkInvalid = new Talk().save();
+        talkInvalid.unvalidate();
+
+        final String interest = "toto";
+        assertEquals(Collections.emptyList(), Talk.findLinkedWith(Interest.findOrCreateByName(interest)));
+
+        // Add interest now
+        talk1.addInterest(interest).save();
+        lightning2.addInterest(interest).save();
+        talkInvalid.addInterest(interest).save();
+
+        assertEquals(Arrays.asList(talk1), Talk.findLinkedWith(Interest.findByName(interest)));
+    }
 }

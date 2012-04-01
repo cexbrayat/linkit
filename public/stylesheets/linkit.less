@@ -2,16 +2,18 @@
 @import "mixins.less";
 
 .soon {/** text **/
+    width: 300px;
     font-size: 24px;
     font-weight: 600;
-    color: red;
+    color: green;
     letter-spacing: 0.1em;
-    border: 3px solid red;
+    border: 3px solid green;
     padding: 5px;
     text-align:center;
     position:relative;
     /**adjust as needed**/
-    top: 90px;
+    top: -130px;
+    left: 30px;
     /**note: CSS3 TRANSFORM: ROTATE DOESN'T WORK IN ALL BROWSERS YET**/
     -webkit-transform: rotate(-20deg); /**safari, chrome**/
     -moz-transform: rotate(-20deg); /**firefox**/
@@ -171,7 +173,21 @@ h2.inactive {
 }
 
 .btn.track {
-    background-image: none; // No gradiant image moving whith :hover.
+    &.Agility {
+        .gradientBar(lighten(@colorTrackAgility,10%), @colorTrackAgility);
+    }
+    &.Techy {
+        .gradientBar(lighten(@colorTrackTechy,10%), @colorTrackTechy);
+    }
+    &.Trendy {
+        .gradientBar(lighten(@colorTrackTrendy,10%), @colorTrackTrendy);
+    }
+    &.Gamy {
+        .gradientBar(lighten(@colorTrackGamy,10%), @colorTrackGamy);
+    }
+    &.Weby {
+        .gradientBar(lighten(@colorTrackWeby,10%), @colorTrackWeby);
+    }
 }
 
 body {
@@ -192,6 +208,19 @@ footer {
     background-image: -webkit-linear-gradient(top, #292929, #131313);
     background-image: -o-linear-gradient(top, #292929, #131313);
     background-image: linear-gradient(top, #292929, #131313);
+    color: #bfbfbf;
+    a {
+        color: #bfbfbf;
+    }
+}
+
+header {
+    padding:10px 10px 10px;
+    background-color: @black;
+    background-image: -webkit-linear-gradient(top, #292929, #131313);
+    background-image: -o-linear-gradient(top, #292929, #131313);
+    background-image: linear-gradient(top, #292929, #131313);
+    color: #bfbfbf;
     a {
         color: #bfbfbf;
     }

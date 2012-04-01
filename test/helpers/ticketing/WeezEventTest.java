@@ -1,6 +1,6 @@
 package helpers.ticketing;
 
-import java.util.List;
+import java.util.Set;
 import org.junit.Test;
 import play.Play;
 import play.test.UnitTest;
@@ -69,8 +69,9 @@ public class WeezEventTest extends UnitTest {
         String sessionID = WeezEvent.login();
         //event id correct
         WeezEvent.setEvent(sessionID);
-        List<String> allAttendees = WeezEvent.getAttendees(sessionID);
-        assertTrue(WeezEvent.isRegisteredAttendee("contact@mix-it.fr", allAttendees));
+        Set<String> allAttendees = WeezEvent.getAttendees(sessionID);
+        // FIXME Agnès : "agnes.crepet@gmail.com" n'est plus enregistrée sur l'event de test -> test en échec
+        assertTrue(WeezEvent.isRegisteredAttendee("agnes.crepet@gmail.com", allAttendees));
     }
 
     @Test
@@ -79,7 +80,12 @@ public class WeezEventTest extends UnitTest {
         String sessionID = WeezEvent.login();
         //event id correct
         WeezEvent.setEvent(sessionID);
-        List<String> allAttendees = WeezEvent.getAttendees(sessionID);
+        Set<String> allAttendees = WeezEvent.getAttendees(sessionID);
         assertFalse(WeezEvent.isRegisteredAttendee("toto.toto@gmail.com", allAttendees));
+    }
+    
+    @Test
+    public void testREGISTRATION_URL() {
+        assertNotNull(WeezEvent.REGISTRATION_URL);
     }
 }

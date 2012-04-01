@@ -8,7 +8,7 @@
     "<a href="@@{Sessions.show(talk.id, talk.title?.slugify(), true)}">${talk}</a>".
 #{/if}
 #{if talk instanceof models.LightningTalk }
-    "<a href="@@{LightningTalks.show(talk.id)}">${talk}</a>".
+    "<a href="@@{LightningTalks.show(talk.id, talk.title?.slugify())}">${talk}</a>".
 #{/if}
     <br/>
     Affectueusement,

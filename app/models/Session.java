@@ -1,16 +1,18 @@
 package models;
 
 import controllers.Mails;
+import java.util.*;
+import javax.persistence.*;
+import models.activity.Activity;
 import models.activity.CommentSessionActivity;
 import models.activity.LookSessionActivity;
 import models.activity.UpdateSessionActivity;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.CompareToBuilder;
+import play.Logger;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Model;
-
-import javax.persistence.*;
-import java.util.*;
 import play.modules.search.Field;
 
 /**
@@ -20,7 +22,7 @@ import play.modules.search.Field;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Session extends Model implements Lookable {
+public abstract class Session extends Model implements Lookable, Comparable<Session> {
 
     public static final String TITLE = "title";
     public static final String SUMMARY = "summary";
@@ -59,7 +61,10 @@ public abstract class Session extends Model implements Lookable {
     /** Eventual comments */
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
     @OrderBy("postedAt ASC")
-    public List<SessionComment> comments;
+    public List<SessionComment> comments = new ArrayList<SessionComment>();
+
+    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<Vote> votes;
     
     /** Number of consultation */
     public long nbConsults;
@@ -90,6 +95,7 @@ public abstract class Session extends Model implements Lookable {
     }
 
     public boolean hasSpeaker(String username) {
+        if (StringUtils.isBlank(username)) return false;
         Member member = Member.findByLogin(username);
         return speakers.contains(member);
     }
@@ -102,13 +108,15 @@ public abstract class Session extends Model implements Lookable {
         comment.session = this;
         comment.save();
         comments.add(comment);
-        
-        new CommentSessionActivity(comment.author, this, comment).save();
+
+        // On ne déclenche une activité publique de mise à jour que si la session est valide (donc visible publiquement)
+        if (valid) {
+            new CommentSessionActivity(comment.author, this, comment).save();
+        }
     }
 
-    public static List<Session> findSessionsLinkedWith(String interest) {
-        return Session.find(
-                "select distinct s from Session s join s.interests as i where i.name = ?", interest).fetch();
+    public static <T extends Session> List<T> findLinkedWith(Interest interest) {
+        return find("valid = true and ? in elements(interests)", interest).fetch();
     }
     
     public Session addInterest(String interest) {
@@ -130,6 +138,22 @@ public abstract class Session extends Model implements Lookable {
         addInterests(interests);
         return this;
     }
+
+    public boolean hasVoteFrom(String username) {
+        Member member = Member.findByLogin(username);
+        if (member != null) {
+            Vote vote = Vote.findVote(this, member);
+            if (vote != null) {
+                Logger.info(this.id + " - vote value: " + vote.value);
+                return vote.value;
+            }
+        }
+        return false;
+    }
+
+    public long getNumberOfVotes() {
+        return Vote.findNumberOfVotesBySession(this);
+    }
     
     /**
      * Functional update of this session (having modified its data)
@@ -142,7 +166,14 @@ public abstract class Session extends Model implements Lookable {
         }
         Mails.updateSession(this);
     }
-    
+
+    @Override
+    public Session delete() {
+        Activity.deleteForSession(this);
+        Vote.deleteForSession(this);
+        return super.delete();
+    }
+
     @Override
     public String toString() {
         return title;
@@ -153,11 +184,13 @@ public abstract class Session extends Model implements Lookable {
     }
 
     public void lookedBy(Member member) {
-        if (member == null || !speakers.contains(member)) {
-            nbConsults++;
-            save();
-            if (member != null) {
-                new LookSessionActivity(member, this).save();                
+        if (valid) {
+            if (member == null || !speakers.contains(member)) {
+                nbConsults++;
+                save();
+                if (member != null) {
+                    new LookSessionActivity(member, this).save();                
+                }
             }
         }
     }
@@ -166,4 +199,8 @@ public abstract class Session extends Model implements Lookable {
      * @return URL of display page for this session
      */
     public abstract String getShowUrl();
+
+    public int compareTo(Session other) {
+        return new CompareToBuilder().append(this.title, other.title).toComparison();
+    }
 }

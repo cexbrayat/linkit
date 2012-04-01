@@ -1,11 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Connexion à Mix-IT' /}
 #{set 'moreStyles' }
-<style>
-    .loginButton {
-        margin: 7px;
-    }
-</style>
+<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/zocial.css'}" />
 #{/set}
 
 
@@ -14,18 +10,37 @@
     <div class="row">
         <div class="span4">
             <div class="well">
-                <a href="@{Login.loginWith(models.ProviderType.Twitter)}" title="Se connecter via mon compte Twitter"><img class="loginButton" src="@{'/public/images/login/sign-in-with-twitter-l.png'}"/></a>
-                <a href="@{Login.loginWith(models.ProviderType.Google)}" title="Se connecter via mon compte Google"><img class="loginButton" src="@{'/public/images/login/google.png'}"/></a>
-                <a href="@{Login.loginWith(models.ProviderType.LinkedIn)}" title="Se connecter via mon compte LinkedIn"><img class="loginButton" src="@{'/public/images/login/linkedin-small.png'}"/></a>
+                <a href="@{Login.loginWith(models.ProviderType.Twitter)}" class="zocial twitter">
+                    <span>Se connecter via Twitter</span>
+                </a>
+                <a href="@{Login.loginWith(models.ProviderType.Google)}" class="zocial google">
+                    <span>Se connecter via Google</span>
+                </a>
+                <a href="@{Login.loginWith(models.ProviderType.LinkedIn)}" class="zocial linkedin">
+                    <span>Se connecter via LinkedIn</span>
+                </a>
+                <br />&{'login.alert'}
             </div>
         </div>
         <div class="span10">
             <p>
-                En s'enregistrant sur ce site, vous pourrez consulter les profils des participants (speakers comme participants), se lier avec ceux que vous souhaitez (pour suivre l'activité de chacun), commenter les sessions (et pouvoir enfin vous exprimer), et plus encore (dès qu'on aura fini de le coder)!
+                &{'login.howto.intro'}
             </p>
             <p>
-                Vous devez avoir un compte sur les réseaux sociaux ci-contre pour vous connecter.
+                &{'login.howto.part1'}
+            <ul>
+                <li>&{'login.howto.part1.1'}</li>
+                <li>&{'login.howto.part1.2'}</li>
+                <li>&{'login.howto.part1.3'}</li>
+                <li>&{'login.howto.part1.4'}</li>
+                <li>&{'login.howto.part1.5'}</li>
+            </ul>
             </p>
         </div> 
+    </div>
+    <div class="row">
+        <div class="span14">
+                &{'login.howto.part2'}
+        </div>
     </div>
 </div>

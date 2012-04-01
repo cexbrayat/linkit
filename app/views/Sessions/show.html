@@ -1,22 +1,66 @@
 #{extends 'main.html' /}
 #{set title:'Session ' + talk.title /}
 #{set 'canonical'}@@{Sessions.show(talk.id, talk.title?.slugify())}#{/set}
+#{set 'moreStyles'}
+<link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
+#{/set}
+    <script type="text/javascript">
+        var favAction = #{jsAction @Votes.vote(':talkId', ':fav') /};
+        var removeFromFavs = function(){
+            $('#star').removeClass('fav');
+            $.get(favAction({talkId: '${talk.id}', fav: true}), function(data) {
+                updateCounts(data);
+            });
+        };
+        var addToFavs = function(){
+            $('#star').addClass('fav');
+            $.get(favAction({talkId: '${talk.id}', fav: false}), function(data) {
+                updateCounts(data);
+            });
+        };
+        var updateCounts = function(count){
+            var text = $('#favs').text().split(' ');
+            $('#favs').html(count + " " + text[1]);
+        }
+        var fav = function(){
+            if($('#star').hasClass('fav')){
+                removeFromFavs();
+            } else {
+                addToFavs();
+            }
+        };
+    </script>
 
     <div class="hero-unit member-card">
-        <h2 itemprop="name">${talk.title}</h2>
-        #{if talk.interests}
-        <p>
-            <span class="label track ${talk.track}">${talk.track}</span>
-            #{list items:talk.interests, as:'interest'}
-                <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
-            #{/list}
-        </p>
-        #{/if}
+        <div class="row">
+            <div class="span13"><h2 itemprop="name">${talk.title}</h2></div>
+            #{if session.username && talk.valid}
+                <i id="star" class="icon-star-empty star #{if talk.hasVoteFrom(session.username)} fav#{/if}" style="float: right;" onclick="fav()"></i>
+            #{/if}
+        </div>
+        <div class="row">
+            <div class="span12">
+                <p>
+                    <span class="label track ${talk.track}">${talk.track}</span>
+                    #{if talk.interests}
+                        #{list items:talk.interests, as:'interest'}
+                        <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
+                        #{/list}
+                    #{/if}
+                </p>
+            </div>
+            <div id="favs" style="float: right;">${talk.getNumberOfVotes()} favoris</div>
+        </div>
         <p itemprop="description">${talk.summary}</p>
         
         #{if !talk.valid}
             <div class="alert-message block-message warning">
-                <p>Cette session a bien été soumise au comité d’organisation, mais n'est pas encore acceptée.<br/>Consulter votre dashboard régulièrement pour connaitre son statut.</p>
+                <p>Cette session a bien été soumise au comité d’organisation, <strong>mais n'est pas encore acceptée</strong>.<br/>Consulter votre dashboard régulièrement pour connaitre son statut.</p>
+                <div class='alert-actions'>
+                #{if talk.hasSpeaker(session.username)}            
+                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer votre session</a>
+                #{/if}
+                </div>
             </div>
         #{/if}
         
@@ -24,16 +68,17 @@
             <div class="alert-message block-message info">
                 <p><strong>Staff</strong></p>
                 #{if talk.valid}            
-                <p>Attention : invalider une session ne supprimera pas les éventuelles activités existantes sur cette session.</p>
+                <p>Invalider une session supprimera les éventuelles activités existantes sur cette session, mais pas les commentaires.</p>
                 #{/if}
                 <div class='alert-actions'>
-                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer cette session</a>
+                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer</a>
                 #{if talk.valid}            
-                    <a class="btn danger" href="@{Sessions.unvalidate(talk.id)}">Invalider cette session</a>
+                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment invalider cette session?')) window.location='@{Sessions.unvalidate(talk.id)}';">Invalider</a>
                 #{/if}
                 #{else}
-                    <a class="btn danger" href="@{Sessions.validate(talk.id)}">Valider cette session</a>
+                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment valider cette session?')) window.location='@{Sessions.validate(talk.id)}';">Valider</a>
                 #{/else}
+                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment supprimer cette session?')) window.location='@{Sessions.delete(talk.id)}';">Supprimer</a>
                 </div>
             </div>
         #{/secure.check}
@@ -45,10 +90,10 @@
                     <div class="span2" style="text-align: center">
                     #{if speaker.email}
                         #{if session.username}
-                            <a href="@{Profile.show(speaker.login)}">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                            <a href="@{Profile.show(speaker.login)}"><img src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
                         #{/if}
                         #{else}
-                            <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">#{gravatar.img speaker.email, default:'mm', rating:'pg', secure:true/}</a>
+                            <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right"><img src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
                         #{/else}
                     #{/if}<br/>
                     #{if session.username}
@@ -65,7 +110,7 @@
          <div class="row">
             <div class="span14" style="text-align: justify;">
                 <blockquote style="font-size: 16px;">
-                ${talk.description.markdown().raw()}
+                #{markdown talk.description /}
                 </blockquote>
             </div>
         </div>
@@ -75,16 +120,48 @@
                 #{if talk.comments}
                     &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
                 #{/if}
-                &mdash; #{socialbar/}
+                #{if talk.valid}
+                    &mdash; #{socialbar/}
+                #{/if}
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="span16">
             <h4>Activité récente</h4>
-            <div id="activities">
-                #{activities activities:activities /}
-            </div>
+            <p id="activities" style="min-height: 0px"></p>
+            <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>  
+            <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
+        
+<script type="text/javascript">
+    var page = 1;
+    var size = 5;
+    var activitiesAction = #{jsAction @Activities.session(':sessionId', ':page',':size') /};
+    var spinner = $('#activitiesSpinner');
+    var btnMoreActivities = $('#moreActivities');
+   
+    function loadMoreActivities(autoscroll) {
+        btnMoreActivities.addClass('disabled');
+        spinner.css("visibility", "visible");
+        $.get(activitiesAction({sessionId: ${talk.id}, page: page, size: size}), function(data) {
+            $('#activities').append(data);
+            if (data) {
+                page++;
+            } else {
+                btnMoreActivities.css('visibility','hidden');
+            }
+            spinner.css("visibility", "hidden");
+            btnMoreActivities.removeClass('disabled');
+            if (autoscroll) {
+                $("#activities").animate({ scrollTop: $("#activities").attr("scrollHeight") - $('#activities').height() }, 1000);
+            }
+        });
+    }
+    
+    // Initial loading : first page
+    loadMoreActivities(false);
+</script>
         </div>
     </div>
 

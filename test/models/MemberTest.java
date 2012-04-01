@@ -7,7 +7,7 @@ import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
 import models.mailing.Mailing;
 import org.apache.commons.lang.StringUtils;
-import org.junit.*;
+import org.junit.Test;
 
 /**
  * Unit tests for {@link Member} domain object
@@ -70,6 +70,23 @@ public class MemberTest extends BaseDataUnitTest {
         Member.addLink("bob", "ced");
         assertEquals(originalLinksNb+1, bob.links.size());
     }
+    
+    @Test
+    public void addLinkAlreadyLinked() {
+        Member bob = Member.findByLogin("bob");
+        Member.addLink("bob", "ced");
+        final int linksNb = bob.links.size();
+        Member.addLink("bob", "ced");
+        assertEquals(linksNb, bob.links.size());
+    }
+    
+    @Test
+    public void addLinkMyself() {
+        Member bob = Member.findByLogin("bob");
+        final int linksNb = bob.links.size();
+        Member.addLink("bob", "bob");
+        assertEquals(linksNb, bob.links.size());
+    }
 
     @Test
     public void isLinkedTo() {
@@ -93,18 +110,19 @@ public class MemberTest extends BaseDataUnitTest {
     public void testFindMembersInterestedIn() {
         Member bob = Member.findByLogin("bob");
         Member ced = Member.findByLogin("ced");
+        Interest interestJava = Interest.findOrCreateByName("Java");
 
         // Well
-        assertEquals(0, Member.findMembersInterestedIn("Java").size());
+        assertEquals(0, Member.findMembersInterestedIn(interestJava).size());
 
         // Add interest now
         ced.addInterest("Java").addInterest("Hadoop").save();
         bob.addInterest("TDD").addInterest("Java").save();
 
         // Simple Checks
-        assertEquals(2, Member.findMembersInterestedIn("Java").size());
-        assertEquals(1, Member.findMembersInterestedIn("TDD").size());
-        assertEquals(1, Member.findMembersInterestedIn("Hadoop").size());
+        assertEquals(2, Member.findMembersInterestedIn(interestJava).size());
+        assertEquals(1, Member.findMembersInterestedIn(Interest.findByName("TDD")).size());
+        assertEquals(1, Member.findMembersInterestedIn(Interest.findByName("Hadoop")).size());
     }
    
     protected static Member createMember(final String login) {
@@ -236,7 +254,7 @@ public class MemberTest extends BaseDataUnitTest {
         member.addSharedLink(new SharedLink("Google", "http://www.google.com"));
         member.addSharedLink(new SharedLink("Yahoo", "http://www.yahoo.fr"));
         // Add some activities
-        member.updateProfile();
+        member.updateProfile(true);
         Member other1 = createMember("other1");
         Member other2 = createMember("other2");
         // Add links
@@ -365,5 +383,35 @@ public class MemberTest extends BaseDataUnitTest {
         lt.addSpeaker(m);
         lt.save();
         assertTrue(m.isLightningTalkSpeaker());
+    }
+    
+    @Test public void findAllIds() {
+        assertNotNull(Member.findAllIds());
+    }
+    
+    // Test for BUG https://trello.com/card/crash-signup/4f1b9ce056cf07e52f0072f7/64
+    @Test public void removeAccountDuringSignup() {
+        final Member m = new Member("toto");
+        final TwitterOAuthAccount authAccount = new TwitterOAuthAccount("", "");
+        authAccount.screenName = "toto";
+        m.preregister(authAccount);
+        m.removeAccount(m.getTwitterAccount());
+        m.register();
+    }
+
+    @Test public void addFavedSession() {
+        //si on a un membre et une session
+        final Member m = createMember("favGuy");
+        m.save();
+
+        Talk t = new Talk();
+        t.addSpeaker(m);
+        t.save();
+        assertFalse(t.hasVoteFrom(m.login));
+        //si on ajoute un talk en fav
+        new Vote(t, m, true).save();
+
+        //le membre est fan de la session
+        assertTrue(t.hasVoteFrom(m.login));
     }
 }

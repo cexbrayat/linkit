@@ -3,34 +3,74 @@
 #{set 'canonical'}@@{Profile.show(member.login)}#{/set}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/bootstrap-popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script>
+    $(function () {
+      $("a[rel=popover]").popover({
+        offset: 5, placement: 'below'
+      })
+    });
+    var linkAction = #{jsAction @Profile.link(':linker', ':linked') /};
+    var unlinkAction = #{jsAction @Profile.unlink(':linker', ':linked') /};
+    var link = function(){
+        $.get(linkAction({linker: '${session.username}', linked: '${member.login}'}), function(data) {
+            addLinker(data);
+        });
+    };
+    var unlink = function(){
+        $.get(unlinkAction({linker: '${session.username}', linked: '${member.login}'}), function(data) {
+            removeLinker();
+        });
+    };
+    var addLinker = function(data){
+        $('#link').hide();
+        $('#unlink').show();
+        var linkers = $('#linkers').text();
+        var count = linkers.split(' ')[0]++ + 1;
+        $('#linkers').html(count + " linkers");
+        $('#portraits').append(data);
+    };
+    var removeLinker = function(){
+        $('#unlink').hide();
+        $('#link').show();
+        var linkers = $('#linkers').text();
+        var count = linkers.split(' ')[0]++ - 1;
+        $('#linkers').html(count + " linkers");
+        $('#member${session.username}').parent().remove();
+    };
+</script>
 #{/set}
 <div class="hero-unit">
     <div class="row">
         <div class="span2 offset1">
-            #{if member.email}
-            #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
+            #{if member instanceof models.Sponsor}
+                <img src="${member.logoUrl}" style="max-width: 120px; max-height: 120px" alt="Logo ${_arg}" />
             #{/if}
+            #{else}
+                #{if member.email}
+                #{gravatar.img member.email, size:120, default:'mm', rating:'pg', secure:true/}
+                #{/if}
+            #{/else}
             ${member.getNbLooks()} consultation${member.getNbLooks().pluralize()}
             #{if session.get("username") != null && !session.get("username").equals(member.login)}
-                #{if !member.hasForLinker(session.get("username"))}
-                    <a class="btn primary large" href="@{Profile.link(session.get("username"), member.login)}">Link</a>
-                #{/if}
-                #{else}
-                    <a class="btn primary large" href="@{Profile.unlink(session.get("username"), member.login)}">Unlink</a>
-                #{/else}
+            <a id="link" #{if member.hasForLinker(session.get("username"))}style="display:none"#{/if} class="btn primary large" onclick="link()" rel="popover" data-content="&{'button.link.note'}" data-original-title="&{'button.link.title'}" data-html="true">Link</a>
+            <a id="unlink" #{if !member.hasForLinker(session.get("username"))}style="display:none"#{/if} class="btn primary large" onclick="unlink()">Unlink</a>
             #{/if}
         </div>
         <div class="span10 offset1">
             <div class="row">
-                <h2 style="font-size: 40px; line-height: 44px;" itemprop="name">${member}</h2>
+                <h2 style="font-size: 40px; line-height: 44px;" itemprop="name">
+                    #{if member.ticketingRegistered}<i class="icon-check" style="color: green"></i> #{/if}
+                    ${member}
+                </h2>
             </div>
             <br/>
             <div class="row" itemprop="description">
-                ${member.shortDescription?.markdown().raw()}
+                #{markdown member.shortDescription /}
             </div>
             <div class="row">
             #{list items:member.getOrderedAccounts(), as:'account'}
-                <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}" rel="twipsy" title="&{'provider.'+account.provider.name()}"></a>
+                <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}" target="_blank" rel="twipsy" title="&{'provider.'+account.provider.name()}"></a>
             #{/list}
             #{if member.sharedLinks}
                 #{list items:member.sharedLinks, as:'link'}
@@ -50,22 +90,15 @@
                 #{member link, short:true, elementId:'linkTo${link.login}' /}
             #{/list}
         </div>
-        <div class="span6 offset1">
-            <h3>${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
+        <div id="portraits" class="span6 offset1">
+            <h3 id="linkers">${member.linkers.size()} #{if member.linkers.size()<=1} linker #{/if}
                 #{else} linker${member.linkers.size().pluralize()} #{/else}</h3>
             #{list items:member.linkers, as:'linker'}
-                #{member linker, short:true, elementId:'linkerTo${link.login}' /}
+                #{member linker, short:true /}
             #{/list}
         </div>
     </div>
     <br/><br/>
-    <!--div class="row">
-        <div class="span6">
-            <p>
-            <h2>#{socialbar/}</h2>
-            </p>
-        </div>
-    </div-->
     <div class="row">
         <div class="span12 offset1">
             <ul class="tabs" data-tabs="tabs">
@@ -146,7 +179,7 @@
                 #{if member.longDescription}
                 <div class="tab-pane" id="bio">
                      <div id="longDescription">
-                        ${member.longDescription?.markdown().raw()}
+                        #{markdown member.longDescription /}
                     </div>
                 </div>
                 #{/if}

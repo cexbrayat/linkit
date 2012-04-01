@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.JavaExtensions;
 import models.*;
 import models.serialization.LightningTalkSerializer;
 import models.serialization.SessionCommentSerializer;
@@ -13,36 +14,48 @@ import models.activity.Activity;
 import play.data.validation.Required;
 import play.i18n.Messages;
 
-public class  LightningTalks extends PageController {
+public class LightningTalks extends PageController {
 
     public static void list() {
         List<LightningTalk> sessions = LightningTalk.findAll();
 
         if(JSON.equals(request.format))
         {
-            //TODO JRI add myVote
-            renderJSON(sessions, new LightningTalkSerializer());
+            Member member = Member.findByLogin(Security.connected());
+            renderJSON(sessions, new LightningTalkSerializer(member));
         }
 
         render(sessions);
     }
 
-    public static void create() {
+    public static void create() throws Throwable {
+        SecureLinkIt.checkAccess(); // Connected
         LightningTalk talk = new LightningTalk();
         render("LightningTalks/edit.html", talk);
     }
 
-    public static void edit(final Long sessionId) {
+    public static void edit(final Long sessionId) throws Throwable {
         LightningTalk talk = LightningTalk.findById(sessionId);
+        notFoundIfNull(talk);
+        checkAccess(talk);
+
         render(talk);
     }
     
     public static void show(final Long id)
     {
-        show(id, false);
+        show(id, "", false);
     }
 
-    public static void show(final Long sessionId, boolean noCount) {
+    private static void checkAccess(Session talk) throws Throwable {
+        SecureLinkIt.checkAccess();
+        Member user = Member.findByLogin(Security.connected());
+        if (!(user instanceof Staff || talk.hasSpeaker(user.login))) {
+            unauthorized();
+        }
+    }
+
+    public static void show(final Long sessionId, String slugify, boolean noCount) {
         LightningTalk talk = LightningTalk.findById(sessionId);
         notFoundIfNull(talk);
         // Don't count look when coming from internal redirect
@@ -50,13 +63,18 @@ public class  LightningTalks extends PageController {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
 
-        if(JSON.equals(request.format))
-        {
-            renderJSON(talk, new LightningTalkSerializer());
-        }
-
         List<Activity> activities = Activity.recentsBySession(talk, 1, 5);
         render(talk, activities);
+    }
+    
+    public static void showSession(final Long id)    {
+        LightningTalk talk = LightningTalk.findById(id);
+        notFoundIfNull(talk);
+        if(JSON.equals(request.format))
+        {
+            Member member = Member.findByLogin(Security.connected());
+            renderJSON(talk, new LightningTalkSerializer(member));
+        }
     }
 
     public static void save(LightningTalk talk, String[] interests, String newInterests) {
@@ -75,9 +93,9 @@ public class  LightningTalks extends PageController {
             render("LightningTalks/edit.html", talk);
         }
         talk.update();
-        flash.success("LightningTalk " + talk + " enregistré");
-        Logger.info("LightningTalk " + talk + " enregistré");
-        show(talk.id, true);
+        flash.success("LightningTalk %s enregistré", talk);
+        Logger.info("LightningTalk %s enregistré", talk);
+        show(talk.id, JavaExtensions.slugify(talk.title), true);
     }
 
     public static void listComments(final Long id) {
@@ -102,7 +120,7 @@ public class  LightningTalks extends PageController {
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(id, true);
+        show(id, "", true);
     }
 
     public static void delete(final Long sessionId) {

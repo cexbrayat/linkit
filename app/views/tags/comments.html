@@ -2,7 +2,7 @@
 
 #{if _arg}
     <section id="comments">
-        <h3>Vos commentaires :</h3>
+        <h4>Vos commentaires :</h4>
         #{list items:_arg, as:"comment"}
         <hr/>
         <section id="comment${comment.id}">
@@ -12,7 +12,7 @@
                     ${comment.postedAt.format('dd/MM/yyyy hh:mm:ss')}
                 </div>
                 <div class="span13">
-                    <p>${comment.content.markdown().raw()}</p>
+                    <p>#{markdown comment.content /}</p>
                 </div>
             </div>
         </section>

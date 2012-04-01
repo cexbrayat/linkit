@@ -1,5 +1,20 @@
 #{extends 'main.html' /}
 #{set title:'Editer une session' /}
+#{set 'moreScripts'}
+<!-- Requirements for managing form dirtiness -->
+<script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
+<script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
+<script src="@{'/public/javascripts/dirtiness.js'}"></script>
+<!-- End Requirements for managing form dirtiness -->
+<script src="@{'/public/javascripts/limitcountdown.js'}"></script>
+<script lang="text/javascript">
+    $(function() {
+        registerLimited('#talk_title', '#talk_titleCountdown', 50, "&{'remainingChars'}");
+        registerLimited('#talk_summary', '#talk_summaryCountdown', 140, "&{'remainingChars'}");
+    });
+</script>
+#{/set}
+#{dirtyDialog/}
 
 <div class="container">
     <div class="page-header"> 
@@ -13,7 +28,7 @@
                 #{/}
 
             <fieldset> 
-                <legend>Descriptif de cette session</legend>
+                <legend>&{'talk.descriptive.section'}</legend>
 
                 #{field 'talk.track'}
                 <div class="clearfix ${field.error?'error':''}"> 
@@ -34,7 +49,8 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxsize="50" type="text" value="${field.value}" />
+                        <input class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="50" type="text" value="${field.value}" />
+                        <span class="help-block" id="${field.id}Countdown" style="font-weight: bold">countdown</span>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -46,6 +62,7 @@
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="140" rows="2">${field.value}</textarea>
+                        <span class="help-block" id="${field.id}Countdown" style="font-weight: bold">countdown</span>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
@@ -65,8 +82,6 @@
 
             </fieldset>
             <fieldset>
-                <legend>Les infos</legend>
-
                 #{field 'talk.speakers'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
@@ -90,7 +105,7 @@
                         <ul class="inputs-list">
                             #{list items:models.Interest.findAllOrdered(), as:'interest'}
                             <span class="checkbox">
-                                <li><label><input type="checkbox" name="interests" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} /> <span>${interest.name}</span></label></li>
+                                <li><label><input type="checkbox" name="interests" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} /> <span>${interest}</span></label></li>
                             </span>
 
                             #{/list}
@@ -115,12 +130,12 @@
                 #{/}
             </fieldset>
             <div class="actions">
-                <input type="submit" class="btn primary large" value="Enregistrer"/>
+                <input type="submit" class="btn primary large" value="&{'button.save'}"/>
                 #{if talk.id}
-                <a href="@{Sessions.show(talk.id)}" class="btn large">Annuler</a>
+                <a href="@{Sessions.show(talk.id, talk.title.slugify())}" class="btn large">&{'button.cancel'}</a>
                 #{/if}
                 #{else}
-                <a href="@{Sessions.index()}" class="btn large">Annuler</a>
+                <a href="@{Sessions.index()}" class="btn large">&{'button.cancel'}</a>
                 #{/else}
             </div>
             #{/form}

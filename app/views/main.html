@@ -7,9 +7,12 @@
         <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/bootstrap.less'}">
         <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/linkit.less'}">
         <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/networks.css'}">
+        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/font-awesome.css'}">
         #{if canonical}<link rel="canonical" href="#{get 'canonical' /}">#{/if}
         #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="author" href="humans.txt" />
         <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         <script src="@{'/public/javascripts/bootstrap-twipsy.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         <script src="@{'/public/javascripts/bootstrap-dropdown.js'}" type="text/javascript" charset="${_response_encoding}"></script>
@@ -23,17 +26,42 @@
           </script> 
         #{get 'moreScripts' /}
         <script type="text/javascript">
-
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', '${play.configuration.getProperty("application.analytics.trackingId")}']);
-          _gaq.push(['_trackPageview']);
-
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-
+*{/ Pure websockets : ne fonctionne pas sous Chrome 16 avec Play 1.2.4
+            #{if session.username}
+            $(document).ready(function() {
+                if(window.MozWebSocket) window.WebSocket = window.MozWebSocket;
+                window.socket = new WebSocket('@@{LiveActivities.listen}');
+                window.socket.onopen = function(event) {
+                    console.log('connect');
+                    var msg = new Object();
+                    msg.id = '${session.username}';
+                    msg.connect = true;
+                    window.socket.send(JSON.stringify(msg));
+                }
+                window.socket.onclose = function(event) {
+                    console.log('disconnect');
+                    var msg = new Object();
+                    msg.id = '${session.username}';
+                    msg.connect = false;
+                    window.socket.send(JSON.stringify(msg));
+                }
+                window.socket.onmessage = function(event) {
+                    console.log(event.data);
+                }
+                window.socket.onerror = function(event) {
+                    console.log('Websocket error : ' + event);
+                }
+            });
+            #{/if}
+}*
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '${play.configuration.getProperty("application.analytics.trackingId")}']);
+            _gaq.push(['_trackPageview']);
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
         </script>
     </head>
     <body itemscope itemtype="http://schema.org/Product" style="padding-top: 60px;" > *{ 60px is navigation bar space }*
@@ -47,19 +75,21 @@
                         #{/if}
                         <li #{if request.controller=="Articles"}class="active"#{/if}><a href="@{Articles.index()}">&{'menu.news'}</a></li>
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle">&{'menu.agenda'}</a>
+                            <a class="dropdown-toggle" href="#">&{'menu.agenda'}</a>
                             <ul class="dropdown-menu">
                                 <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
                                 <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
+*{ Fermeture du CFP
                             #{if session.username}
                                 <li class="divider"></li>
                                 <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                             #{/if}
-                                <!--<li><a href="@{Plannings.index()}">Agenda</a></li>-->
+}*
+                            *{<li><a href="@{Plannings.index()}">Agenda</a></li>}*
                             </ul>
                         </li>
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle">&{'menu.members'}</a>
+                            <a class="dropdown-toggle" href="#">&{'menu.members'}</a>
                             <ul class="dropdown-menu">
                                 <li #{if request.action=="Application.speakers"}class="active"#{/if}><a href="@{Application.speakers()}">&{'menu.members.speakers'}</a></li>
                                 #{if session.username}
@@ -71,7 +101,7 @@
                         </li>
                         
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle">&{'menu.infos'}</a>
+                            <a class="dropdown-toggle" href="#">&{'menu.infos'}</a>
                             <ul class="dropdown-menu">
                                 <li #{if request.action=="Infos.about"}class="active"#{/if}><a href="@{Infos.about()}">&{'menu.infos.about'}</a></li>
                                 <li #{if request.action=="Infos.faq"}class="active"#{/if}><a href="@{Infos.faq()}">&{'menu.infos.faq'}</a></li>
@@ -87,16 +117,17 @@
                         
                         #{secure.check 'admin'}
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle">Admin</a>
+                            <a class="dropdown-toggle" href="#">Admin</a>
                             <ul class="dropdown-menu">
                                 <li><a href="/admin">On dirait le CRUD</a></li>
                                 <li class="divider"></li>
                                 <li><a href="@{Articles.create()}">Créer un article</a></li>
                                 <li><a href="@{Sessions.create()}">Créer une session</a></li>
-                                <li><a href="@{Interests.edit()}">Modérer les intérêts</a></li>
                                 <li class="divider"></li>
+                                <li><a href="@{Interests.edit()}">Modérer les intérêts</a></li>
+                                <li><a href="@{Operations.index()}">Opérations d'administration</a></li>
                                 <li><a href="@{Mailings.index()}">Mailings</a></li>
-
+                                <li><a href="@{Exports.index()}">Exports</a></li>
                             </ul>
                         </li>
                         #{/secure.check}
@@ -104,11 +135,12 @@
                     <ul class="nav secondary-nav pull-right">
                         #{if session.username} 
                         <li class="dropdown" data-dropdown="dropdown">
-                            <a class="dropdown-toggle">#{member models.Member.findByLogin(session.username), static:true /}</a>
+                            <a class="dropdown-toggle" href="#">#{member models.Member.findByLogin(session.username), static:true /}</a>
                             <ul class="dropdown-menu">
                                 <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
                                 <li><a href="@{Profile.show(session.username)}">&{'menu.login.profile'}</a></li>
                                 <li><a href="@{Profile.edit()}">&{'menu.login.edit'}</a></li>
+                                <li><a href="@{Dashboard.settings()}">&{'menu.login.settings'}</a></li>
                                 <li class="divider"></li>
                                 <li><a href="@{Secure.logout()}">&{'menu.login.logout'}</a></li>
                             </ul>
@@ -118,7 +150,7 @@
                         <li><a href="@{Login.index()}" title="Se connecter">&{'menu.login'}</a></li>
                         #{/else}
                     </ul>
-                    <form action="@{Application.search}" method="GET" class="pull-right">
+                    <form id="formTopbarSearch" action="@{Application.search}" method="GET" class="pull-right ignoredirty">
                         #{field 'query'}
                         <input type="search" style="width: auto" id="${field.id}" name="${field.name}" placeholder="&{'menu.search'}" value="${params.query}" />
                         #{/field}
@@ -144,15 +176,12 @@
         <div class="container">
             #{if sponsors}
             <div class="row">
-                <!--ul class="media-grid"-->
+                <div class="span2">&nbsp;</div>
                 #{list items:sponsors, as:'sponsor'}
-                <!--li class="sponsor"-->
-                <div class="span3" style="text-align: center">
-                    <a href="@{Profile.show(sponsor.login)}"><!--img src="${sponsor.logoUrl}" /-->${sponsor.toString()}</a>
+                <div class="span2" style="text-align: center">
+                    <a href="@{Profile.show(sponsor.login)}">${sponsor.toString()}</a>
                 </div>
-                <!--/li-->
                 #{/list}
-                <!--/ul-->
             </div>
             #{/if}
             <br/>
@@ -169,7 +198,7 @@
                 <div class="span4" style="text-align: center">
                     Bugs, suggestions : <a href="https://trello.com/board/mix-it-2012/4f1b9ce056cf07e52f0072f7" target="blank"><img src="@{'/public/images/icon_trello_sm.png'}" title="Trello (Suggestions, bugs, ...)" height="20px" style="vertical-align: middle" /></a>
                 </div>
-                <div class="span4" style="text-align: center">
+                <div class="span4" style="text-align: right">
                     &copy; 2012 Mix-IT
                 </div>
             </div>

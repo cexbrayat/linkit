@@ -23,6 +23,7 @@ public class Staff extends Member {
         ROLES.add(Role.ADMIN_MEMBER);
         ROLES.add(Role.ADMIN_PLANNING);
         ROLES.add(Role.ADMIN_ARTICLE);
+        ROLES.add(Role.ADMIN_INTEREST);
     }
 
     public Staff(String login) {
@@ -35,5 +36,10 @@ public class Staff extends Member {
     public boolean hasRole(String profile) {
         return ROLES.contains(profile);
     }
-    
+
+    @Override
+    public void setTicketingRegistered(boolean ticketingRegistered) {
+        // A staff member is always registered
+        this.ticketingRegistered = true;
+    }
 }

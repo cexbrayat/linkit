@@ -1,7 +1,7 @@
 tmp/
 modules/
 precompiled/
-conf/*.bees
+conf/secrets*
 logs/
 test-result/
 nbproject/
@@ -14,5 +14,4 @@ eclipse/
 .idea/
 out/
 lib/
-
 cobertura.ser

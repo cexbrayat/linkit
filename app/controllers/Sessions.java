@@ -1,25 +1,23 @@
 package controllers;
 
+import helpers.JavaExtensions;
 import helpers.Lists;
+import models.*;
+import models.serialization.LightningTalkSerializer;
 import models.serialization.SessionCommentSerializer;
 import models.serialization.SessionSerializer;
-import play.*;
-
-import java.util.*;
-
-import models.SessionComment;
-import models.Member;
-import models.Role;
-import models.Session;
-import models.Talk;
-import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
+import play.Logger;
 import play.cache.Cache;
 import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.data.validation.Validation;
 import play.i18n.Messages;
 import play.libs.Images;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Sessions extends PageController {
 
@@ -30,30 +28,63 @@ public class Sessions extends PageController {
         } else {
             sessions = Talk.findAllValidated();
         }
+        Collections.shuffle(sessions);
         Logger.info(sessions.size() + " sessions");
         if (JSON.equals(request.format)) {
-            renderJSON(sessions, new SessionSerializer());
+            renderJSON(sessions, new SessionSerializer(), new LightningTalkSerializer(null));
         }
         render("Sessions/list.html", sessions);
     }
 
-    public static void create(final String speakerLogin) {
+    public static void create(final String speakerLogin) throws Throwable {
+        
+        // Fermeture du CFP
+        forbidden("Le Call for Paper est désormais terminé. Rendez-vous l'année prochaine!");
+        
+        SecureLinkIt.checkAccess(); // Connected
+        
         Member speaker = Member.findByLogin(speakerLogin);
         Talk talk = new Talk();
-        talk.addSpeaker(speaker);
+        if (speaker != null) {
+            talk.addSpeaker(speaker);
+        }
         List<Member> speakers = speakersFor(talk, speaker);
         render("Sessions/edit.html", talk, speakers);
     }
 
-    public static void edit(final Long sessionId) {
-        Session talk = Session.findById(sessionId);
-        Member member = Member.findByLogin(Security.connected());
+    private static void checkAccess(Session talk) throws Throwable {
+        // No need to be 
+        // SecureLinkIt.checkAccess();
+        Member user = Member.findByLogin(Security.connected());
+        if (talk.valid || (user instanceof Staff) || talk.hasSpeaker(Security.connected())) {
+            // alright!
+        } else {
+            flash.error("Vous n'avez pas accès à cette fonctionnalité");
+            index();
+        }
+    }
 
+    public static void edit(final Long sessionId) throws Throwable {
+        Session talk = Session.findById(sessionId);
+        notFoundIfNull(talk);
+        checkAccess(talk);
+
+        Member member = Member.findByLogin(Security.connected());
+        
         List<Member> speakers = speakersFor(talk, member);
 
         render(talk, speakers);
     }
 
+    public static void delete(final Long sessionId) throws Throwable {
+        Session talk = Session.findById(sessionId);
+        notFoundIfNull(talk);
+        checkAccess(talk);
+
+        talk.delete();
+        index();
+    }
+    
     private static List<Member> speakersFor(Session talk, Member member) {
         List<Member> speakers = Member.findAll();
         // Put actual speakers in top of list
@@ -66,16 +97,17 @@ public class Sessions extends PageController {
         }
         return speakers;
     }
-
-    public static void show(final Long sessionId, String slugify, boolean noCount) {
+    
+    public static void show(final Long sessionId, String slugify, boolean noCount) throws Throwable {
         Session talk = Session.findById(sessionId);
+        notFoundIfNull(talk);
+        checkAccess(talk);
+
         // Don't count look when coming from internal redirect
         if (!noCount) {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
-
-        List<Activity> activities = Activity.recentsBySession(talk, 1, 5);
-        render(talk, activities);
+        render(talk);
     }
 
     public static void showSession(final Long id) {
@@ -85,7 +117,7 @@ public class Sessions extends PageController {
         talk.lookedBy(Member.findByLogin(Security.connected()));
 
         if (JSON.equals(request.format)) {
-            renderJSON(talk, new SessionSerializer());
+            renderJSON(talk, new SessionSerializer(), new LightningTalkSerializer(null));
         }
     }
 
@@ -99,9 +131,11 @@ public class Sessions extends PageController {
 
     @Check("member")
     public static void postComment(
-            Long id,
-            @Required String content) {
-        Session talk = Session.findById(id);
+            Long talkId,
+            @Required String content) throws Throwable {
+        Session talk = Session.findById(talkId);
+        notFoundIfNull(talk);
+
         if (Validation.hasErrors()) {
             render("Sessions/show.html", talk);
         }
@@ -110,7 +144,7 @@ public class Sessions extends PageController {
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(id, null, true);
+        show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 
     public static void captcha(String id) {
@@ -120,8 +154,8 @@ public class Sessions extends PageController {
         renderBinary(captcha);
     }
 
-    public static void save(@Valid Talk talk, String[] interests, String newInterests) {
-        Logger.info("Tentative d'enregistrement de la session " + talk);
+    public static void save(@Valid Talk talk, String[] interests, String newInterests) throws Throwable {
+        Logger.info("Tentative d'enregistrement de la session %s", talk);
         if (interests != null) {
             talk.updateInterests(interests);
         }
@@ -135,20 +169,25 @@ public class Sessions extends PageController {
             render("Sessions/edit.html", talk, speakers);
         }
         talk.update();
-        flash.success("Session " + talk + " enregistrée");
-        Logger.info("Session " + talk + " enregistrée");
-        show(talk.id, null, true);
+        flash.success("Session %s enregistrée", talk);
+        Logger.info("Session %s enregistrée", talk);
+        show(talk.id, JavaExtensions.slugify(talk.title), true);
     }
-
-    public static void validate(long talkId) {
+    
+    public static void validate(long talkId) throws Throwable {
         Talk talk = Talk.findById(talkId);
+        notFoundIfNull(talk);
+
         talk.validate();
-        show(talkId, null, true);
+        show(talkId, JavaExtensions.slugify(talk.title), true);
+    }
+    
+    public static void unvalidate(long talkId) throws Throwable {
+        Talk talk = Talk.findById(talkId);
+        notFoundIfNull(talk);
+
+        talk.unvalidate();
+        show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 
-    public static void unvalidate(long talkId) {
-        Talk talk = Talk.findById(talkId);
-        talk.unvalidate();
-        show(talkId, null, true);
-    }
 }

@@ -11,7 +11,6 @@ import models.Member;
 import models.ProviderType;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import play.Logger;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 

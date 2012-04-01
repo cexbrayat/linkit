@@ -7,9 +7,7 @@ import javax.persistence.Enumerated;
 import models.Badge;
 import models.Member;
 import models.ProviderType;
-import play.i18n.Messages;
 import play.mvc.Router;
-import play.mvc.Scope;
 
 /**
  * A "badge earned" activity : someone ({@link Activity#member}) earned a badge ({@link EarnBadgeActivity#badge})
@@ -22,16 +20,11 @@ public class EarnBadgeActivity extends Activity {
     public Badge badge;
 
     public EarnBadgeActivity(Member member, Badge badge) {
-        super(ProviderType.LinkIt);
+        super(ProviderType.LinkIt, 2);
         this.member = member;
         this.badge = badge;
         // Useless badge computation
         this.badgeComputationDone = true;
-    }
-
-    @Override
-    public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member, badge);
     }
 
     @Override

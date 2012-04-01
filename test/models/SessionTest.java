@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Arrays;
 import org.apache.commons.lang.StringUtils;
 import org.junit.*;
 
@@ -18,28 +19,34 @@ public class SessionTest extends BaseDataUnitTest {
         assertTrue(session.description.length()>4000);
         session.save();
     }
-    
-        @Test
-    public void testInterests() {
-        Session session1 = new Talk();
-        Session session2 = new Talk();
 
-        // Well
-        assertEquals(0, Session.findSessionsLinkedWith("Java").size());
+    @Test
+    public void findSessionsLinkedWith() {
+        final Talk talk1 = new Talk().save();
+        talk1.validate();
+        final Session lightning2 = new LightningTalk().save();
+        final Talk talkInvalid = new Talk().save();
+        talkInvalid.unvalidate();
+
+        final String interest1 = "interest1";
+        final String interest2 = "interest2";
+        assertEquals(0, Session.findLinkedWith(Interest.findOrCreateByName(interest1)).size());
 
         // Add interest now
-        session1.addInterest("Java").addInterest("TDD").addInterest("Hadoop").save();
-        session2.addInterest("Java").save();
+        talk1.addInterest(interest1).addInterest(interest2).save();
+        lightning2.addInterest(interest1).save();
+        talkInvalid.addInterest(interest1).save();
 
         // Simple Check
-        assertEquals(2, Session.findSessionsLinkedWith("Java").size());
-        assertEquals(1, Session.findSessionsLinkedWith("TDD").size());
-        assertEquals(1, Session.findSessionsLinkedWith("Hadoop").size());
-
+        assertEquals(Arrays.asList(talk1, lightning2), Session.findLinkedWith(Interest.findByName(interest1)));
+        assertEquals(Arrays.asList(talk1), Session.findLinkedWith(Interest.findByName(interest2)));
     }
     
-    @Test public void lookBy() {
+    @Test public void lookByValid() {
         final Session session = Session.all().first();
+        // Ensure session valid
+        session.valid = true;
+        session.save();
         final Member speaker = session.speakers.iterator().next();
         final Member ced = Member.findByLogin("ced");
         final long nbLooks = session.getNbLooks();
@@ -52,5 +59,35 @@ public class SessionTest extends BaseDataUnitTest {
         assertEquals(nbLooks+1, session.getNbLooks());
         session.lookedBy(null);
         assertEquals(nbLooks+2, session.getNbLooks());
+    }
+    
+    @Test public void lookByNonValid() {
+        final Session session = Session.all().first();
+        // Ensure session non valid
+        session.valid = false;
+        session.save();
+        final Member ced = Member.findByLogin("ced");
+        final long nbLooks = session.getNbLooks();
+
+        // Even if a non valid session is displayed, it is not counted
+        session.lookedBy(ced);
+        session.lookedBy(null);
+        assertEquals(nbLooks, session.getNbLooks());
+    }
+    
+    @Test public void hasSpeakerNull() {
+        final Session session = Session.all().first();
+        assertFalse(session.hasSpeaker(null));
+    }
+    
+    @Test public void hasSpeakerBlank() {
+        final Session session = Session.all().first();
+        assertFalse(session.hasSpeaker(""));
+    }
+    
+    @Test public void hasSpeakerOK() {
+        final Session session = Session.all().first();
+        final Member speaker = session.speakers.iterator().next();
+        assertTrue(session.hasSpeaker(speaker.login));
     }
 }

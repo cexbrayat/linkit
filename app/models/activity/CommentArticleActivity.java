@@ -1,14 +1,13 @@
 package models.activity;
 
+import helpers.JavaExtensions;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import models.ArticleComment;
 import models.Member;
 import models.Article;
 import play.data.validation.Required;
-import play.i18n.Messages;
 import play.mvc.Router;
-import play.mvc.Scope;
 
 /**
  * A comment activity : someone ({@link Activity#member} commented on a Article ({@link Activity#Article}
@@ -29,15 +28,11 @@ public class CommentArticleActivity extends CommentActivity {
     }
 
     @Override
-    public String getMessage(Scope.Session s) {
-        return Messages.get(getMessageKey(), member, article, comment);
-    }
-
-    @Override
     public String getUrl() {
         return Router
                 .reverse("Articles.show")
                 .add("articleId", article.id)
+                .add("slugify", JavaExtensions.slugify(article.title))
                 .addRef("comment"+comment.id)
                 .url;
     }

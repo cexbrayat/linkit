@@ -1,79 +1,24 @@
 #{extends 'main.html' /}
 #{set title:'Inscription' /}
-#{set 'moreScripts'}
-<script language="Javascript" type="text/javascript" src="@{'/public/javascripts/jquery.lwtCountdown-1.0.js'}"></script>
-<script language="javascript" type="text/javascript">
-    jQuery(document).ready(function()
-    {
-        $('#countdown').countDown({
-              targetDate: {
-                  'day': 07,
-                  'month': 2,
-                  'year': 2012,
-                  'hour': 12,
-                  'min': 0,
-                  'sec': 0
-              }
-                });
-    });
-</script>
-#{/set}
 
 
-<h1>Inscription</h1>
-    <!-- FIXME le 07/02 ouverture billeterie le 07/02!
-{if session.username} <p>
-{ticketing member/}</p>
-{/if}
--->
-
-<h3>Ouverture de la billeterie dans:</h3>
-<div id="countdown">
-    <div class="dash weeks_dash">
-    <span class="dash_title">semaines</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash days_dash">
-    <span class="dash_title">jours</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash hours_dash">
-    <span class="dash_title">heures</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash minutes_dash">
-    <span class="dash_title">minutes</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-    <div class="dash seconds_dash">
-    <span class="dash_title">secondes</span>
-
-    <div class="digit">0</div>
-    <div class="digit">0</div>
-    </div>
-
-</div>
+<h1>&{'registration.title'}</h1>
+<p><strong>&{'button.ticketing.price'}</strong><br/>
+    &{'registration.directives'}</p>
+#{if session.username}
+<p>#{ticketing member/}</p>
+#{/if}
 
 #{if !session.username}
-    <!-- FIXME le 07/02 ouverture billeterie le 07/02! -->
 <ol>
-    <li><h3><a href="@{Login.index()}">Créer-vous un compte Mix-IT</a></h3></li>
-    <li><h3>Quand la billeterie sera ouverte : payez votre billet via votre Dashboard Mix-IT</h3></li>
+    <li><h3><a href="@{Login.index()}">&{'registration.step1.create.account'}</a></h3>
+        &{'registration.step1.create.account.why'}
+        <br />
+        &{'registration.step1.alternative'} <a href="${helpers.ticketing.WeezEvent.REGISTRATION_URL}" rel='twipsy' title="Prix: 30 euros" data-placement="right" onclick="var w=window.open('${helpers.ticketing.WeezEvent.REGISTRATION_URL}', 'weezevent', 'width=650, height=450, top=100, left=100, toolbar=no, resizable=yes, scrollbars=yes, status=no'); w.focus(); return false;">WeezEvent</a>
+    </li>
+    <li><h3>&{'registration.step2.ticketing.unsigned'}</h3>
+    &{'registration.warning.email'}
+    </li>
 </ol>
 #{/if}
-#{else}
-    <h3>Quand la billeterie sera ouverte : n'oubliez pas de vérifier si vous avez payé votre billet</h3>
-#{/else}
 

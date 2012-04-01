@@ -1,26 +1,31 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import models.*;
-
 import models.serialization.MemberSerializer;
+import models.serialization.SponsorSerializer;
+import models.serialization.StaffSerializer;
 import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
-
 import play.Logger;
 import play.data.validation.CheckWith;
 import play.data.validation.Email;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
-import play.data.validation.Validation.ValidationResult;
 import play.i18n.Messages;
+import play.mvc.With;
+import play.templates.Template;
+import play.templates.TemplateLoader;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@With(SecureLinkIt.class)
 public class Profile extends PageController {
 
     public static void edit() {
         Member member = Member.findByLogin(Security.connected());
+        if (member == null) Login.index(request.url);
+
         Logger.info("Edition du profil " + member);
         String originalLogin = member.login;
         render(member, originalLogin);
@@ -28,6 +33,8 @@ public class Profile extends PageController {
 
     public static void register(String login, ProviderType provider) {
         Member member = Member.getPreregistered(login);
+        notFoundIfNull(login);
+
         Logger.info("Création du profil %s", member);
         String originalLogin = login;
         ProviderType registrationProvider = provider;
@@ -65,11 +72,12 @@ public class Profile extends PageController {
         } else {
             member = Member.findById(id);
         }
+        notFoundIfNull(member);
 
         member.login = login;
         member.firstname = firstname;
-        member.shortDescription = shortDescription;
-        member.longDescription = longDescription;
+        member.setShortDescription(shortDescription);
+        member.setLongDescription(longDescription);
         member.email = email;
         member.lastname = lastname;
         member.company = company;
@@ -122,15 +130,14 @@ public class Profile extends PageController {
             member.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
         }
 
-        List<SharedLink> validatedSharedLinks = new ArrayList<SharedLink>(sharedLinks.size());
+        List<SharedLink> newSharedLinks = new ArrayList<SharedLink>(sharedLinks.size());
         for (SharedLink link : sharedLinks) {
             if (StringUtils.isNotBlank(link.name) || StringUtils.isNotBlank(link.URL)) {
                 link.URL = cleanSharedLinkURL(link.URL);
-                validatedSharedLinks.add(link);
+                newSharedLinks.add(link);
             }
         }
-        member.updateSharedLinks(validatedSharedLinks);
-        validation.valid("sharedLinks", member.sharedLinks);
+        validation.valid("sharedLinks", newSharedLinks);
 
         // Login unicity
         Member other = Member.findByLogin(login);
@@ -147,13 +154,18 @@ public class Profile extends PageController {
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
             flash.error(Messages.get("validation.errors"));
-            render("Profile/edit.html", member, originalLogin, newInterests, sharedLinks);
+            // Set actual new sharedLinks on member, even if not validated, to serve values typed by user
+            member.sharedLinks = newSharedLinks;
+            render("Profile/edit.html", member, originalLogin, newInterests);
         }
+
+        // Don't set new shared links on Member before being sure validation OK to avoid false new SharedLinkActivity
+        member.updateSharedLinks(newSharedLinks);
 
         if (registration) {
             member.register(originalLogin);
         } else {
-            member.updateProfile();
+            member.updateProfile(true);
         }
 
         session.put("username", member.login);
@@ -164,14 +176,13 @@ public class Profile extends PageController {
         show(member.login);
     }
 
-    @Check("member") //TODO add the test
     public static void list() {
         Logger.info("List of members");
         if (Security.isConnected()) {
             Logger.info("Connected " + Security.connected());
             List<Member> members = Member.findAll();
             if (JSON.equals(request.format)) {
-                renderJSON(members, new MemberSerializer());
+                renderJSON(members, new MemberSerializer(), new SponsorSerializer(), new StaffSerializer());
             }
         }
         else{
@@ -180,13 +191,12 @@ public class Profile extends PageController {
         }
     }
 
-    @Check("member") //TODO add the test
     public static void showById(final Long id) {
         Member member = Member.findById(id);
         notFoundIfNull(member);
         member.lookedBy(Member.findByLogin(Security.connected()));
         if (JSON.equals(request.format)) {
-            renderJSON(member, new MemberSerializer());
+            renderJSON(member, new MemberSerializer(), new SponsorSerializer(), new StaffSerializer());
         }
     }
 
@@ -194,36 +204,39 @@ public class Profile extends PageController {
 // FIXME CLA Member.fetchForProfile
 //      Member member = Member.fetchForProfile(login);
         Member member = Member.findByLogin(login);
+        notFoundIfNull(member);
+
         member.lookedBy(Member.findByLogin(Security.connected()));
         Logger.info("Show profil %s", member);
         render(member);
     }
 
-    public static void link(String login, String loginToLink) {
-        if (login == null || login.isEmpty()) {
-            redirect("/secure/login");
-        }
+    public static String link(String login, String loginToLink) {
+        if (StringUtils.isBlank(login)) Login.index(null);
         Member.addLink(login, loginToLink);
-        flash.success("Link ajouté!");
-        show(loginToLink);
+        Member member = Member.findByLogin(login);
+        renderArgs.put("_arg", member);
+        renderArgs.put("_short", true);
+        Template template = TemplateLoader.load(template("tags/member.html"));
+        Logger.info("Template:"+template.render(renderArgs.data));
+        return template.render(renderArgs.data);
     }
 
     public static void unlink(String login, String loginToLink) {
-        if (login == null || login.isEmpty()) {
-            redirect("/secure/login");
-        }
+        if (StringUtils.isBlank(login)) Login.index(null);
         Member.removeLink(login, loginToLink);
-        flash.success("Link supprimé!");
-        show(loginToLink);
     }
 
     public static void delete() throws Throwable {
         Member member = Member.findByLogin(Security.connected());
+        if (member == null) Login.index(null);
         render(member);
     }
 
     public static void confirmDelete() throws Throwable {
         Member member = Member.findByLogin(Security.connected());
+        if (member == null) Login.index(null);
+
         if (member instanceof Staff) {
             flash.error("Désolé mec, on ne supprime pas les mecs du staff! Trop tard, on est dans le même bateau, on coule avec! Non plus sérieusement, c'est parce que tu es potentiellement auteur d'articles et lié à d'autres données qu'on ne peut pas supprimer...");
             show(member.login);

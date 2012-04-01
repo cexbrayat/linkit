@@ -1,4 +1,29 @@
 #{extends 'main.html' /}
 #{set title:'Les sessions' /}
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/bootstrap-alerts.js'}"></script>
+#{/set}
+#{set 'moreStyles'}
+<link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
+#{/set}
+
+*{ Fermeture du CFP
+<div class="alert-message block-message info" data-alert>
+    <a class="close" href="#">×</a>
+    <p>
+        Tout participant peut <strong>proposer une session</strong>.<strong>Vous avez jusqu'au 15 mars 2012!</strong><br/>
+        Pourquoi ne pas tenter votre chance? C'est l'occasion de briller tout en participant activement à la communauté!
+    </p>
+    <p>Vous pourrez accéder et éditer vos propositions depuis votre dashboard. Après soumission, le comité d'organisation décidera ou non de sa sélection.</p>
+    <div class='alert-actions'>
+    #{if session.username}
+        <a class="btn" href="@{Sessions.create(session.username)}" title="Proposer une session">&{'talk.submit'}</a>
+    #{/if}
+    #{else}
+        <a href="@{Login.index(request.url)}" title="Se connecter" class="btn">Connectez-vous</a> pour proposer une session.
+    #{/else}
+    </div>
+</div>
+}*
 
 #{sessions sessions:sessions/}

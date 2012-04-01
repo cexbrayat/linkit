@@ -13,7 +13,7 @@ public class ArticleTest extends BaseDataUnitTest {
     @Test
     public void saveWithBigContent() {
         final Member author = Member.all().first();
-        Article article = new Article(author);
+        Article article = createArticle("test", author);
         String content = StringUtils.leftPad("testwith4000char", 4000+3000, "a");
         article.content = content;
         assertTrue(article.content.length()>4000);
@@ -32,14 +32,32 @@ public class ArticleTest extends BaseDataUnitTest {
     
     @Test
     public void findFollowing() {
-        final Article current = Article.all().first();
-        current.findFollowing();
+        final Member author = Member.all().first();
+        final Article a1 = createArticle("titre1 valide", author);
+        a1.validate();
+        final Article a2 = createArticle("titre2 non valide", author);
+        final Article a3 = createArticle("titre3 valide", author);
+        a3.validate();
+        final Article a4 = createArticle("titre4 non valide", author);
+        final Article a5 = createArticle("titre5 valide", author);
+        a5.validate();
+        Article current = Article.findById(a1.id);
+        assertSame(a3, current.findFollowing());
     }
     
     @Test
     public void findPrevious() {
-        final Article current = Article.all().first();
-        current.findPrevious();
+        final Member author = Member.all().first();
+        final Article a1 = createArticle("titre1 valide", author);
+        a1.validate();
+        final Article a2 = createArticle("titre2 non valide", author);
+        final Article a3 = createArticle("titre3 valide", author);
+        a3.validate();
+        final Article a4 = createArticle("titre4 non valide", author);
+        final Article a5 = createArticle("titre5 valide", author);
+        a5.validate();
+        Article current = Article.findById(a5.id);
+        assertSame(a3, current.findPrevious());
     }
     
     private Member createMember(String login) {
@@ -62,12 +80,15 @@ public class ArticleTest extends BaseDataUnitTest {
         assertEquals(nbLooks+2, article.getNbLooks());
     }
     
+    private Article createArticle(String title, Member author) {
+        return new Article(author, title).save();
+    }
+    
     @Test public void validate() {
         final long nbPublicArticles = Article.count("valid=true");
         
         final Member author = Member.all().first();
-        Article a = new Article(author);
-        a.save();
+        Article a = createArticle("test", author);
         assertEquals(nbPublicArticles, Article.count("valid=true"));
         final Date initialDate = a.postedAt;
         
@@ -79,7 +100,7 @@ public class ArticleTest extends BaseDataUnitTest {
     @Test public void unvalidate() {
         
         final Member author = Member.all().first();
-        Article a = new Article(author);
+        Article a = createArticle("test", author);
         a.validate();
 
         final long nbPublicArticles = Article.count("valid=true");
@@ -91,7 +112,7 @@ public class ArticleTest extends BaseDataUnitTest {
     @Test public void delete() {
         
         final Member author = Member.all().first();
-        Article a = new Article(author);
+        Article a = createArticle("test", author);
         a.validate();
         a.addComment(new ArticleComment(author, a, "commentaire"));
         a.addComment(new ArticleComment(author, a, "autre commentaire"));

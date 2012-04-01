@@ -1,14 +1,24 @@
 #{extends 'main.html' /}
 #{set title:'Les lightning talks' /}
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/bootstrap-alerts.js'}"></script>
+#{/set}
 
-<h2>Mais qu'est-ce qu'un lightning talk ?</h2>
-<p>Lorem ipsum de la description d'un lightning talk</p>
 
-#{if session.username}
-<p>
-    Pourquoi ne proposeriez-vous pas un <a class="btn primary" href="@{LightningTalks.create()}">lightning talk</a> ?
-</p>
-#{/if}
+<div class="alert-message block-message" data-alert>
+    <a class="close" href="#">×</a>
+    <p>&{'lightningtalk.short.description'}</p>
+    <p>&{'lightningtalk.long.description'}</p>
+    <p></p>
+    <div class='alert-actions'>
+    #{if session.username}
+        <a class="btn" href="@{LightningTalks.create()}" title="Proposer un Lightning Talk">&{'lightningtalk.submit'}</a>
+    #{/if}
+    #{else}
+        <a href="@{Login.index(request.url)}" title="Se connecter" class="btn">&{'lightningtalk.alert.login'}</a>
+    #{/else}
+    </div>
+</div>
 
 <p>
 #{lightning sessions:sessions, votes:votes/}

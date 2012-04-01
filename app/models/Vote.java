@@ -1,13 +1,11 @@
 package models;
 
+import models.activity.NewVoteActivity;
 import play.data.validation.Required;
-import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
-import java.util.List;
 import javax.persistence.ManyToOne;
-import models.activity.NewVoteActivity;
 
 /**
  * @author Julien Ripault <tluapir@gmail.com>
@@ -17,7 +15,8 @@ public class Vote extends Model {
 
     @Required
     @ManyToOne
-    public LightningTalk session;
+    public Session session;
+    
     @Required
     @ManyToOne
     public Member member;
@@ -27,13 +26,13 @@ public class Vote extends Model {
      */
     public boolean value;
 
-    public Vote(LightningTalk session, Member member, boolean value) {
+    public Vote(Session session, Member member, boolean value) {
         this.session = session;
         this.member = member;
         this.value = value;
     }
 
-    public static long findNumberOfVotesBySession(LightningTalk session) {
+    public static long findNumberOfVotesBySession(Session session) {
         return Vote.count("session = ? and value is true", session);
     }
 
@@ -45,7 +44,11 @@ public class Vote extends Model {
         return delete("delete Vote v where v.member = ?1", member);
     }
 
-    public static Vote findVote(LightningTalk session, Member member) {
+    public static long deleteForSession(Session session) {
+        return delete("delete Vote v where v.session = ?1", session);
+    }
+
+    public static Vote findVote(Session session, Member member) {
         return Vote.find("select v from Vote v where v.member = :member and v.session = :session").bind("member", member).bind("session", session).first();
     }
 
@@ -56,5 +59,14 @@ public class Vote extends Model {
             new NewVoteActivity(member, session).save();
         }
         return v;
+    }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "session=" + session +
+                ", member=" + member +
+                ", value=" + value +
+                '}';
     }
 }

@@ -1,0 +1,30 @@
+#{extends 'main.html' /}
+#{set title:'Fusionner les intérêts' /}
+
+
+<p>
+<h4>Tu as choisi de renommer l'intérêt '${interest}', quel nouveau nom choisis-tu?:</h4>
+</p>
+
+
+#{form @Interests.submitRename(interest.id)} 
+
+<div class="row">
+    <fieldset>
+        <div class="span16 columns">
+            #{field 'newNameInterest'}
+            <div class="clearfix ${field.error?'error':''}"> 
+                <label for="${field.name}">Nouveau Nom</label> 
+                <div class="input"> 
+                    <input class="xxlarge" id="${field.id}" name="${field.name}" type="text" value="${interest}" />
+                </div>
+            </div>
+            #{/}
+        </div>
+    </fieldset>
+    <div class="alert-actions" style="text-align: center">
+        <input type="submit"  class="btn small" value="Renommer"/>
+    </div>
+</div>
+
+#{/form}

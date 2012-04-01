@@ -1,9 +1,9 @@
 package models.activity;
 
-import com.google.common.collect.Maps;
 import helpers.badge.BadgeComputationContext;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -20,7 +20,6 @@ import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import play.Logger;
 import play.Play;
-import play.i18n.Messages;
 import play.mvc.Scope;
 import play.templates.TemplateLoader;
 
@@ -40,7 +39,7 @@ public class StatusActivity extends Activity {
     public String statusId;
 
     /** Pattern for detecting content dealing with Mix-IT */
-    private static final Pattern MIXIT_PATTERN = Pattern.compile(".*\\bmix-?it\\b.*", Pattern.CASE_INSENSITIVE);
+    private static final Pattern MIXIT_PATTERN = Pattern.compile(".*\\bmix-?it(?:_lyon)?\\b.*", Pattern.CASE_INSENSITIVE);
     
     private static final int FETCH_PERIOD = Integer.valueOf(Play.configuration.getProperty("linkit.timeline.fetch.period"));
 
@@ -48,7 +47,7 @@ public class StatusActivity extends Activity {
     private static final Pattern MENTION_PATTERN = Pattern.compile("\\$LINKIT\\$\\{([^}]+)\\}");
     
     public StatusActivity(Member author, Date at, ProviderType provider, String content, String url, String statusId) {
-        super(provider, at);
+        super(provider, 3, at);
         this.member = author;
         this.provider = provider;
         this.content = StringUtils.substring(content, 0, 4000);
@@ -59,58 +58,65 @@ public class StatusActivity extends Activity {
     static public void fetchForAccount(Long accountId) {
 
         Account account = Account.findById(accountId);
+        if (account != null) {
 
-        // FIXME CLA simple API quota management 
-        boolean fetch = true;
-        if (account.lastFetched != null) {
-            DateTime lastFetch = new DateTime(account.lastFetched);
-            int delay = Minutes.minutesBetween(lastFetch, new DateTime()).getMinutes();
-            if (delay < FETCH_PERIOD) {
-                fetch = false;
-                Logger.info("Fetch timeline for %s on %s : already done %d minutes ago (< %d configured period)", account.member, account.provider, delay, FETCH_PERIOD);
-            }
-        }
-        if (fetch) {
-            Logger.info("Fetch timeline for %s on %s", account.member, account.provider);
-            List<StatusActivity> statuses = account.fetchActivities();
-            if (!statuses.isEmpty()) {
-                // Memorizing most recent id
-                Collections.sort(statuses);
-                account.lastStatusId = statuses.get(0).statusId;
-                account.save();
-
-                account.enhance(statuses);
-            }
-
-            for (StatusActivity status : statuses) {
-                boolean add = true;
-                // Google hack : workaround for lack of "since" parameter in API, returning already fetched statuses.
-                if (ProviderType.Google == account.provider) {
-                    // We add this status only if we don't have it already in DB
-                    long count = StatusActivity.count("provider = ? and statusId = ? ", account.provider, status.statusId);
-                    add = (count <= 0l);
+            // FIXME CLA simple API quota management 
+            boolean fetch = true;
+            if (account.lastFetched != null) {
+                DateTime lastFetch = new DateTime(account.lastFetched);
+                int delay = Minutes.minutesBetween(lastFetch, new DateTime()).getMinutes();
+                if (delay < FETCH_PERIOD) {
+                    fetch = false;
+                    Logger.info("Fetch timeline for %s on %s : already done %d minutes ago (< %d configured period)", account.member, account.provider, delay, FETCH_PERIOD);
                 }
-                if (add) status.save();
             }
+            if (fetch) {
+                Logger.info("Fetch timeline for %s on %s", account.member, account.provider);
+                List<StatusActivity> statuses = account.fetchActivities();
+                if (!statuses.isEmpty()) {
+                    // Memorizing most recent id
+                    Collections.sort(statuses);
+                    account.lastStatusId = statuses.get(0).statusId;
+                    account.save();
+
+                    account.enhance(statuses);
+                }
+
+                for (StatusActivity status : statuses) {
+                    boolean add = true;
+                    // Google hack : workaround for lack of "since" parameter in API, returning already fetched statuses.
+                    if (ProviderType.Google == account.provider) {
+                        // We add this status only if we don't have it already in DB
+                        long count = StatusActivity.count("provider = ? and statusId = ? ", account.provider, status.statusId);
+                        add = (count <= 0l);
+                    }
+                    if (add) status.save();
+                }
+            }
+        } else {
+            Logger.error("StatusActivity.fetchForAccount(), account.id = %d not found", accountId);
         }
     }
     
     public static String buildMentionFor(Member mentionned) {
         return String.format(MENTION_FORMAT, mentionned.login);
     }
-    
-    @Override
-    public String getMessage(Scope.Session s) {
+        
+    protected static String renderMention(Member mentionned, Scope.Session s) {
+        Map<String, Object> renderArgs = new HashMap<String, Object>(3);
+        renderArgs.put("_arg", mentionned);
+        renderArgs.put("session", s);
+        renderArgs.put("_isInclude", true);
+        return TemplateLoader.load("tags/member.html").render(renderArgs);
+    }
+
+    public String getContent(Scope.Session s) {
         StringBuffer message = new StringBuffer();
-        String rawMessage = Messages.get(getMessageKey(), member, content);
-        Matcher matcher = MENTION_PATTERN.matcher(rawMessage);
+        Matcher matcher = MENTION_PATTERN.matcher(content);
         while (matcher.find()) {
             final String login = matcher.group(1);
             final Member mentionedMember = Member.findByLogin(login);
-            Map<String, Object> renderArgs = Maps.newHashMap();
-            renderArgs.put("_arg", mentionedMember);
-            renderArgs.put("session", s);
-            matcher.appendReplacement(message, TemplateLoader.load("tags/member.html").render(renderArgs));
+            matcher.appendReplacement(message, renderMention(mentionedMember, s));
         }
         matcher.appendTail(message);
         return message.toString();

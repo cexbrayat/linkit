@@ -1,5 +1,6 @@
 package models;
 
+import helpers.JavaExtensions;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -56,7 +57,7 @@ public abstract class Comment extends Model {
 
     public Comment(Member author, String content) {
         this.author = author;
-        this.content = content;
+        this.setContent(content);
         this.postedAt = new Date();
     }
 
@@ -72,6 +73,10 @@ public abstract class Comment extends Model {
         return find("from Comment c where c.author = ? order by c.postedAt desc", m).fetch(1, size);
     }
 
+    public final void setContent(String content) {
+        this.content = JavaExtensions.sanitizeHtml(content);
+    }
+    
     @Override
     public String toString() {
         return author + " le " + postedAt;
