@@ -59,6 +59,7 @@ GET     /session/validate/{talkId}              Sessions.validate
 GET     /session/delete/{talkId}                Sessions.delete
 GET     /session/unvalidate/{talkId}            Sessions.unvalidate
 GET     /session/{sessionId}/{slugify}          Sessions.show
+POST    /session/comment                        Sessions.postComment
 # Just in case we forget the slugified title as parameter
 GET     /session/{sessionId}                    Sessions.show
 GET     /session/fav/{talkId}/{fav}             Sessions.fav

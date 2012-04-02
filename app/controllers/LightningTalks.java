@@ -112,6 +112,7 @@ public class LightningTalks extends PageController {
             @Required String content) {
 
         LightningTalk talk = LightningTalk.findById(id);
+        notFoundIfNull(talk);
         if (Validation.hasErrors()) {
             render("LightningTalks/show.html", talk);
         }
@@ -120,7 +121,7 @@ public class LightningTalks extends PageController {
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(id, "", true);
+        show(id, JavaExtensions.slugify(talk.title), true);
     }
 
     public static void delete(final Long sessionId) {
