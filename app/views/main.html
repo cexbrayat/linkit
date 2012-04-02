@@ -176,7 +176,6 @@
         <div class="container">
             #{if sponsors}
             <div class="row">
-                <div class="span2">&nbsp;</div>
                 #{list items:sponsors, as:'sponsor'}
                 <div class="span2" style="text-align: center">
                     <a href="@{Profile.show(sponsor.login)}">${sponsor.toString()}</a>
