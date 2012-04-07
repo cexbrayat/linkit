@@ -112,6 +112,9 @@
                 #{if member.getLightningTalks()}
                 <li><a href="#ligthnings">Mes lightnings talks</a></li>
                 #{/if}
+                #{if favorites}
+                <li><a href="#favorites">${favorites.size()} session${favorites.pluralize()} favorite${favorites.pluralize()}</a></li>
+                #{/if}
                 #{if member.interests}
                 <li><a href="#interets">${member.interests.size()} intérêt${member.interests.pluralize()}</a></li>
                 #{/if}
@@ -197,6 +200,15 @@
                     <ul>
                     #{list items:member.getLightningTalks(), as:'lt'}
                         <li>#{session-small lt /}</li>
+                    #{/list}
+                    </ul>
+                </div>
+                #{/if}
+                #{if favorites}
+                <div class="tab-pane" id="favorites">
+                    <ul>
+                    #{list items:favorites, as:'favorite'}
+                        <li>#{session-small favorite /}</li>
                     #{/list}
                     </ul>
                 </div>

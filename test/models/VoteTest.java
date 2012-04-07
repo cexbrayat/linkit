@@ -46,6 +46,22 @@ public class VoteTest extends BaseDataUnitTest {
         assertEquals(Arrays.asList(m1, m3), Vote.findVotersBySession(t));
     }
 
+    @Test public void findFavoriteTalksByMember() {
+        Member m = createMember("member");
+        assertEquals(Collections.emptyList(), Vote.findFavoriteTalksByMember(m));
+        
+        Talk t1 = createTalk();
+        LightningTalk lt1 = createLT();
+        Talk t2 = createTalk();
+        LightningTalk lt2 = createLT();
+        new Vote(t1, m, true).save();
+        new Vote(lt1, m, false).save();
+        new Vote(t2, m, true).save();
+        new Vote(lt2, m, true).save();
+        
+        assertEquals(Arrays.asList(t1, t2), Vote.findFavoriteTalksByMember(m));
+    }
+
     @Test public void countVotesByMember() {
         assertEquals(0, Vote.countVotesByMember(createMember("toto")));
     }
