@@ -1,5 +1,6 @@
 package models;
 
+import java.util.List;
 import models.activity.NewVoteActivity;
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -34,6 +35,10 @@ public class Vote extends Model {
 
     public static long findNumberOfVotesBySession(Session session) {
         return Vote.count("session = ? and value is true", session);
+    }
+
+    public static List<Member> findVotersBySession(Session session) {
+        return find("select v.member from Vote v where v.session = ? and v.value is true", session).fetch();
     }
 
     public static long countVotesByMember(Member member) {

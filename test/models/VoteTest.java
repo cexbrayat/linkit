@@ -1,6 +1,8 @@
 package models;
 
+import java.util.Arrays;
 import org.junit.*;
+import java.util.Collections;
 
 /**
  * Unit tests for {@link Vote} domain object
@@ -15,11 +17,35 @@ public class VoteTest extends BaseDataUnitTest {
     private LightningTalk createLT() {
         return new LightningTalk().save();
     }
-    
+
+    private Talk createTalk() {
+        return new Talk().save();
+    }
+
     @Test public void findNumberOfVotesBySession() {
         assertEquals(0, Vote.findNumberOfVotesBySession(createLT()));
     }
-    
+
+    @Test public void findVotersBySession() {
+        Talk t = createTalk();
+        assertEquals(Collections.emptyList(), Vote.findVotersBySession(t));
+        
+        Member m1 = createMember("member1");
+        Member m2 = createMember("member2");
+        Member m3 = createMember("member3");
+        new Vote(t, m1, true).save();
+        new Vote(t, m2, false).save();
+        new Vote(t, m3, true).save();
+
+        Talk otherTalk = createTalk();
+        Member otherMember = createMember("other");
+        new Vote(otherTalk, otherMember, true).save();
+        new Vote(otherTalk, m2, true).save();
+        new Vote(otherTalk, m3, true).save();
+        
+        assertEquals(Arrays.asList(m1, m3), Vote.findVotersBySession(t));
+    }
+
     @Test public void countVotesByMember() {
         assertEquals(0, Vote.countVotesByMember(createMember("toto")));
     }
