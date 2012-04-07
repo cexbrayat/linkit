@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Collections;
 import java.util.List;
 import models.Sponsor;
 import play.cache.Cache;
@@ -21,6 +22,8 @@ public abstract class PageController extends Controller {
             sponsors = Sponsor.findAll();
             Cache.add(SPONSORS, sponsors, "2h");
         }
+        // CLA 07/04/2012 : display sponsors in random order, before true level management (premium/gold/bronze)
+        Collections.shuffle(sponsors);
         renderArgs.put(SPONSORS, sponsors);
     }
 }
