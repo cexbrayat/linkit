@@ -6,6 +6,8 @@ logs/
 test-result/
 nbproject/
 *.iml
+*.ipr
+*.iws
 .classpath
 .project
 .settings/
