@@ -27,6 +27,11 @@
                         </h2>
                     </div>
                 </div>
+                #{if _arg instanceof models.Sponsor}
+                <div class="row">
+                   <i>Sponsor ${_arg.level}</i>
+                </div>
+                #{/if}
                 <div class="row">
                     #{markdown _arg.shortDescription /}
                 </div>
