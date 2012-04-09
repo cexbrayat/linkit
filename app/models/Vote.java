@@ -1,5 +1,6 @@
 package models;
 
+import java.util.List;
 import models.activity.NewVoteActivity;
 import play.data.validation.Required;
 import play.db.jpa.Model;
@@ -36,8 +37,16 @@ public class Vote extends Model {
         return Vote.count("session = ? and value is true", session);
     }
 
+    public static List<Member> findVotersBySession(Session session) {
+        return find("select v.member from Vote v where v.session = ? and v.value is true", session).fetch();
+    }
+
+    public static List<Talk> findFavoriteTalksByMember(Member member) {
+        return find("select v.session from Vote v where v.member = ?1 and v.value is true and v.session.class=Talk", member).fetch();
+    }
+
     public static long countVotesByMember(Member member) {
-        return find("select count(v) from Vote v where v.member = :member").bind("member", member).first();
+        return find("select count(v) from Vote v where v.member = :member and v.value is true").bind("member", member).first();
     }
 
     public static long deleteForMember(Member member) {
