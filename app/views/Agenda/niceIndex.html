@@ -116,7 +116,7 @@ function init() {
   });
 }
 
-var planAction = #{jsAction @Plannings.plan(':planningId', ':slot', ':sessionId') /};
+var planAction = #{jsAction @Agenda.plan(':planningId', ':slot', ':sessionId') /};
 function handleSessionDrop(event, ui) {
     var draggable = ui.draggable;
     var sessionId = draggable.children('.session').attr('data-id');
