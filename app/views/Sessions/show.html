@@ -122,10 +122,24 @@
         </div>
     </div>
 
+    #{if voters}
     <div class="row">
         <div class="span16">
-            <h4>Activité récente</h4>
-            <p id="activities" style="min-height: 0px"></p>
+            <h4>Ils ont mis cette session en favoris :</h4>
+            
+            #{list items:voters, as:'voter'}
+                #{member voter /}#{if !voter_isLast},#{/if}
+            #{/list}
+        </div>
+    </div>
+    #{/if}
+    
+    <div class="row">
+        <div class="span16">
+            <p>
+                <h4>Activité récente</h4>
+            </p>
+            <p id="activities" style="max-height: 400px"></p>
             <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>  
             <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
         

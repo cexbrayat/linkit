@@ -96,11 +96,15 @@ public class Sessions extends PageController {
         notFoundIfNull(talk);
         checkAccess(talk);
 
+        List<Member> voters = Vote.findVotersBySession(talk);
+        Collections.shuffle(voters);
+        
         // Don't count look when coming from internal redirect
         if (!noCount) {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
-        render(talk);
+        
+        render(talk, voters);
     }
 
     public static void postComment(

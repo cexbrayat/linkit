@@ -369,3 +369,24 @@ SharedLink(zenikaLink2):
     ordernum: 1
     name: Blog
     URL: http://blog.zenika.com
+
+Talk(talk1):
+    track: Trendy
+    title: Session de test
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - cedric
+        - agnes
+    valid: true
+
+Talk(talk2):
+    track: Gamy
+    title: Une autre session de test
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - agnes
+        - cedric
+    valid: false
+        

@@ -14,6 +14,7 @@ import play.templates.Template;
 import play.templates.TemplateLoader;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @With(SecureLinkIt.class)
@@ -180,8 +181,11 @@ public class Profile extends PageController {
         notFoundIfNull(member);
 
         member.lookedBy(Member.findByLogin(Security.connected()));
+        List<Talk> favorites = Vote.findFavoriteTalksByMember(member);
+        Collections.shuffle(favorites);
+
         Logger.info("Show profil %s", member);
-        render(member);
+        render(member, favorites);
     }
 
     public static String link(String login, String loginToLink) {
