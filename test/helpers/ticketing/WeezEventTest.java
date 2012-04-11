@@ -71,7 +71,7 @@ public class WeezEventTest extends UnitTest {
         WeezEvent.setEvent(sessionID);
         Set<String> allAttendees = WeezEvent.getAttendees(sessionID);
         // FIXME Agnès : "agnes.crepet@gmail.com" n'est plus enregistrée sur l'event de test -> test en échec
-        assertTrue(WeezEvent.isRegisteredAttendee("agnes.crepet@gmail.com", allAttendees));
+        assertTrue(WeezEvent.isRegisteredAttendee("cyril.lacote@gmail.com", allAttendees));
     }
 
     @Test
