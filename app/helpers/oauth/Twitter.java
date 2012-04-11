@@ -50,6 +50,11 @@ public class Twitter extends AbstractOAuthProviderImpl {
         return account;
     }
 
+    @Override
+    public OAuthAccount getEmptyUserAccount(String oauth_login) {
+        return new TwitterOAuthAccount(oauth_login);
+    }
+
     public void postMessage(TwitterOAuthAccount account, String message) {
         try {
             String url = "http://api.twitter.com/1/statuses/update.json";

@@ -2,20 +2,15 @@ package controllers;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Sets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import models.*;
-import play.Logger;
-
-import java.util.List;
-import java.util.Set;
 import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
+import play.Logger;
 import play.db.jpa.Transactional;
 import play.modules.search.Search;
 import play.templates.JavaExtensions;
+
+import java.util.*;
 
 @Transactional(readOnly = true)
 public class Application extends PageController {
@@ -57,9 +52,16 @@ public class Application extends PageController {
         render("Application/list.html", members);
     }
 
-    public static void sponsors() {
+/*    public static void sponsors() {
         List<Sponsor> sponsors = Sponsor.findAll();
         render(sponsors);
+    }*/
+
+    public static void sponsors() {
+        List<Sponsor> goldSponsors = Sponsor.findByLevel(Sponsor.Level.GOLD);
+        List<Sponsor> silverSponsors = Sponsor.findByLevel(Sponsor.Level.SILVER);
+        List<Sponsor> bronzeSponsors = Sponsor.findByLevel(Sponsor.Level.BRONZE);
+        render(goldSponsors, silverSponsors, bronzeSponsors);
     }
 
     public static void searchByInterest(String interest) {
@@ -176,6 +178,11 @@ public class Application extends PageController {
         List<Member> members = new ArrayList<Member>(uniqueMembers);
         Collections.sort(members);
 
-        render(query, articles, talks, lightningtalks, members);
+        render("Application/search.html", query, articles, talks, lightningtalks, members);
+    }
+
+    @Check("admin")
+    public static void api() {
+        render("Application/api.html");
     }
 }

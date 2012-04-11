@@ -1,11 +1,12 @@
 package controllers;
 
-import java.util.ArrayList;
-import java.util.List;
 import models.Interest;
 import models.Role;
 import play.data.binding.As;
 import play.mvc.With;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @With(SecureLinkIt.class)
 @Check(Role.ADMIN_INTEREST)
@@ -17,6 +18,12 @@ public class Interests extends PageController {
 
     public static void moderate() {
         render("Interests/edit.html");
+    }
+
+    public static void list(){
+        if (JSON.equals(request.format)) {
+            renderJSON(Interest.findAll());
+        }
     }
 
     public static void delete(Long[] interestsToBeDeleted) {

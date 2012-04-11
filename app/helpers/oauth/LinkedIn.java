@@ -43,4 +43,10 @@ public class LinkedIn extends AbstractOAuthProviderImpl {
 
         return account;
     }
+
+    @Override
+    public OAuthAccount getEmptyUserAccount(String oauth_login) {
+        //TODO JRI
+        return null;
+    }
 }

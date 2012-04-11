@@ -17,7 +17,11 @@ public abstract class OAuthAccount extends AuthAccount {
     public String token;
     @Required
     public String secret;
-    
+
+    protected OAuthAccount(ProviderType provider) {
+        super(provider);
+    }
+
     public OAuthAccount(ProviderType provider, String token, String secret) {
         super(provider);
         this.token = token;

@@ -1,5 +1,6 @@
 package controllers;
 
+import play.Logger;
 import play.mvc.Before;
 import play.mvc.Controller;
 
@@ -9,7 +10,7 @@ import play.mvc.Controller;
  */
 public class SecureLinkIt extends Controller {
 
-    @Before(unless={"Profile.register", "Profile.save", "loginWith", "loginLinkIt", "signup"})
+    @Before(unless={"Profile.register", "Profile.save", "loginWith", "loginLinkIt", "signup", "Interests.list"})
     static void checkAccess() throws Throwable {
         // Authent
         if(!session.contains("username")) {
@@ -28,6 +29,7 @@ public class SecureLinkIt extends Controller {
     
     private static void check(Check check) throws Throwable {
         for(String profile : check.value()) {
+            Logger.info("Profile: " + profile);
             boolean hasProfile = Security.check(profile);
             if(!hasProfile) {
                 flash.error("Vous n'avez pas les droits pour accéder à cette URL");

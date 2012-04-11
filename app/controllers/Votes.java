@@ -22,6 +22,7 @@ public class Votes extends Controller {
             vote.save();
             return Vote.findNumberOfVotesBySession(talk);
         }
+
         return -1;
     }
 }

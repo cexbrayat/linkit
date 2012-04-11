@@ -49,4 +49,9 @@ public class Google extends AbstractOAuthProviderImpl {
  
         return account;
     }
+
+    @Override
+    public OAuthAccount getEmptyUserAccount(String oauth_login) {
+        return new GoogleOAuthAccount(oauth_login);
+    }
 }

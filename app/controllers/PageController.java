@@ -14,6 +14,8 @@ import play.mvc.Controller;
 public abstract class PageController extends Controller {
 
     public static final String SPONSORS = "sponsors";
+    
+    public static final String JSON = "json";
 
     @Before
     public static void loadDefaultData() {

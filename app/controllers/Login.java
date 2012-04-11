@@ -3,10 +3,13 @@ package controllers;
 import com.google.common.collect.Maps;
 import helpers.oauth.OAuthProvider;
 import helpers.oauth.OAuthProviderFactory;
+
 import java.util.Map;
+
 import models.Member;
 import models.ProviderType;
 import models.auth.AuthAccount;
+import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.OAuthAccount;
 import org.apache.commons.lang.StringUtils;
@@ -97,11 +100,29 @@ public class Login extends PageController {
         }
     }
 
+    public static void login(String oauth_provider, String oauth_login) {
+        ProviderType providerType = ProviderType.valueOf(oauth_provider);
+        String decryptedLogin = decrypt(oauth_login);
+        AuthAccount account = AuthAccount.find(providerType, decryptedLogin);
+
+        if (account != null) {
+            Logger.info("[Login]Account found");
+            onSuccessfulAuthentication(account.member.login);
+        } else {
+            Logger.info("[Login]Account not found for " + decryptedLogin);
+            // Pas d'account correspondant : new way of authentication
+            OAuthProvider oauthProvider = OAuthProviderFactory.getProvider(providerType);
+            OAuthAccount gAccount = oauthProvider.getEmptyUserAccount(decryptedLogin);
+            manageNewAuthenticationFrom(gAccount);
+        }
+
+    }
+
     public static String getCallbackUrl(ProviderType provider) {
 //        Router.ActionDefinition ad = Router.reverse("Login.loginWith").add("provider", provider);
 //        ad.absolute();
 //        return ad.url;
-        Map<String,Object> callbackParams = Maps.newHashMapWithExpectedSize(1);
+        Map<String, Object> callbackParams = Maps.newHashMapWithExpectedSize(1);
         callbackParams.put("provider", provider);
         return Router.getFullUrl("Login.loginWith", callbackParams);
     }
@@ -144,6 +165,12 @@ public class Login extends PageController {
         onSuccessfulAuthentication(login);
     }
 
+    public static void loginWithLinkIt(@Required String login, @Required String password) throws Throwable {
+        String decryptedLogin = decrypt(login);
+        String decryptedPassword = decrypt(password);
+        loginLinkIt(decryptedLogin, decryptedPassword);
+    }
+
     public static void signup(@Required String login, @Required String password) {
         if (Validation.hasErrors()) {
             render(login, password);
@@ -156,5 +183,39 @@ public class Login extends PageController {
         Member member = new Member(login);
         member.preregister(new LinkItAccount(password));
         Profile.register(login, ProviderType.LinkIt);
+    }
+
+    private static String decrypt(String crypted) {
+        int shiftKey = 5;
+        String plainText = "";
+
+        for (int i = 0; i < crypted.length(); i++) {
+            int asciiValue = (int) crypted.charAt(i);
+            if (asciiValue < 65 || (asciiValue > 90 && asciiValue < 97) || asciiValue > 122) {
+                plainText += crypted.charAt(i);
+                continue;
+            }
+            int newAsciiValue = -1000;
+            if (asciiValue >= 97) {
+                newAsciiValue = computeValue(asciiValue, 97, shiftKey);
+            } else {
+                newAsciiValue = computeValue(asciiValue, 65, shiftKey);
+            }
+            plainText += (char) newAsciiValue;
+
+        }
+        return plainText;
+    }
+
+    private static int computeValue(int asciiValue, int offset, int shiftKey) {
+        int basicValue = asciiValue - offset;
+        int newAsciiValue = -1000;
+        if (basicValue - shiftKey < 0) {
+
+            newAsciiValue = offset + 26 - (shiftKey - basicValue);
+        } else {
+            newAsciiValue = offset + (basicValue - shiftKey);
+        }
+        return newAsciiValue;
     }
 }

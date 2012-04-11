@@ -3,6 +3,9 @@ package controllers;
 import helpers.JavaExtensions;
 import helpers.Lists;
 import models.*;
+import models.serialization.LightningTalkSerializer;
+import models.serialization.SessionCommentSerializer;
+import models.serialization.SessionSerializer;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.cache.Cache;
@@ -27,6 +30,9 @@ public class Sessions extends PageController {
         }
         Collections.shuffle(sessions);
         Logger.info(sessions.size() + " sessions");
+        if (JSON.equals(request.format)) {
+            renderJSON(sessions, new SessionSerializer(), new LightningTalkSerializer(null));
+        }
         render("Sessions/list.html", sessions);
     }
 
@@ -64,8 +70,9 @@ public class Sessions extends PageController {
         checkAccess(talk);
 
         Member member = Member.findByLogin(Security.connected());
+        
         List<Member> speakers = speakersFor(talk, member);
- 
+
         render(talk, speakers);
     }
 
@@ -107,6 +114,26 @@ public class Sessions extends PageController {
         render(talk, voters);
     }
 
+    public static void showSession(final Long id) {
+        Session talk = Session.findById(id);
+        notFoundIfNull(talk);
+
+        talk.lookedBy(Member.findByLogin(Security.connected()));
+
+        if (JSON.equals(request.format)) {
+            renderJSON(talk, new SessionSerializer(), new LightningTalkSerializer(null));
+        }
+    }
+
+    public static void listComments(final Long id) {
+        Session talk = Session.findById(id);
+        notFoundIfNull(talk);
+        if (JSON.equals(request.format)) {
+            renderJSON(talk.comments, new SessionCommentSerializer());
+        }
+    }
+
+    @Check("member")
     public static void postComment(
             Long talkId,
             @Required String content) throws Throwable {

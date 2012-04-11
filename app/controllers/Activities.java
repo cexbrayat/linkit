@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 import java.util.Set;
+
+import helpers.JSON;
 import models.Article;
 import models.Member;
 import models.ProviderType;
@@ -18,6 +20,7 @@ import play.mvc.Controller;
 @Transactional(readOnly = true)
 public class Activities extends Controller {
 
+    public static final String JSON = "json";
     public static final String PROVIDERS_SEP = "~";
 
     /**
@@ -27,6 +30,9 @@ public class Activities extends Controller {
      */
     public static void general(Integer page, Integer size) {
         List<Activity> _activities = Activity.recents(page, size);
+        if(JSON.equals(request.format)) {
+            renderJSON(_activities);
+        }
         render("tags/activities.html", _activities);
     }
 

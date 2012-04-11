@@ -24,7 +24,13 @@ public class TwitterOAuthAccount extends OAuthAccount {
     public String profileImageUrl;  // http://a2.twimg.com/profile_images/1171939364/image_normal.jpg
     public Long statusesCount;  // 491
     public Long friendsCount;   // 159
-    
+
+
+    public TwitterOAuthAccount(String screenName) {
+        super(ProviderType.Google);
+        this.screenName = screenName;
+    }
+
     public TwitterOAuthAccount(String token, String secret) {
         super(ProviderType.Twitter, token, secret);
     }

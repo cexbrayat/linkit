@@ -69,4 +69,13 @@ public class Vote extends Model {
         }
         return v;
     }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "session=" + session +
+                ", member=" + member +
+                ", value=" + value +
+                '}';
+    }
 }

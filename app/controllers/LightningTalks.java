@@ -2,8 +2,11 @@ package controllers;
 
 import helpers.JavaExtensions;
 import models.*;
+import models.serialization.LightningTalkSerializer;
+import models.serialization.SessionCommentSerializer;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
+import play.data.validation.Valid;
 import play.data.validation.Validation;
 
 import java.util.List;
@@ -15,6 +18,13 @@ public class LightningTalks extends PageController {
 
     public static void list() {
         List<LightningTalk> sessions = LightningTalk.findAll();
+
+        if(JSON.equals(request.format))
+        {
+            Member member = Member.findByLogin(Security.connected());
+            renderJSON(sessions, new LightningTalkSerializer(member));
+        }
+
         render(sessions);
     }
 
@@ -30,6 +40,11 @@ public class LightningTalks extends PageController {
         checkAccess(talk);
 
         render(talk);
+    }
+    
+    public static void show(final Long id)
+    {
+        show(id, "", false);
     }
 
     private static void checkAccess(Session talk) throws Throwable {
@@ -47,8 +62,19 @@ public class LightningTalks extends PageController {
         if (!noCount) {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
+
         List<Activity> activities = Activity.recentsBySession(talk, 1, 5);
         render(talk, activities);
+    }
+    
+    public static void showSession(final Long id)    {
+        LightningTalk talk = LightningTalk.findById(id);
+        notFoundIfNull(talk);
+        if(JSON.equals(request.format))
+        {
+            Member member = Member.findByLogin(Security.connected());
+            renderJSON(talk, new LightningTalkSerializer(member));
+        }
     }
 
     public static void save(LightningTalk talk, String[] interests, String newInterests) {
@@ -72,13 +98,21 @@ public class LightningTalks extends PageController {
         show(talk.id, JavaExtensions.slugify(talk.title), true);
     }
 
+    public static void listComments(final Long id) {
+        LightningTalk talk = LightningTalk.findById(id);
+        notFoundIfNull(talk);
+        if (JSON.equals(request.format)) {
+            renderJSON(talk.comments, new SessionCommentSerializer());
+        }
+    }
+
+    @Check("member")
     public static void postComment(
-            Long talkId,
+            Long id,
             @Required String content) {
 
-        LightningTalk talk = LightningTalk.findById(talkId);
+        LightningTalk talk = LightningTalk.findById(id);
         notFoundIfNull(talk);
-
         if (Validation.hasErrors()) {
             render("LightningTalks/show.html", talk);
         }
@@ -87,7 +121,7 @@ public class LightningTalks extends PageController {
         talk.addComment(new SessionComment(author, talk, content));
         talk.save();
         flash.success("Merci pour votre commentaire %s", author);
-        show(talkId, JavaExtensions.slugify(talk.title), true);
+        show(id, JavaExtensions.slugify(talk.title), true);
     }
 
     public static void delete(final Long sessionId) {
