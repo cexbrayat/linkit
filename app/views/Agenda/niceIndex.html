@@ -116,7 +116,7 @@ function init() {
   });
 }
 
-var planAction = #{jsAction @Plannings.plan(':planningId', ':slot', ':sessionId') /};
+var planAction = #{jsAction @Agenda.plan(':planningId', ':slot', ':sessionId') /};
 function handleSessionDrop(event, ui) {
     var draggable = ui.draggable;
     var sessionId = draggable.children('.session').attr('data-id');
@@ -154,14 +154,6 @@ function handleSessionDrop(event, ui) {
                     </ul>
                 </div>
             #{/list}
-        </div>
-        <div class="sessions">
-            <h2>Les sessions à planifier</h2>
-            <ul>
-            #{list items:sessions, as:'talk'}
-                <li class="session">#{session talk /}</li>
-            #{/list}
-            </ul>
         </div>
     </div>
 </div>

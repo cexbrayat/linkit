@@ -68,10 +68,13 @@ mixit.whois=Mix-IT, Who is it?
 
 # FAQ
 faq.title=Frequently Asked Questions
+faq.time.question=What is schedule time table?
+faq.time.answer=We welcome you from 8:30 a.m. The keynote starts at 9 a.m. The final keynote is at 6 p.m. and its duration is 15 minutes.
 faq.login.question=Why create an account on the Mix-IT Website?
 faq.login.answer=See <a href="%s">the login page</a> to understand the interest of the social side of the Website!
 faq.registration.question=How to buy my ticket?
 faq.registration.answer=See <a href="%s">the registration page</a> to buy my ticket.
+faq.dif.question=How can I use my (Droit Individuel à la Formation) for Mix-IT?
 faq.gravatar.question=How to change my profil image?
 faq.gravatar.answer=The avatars are managed by <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. We display the avatar wich matches the email you give us on your profile. Sign in on the website <a href="http://www.gravatar.com" target="_blank">Gravatar</a> in the aim to create or update your image.
 faq.twitter.question=Twitter
