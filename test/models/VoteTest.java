@@ -69,7 +69,7 @@ public class VoteTest extends BaseDataUnitTest {
     @Test public void findVote() {
         assertNull(Vote.findVote(createLT(), createMember("toto")));
     }
-    
+     
     @Test public void deleteForMember() {
         Member m = createMember("toto");
         LightningTalk lt = createLT();

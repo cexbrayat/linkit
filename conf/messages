@@ -68,10 +68,13 @@ mixit.whois=Mix-IT c'est qui?
 
 # FAQ
 faq.title=Foire aux Questions
+faq.time.question=Quelles sont les horaires de la conférence?
+faq.time.answer=Nous vous accueillons à partir de 8H30. La keynote du matin démarre à 9H. La keynote du soir est à 18H et dure 15 minutes.
 faq.login.question=Pourquoi ouvrir un compte sur le site Mix-IT?
 faq.login.answer=Voir <a href="%s">la page de login</a> pour comprendre l'intérêt de la partie sociale du site!
 faq.registration.question=Comment acheter son billet?
 faq.registration.answer=Voir <a href="%s">la page des inscriptions</a> pour acheter son billet.
+faq.dif.question=Comment puis-je utiliser mon DIF (Droit Individuel à la Formation) pour Mix-IT?
 faq.gravatar.question=Comment changer l'image de son profil?
 faq.gravatar.answer=Les avatars sont gérés par <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. Nous affichons l'avatar correspondant à l'email que vous nous indiquez sur votre profil. Connectez-vous sur le site <a href="http://www.gravatar.com" target="_blank">Gravatar</a> pour créer ou modifier votre image.
 faq.twitter.question=Twitter
@@ -81,7 +84,7 @@ faq.recording.answer=Toutes les sessions seront enregistrées au format audio (p
 
 # Registration
 registration.title=Ouverture d'un compte Mix-IT et Paiement du billet 
-registration.directives=Pour information cette journée sera éligible au Droit Individuel à la Formation, notre sponsor SQLi fournira les certificats sur son stand, grâce à son organisme de formation SQLi Institut. Vous pouvez donc demander à votre employeur d’assister à Mix-IT comme une formation classique, sans prendre de congés !
+registration.directives=Pour information cette journée sera éligible au Droit Individuel à la Formation, notre sponsor SQLi fournira les certificats sur son stand, grâce à son organisme de formation SQLi Institut. Vous pouvez donc demander à votre employeur d’assister à Mix-IT comme une formation classique, sans prendre de congé !
 registration.step1.create.account=Créer-vous un compte Mix-IT
 registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT!
 registration.step1.alternative=Si vous êtes allergique aux réseaux sociaux, achetez directement via notre partenaire 
