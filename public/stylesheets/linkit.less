@@ -2,23 +2,23 @@
 @import "mixins.less";
 
 .soon {/** text **/
-    width: 300px;
-    font-size: 24px;
+    width: 200px;
+    font-size: 32px;
     font-weight: 600;
-    color: green;
+    color: red;
     letter-spacing: 0.1em;
-    border: 3px solid green;
-    padding: 5px;
+    border: 5px solid red;
+    padding: 10px;
     text-align:center;
     position:relative;
     /**adjust as needed**/
-    top: -130px;
-    left: 30px;
+    top: -190px;
+    left: 10px;
     /**note: CSS3 TRANSFORM: ROTATE DOESN'T WORK IN ALL BROWSERS YET**/
     -webkit-transform: rotate(-20deg); /**safari, chrome**/
     -moz-transform: rotate(-20deg); /**firefox**/
     transform: rotate(-20deg); /**other browsers**/
-    .box-shadow(0 0 7px black);
+    .box-shadow(0 0 7px red);
 }
 
 ul.tabs {
