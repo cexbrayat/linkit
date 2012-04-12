@@ -37,7 +37,7 @@ menu.login.logout=Logout
 # Welcome
 mixit.slogan=Ideas for now !
 mixit.header=Java, Agile, Web, Innovation...
-ticketing.alert=Ticketing is opened !
+ticketing.alert=Sold out!
 button.about.mixit=About Mix-IT
 button.talks=The talks
 button.login=Sign in
@@ -88,7 +88,7 @@ registration.directives=
 registration.step1.create.account=Create an account
 registration.step1.create.account.why=And enjoy the social side of the Mix-IT website!
 registration.step1.alternative=You can also, if you don't like Social Networks, buy your ticket via our partner  
-registration.step2.ticketing.unsigned=Buy your ticket from your Mix-IT's Dashboard!
+registration.step2.ticketing.unsigned=You could have bought your ticket from your Mix-IT's Dashboard, but it's now sold out!...
 registration.warning.email=Warning: use the same email between your Mix-IT account and your payment via WeezEvent!
 
 # Talk fields
