@@ -11,7 +11,7 @@ import play.mvc.Controller;
  * Manages sessions' planning
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class Plannings extends Controller {
+public class Agenda extends Controller {
     
     public static void index() {
         GeneralPlanning planning = GeneralPlanning.findUnique();
