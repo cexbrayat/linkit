@@ -58,8 +58,10 @@ public class Application extends PageController {
     }
 
     public static void sponsors() {
-        List<Sponsor> sponsors = Sponsor.findAll();
-        render(sponsors);
+        List<Sponsor> goldSponsors = Sponsor.findByLevel(Sponsor.Level.GOLD);
+        List<Sponsor> silverSponsors = Sponsor.findByLevel(Sponsor.Level.SILVER);
+        List<Sponsor> bronzeSponsors = Sponsor.findByLevel(Sponsor.Level.BRONZE);
+        render(goldSponsors, silverSponsors, bronzeSponsors);
     }
 
     public static void searchByInterest(String interest) {
