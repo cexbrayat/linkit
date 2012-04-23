@@ -14,6 +14,7 @@ import play.mvc.Controller;
 public class Agenda extends Controller {
     
     public static void index() {
+/*
         GeneralPlanning planning = GeneralPlanning.findUnique();
         if (planning == null) {
             planning = new GeneralPlanning().save();
@@ -23,8 +24,14 @@ public class Agenda extends Controller {
         // Seulement les sessions non planifiées
         sessions.removeAll(planning.getPlannedSessions());
         render(planning, sessions);
+*/
+        render();
     }
-    
+
+    public static void google() {
+        render();
+    }
+
     public static boolean plan(long planningId, Slot slot, long sessionId) {
         Planning planning = Planning.findById(planningId);
         Session talk = Session.findById(sessionId);

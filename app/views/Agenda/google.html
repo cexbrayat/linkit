@@ -1,0 +1,33 @@
+#{extends 'main.html' /}
+#{set title:'Google Calendar' /}
+
+<div class="hero-unit">
+    <h2>Calendrier Google</h2>
+    <p>
+        Voici l'ensemble des événements Mix-IT compilés dans un calendrier Google.
+        Si vous êtes utilisateur de Google Calendar, vous pouvez choisir de le copier dans votre agenda, ou de ne copier que les événements qui vous intéressent.
+    </p>
+    <div class="row">
+        <div class="span11">
+            <iframe src="https://www.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showCalendars=0&amp;mode=AGENDA&amp;height=800&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=ls9vsjunbuovvas89g8knvdn6c%40group.calendar.google.com&amp;color=%232952A3&amp;ctz=Europe%2FParis"
+                    style=" border-width:0 " width="600" height="800" frameborder="0" scrolling="no"></iframe>
+        </div>
+        <div class="span3">
+            Accéder à ce calendrier Google par d'autres moyens ultra-geeks :
+            <ul>
+                <li class="icon-external-link">
+                    <a href="https://www.google.com/calendar/feeds/ls9vsjunbuovvas89g8knvdn6c%40group.calendar.google.com/public/basic"
+                       title="XML Calendar" rel="twipsy" data-placement="right" target="calendar">XML</a>
+                </li>
+                <li class="icon-external-link">
+                    <a href="https://www.google.com/calendar/ical/ls9vsjunbuovvas89g8knvdn6c%40group.calendar.google.com/public/basic.ics"
+                       title="ICAL Calendar" rel="twipsy" data-placement="right" target="calendar">ICAL</a>
+                </li>
+                <li class="icon-external-link">
+                    <a href="https://www.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showCalendars=0&amp;mode=AGENDA&amp;height=800&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=ls9vsjunbuovvas89g8knvdn6c%40group.calendar.google.com&amp;color=%232952A3&amp;ctz=Europe%2FParis"
+                       title="HTML Calendar" rel="twipsy" data-placement="right" target="calendar">HTML</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
