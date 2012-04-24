@@ -46,14 +46,24 @@ public class Sessions extends PageController {
         render("Sessions/edit.html", talk, speakers);
     }
 
-    private static void checkAccess(Session talk) throws Throwable {
+    private static void checkReadAccess(Session talk) throws Throwable {
         // No need to be 
         // SecureLinkIt.checkAccess();
         Member user = Member.findByLogin(Security.connected());
         if (talk.valid || (user instanceof Staff) || talk.hasSpeaker(Security.connected())) {
             // alright!
         } else {
-            flash.error("Vous n'avez pas accès à cette fonctionnalité");
+            flash.error("Vous n'avez pas officiellement accès à cette session, coquin!");
+            index();
+        }
+    }
+
+    private static void checkWriteAccess(Session talk) throws Throwable {
+        Member user = Member.findByLogin(Security.connected());
+        if ((user instanceof Staff) || talk.hasSpeaker(Security.connected())) {
+            // alright!
+        } else {
+            flash.error("Vous n'avez pas (ou plus :p) accès à la modification de cette session, coquin!");
             index();
         }
     }
@@ -61,7 +71,7 @@ public class Sessions extends PageController {
     public static void edit(final Long sessionId) throws Throwable {
         Session talk = Session.findById(sessionId);
         notFoundIfNull(talk);
-        checkAccess(talk);
+        checkWriteAccess(talk);
 
         Member member = Member.findByLogin(Security.connected());
         List<Member> speakers = speakersFor(talk, member);
@@ -72,7 +82,7 @@ public class Sessions extends PageController {
     public static void delete(final Long sessionId) throws Throwable {
         Session talk = Session.findById(sessionId);
         notFoundIfNull(talk);
-        checkAccess(talk);
+        checkWriteAccess(talk);
 
         talk.delete();
         index();
@@ -94,7 +104,7 @@ public class Sessions extends PageController {
     public static void show(final Long sessionId, String slugify, boolean noCount) throws Throwable {
         Session talk = Session.findById(sessionId);
         notFoundIfNull(talk);
-        checkAccess(talk);
+        checkReadAccess(talk);
 
         List<Member> voters = Vote.findVotersBySession(talk);
         Collections.shuffle(voters);
@@ -132,6 +142,7 @@ public class Sessions extends PageController {
     }
 
     public static void save(@Valid Talk talk, String[] interests, String newInterests) throws Throwable {
+        checkWriteAccess(talk);
         Logger.info("Tentative d'enregistrement de la session %s", talk);
         if (interests != null) {
             talk.updateInterests(interests);
@@ -154,6 +165,7 @@ public class Sessions extends PageController {
     public static void validate(long talkId) throws Throwable {
         Talk talk = Talk.findById(talkId);
         notFoundIfNull(talk);
+        checkWriteAccess(talk);
 
         talk.validate();
         show(talkId, JavaExtensions.slugify(talk.title), true);
@@ -162,9 +174,9 @@ public class Sessions extends PageController {
     public static void unvalidate(long talkId) throws Throwable {
         Talk talk = Talk.findById(talkId);
         notFoundIfNull(talk);
+        checkWriteAccess(talk);
 
         talk.unvalidate();
         show(talkId, JavaExtensions.slugify(talk.title), true);
     }
-
 }
