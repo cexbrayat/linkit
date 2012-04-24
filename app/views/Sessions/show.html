@@ -58,8 +58,16 @@
                 <p>Cette session n'a pas été retenue par le comité de sélection. On vous donne rendez-vous l'année prochaine pour une nouvelle tentative!</p>
             </div>
         #{/if}
-        
-        #{secure.check models.Role.ADMIN_SESSION}
+        #{if talk.hasSpeaker(session.username)}
+            <div class="alert-message block-message warning">
+                <p>Bienvenue sur votre session, ami speaker!</p>
+                <div class='alert-actions'>
+                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer votre session</a>
+                </div>
+            </div>
+        #{/if}
+
+    #{secure.check models.Role.ADMIN_SESSION}
             <div class="alert-message block-message info">
                 <p><strong>Staff</strong></p>
                 #{if talk.valid}            
