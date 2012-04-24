@@ -378,6 +378,7 @@ Talk(talk1):
     speakers:
         - cedric
         - agnes
+        - clacote
     valid: true
 
 Talk(talk2):
