@@ -70,6 +70,7 @@
                 <div class="container-fluid">
                     <a class="brand" href="@{Application.index()}"><img src="@{'/public/images/mini-mixit.png'}" itemprop="image"/></a>
                     <ul class="nav">
+                        <li #{if request.action=="Application.live"}class="active"#{/if}><a href="@{Application.LIVE}">&{'menu.live'}</a></li>
                         #{if session.username}
                         <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
                         #{/if}
