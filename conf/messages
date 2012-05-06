@@ -5,6 +5,7 @@ button.link.title=Pourquoi Linker des participants?
 button.link.note=Linker des participants vous permettra de suivre leurs activités Mix-IT mais également leurs flux sociaux (Twitter, G+) : ce site est un aggrégateur de flux des différents réseaux sociaux des personnes qui seront à vos côtés le jour J de la conférence!
 
 # Menu bar
+menu.live=DIRECT
 menu.dashboard=Mon dashboard
 menu.news=Actualités
 menu.agenda=Programme

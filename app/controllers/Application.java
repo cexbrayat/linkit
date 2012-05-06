@@ -20,6 +20,10 @@ import play.templates.JavaExtensions;
 @Transactional(readOnly = true)
 public class Application extends PageController {
 
+    public static void live() {
+        render();
+    }
+
     public static void index() {
 
         // DEV MODE : discard connected user if not found in DB (when you restarted your local dev application with initial data)

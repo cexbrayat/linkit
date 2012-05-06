@@ -11,6 +11,9 @@ GET     /                                       Application.index
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
+# LIVE
+GET     /live                                   Application.live
+
 # Login
 GET     /login                                  Login.index
 GET     /login/linkit                           Login.loginLinkIt
