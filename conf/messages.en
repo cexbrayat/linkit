@@ -5,6 +5,7 @@ button.link.title=Why link participants?
 button.link.note=Link participants will allow you to monitor their Mix-IT activities but also their social feeds (Twitter, G +): this site aggregates the social networks of people you will meet on the day of the conference!
 
 # Menu bar
+menu.live=LIVE
 menu.dashboard=My dashboard
 menu.news=News
 menu.agenda=Agenda
