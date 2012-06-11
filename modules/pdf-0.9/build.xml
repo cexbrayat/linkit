@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="PDF module" default="build" basedir=".">
+    <property file="./build.properties" />
+
+    <path id="project.classpath">
+        <pathelement path="${play.path}/framework/classes" />
+        <fileset dir="${play.path}/framework/lib">
+             <include name="*.jar" />
+        </fileset>
+        <fileset dir="${play.path}/framework">
+            <include name="*.jar" />
+        </fileset>
+        <fileset dir="lib">
+            <include name="*.jar" />
+        </fileset>
+    </path>
+
+    <target name="build" depends="updateLibraries, compile" description="Build module">
+        <copy todir="tmp/classes">
+            <fileset dir="src">
+                <include name="**/*.properties" />
+                <include name="**/*.xml"/>
+                <include name="**/play.plugins" />
+                <include name="**/play.static" />
+            </fileset>
+        </copy>
+        <jar destfile="lib/play-pdf.jar" basedir="tmp/classes">
+            <manifest>
+                <section name="Play">
+                    <attribute name="Specification-Title" value="PDF module" />
+                </section>
+            </manifest>
+        </jar>
+        <delete dir="tmp" />
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="tmp/classes" />
+        <javac srcdir="src" destdir="tmp/classes" target="1.5" debug="true" includeantruntime="false">
+            <classpath refid="project.classpath" />
+        </javac>
+    </target>
+
+    <!-- Checks whether the module libraries contain some classes that have been overridden in the module itself -->
+    <target name="checkLibraries">
+        <condition property="update.libraries">
+            <or>
+                <available classname="org.allcolor.yahp.cl.converter.CHtmlToPdfFlyingSaucerTransformer">
+                    <classpath>
+                        <pathelement location="lib/yahp.jar" />
+                        <pathelement location="lib/yahp-internal.jar" />
+                    </classpath>
+                </available>
+                <available classname="org.xhtmlrenderer.swing.NaiveUserAgent">
+                    <classpath>
+                        <pathelement location="lib/core-renderer.jar" />
+                    </classpath>
+                </available>
+            </or>
+        </condition>
+    </target>
+
+    <!-- Removes overridden classes from libraries to make sure only the right version is available in the classpath -->
+    <target name="updateLibraries" depends="checkLibraries" if="update.libraries">
+        <echo>Removing overridden classes from libraries</echo>
+        <!-- Uses the 'zip' task instead of the 'jar' task to make sure the manifest is not modified at all-->
+        <zip destfile="lib/core-renderer.temp.jar">
+            <zipfileset src="lib/core-renderer.jar" excludes="org/xhtmlrenderer/swing/NaiveUserAgent.*" />
+        </zip>
+        <zip destfile="lib/yahp-internal.temp.jar">
+            <zipfileset src="lib/yahp-internal.jar" excludes="org/allcolor/yahp/cl/converter/CHtmlToPdfFlyingSaucerTransformer*.*" />
+        </zip>
+        <move file="lib/core-renderer.temp.jar" tofile="lib/core-renderer.jar" />
+        <move file="lib/yahp-internal.temp.jar" tofile="lib/yahp-internal.jar" />
+    </target>
+
+    <target name="clean" description="Remove all temporary files">
+        <delete dir="tmp" />
+    </target>
+</project>

@@ -1,0 +1,16 @@
+#{extends 'main.html' /}
+#{set title:'Play Markdown demo' /}
+#{stylesheet 'markdown.css' /}
+
+Markdown module for play
+
+${ "**HELLO** _WORLD_ ! this is a markdown string".markdown().raw() }
+
+<a href="docs/reference.md">Markdown Reference</a>
+<a href="docs/test.md">A sample md document</a>
+<a href="docs/test2.md">Another sample md</a>
+
+<p>If you feel too lazy to click any link, below is a small example, using file 
+reader custom java extension.</p>
+
+${'./brief.md'.markdown().raw() }

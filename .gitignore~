@@ -2,7 +2,6 @@ tmp/
 modules/
 precompiled/
 logs/
-test-result/
 nbproject/
 *.iml
 *.ipr

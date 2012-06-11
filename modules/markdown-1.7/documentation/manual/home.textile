@@ -1,0 +1,5 @@
+
+Hey, you don't expect the doc to be written in Textile, right ?
+
+"Markdown module documentation":http://www.github.com/orefalo/markdown
+

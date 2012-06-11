@@ -1,0 +1,13 @@
+
+#GET     /                                       module.cobertura.Cobertura.index
+#GET /	Cobertura.index
+
+#GET	/@cobertura Cobertura.index
+#GET /@cobertura/generateReport Cobertura.generateReport
+
+#GET /@cobertura/clear Cobertura.clear
+
+#GET    /code-coverage/               staticDir:code-coverage
+
+# Catch all
+#*       /{controller}/{action}                  {controller}.{action}

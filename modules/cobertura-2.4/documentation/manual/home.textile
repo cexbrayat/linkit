@@ -1,0 +1,68 @@
+h1. Cobertura test coverage
+
+This module for the Play! framework provides a plugin to support the Cobertura test coverage tool.
+
+Cobertura is a free Java tool that calculates the percentage of code accessed by tests. It can be used to identify which parts of your Java program are lacking test coverage. It is based on jcoverage.
+
+See "http://cobertura.sourceforge.net/":http://cobertura.sourceforge.net/ for more information.
+
+Let's see a simple usage example.
+
+h2. <a>Enable the Cobertura module for the application</a>
+
+In the **/conf/application.conf** file, enable the Cobertura module by adding this line:
+
+bc. # The cobertura test coverage module
+%test.play.tmp=none 
+%test.module.cobertura=${play.path}/modules/cobertura
+%test.cobertura.hasShutdownHook=false
+
+Overriding play.tmp because Cobertura need clean class file for works.
+
+This plugin is written for 'test' mode, and will silently do nothing in other modes. Therefore, leaving it activated while running your application in other modes is not a problem.
+
+h2. <a>Run your tests</a>
+
+
+bc. $ play test
+
+start test in web interface ( by default localhost:9000/@tests) and go to "your_host:your_port/@cobertura":your_host:your_port/@cobertura ( by default it's http://localhost:9000/@cobertura ) for generate new report or reset previous. And now you can see html report in iframe or directly on "file:/path/to/your/application/test-result/code-coverage/":file:/path/to/your/application/test-result/code-coverage/. 
+
+Code coverage is directly calculated when you running the tests - each test you run will add coverage to your Java files.
+
+h2. <a>Continuous integration</a>
+
+Now, more interesting use case, is to run cobertura at the end of test process with command **play auto-tests** or **play test** ( follow by ctrl+c for shutdown play )
+That's also works with Continuous integration like "Jenkins":http://jenkins-ci.org/.
+
+For switch in this mode you can delete properties %test.cobertura.hasShutdownHook or switch them to true.
+
+
+bc. %test.cobertura.hasShutdownHook=false
+
+
+Now cobertura will generate HTML and XML report automatically in a directory named *test-result/code-coverage/* in your project home where your shutdown the server.  
+
+H2. <a> 
+
+h2. <a>Admire the results !</a>
+
+bc. [...] INFO  - Cobertura plugin: generating test coverage report
+[...]
+[...] INFO  - Test coverage report has been generated: file:/path/to/test-result/code-coverage/index.html
+
+The module will output the URL to view this report on the console. You can view this in your web browser, with a URL like this: "file:/path/to/your/application/test-result/code-coverage/":file:/path/to/your/application/test-result/code-coverage/.
+
+!images/cobertura1!
+
+h2. <a>Tips and tricks</a>
+
+* Ignoring classes:
+If you would to ignore some classes in generated report. By Default this plugin ignore Test classes and internal play classes:  
+
+bc. cobertura.ignore=DocViewerPlugin,Bootstrap,OtherClassName
+cobertura.ignore=DocViewerPlugin,controllers.TestRunner,controllers.Cobertura,controllers.PlayDocumentation,controllers.Secure,controllers.Secure$Security,controllers.Check
+cobertura.ignore.regex=*Test**,helpers.CheatSheetHelper*,controllers.CRUD*";
+
+You can change it in **conf/application.conf**
+ 

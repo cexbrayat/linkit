@@ -1,0 +1,5 @@
+self: play -> markdown 1.7
+
+require:
+    - play
+    - org.tautua.markdownpapers -> markdownpapers-core 1.2.7
