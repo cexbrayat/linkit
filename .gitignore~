@@ -1,5 +1,4 @@
 tmp/
-modules/
 precompiled/
 logs/
 nbproject/
@@ -14,4 +13,3 @@ eclipse/
 .idea/
 out/
 lib/
-cobertura.ser

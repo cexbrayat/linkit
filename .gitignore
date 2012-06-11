@@ -12,4 +12,5 @@ eclipse/
 *.DS_Store
 .idea/
 out/
+modules/
 lib/
