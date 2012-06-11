@@ -1,7 +1,6 @@
 tmp/
 modules/
 precompiled/
-conf/secrets*
 logs/
 test-result/
 nbproject/
