@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<testsuite failures="0" time="21.786" errors="0" skipped="0" tests="9" name="models.ArticleTest">
+  <testcase classname="models.ArticleTest" name="delete" time="3.099">
+      </testcase>
+  <testcase classname="models.ArticleTest" name="validate" time="2.109">
+      </testcase>
+  <testcase classname="models.ArticleTest" name="recents" time="1.321">
+      </testcase>
+  <testcase classname="models.ArticleTest" name="findAllInvalid" time="2.558">
+      </testcase>
+  <testcase classname="models.ArticleTest" name="findPrevious" time="3.172">
+      </testcase>
+  <testcase classname="models.ArticleTest" name="findFollowing" time="2.899">
+      </testcase>
+  <testcase classname="models.ArticleTest" name="unvalidate" time="2.161">
+      </testcase>
+  <testcase classname="models.ArticleTest" name="lookBy" time="2.355">
+      </testcase>
+  <testcase classname="models.ArticleTest" name="saveWithBigContent" time="2.112">
+      </testcase>
+</testsuite>
