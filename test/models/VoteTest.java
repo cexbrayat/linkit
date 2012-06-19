@@ -22,10 +22,6 @@ public class VoteTest extends BaseDataUnitTest {
         return new Talk().save();
     }
 
-    @Test public void findNumberOfVotesBySession() {
-        assertEquals(0, Vote.findNumberOfVotesBySession(createLT()));
-    }
-
     @Test public void findVotersBySession() {
         Talk t = createTalk();
         assertEquals(Collections.emptyList(), Vote.findVotersBySession(t));
@@ -80,14 +76,17 @@ public class VoteTest extends BaseDataUnitTest {
         assertEquals(0, Vote.countVotesByMember(m));
     }
     
-    @Test public void deleteForSession() {
-        Member m = createMember("toto");
-        LightningTalk lt = createLT();
-
-        new Vote(lt, m, true).save();
-        assertEquals(1, Vote.findNumberOfVotesBySession(lt));
-        
-        Vote.deleteForSession(lt);
-        assertEquals(0, Vote.findNumberOfVotesBySession(lt));
-    }
+//    @Test public void findNumberOfVotesBySession() {
+//        Talk t = createTalk();
+//        assertEquals(0, Vote.findNumberOfVotesBySession(t));
+//        
+//        Member m1 = createMember("member1");
+//        Member m2 = createMember("member2");
+//        Member m3 = createMember("member3");
+//        new Vote(t, m1, true).save();
+//        new Vote(t, m2, false).save();
+//        new Vote(t, m3, true).save();
+//        
+//        assertEquals(2, Vote.findNumberOfVotesBySession(t));
+//    }
 }

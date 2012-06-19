@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<testsuite failures="0" time="17.48" errors="0" skipped="0" tests="7" name="models.VoteTest">
-  <testcase classname="models.VoteTest" name="deleteForMember" time="2.248">
+<testsuite failures="0" time="11.556" errors="0" skipped="0" tests="5" name="models.VoteTest">
+  <testcase classname="models.VoteTest" name="deleteForMember" time="2.389">
       </testcase>
-  <testcase classname="models.VoteTest" name="findNumberOfVotesBySession" time="1.834">
+  <testcase classname="models.VoteTest" name="findVotersBySession" time="2.628">
       </testcase>
-  <testcase classname="models.VoteTest" name="findVotersBySession" time="3.743">
+  <testcase classname="models.VoteTest" name="findFavoriteTalksByMember" time="2.862">
       </testcase>
-  <testcase classname="models.VoteTest" name="findFavoriteTalksByMember" time="3.134">
+  <testcase classname="models.VoteTest" name="countVotesByMember" time="1.764">
       </testcase>
-  <testcase classname="models.VoteTest" name="countVotesByMember" time="2.047">
-      </testcase>
-  <testcase classname="models.VoteTest" name="findVote" time="2.166">
-      </testcase>
-  <testcase classname="models.VoteTest" name="deleteForSession" time="2.308">
+  <testcase classname="models.VoteTest" name="findVote" time="1.913">
       </testcase>
 </testsuite>

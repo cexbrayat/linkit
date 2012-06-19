@@ -34,7 +34,7 @@ public class Vote extends Model {
     }
 
     public static long findNumberOfVotesBySession(Session session) {
-        return Vote.count("session = ? and value is true", session);
+        return Vote.count("session = ? and value is false", session);
     }
 
     public static List<Member> findVotersBySession(Session session) {
