@@ -1,17 +1,85 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-
-<testsuite failures="0" time="0.503" errors="6" skipped="0" tests="0" name="models.VoteTest">
-  <testcase classname="models.VoteTest" name="deleteForMember" time="0.307">
-                        <error type="" message="A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name">
-        <![CDATA[
-          
-          
-               :
-          
-        ]]>
-        </error>
-                  <system-err>
-            java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
+<html>
+    <head>
+        <title>Test results for models.VoteTest.class</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <style type="text/css">
+            body {
+                font-family: Arial, Sans;
+                margin: 0;
+                padding: 0;
+            }
+            table {
+                width: 100%;
+            }
+            #header {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            #results {
+                padding: 15px;
+            }
+            #header h1 {
+                margin-top: 0;
+            }
+            #header.success {
+                background: #81CF5A !important;
+            }
+            .passed span {
+                background: #81CF5A !important;
+                padding: 3px 5px;
+            }
+            #header.failed {
+                background: #EF6868 !important;
+            }
+            .failed span {
+                background: #EF6868 !important;
+                padding: 3px 5px;
+            }
+            table .source {
+                margin-top: 10px;
+            }
+            table .source span {
+                color: #fff;
+                font-size: 85%;
+                padding: 1px 3px;
+                background: #666;
+            }
+            table .sourceLine {
+                border-left: 3px solid #c00;
+                padding: 4px 3px;
+                color: #000;
+                font-size: 85%;
+                margin-bottom: 10px;
+            }
+            .error {
+                color: #c00;
+            }
+            table td {
+                padding: 5px 0;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <div id="header" class="block failed">
+            <h1>
+                models.VoteTest.class
+            </h1>
+            <p>
+                FAILED
+            </p>
+        </div>
+        
+        <div id="results">
+            <table>
+                                <tr>
+                    <td width="20%" class="failed" valign="top">
+                        <span>deleteForMember</span>
+                    </td>
+                    <td class="error" valign="top">
+                                                <strong>A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name</strong>
+                                                                        <a href="#" onclick="toggle_trace(this); return false;">Show trace</a>
+                        <pre data-role="trace">java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
 	at play.test.Fixtures.loadModels(Fixtures.java:237)
 	at models.BaseDataUnitTest.setUp(BaseDataUnitTest.java:20)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -100,21 +168,20 @@ Caused by: java.lang.IllegalArgumentException: Can not set java.lang.String fiel
 	at java.lang.reflect.Field.get(Field.java:376)
 	at org.hibernate.property.DirectPropertyAccessor$DirectGetter.get(DirectPropertyAccessor.java:59)
 	... 70 more
-
-          </system-err>  
-        }
-            </testcase>
-  <testcase classname="models.VoteTest" name="findVotersBySession" time="0.047">
-                        <error type="" message="A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name">
-        <![CDATA[
-          
-          
-               :
-          
-        ]]>
-        </error>
-                  <system-err>
-            java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
+</pre>
+                                                                                            </td>
+                    <td width="5%" align="right" class="time" valign="top">
+                        307 ms
+                    </td>
+                </tr>
+                                <tr>
+                    <td width="20%" class="failed" valign="top">
+                        <span>findVotersBySession</span>
+                    </td>
+                    <td class="error" valign="top">
+                                                <strong>A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name</strong>
+                                                                        <a href="#" onclick="toggle_trace(this); return false;">Show trace</a>
+                        <pre data-role="trace">java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
 	at play.test.Fixtures.loadModels(Fixtures.java:237)
 	at models.BaseDataUnitTest.setUp(BaseDataUnitTest.java:20)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -203,21 +270,20 @@ Caused by: java.lang.IllegalArgumentException: Can not set java.lang.String fiel
 	at java.lang.reflect.Field.get(Field.java:376)
 	at org.hibernate.property.DirectPropertyAccessor$DirectGetter.get(DirectPropertyAccessor.java:59)
 	... 70 more
-
-          </system-err>  
-        }
-            </testcase>
-  <testcase classname="models.VoteTest" name="findFavoriteTalksByMember" time="0.04">
-                        <error type="" message="A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name">
-        <![CDATA[
-          
-          
-               :
-          
-        ]]>
-        </error>
-                  <system-err>
-            java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
+</pre>
+                                                                                            </td>
+                    <td width="5%" align="right" class="time" valign="top">
+                        47 ms
+                    </td>
+                </tr>
+                                <tr>
+                    <td width="20%" class="failed" valign="top">
+                        <span>findFavoriteTalksByMember</span>
+                    </td>
+                    <td class="error" valign="top">
+                                                <strong>A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name</strong>
+                                                                        <a href="#" onclick="toggle_trace(this); return false;">Show trace</a>
+                        <pre data-role="trace">java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
 	at play.test.Fixtures.loadModels(Fixtures.java:237)
 	at models.BaseDataUnitTest.setUp(BaseDataUnitTest.java:20)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -306,21 +372,20 @@ Caused by: java.lang.IllegalArgumentException: Can not set java.lang.String fiel
 	at java.lang.reflect.Field.get(Field.java:376)
 	at org.hibernate.property.DirectPropertyAccessor$DirectGetter.get(DirectPropertyAccessor.java:59)
 	... 70 more
-
-          </system-err>  
-        }
-            </testcase>
-  <testcase classname="models.VoteTest" name="countVotesByMember" time="0.035">
-                        <error type="" message="A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name">
-        <![CDATA[
-          
-          
-               :
-          
-        ]]>
-        </error>
-                  <system-err>
-            java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
+</pre>
+                                                                                            </td>
+                    <td width="5%" align="right" class="time" valign="top">
+                        40 ms
+                    </td>
+                </tr>
+                                <tr>
+                    <td width="20%" class="failed" valign="top">
+                        <span>countVotesByMember</span>
+                    </td>
+                    <td class="error" valign="top">
+                                                <strong>A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name</strong>
+                                                                        <a href="#" onclick="toggle_trace(this); return false;">Show trace</a>
+                        <pre data-role="trace">java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
 	at play.test.Fixtures.loadModels(Fixtures.java:237)
 	at models.BaseDataUnitTest.setUp(BaseDataUnitTest.java:20)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -409,21 +474,20 @@ Caused by: java.lang.IllegalArgumentException: Can not set java.lang.String fiel
 	at java.lang.reflect.Field.get(Field.java:376)
 	at org.hibernate.property.DirectPropertyAccessor$DirectGetter.get(DirectPropertyAccessor.java:59)
 	... 70 more
-
-          </system-err>  
-        }
-            </testcase>
-  <testcase classname="models.VoteTest" name="findVote" time="0.037">
-                        <error type="" message="A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name">
-        <![CDATA[
-          
-          
-               :
-          
-        ]]>
-        </error>
-                  <system-err>
-            java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
+</pre>
+                                                                                            </td>
+                    <td width="5%" align="right" class="time" valign="top">
+                        35 ms
+                    </td>
+                </tr>
+                                <tr>
+                    <td width="20%" class="failed" valign="top">
+                        <span>findVote</span>
+                    </td>
+                    <td class="error" valign="top">
+                                                <strong>A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name</strong>
+                                                                        <a href="#" onclick="toggle_trace(this); return false;">Show trace</a>
+                        <pre data-role="trace">java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
 	at play.test.Fixtures.loadModels(Fixtures.java:237)
 	at models.BaseDataUnitTest.setUp(BaseDataUnitTest.java:20)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -512,21 +576,20 @@ Caused by: java.lang.IllegalArgumentException: Can not set java.lang.String fiel
 	at java.lang.reflect.Field.get(Field.java:376)
 	at org.hibernate.property.DirectPropertyAccessor$DirectGetter.get(DirectPropertyAccessor.java:59)
 	... 70 more
-
-          </system-err>  
-        }
-            </testcase>
-  <testcase classname="models.VoteTest" name="findNumberOfVotesBySession" time="0.037">
-                        <error type="" message="A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name">
-        <![CDATA[
-          
-          
-               :
-          
-        ]]>
-        </error>
-                  <system-err>
-            java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
+</pre>
+                                                                                            </td>
+                    <td width="5%" align="right" class="time" valign="top">
+                        37 ms
+                    </td>
+                </tr>
+                                <tr>
+                    <td width="20%" class="failed" valign="top">
+                        <span>findNumberOfVotesBySession</span>
+                    </td>
+                    <td class="error" valign="top">
+                                                <strong>A java.lang.RuntimeException has been caught, Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name</strong>
+                                                                        <a href="#" onclick="toggle_trace(this); return false;">Show trace</a>
+                        <pre data-role="trace">java.lang.RuntimeException: Cannot load fixture data.yml: org.hibernate.PropertyAccessException: could not get a field value by reflection getter of models.Interest.name
 	at play.test.Fixtures.loadModels(Fixtures.java:237)
 	at models.BaseDataUnitTest.setUp(BaseDataUnitTest.java:20)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -615,8 +678,15 @@ Caused by: java.lang.IllegalArgumentException: Can not set java.lang.String fiel
 	at java.lang.reflect.Field.get(Field.java:376)
 	at org.hibernate.property.DirectPropertyAccessor$DirectGetter.get(DirectPropertyAccessor.java:59)
 	... 70 more
+</pre>
+                                                                                            </td>
+                    <td width="5%" align="right" class="time" valign="top">
+                        37 ms
+                    </td>
+                </tr>
+                            </table>
+        </div>
+        
+    </body>
+</html>
 
-          </system-err>  
-        }
-            </testcase>
-</testsuite>

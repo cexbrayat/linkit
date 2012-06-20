@@ -76,17 +76,17 @@ public class VoteTest extends BaseDataUnitTest {
         assertEquals(0, Vote.countVotesByMember(m));
     }
     
-//    @Test public void findNumberOfVotesBySession() {
-//        Talk t = createTalk();
-//        assertEquals(0, Vote.findNumberOfVotesBySession(t));
-//        
-//        Member m1 = createMember("member1");
-//        Member m2 = createMember("member2");
-//        Member m3 = createMember("member3");
-//        new Vote(t, m1, true).save();
-//        new Vote(t, m2, false).save();
-//        new Vote(t, m3, true).save();
-//        
-//        assertEquals(2, Vote.findNumberOfVotesBySession(t));
-//    }
+    @Test public void findNumberOfVotesBySession() {
+        Talk t = createTalk();
+        assertEquals(0, Vote.findNumberOfVotesBySession(t));
+        
+        Member m1 = createMember("member1");
+        Member m2 = createMember("member2");
+        Member m3 = createMember("member3");
+        new Vote(t, m1, true).save();
+        new Vote(t, m2, false).save();
+        new Vote(t, m3, true).save();
+        
+        assertEquals(2, Vote.findNumberOfVotesBySession(t));
+    }
 }
