@@ -1,5 +1,6 @@
 tmp/
 precompiled/
+conf/secrets*
 logs/
 nbproject/
 *.iml
