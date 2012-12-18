@@ -63,6 +63,7 @@ GoogleAccount(rguyLinkIt):
     googleId: 111962077049890418486
 
 Talk(sessionTest):
+    event: mixit12
     title: Test title
     track: Techy
     summary: Test summary
