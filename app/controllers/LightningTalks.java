@@ -14,8 +14,12 @@ import play.i18n.Messages;
 public class LightningTalks extends PageController {
 
     public static void list() {
-        List<LightningTalk> sessions = LightningTalk.findAll();
-        render(sessions);
+        listOn(Application.CURRENT_EVENT);
+    }
+
+    public static void listOn(ConferenceEvent event) {
+        List<LightningTalk> sessions = LightningTalk.findAllOn(event);
+        render("LightningTalks/list.html", sessions);
     }
 
     public static void create() throws Throwable {

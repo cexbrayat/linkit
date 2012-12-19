@@ -24,6 +24,10 @@ public class Talk extends Session {
     @Enumerated(EnumType.STRING)
     public Track track;
 
+    public static List<Talk> findAllOn(ConferenceEvent event) {
+        return find("event = ?", event).fetch();
+    }
+
     public static List<Talk> findLinkedWith(Interest interest) {
         return find("valid=true and ? in elements(interests)", interest).fetch();
     }
@@ -39,11 +43,11 @@ public class Talk extends Session {
     public static List<Member> findAllSpeakers() {
         return find("select distinct t.speakers from Talk t where t.valid=true").fetch();
     }
-    
-    public static List<Talk> findAllValidated() {
-        return find("valid=true").fetch();
+
+    public static List<Talk> findAllValidatedOn(ConferenceEvent event) {
+        return find("event = :event and valid=true").bind("event", event).fetch();
     }
-    
+
     public void validate() {
         this.valid = true;
         save();
