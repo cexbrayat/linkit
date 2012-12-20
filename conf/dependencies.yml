@@ -7,7 +7,6 @@ require:
     - play -> cloudbees 0.2.2
     - play -> secure
     - play -> crud 1.2.4
-    - play -> cobertura 2.4
     - play -> search head
     - play -> markdown 1.7
     - play -> pdf 0.9
