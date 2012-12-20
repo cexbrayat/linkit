@@ -1,6 +1,8 @@
 package helpers.ticketing;
 
 import java.util.Set;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import play.Play;
 import play.test.UnitTest;
@@ -10,6 +12,8 @@ import play.test.UnitTest;
  * Pour ces tests on presuppose d'un user contact@mix-it.fr a un billet pour l'event MIX-IT 2012 sous WeezEvent
  * @author agnes <agnes.crepet@gmail.com>
  */
+// FIXME WeezEvent tests ignored : event 2012 deleted in WeezEvent DB
+@Ignore
 public class WeezEventTest extends UnitTest {
 
     @Test

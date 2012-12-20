@@ -21,7 +21,7 @@ public class JavaExtensionsTest extends UnitTest {
         // target timezone : Paris
         final String timezone = "Europe/Paris";
         Logger.info("date Paris = %s", date.withZone(DateTimeZone.forID(timezone)).toString());
-        assertEquals("17H23", JavaExtensions.format(date.toDate(), "HH'H'mm", "FR", timezone));
+        assertEquals(date.withZone(DateTimeZone.forID(timezone)).toString("HH'H'mm"), JavaExtensions.format(date.toDate(), "HH'H'mm", "FR", timezone));
     }
     
     @Test public void sanitizeHtml() {
