@@ -347,6 +347,8 @@ Sponsor(zenika):
     shortDescription : Zenika, experts en technologies Open Source et méthodes Agiles
     badges:
          - Sponsor
+    events:
+         - mixit12
 
 TwitterAccount(zenikaTwitter):
     provider: Twitter

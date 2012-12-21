@@ -1,5 +1,6 @@
 package helpers.badge;
 
+import models.ConferenceEvent;
 import models.Sponsor;
 import models.Staff;
 import models.Talk;
@@ -41,8 +42,7 @@ public class BadgeComputationContext {
 
     public long getNbSponsors() {
         if (nbSponsors == null) {
-            // FIXME CLA Count sponsors on current event
-            nbSponsors = Sponsor.count();
+            nbSponsors = Sponsor.countOn(ConferenceEvent.CURRENT);
         }
         return nbSponsors == null ? 0L : nbSponsors.longValue();
     }

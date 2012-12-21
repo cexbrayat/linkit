@@ -3,11 +3,8 @@ package helpers.badge;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import models.Badge;
-import models.Member;
-import models.Sponsor;
-import models.Staff;
-import models.Talk;
+
+import models.*;
 import org.junit.Test;
 
 /**
@@ -45,7 +42,7 @@ public class FriendBadgeComputerTest extends AbstractBadgeComputerTest {
     @Test
     public void grantedSponsorFriendly() {
         // Member links all sponsor Members
-        final List<Sponsor> sponsors = Sponsor.findAll();
+        final List<Sponsor> sponsors = Sponsor.findOn(ConferenceEvent.CURRENT);
         for (Sponsor s : sponsors) {
             member.addLink(s);
         }

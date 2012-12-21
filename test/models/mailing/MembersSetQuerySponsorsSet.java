@@ -1,6 +1,7 @@
 package models.mailing;
 
 import models.BaseDataUnitTest;
+import models.ConferenceEvent;
 import models.Sponsor;
 import org.junit.Test;
 
@@ -13,6 +14,6 @@ public class MembersSetQuerySponsorsSet extends BaseDataUnitTest {
     private MembersSetQuery query = MembersSetQueryFactory.create(MembersSet.Sponsors);
     
     @Test public void find() {
-        assertEquals(Sponsor.findAll(), query.find());
+        assertEquals(Sponsor.findOn(ConferenceEvent.CURRENT), query.find());
     }
 }

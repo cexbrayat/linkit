@@ -98,7 +98,7 @@ Article(articleNonValid):
     postedAt: 2012-01-20
     valid: false
 
-Sponsor(sponsor) :
+Sponsor(sponsorCurrent) :
     firstname: ACME
     lastname: Company
     login: sponsor
@@ -106,3 +106,28 @@ Sponsor(sponsor) :
     shortDescription : We rule the world!
     badges:
          - Sponsor
+    events:
+         - mixit13
+
+Sponsor(sponsorPast) :
+    firstname: ACMEPast
+    lastname: Company
+    login: sponsorPast
+    email: info@acme.com
+    shortDescription : We rule the world!
+    badges:
+         - Sponsor
+    events:
+         - mixit12
+
+Sponsor(sponsorBoth) :
+    firstname: ACMEBoth
+    lastname: Company
+    login: sponsorBoth
+    email: info@acme.com
+    shortDescription : We sponsor every Mix-IT event!
+    badges:
+         - Sponsor
+    events:
+         - mixit12
+         - mixit13

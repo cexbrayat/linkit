@@ -1,14 +1,17 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
+import java.util.EnumSet;
 import org.apache.commons.lang.StringUtils;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.util.List;
+import java.util.Set;
+import javax.persistence.ElementCollection;
+import play.data.validation.MinSize;
 
 /**
  * A Mix-IT sponsor, giving a fucking load of money to buy better sandwiches than the ones given at WSN Paris.
@@ -17,6 +20,7 @@ import java.util.List;
 @Entity
 @Indexed
 public class Sponsor extends Member {
+
     public enum Level{
       GOLD, SILVER, BRONZE
     }
@@ -27,15 +31,35 @@ public class Sponsor extends Member {
     @Enumerated(EnumType.STRING)
     public Level level;
 
-    public Sponsor(String login) {
+	@ElementCollection @Enumerated(EnumType.STRING)
+    @MinSize(1)
+    public Set<ConferenceEvent> events = EnumSet.noneOf(ConferenceEvent.class);
+
+	public Sponsor(String login) {
         super(login);
         // Can't call addBadge() on a transient instance (and don't want to trigger activity)
         this.badges.add(Badge.Sponsor);
     }
 
+    public static long countOn(ConferenceEvent event) {
+        return find("select count(distinct s) from Sponsor s join s.events e where e = ?", event).first();
+    }
+
+    /**
+     * List sponsors for given event
+     * @param event
+     */
+    public static List<Sponsor> findOn(ConferenceEvent event){
+        return Sponsor.find("select distinct s from Sponsor s join s.events e where e = ?", event).fetch();
+    }
+
+    /**
+     * List sponsors by level for current event
+     * @param level
+     * @return
+     */
     public static List<Sponsor> findByLevel(Level level){
-        return Sponsor.find(
-            "select distinct m from Member m where level = ?", level).fetch();
+        return Sponsor.find("select distinct s from Sponsor s join s.events e where s.level = ? and e = ?", level, ConferenceEvent.CURRENT).fetch();
     }
 
     @Override
