@@ -19,11 +19,15 @@ import java.util.List;
 public class Sessions extends PageController {
 
     public static void index() {
+        listOn(ConferenceEvent.CURRENT);
+    }
+
+    public static void listOn(ConferenceEvent event) {
         List<Talk> sessions = null;
         if (Security.check(Role.ADMIN_SESSION)) {
-            sessions = Talk.findAll();
+            sessions = Talk.findAllOn(event);
         } else {
-            sessions = Talk.findAllValidated();
+            sessions = Talk.findAllValidatedOn(event);
         }
         Collections.shuffle(sessions);
         Logger.info(sessions.size() + " sessions");
@@ -33,7 +37,7 @@ public class Sessions extends PageController {
     public static void create(final String speakerLogin) throws Throwable {
         
         // Fermeture du CFP
-            forbidden("Le Call for Paper est désormais terminé. Rendez-vous l'année prochaine!");
+        forbidden("Le Call for Paper est désormais terminé. Rendez-vous l'année prochaine!");
         
         SecureLinkIt.checkAccess(); // Connected
         

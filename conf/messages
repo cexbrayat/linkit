@@ -43,7 +43,7 @@ button.about.mixit=A propos de Mix-IT
 button.talks=Les sessions
 button.login=S'inscrire
 button.ticketing=Acheter mon billet
-button.ticketing.price=Prix unique : 30 euros
+button.ticketing.price=Prix non encore annoncé
 button.vote.lightningtalks=Voter pour des lightning talks
 tab.lastactivities=Dernières activitiés
 tab.lastarticles=Derniers articles
@@ -191,10 +191,11 @@ provider.Twitter=Twitter
 provider.LinkedIn=LinkedIn
 
 # Badges
-badge.Speaker=Speaker (intervenant sur une session)
+badge.Speaker=Speaker (intervenant sur une session, présente ou passée)
 badge.Staff=Staff (membre organisateur de Mix-IT)
 badge.Sponsor=Sponsor (gentil bienfaiteur de Mix-IT)
 badge.Attendee=Participant (Membre inscrit pour la conférence)
+badge.PreviousAttendee=Participant aux événements passés (Membre inscrit pour une précédente conférence, et on le remercie)
 badge.StaffBestFriend=Staff best friend (vous avez linké tous les membres du staff)
 badge.SpeakerFan=Speaker fan (vous avez linké tous les speakers)
 badge.SponsorFriendly=Sponsor friendly (vous avez linké tous les sponsors)

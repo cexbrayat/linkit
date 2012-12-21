@@ -55,6 +55,7 @@ GET     /dashboard/settings                     Dashboard.settings
 
 # Sessions
 GET     /sessions                               Sessions.index
+GET     /{event}/sessions                       Sessions.listOn
 GET     /session/new                            Sessions.create
 POST    /session                                Sessions.save
 GET     /session/edit                           Sessions.edit
@@ -69,6 +70,7 @@ GET     /session/fav/{talkId}/{fav}             Sessions.fav
 
 # Lightning
 GET     /lightnings                             LightningTalks.list
+GET     /{event}/lightnings                     LightningTalks.listOn
 GET     /lightning/new                          LightningTalks.create
 GET     /lightning/delete/{sessionId}           LightningTalks.delete
 GET     /lightning/{sessionId}/{slugify}        LightningTalks.show

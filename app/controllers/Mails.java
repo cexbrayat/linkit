@@ -50,7 +50,7 @@ public class Mails extends Mailer {
     }
     
     private static void addRecipients(MembersSet set) {
-        final List<Member> members = MembersSetQueryFactory.create(set).find();
+        final List<? extends Member> members = MembersSetQueryFactory.create(set).find();
         for (Member member : members) {
             addRecipient(member.email);
         }

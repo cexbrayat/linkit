@@ -1,6 +1,8 @@
 package models.mailing;
 
 import java.util.List;
+
+import models.ConferenceEvent;
 import models.Member;
 import models.Sponsor;
 
@@ -10,7 +12,7 @@ import models.Sponsor;
  */
 public class MembersSetQuerySponsors implements MembersSetQuery {
 
-    public List<Member> find() {
-        return Sponsor.findAll();
+    public List<Sponsor> find() {
+        return Sponsor.findOn(ConferenceEvent.CURRENT);
     }
 }
