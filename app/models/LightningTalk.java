@@ -20,7 +20,11 @@ public class LightningTalk extends Session {
         // A Lightning Talk is always validated
         valid = true;
     }
-    
+
+    public static List<LightningTalk> findAllOn(ConferenceEvent event) {
+        return find("event = ?", event).fetch();
+    }
+
     @Override
     public String toString() {
         return title;

@@ -5,14 +5,15 @@ conf/secrets*
 logs/
 test-result/
 nbproject/
+.idea/
 *.iml
 *.ipr
 *.iws
+*.ids
 .classpath
 .project
 .settings/
 eclipse/
 *.DS_Store
-.idea/
 out/
 lib/

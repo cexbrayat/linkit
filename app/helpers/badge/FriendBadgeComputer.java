@@ -24,7 +24,7 @@ class FriendBadgeComputer implements BadgeComputer {
                 return t instanceof Staff;
             }
         });
-        if (staffedLinked.size() >= context.getNbStaff()) {
+        if (context.getNbStaff() > 0 && staffedLinked.size() >= context.getNbStaff()) {
             badges.add(Badge.StaffBestFriend);
         }
 
@@ -34,7 +34,7 @@ class FriendBadgeComputer implements BadgeComputer {
                 return m.isSpeaker();
             }
         });
-        if (speakersLinked.size() >= context.getNbSpeakers()) {
+        if (context.getNbSpeakers() > 0 && speakersLinked.size() >= context.getNbSpeakers()) {
             badges.add(Badge.SpeakerFan);
         }
 
@@ -44,7 +44,7 @@ class FriendBadgeComputer implements BadgeComputer {
                 return t instanceof Sponsor;
             }
         });
-        if (sponsorsLinked.size() >= context.getNbSpeakers()) {
+        if (context.getNbSponsors() > 0 && sponsorsLinked.size() >= context.getNbSponsors()) {
             badges.add(Badge.SponsorFriendly);
         }
         

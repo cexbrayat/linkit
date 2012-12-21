@@ -1,5 +1,7 @@
 package helpers.badge;
 
+import models.ConferenceEvent;
+import models.Sponsor;
 import models.Staff;
 import models.Talk;
 
@@ -11,27 +13,37 @@ public class BadgeComputationContext {
     
     /** Number of staff people */
     private Long nbStaff;
-    
+
     /** Number of speaker people */
     private Long nbSpeakers;
+
+    /** Number of sponsors people */
+    private Long nbSponsors;
 
     /**
      * @return Number of staff people (computed through DB)
      */
-    public Long getNbStaff() {
+    public long getNbStaff() {
         if (nbStaff == null) {
             nbStaff = Staff.count();
         }
-        return nbStaff;
+        return nbStaff == null ? 0L : nbStaff.longValue();
     }
 
     /**
      * @return Number of speaker people (computed through DB)
      */
-    public Long getNbSpeakers() {
+    public long getNbSpeakers() {
         if (nbSpeakers == null) {
             nbSpeakers = Talk.countSpeakers();
         }
-        return nbSpeakers;
+        return nbSpeakers == null ? 0L : nbSpeakers.longValue();
+    }
+
+    public long getNbSponsors() {
+        if (nbSponsors == null) {
+            nbSponsors = Sponsor.countOn(ConferenceEvent.CURRENT);
+        }
+        return nbSponsors == null ? 0L : nbSponsors.longValue();
     }
 }

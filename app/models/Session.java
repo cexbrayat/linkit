@@ -1,5 +1,6 @@
 package models;
 
+import controllers.Application;
 import controllers.Mails;
 import java.util.*;
 import javax.persistence.*;
@@ -24,10 +25,16 @@ import play.modules.search.Field;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Session extends Model implements Lookable, Comparable<Session> {
 
+    public static final String EVENT = "event";
     public static final String TITLE = "title";
     public static final String SUMMARY = "summary";
     public static final String DESCRIPTION = "description";
-    
+
+    @Column(name = EVENT, nullable = false, updatable = false, length = 10)
+    @Enumerated(EnumType.STRING)
+    @Required
+    public ConferenceEvent event;
+
     @Column(name = TITLE)
     @Required
     @MaxSize(50)
@@ -65,12 +72,16 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
 
     @OneToMany(mappedBy = "session", cascade = CascadeType.ALL, orphanRemoval = true)
     public List<Vote> votes;
-    
+
     /** Number of consultation */
     public long nbConsults;
     
     /** Is session validated (publicly visible) */
     public boolean valid;
+
+    protected Session() {
+        this.event = ConferenceEvent.CURRENT;
+    }
 
     public final void addSpeaker(Member speaker) {
         if (speaker != null) {

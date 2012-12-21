@@ -385,11 +385,11 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     /**
      * Pre-register a new Link-IT user with given authentication account.
-     * This member is not yet persisted. It will be when he fills in his profile, and when {@link #register(models.auth.AuthAccount)} is called.
+     * This member is not yet persisted. It will be when he fills in his profile, and when {@link #register(String)} is called.
      */
     public void preregister(AuthAccount account) {
         play.cache.Cache.add(login, this);
-        play.cache.Cache.add(CACHE_ACCOUNT_PREFIX+this.login, account);        
+        play.cache.Cache.add(CACHE_ACCOUNT_PREFIX + this.login, account);
         authenticate(account);
     }
 
@@ -564,51 +564,32 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         return toString().compareTo(t.toString());
     }
 
-    static class TalkPredicate implements Predicate<Session> {
-
-        private boolean validated;
-
-        public TalkPredicate(boolean validated) {
-            this.validated = validated;
-        }
-        
-        public boolean apply(Session s) {
-            if (s instanceof Talk) {
-                Talk t = (Talk) s;
-                return t.valid == this.validated;
-            } else {
-                return false;
-            }
-        }
-        
-    }
-    
-    private static final Predicate<Session> VALIDATED_TALK = new TalkPredicate(true);
-    private static final Predicate<Session> PROPOSED_TALK = new TalkPredicate(false);
-    private static final Predicate<Session> LIGHTNING_TALK = new Predicate<Session>() {
-        public boolean apply(Session s) {
-            return (s instanceof LightningTalk);
-        }
-    };
-    
     public boolean isSpeaker() {
-        return Iterables.any(sessions, VALIDATED_TALK);
+        return Iterables.any(sessions, SessionPredicates.CURRENT_VALIDATED_TALK);
     }
-    
+
+    public boolean isSpeakerOn(ConferenceEvent event) {
+        return Iterables.any(sessions, new SessionPredicates.TalkPredicate(true, event));
+    }
+
     public boolean isLightningTalkSpeaker() {
-        return Iterables.any(sessions, LIGHTNING_TALK);
+        return Iterables.any(sessions, SessionPredicates.CURRENT_LIGHTNING_TALK);
     }
-    
+
+    public boolean isLightningTalkSpeakerOn(ConferenceEvent event) {
+        return Iterables.any(sessions, new SessionPredicates.LightningTalkPredicate(event));
+    }
+
     public Set<Session> getValidatedTalks() {
-        return Sets.filter(sessions, VALIDATED_TALK);
+        return Sets.filter(sessions, SessionPredicates.CURRENT_VALIDATED_TALK);
     }
     
     public Set<Session> getProposedTalks() {
-        return Sets.filter(sessions, PROPOSED_TALK);
+        return Sets.filter(sessions, SessionPredicates.CURRENT_PROPOSED_TALK);
     }
     
     public Set<Session> getLightningTalks() {
-        return Sets.filter(sessions, LIGHTNING_TALK);
+        return Sets.filter(sessions, SessionPredicates.CURRENT_LIGHTNING_TALK);
     }
 
     public void setTicketingRegistered(boolean ticketingRegistered) {
