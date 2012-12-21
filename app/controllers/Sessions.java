@@ -19,7 +19,7 @@ import java.util.List;
 public class Sessions extends PageController {
 
     public static void index() {
-        listOn(Application.CURRENT_EVENT);
+        listOn(ConferenceEvent.CURRENT);
     }
 
     public static void listOn(ConferenceEvent event) {

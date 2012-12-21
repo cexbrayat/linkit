@@ -62,9 +62,19 @@ GoogleAccount(rguyLinkIt):
     member: rguy
     googleId: 111962077049890418486
 
-Talk(sessionTest):
+Talk(sessionTestPast):
     event: mixit12
-    title: Test title
+    title: Test title past
+    track: Techy
+    summary: Test summary
+    description : Test description
+    valid: true
+    speakers:
+           - rguy
+
+Talk(sessionTestCurrent):
+    event: mixit13
+    title: Test title current
     track: Techy
     summary: Test summary
     description : Test description

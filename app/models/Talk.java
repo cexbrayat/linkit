@@ -37,11 +37,11 @@ public class Talk extends Session {
     }
     
     public static long countSpeakers() {
-        return find("select count(distinct s) from Talk t inner join t.speakers as s where t.valid=true").first();
+        return find("select count(distinct s) from Talk t inner join t.speakers as s where t.valid=true and t.event = ?", ConferenceEvent.CURRENT).first();
     }
     
     public static List<Member> findAllSpeakers() {
-        return find("select distinct t.speakers from Talk t where t.valid=true").fetch();
+        return find("select distinct t.speakers from Talk t where t.valid=true and t.event = ?", ConferenceEvent.CURRENT).fetch();
     }
 
     public static List<Talk> findAllValidatedOn(ConferenceEvent event) {

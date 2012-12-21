@@ -80,7 +80,7 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
     public boolean valid;
 
     protected Session() {
-        this.event = Application.CURRENT_EVENT;
+        this.event = ConferenceEvent.CURRENT;
     }
 
     public final void addSpeaker(Member speaker) {

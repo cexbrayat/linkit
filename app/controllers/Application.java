@@ -20,8 +20,6 @@ import play.templates.JavaExtensions;
 @Transactional(readOnly = true)
 public class Application extends PageController {
 
-    public static final ConferenceEvent CURRENT_EVENT = ConferenceEvent.mixit13;
-
     public static void live() {
         render();
     }

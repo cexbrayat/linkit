@@ -7,6 +7,10 @@ commit;
 
 # Member.ticketingRegistered = false
 update Member m set m.ticketingRegistered = false;
+commit;
 
 # --- !Downs
+update Member_Badges mb set mb.badges = 4 where mb.badges = 26;
+commit;
+
 ALTER TABLE Session drop column event;

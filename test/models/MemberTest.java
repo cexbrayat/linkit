@@ -2,6 +2,8 @@ package models;
 
 import java.util.Arrays;
 import java.util.List;
+
+import controllers.Application;
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
@@ -361,7 +363,7 @@ public class MemberTest extends BaseDataUnitTest {
         // Relecture depuis la BDD
         assertEquals(newLinks, Member.findByLogin(login).sharedLinks);
     }
-    
+
     @Test public void isSpeaker() {
         final Member m = createMember("toto");
         assertFalse(m.isSpeaker());
@@ -374,7 +376,27 @@ public class MemberTest extends BaseDataUnitTest {
         t.validate();
         assertTrue(m.isSpeaker());
     }
-    
+
+    @Test public void isSpeakerOn() {
+        final Member m = createMember("toto");
+        final ConferenceEvent event = ConferenceEvent.mixit12;
+        assertNotSame(ConferenceEvent.CURRENT, event);
+        assertFalse(m.isSpeakerOn(event));
+
+        // Creation d'un talk non valide sur l'événement courant par défaur
+        Talk t = new Talk();
+        t.addSpeaker(m);
+        t.save();
+        assertFalse(m.isSpeakerOn(event));
+        // Validation du talk
+        t.validate();
+        assertFalse(m.isSpeakerOn(event));
+        // Modification de l'event du talk
+        t.event = event;
+        t.update();
+        assertTrue(m.isSpeakerOn(event));
+    }
+
     @Test public void isLightningTalkSpeaker() {
         final Member m = createMember("toto");
         assertFalse(m.isLightningTalkSpeaker());
@@ -384,7 +406,24 @@ public class MemberTest extends BaseDataUnitTest {
         lt.save();
         assertTrue(m.isLightningTalkSpeaker());
     }
-    
+
+    @Test public void isLightningTalkSpeakerOn() {
+        final Member m = createMember("toto");
+        final ConferenceEvent event = ConferenceEvent.mixit12;
+        assertNotSame(ConferenceEvent.CURRENT, event);
+        assertFalse(m.isLightningTalkSpeakerOn(event));
+
+        // Creation d'un LT sur l'événement courant par défaut
+        LightningTalk lt = new LightningTalk();
+        lt.addSpeaker(m);
+        lt.save();
+        assertFalse(m.isLightningTalkSpeakerOn(event));
+        // Modification de l'event du lightningtalk
+        lt.event = event;
+        lt.update();
+        assertTrue(m.isLightningTalkSpeakerOn(event));
+    }
+
     @Test public void findAllIds() {
         assertNotNull(Member.findAllIds());
     }

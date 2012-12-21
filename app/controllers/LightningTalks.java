@@ -14,7 +14,7 @@ import play.i18n.Messages;
 public class LightningTalks extends PageController {
 
     public static void list() {
-        listOn(Application.CURRENT_EVENT);
+        listOn(ConferenceEvent.CURRENT);
     }
 
     public static void listOn(ConferenceEvent event) {
