@@ -12,6 +12,9 @@ import java.util.Set;
  */
 public enum Badge {
 
+    // WARNING : this enum is mapped on Member.badges, without @Enumerated(STRING) -> ordinal values are used in DB.
+    // Don't move instance order, unless you patch data in DB.
+
     /** A speaker member */
     Speaker,
     /** A staff member */
@@ -63,7 +66,9 @@ public enum Badge {
     /** Having used Link-IT for five consecutives days */
     FiveDaysInARow,
     /** Having used Link-IT for 10 consecutives days */
-    MixITAddict;
+    MixITAddict,
+    /** Being an attendee on a previous Mix-IT event */
+    PreviousAttendee;
 
     /**
      * Base folder storing badges image files.
