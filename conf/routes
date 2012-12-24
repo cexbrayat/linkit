@@ -22,6 +22,7 @@ GET     /login/with/{provider}                  Login.loginWith
 
 # Application
 GET     /speakers                               Application.speakers
+GET     /{event}/speakers                       Application.speakersOn
 GET     /staff                                  Application.staff
 GET     /sponsors                               Application.sponsors
 GET     /{event}/sponsors                       Application.sponsorsOf
@@ -100,6 +101,9 @@ GET     /logout                                 Secure.logout
 
 # Live activities
 WS      /live                                   LiveActivities.listen
+
+# Infos
+GET     /mixit12                                Infos.mixit12
 
 # Bots resources
 *       /favicon.ico                            staticFile:public/images/favicon.ico

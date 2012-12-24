@@ -56,7 +56,11 @@ public class Application extends PageController {
     }
 
     public static void speakers() {
-        List<Member> members = Talk.findAllSpeakers();
+        speakersOn(ConferenceEvent.CURRENT);
+    }
+
+    public static void speakersOn(ConferenceEvent event) {
+        List<Member> members = Talk.findAllSpeakersOn(event);
         Collections.shuffle(members);
         render("Application/list.html", members);
     }
