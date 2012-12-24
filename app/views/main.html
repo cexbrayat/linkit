@@ -78,14 +78,18 @@
                             <a class="dropdown-toggle" href="#">&{'menu.agenda'}</a>
                             <ul class="dropdown-menu">
                                 <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
+*{ Masquage des lightnings talks : en aura-t-on en 2013?
                                 <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
+}*
 *{ Fermeture du CFP
                             #{if session.username}
                                 <li class="divider"></li>
                                 <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                             #{/if}
 }*
+*{ Masquage de l'agenda
                                 <li><a href="@{Agenda.index()}">Agenda</a></li>
+}*
 *{ Google calendar obsolète
                                 <li><a href="@{Agenda.google()}">Google Calendar</a></li>
 }*
