@@ -1,4 +1,4 @@
-*{ Display all sessions "sessions" }*
+*{ Display all sessions "sessions" for ConferenceEvent "event" }*
 <script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
 <script >
     $(function() {
@@ -30,6 +30,10 @@
     }
 </script>
 
+<h1>&{'sessions.forEvent', _event}</h1>
+
+#{if _sessions}
+
 <div class="row">
     <div class="span11 offset2" style="text-align: center">
         #{list items:models.Track.values(), as:'track'}
@@ -56,4 +60,10 @@
     </div>
 </div>
 #{/list}
- 
+
+#{/if}
+#{else}
+
+&{'sessions.none'}
+
+#{/else}

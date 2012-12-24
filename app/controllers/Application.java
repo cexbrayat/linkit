@@ -62,10 +62,14 @@ public class Application extends PageController {
     }
 
     public static void sponsors() {
-        List<Sponsor> goldSponsors = Sponsor.findByLevel(Sponsor.Level.GOLD);
-        List<Sponsor> silverSponsors = Sponsor.findByLevel(Sponsor.Level.SILVER);
-        List<Sponsor> bronzeSponsors = Sponsor.findByLevel(Sponsor.Level.BRONZE);
-        render(goldSponsors, silverSponsors, bronzeSponsors);
+        sponsorsOf(ConferenceEvent.CURRENT);
+    }
+
+    public static void sponsorsOf(ConferenceEvent event) {
+        List<Sponsor> goldSponsors = Sponsor.findByEventAndLevel(event, Sponsor.Level.GOLD);
+        List<Sponsor> silverSponsors = Sponsor.findByEventAndLevel(event, Sponsor.Level.SILVER);
+        List<Sponsor> bronzeSponsors = Sponsor.findByEventAndLevel(event, Sponsor.Level.BRONZE);
+        render("Application/sponsors.html", event, goldSponsors, silverSponsors, bronzeSponsors);
     }
 
     public static void searchByInterest(String interest) {

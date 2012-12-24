@@ -24,6 +24,7 @@ GET     /login/with/{provider}                  Login.loginWith
 GET     /speakers                               Application.speakers
 GET     /staff                                  Application.staff
 GET     /sponsors                               Application.sponsors
+GET     /{event}/sponsors                       Application.sponsorsOf
 GET     /members                                Application.members
 GET     /interest/{interest}                    Application.searchByInterest
 # I fucking don't know why this route is not used!
