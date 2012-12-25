@@ -136,6 +136,7 @@ event.mixit12=Mix-IT 2012
 event.mixit13=Mix-IT 2013
 
 # Sponsors
+sponsors.register=Do you wanna be one of our sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202013]%%20Registration">Contact us</a>!
 sponsors.forEvent=Sponsors of &{event.%s}
 sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
   <hr/>\

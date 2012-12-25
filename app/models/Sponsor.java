@@ -22,6 +22,7 @@ import play.data.validation.MinSize;
 public class Sponsor extends Member {
 
     public enum Level{
+      // Order is used at display-time.
       GOLD, SILVER, BRONZE
     }
 

@@ -1,12 +1,15 @@
 package controllers;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import models.*;
+import org.apache.commons.collections.MultiMap;
 import play.Logger;
 
 import java.util.List;
@@ -16,6 +19,8 @@ import org.apache.commons.lang.StringUtils;
 import play.db.jpa.Transactional;
 import play.modules.search.Search;
 import play.templates.JavaExtensions;
+
+import javax.annotation.Nullable;
 
 @Transactional(readOnly = true)
 public class Application extends PageController {
@@ -70,10 +75,18 @@ public class Application extends PageController {
     }
 
     public static void sponsorsOf(ConferenceEvent event) {
-        List<Sponsor> goldSponsors = Sponsor.findByEventAndLevel(event, Sponsor.Level.GOLD);
-        List<Sponsor> silverSponsors = Sponsor.findByEventAndLevel(event, Sponsor.Level.SILVER);
-        List<Sponsor> bronzeSponsors = Sponsor.findByEventAndLevel(event, Sponsor.Level.BRONZE);
-        render("Application/sponsors.html", event, goldSponsors, silverSponsors, bronzeSponsors);
+        List<Sponsor> allSponsors = Sponsor.findOn(event);
+
+        Multimap<Sponsor.Level, Sponsor> eventSponsors = Multimaps.index(allSponsors, new Function<Sponsor, Sponsor.Level>() {
+            @Override
+            public Sponsor.Level apply(@Nullable Sponsor sponsor) {
+                return sponsor.level;
+            }
+        });
+
+        // WARNING : "sponsors" is already used as template variable, cf. PageController.loadDefaultData()
+
+        render("Application/sponsors.html", event, eventSponsors);
     }
 
     public static void searchByInterest(String interest) {

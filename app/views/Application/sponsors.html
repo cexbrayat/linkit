@@ -1,14 +1,23 @@
 #{extends 'main.html' /}
 #{set title:'Liste des sponsors' /}
 
-<h1>&{'sponsors.forEvent', event}</h1>
-<h2>Gold</h2>
-#{members members:goldSponsors/}
-<h2>Silver</h2>
-#{members members:silverSponsors/}
-<h2>Bronze</h2>
-#{members members:bronzeSponsors/}
+<div class='alert-message'>
+    &{'sponsors.register'}
+</div>
 
+#{if eventSponsors?.size() > 0}
+<h1>&{'sponsors.forEvent', event}</h1>
+
+#{list items:models.Sponsor.Level.values(), as:'level'}
+    #{if eventSponsors.get(level)}
+        <h2>${level.toString().toLowerCase().capFirst()}</h2>
+        #{members members:eventSponsors.get(level) /}
+    #{/if}
+#{/list}
+#{/if}
+
+#{if messages.get('sponsors.partners.'+event)}
 <br/>
 <h1>Partenaires</h1>
 &{'sponsors.partners.'+event}
+#{/if}
