@@ -1,5 +1,5 @@
 # --- !Ups
-ALTER TABLE Session add column event varchar(10) not null;
+ALTER TABLE Session add column event varchar(10) not null default 'mixit12';
 
 # Badges : Attendee -> PreviousAttendee
 update Member_Badges mb set mb.badges = 26 where mb.badges = 4;
