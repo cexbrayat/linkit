@@ -106,6 +106,7 @@ Sponsor(sponsorCurrent) :
     shortDescription : We rule the world!
     badges:
          - Sponsor
+    level: SILVER
     events:
          - mixit13
 
@@ -117,6 +118,7 @@ Sponsor(sponsorPast) :
     shortDescription : We rule the world!
     badges:
          - Sponsor
+    level: GOLD
     events:
          - mixit12
 
@@ -128,6 +130,7 @@ Sponsor(sponsorBoth) :
     shortDescription : We sponsor every Mix-IT event!
     badges:
          - Sponsor
+    level: SILVER
     events:
          - mixit12
          - mixit13

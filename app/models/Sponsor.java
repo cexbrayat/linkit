@@ -22,6 +22,7 @@ import play.data.validation.MinSize;
 public class Sponsor extends Member {
 
     public enum Level{
+      // Order is used at display-time.
       GOLD, SILVER, BRONZE
     }
 
@@ -54,12 +55,13 @@ public class Sponsor extends Member {
     }
 
     /**
-     * List sponsors by level for current event
+     * List sponsors by level for given event
      * @param level
+     * @param event
      * @return
      */
-    public static List<Sponsor> findByLevel(Level level){
-        return Sponsor.find("select distinct s from Sponsor s join s.events e where s.level = ? and e = ?", level, ConferenceEvent.CURRENT).fetch();
+    public static List<Sponsor> findByEventAndLevel(ConferenceEvent event, Level level){
+        return Sponsor.find("select distinct s from Sponsor s join s.events e where s.level = ? and e = ?", level, event).fetch();
     }
 
     @Override
