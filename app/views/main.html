@@ -78,14 +78,18 @@
                             <a class="dropdown-toggle" href="#">&{'menu.agenda'}</a>
                             <ul class="dropdown-menu">
                                 <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
+*{ Masquage des lightnings talks : en aura-t-on en 2013?
                                 <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
+}*
 *{ Fermeture du CFP
                             #{if session.username}
                                 <li class="divider"></li>
                                 <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                             #{/if}
 }*
+*{ Masquage de l'agenda
                                 <li><a href="@{Agenda.index()}">Agenda</a></li>
+}*
 *{ Google calendar obsolète
                                 <li><a href="@{Agenda.google()}">Google Calendar</a></li>
 }*
@@ -114,6 +118,7 @@
                                 <li #{if request.action=="Infos.kit"}class="active"#{/if}><a href="@{Infos.kit()}">&{'menu.infos.kit'}</a></li>
                                 <li #{if request.action=="Infos.acces"}class="active"#{/if}><a href="@{Infos.acces()}">&{'menu.infos.access'}</a></li>
                                 <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a href="@{Infos.hotels()}">&{'menu.infos.hotels'}</a></li>
+                                <li #{if request.action=="Infos.mixit12"}class="active"#{/if}><a href="@{Infos.mixit12()}">&{'menu.infos.2012'}</a></li>
                                 <li><a href="http://2011.mix-it.fr" title="Mix-IT 2011">&{'menu.infos.2011'}</a></li>
                             </ul>
                         </li>

@@ -31,7 +31,7 @@ public class Sessions extends PageController {
         }
         Collections.shuffle(sessions);
         Logger.info(sessions.size() + " sessions");
-        render("Sessions/list.html", sessions);
+        render("Sessions/list.html", sessions, event);
     }
 
     public static void create(final String speakerLogin) throws Throwable {

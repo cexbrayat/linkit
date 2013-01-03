@@ -26,6 +26,7 @@ menu.infos.kit=Kit Multimédia
 menu.infos.contact=Contact
 menu.infos.access=Accès à la conférence
 menu.infos.hotels=Hôtels à proximité
+menu.infos.2012=Mix-IT 2012
 menu.infos.2011=Mix-IT 2011
 menu.admin=Admin
 menu.search=Rechercher
@@ -140,6 +141,9 @@ talk.submit=Proposer une session
 content=Votre commentaire
 content.note=&{markdown.note}
 
+sessions.forEvent=Sessions de &{event.%s}
+sessions.none=Aucune session n'a été annoncée pour le moment. Ca ne devrait plus être très long. Revenez plus tard, ça vaudra le coup!
+
 # Lightning Talk fields
 lightningtalk.short.description=Tout participant peut <strong>proposer</strong>  un Lightning Talk et <strong>voter</strong> pour ceux qui l'intéressent. Il s'agit de sessions courtes de 5 minutes qui auront lieu entre 13 et 14H le jour de la conférence. 
 lightningtalk.long.description=Pourquoi ne pas tenter votre chance? C'est l'occasion de synthétiser votre connaissance sur un sujet et de donner aux autres participants envie de le connaître plus! En fonction des votes des participants, votre sujet peut être choisi. Les sujets gagnants seront annoncés le jour de la conférence.
@@ -248,3 +252,15 @@ validation.url=Ce n'est pas une URL valide
 validation.unique=La valeur du champ %s est déjà utilisée par l'utilisateur %s
 validation.googleID=Ce n'est pas à un Google ID valide
 validation.timezone=Ca ne correspond pas à un fuseau horaire connu
+
+# Events
+event.mixit12=Mix-IT 2012
+event.mixit13=Mix-IT 2013
+
+# Sponsors
+sponsors.register=Vous voulez devenir un de nos sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202013]%%20Registration">Contactez-nous</a>!
+sponsors.forEvent=Sponsors de &{event.%s}
+sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
+  <hr/>\
+  <p><a href="http://skillsmatter.com/" target="blank"><img src="/public/images/logo-skills-matter.jpg" style="float: left; margin-right: 10px; max-width: 100px" title="Skills Matter"/></a>Mix-IT est partenaire de <a href="http://skillsmatter.com/" target="blank">Skills Matter</a>. Cette société anglaise est connue pour la qualité de ses formations, animées par des experts du sujet, ainsi que pour son engagement dans l'organisation de conférences et d'événements très réguliers.</p>
+sponsors.partners.mixit13=<p>Partenaires non annoncés</p>

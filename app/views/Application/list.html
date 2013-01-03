@@ -1,4 +1,9 @@
 #{extends 'main.html' /}
 #{set title:'Liste des participants' /}
 
+#{if members}
 #{members members:members/}
+#{/if}
+#{else}
+Aucun membre pour le moment
+#{/else}

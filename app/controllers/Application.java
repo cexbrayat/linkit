@@ -1,12 +1,15 @@
 package controllers;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import models.*;
+import org.apache.commons.collections.MultiMap;
 import play.Logger;
 
 import java.util.List;
@@ -16,6 +19,8 @@ import org.apache.commons.lang.StringUtils;
 import play.db.jpa.Transactional;
 import play.modules.search.Search;
 import play.templates.JavaExtensions;
+
+import javax.annotation.Nullable;
 
 @Transactional(readOnly = true)
 public class Application extends PageController {
@@ -56,16 +61,32 @@ public class Application extends PageController {
     }
 
     public static void speakers() {
-        List<Member> members = Talk.findAllSpeakers();
+        speakersOn(ConferenceEvent.CURRENT);
+    }
+
+    public static void speakersOn(ConferenceEvent event) {
+        List<Member> members = Talk.findAllSpeakersOn(event);
         Collections.shuffle(members);
         render("Application/list.html", members);
     }
 
     public static void sponsors() {
-        List<Sponsor> goldSponsors = Sponsor.findByLevel(Sponsor.Level.GOLD);
-        List<Sponsor> silverSponsors = Sponsor.findByLevel(Sponsor.Level.SILVER);
-        List<Sponsor> bronzeSponsors = Sponsor.findByLevel(Sponsor.Level.BRONZE);
-        render(goldSponsors, silverSponsors, bronzeSponsors);
+        sponsorsOf(ConferenceEvent.CURRENT);
+    }
+
+    public static void sponsorsOf(ConferenceEvent event) {
+        List<Sponsor> allSponsors = Sponsor.findOn(event);
+
+        Multimap<Sponsor.Level, Sponsor> eventSponsors = Multimaps.index(allSponsors, new Function<Sponsor, Sponsor.Level>() {
+            @Override
+            public Sponsor.Level apply(@Nullable Sponsor sponsor) {
+                return sponsor.level;
+            }
+        });
+
+        // WARNING : "sponsors" is already used as template variable, cf. PageController.loadDefaultData()
+
+        render("Application/sponsors.html", event, eventSponsors);
     }
 
     public static void searchByInterest(String interest) {
