@@ -376,7 +376,7 @@ SharedLink(zenikaLink2):
 Talk(talk1):
     event: mixit12
     track: Trendy
-    title: Session de test 2012
+    title: Session de test 2012 valide
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
@@ -386,6 +386,16 @@ Talk(talk1):
     valid: true
 
 Talk(talk2):
+    event: mixit12
+    track: Trendy
+    title: Session de test 2012 non valide
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - clacote
+    valid: false
+
+Talk(talk3):
     event: mixit13
     track: Gamy
     title: Une session de test 2013
