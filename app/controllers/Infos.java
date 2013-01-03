@@ -42,7 +42,7 @@ public class Infos extends PageController {
 
     public static void mixit12() {
         ConferenceEvent event = ConferenceEvent.mixit12;
-        List<Talk> talks = Talk.findAllOn(event);
+        List<Talk> talks = Talk.findAllValidatedOn(event);
         List<Member> speakers = Talk.findAllSpeakersOn(event);
         List<LightningTalk> lightningTalks = LightningTalk.findAllOn(event);
         render(event, talks, speakers, lightningTalks);
