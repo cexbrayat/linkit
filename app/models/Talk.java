@@ -49,7 +49,7 @@ public class Talk extends Session {
     }
 
     public static List<Talk> findAllValidatedOn(ConferenceEvent event) {
-        return find("event = :event and valid=true").bind("event", event).fetch();
+        return find("event = ? and valid=true", event).fetch();
     }
 
     public void validate() {
