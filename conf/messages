@@ -1,8 +1,8 @@
 # Common Buttons
 button.cancel=Annuler
 button.save=Enregistrer
-button.link.title=Pourquoi Linker des participants?
-button.link.note=Linker des participants vous permettra de suivre leurs activités Mix-IT mais également leurs flux sociaux (Twitter, G+) : ce site est un aggrégateur de flux des différents réseaux sociaux des personnes qui seront à vos côtés le jour J de la conférence!
+button.link.title=Pourquoi Linker des participants ?
+button.link.note=Linker des participants vous permettra de suivre leurs activités Mix-IT mais également leurs flux sociaux (Twitter, G+) : ce site est un aggrégateur de flux des différents réseaux sociaux des personnes qui seront à vos côtés le jour J de la conférence !
 
 # Menu bar
 menu.live=DIRECT
@@ -44,7 +44,7 @@ button.about.mixit=A propos de Mix-IT
 button.talks=Les sessions
 button.login=S'inscrire
 button.ticketing=Acheter mon billet
-button.ticketing.price=Prix non encore annoncé
+button.ticketing.price=Le prix n'est pas encore annoncé
 button.vote.lightningtalks=Voter pour des lightning talks
 tab.lastactivities=Dernières activitiés
 tab.lastarticles=Derniers articles
@@ -52,46 +52,46 @@ tab.lasttalks=Dernières sessions
 tab.lastattendees=Derniers inscrits
 
 # Login
-login.why=Pourquoi ouvrir un compte sur le site Mix-IT?
-login.howto.intro=Au delà du partage de connaissances, Mix-IT est aussi un bon moment pour échanger et se faire de nouveaux contacts. La vocation de notre site est de vous préparer à cela.
-login.howto.part1=Vous créer un compte Mix-IT vous permettra de:
+login.why=Pourquoi ouvrir un compte sur le site Mix-IT ?
+login.howto.intro=Au-delà du partage de connaissances, Mix-IT est aussi un moment pour échanger et faire de nouveaux contacts. La vocation de notre site est de vous préparer à cela.
+login.howto.part1=Vous créez un compte Mix-IT qui vous permettra de :
 login.howto.part1.1=consulter les profils des speakers et de tous les participants
 login.howto.part1.2=vous lier à ceux que vous souhaitez
 login.howto.part1.3=commenter les sessions
-login.howto.part1.4=de gagner des badges en fonction de votre activité sur le site (un peu de fun!)
-login.howto.part1.5=et plus encore (le site continuera à évoluer, on travaille en mode <em>agile</em>)!
-login.howto.part2=Pourquoi avoir développé cet aspect social pour notre site? Au-delà de s'être fait plaisir techniquement (ce qui reste un facteur fort motivant, on reste des développeurs : <em>"Programming, Motherfucker"</em>!) nous espérons que cela peut être un terreau fertile pour les échanges le jour de la conférence!
+login.howto.part1.4=de gagner des badges en fonction de votre activité sur le site (un peu de fun !)
+login.howto.part1.5=et plus encore (le site continuera à évoluer, on travaille en mode <em>agile</em>) !
+login.howto.part2=Pourquoi avoir développé cet aspect social pour notre site ? Au-delà de s'être fait plaisir techniquement (ce qui reste un facteur fort motivant, on reste des développeurs : <em>"Programming, Motherfucker"</em> !) nous espérons que cela peut être un terreau fertile pour les échanges le jour de la conférence !
 login.alert=Vous devez obligatoirement avoir au moins un compte parmi ces réseaux sociaux pour vous connecter
             
 # About
-mixit.short.description=Découvrez ce qu'est la conférence Mix-IT (et qui se cache derrière), un mix de Java, Agilité, Web et Innovations!
-mixit.long.description=Mix-IT est l’aboutissement de la collaboration entre <a href='http://lyonjug.org/' target='_blank'>le Lyon Java User Group</a> et <a href='http://www.clubagilerhonealpes.org/' target='_blank'>le Club Agile Rhône-Alpes</a> (première édition en 2011). Mix-it est né d’une envie commune de créer une conférence à <strong>Lyon</strong> accessible à tous, sur <strong>l’agilité</strong>, <strong>l'écosystème Java</strong> et <strong>les innovations IT</strong>, Web ou mobile. <strong>Le 26 avril</strong>, le staff de Mix-it vous accueille à <strong>Supinfo</strong> pour des sessions d’expertise, des jeux et des rencontres. Entrepreneurs, Chefs de Projet, développeurs vous trouverez forcément des idées pour vos projets ! 
-mixit.whois=Mix-IT c'est qui?
+mixit.short.description=Découvrez ce qu'est la conférence Mix-IT (et qui se cache derrière), un mix de Java, Agilité, Web et Innovations !
+mixit.long.description=Mix-IT est l’aboutissement de la collaboration entre <a href='http://lyonjug.org/' target='_blank'>le Lyon Java User Group</a> et <a href='http://www.clubagilerhonealpes.org/' target='_blank'>le Club Agile Rhône-Alpes</a> (première édition en 2011). Mix-it est né d’une envie commune de créer une conférence à <strong>Lyon</strong> accessible à tous, sur <strong>l’agilité</strong>, <strong>l'écosystème Java</strong> et <strong>les innovations IT</strong>, Web ou mobile. <strong>Le 26 avril</strong>, le staff de Mix-it vous accueille à <strong>Supinfo</strong> pour des sessions d’expertise, des jeux et des rencontres. Entrepreneurs, Chefs de Projet, développeurs vous trouverez forcément des idées pour vos projets !
+mixit.whois=Mix-IT, c'est qui ?
 
 # FAQ
 faq.title=Foire aux Questions
-faq.time.question=Quelles sont les horaires de la conférence?
-faq.time.answer=Nous vous accueillons à partir de 8H30. La keynote du matin démarre à 9H. La keynote du soir est à 18H et dure 15 minutes.
-faq.login.question=Pourquoi ouvrir un compte sur le site Mix-IT?
-faq.login.answer=Voir <a href="%s">la page de login</a> pour comprendre l'intérêt de la partie sociale du site!
-faq.registration.question=Comment acheter son billet?
+faq.time.question=Quelles sont les horaires de la conférence ?
+faq.time.answer=La conférence se déroule sur 2 jours cette année. Nous vous accueillons à chaque fois à partir de 8H30. La keynote du matin démarre à 9H. La keynote du soir est à 18H et dure 15 minutes.
+faq.login.question=Pourquoi ouvrir un compte sur le site Mix-IT ?
+faq.login.answer=Voir <a href="%s">la page de connexion</a> pour comprendre l'intérêt de la partie sociale du site !
+faq.registration.question=Comment acheter son billet ?
 faq.registration.answer=Voir <a href="%s">la page des inscriptions</a> pour acheter son billet.
-faq.dif.question=Comment puis-je utiliser mon DIF (Droit Individuel à la Formation) pour Mix-IT?
-faq.gravatar.question=Comment changer l'image de son profil?
+faq.dif.question=Comment puis-je utiliser mon DIF (Droit Individuel à la Formation) pour Mix-IT ?
+faq.gravatar.question=Comment changer l'image de son profil ?
 faq.gravatar.answer=Les avatars sont gérés par <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. Nous affichons l'avatar correspondant à l'email que vous nous indiquez sur votre profil. Connectez-vous sur le site <a href="http://www.gravatar.com" target="_blank">Gravatar</a> pour créer ou modifier votre image.
 faq.twitter.question=Twitter
 faq.twitter.answer=<a target=""blank" href="http://twitter.com/MixIT_Lyon">@MixIT_Lyon</a> est le compte Twitter de la conférence MIX-IT. Abonnez-vous au compte et utilisez le hashtag <strong>#MixIT_Lyon</strong></p>
 faq.recording.question=Enregistrement des sessions
-faq.recording.answer=Toutes les sessions seront enregistrées au format audio (peut-être vidéo pour certaines) et seront disponibles après la conférence sur notre site!
+faq.recording.answer=Toutes les sessions seront enregistrées au format audio (peut-être vidéo pour certaines) et seront disponibles après la conférence sur notre site !
 
 # Registration
-registration.title=Ouverture d'un compte Mix-IT et Paiement du billet
-registration.directives=Pour information cette journée sera éligible au Droit Individuel à la Formation, notre sponsor SQLi fournira les certificats sur son stand, grâce à son organisme de formation SQLi Institut. Vous pouvez donc demander à votre employeur d’assister à Mix-IT comme une formation classique, sans prendre de congé !
+registration.title=Ouverture d'un compte Mix-IT et paiement du billet
+registration.directives=Pour information, cette journée sera éligible au Droit Individuel à la Formation, l'un de nos sponsors fournira les certificats sur son stand, grâce à son organisme de formation. Vous pouvez donc demander à votre employeur d’assister à Mix-IT comme une formation classique, sans prendre de congé !
 registration.step1.create.account=Créer-vous un compte Mix-IT
-registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT!
+registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT !
 registration.step1.alternative=Si vous êtes allergique aux réseaux sociaux, achetez directement via notre partenaire 
-registration.step2.ticketing.unsigned=Vous pouviez acheter votre place en vous rendant sur votre Dashboard Mix-IT, mais elles ont toutes été vendues...
-registration.warning.email=Attention: vous devez utiliser le même email entre votre compte Mix-IT et votre paiement via notre partenaire WeezEvent!
+registration.step2.ticketing.unsigned=Vous pouviez acheter votre place en vous rendant sur votre Dashboard Mix-IT, mais elles ont toutes été vendues ...
+registration.warning.email=Attention: vous devez utiliser le même email entre votre compte Mix-IT et votre paiement via notre partenaire YurPlan !
 
 # Member fields
 
@@ -106,7 +106,7 @@ firstname.note=Obligatoire
 company=Entreprise
 company.note=Facultatif
 email=Email
-email.note=Obligatoire, mais non diffusé. Utilisé pour définir votre <strong>avatar</strong> via <a href="http://www.gravatar.com" target="_blank" class="ignoredirty">Gravatar</a>, ainsi que pour vous envoyer des actualités. 
+email.note=Obligatoire, mais non diffusé. Utilisé pour définir votre <strong>avatar</strong> via <a href="http://www.gravatar.com" target="_blank" class="ignoredirty">Gravatar</a>, ainsi que pour vous envoyer des actualités.
 shortDescription=Présentation
 shortDescription.note=Obligatoire. Une courte description de vous, qui sera visible de tous et partout.<br/>&{markdown.note}
 longDescription=Biographie
@@ -114,14 +114,14 @@ longDescription.note=Une longue biographie, si vous le souhaitez (ou ce que vous
 twitterName=Twitter
 twitterName.note=Votre compte twitter si vous en avez un (ex : mix_it). Le "@" n'est pas nécessaire.
 googlePlusId=Google+
-googlePlusId.note=Votre ID Google+ si vous en avez un, i.e celui numérique affiché dans l'URL de votre profil : https://plus.google.com/{ID}
-interests=Intérets existants
+googlePlusId.note=Votre ID Google+ si vous en avez un, i.e. celui numérique affiché dans l'URL de votre profil : https://plus.google.com/{ID}
+interests=Intérêts existants
 interests.note=Ces intérêts seront affichés sur votre profil et nous serviront à vous proposer de nouvelles connaissances.
 newInterests=Autres intérêts
 newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 
 # Session fields
-talks.description=Découvrez les descriptifs des sessions. Elles se dérouleront sur 5 tracks en parralèle!
+talks.description=Découvrez les descriptifs des sessions. Elles se dérouleront sur plusieurs tracks en parallèle !
 talk.descriptive.section=Descriptif
 talk.title=Titre
 talk.title.note=Obligatoire. Un court titre pour votre session
@@ -142,16 +142,16 @@ content=Votre commentaire
 content.note=&{markdown.note}
 
 sessions.forEvent=Sessions de &{event.%s}
-sessions.none=Aucune session n'a été annoncée pour le moment. Ca ne devrait plus être très long. Revenez plus tard, ça vaudra le coup!
+sessions.none=Aucune session n'a été annoncée pour le moment. Ca ne devrait plus être très long. Revenez plus tard, ça vaudra le coup !
 
 # Lightning Talk fields
-lightningtalk.short.description=Tout participant peut <strong>proposer</strong>  un Lightning Talk et <strong>voter</strong> pour ceux qui l'intéressent. Il s'agit de sessions courtes de 5 minutes qui auront lieu entre 13 et 14H le jour de la conférence. 
-lightningtalk.long.description=Pourquoi ne pas tenter votre chance? C'est l'occasion de synthétiser votre connaissance sur un sujet et de donner aux autres participants envie de le connaître plus! En fonction des votes des participants, votre sujet peut être choisi. Les sujets gagnants seront annoncés le jour de la conférence.
+lightningtalk.short.description=Tout participant peut <strong>proposer</strong> un Lightning Talk et <strong>voter</strong> pour ceux qui l'intéressent. Il s'agit de sessions courtes de 5 minutes qui auront lieu entre 13 et 14H chacun des 2 jours de la conférence. 
+lightningtalk.long.description=Pourquoi ne pas tenter votre chance? C'est l'occasion de synthétiser votre connaissance sur un sujet et de donner aux autres participants envie de le connaître plus ! En fonction des votes des participants, votre sujet peut être choisi. Les sujets gagnants seront annoncés les jours des conférences.
 lightningtalk.submit=Proposer un Lightning Talk
 lightningtalk.alert.login=Connectez-vous pour proposer Lightning Talk
 
 # Article fields
-article.title=Titre	  	
+article.title=Titre              	
 article.title.note=Obligatoire. Un court titre pour cet article
 article.headline=Accroche
 article.headline.note=Obligatoire. Introduction, qui sera affichée dans les listes d'actualité<br/>&{markdown.note}
@@ -160,7 +160,7 @@ article.content.note=Obligatoire. Le contenu de votre article.<br/>&{markdown.no
 
 # Email LinkIT
 email.subject=Sujet
-email.subject.note=Obligatoire.
+email.subject.note=Obligatoire
 email.message=Message
 email.message.note=Obligatoire. Le contenu de votre message.<br/>&{markdown.note}
 
@@ -168,7 +168,7 @@ email.message.note=Obligatoire. Le contenu de votre message.<br/>&{markdown.note
 mailing.recipients=Destinataires
 mailing.recipients.note=Obligatoire. Ensemble des membres destinataires du mailing.
 mailing.subject=Sujet du mail
-mailing.subject.note=Il apparaîtra en sujet du mail, préfixé par "[Mix-IT 2012] - ".
+mailing.subject.note=Il apparaîtra en sujet du mail, préfixé par "[Mix-IT 2013] - ".
 mailing.message=Contenu
 mailing.message.note=Obligatoire. Le contenu du mail.<br/>&{markdown.note}
 
@@ -195,33 +195,33 @@ provider.Twitter=Twitter
 provider.LinkedIn=LinkedIn
 
 # Badges
-badge.Speaker=Speaker (intervenant sur une session, présente ou passée)
-badge.Staff=Staff (membre organisateur de Mix-IT)
-badge.Sponsor=Sponsor (gentil bienfaiteur de Mix-IT)
+badge.Speaker=Speaker (Intervenant sur une session, présente ou passée)
+badge.Staff=Staff (Membre organisateur de Mix-IT)
+badge.Sponsor=Sponsor (Gentil bienfaiteur de Mix-IT)
 badge.Attendee=Participant (Membre inscrit pour la conférence)
 badge.PreviousAttendee=Participant aux événements passés (Membre inscrit pour une précédente conférence, et on le remercie)
-badge.StaffBestFriend=Staff best friend (vous avez linké tous les membres du staff)
-badge.SpeakerFan=Speaker fan (vous avez linké tous les speakers)
-badge.SponsorFriendly=Sponsor friendly (vous avez linké tous les sponsors)
-badge.Supporter=Supporter (vous avez voté pour un Lightning Talk)
-badge.Enlightened=Enlightened (vous avez voté pour dix Lightning Talks)
-badge.Brave=Brave (vous avez posté au moins un commentaire)
-badge.Troller=Troller (vous avez posté au moins dix commentaires)
-badge.SpeakerPadawan=Speaker Padawan (vous avez proposé un Lightning Talk)
-badge.NewBorn=New born (vous avez linké au moins un membre)
-badge.Friendly=Friendly (vous avez linké au moins dix membres)
-badge.SocialBeast=Social beast (vous avez linké au moins 50 membres)
-badge.MadLinker=Mad linker (vous avez linké au moins 100 membres)
-badge.YouReNotAlone=You're not alone! (vous avez été linké par au moins un membre)
-badge.LocalCelebrity=Local Celebrity (vous avez été linké par au moins dix membres)
-badge.RockStar=Rock Star (vous avez été linké par au moins cinquante membres)
-badge.Leader=Leader (vous avez été linké par au moins cent membres)
-badge.Idol=Idol (vous avez été linké par au moins deux cent membres)
-badge.Twittos=Twittos (vous avez twitté à propos de Mix-IT)
-badge.Plusoner=Plusoner (vous avez posté sur Google+ à propos de Mix-IT)
-badge.TwoDaysInARow=2 days in a row (vous avez utilisé le site deux jours de suite)
-badge.FiveDaysInARow=5 days in a row (vous avez utilisé le site cinq jours de suite)
-badge.MixITAddict=Mix-IT addict (vous avez utilisé le site dix jours de suite)
+badge.StaffBestFriend=Staff best friend (Vous avez linké tous les membres du staff)
+badge.SpeakerFan=Speaker fan (Vous avez linké tous les speakers)
+badge.SponsorFriendly=Sponsor friendly (Vous avez linké tous les sponsors)
+badge.Supporter=Supporter (Vous avez voté pour un Lightning Talk)
+badge.Enlightened=Enlightened (Vous avez voté pour dix Lightning Talks)
+badge.Brave=Brave (Vous avez posté au moins un commentaire)
+badge.Troller=Troller (Vous avez posté au moins dix commentaires)
+badge.SpeakerPadawan=Speaker Padawan (Vous avez proposé un Lightning Talk)
+badge.NewBorn=New born (Vous avez linké au moins un membre)
+badge.Friendly=Friendly (Vous avez linké au moins dix membres)
+badge.SocialBeast=Social beast (Vous avez linké au moins 50 membres)
+badge.MadLinker=Mad linker (Vous avez linké au moins 100 membres)
+badge.YouReNotAlone=You're not alone! (Vous avez été linké par au moins un membre)
+badge.LocalCelebrity=Local Celebrity (Vous avez été linké par au moins dix membres)
+badge.RockStar=Rock Star (Vous avez été linké par au moins cinquante membres)
+badge.Leader=Leader (Vous avez été linké par au moins cent membres)
+badge.Idol=Idol (Vous avez été linké par au moins deux cent membres)
+badge.Twittos=Twittos (Vous avez twitté à propos de Mix-IT)
+badge.Plusoner=Plusoner (Vous avez posté sur Google+ à propos de Mix-IT)
+badge.TwoDaysInARow=2 days in a row (Vous avez utilisé le site deux jours de suite)
+badge.FiveDaysInARow=5 days in a row (Vous avez utilisé le site cinq jours de suite)
+badge.MixITAddict=Mix-IT addict (Vous avez utilisé le site dix jours de suite)
 
 # Tracks
 track.Agility.description=L'agilité pour les débutants et les passionnés
@@ -251,14 +251,14 @@ validation.maxSize=La longueur maximale est %2$d
 validation.url=Ce n'est pas une URL valide
 validation.unique=La valeur du champ %s est déjà utilisée par l'utilisateur %s
 validation.googleID=Ce n'est pas à un Google ID valide
-validation.timezone=Ca ne correspond pas à un fuseau horaire connu
+validation.timezone=Cela ne correspond pas à un fuseau horaire connu
 
 # Events
 event.mixit12=Mix-IT 2012
 event.mixit13=Mix-IT 2013
 
 # Sponsors
-sponsors.register=Vous voulez devenir un de nos sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202013]%%20Registration">Contactez-nous</a>!
+sponsors.register=Vous voulez devenir un de nos sponsors ? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202013]%%20Registration">Contactez-nous</a>!
 sponsors.forEvent=Sponsors de &{event.%s}
 sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
   <hr/>\
