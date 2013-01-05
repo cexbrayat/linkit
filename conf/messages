@@ -94,6 +94,8 @@ registration.step2.ticketing.unsigned=Vous pouviez acheter votre place en vous r
 registration.warning.email=Attention: vous devez utiliser le même email entre votre compte Mix-IT et votre paiement via notre partenaire WeezEvent!
 
 # Member fields
+members.speakers.none=Nous contactons actuellement nos prochains invités, avant d'ouvrir notre <em>Call For Paper</em> habituel.
+members.members.none=Aucun membre pour le moment
 
 # FIXME conflict with (Member.)description and (Session.)description : needs a deep refactoring
 
