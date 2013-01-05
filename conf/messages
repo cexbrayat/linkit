@@ -1,7 +1,7 @@
 # Common Buttons
 button.cancel=Annuler
 button.save=Enregistrer
-button.link.title=Pourquoi Linker des participants ?
+button.link.title=Pourquoi linker des participants ?
 button.link.note=Linker des participants vous permettra de suivre leurs activités Mix-IT mais également leurs flux sociaux (Twitter, G+) : ce site est un aggrégateur de flux des différents réseaux sociaux des personnes qui seront à vos côtés le jour J de la conférence !
 
 # Menu bar
@@ -17,7 +17,7 @@ menu.members.speakers=Les speakers
 menu.members.all=Tous les participants
 menu.members.staff=Les membres du staff
 menu.members.sponsors=Les sponsors
-menu.infos=Infos Pratiques
+menu.infos=Infos pratiques
 menu.infos.about=A propos de Mix-IT
 menu.infos.faq=FAQ
 menu.infos.inscription=Inscription
@@ -44,7 +44,7 @@ button.about.mixit=A propos de Mix-IT
 button.talks=Les sessions
 button.login=S'inscrire
 button.ticketing=Acheter mon billet
-button.ticketing.price=Le prix n'est pas encore annoncé
+button.ticketing.price=Le prix n'est pas encore annoncé mais comme chaque année, le tarif sera abordable
 button.vote.lightningtalks=Voter pour des lightning talks
 tab.lastactivities=Dernières activitiés
 tab.lastarticles=Derniers articles
@@ -65,7 +65,7 @@ login.alert=Vous devez obligatoirement avoir au moins un compte parmi ces résea
             
 # About
 mixit.short.description=Découvrez ce qu'est la conférence Mix-IT (et qui se cache derrière), un mix de Java, Agilité, Web et Innovations !
-mixit.long.description=Mix-IT est l’aboutissement de la collaboration entre <a href='http://lyonjug.org/' target='_blank'>le Lyon Java User Group</a> et <a href='http://www.clubagilerhonealpes.org/' target='_blank'>le Club Agile Rhône-Alpes</a> (première édition en 2011). Mix-it est né d’une envie commune de créer une conférence à <strong>Lyon</strong> accessible à tous, sur <strong>l’agilité</strong>, <strong>l'écosystème Java</strong> et <strong>les innovations IT</strong>, Web ou mobile. <strong>Le 26 avril</strong>, le staff de Mix-it vous accueille à <strong>Supinfo</strong> pour des sessions d’expertise, des jeux et des rencontres. Entrepreneurs, Chefs de Projet, développeurs vous trouverez forcément des idées pour vos projets !
+mixit.long.description=Mix-IT est l’aboutissement de la collaboration entre <a href='http://lyonjug.org/' target='_blank'>le Lyon Java User Group</a> et <a href='http://www.clubagilerhonealpes.org/' target='_blank'>le Club Agile Rhône-Alpes</a> (première édition en 2011). Mix-it est né d’une envie commune de créer une conférence à <strong>Lyon</strong> accessible à tous, sur <strong>l’agilité</strong>, <strong>l'écosystème Java</strong> et <strong>les innovations IT</strong>, Web ou mobile. Le staff de Mix-it vous accueille pour des sessions d’expertise, des jeux et des rencontres. Entrepreneurs, Chefs de Projet, développeurs vous trouverez forcément des idées pour vos projets ! Les conférences peuvent être aussi bien en français qu'en anglais.
 mixit.whois=Mix-IT, c'est qui ?
 
 # FAQ
@@ -90,8 +90,8 @@ registration.directives=Pour information, cette journée sera éligible au Droit
 registration.step1.create.account=Créer-vous un compte Mix-IT
 registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT !
 registration.step1.alternative=Si vous êtes allergique aux réseaux sociaux, achetez directement via notre partenaire 
-registration.step2.ticketing.unsigned=Vous pouviez acheter votre place en vous rendant sur votre Dashboard Mix-IT, mais elles ont toutes été vendues ...
-registration.warning.email=Attention: vous devez utiliser le même email entre votre compte Mix-IT et votre paiement via notre partenaire YurPlan !
+registration.step2.ticketing.unsigned=Vous pouviez acheter votre place en vous rendant sur votre Dashboard Mix-IT, mais elles ont toutes été vendues...!
+registration.warning.email=Attention: vous devez utiliser le même email entre votre compte Mix-IT et votre paiement via notre partenaire
 
 # Member fields
 
@@ -121,7 +121,7 @@ newInterests=Autres intérêts
 newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 
 # Session fields
-talks.description=Découvrez les descriptifs des sessions. Elles se dérouleront sur plusieurs tracks en parallèle !
+talks.description=Découvrez les descriptifs des sessions. Le nombre de track en parallèle peut varier chaque année
 talk.descriptive.section=Descriptif
 talk.title=Titre
 talk.title.note=Obligatoire. Un court titre pour votre session
@@ -133,7 +133,7 @@ talk.speakers=Speaker(s)
 talk.speakers.note=Obligatoire. Choisissez le ou les speakers
 talk.track=Track Mix-IT
 talk.track.note=Obligatoire
-talk.interests=Intérets existants
+talk.interests=Intérêts existants
 talk.interests.note=Ces intérêts seront associés à la session, et permettront aux utilisateurs de trouver cette session en recherchant par intérêt.
 talk.newInterests=Autres intérêts
 talk.newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
@@ -151,7 +151,7 @@ lightningtalk.submit=Proposer un Lightning Talk
 lightningtalk.alert.login=Connectez-vous pour proposer Lightning Talk
 
 # Article fields
-article.title=Titre              	
+article.title=Titre                          
 article.title.note=Obligatoire. Un court titre pour cet article
 article.headline=Accroche
 article.headline.note=Obligatoire. Introduction, qui sera affichée dans les listes d'actualité<br/>&{markdown.note}
@@ -263,4 +263,4 @@ sponsors.forEvent=Sponsors de &{event.%s}
 sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
   <hr/>\
   <p><a href="http://skillsmatter.com/" target="blank"><img src="/public/images/logo-skills-matter.jpg" style="float: left; margin-right: 10px; max-width: 100px" title="Skills Matter"/></a>Mix-IT est partenaire de <a href="http://skillsmatter.com/" target="blank">Skills Matter</a>. Cette société anglaise est connue pour la qualité de ses formations, animées par des experts du sujet, ainsi que pour son engagement dans l'organisation de conférences et d'événements très réguliers.</p>
-sponsors.partners.mixit13=<p>Partenaires non annoncés</p>
+sponsors.partners.mixit13=<p>Les partenaires ne sont pas encore annoncés. Si vous souhaitez être sponsor de cette édition, <a href="bit.ly/VIrqpu" target="_blank">consultez notre dossier de sponsoring</a></p>
