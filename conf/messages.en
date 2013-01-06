@@ -93,6 +93,10 @@ registration.step1.alternative=You can also, if you don't like Social Networks, 
 registration.step2.ticketing.unsigned=You could have bought your ticket from your Mix-IT's Dashboard, but it's now sold out!...
 registration.warning.email=Warning: use the same email between your Mix-IT account and your payment via WeezEvent!
 
+# Members
+members.speakers.none=We are contacting our guest speakers, before opening our usual <em>Call For Paper</em>.
+members.members.none=No members for now
+
 # Talk fields
 talks.description=The talks descriptions. All the talks will be held on 5 parallel tracks
 talk.descriptive.section=Descriptive Section
@@ -136,7 +140,7 @@ event.mixit12=Mix-IT 2012
 event.mixit13=Mix-IT 2013
 
 # Sponsors
-sponsors.register=Do you wanna be one of our sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202013]%%20Registration">Contact us</a>!
+sponsors.register=Do you wanna be one of our sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202013]%%20Registration">Contact us</a>! Here is the <a href="https://docs.google.com/document/d/1b46HNg5dl5q-MjIdJ8oCfe6UiI_41gFdbSnHn-P-hBU/edit" title="Sponsoring plan for Mix-IT 2013">detailled sponsoring plan</a> (in French).
 sponsors.forEvent=Sponsors of &{event.%s}
 sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
   <hr/>\
