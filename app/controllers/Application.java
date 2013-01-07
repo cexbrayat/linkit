@@ -51,7 +51,8 @@ public class Application extends PageController {
         Activity.OrderedMembersDTO latestActivities = Activity.findOrderedMembers();
         List<Member> members = latestActivities.getMembers();
         // We may use one day OrderedMembersDTO.getLatestActivityFor(member) to display with member 
-        render("Application/list.html", members);
+        String noneMessageKey = "members.members.none";
+        render("Application/list.html", members, noneMessageKey);
     }
 
     public static void staff() {
@@ -67,7 +68,8 @@ public class Application extends PageController {
     public static void speakersOn(ConferenceEvent event) {
         List<Member> members = Talk.findAllSpeakersOn(event);
         Collections.shuffle(members);
-        render("Application/list.html", members);
+        String noneMessageKey = "members.speakers.none";
+        render("Application/list.html", members, noneMessageKey);
     }
 
     public static void sponsors() {
@@ -76,6 +78,7 @@ public class Application extends PageController {
 
     public static void sponsorsOf(ConferenceEvent event) {
         List<Sponsor> allSponsors = Sponsor.findOn(event);
+        // WARNING : "sponsors" is already used as template variable, cf. PageController.loadDefaultData()
 
         Multimap<Sponsor.Level, Sponsor> eventSponsors = Multimaps.index(allSponsors, new Function<Sponsor, Sponsor.Level>() {
             @Override
@@ -83,8 +86,6 @@ public class Application extends PageController {
                 return sponsor.level;
             }
         });
-
-        // WARNING : "sponsors" is already used as template variable, cf. PageController.loadDefaultData()
 
         render("Application/sponsors.html", event, eventSponsors);
     }
