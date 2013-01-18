@@ -35,12 +35,9 @@ public class Sessions extends PageController {
     }
 
     public static void create(final String speakerLogin) throws Throwable {
-        
-        // Fermeture du CFP
-        forbidden("Le Call for Paper est désormais terminé. Rendez-vous l'année prochaine!");
-        
+
         SecureLinkIt.checkAccess(); // Connected
-        
+
         Member speaker = Member.findByLogin(speakerLogin);
         Talk talk = new Talk();
         if (speaker != null) {
