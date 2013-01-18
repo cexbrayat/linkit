@@ -41,11 +41,13 @@
         <div class="row">
             <div class="span12">
                 <p>
-                    <span class="label track ${talk.track}">${talk.track}</span>
+                    #{if talk.track}Track : <span class="label track ${talk.track}">${talk.track}</span><br/>#{/if}
                     #{if talk.interests}
+                        Tags :
                         #{list items:talk.interests, as:'interest'}
                         <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
                         #{/list}
+                        <br/>
                     #{/if}
                 </p>
             </div>
@@ -55,7 +57,7 @@
         
         #{if !talk.valid}
             <div class="alert-message block-message warning">
-                <p>Cette session n'a pas été retenue par le comité de sélection. On vous donne rendez-vous l'année prochaine pour une nouvelle tentative!</p>
+                <p>Merci pour votre proposition! Le comité de sélection vous dira prochainement si votre session a été retenue.</p>
             </div>
         #{/if}
         #{if talk.hasSpeaker(session.username)}
@@ -115,17 +117,23 @@
                 <blockquote style="font-size: 16px;">
                 #{markdown talk.description /}
                 </blockquote>
+
+            #{if talk.benefits}
+                <em>${talk.benefits}</em><br/>
+            #{/if}
             </div>
         </div>
         <div class="row">
             <div class="span11">
-                ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
-                #{if talk.comments}
-                    &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
-                #{/if}
-                #{if talk.valid}
-                    &mdash; #{socialbar/}
-                #{/if}
+                <p>
+                    ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
+                    #{if talk.comments}
+                        &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+                    #{/if}
+                    #{if talk.valid}
+                        &mdash; #{socialbar/}
+                    #{/if}
+                </p>
             </div>
         </div>
     </div>

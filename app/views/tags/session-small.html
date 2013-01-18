@@ -5,7 +5,7 @@
 #{else}
 <a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">
 #{/else}
-    <h3 class="session title">${_arg.title}</h3>
+    <h3 class="session title">[&{'enum.TalkFormat.'+_arg.format}] ${_arg.title}</h3>
 </a>
 <blockquote class="article headline">
     <p>${_arg.summary}</p>
