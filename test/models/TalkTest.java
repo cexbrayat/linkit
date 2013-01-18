@@ -24,7 +24,7 @@ public class TalkTest extends BaseDataUnitTest {
     }
     
     @Test public void recents() {
-        assertNotNull(Talk.recents(1, 10));
+        assertNotNull(Talk.recents(ConferenceEvent.CURRENT, 1, 10));
     }
 
     @Test public void countSpeakers() {
