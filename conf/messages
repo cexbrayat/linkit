@@ -159,6 +159,9 @@ enum.TalkLevel.Expert=Expert
 
 sessions.forEvent=Sessions de &{event.%s}
 sessions.none=Aucune session n'a été annoncée pour le moment. Ca ne devrait plus être très long. Revenez plus tard, ça vaudra le coup !
+sessions.callForPaper=Tout participant peut <strong>proposer une session</strong>.<br/>\
+  Pourquoi ne pas tenter votre chance? C'est l'occasion de briller tout en participant activement à la communauté!<br/>\
+  Vous pourrez accéder et éditer vos propositions depuis votre dashboard. Après soumission, le comité d'organisation décidera ou non de sa sélection.
 
 # Lightning Talk fields
 lightningtalk.short.description=Tout participant peut <strong>proposer</strong> un Lightning Talk et <strong>voter</strong> pour ceux qui l'intéressent. Il s'agit de sessions courtes de 5 minutes qui auront lieu entre 13 et 14H chacun des 2 jours de la conférence. 

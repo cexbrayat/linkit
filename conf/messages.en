@@ -161,6 +161,9 @@ enum.TalkLevel.Expert=Expert
 
 sessions.forEvent=Talks of &{event.%s}
 sessions.none=No session is announced yet. That shouldn't be long. Please come back later, it'll be worth the wait!
+sessions.callForPaper=Every member can <strong>submit a talk</strong>.<br/>\
+  Why not take a chance? That will be your chance to shine and to contribute to community!<br/>\
+  You will be able to edit your talks from your dashboard. After submission, the organisation team will let you know if it was elected or not.
 
 # Lightning Talk fields
 lightningtalk.short.description=Each attendee could <strong>submit</strong> a lightning talk and <strong>vote</strong> for those he/she is interested in. A lightning talk is a short talk (5 minutes) and will be held between 1 p.m. and 2 p.m. each day of the event.
