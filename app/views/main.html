@@ -81,12 +81,10 @@
 *{ Masquage des lightnings talks : en aura-t-on en 2013?
                                 <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
 }*
-*{ Fermeture du CFP
                             #{if session.username}
                                 <li class="divider"></li>
                                 <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                             #{/if}
-}*
 *{ Masquage de l'agenda
                                 <li><a href="@{Agenda.index()}">Agenda</a></li>
 }*
