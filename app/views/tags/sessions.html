@@ -45,9 +45,9 @@
 <br/>
 #{list items:_sessions, as:'talk'}
 <div class="row">
-    <div class="span14 hero-unit member-card session ${(talk instanceof models.Talk)?talk.track.toString() : ''}">
+    <div class="span14 hero-unit member-card session ${(talk instanceof models.Talk) ? talk.track?.toString() : ''}">
         <div class="row">
-            <div class="span1 track ${(talk instanceof models.Talk)?talk.track.toString() : ''}" style="margin: -20px 0px -20px -10px; height: 150px;">&nbsp;</div>
+            <div class="span1 track ${(talk && talk instanceof models.Talk)?talk.track?.toString() : ''}" style="margin: -20px 0px -20px -10px; height: 150px;">&nbsp;</div>
             <div class="span13" style="margin-top: -10px;">
                 <div>#{session-card talk /}</div>
                 <div>

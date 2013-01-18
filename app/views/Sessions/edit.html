@@ -29,7 +29,7 @@
 
             <fieldset> 
                 <legend>&{'talk.descriptive.section'}</legend>
-
+*{ Track is not required during CFP
                 #{field 'talk.track'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
@@ -44,7 +44,7 @@
                     </div>
                 </div><!-- /clearfix -->
                 #{/}
-
+}*
                 #{field 'talk.title'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
@@ -57,9 +57,24 @@
                 </div>
                 #{/}
 
+                #{field 'talk.format'}
+                    <div class="clearfix ${field.error?'error':''}">
+                        <label for="${field.id}">&{field.name}</label>
+                        <div class="input">
+                            #{select field.name, value:field.value}
+                            #{list items:models.TalkFormat.values(), as:'format'}
+                                #{option format}&{'enum.TalkFormat.'+format}#{/option}
+                            #{/list}
+                            #{/select}
+                            <span class="help-block">${field.error}</span>
+                            <span class="help-block">&{field.name+".note"}</span>
+                        </div>
+                    </div>
+                #{/}
+
                 #{field 'talk.summary'}
                 <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
+                    <label for="${field.name}">&{field.name}</label>
                     <div class="input"> 
                         <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="140" rows="2">${field.value}</textarea>
                         <span class="help-block" id="${field.id}Countdown" style="font-weight: bold">countdown</span>
@@ -70,14 +85,55 @@
                 #{/}
 
                 #{field 'talk.description'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
+                <div class="clearfix ${field.error?'error':''}">
+                    <label for="${field.name}">&{field.name}</label>
+                    <div class="input">
                         <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="20">${field.value}</textarea>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
-                    </div> 
+                    </div>
                 </div><!-- /clearfix -->
+                #{/}
+
+                #{field 'talk.level'}
+                    <div class="clearfix ${field.error?'error':''}">
+                        <label for="${field.id}">&{field.name}</label>
+                        <div class="input">
+                            #{select field.name, value:field.value}
+                                #{list items:models.TalkLevel.values(), as:'level'}
+                                    #{option level}&{'enum.TalkLevel.'+level}#{/option}
+                                #{/list}
+                            #{/select}
+                            <span class="help-block">${field.error}</span>
+                            <span class="help-block">&{field.name+".note"}</span>
+                        </div>
+                    </div>
+                #{/}
+
+                #{field 'talk.maxAttendees'}
+                    <div class="clearfix ${field.error?'error':''}">
+                        <label for="${field.name}">&{field.name}</label>
+                        <div class="input">
+                            #{select field.name, value:field.value}
+                                #{list items:[null, 10, 20, 50, 100], as:'max'}
+                                    #{option max}${max?:messages.get('talk.maxAttendees.noLimit')}#{/option}
+                                #{/list}
+                            #{/select}
+                            <span class="help-block">${field.error}</span>
+                            <span class="help-block">&{field.name+".note"}</span>
+                        </div>
+                    </div><!-- /clearfix -->
+                #{/}
+
+                #{field 'talk.benefits'}
+                    <div class="clearfix ${field.error?'error':''}">
+                        <label for="${field.name}">&{field.name}</label>
+                        <div class="input">
+                            <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="5">${field.value}</textarea>
+                            <span class="help-block">${field.error}</span>
+                            <span class="help-block">&{field.name+".note"}</span>
+                        </div>
+                    </div><!-- /clearfix -->
                 #{/}
 
             </fieldset>
