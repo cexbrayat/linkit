@@ -49,8 +49,8 @@ public class Talk extends Session {
         return find("valid=true and ? in elements(interests)", interest).fetch();
     }
 
-    public static List<Talk> recents(int page, int length) {
-        return find("valid=true order by addedAt desc").fetch(page, length);
+    public static List<Talk> recents(ConferenceEvent event, int page, int length) {
+        return find("event = ? and valid=true order by addedAt desc", event).fetch(page, length);
     }
     
     public static long countSpeakers() {
