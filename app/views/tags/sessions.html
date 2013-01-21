@@ -34,6 +34,8 @@
 
 #{if _sessions}
 
+#{if _event < models.ConferenceEvent.CURRENT}
+*{On affiche les boutons de filtre seulement pour les événements passés (parce qu'on ne sait pas quoi faire des tracks avec Mix-IT 2013...) }*
 <div class="row">
     <div class="span11 offset2" style="text-align: center">
         #{list items:models.Track.values(), as:'track'}
@@ -41,8 +43,9 @@
         #{/list}
     </div>
 </div>
-
 <br/>
+#{/if}
+
 #{list items:_sessions, as:'talk'}
 <div class="row">
     <div class="span14 hero-unit member-card session ${(talk instanceof models.Talk) ? talk.track?.toString() : ''}">
