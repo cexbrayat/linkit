@@ -21,10 +21,6 @@ public class Talk extends Session {
     @Enumerated(EnumType.STRING)
     public Track track;
 
-    /** Bénéfices pour les participants */
-    @Lob
-    public String benefits;
-
     @Required
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
