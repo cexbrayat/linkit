@@ -93,7 +93,7 @@ public class Sessions extends PageController {
         List<Member> speakers = Member.findAll();
         // Put actual speakers in top of list
         List<Member> actualSpeakers = new ArrayList<Member>(talk.speakers);
-        Collections.sort(actualSpeakers);
+        Collections.sort(speakers);
         speakers = Lists.putOnTop(speakers, actualSpeakers);
         // Put current user on top.
         if (member != null) {
