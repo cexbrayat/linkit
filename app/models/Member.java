@@ -1,6 +1,7 @@
 package models;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -561,7 +562,10 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     }
 
     public int compareTo(Member t) {
-        return toString().compareTo(t.toString());
+        return ComparisonChain.start()
+                .compare(this.lastname, t.lastname)
+                .compare(this.firstname, t.firstname)
+                .result();
     }
 
     public boolean isSpeaker() {
