@@ -1,5 +1,6 @@
 package controllers;
 
+import models.ConferenceEvent;
 import models.Member;
 import models.Session;
 import models.Vote;
@@ -13,14 +14,17 @@ public class Votes extends Controller {
         Session talk = Session.findById(talkId);
         Member member = Member.findByLogin(Security.connected());
         if (member != null && talk != null) {
-            Vote vote = Vote.findVote(talk, member);
-            if (vote != null) {
-                vote.value = !value;
-            } else {
-                vote = new Vote(talk, member, !value);
+            // Can't vote on a passed event
+            if (talk.event.isCurrent()) {
+                Vote vote = Vote.findVote(talk, member);
+                if (vote != null) {
+                    vote.value = !value;
+                } else {
+                    vote = new Vote(talk, member, !value);
+                }
+                vote.save();
+                return Vote.findNumberOfVotesBySession(talk);
             }
-            vote.save();
-            return Vote.findNumberOfVotesBySession(talk);
         }
         return -1;
     }
