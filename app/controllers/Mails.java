@@ -35,7 +35,7 @@ public class Mails extends Mailer {
     }
     
     public static void mailing(Mailing mailing, Member recipient) {
-        setSubject("[Mix-IT 2012] - %s", mailing.subject);
+        setSubject("[Mix-IT] - %s", mailing.subject);
         setFrom(FROM);
         addRecipient(recipient.email);
         send(mailing);
@@ -43,7 +43,7 @@ public class Mails extends Mailer {
     }
     
     public static void notification(Member recipient, Setting setting, Collection<Activity> activities) {
-        setSubject("[Mix-IT 2012] - Que s'est-il passé?");
+        setSubject("[Mix-IT] - Que s'est-il passé?");
         setFrom(FROM);
         addRecipient(recipient.email);
         send(recipient, setting, activities);
