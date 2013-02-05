@@ -272,7 +272,11 @@ validation.timezone=Cela ne correspond pas à un fuseau horaire connu
 
 # Events
 event.mixit12=Mix-IT 2012
+event.mixit12.date=26 avril 2012
+event.mixit12.time=8H30-18H30
 event.mixit13=Mix-IT 2013
+event.mixit13.date=25 et 26 avril 2013
+event.mixit13.time=8H30-18H30
 
 # Sponsors
 sponsors.register=Vous voulez devenir un de nos sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202013]%%20Registration">Contactez-nous</a>! Voici l'<a href="https://docs.google.com/document/d/1b46HNg5dl5q-MjIdJ8oCfe6UiI_41gFdbSnHn-P-hBU/edit" title="Offre de sponsoring Mix-IT 2013">offre de sponsoring détaillée</a>.
