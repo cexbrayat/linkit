@@ -405,4 +405,20 @@ Talk(talk3):
         - agnes
         - cedric
     valid: false
-        
+
+LightningTalk(lt12):
+    event: mixit12
+    title: LT de test 2012
+    summary: Un LT 2012
+    description: Un LT 2012.
+    speakers:
+        - julien
+
+LightningTalk(lt13):
+    event: mixit13
+    title: LT de test 2013
+    summary: Un LT 2013
+    description: Un LT 2013.
+    speakers:
+        - agnes
+        - cedric
