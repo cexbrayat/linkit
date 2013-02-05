@@ -2,10 +2,12 @@
 #{set title:'Lightning Talk ' + talk.title /}
 #{set 'canonical'}@@{LightningTalks.show(talk.id, talk.title.slugify())}#{/set}
 #{set 'moreScripts'}
+#{if talk.event.current}
 <script src="@{'/public/javascripts/vote.js'}"></script>
 <script>
     var voteAction = #{jsAction @Votes.vote(':talk', ':value') /}
 </script>
+#{/if}
 #{/set}
 
 <div class="hero-unit member-card">

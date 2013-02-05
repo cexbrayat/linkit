@@ -4,6 +4,8 @@
 #{set 'moreStyles'}
 <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
 #{/set}
+
+#{if talk.event.current}
     <script type="text/javascript">
         var favAction = #{jsAction @Votes.vote(':talkId', ':fav') /};
         var removeFromFavs = function(){
@@ -30,12 +32,13 @@
             }
         };
     </script>
+#{/if}
 
     <div class="hero-unit member-card">
         <div class="row">
             <div class="span13"><h2 itemprop="name">${talk.title}</h2></div>
             #{if session.username && talk.valid}
-                <i id="star" class="icon-star-empty star #{if talk.hasVoteFrom(session.username)} fav#{/if}" style="float: right;" onclick="fav()"></i>
+                <i id="star" class="icon-star-empty star #{if talk.hasVoteFrom(session.username)} fav#{/if}" style="float: right;" #{if talk.event.current}onclick="fav()"#{/if}></i>
             #{/if}
         </div>
         <div class="row">
