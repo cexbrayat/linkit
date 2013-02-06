@@ -112,6 +112,10 @@ GET     /mixit12                                Infos.mixit12
 *       /humans.txt                             staticFile:public/humans.txt
 *       /sitemap.xml                            staticFile:public/sitemap.xml
 
+# Fucking assets
+GET     /apple-touch-icon-precomposed.png       404
+GET     /apple-touch-icon.png                   404
+
 # Catch all
 *       /{controller}                           {controller}.index
 *       /{controller}/{action}                  {controller}.{action}
