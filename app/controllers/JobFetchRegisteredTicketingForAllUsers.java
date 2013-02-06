@@ -16,7 +16,9 @@ import play.jobs.Job;
  * Asynchronous fetch to check if member is registered at the ticketing partner
  * @author Agnes <agnes.crepet@gmail.com>
  */
-@Every("3h")
+// CLA 07/02/2013 Disabled WeezEvent (useless exceptions in prod logs)
+// FIXME Enable ticketing jobs
+// @Every("3h")
 @NoTransaction
 public class JobFetchRegisteredTicketingForAllUsers extends Job {
 
