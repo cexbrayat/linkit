@@ -38,11 +38,15 @@ public class JobFetchAllUsersTimelines extends Job {
             txTemplate.setReadOnly(false);
             for (final Long id : accountsId) {
 
-                txTemplate.execute(new TransactionCallbackWithoutResult() {
-                    public void doInTransaction() {
-                        StatusActivity.fetchForAccount(id);
-                    }
-                });
+                try {
+                    txTemplate.execute(new TransactionCallbackWithoutResult() {
+                        public void doInTransaction() {
+                            StatusActivity.fetchForAccount(id);
+                        }
+                    });
+                } catch (Exception e) {
+                    Logger.error("Exception while fetching account, skipped to next", e);
+                }
             }
             Logger.info("END fetch timelines");
         }
