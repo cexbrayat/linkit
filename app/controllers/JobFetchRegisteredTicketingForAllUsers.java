@@ -42,13 +42,17 @@ public class JobFetchRegisteredTicketingForAllUsers extends Job {
         txTemplate.setReadOnly(false);
         for (final Long memberId : memberIds) {
 
-            txTemplate.execute(new TransactionCallbackWithoutResult() {
-                public void doInTransaction() {
-                    final Member member = Member.findById(memberId);
-                    member.setTicketingRegistered(WeezEvent.isRegisteredAttendee(member.email, attendees));
-                    member.save();
-                }
-            });
+            try {
+                txTemplate.execute(new TransactionCallbackWithoutResult() {
+                    public void doInTransaction() {
+                        final Member member = Member.findById(memberId);
+                        member.setTicketingRegistered(WeezEvent.isRegisteredAttendee(member.email, attendees));
+                        member.save();
+                    }
+                });
+            } catch (Exception e) {
+                Logger.error("Exception while registering user, skipped to next", e);
+            }
         }
 
         Logger.info("END JOB JobFetchRegisteredTicketingUser for all members");
