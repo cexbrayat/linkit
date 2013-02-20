@@ -1,16 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Connexion à Mix-IT' /}
 
-    <div class="hero-unit">
-        <h1>Connexion à Mix-IT</h1>
-    </div>
-
         <div class="row">
-            <div class="span15">
-                <h3>Se créer un compte Mix-IT</h3>
+            <div class="well span7">
                 <form action="@{loginLinkIt()}">
-                <fieldset>
-                    
+                    <fieldset>
+
                     #{ifErrors}
                         <p class="error">
                             Corrigez les erreurs.
@@ -18,31 +13,41 @@
                     #{/ifErrors}
 
                     #{field 'login'}
-                    <div class="clearfix">
-                        <label for="${field.name}">Login :</label>
-                        <div class="input">
-                          <input type="text" name="${field.name}" 
-                            value="${field.value}" class="${field.errorClass}" />
+                        <div class="clearfix">
+                            <label for="${field.name}">Login :</label>
+                            <div class="input">
+                                <input type="text" name="${field.name}"
+                                       value="${field.value}" class="${field.errorClass}" />
+                            </div>
                         </div>
-                    </div>
                     #{/field}
 
                     #{field 'password'}
-                    <div class="clearfix">
-                        <label for="${field.name}">Mot de passe :</label>
-                        <div class="input">
-                          <input type="password" name="${field.name}" 
-                            value="${field.value}" class="${field.errorClass}" />
+                        <div class="clearfix">
+                            <label for="${field.name}">Mot de passe :</label>
+                            <div class="input">
+                                <input type="password" name="${field.name}"
+                                       value="${field.value}" class="${field.errorClass}" />
+                            </div>
                         </div>
-                    </div>
                     #{/field}
-                
-                    <div class="actions">
-                        <input type="submit" class="btn primary" value="Se connecter"/>
-                        &nbsp;
-                        <input type="submit" formaction="@{signup()}" class="btn" value="S'enregistrer">
-                    </div>
-                </fieldset>
+
+                        <div class="actions">
+                            <input type="submit" class="btn primary" value="Se connecter"/>
+                            &nbsp;
+                            <input type="submit" formaction="@{signup()}" class="btn" value="S'enregistrer">
+                        </div>
+                    </fieldset>
                 </form>
+            </div>
+            <div class="span8">
+                <h1>Se connecter à Mix-IT</h1>
+                <p>
+                    Pour créer un compte : cliquez sur "S'enregistrer".
+                    <br/><br/>
+                    Pour se reconnecter, cliquez sur "Se connecter".
+                    <br/><br/>
+                    Vous préférez ne pas avoir à vous souvenir d'un mot de passe? : #{a @Login.index()}connectez-vous avec vos comptes existants#{/a} sur de grands réseaux sociaux.
+                </p>
             </div>
         </div>
