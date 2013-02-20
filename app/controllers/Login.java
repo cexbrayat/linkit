@@ -138,10 +138,30 @@ public class Login extends PageController {
         }
     }
 
+    public static void noNetwork() {
+        if (session.get("username") != null) {
+            flash.success("Déjà connecté!");
+            Dashboard.index();
+        }
+        renderTemplate("Login/linkit.html");
+    }
+
     public static void loginLinkIt(@Required String login, @Required String password) throws Throwable {
         flash.keep(RETURN_URL);
-        Secure.authenticate(login, password, true);
-        onSuccessfulAuthentication(login);
+
+        if (Validation.hasErrors()) {
+            params.flash("login");
+            flash.error("login & password requis");
+            noNetwork();
+        }
+
+        if (Security.authenticate(login, password)) {
+            onSuccessfulAuthentication(login);
+        } else {
+            params.flash("login");
+            flash.error("Login/password invalides");
+            noNetwork();
+        }
     }
 
     public static void signup(@Required String login, @Required String password) {

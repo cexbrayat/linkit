@@ -16,6 +16,7 @@ GET     /live                                   Application.live
 
 # Login
 GET     /login                                  Login.index
+GET     /login/nonetwork                        Login.noNetwork
 GET     /login/linkit                           Login.loginLinkIt
 GET     /login/signup                           Login.signup
 GET     /login/with/{provider}                  Login.loginWith
