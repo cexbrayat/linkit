@@ -61,8 +61,7 @@ login.howto.part1.3=comment the talks
 login.howto.part1.4=earn some badges depends on your activities on the Website (and have some fun!)
 login.howto.part1.5=and more (the site will continue to evolve: it works in an <em>agile</em> mode)!
 login.howto.part2=If we developed such a social part, beyond the mere pleasure we had to build it (which remains a strong motivating factor, we remain developers : <em> "Programming, Motherfucker" </em>!), that's because, in our opinion, it's a fertile ground for exchanges on the day of the conference!
-login.alert=You must have an account among these social networks to login
-            
+
 # About
 mixit.short.description=Discover what is Mix-IT (and who is behind), a conference which mixes agility, Java ecosystem, Web technologies and Innovations!
 mixit.long.description=Mix-IT is a conference organised by <a href='http://lyonjug.org/' target='_blank'>the Lyon Java User Group</a> and <a href='http://www.clubagilerhonealpes.org/' target='_blank'>the Club Agile Rhône-Alpes</a>. It aims to offer a mix of themes and activities around agile (Scrum, Kanban, XP, DevOps, Lean Startup, etc.), programming (Java, Javascript, Scala, Groovy, etc.), innovation, IT trends, and serious games to learn by practicing with others. You will have the opportunity to plan your day by focusing on a single topic or by skipping from one theme to another.  According to your wishes you can attend technical, organisational conferences or play educational games (agile game, code retreat, dojo). Please note that the majority of the talks are in French, with a few in English.
