@@ -6,7 +6,7 @@
     </div>
 
         <div class="row">
-            <div class="span7">
+            <div class="span15">
                 <h3>Se créer un compte Mix-IT</h3>
                 <form action="@{loginLinkIt()}">
                 <fieldset>
@@ -22,7 +22,7 @@
                         <label for="${field.name}">Login :</label>
                         <div class="input">
                           <input type="text" name="${field.name}" 
-                            value="${login}" class="${field.errorClass}" />
+                            value="${field.value}" class="${field.errorClass}" />
                         </div>
                     </div>
                     #{/field}
@@ -32,7 +32,7 @@
                         <label for="${field.name}">Mot de passe :</label>
                         <div class="input">
                           <input type="password" name="${field.name}" 
-                            value="${password}" class="${field.errorClass}" />
+                            value="${field.value}" class="${field.errorClass}" />
                         </div>
                     </div>
                     #{/field}
@@ -44,19 +44,5 @@
                     </div>
                 </fieldset>
                 </form>
-            </div>
-
-            <div class="offset8">
-                <h3>Se connecter avec un compte existant</h3>
-                <br/>
-                <p>
-                    <a href="@{loginWith(models.ProviderType.Twitter)}" class="btn large primary">Twitter</a>
-                </p>
-                <p>
-                    <a href="@{loginWith(models.ProviderType.Google)}" class="btn large primary">Google</a>
-                </p>
-                <p>
-                    <a href="@{loginWith(models.ProviderType.LinkedIn)}" class="btn large primary">LinkedIn</a>
-                </p>
             </div>
         </div>
