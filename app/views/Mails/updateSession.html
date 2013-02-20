@@ -10,6 +10,13 @@
 #{if talk instanceof models.LightningTalk }
     "<a href="@@{LightningTalks.show(talk.id, talk.title?.slugify())}">${talk}</a>".
 #{/if}
+<br/><br/>
+Les speakers enregistrés sont :
+#{list items:talk.speakers, as:"speaker"}
+    - #{mails.member speaker /}
+#{/list}
+
+    <br/>
     <br/>
     Affectueusement,
 </p>
