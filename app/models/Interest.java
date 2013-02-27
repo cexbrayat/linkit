@@ -84,7 +84,7 @@ public class Interest extends Model implements Comparable<Interest> {
             member.interests.remove(this);
             member.save();
         }
-        List<Session> sessions = Session.findLinkedWith(this);
+        List<Session> sessions = Session.findAllLinkedWith(this);
         for (Session session : sessions) {
             session.interests.remove(this);
             session.save();
@@ -114,7 +114,7 @@ public class Interest extends Model implements Comparable<Interest> {
             member.interests.add(survivorInterest);
             member.save();
         }
-        List<Session> sessions = Session.findLinkedWith(this);
+        List<Session> sessions = Session.findValidatedLinkedWith(this);
         for (Session session : sessions) {
             session.interests.remove(this);
             session.interests.add(survivorInterest);
