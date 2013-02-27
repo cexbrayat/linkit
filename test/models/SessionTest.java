@@ -1,6 +1,8 @@
 package models;
 
 import java.util.Arrays;
+
+import com.google.common.collect.Sets;
 import org.apache.commons.lang.StringUtils;
 import org.junit.*;
 
@@ -21,7 +23,7 @@ public class SessionTest extends BaseDataUnitTest {
     }
 
     @Test
-    public void findSessionsLinkedWith() {
+    public void findValidatedSessionsLinkedWith() {
         final Talk talk1 = new Talk().save();
         talk1.validate();
         final Session lightning2 = new LightningTalk().save();
@@ -30,7 +32,7 @@ public class SessionTest extends BaseDataUnitTest {
 
         final String interest1 = "interest1";
         final String interest2 = "interest2";
-        assertEquals(0, Session.findLinkedWith(Interest.findOrCreateByName(interest1)).size());
+        assertEquals(0, Session.findValidatedLinkedWith(Interest.findOrCreateByName(interest1)).size());
 
         // Add interest now
         talk1.addInterest(interest1).addInterest(interest2).save();
@@ -38,10 +40,32 @@ public class SessionTest extends BaseDataUnitTest {
         talkInvalid.addInterest(interest1).save();
 
         // Simple Check
-        assertEquals(Arrays.asList(talk1, lightning2), Session.findLinkedWith(Interest.findByName(interest1)));
-        assertEquals(Arrays.asList(talk1), Session.findLinkedWith(Interest.findByName(interest2)));
+        assertEquals(Arrays.asList(talk1, lightning2), Session.findValidatedLinkedWith(Interest.findByName(interest1)));
+        assertEquals(Arrays.asList(talk1), Session.findValidatedLinkedWith(Interest.findByName(interest2)));
     }
-    
+
+    @Test
+    public void findAllSessionsLinkedWith() {
+        final Talk talk1 = new Talk().save();
+        talk1.validate();
+        final Session lightning2 = new LightningTalk().save();
+        final Talk talkInvalid = new Talk().save();
+        talkInvalid.unvalidate();
+
+        final String interest1 = "interest1";
+        final String interest2 = "interest2";
+        assertEquals(0, Session.findAllLinkedWith(Interest.findOrCreateByName(interest1)).size());
+
+        // Add interest now
+        talk1.addInterest(interest1).addInterest(interest2).save();
+        lightning2.addInterest(interest1).save();
+        talkInvalid.addInterest(interest1).save();
+
+        // Simple Check
+        assertEquals(Sets.newHashSet(talk1, talkInvalid, lightning2), Sets.newHashSet(Session.findAllLinkedWith(Interest.findByName(interest1))));
+        assertEquals(Arrays.asList(talk1), Session.findAllLinkedWith(Interest.findByName(interest2)));
+    }
+
     @Test public void lookByValid() {
         final Session session = Session.all().first();
         // Ensure session valid

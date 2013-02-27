@@ -126,10 +126,14 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
         }
     }
 
-    public static <T extends Session> List<T> findLinkedWith(Interest interest) {
+    public static <T extends Session> List<T> findValidatedLinkedWith(Interest interest) {
         return find("valid = true and ? in elements(interests)", interest).fetch();
     }
-    
+
+    public static List<Session> findAllLinkedWith(Interest interest) {
+        return find("? in elements(interests)", interest).fetch();
+    }
+
     public Session addInterest(String interest) {
         if (StringUtils.isNotBlank(interest)) {
             interests.add(Interest.findOrCreateByName(interest));
