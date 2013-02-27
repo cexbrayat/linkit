@@ -1,6 +1,8 @@
 package controllers;
 
 import java.util.List;
+
+import models.ConferenceEvent;
 import models.Role;
 import models.Talk;
 import static play.modules.pdf.PDF.renderPDF;
@@ -15,7 +17,7 @@ public class Exports extends PageController {
     }
 
     public static void exportSessions() {
-        List<Talk> talks = Talk.find("valid = false order by track, title").fetch();
+        List<Talk> talks = Talk.find("valid = false and event = ? order by track, title", ConferenceEvent.CURRENT).fetch();
         renderPDF(talks);
     }
 }
