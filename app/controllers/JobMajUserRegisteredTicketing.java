@@ -22,7 +22,9 @@ public class JobMajUserRegisteredTicketing extends Job {
         Logger.info("BEGIN JOB JobMajUserRegisteredTicketing for member with id %d", idMember);
         Member member = Member.findById(idMember);
         if (member != null) {
-            WeezEvent.updateRegisteredAttendee(member);
+            // CLA 07/02/2013 Disabled WeezEvent (useless exceptions in prod logs)
+            // FIXME Enable ticketing jobs
+            // WeezEvent.updateRegisteredAttendee(member);
         } else {
             Logger.error("JOB JobMajUserRegisteredTicketing, member id %d not found", idMember);
         }

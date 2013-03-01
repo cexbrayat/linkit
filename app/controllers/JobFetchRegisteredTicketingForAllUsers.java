@@ -16,7 +16,9 @@ import play.jobs.Job;
  * Asynchronous fetch to check if member is registered at the ticketing partner
  * @author Agnes <agnes.crepet@gmail.com>
  */
-@Every("3h")
+// CLA 07/02/2013 Disabled WeezEvent (useless exceptions in prod logs)
+// FIXME Enable ticketing jobs
+// @Every("3h")
 @NoTransaction
 public class JobFetchRegisteredTicketingForAllUsers extends Job {
 
@@ -40,13 +42,17 @@ public class JobFetchRegisteredTicketingForAllUsers extends Job {
         txTemplate.setReadOnly(false);
         for (final Long memberId : memberIds) {
 
-            txTemplate.execute(new TransactionCallbackWithoutResult() {
-                public void doInTransaction() {
-                    final Member member = Member.findById(memberId);
-                    member.setTicketingRegistered(WeezEvent.isRegisteredAttendee(member.email, attendees));
-                    member.save();
-                }
-            });
+            try {
+                txTemplate.execute(new TransactionCallbackWithoutResult() {
+                    public void doInTransaction() {
+                        final Member member = Member.findById(memberId);
+                        member.setTicketingRegistered(WeezEvent.isRegisteredAttendee(member.email, attendees));
+                        member.save();
+                    }
+                });
+            } catch (Exception e) {
+                Logger.error("Exception while registering user, skipped to next", e);
+            }
         }
 
         Logger.info("END JOB JobFetchRegisteredTicketingUser for all members");

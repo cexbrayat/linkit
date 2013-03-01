@@ -6,9 +6,7 @@ import play.data.validation.Required;
 import play.modules.search.Indexed;
 import play.mvc.Router;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.util.List;
 import models.activity.CommentSessionActivity;
 
@@ -20,30 +18,53 @@ import models.activity.CommentSessionActivity;
 @Indexed
 public class Talk extends Session {
 
-    @Required
     @Enumerated(EnumType.STRING)
     public Track track;
+
+    @Required
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    public TalkFormat format = TalkFormat.Talk;
+
+    public Integer maxAttendees;
+
+    @Required
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
+    public TalkLevel level = TalkLevel.Experienced;
+
+    /** Markdown enabled */
+    @Lob
+    public String comment;
+
+    public static List<Talk> findAllOn(ConferenceEvent event) {
+        return find("event = ?", event).fetch();
+    }
 
     public static List<Talk> findLinkedWith(Interest interest) {
         return find("valid=true and ? in elements(interests)", interest).fetch();
     }
 
-    public static List<Talk> recents(int page, int length) {
-        return find("valid=true order by addedAt desc").fetch(page, length);
+    public static List<Talk> recents(ConferenceEvent event, int page, int length) {
+        return find("event = ? and valid=true order by addedAt desc", event).fetch(page, length);
     }
     
     public static long countSpeakers() {
-        return find("select count(distinct s) from Talk t inner join t.speakers as s where t.valid=true").first();
+        return find("select count(distinct s) from Talk t inner join t.speakers as s where t.valid=true and t.event = ?", ConferenceEvent.CURRENT).first();
     }
-    
+
     public static List<Member> findAllSpeakers() {
-        return find("select distinct t.speakers from Talk t where t.valid=true").fetch();
+        return findAllSpeakersOn(ConferenceEvent.CURRENT);
     }
-    
-    public static List<Talk> findAllValidated() {
-        return find("valid=true").fetch();
+
+    public static List<Member> findAllSpeakersOn(ConferenceEvent event) {
+        return find("select distinct t.speakers from Talk t where t.valid=true and t.event = ?", event).fetch();
     }
-    
+
+    public static List<Talk> findAllValidatedOn(ConferenceEvent event) {
+        return find("event = ? and valid=true", event).fetch();
+    }
+
     public void validate() {
         this.valid = true;
         save();

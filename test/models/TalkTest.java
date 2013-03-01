@@ -24,7 +24,7 @@ public class TalkTest extends BaseDataUnitTest {
     }
     
     @Test public void recents() {
-        assertNotNull(Talk.recents(1, 10));
+        assertNotNull(Talk.recents(ConferenceEvent.CURRENT, 1, 10));
     }
 
     @Test public void countSpeakers() {
@@ -59,22 +59,31 @@ public class TalkTest extends BaseDataUnitTest {
         
         assertTrue(Talk.findAllSpeakers().contains(speaker));
     }
-    
-    @Test public void findAllValidated() {
-        final long initialCount = Talk.findAllValidated().size();
+
+    @Test public void findAllOn() {
+        final long initialCount = Talk.findAllOn(ConferenceEvent.mixit13).size();
+        Talk t = createTalk();
+        assertEquals(initialCount+1, Talk.findAllOn(ConferenceEvent.mixit13).size());
+        assertTrue(Talk.findAllOn(ConferenceEvent.mixit13).contains(t));
+        assertFalse(Talk.findAllOn(ConferenceEvent.mixit12).contains(t));
+    }
+
+    @Test public void findAllValidatedOn() {
+        final long initialCount = Talk.findAllValidatedOn(ConferenceEvent.mixit13).size();
 
         // add new invalid talk
         Talk t = createTalk();
-        
-        assertEquals(initialCount, Talk.findAllValidated().size());
-        
+
+        assertEquals(initialCount, Talk.findAllValidatedOn(ConferenceEvent.mixit13).size());
+
         // Validate talk
         t.validate();
-        
-        assertEquals(initialCount+1, Talk.findAllValidated().size());
-        assertTrue(Talk.findAllValidated().contains(t));
+
+        assertEquals(initialCount+1, Talk.findAllValidatedOn(ConferenceEvent.mixit13).size());
+        assertTrue(Talk.findAllValidatedOn(ConferenceEvent.mixit13).contains(t));
+        assertFalse(Talk.findAllValidatedOn(ConferenceEvent.mixit12).contains(t));
     }
-    
+
     @Test public void getShowUrl() {
         final Talk t = createTalk();
         assertNotNull(t.getShowUrl());

@@ -16,14 +16,17 @@ GET     /live                                   Application.live
 
 # Login
 GET     /login                                  Login.index
+GET     /login/nonetwork                        Login.noNetwork
 GET     /login/linkit                           Login.loginLinkIt
 GET     /login/signup                           Login.signup
 GET     /login/with/{provider}                  Login.loginWith
 
 # Application
 GET     /speakers                               Application.speakers
+GET     /{event}/speakers                       Application.speakersOn
 GET     /staff                                  Application.staff
 GET     /sponsors                               Application.sponsors
+GET     /{event}/sponsors                       Application.sponsorsOf
 GET     /members                                Application.members
 GET     /interest/{interest}                    Application.searchByInterest
 # I fucking don't know why this route is not used!
@@ -55,6 +58,7 @@ GET     /dashboard/settings                     Dashboard.settings
 
 # Sessions
 GET     /sessions                               Sessions.index
+GET     /{event}/sessions                       Sessions.listOn
 GET     /session/new                            Sessions.create
 POST    /session                                Sessions.save
 GET     /session/edit                           Sessions.edit
@@ -69,6 +73,7 @@ GET     /session/fav/{talkId}/{fav}             Sessions.fav
 
 # Lightning
 GET     /lightnings                             LightningTalks.list
+GET     /{event}/lightnings                     LightningTalks.listOn
 GET     /lightning/new                          LightningTalks.create
 GET     /lightning/delete/{sessionId}           LightningTalks.delete
 GET     /lightning/{sessionId}/{slugify}        LightningTalks.show
@@ -98,12 +103,19 @@ GET     /logout                                 Secure.logout
 # Live activities
 WS      /live                                   LiveActivities.listen
 
+# Infos
+GET     /mixit12                                Infos.mixit12
+
 # Bots resources
 *       /favicon.ico                            staticFile:public/images/favicon.ico
 *       /favicon.png                            staticFile:public/images/favicon.png
 *       /robots.txt                             staticFile:public/robots.txt
 *       /humans.txt                             staticFile:public/humans.txt
 *       /sitemap.xml                            staticFile:public/sitemap.xml
+
+# Fucking assets
+GET     /apple-touch-icon-precomposed.png       404
+GET     /apple-touch-icon.png                   404
 
 # Catch all
 *       /{controller}                           {controller}.index

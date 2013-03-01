@@ -62,8 +62,19 @@ GoogleAccount(rguyLinkIt):
     member: rguy
     googleId: 111962077049890418486
 
-Talk(sessionTest):
-    title: Test title
+Talk(sessionTestPast):
+    event: mixit12
+    title: Test title past
+    track: Techy
+    summary: Test summary
+    description : Test description
+    valid: true
+    speakers:
+           - rguy
+
+Talk(sessionTestCurrent):
+    event: mixit13
+    title: Test title current
     track: Techy
     summary: Test summary
     description : Test description
@@ -87,7 +98,7 @@ Article(articleNonValid):
     postedAt: 2012-01-20
     valid: false
 
-Sponsor(sponsor) :
+Sponsor(sponsorCurrent) :
     firstname: ACME
     lastname: Company
     login: sponsor
@@ -95,3 +106,31 @@ Sponsor(sponsor) :
     shortDescription : We rule the world!
     badges:
          - Sponsor
+    level: SILVER
+    events:
+         - mixit13
+
+Sponsor(sponsorPast) :
+    firstname: ACMEPast
+    lastname: Company
+    login: sponsorPast
+    email: info@acme.com
+    shortDescription : We rule the world!
+    badges:
+         - Sponsor
+    level: GOLD
+    events:
+         - mixit12
+
+Sponsor(sponsorBoth) :
+    firstname: ACMEBoth
+    lastname: Company
+    login: sponsorBoth
+    email: info@acme.com
+    shortDescription : We sponsor every Mix-IT event!
+    badges:
+         - Sponsor
+    level: SILVER
+    events:
+         - mixit12
+         - mixit13

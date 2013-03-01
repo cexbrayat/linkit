@@ -1,6 +1,11 @@
 Link-IT vous informe,
 
 Une nouvelle session a été soumise : "${talk}".
+Les speakers enregistrés sont :
+#{list items:talk.speakers, as:"speaker"}
+- ${speaker} : @@{Profile.show(speaker.login)}
+#{/list}
+
 Affectueusement,
 
     Link-IT's bot.

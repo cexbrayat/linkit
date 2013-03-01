@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>#{get 'title' /} - Mix-IT 2012</title>
+        <title>#{get 'title' /} - &{'event.'+models.ConferenceEvent.CURRENT}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link type="text/css" rel="stylesheet" href="@@{'/public/stylesheets/bootstrap.less'}">
         <link type="text/css" rel="stylesheet" href="@@{'/public/stylesheets/linkit.less'}">
     </head>
     <header>
-        <a class="brand" href="@@{Application.index()}"><img src="@@{'/public/images/mini-mixit.png'}" /></a>&nbsp;-&nbsp;26 avril 2012
+        <a class="brand" href="@@{Application.index()}"><img src="@@{'/public/images/mini-mixit.png'}" /></a>&nbsp;-&nbsp;&{'event.'+models.ConferenceEvent.CURRENT+'.date'}
     </header>
     <body>
         <div class="container-fluid">
@@ -17,6 +17,6 @@
         </div>
     </body>
     <footer>
-        <p>Mix-IT 2012</p>
+        <p>&{'event.'+models.ConferenceEvent.CURRENT}</p>
     </footer>
 </html>

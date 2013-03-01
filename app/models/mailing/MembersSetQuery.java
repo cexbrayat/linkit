@@ -9,5 +9,5 @@ import models.Member;
  */
 public interface MembersSetQuery {
     
-    List<Member> find();
+    List<? extends Member> find();
 }

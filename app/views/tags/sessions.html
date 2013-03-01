@@ -1,4 +1,4 @@
-*{ Display all sessions "sessions" }*
+*{ Display all sessions "sessions" for ConferenceEvent "event" }*
 <script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
 <script >
     $(function() {
@@ -30,6 +30,12 @@
     }
 </script>
 
+<h1>&{'sessions.forEvent', _event}</h1>
+
+#{if _sessions}
+
+#{if _event < models.ConferenceEvent.CURRENT}
+*{On affiche les boutons de filtre seulement pour les événements passés (parce qu'on ne sait pas quoi faire des tracks avec Mix-IT 2013...) }*
 <div class="row">
     <div class="span11 offset2" style="text-align: center">
         #{list items:models.Track.values(), as:'track'}
@@ -37,13 +43,14 @@
         #{/list}
     </div>
 </div>
-
 <br/>
+#{/if}
+
 #{list items:_sessions, as:'talk'}
 <div class="row">
-    <div class="span14 hero-unit member-card session ${(talk instanceof models.Talk)?talk.track.toString() : ''}">
+    <div class="span14 hero-unit member-card session ${(talk instanceof models.Talk) ? talk.track?.toString() : ''}">
         <div class="row">
-            <div class="span1 track ${(talk instanceof models.Talk)?talk.track.toString() : ''}" style="margin: -20px 0px -20px -10px; height: 150px;">&nbsp;</div>
+            <div class="span1 track ${(talk && talk instanceof models.Talk)?talk.track?.toString() : ''}" style="margin: -20px 0px -20px -10px; height: 150px;">&nbsp;</div>
             <div class="span13" style="margin-top: -10px;">
                 <div>#{session-card talk /}</div>
                 <div>
@@ -56,4 +63,10 @@
     </div>
 </div>
 #{/list}
- 
+
+#{/if}
+#{else}
+
+&{'sessions.none'}
+
+#{/else}

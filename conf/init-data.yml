@@ -347,6 +347,9 @@ Sponsor(zenika):
     shortDescription : Zenika, experts en technologies Open Source et méthodes Agiles
     badges:
          - Sponsor
+    level: SILVER
+    events:
+         - mixit12
 
 TwitterAccount(zenikaTwitter):
     provider: Twitter
@@ -371,8 +374,9 @@ SharedLink(zenikaLink2):
     URL: http://blog.zenika.com
 
 Talk(talk1):
+    event: mixit12
     track: Trendy
-    title: Session de test
+    title: Session de test 2012 valide
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
@@ -382,12 +386,39 @@ Talk(talk1):
     valid: true
 
 Talk(talk2):
+    event: mixit12
+    track: Trendy
+    title: Session de test 2012 non valide
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - clacote
+    valid: false
+
+Talk(talk3):
+    event: mixit13
     track: Gamy
-    title: Une autre session de test
+    title: Une session de test 2013
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
         - agnes
         - cedric
     valid: false
-        
+
+LightningTalk(lt12):
+    event: mixit12
+    title: LT de test 2012
+    summary: Un LT 2012
+    description: Un LT 2012.
+    speakers:
+        - julien
+
+LightningTalk(lt13):
+    event: mixit13
+    title: LT de test 2013
+    summary: Un LT 2013
+    description: Un LT 2013.
+    speakers:
+        - agnes
+        - cedric
