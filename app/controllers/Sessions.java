@@ -35,6 +35,9 @@ public class Sessions extends PageController {
     }
 
     public static void create(final String speakerLogin) throws Throwable {
+        if (!Security.check(Role.ADMIN_SESSION)) {
+          forbidden("Damned! The Call for Paper is closed!!!");
+        }
 
         SecureLinkIt.checkAccess(); // Connected
 
