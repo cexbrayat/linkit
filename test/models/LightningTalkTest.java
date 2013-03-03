@@ -35,7 +35,7 @@ public class LightningTalkTest extends BaseDataUnitTest {
     @Test public void getNumberOfVotes() {
         final LightningTalk lt = createLT("test");
         assertEquals(0, lt.getNumberOfVotes());
-        
+
         // 2 Votes
         final Member m = createMember("toto");
         new Vote(lt, m, true).save();
@@ -43,7 +43,7 @@ public class LightningTalkTest extends BaseDataUnitTest {
 
         assertEquals(2, lt.getNumberOfVotes());
     }
-    
+
     @Test public void hasVoteFrom() {
         final LightningTalk lt = createLT("test");
         final Member m = createMember("toto");

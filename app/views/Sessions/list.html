@@ -6,7 +6,7 @@
 #{set 'moreStyles'}
 <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
 #{/set}
-
+*{   The CFP is closed!
 <div class="alert-message block-message info" data-alert>
     <a class="close" href="#">×</a>
     <p>&{'sessions.callForPaper'}</p>
@@ -19,5 +19,6 @@
     #{/else}
     </div>
 </div>
+}*
 
 #{sessions sessions:sessions, event:event/}
