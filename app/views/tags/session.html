@@ -1,4 +1,5 @@
 *{ Displays _arg session }*
+#{if _arg}
 <span id="session${_arg.id}" data-id="${_arg.id}" class="session">
     #{if !_arg.valid}<span class="label important">non validé</span> #{/if}
 #{if _arg instanceof models.Talk}
@@ -18,3 +19,4 @@
 <a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg}</a>
 #{/else}
 </span>
+#{/if}

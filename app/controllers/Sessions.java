@@ -12,14 +12,22 @@ import play.data.validation.Validation;
 import play.i18n.Messages;
 import play.libs.Images;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Sessions extends PageController {
 
     public static void index() {
         listOn(ConferenceEvent.CURRENT);
+    }
+
+    public static void planningMixIT13() {
+
+        List<Talk> allSessions = Talk.findAllOn(ConferenceEvent.CURRENT);
+        Map<Long, Talk> sessions = new HashMap<Long, Talk>(allSessions.size());
+        for (Talk t : allSessions) {
+            sessions.put(t.id, t);
+        }
+        renderTemplate("Sessions/planning.html", sessions);
     }
 
     public static void listOn(ConferenceEvent event) {

@@ -1,0 +1,239 @@
+#{extends 'main.html' /}
+#{set title:'Planning' /}
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/bootstrap-alerts.js'}"></script>
+#{/set}
+#{set 'moreStyles'}
+<link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
+
+<style>
+    table td {
+        vertical-align: middle;
+    }
+    table th {
+        text-align: center;
+    }
+    td {
+        border: 1px solid;
+    }
+</style>
+#{/set}
+
+<h1>Jeudi 25 avril</h1>
+
+<table class="condensed-table">
+    <thead>
+        <tr>
+            <th>Horaire</th>
+            <th>Salle 100p</th>
+            <th>Salle 100p</th>
+            <th>Salle 80p</th>
+            <th>Salle 60p</th>
+            <th>Salle 25p</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>09H00</th>
+            <td colspan="5">Keynote</td>
+        </tr>
+        <tr>
+            <th>09H30</th>
+            <td rowspan="2">#{session sessions[3L] /}</td>
+            <td rowspan="2">#{session sessions[0] /}</td>
+            <td rowspan="2">#{session sessions[3L] /}</td>
+            <td rowspan="3">Workshop</td>
+            <td rowspan="3">Workshop</td>
+        </tr>
+        <tr>
+            <th>10H30</th>
+        </tr>
+        <tr>
+            <th></th>
+            <td colspan="3">Pause</td>
+        </tr>
+        <tr>
+            <th>11H00</th>
+            <td rowspan="2">#{session sessions[0] /}</td>
+            <td rowspan="2">#{session sessions[0] /}</td>
+            <td rowspan="2">#{session sessions[0] /}</td>
+            <td rowspan="3">Workshop</td>
+            <td rowspan="3">Workshop</td>
+        </tr>
+        <tr>
+            <th>12H00</th>
+        </tr>
+        <tr>
+            <th>12H30</th>
+            <td colspan="3">Déjeuner</td>
+        </tr>
+        <tr>
+            <th></th>
+            <td colspan="5">Déjeuner</td>
+        </tr>
+        <tr>
+            <th>13H00</th>
+            <td colspan="3">Lightning Talks</td>
+            <td rowspan="3">Workshop</td>
+            <td rowspan="3">Workshop</td>
+        </tr>
+        <tr>
+            <th>13H30</th>
+            <td rowspan="2">Talk</td>
+            <td rowspan="2">Talk</td>
+            <td rowspan="2">Talk</td>
+        </tr>
+        <tr>
+            <th>14H30</th>
+        </tr>
+        <tr>
+            <th></th>
+            <td colspan="3">Pause</td>
+            <td rowspan="3">Workshop</td>
+            <td rowspan="3">Workshop</td>
+        </tr>
+        <tr>
+            <th>15H00</th>
+            <td rowspan="2">Talk</td>
+            <td rowspan="2">Talk</td>
+            <td rowspan="2">Talk</td>
+        </tr>
+        <tr>
+            <th>16H00</th>
+        </tr>
+        <tr>
+            <th></th>
+            <td colspan="3">Pause</td>
+            <td rowspan="6">Workshop</td>
+            <td rowspan="6">Workshop</td>
+        </tr>
+        <tr>
+            <th>16H30</th>
+            <td rowspan="2">Talk</td>
+            <td rowspan="2">Talk</td>
+            <td rowspan="2">Talk</td>
+        </tr>
+        <tr>
+            <th>17H30</th>
+        </tr>
+        <tr>
+            <th></th>
+            <td colspan="3">Pause</td>
+        </tr>
+        <tr>
+            <th>18H00</th>
+            <td rowspan="2">Talk</td>
+            <td rowspan="2">Talk</td>
+            <td rowspan="2">Talk</td>
+        </tr>
+        <tr>
+            <th>19H00</th>
+        </tr>
+
+    </tbody>
+</table>
+
+
+<h1>Vendredi 26 avril</h1>
+
+<table class="condensed-table">
+    <thead>
+    <tr>
+        <th>Horaire</th>
+        <th>Salle 100p</th>
+        <th>Salle 100p</th>
+        <th>Salle 80p</th>
+        <th>Salle 60p</th>
+        <th>Salle 25p</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>09H00</th>
+        <td colspan="5">Keynote</td>
+    </tr>
+    <tr>
+        <th>09H30</th>
+        <td rowspan="2">#{session sessions[0] /}</td>
+        <td rowspan="2">#{session sessions[0] /}</td>
+        <td rowspan="2">#{session sessions[0] /}</td>
+        <td rowspan="3">Workshop</td>
+        <td rowspan="3">Workshop</td>
+    </tr>
+    <tr>
+        <th>10H30</th>
+    </tr>
+    <tr>
+        <th></th>
+        <td colspan="3">Pause</td>
+    </tr>
+    <tr>
+        <th>11H00</th>
+        <td rowspan="2">#{session sessions[0] /}</td>
+        <td rowspan="2">#{session sessions[0] /}</td>
+        <td rowspan="2">#{session sessions[0] /}</td>
+        <td rowspan="3">Workshop</td>
+        <td rowspan="3">Workshop</td>
+    </tr>
+    <tr>
+        <th>12H00</th>
+    </tr>
+    <tr>
+        <th>12H30</th>
+        <td colspan="3">Déjeuner</td>
+    </tr>
+    <tr>
+        <th></th>
+        <td colspan="5">Déjeuner</td>
+    </tr>
+    <tr>
+        <th>13H00</th>
+        <td colspan="3">Lightning Talks</td>
+        <td rowspan="3">Workshop</td>
+        <td rowspan="3">Workshop</td>
+    </tr>
+    <tr>
+        <th>13H30</th>
+        <td rowspan="2">Talk</td>
+        <td rowspan="2">Talk</td>
+        <td rowspan="2">Talk</td>
+    </tr>
+    <tr>
+        <th>14H30</th>
+    </tr>
+    <tr>
+        <th></th>
+        <td colspan="3">Pause</td>
+        <td rowspan="3">Workshop</td>
+        <td rowspan="3">Workshop</td>
+    </tr>
+    <tr>
+        <th>15H00</th>
+        <td rowspan="2">Talk</td>
+        <td rowspan="2">Talk</td>
+        <td rowspan="2">Talk</td>
+    </tr>
+    <tr>
+        <th>16H00</th>
+    </tr>
+    <tr>
+        <th></th>
+        <td colspan="3">Pause</td>
+        <td rowspan="4">Workshop</td>
+        <td rowspan="4">Workshop</td>
+    </tr>
+    <tr>
+        <th>16H30</th>
+        <td rowspan="3">Workshop</td>
+        <td rowspan="3">Workshop</td>
+        <td rowspan="3">Workshop</td>
+    </tr>
+    <tr>
+        <th></th>
+    </tr>
+    <tr>
+        <th>18H00</th>
+    </tr>
+
+    </tbody>
+</table>
