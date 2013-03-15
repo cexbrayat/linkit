@@ -2,5 +2,5 @@
     <span class="label success"><i class="icon-check"></i> Mon billet est déjà payé!</span>
 #{/if}
 #{else}
-    <span class="label important"><i class="icon-lock"></i> Ouverture prochaine de la billeterie</span>
+<a href="${helpers.ticketing.YurPlan.REGISTRATION_URL}" rel='twipsy' title="&{'button.ticketing.details'}" data-placement="right" onclick="var w=window.open('${helpers.ticketing.YurPlan.REGISTRATION_URL}', 'weezevent', 'width=650, height=450, top=100, left=100, toolbar=no, resizable=yes, scrollbars=yes, status=no'); w.focus(); return false;"><span class="btn small primary">&{'button.ticketing'}</span></a>
 #{/else}
