@@ -1,4 +1,5 @@
 *{ Displays _arg session in a short way }*
+#{if _arg}
 #{if _arg instanceof models.Talk}
 <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">
     <h3 class="session title">[&{'enum.TalkFormat.'+_arg.format}] ${_arg.title}</h3>
@@ -19,3 +20,4 @@
         #{/list}
     </small>
 </blockquote>
+#{/if}

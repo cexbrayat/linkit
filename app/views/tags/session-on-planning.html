@@ -2,21 +2,16 @@
 #{if _arg}
 <span id="session${_arg.id}" data-id="${_arg.id}" class="session">
     #{if !_arg.valid}<span class="label important">non validé</span> #{/if}
-#{if _arg instanceof models.Talk}
     #{if _arg.track}
         <span class="label track ${_arg.track}" title="Track ${_arg.track} : ${_arg.track.getDescription()}">
             ${_arg.track}
         </span>&nbsp;
     #{/if}
-#{/if}
-#{else}
-    <span class="label track">Lightning Talk"</span>&nbsp;
-#{/else}
-#{if _arg instanceof models.Talk}
-<a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg}</a>
-#{/if}
-#{else}
-<a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg}</a>
-#{/else}
+    [&{'enum.TalkFormat.'+_arg.format}] <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg}</a>
+    <br/>
+    #{list items:_arg.speakers, as:'s'}
+        #{member s /}
+        #{if !s_isLast}, #{/if}
+    #{/list}
 </span>
 #{/if}
