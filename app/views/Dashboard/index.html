@@ -29,7 +29,7 @@
                             <a href="@{Dashboard.settings()}" title="Mes préférences">Notifications</a> : #{if setting}&{'NotificationOption.'+setting.notificationOption+'.label'}#{/if}#{else}Non définies#{/else}<br />
                             <div class='alert-actions'>
                                 #{ticketing member/}
-                                <a href="@{Profile.edit()}" class="btn small">Editer mon profil</a>
+                                <a href="@{Profile.edit()}" class="btn small">&{'menu.login.edit'}</a>
 *{ The CFP is closed
                                 <a href="@{Sessions.create(session.username)}" class="btn small">Proposer une session</a>
 }*
