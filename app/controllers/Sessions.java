@@ -12,14 +12,28 @@ import play.data.validation.Validation;
 import play.i18n.Messages;
 import play.libs.Images;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Sessions extends PageController {
 
+    public static final String MIXIT13_PLANNING = "mixit13-planning";
+
     public static void index() {
         listOn(ConferenceEvent.CURRENT);
+    }
+
+    public static void planningMixIT13() {
+
+        Map<Long, Talk> sessions = Cache.get(MIXIT13_PLANNING, Map.class);
+        if (sessions == null) {
+            List<Talk> allSessions = Talk.findAllValidatedOn(ConferenceEvent.mixit13);
+            sessions = new HashMap<Long, Talk>(allSessions.size());
+            for (Talk t : allSessions) {
+                sessions.put(t.id, t);
+            }
+            Cache.set(MIXIT13_PLANNING, sessions, "1min");
+        }
+        renderTemplate("Sessions/planning.html", sessions);
     }
 
     public static void listOn(ConferenceEvent event) {
