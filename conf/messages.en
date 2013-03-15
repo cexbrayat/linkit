@@ -39,12 +39,12 @@ menu.login.logout=Logout
 # Welcome
 mixit.slogan=Ideas for now!
 mixit.header=Java, Agile, Web, Innovation...
-ticketing.alert=See you next year!
+ticketing.alert=The ticketing is open!
 button.about.mixit=About Mix-IT
-button.talks=Talks
+button.talks=Agenda
 button.login=Sign in
 button.ticketing=Buy my ticket
-button.ticketing.price=Price is not known for now but as usual it will be affordable
+button.ticketing.details=By our partner YurPlan
 button.vote.lightningtalks=Vote for lightning talks
 tab.lastactivities=Last activities
 tab.lastarticles=Last articles
@@ -86,11 +86,13 @@ faq.recording.answer=All the talks will be recored in audio format (maybe some w
 # Registration
 registration.title=Account and ticketing
 registration.directives=
+registration.ticketing.signed=You have an account on Mix-IT website, now : you just have to buy your ticket! Please click the button below :
 registration.step1.create.account=Create an account
 registration.step1.create.account.why=And enjoy the social side of the Mix-IT website!
 registration.step1.alternative=You can also buy your ticket via our partner if you don't like social networks
-registration.step2.ticketing.unsigned=You could have bought your ticket from your Mix-IT's Dashboard, but it's now sold out!...
-registration.warning.email=Warning: use the same email you use for your Mix-IT account and your payment via our partner
+registration.step2.ticketing.unsigned=Buy your ticket from your Mix-IT's Dashboard!
+registration.step2.ticketing.unsigned.why=The ticket purchase is done by our partner YurPlan
+  registration.warning.email=Warning: use the same email you use for your Mix-IT account and your payment via our partner
 
 # Member fields
 
@@ -124,7 +126,7 @@ members.speakers.none=We are contacting our guest speakers, before opening our u
 members.members.none=No members for now
 
 # Talk fields
-talks.description=Talks descriptions. Number of parallel tracks change from year to year
+talks.description=Discover all our amazing talks, and their schedule day by day.
 talk.descriptive.section=Description
 talk.title=Title
 talk.title.note=Required. A short title for your talk
