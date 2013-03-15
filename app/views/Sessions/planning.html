@@ -1,0 +1,243 @@
+#{extends 'main.html' /}
+#{set title:'Planning Mix-IT 2013' /}
+#{set 'moreStyles'}
+
+<style>
+    table td {
+        vertical-align: middle;
+    }
+    td.intermede {
+        text-align: center;
+    }
+    table th {
+        text-align: center;
+    }
+    td {
+        border: 1px solid;
+    }
+</style>
+#{/set}
+
+<h1>Jeudi 25 avril</h1>
+
+<table class="condensed-table">
+    <thead>
+        <tr>
+            <th>Horaire</th>
+            <th>Salle 100p</th>
+            <th>Salle 100p</th>
+            <th>Salle 80p</th>
+            <th>Salle 60p</th>
+            <th>Salle 25p</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>09H00</th>
+            <td colspan="5" class="intermede">Keynote</td>
+        </tr>
+        <tr>
+            <th>09H30</th>
+            <td rowspan="2">#{session-on-planning sessions[131L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[127L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[150L] /}</td>
+            <td rowspan="3">#{session-on-planning sessions[182L] /}</td>
+            <td rowspan="3">#{session-on-planning sessions[265L] /}</td>
+        </tr>
+        <tr>
+            <th>10H30</th>
+        </tr>
+        <tr>
+            <th></th>
+            <td colspan="3" class="intermede">Pause</td>
+        </tr>
+        <tr>
+            <th>11H00</th>
+            <td rowspan="2">#{session-on-planning sessions[195L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[133L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[169L] /}</td>
+            <td rowspan="3">#{session-on-planning sessions[154L] /}</td>
+            <td rowspan="3">#{session-on-planning sessions[249L] /}</td>
+        </tr>
+        <tr>
+            <th>12H00</th>
+        </tr>
+        <tr>
+            <th>12H30</th>
+            <td colspan="3" class="intermede">Déjeuner</td>
+        </tr>
+        <tr>
+            <th></th>
+            <td colspan="5" class="intermede">Déjeuner</td>
+        </tr>
+        <tr>
+            <th>13H00</th>
+            <td colspan="3" class="intermede">#{a @LightningTalks.listOn(models.ConferenceEvent.mixit13)}Ligthning Talks#{/a}</td>
+            <td rowspan="3">#{session-on-planning sessions[132L] /}</td>
+            <td rowspan="3">#{session-on-planning sessions[134L] /}</td>
+        </tr>
+        <tr>
+            <th>13H30</th>
+            <td rowspan="2">#{session-on-planning sessions[287L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[233L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[198L] /}</td>
+        </tr>
+        <tr>
+            <th>14H30</th>
+        </tr>
+        <tr>
+            <th></th>
+            <td colspan="3" class="intermede">Pause</td>
+            <td rowspan="3">#{session-on-planning sessions[185L] /}</td>
+            <td rowspan="3">#{session-on-planning sessions[128L] /}</td>
+        </tr>
+        <tr>
+            <th>15H00</th>
+            <td rowspan="2">#{session-on-planning sessions[149L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[228L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[211L] /}</td>
+        </tr>
+        <tr>
+            <th>16H00</th>
+        </tr>
+        <tr>
+            <th></th>
+            <td colspan="3" class="intermede">Pause</td>
+            <td rowspan="6">#{session-on-planning sessions[171L] /}</td>
+            <td rowspan="6">#{session-on-planning sessions[165L] /}</td>
+        </tr>
+        <tr>
+            <th>16H30</th>
+            <td rowspan="2">#{session-on-planning sessions[247L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[124L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[285L] /}</td>
+        </tr>
+        <tr>
+            <th>17H30</th>
+        </tr>
+        <tr>
+            <th></th>
+            <td colspan="3" class="intermede">Pause</td>
+        </tr>
+        <tr>
+            <th>18H00</th>
+            <td rowspan="2">#{session-on-planning sessions[271L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[221L] /}</td>
+            <td rowspan="2">#{session-on-planning sessions[229L] /}</td>
+        </tr>
+        <tr>
+            <th>19H00</th>
+        </tr>
+
+    </tbody>
+</table>
+
+Et tout au long de la journée :
+#{session-small sessions[305L] /}
+
+<h1>Vendredi 26 avril</h1>
+
+<table class="condensed-table">
+    <thead>
+    <tr>
+        <th>Horaire</th>
+        <th>Salle 100p</th>
+        <th>Salle 100p</th>
+        <th>Salle 80p</th>
+        <th>Salle 60p</th>
+        <th>Salle 25p</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th>09H00</th>
+        <td colspan="5" class="intermede">Keynote</td>
+    </tr>
+    <tr>
+        <th>09H30</th>
+        <td rowspan="2">#{session-on-planning sessions[298L] /}</td>
+        <td rowspan="2">#{session-on-planning sessions[145L] /}</td>
+        <td rowspan="2">#{session-on-planning sessions[236L] /}</td>
+        <td rowspan="3">#{session-on-planning sessions[207L] /}</td>
+        <td rowspan="3">#{session-on-planning sessions[277L] /}</td>
+    </tr>
+    <tr>
+        <th>10H30</th>
+    </tr>
+    <tr>
+        <th></th>
+        <td colspan="3" class="intermede">Pause</td>
+    </tr>
+    <tr>
+        <th>11H00</th>
+        <td rowspan="2">#{session-on-planning sessions[283L] /}</td>
+        <td rowspan="2">#{session-on-planning sessions[140L] /}</td>
+        <td rowspan="2">#{session-on-planning sessions[129L] /}</td>
+        <td rowspan="3">#{session-on-planning sessions[218L] /}</td>
+        <td rowspan="3">#{session-on-planning sessions[270L] /}</td>
+    </tr>
+    <tr>
+        <th>12H00</th>
+    </tr>
+    <tr>
+        <th>12H30</th>
+        <td colspan="3" class="intermede">Déjeuner</td>
+    </tr>
+    <tr>
+        <th></th>
+        <td colspan="5" class="intermede">Déjeuner</td>
+    </tr>
+    <tr>
+        <th>13H00</th>
+        <td colspan="3" class="intermede">#{a @LightningTalks.listOn(models.ConferenceEvent.mixit13)}Ligthning Talks#{/a}</td>
+        <td rowspan="3">#{session-on-planning sessions[130L] /}</td>
+        <td rowspan="3">#{session-on-planning sessions[293L] /}</td>
+    </tr>
+    <tr>
+        <th>13H30</th>
+        <td rowspan="2">#{session-on-planning sessions[248L] /}</td>
+        <td rowspan="2">#{session-on-planning sessions[125L] /}</td>
+        <td rowspan="2">#{session-on-planning sessions[204L] /}</td>
+    </tr>
+    <tr>
+        <th>14H30</th>
+    </tr>
+    <tr>
+        <th></th>
+        <td colspan="3" class="intermede">Pause</td>
+        <td rowspan="3">#{session-on-planning sessions[205L] /}</td>
+        <td rowspan="3">#{session-on-planning sessions[227L] /}</td>
+    </tr>
+    <tr>
+        <th>15H00</th>
+        <td rowspan="2">#{session-on-planning sessions[272L] /}</td>
+        <td rowspan="2">#{session-on-planning sessions[126L] /}</td>
+        <td rowspan="2">#{session-on-planning sessions[232L] /}</td>
+    </tr>
+    <tr>
+        <th>16H00</th>
+    </tr>
+    <tr>
+        <th></th>
+        <td colspan="3" class="intermede">Pause</td>
+        <td rowspan="4">#{session-on-planning sessions[175L] /}</td>
+        <td rowspan="4">#{session-on-planning sessions[146L] /}</td>
+    </tr>
+    <tr>
+        <th>16H30</th>
+        <td rowspan="3">#{session-on-planning sessions[177L] /}</td>
+        <td rowspan="3">#{session-on-planning sessions[192L] /}</td>
+        <td rowspan="3">#{session-on-planning sessions[251L] /}</td>
+    </tr>
+    <tr>
+        <th></th>
+    </tr>
+    <tr>
+        <th>18H00</th>
+    </tr>
+
+    </tbody>
+</table>
+
+Et tout au long de la journée :
+#{session-small sessions[305L] /}
