@@ -3,9 +3,9 @@
 
 
 <h1>&{'registration.title'}</h1>
-<p><strong>&{'button.ticketing.price'}</strong><br/>
-    &{'registration.directives'}</p>
+<p>&{'registration.directives'}</p>
 #{if session.username}
+<p><b>&{'registration.ticketing.signed'}</b></p>
 <p>#{ticketing member/}</p>
 #{/if}
 
@@ -15,7 +15,10 @@
         &{'registration.step1.create.account.why'}
     </li>
     <li><h3>&{'registration.step2.ticketing.unsigned'}</h3>
+    &{'registration.step2.ticketing.unsigned.why'}
     </li>
 </ol>
+
+
 #{/if}
 

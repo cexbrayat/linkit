@@ -30,15 +30,15 @@
             <h3 itemprop="description">&{'mixit.slogan'}</h3>
         </div>
     </div>
-*{ Alerte masquée
+
     <div class="soon">&{'ticketing.alert'}</div>
-}*
+
     <div class="row">
         <div class="span12 offset1">
             #{if session.username}
             <div class="row">
                 <div class="span4" style="text-align: center">
-                    <a href="@{Infos.inscription()}" class="btn primary" rel="popover" data-content="&{'button.ticketing.price'}" data-original-title="&{'button.ticketing'}" data-html="true">&{'button.ticketing'}</a>
+                    <a href="@{Infos.inscription()}" class="btn primary" rel="popover" data-content="&{'button.ticketing.details'}" data-original-title="&{'button.ticketing'}" data-html="true">&{'button.ticketing'}</a>
                 </div>
                 <div class="span4" style="text-align: center">
                     <a href="@{Sessions.index()}" class="btn primary" rel="popover" data-content="&{'talks.description'}" data-original-title="&{'button.talks'}" data-html="true">&{'button.talks'}</a>
