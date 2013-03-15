@@ -41,7 +41,7 @@ mixit.slogan=Des idées pour tout de suite !
 mixit.header=Java, Agilité, Web, Innovations...
 ticketing.alert=La billetterie est ouverte!
 button.about.mixit=A propos de Mix-IT
-button.talks=Les sessions
+button.talks=Le programme
 button.login=S'inscrire
 button.ticketing=Acheter mon billet
 button.ticketing.details=Via notre partenaire YurPlan
@@ -124,7 +124,7 @@ newInterests=Autres intérêts
 newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 
 # Session fields
-talks.description=Découvrez les descriptifs des sessions. Le nombre de track en parallèle peut varier chaque année
+talks.description=Découvrez les descriptifs des sessions, et leur planning jour par jour.
 talk.descriptive.section=Descriptif
 talk.title=Titre
 talk.title.note=Obligatoire. Un court titre pour votre session

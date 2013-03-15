@@ -41,7 +41,7 @@ mixit.slogan=Ideas for now!
 mixit.header=Java, Agile, Web, Innovation...
 ticketing.alert=The ticketing is open!
 button.about.mixit=About Mix-IT
-button.talks=Talks
+button.talks=Agenda
 button.login=Sign in
 button.ticketing=Buy my ticket
 button.ticketing.details=By our partner YurPlan
@@ -126,7 +126,7 @@ members.speakers.none=We are contacting our guest speakers, before opening our u
 members.members.none=No members for now
 
 # Talk fields
-talks.description=Talks descriptions. Number of parallel tracks change from year to year
+talks.description=Discover all our amazing talks, and their schedule day by day.
 talk.descriptive.section=Description
 talk.title=Title
 talk.title.note=Required. A short title for your talk

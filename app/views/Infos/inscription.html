@@ -6,6 +6,9 @@
 <p>&{'registration.directives'}</p>
 #{if session.username}
 <p><b>&{'registration.ticketing.signed'}</b></p>
+<div class="alert-message">
+    &{'registration.warning.email'}
+</div>
 <p>#{ticketing member/}</p>
 #{/if}
 
