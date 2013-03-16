@@ -7,7 +7,8 @@
             ${_arg.track}
         </span>&nbsp;
     #{/if}
-    [&{'enum.TalkFormat.'+_arg.format}] <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg}</a>
+    [&{'enum.TalkFormat.'+_arg.format}]
+    <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}" rel="popover" data-content="#{markdown _arg.description, escapeHtmlAttr:true /}" data-original-title="${_arg.summary}" data-html="true" data-placement="below">${_arg}</a>
     <br/>
     #{list items:_arg.speakers, as:'s'}
         #{member s /}

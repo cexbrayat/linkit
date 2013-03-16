@@ -1,5 +1,15 @@
 #{extends 'main.html' /}
 #{set title:'Planning Mix-IT 2013' /}
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/bootstrap-popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script>
+    $(function () {
+        $("a[rel=popover]").popover({
+        })
+    })
+</script>
+#{/set}
+
 #{set 'moreStyles'}
 
 <style>
@@ -14,6 +24,10 @@
     }
     td {
         border: 1px solid;
+    }
+
+    .popover-inner {
+        width: 500px;
     }
 </style>
 #{/set}
