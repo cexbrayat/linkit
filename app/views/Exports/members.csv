@@ -1,0 +1,4 @@
+"Prénom";"Nom";"Login";"Email"
+#{list items:members, as:'member'}
+"${member.firstname}";"${member.lastname}";"${member.login}";"${member.email}";
+#{/list}
