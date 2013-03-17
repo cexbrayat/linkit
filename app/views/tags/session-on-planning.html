@@ -1,13 +1,13 @@
 *{ Displays _arg session }*
 #{if _arg}
 <span id="session${_arg.id}" data-id="${_arg.id}" class="session">
-    #{if !_arg.valid}<span class="label important">non validé</span> #{/if}
+    #{if !_arg.valid}<span class="label important">non validé</span>&nbsp;#{/if}
     #{if _arg.track}
         <span class="label track ${_arg.track}" title="Track ${_arg.track} : ${_arg.track.getDescription()}">
             ${_arg.track}
         </span>&nbsp;
     #{/if}
-    [&{'enum.TalkFormat.'+_arg.format}]
+    [&{'enum.TalkFormat.'+_arg.format}#{lang-flag _arg.lang /}]
     <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}" rel="popover" data-content="#{markdown _arg.description, escapeHtmlAttr:true /}" data-original-title="${_arg.summary}" data-html="true" data-placement="below">${_arg}</a>
     <br/>
     #{list items:_arg.speakers, as:'s'}
