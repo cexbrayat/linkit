@@ -15,7 +15,8 @@ GET     /public/                                staticDir:public
 GET     /live                                   Application.live
 
 # JSON API for mobile applications
-GET     /api/sessions                           api.APISessions.list
+GET     /api/sessions                           api.ApiSessions.list
+GET     /api/interests                          api.ApiInterests.list
 
 # Login
 GET     /login                                  Login.index

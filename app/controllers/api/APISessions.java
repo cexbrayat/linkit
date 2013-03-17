@@ -6,7 +6,7 @@ import play.mvc.Controller;
 
 import java.util.List;
 
-public class APISessions extends Controller {
+public class ApiSessions extends Controller {
 
     public static void list() {
         List<Talk> talks = Talk.findAllValidatedOn(ConferenceEvent.CURRENT);
