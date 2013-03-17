@@ -10,8 +10,9 @@
     #{/if}
 #{/if}
 #{else}
-    <span class="label track">Lightning Talk"</span>&nbsp;
+    <span class="label track">Lightning Talk</span>&nbsp;
 #{/else}
+#{lang-flag _arg.lang/}
 #{if _arg instanceof models.Talk}
 <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg}</a>
 #{/if}

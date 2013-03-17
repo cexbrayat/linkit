@@ -79,6 +79,10 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
     /** Is session validated (publicly visible) */
     public boolean valid;
 
+    @Enumerated(EnumType.STRING)
+    @Required   // But nullable : must give language when editing, but not always given on old sessions.
+    public TalkLanguage lang;
+
     protected Session() {
         this.event = ConferenceEvent.CURRENT;
     }

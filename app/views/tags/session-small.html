@@ -1,14 +1,16 @@
 *{ Displays _arg session in a short way }*
 #{if _arg}
 #{if _arg instanceof models.Talk}
-<a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">
-    <h3 class="session title">[&{'enum.TalkFormat.'+_arg.format}] ${_arg.title}</h3>
-</a>
+    <h3 class="session title">
+        [&{'enum.TalkFormat.'+_arg.format}#{lang-flag _arg.lang /}]
+        <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg.title}</a>
+    </h3>
 #{/if}
 #{else}
-<a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">
-    <h3 class="session title">[Lightning Talk] ${_arg.title}</h3>
-</a>
+    <h3 class="session title">
+        [Lightning Talk]
+        <a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg.title}</a>
+    </h3>
 #{/else}
 <blockquote class="article headline">
     <p>${_arg.summary}</p>

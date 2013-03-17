@@ -4,14 +4,16 @@
         <span id="session${_arg.id}" data-id="${_arg.id}" class="session">
             #{if !_arg.valid}<span class="label important">non validé</span> #{/if}
         #{if _arg instanceof models.Talk}
-        <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">
-            <h2>[&{'enum.TalkFormat.'+_arg.format}] ${_arg.title}</h2>
-        </a>
+            <h2>
+                [&{'enum.TalkFormat.'+_arg.format}#{lang-flag _arg.lang /}]
+                <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg.title}</a>
+            </h2>
         #{/if}
         #{else}
-        <a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="Consulter cette session">
-            <h2>${_arg.title}</h2>
-        </a>
+            <h2>
+                #{lang-flag _arg.lang /}
+                <a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="Consulter cette session">${_arg.title}</a>
+            </h2>
         #{/else}
     </div>
     #{if session.username}
