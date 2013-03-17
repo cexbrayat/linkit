@@ -11,4 +11,10 @@ public class ApiInterests extends Controller {
         List<Interest> interests = Interest.findAllOrdered();
         renderJSON(interests);
     }
+
+    public static void interest(long id) {
+        Interest interest = Interest.findById(id);
+        notFoundIfNull(interest);
+        renderJSON(interest);
+    }
 }
