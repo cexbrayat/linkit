@@ -1,9 +1,9 @@
 package helpers;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
+import play.db.jpa.Model;
+
+import java.util.Collection;
 
 /**
  * JSON tools
@@ -14,8 +14,6 @@ public class JSON {
     private JSON() {
     }
 
-    ;
-    
     public static JsonObject getAsObject(final String data) {
         JsonElement element = getAsElement(data);
         return element.getAsJsonObject();
@@ -43,5 +41,13 @@ public class JSON {
         } else {
             return null;
         }
+    }
+
+    public static JsonArray toJsonArrayOfIds(Collection<? extends Model> entities) {
+        JsonArray array = new JsonArray();
+        for (Model e : entities) {
+            array.add(new JsonPrimitive(e.id));
+        }
+        return array;
     }
 }
