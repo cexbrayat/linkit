@@ -18,6 +18,8 @@ GET     /live                                   Application.live
 GET     /api/talks                              api.ApiSessions.talks
 GET     /api/lightningtalks                     api.ApiSessions.lightningTalks
 GET     /api/speakers                           api.ApiMembers.speakers
+GET     /api/sponsors                           api.ApiMembers.sponsors
+GET     /api/staff                              api.ApiMembers.staff
 GET     /api/members                            api.ApiMembers.members
 GET     /api/interests                          api.ApiInterests.list
 

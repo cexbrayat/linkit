@@ -30,6 +30,7 @@ import org.apache.commons.lang.WordUtils;
 import play.Play;
 import play.data.validation.Email;
 import play.data.validation.Valid;
+import play.libs.Codec;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
 
@@ -609,5 +610,12 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     public void setShortDescription(String shortDescription) {
         this.shortDescription = JavaExtensions.sanitizeHtml(shortDescription);
+    }
+
+    public String getUrlImage() {
+        if (email == null) return null;
+        return new StringBuilder("http://www.gravatar.com/avatar/")
+                .append(Codec.hexMD5(email))
+                .toString();
     }
 }
