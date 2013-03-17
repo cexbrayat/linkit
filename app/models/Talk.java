@@ -61,6 +61,10 @@ public class Talk extends Session {
         return find("select distinct s from Talk t inner join t.speakers s where t.valid=true and t.event = ? order by s.lastname", event).fetch();
     }
 
+    public static List<Member> findFailedSpeakersOn(ConferenceEvent event) {
+        return find("select distinct s from Talk t inner join t.speakers s where t.valid=false and t.event = ? order by s.lastname", event).fetch();
+    }
+
     public static List<Talk> findAllValidatedOn(ConferenceEvent event) {
         return find("event = ? and valid=true", event).fetch();
     }
