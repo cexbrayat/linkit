@@ -11,11 +11,11 @@ public class ApiSessions extends Controller {
 
     public static void talks() {
         List<Talk> talks = Talk.findAllValidatedOn(ConferenceEvent.CURRENT);
-        renderJSON(talks, new TalkJsonSerializer());
+        Controller.renderJSON(talks, new TalkJsonSerializer());
     }
 
     public static void lightningTalks() {
         List<LightningTalk> talks = LightningTalk.findAllOn(ConferenceEvent.CURRENT);
-        renderJSON(talks, new LightningTalkJsonSerializer());
+        Controller.renderJSON(talks, new LightningTalkJsonSerializer());
     }
 }

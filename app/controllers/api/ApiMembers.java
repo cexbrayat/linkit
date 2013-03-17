@@ -9,16 +9,16 @@ public class ApiMembers extends Controller {
 
     public static void speakers() {
         List<Member> speakers = Talk.findAllSpeakersOn(ConferenceEvent.CURRENT);
-        renderJSON(speakers, new MemberJsonSerializer());
+        Controller.renderJSON(speakers, new MemberJsonSerializer());
     }
 
     public static void sponsors() {
         List<Sponsor> sponsors = Sponsor.findOn(ConferenceEvent.CURRENT);
-        renderJSON(sponsors, new SponsorJsonSerializer());
+        Controller.renderJSON(sponsors, new SponsorJsonSerializer());
     }
     public static void staff() {
         List<Staff> staff = Staff.findAll();
-        renderJSON(staff, new MemberJsonSerializer(), new SponsorJsonSerializer(), new StaffJsonSerializer());
+        Controller.renderJSON(staff, new MemberJsonSerializer(), new SponsorJsonSerializer(), new StaffJsonSerializer());
     }
 
     public static void members() {
