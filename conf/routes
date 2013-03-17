@@ -14,6 +14,15 @@ GET     /public/                                staticDir:public
 # LIVE
 GET     /live                                   Application.live
 
+# JSON API for mobile applications
+GET     /api/talks                              api.ApiSessions.talks
+GET     /api/lightningtalks                     api.ApiSessions.lightningTalks
+GET     /api/speakers                           api.ApiMembers.speakers
+GET     /api/sponsors                           api.ApiMembers.sponsors
+GET     /api/staff                              api.ApiMembers.staff
+GET     /api/members                            api.ApiMembers.members
+GET     /api/interests                          api.ApiInterests.list
+
 # Login
 GET     /login                                  Login.index
 GET     /login/nonetwork                        Login.noNetwork
