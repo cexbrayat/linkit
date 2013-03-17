@@ -36,7 +36,7 @@
 	Twitter: @FranckDepierre
 	From: Lyon, France
 
-	Product Owner : Nicolas Peloux-Prayer
+	Product Owner : Nicolas Pelloux-Prayer
 	Twitter: @npelloux
 	From: Lyon, France
 
@@ -50,8 +50,9 @@
 	Contact: contact [at] mix [-] it [.] fr
 	Twitter: @MixIT_Lyon
 	Language: French
-        Components : Twitter Bootstrap, LESS, Google API client, Markdown, Guava, jQuery, jquery.dirtyforms, Font Awesome
-        Software : Play! framework, IntelliJ, NetBeans, CloudBees RUN@Cloud
+    Components : Twitter Bootstrap, LESS, Google API client, Markdown, Guava, jQuery, jquery.dirtyforms, Font Awesome
+    Software : Play! framework, IntelliJ, NetBeans, CloudBees RUN@Cloud
+    Language flag icons from http://www.famfamfam.com/lab/icons/flags/
 
 /*
 
