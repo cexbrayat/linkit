@@ -34,6 +34,22 @@
                 </div>
                 #{/}
 
+                #{field 'talk.lang'}
+                    <div class="clearfix ${field.error?'error':''}">
+                        <label for="${field.id}">&{field.name}</label>
+                        <div class="input">
+                            #{select field.name, value:field.value}
+                                #{option ''}#{/option}
+                                #{list items:models.TalkLanguage.values(), as:'language'}
+                                    #{option language}&{'enum.TalkLanguage.'+language}#{/option}
+                                #{/list}
+                            #{/select}
+                            <span class="help-block">${field.error}</span>
+                            <span class="help-block">&{field.name+".note"}</span>
+                        </div>
+                    </div>
+                #{/}
+
                 #{field 'talk.summary'}
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 

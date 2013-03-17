@@ -132,6 +132,8 @@ talk.title=Title
 talk.title.note=Required. A short title for your talk
 talk.format=Format
 talk.format.note=Required.
+talk.lang=Language
+talk.lang.note=Required. The language used in this talk.
 talk.summary=Summary
 talk.summary.note=Required. A summary for your talk. Will be displayed on sessions lists.
 talk.description=Description
@@ -155,6 +157,8 @@ content.note=&{markdown.note}
 enum.TalkFormat.Talk=Talk
 enum.TalkFormat.Workshop=Workshop
 enum.TalkLevel.Beginner=Beginner
+enum.TalkLanguage.fr=French
+enum.TalkLanguage.en=English
 enum.TalkLevel.Experienced=Experienced
 enum.TalkLevel.Expert=Expert
 

@@ -11,7 +11,7 @@
 #{/set}
 
 <div class="hero-unit member-card">
-    <h2 itemprop="name">${talk.title}</h2>
+    <h2 itemprop="name">#{if talk.lang}#{lang-flag talk.lang/}&nbsp;#{/if}${talk.title}</h2>
     #{if talk.interests}
     <p>
         #{list items:talk.interests, as:'interest'}
