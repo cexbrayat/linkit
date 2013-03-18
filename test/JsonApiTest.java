@@ -1,62 +1,126 @@
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import models.Interest;
+import models.LightningTalk;
+import models.Member;
+import models.Talk;
+import org.junit.*;
 import play.mvc.Http.Response;
 import play.test.Fixtures;
 import play.test.FunctionalTest;
 
 public class JsonApiTest extends FunctionalTest {
 
-    @Before
-    public void setUp() {
+    @BeforeClass
+    public static void setUp() {
         Fixtures.deleteAllModels();
         Fixtures.loadModels("init-data.yml");
     }
 
-    @After
-    public void tearDown() {
+    @AfterClass
+    public static void tearDown() {
         Fixtures.deleteAllModels();
     }
 
     @Test
     public void testSpeakers() {
-        Response response = GET("/api/speakers");
+        test("/api/members/speakers");
+    }
+
+    private void test(String url) {
+        json(url);
+        jsonp(url);
+    }
+
+    private void json(String url) {
+        Response response = GET(url);
         assertJson(response);
+    }
+
+    private void jsonp(String url) {
+        Response response = GET(url+"?callback=mycallback");
+        assertJsonp(response, "mycallback");
     }
 
     @Test
     public void testSponsors() {
-        Response response = GET("/api/sponsors");
-        assertJson(response);
+        test("/api/members/sponsors");
     }
 
     @Test
     public void testMembers() {
-        Response response = GET("/api/members");
-        assertJson(response);
+        test("/api/members");
+    }
+
+    @Test
+    public void testMember() {
+        Member m = Member.all().first();
+        test("/api/members/"+m.id);
+    }
+
+    @Test
+    public void testMember_notFound() {
+        Response r = GET("/api/members/999999");
+        assertStatus(404, r);
     }
 
     @Test
     public void testTalks() {
-        Response response = GET("/api/talks");
-        assertJson(response);
+        test("/api/talks");
+    }
+
+    @Test
+    public void testTalk() {
+        Talk t = Talk.all().first();
+        test("/api/talks/"+t.id);
+    }
+
+    @Test
+    public void testTalk_notFound() {
+        Response r = GET("/api/talks/999999");
+        assertStatus(404, r);
     }
 
     @Test
     public void testLightningalks() {
-        Response response = GET("/api/lightningtalks");
-        assertJson(response);
+        test("/api/lightningtalks");
+    }
+
+    @Test
+    public void testLightningalk() {
+        LightningTalk lt = LightningTalk.all().first();
+        test("/api/lightningtalks/"+lt.id);
+    }
+
+    @Test
+    public void testLightningalk_notFound() {
+        Response r = GET("/api/lightningtalks/999999");
+        assertStatus(404, r);
     }
 
     @Test
     public void testInterests() {
-        Response response = GET("/api/interests");
-        assertJson(response);
+        test("/api/interests");
+    }
+
+    @Test
+    public void testInterest() {
+        Interest i = Interest.all().first();
+        test("/api/interests/"+i.id);
+    }
+
+    @Test
+    public void testInterest_notFound() {
+        Response r = GET("/api/interests/999999");
+        assertStatus(404, r);
     }
 
     private void assertJson(Response response) {
         assertIsOk(response);
         assertContentType("application/json", response);
         assertFalse(getContent(response).isEmpty());
+    }
+
+    private void assertJsonp(Response response, String callback) {
+        assertJson(response);
+        assertTrue(getContent(response).contains(callback));
     }
 }
