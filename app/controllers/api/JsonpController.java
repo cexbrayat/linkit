@@ -9,16 +9,13 @@ import play.mvc.Util;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
+/**
+ * Add JSONP support : render callback function if "callback" parameter provided.
+ */
 public class JsonpController extends Controller {
 
     public static final String CALLBACK_FORMAT = "%s(%s)";
 
-    /**
-     * renders a callback function if there
-     * is a request parameter callback
-     *
-     * @param str
-     */
     @Util
     protected static void renderJSON(String str) {
         String callback = getCallbackParameter();
@@ -29,12 +26,6 @@ public class JsonpController extends Controller {
         }
     }
 
-    /**
-     * renders a callback function if there
-     * is a request parameter callback
-     *
-     * @param o
-     */
     @Util
     protected static void renderJSON(Object o, JsonSerializer... adapters) {
         String callback = getCallbackParameter();
@@ -45,12 +36,6 @@ public class JsonpController extends Controller {
         }
     }
 
-    /**
-     * renders a callback function if there
-     * is a request parameter callback
-     *
-     * @param o
-     */
     @Util
     protected static void renderJSON(Object o) {
         String callback = getCallbackParameter();
