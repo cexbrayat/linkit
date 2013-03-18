@@ -8,7 +8,7 @@ import play.mvc.Controller;
 
 import java.util.List;
 
-public class ApiSessions extends Controller {
+public class ApiSessions extends JsonpController {
 
     private static JsonSerializer TALK_SERIALIZERS[] = new JsonSerializer[] {
         new TalkJsonSerializer(), new LightningTalkJsonSerializer()

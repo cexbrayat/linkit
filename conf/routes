@@ -18,7 +18,7 @@ GET     /live                                   Application.live
 GET     /api/talks                              api.ApiSessions.talks
 GET     /api/talks/{id}                         api.ApiSessions.talk
 GET     /api/lightningtalks                     api.ApiSessions.lightningTalks
-GET     /api/lightningtalks/{id}                api.ApiSessions.lightningTalks
+GET     /api/lightningtalks/{id}                api.ApiSessions.lightningTalk
 GET     /api/members                            api.ApiMembers.members
 GET     /api/members/speakers                   api.ApiMembers.speakers
 GET     /api/members/sponsors                   api.ApiMembers.sponsors
