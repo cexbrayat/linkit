@@ -5,7 +5,7 @@ import play.mvc.Controller;
 
 import java.util.List;
 
-public class ApiInterests extends Controller {
+public class ApiInterests extends JsonpController {
 
     public static void list() {
         List<Interest> interests = Interest.findAllOrdered();

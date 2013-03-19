@@ -6,7 +6,7 @@ import play.mvc.Controller;
 
 import java.util.List;
 
-public class ApiMembers extends Controller {
+public class ApiMembers extends JsonpController {
 
     private static JsonSerializer MEMBER_SERIALIZERS[] = new JsonSerializer[] {
         new MemberJsonSerializer(), new SponsorJsonSerializer(), new StaffJsonSerializer()
