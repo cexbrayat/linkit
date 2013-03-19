@@ -2,19 +2,24 @@
 #{set title:'Planning Mix-IT 2013' /}
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/bootstrap-popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/star.js'}"></script>
 <script>
     $(function () {
         $("a[rel=popover]").popover({
         })
-    })
+    });
+
+    var favAction = #{jsAction @Votes.vote(':talkId', ':fav') /};
+
 </script>
 #{/set}
 
 #{set 'moreStyles'}
-
+<link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
 <style>
-    table td {
-        vertical-align: middle;
+
+    table {
+        background-color: white;
     }
     td.intermede {
         text-align: center;
@@ -26,7 +31,7 @@
         border: 1px solid;
     }
 
-    .popover-inner {
+    .popover {
         width: 500px;
     }
 </style>
