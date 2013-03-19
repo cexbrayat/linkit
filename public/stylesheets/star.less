@@ -1,3 +1,5 @@
+@import "mixins.less";
+
 @star-colour: #eeeeee;
 @star-colour-hover: #999999;
 @star-colour-fav: gold;
@@ -7,9 +9,13 @@
     font-size: 36px;
     color: @star-colour;
     text-decoration: none;
-    // text-shadow: 0px 0px 3px #222;
+    float: right;
     &:hover {
         color: @star-colour-hover;
+    }
+
+    &.mini {
+      font-size: 18px;
     }
 
     &.fav {

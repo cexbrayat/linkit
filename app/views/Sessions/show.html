@@ -5,41 +5,20 @@
 <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
 #{/set}
 
-#{if talk.event.current}
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/star.js'}"></script>
+    #{if talk.event.current}
     <script type="text/javascript">
         var favAction = #{jsAction @Votes.vote(':talkId', ':fav') /};
-        var removeFromFavs = function(){
-            $('#star').removeClass('fav');
-            $.get(favAction({talkId: '${talk.id}', fav: true}), function(data) {
-                updateCounts(data);
-            });
-        };
-        var addToFavs = function(){
-            $('#star').addClass('fav');
-            $.get(favAction({talkId: '${talk.id}', fav: false}), function(data) {
-                updateCounts(data);
-            });
-        };
-        var updateCounts = function(count){
-            var text = $('#favs').text().split(' ');
-            $('#favs').html(count + " " + text[1]);
-        }
-        var fav = function(){
-            if($('#star').hasClass('fav')){
-                removeFromFavs();
-            } else {
-                addToFavs();
-            }
-        };
     </script>
-#{/if}
+    #{/if}
+#{/set}
+
 
     <div class="hero-unit member-card">
         <div class="row">
             <div class="span13"><h2 itemprop="name">[&{'enum.TalkFormat.'+talk.format}#{lang-flag talk.lang/}] ${talk.title}</h2></div>
-            #{if session.username && talk.valid}
-                <i id="star" class="icon-star-empty star #{if talk.hasVoteFrom(session.username)} fav#{/if}" style="float: right;" #{if talk.event.current}onclick="fav()"#{/if}></i>
-            #{/if}
+            #{star talk /}
         </div>
         <div class="row">
             <div class="span12">
@@ -54,7 +33,7 @@
                     #{/if}
                 </p>
             </div>
-            <div id="favs" style="float: right;">${talk.getNumberOfVotes()} favoris</div>
+            <div id="favs-${talk.id}" style="float: right;">${talk.getNumberOfVotes()} favoris</div>
         </div>
         <p itemprop="description">${talk.summary}</p>
         
