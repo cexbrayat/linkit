@@ -11,6 +11,10 @@ import java.lang.reflect.Type;
 
 public class LightningTalkJsonSerializer extends SessionJsonSerializer implements JsonSerializer<LightningTalk> {
 
+    public LightningTalkJsonSerializer(boolean details) {
+        super(details);
+    }
+
     @Override
     public JsonElement serialize(LightningTalk talk, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject result = serializeSession(talk);
