@@ -10,6 +10,10 @@ import java.lang.reflect.Type;
 
 public class TalkJsonSerializer extends SessionJsonSerializer implements JsonSerializer<Talk> {
 
+    public TalkJsonSerializer(boolean details) {
+        super(details);
+    }
+
     @Override
     public JsonElement serialize(Talk talk, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject result = serializeSession(talk);
