@@ -39,7 +39,9 @@ menu.login.logout=Logout
 # Welcome
 mixit.slogan=Ideas for now!
 mixit.header=Java, Agile, Web, Innovation...
-ticketing.alert=The ticketing is open!
+ticketing.alert=&{ticketing.soldout}
+ticketing.open=Ticketing is open!
+ticketing.soldout=SOLD-OUT
 button.about.mixit=About Mix-IT
 button.talks=Agenda
 button.login=Sign in

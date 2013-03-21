@@ -39,7 +39,9 @@ menu.login.logout=Se déconnecter
 # Accueil
 mixit.slogan=Des idées pour tout de suite !
 mixit.header=Java, Agilité, Web, Innovations...
-ticketing.alert=La billetterie est ouverte!
+ticketing.alert=&{ticketing.soldout}
+ticketing.open=La billeterie est ouverte!
+ticketing.soldout=COMPLET
 button.about.mixit=A propos de Mix-IT
 button.talks=Le programme
 button.login=S'inscrire
