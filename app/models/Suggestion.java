@@ -2,12 +2,9 @@ package models;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
 import play.db.jpa.GenericModel.JPAQuery;
+
+import java.util.*;
 
 /**
  * Suggestion of new member to be linked
@@ -88,17 +85,19 @@ public class Suggestion {
      */
     // TODO Don't suggest sessions already selected by member, when planning available
     // FIXME CLA rewrite with Criteria
-    public static List<Session> suggestedSessionsFor(Member member, int limit) {
+    public static List<Session> suggestedSessionsFor(Member member, ConferenceEvent event, int limit) {
         List<Session> suggestions = Collections.emptyList();
         if (!member.interests.isEmpty()) {
             List<Object[]> result = Session.find("select distinct suggested, count(i) as nbShared "
                     + "from Session suggested "
                     + "inner join suggested.interests as i "
                     + "where suggested.valid=true "
+                    + "and suggested.event = :event "
                     + "and i in (:interests) "
                     + "group by suggested "
                     + "order by nbShared desc")
                     .bind("interests", member.interests)
+                    .bind("event", event)
                     .fetch(limit);
             suggestions = Lists.transform(result, SESSION_SUGGESTIONS_FUNCTION);
         }

@@ -1,14 +1,9 @@
 package models;
 
 import com.google.common.collect.Sets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
+import org.junit.Test;
 
-import java.util.Set;
-import org.junit.*;
+import java.util.*;
 
 /**
  * Unit tests for {@link Suggestion} domain object
@@ -151,7 +146,7 @@ public class SuggestionTest extends BaseDataUnitTest {
         final Member member = Member.all().first();
         member.addInterest(commonInterest1).addInterest(commonInterest2).save();
  
-        assertEquals(Arrays.asList(s2, s1), Suggestion.suggestedSessionsFor(member, 10));
+        assertEquals(Arrays.asList(s2, s1), Suggestion.suggestedSessionsFor(member, ConferenceEvent.CURRENT, 10));
     }
     
     @Test
@@ -175,7 +170,7 @@ public class SuggestionTest extends BaseDataUnitTest {
         member.addInterest(interest).save();
  
         // Limit 2
-        assertEquals(2, Suggestion.suggestedSessionsFor(member, 2).size());
+        assertEquals(2, Suggestion.suggestedSessionsFor(member, ConferenceEvent.CURRENT, 2).size());
     }
     
     private static Member createMember(String login) {
