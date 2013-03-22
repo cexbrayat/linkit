@@ -94,7 +94,8 @@ registration.step1.create.account.why=And enjoy the social side of the Mix-IT we
 registration.step1.alternative=You can also buy your ticket via our partner if you don't like social networks
 registration.step2.ticketing.unsigned=Buy your ticket from your Mix-IT's Dashboard!
 registration.step2.ticketing.unsigned.why=The ticket purchase is done by our partner YurPlan
-  registration.warning.email=Warning: use the same email you use for your Mix-IT account and your payment via our partner
+registration.warning.email=Warning: use the same email you use for your Mix-IT account and your payment via our partner
+registration.waiting-list=Oh noes! Mix-IT is sold-out!<br/>But wait. To give you some hope, we've set up a waiting list. Some tickets might become available (but nothing sure) if some sponsors don't use all of their dedicated ones. We then would be happy to reopen them to people registered here.<br/><strong>Please fill in &gt; <a href="https://docs.google.com/a/mix-it.fr/spreadsheet/viewform?formkey=dHdJcW1nVlViOUItbmxsY2F3eWVjbXc6MQ" title="Mix-IT 2013 waiting list" target="waiting">this form</a> &lt;</strong>.
 
 # Member fields
 
