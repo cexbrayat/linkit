@@ -39,7 +39,9 @@ menu.login.logout=Se déconnecter
 # Accueil
 mixit.slogan=Des idées pour tout de suite !
 mixit.header=Java, Agilité, Web, Innovations...
-ticketing.alert=La billetterie est ouverte!
+ticketing.alert=&{ticketing.soldout}
+ticketing.open=La billeterie est ouverte!
+ticketing.soldout=COMPLET
 button.about.mixit=A propos de Mix-IT
 button.talks=Le programme
 button.login=S'inscrire
@@ -93,6 +95,7 @@ registration.step1.alternative=Si vous êtes allergique aux réseaux sociaux, ac
 registration.step2.ticketing.unsigned=Achetez votre billet en vous rendant sur votre Dashboard Mix-IT
 registration.step2.ticketing.unsigned.why=L'achat de billet se fait via notre partenaire YurPlan
 registration.warning.email=Attention: vous devez utiliser le même email entre votre compte Mix-IT et votre paiement via notre partenaire
+registration.waiting-list=Oh non, Mix-IT est complet!<br/>Mais attendez. Pour vous donner un peu d'espoir (forcément illusoire), on va tenir une liste d'attente. Des places pourraient (sans aucune garantie) se libérer si les sponsors n'utilisent pas toutes leurs place attitrées. Nous nous ferons alors une joie de les distribuer aux inscrits sur cette liste.<br/>Saisissez vos informations <strong>sur &gt; <a href="https://docs.google.com/a/mix-it.fr/spreadsheet/viewform?formkey=dHdJcW1nVlViOUItbmxsY2F3eWVjbXc6MQ" title="Liste d'attente Mix-IT 2013" target="waiting">ce formulaire</a> &lt;</strong>.
 
 # Member fields
 members.speakers.none=Nous contactons actuellement nos prochains invités, avant d'ouvrir notre <em>Call For Paper</em> habituel.
