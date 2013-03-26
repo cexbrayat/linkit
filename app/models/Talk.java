@@ -1,6 +1,7 @@
 package models;
 
 import models.activity.Activity;
+import models.activity.CommentSessionActivity;
 import models.activity.NewTalkActivity;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
@@ -8,7 +9,6 @@ import play.mvc.Router;
 
 import javax.persistence.*;
 import java.util.List;
-import models.activity.CommentSessionActivity;
 
 /**
  * A talk session
@@ -23,14 +23,14 @@ public class Talk extends Session {
 
     @Required
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(nullable = true, length = 20)
     public TalkFormat format = TalkFormat.Talk;
 
     public Integer maxAttendees;
 
     @Required
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(nullable = true, length = 20)
     public TalkLevel level = TalkLevel.Experienced;
 
     /** Markdown enabled */
