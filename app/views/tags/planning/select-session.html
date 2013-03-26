@@ -7,6 +7,6 @@
 #{select "talkIds[]", value:_planning[_arg]?.id}
     #{option "-1"}???#{/option}
     #{list items:_talks, as:"talk"}
-        #{option talk.id}${talk.title}#{/option}
+        #{option talk.id}${talk.format} - ${talk.title}#{/option}
     #{/list}
 #{/select}
