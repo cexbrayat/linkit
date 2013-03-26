@@ -1,4 +1,6 @@
 # --- !Ups
+drop table if exists planedslot;
+drop table if exists planning;
 CREATE TABLE planedslot
 (
   id BIGINT PRIMARY KEY NOT NULL,
