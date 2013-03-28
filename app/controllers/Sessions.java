@@ -3,6 +3,8 @@ package controllers;
 import helpers.JavaExtensions;
 import helpers.Lists;
 import models.*;
+import models.planning.PlanedSlot;
+import models.planning.Slot;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.cache.Cache;
@@ -21,13 +23,13 @@ public class Sessions extends PageController {
     }
 
     public static void planningMixIT13() {
-
+        Map<Slot, Talk> planning = PlanedSlot.on(ConferenceEvent.CURRENT);
         List<Talk> allSessions = Talk.findAllValidatedOn(ConferenceEvent.mixit13);
         Map<Long, Talk> sessions = new HashMap<Long, Talk>(allSessions.size());
         for (Talk t : allSessions) {
             sessions.put(t.id, t);
         }
-        renderTemplate("Sessions/planning.html", sessions);
+        renderTemplate("Sessions/planning.html", sessions, planning);
     }
 
     public static void listOn(ConferenceEvent event) {
