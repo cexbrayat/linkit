@@ -267,6 +267,10 @@ since.days=il y a %d jours
 since.months=il y a %d mois
 since.years=il y a %d ans
 
+slot.time.format=HH'H'mm
+slot.date.format=EEEE dd
+slot.format=Le <strong>%1$s</strong>, de <strong>%2$s à %3$s</strong>
+
 # Validation errors
 validation.errors=Quelques erreurs sont à corriger dans ta saisie mon ami !
 validation.required=La saisie est obligatoire

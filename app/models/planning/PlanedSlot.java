@@ -8,7 +8,6 @@ import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.*;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,13 +47,26 @@ public class PlanedSlot extends Model {
         this.talk = talk;
     }
 
-    public static Map<Slot, Talk> on(ConferenceEvent event) {
+    public PlanedSlot(Talk talk) {
+        this.talk = talk;
+    }
+
+    public static Planning on(ConferenceEvent event, boolean notPlanedTalks) {
+        Planning planning = new Planning();
+
+        // Find slots
         List<PlanedSlot> slots = find("event = ?", event).fetch();
-        Map<Slot, Talk> result = new EnumMap<Slot, Talk>(Slot.class);
-        for (PlanedSlot ps : slots) {
-            result.put(ps.slot, ps.talk);
+        planning.addSlots(slots);
+
+        // Find talks
+        if (notPlanedTalks) {
+            planning.addTalks(Talk.findAllValidatedOn(event));
         }
-        return result;
+        return planning;
+    }
+
+    public static PlanedSlot forTalkOn(Talk talk, ConferenceEvent event) {
+        return find("event = ? and talk = ?", event, talk).first();
     }
 
     @Override

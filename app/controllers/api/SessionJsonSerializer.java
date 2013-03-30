@@ -6,6 +6,7 @@ import helpers.JSON;
 import models.Interest;
 import models.Member;
 import models.Session;
+import models.Talk;
 import org.apache.commons.collections.CollectionUtils;
 
 public abstract class SessionJsonSerializer {
@@ -47,6 +48,7 @@ public abstract class SessionJsonSerializer {
                     speaker.addProperty("id", s.id);
                     speaker.addProperty("firstname", s.firstname);
                     speaker.addProperty("lastname", s.lastname);
+                    result.addProperty("urlimage", s.getUrlImage());
                     speaker.addProperty("url", ApiUrl.getMemberUrl(s.id));
                     speakers.add(speaker);
                 }
@@ -58,4 +60,17 @@ public abstract class SessionJsonSerializer {
 
         return result;
     }
+
+    public JsonObject serializeTalk(Talk talk) {
+        JsonObject result = serializeSession(talk);
+
+        result.addProperty("format", talk.format.toString());
+        result.addProperty("level", talk.level.toString());
+        if (talk.track != null) {
+            result.addProperty("track", talk.track.toString());
+        }
+
+        return result;
+    }
+
 }

@@ -1,17 +1,17 @@
 package models;
 
-import java.util.EnumSet;
 import org.apache.commons.lang.StringUtils;
+import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.ElementCollection;
-import play.data.validation.MinSize;
 
 /**
  * A Mix-IT sponsor, giving a fucking load of money to buy better sandwiches than the ones given at WSN Paris.

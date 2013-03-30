@@ -1,8 +1,6 @@
 package models.planning;
 
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
-import org.joda.time.Minutes;
+import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -96,12 +94,26 @@ public enum Slot {
         this.end = end;
     }
 
-    public LocalTime getEnd() {
-        return end;
+    private DateTimeZone TZ_PARIS = DateTimeZone.forID("Europe/Paris");
+
+    public LocalDate getDay() {
+        return day;
     }
 
     public LocalTime getStart() {
         return start;
+    }
+
+    public LocalTime getEnd() {
+        return end;
+    }
+
+    public DateTime getEndDateTime() {
+        return day.toDateTime(end, TZ_PARIS);
+    }
+
+    public DateTime getStartDateTime() {
+        return day.toDateTime(start, TZ_PARIS);
     }
     
     public int getStartMinutesFromMidnight() {
@@ -118,12 +130,6 @@ public enum Slot {
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append(day.toString("dd/MM"))
-                .append(" ")
-                .append(start.toString(Const.FORMAT))
-                .append(" - ")
-                .append(end.toString(Const.FORMAT))
-                .toString();
+        return day.toString("dd/MM") + " " + start.toString(Const.FORMAT) + " - " + end.toString(Const.FORMAT);
     }
 }
