@@ -269,6 +269,10 @@ since.days=%d days ago
 since.months=%d months ago
 since.years=%d years ago
 
+slot.time.format=hh:mm
+slot.date.format=EEEE dd
+slot.format=On <strong>%1$s</strong>, from <strong>%2$s to %3$s</strong>
+
 # Validation errors
 validation.errors=Some mistakes must be corrected first my friend !
 validation.required=Required

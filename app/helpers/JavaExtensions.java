@@ -2,8 +2,12 @@ package helpers;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.owasp.validator.html.*;
 import play.Logger;
+import play.i18n.Lang;
+import play.i18n.Messages;
 import play.vfs.VirtualFile;
 
 /**
@@ -48,5 +52,15 @@ public final class JavaExtensions extends play.templates.JavaExtensions {
         result = StringUtils.replace(result, "'", "&#39;");
         result = StringUtils.replace(result, "\"", "&quot;");
         return result;
+    }
+
+    public static String i18n(LocalTime time) {
+        if (time == null) return null;
+        return time.toString(Messages.get("slot.time.format"));
+    }
+
+    public static String i18n(LocalDate day) {
+        if (day == null) return null;
+        return day.toString(Messages.get("slot.date.format"), Lang.getLocale());
     }
 }

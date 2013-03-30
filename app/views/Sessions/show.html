@@ -36,7 +36,13 @@
             <div id="favs-${talk.id}" style="float: right;">${talk.getNumberOfVotes()} favoris</div>
         </div>
         <p itemprop="description">${talk.summary}</p>
-        
+
+    #{if slot}
+        <p>
+            #{slot slot /}
+        </p>
+    #{/if}
+
         #{if !talk.valid}
             <div class="alert-message block-message warning">
                 <p>Merci pour votre proposition! Le comité de sélection vous dira prochainement si votre session a été retenue.</p>

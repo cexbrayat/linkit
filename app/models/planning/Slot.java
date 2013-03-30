@@ -96,11 +96,23 @@ public enum Slot {
 
     private DateTimeZone TZ_PARIS = DateTimeZone.forID("Europe/Paris");
 
-    public DateTime getEnd() {
+    public LocalDate getDay() {
+        return day;
+    }
+
+    public LocalTime getStart() {
+        return start;
+    }
+
+    public LocalTime getEnd() {
+        return end;
+    }
+
+    public DateTime getEndDateTime() {
         return day.toDateTime(end, TZ_PARIS);
     }
 
-    public DateTime getStart() {
+    public DateTime getStartDateTime() {
         return day.toDateTime(start, TZ_PARIS);
     }
     
