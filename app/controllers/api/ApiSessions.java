@@ -19,7 +19,11 @@ public class ApiSessions extends JsonpController {
     public static void talk(long id, boolean details) {
         Talk talk = Talk.findById(id);
         notFoundIfNull(talk);
-        renderJSON(talk, getSerializers(details));
+        PlanedSlot slot = PlanedSlot.forTalkOn(talk, ConferenceEvent.CURRENT);
+        if (slot == null) {
+            slot = new PlanedSlot(talk);
+        }
+        renderJSON(slot, getSerializers(details));
     }
 
     public static void lightningTalks(boolean details) {

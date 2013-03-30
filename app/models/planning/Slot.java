@@ -97,11 +97,11 @@ public enum Slot {
     private DateTimeZone TZ_PARIS = DateTimeZone.forID("Europe/Paris");
 
     public DateTime getEnd() {
-        return day.toDateTime(start, TZ_PARIS);
+        return day.toDateTime(end, TZ_PARIS);
     }
 
     public DateTime getStart() {
-        return day.toDateTime(end, TZ_PARIS);
+        return day.toDateTime(start, TZ_PARIS);
     }
     
     public int getStartMinutesFromMidnight() {
@@ -118,12 +118,6 @@ public enum Slot {
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append(day.toString("dd/MM"))
-                .append(" ")
-                .append(start.toString(Const.FORMAT))
-                .append(" - ")
-                .append(end.toString(Const.FORMAT))
-                .toString();
+        return day.toString("dd/MM") + " " + start.toString(Const.FORMAT) + " - " + end.toString(Const.FORMAT);
     }
 }
