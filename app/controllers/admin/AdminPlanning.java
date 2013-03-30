@@ -7,27 +7,24 @@ import models.ConferenceEvent;
 import models.Role;
 import models.Talk;
 import models.planning.PlanedSlot;
+import models.planning.Planning;
 import models.planning.Slot;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.With;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 @Check({Role.ADMIN_PLANNING, Role.ADMIN_SESSION})
 @With(SecureLinkIt.class)
 public class AdminPlanning extends Controller {
 
     public static void index() {
-        Map<Slot, Talk> planning = PlanedSlot.on(ConferenceEvent.CURRENT);
-        List<Talk> talks = Talk.findAllValidatedOn(ConferenceEvent.CURRENT);
-        Collections.sort(talks, new Comparator<Talk>() {
-            @Override
-            public int compare(Talk talk1, Talk talk2) {
-                return talk1.title.compareToIgnoreCase(talk2.title);
-            }
-        });
-        render(planning, talks);
+        Planning planning = PlanedSlot.on(ConferenceEvent.CURRENT, true);
+        render(planning);
     }
 
     public static void save(List<Slot> slots, List<Long> talkIds) {
