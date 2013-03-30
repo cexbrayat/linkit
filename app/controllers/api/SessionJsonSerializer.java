@@ -48,6 +48,7 @@ public abstract class SessionJsonSerializer {
                     speaker.addProperty("id", s.id);
                     speaker.addProperty("firstname", s.firstname);
                     speaker.addProperty("lastname", s.lastname);
+                    result.addProperty("urlimage", s.getUrlImage());
                     speaker.addProperty("url", ApiUrl.getMemberUrl(s.id));
                     speakers.add(speaker);
                 }
