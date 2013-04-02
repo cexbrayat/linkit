@@ -271,7 +271,7 @@ since.years=%d years ago
 
 slot.time.format=HH:mm
 slot.date.format=EEEE dd
-slot.format=On <strong>%1$s</strong>, from <strong>%2$s to %3$s</strong>
+slot.format=On <strong>%1$s</strong>, from <strong>%2$s to %3$s</strong>, in room <strong>%4$s</strong>
 
 # Validation errors
 validation.errors=Some mistakes must be corrected first my friend !
