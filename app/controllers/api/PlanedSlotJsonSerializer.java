@@ -20,6 +20,7 @@ public class PlanedSlotJsonSerializer extends SessionJsonSerializer implements J
         if (slot.slot != null) {
             result.addProperty("start", slot.slot.getStartDateTime().toString());
             result.addProperty("end", slot.slot.getEndDateTime().toString());
+            result.addProperty("room", slot.slot.getRoom().toString());
         }
         return result;
     }
