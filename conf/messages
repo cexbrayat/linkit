@@ -297,3 +297,7 @@ sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank">
   <hr/>\
   <p><a href="http://skillsmatter.com/" target="blank"><img src="/public/images/logo-skills-matter.jpg" style="float: left; margin-right: 10px; max-width: 100px" title="Skills Matter"/></a>Mix-IT est partenaire de <a href="http://skillsmatter.com/" target="blank">Skills Matter</a>. Cette société anglaise est connue pour la qualité de ses formations, animées par des experts du sujet, ainsi que pour son engagement dans l'organisation de conférences et d'événements très réguliers.</p>
 sponsors.partners.mixit13=
+
+planning.welcome=Accueil & petit-déjeuner
+planning.break=Pause
+planning.lunch=Déjeuner
