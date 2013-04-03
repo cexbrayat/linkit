@@ -42,7 +42,7 @@ public class Vote extends Model {
     }
 
     public static List<Talk> findFavoriteTalksByMemberOn(Member member, ConferenceEvent event) {
-        return find("select v.session from Vote v where v.member = ?1 and v.value is true and v.session.class=Talk and v.session.event = ?", member, event).fetch();
+        return find("select v.session from Vote v where v.member = ? and v.value is true and v.session.class=Talk and v.session.event = ?", member, event).fetch();
     }
 
     public static long countVotesByMember(Member member) {
