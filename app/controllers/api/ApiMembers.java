@@ -2,7 +2,6 @@ package controllers.api;
 
 import com.google.gson.JsonSerializer;
 import models.*;
-import play.mvc.Controller;
 
 import java.util.List;
 
@@ -24,13 +23,12 @@ public class ApiMembers extends JsonpController {
             new SharedLinkJsonSerializer()
     };
 
-    public static void speakers(boolean details) {
     private static JsonSerializer TALK_SERIALIZERS[] = new JsonSerializer[] {
             new TalkJsonSerializer(true),
             new LightningTalkJsonSerializer(true),
     };
 
-    public static void speakers() {
+    public static void speakers(boolean details) {
         List<Member> speakers = Talk.findAllSpeakersOn(ConferenceEvent.CURRENT);
         renderJSON(speakers, getSerializers(details));
     }
@@ -57,7 +55,6 @@ public class ApiMembers extends JsonpController {
 
     private static JsonSerializer[] getSerializers(boolean details) {
         return details ? DETAILED_MEMBER_SERIALIZERS : MEMBER_SERIALIZERS;
-        renderJSON(member, MEMBER_SERIALIZERS);
     }
 
     public static void favorites(long memberId) {
