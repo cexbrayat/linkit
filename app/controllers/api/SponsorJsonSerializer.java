@@ -10,6 +10,10 @@ import java.lang.reflect.Type;
 
 public class SponsorJsonSerializer extends AbstractMemberJsonSerializer implements JsonSerializer<Sponsor> {
 
+    public SponsorJsonSerializer(boolean details) {
+        super(details);
+    }
+
     @Override
     public JsonElement serialize(Sponsor sponsor, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject result = (JsonObject) serializeMember(sponsor, typeOfSrc, context);

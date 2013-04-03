@@ -15,6 +15,6 @@ public class TalkJsonSerializer extends SessionJsonSerializer implements JsonSer
 
     @Override
     public JsonElement serialize(Talk talk, Type type, JsonSerializationContext jsonSerializationContext) {
-        return serializeTalk(talk);
+        return serializeTalk(talk, type, jsonSerializationContext);
     }
 }

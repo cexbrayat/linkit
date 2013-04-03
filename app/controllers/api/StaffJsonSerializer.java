@@ -9,6 +9,10 @@ import java.lang.reflect.Type;
 
 public class StaffJsonSerializer extends AbstractMemberJsonSerializer implements JsonSerializer<Staff> {
 
+    public StaffJsonSerializer(boolean details) {
+        super(details);
+    }
+
     @Override
     public JsonElement serialize(Staff staff, Type typeOfSrc, JsonSerializationContext context) {
         return serializeMember(staff, typeOfSrc, context);
