@@ -57,6 +57,10 @@ public class Talk extends Session {
         return findAllSpeakersOn(ConferenceEvent.CURRENT);
     }
 
+    public static List<Member> findAllSpeakersOf(TalkFormat format) {
+        return find("select distinct s from Talk t inner join t.speakers s where t.valid=true and t.event = ? and t.format = ? order by s.lastname", ConferenceEvent.CURRENT, format).fetch();
+    }
+
     public static List<Member> findAllSpeakersOn(ConferenceEvent event) {
         return find("select distinct s from Talk t inner join t.speakers s where t.valid=true and t.event = ? order by s.lastname", event).fetch();
     }
