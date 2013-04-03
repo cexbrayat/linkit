@@ -60,7 +60,7 @@ public class ApiMembers extends JsonpController {
     public static void favorites(long memberId) {
         Member member = Member.findById(memberId);
         notFoundIfNull(member);
-        List<Talk> favorites = Vote.findFavoriteTalksByMember(member);
+        List<Talk> favorites = Vote.findFavoriteTalksByMemberOn(member, ConferenceEvent.CURRENT);
         renderJSON(favorites, TALK_SERIALIZERS);
     }
 }

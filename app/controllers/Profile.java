@@ -181,7 +181,7 @@ public class Profile extends PageController {
         notFoundIfNull(member);
 
         member.lookedBy(Member.findByLogin(Security.connected()));
-        List<Talk> favorites = Vote.findFavoriteTalksByMember(member);
+        List<Talk> favorites = Vote.findFavoriteTalksByMemberOn(member, ConferenceEvent.CURRENT);
         Collections.shuffle(favorites);
 
         Logger.info("Show profil %s", member);

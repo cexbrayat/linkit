@@ -1,12 +1,12 @@
 package models;
 
-import java.util.List;
 import models.activity.NewVoteActivity;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.util.List;
 
 /**
  * @author Julien Ripault <tluapir@gmail.com>
@@ -41,8 +41,8 @@ public class Vote extends Model {
         return find("select v.member from Vote v where v.session = ? and v.value is true", session).fetch();
     }
 
-    public static List<Talk> findFavoriteTalksByMember(Member member) {
-        return find("select v.session from Vote v where v.member = ?1 and v.value is true and v.session.class=Talk", member).fetch();
+    public static List<Talk> findFavoriteTalksByMemberOn(Member member, ConferenceEvent event) {
+        return find("select v.session from Vote v where v.member = ?1 and v.value is true and v.session.class=Talk and v.session.event = ?", member, event).fetch();
     }
 
     public static long countVotesByMember(Member member) {
