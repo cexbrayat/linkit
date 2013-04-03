@@ -46,6 +46,8 @@ public class ApiSessions extends JsonpController {
             new TalkJsonSerializer(false),
             new LightningTalkJsonSerializer(false),
             new MemberJsonSerializer(false),
+            new StaffJsonSerializer(false),
+            new SponsorJsonSerializer(false),
             new ConmmentJsonSerializer(),
             new InterestJsonSerializer()
     };
@@ -55,6 +57,8 @@ public class ApiSessions extends JsonpController {
             new TalkJsonSerializer(true),
             new LightningTalkJsonSerializer(true),
             new MemberJsonSerializer(true),
+            new StaffJsonSerializer(true),
+            new SponsorJsonSerializer(true),
             new ConmmentJsonSerializer(),
             new InterestJsonSerializer()
     };
