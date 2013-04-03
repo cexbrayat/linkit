@@ -15,8 +15,8 @@ public class PlanedSlotJsonSerializer extends SessionJsonSerializer implements J
     }
 
     @Override
-    public JsonElement serialize(PlanedSlot slot, Type typeOfSrc, JsonSerializationContext context) {
-        JsonObject result = serializeTalk(slot.talk);
+    public JsonElement serialize(PlanedSlot slot, Type type, JsonSerializationContext context) {
+        JsonObject result = serializeTalk(slot.talk, type, context);
         if (slot.slot != null) {
             result.addProperty("start", slot.slot.getStartDateTime().toString());
             result.addProperty("end", slot.slot.getEndDateTime().toString());

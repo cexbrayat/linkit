@@ -2,12 +2,14 @@ package controllers.api;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
 import helpers.JSON;
-import models.Interest;
 import models.Member;
 import models.Session;
 import models.Talk;
 import org.apache.commons.collections.CollectionUtils;
+
+import java.lang.reflect.Type;
 
 public abstract class SessionJsonSerializer {
 
@@ -17,7 +19,7 @@ public abstract class SessionJsonSerializer {
         this.details = details;
     }
 
-    public JsonObject serializeSession(Session session) {
+    public JsonObject serializeSession(Session session, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject result = new JsonObject();
         result.addProperty("id", session.id);
         result.addProperty("title", session.title);
@@ -26,15 +28,7 @@ public abstract class SessionJsonSerializer {
 
         if (CollectionUtils.isNotEmpty(session.interests)) {
             if (details) {
-                JsonArray interests = new JsonArray();
-                for (Interest i : session.interests) {
-                    JsonObject interest = new JsonObject();
-                    interest.addProperty("id", i.id);
-                    interest.addProperty("name", i.name);
-                    interest.addProperty("url", ApiUrl.getInterestUrl(i.id));
-                    interests.add(interest);
-                }
-                result.add("interests", interests);
+                result.add("interests", jsonSerializationContext.serialize(session.interests));
             } else {
                 result.add("interests", JSON.toJsonArrayOfIds(session.interests));
             }
@@ -61,8 +55,8 @@ public abstract class SessionJsonSerializer {
         return result;
     }
 
-    public JsonObject serializeTalk(Talk talk) {
-        JsonObject result = serializeSession(talk);
+    public JsonObject serializeTalk(Talk talk, Type type, JsonSerializationContext jsonSerializationContext) {
+        JsonObject result = serializeSession(talk, type, jsonSerializationContext);
 
         result.addProperty("format", talk.format.toString());
         result.addProperty("level", talk.level.toString());
