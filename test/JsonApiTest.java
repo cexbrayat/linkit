@@ -75,6 +75,18 @@ public class JsonApiTest extends FunctionalTest {
     }
 
     @Test
+    public void testMemberFavorites() {
+        Member m = Member.all().first();
+        test("/api/members/"+m.id+"/favorites");
+    }
+
+    @Test
+    public void testMemberFavorites_notFound() {
+        Response r = GET("/api/members/999999/favorites");
+        assertStatus(404, r);
+    }
+
+    @Test
     public void testTalks() {
         test("/api/talks");
     }

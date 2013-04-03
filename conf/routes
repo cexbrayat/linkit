@@ -26,6 +26,7 @@ GET     /api/members                            api.ApiMembers.members
 GET     /api/members/speakers                   api.ApiMembers.speakers
 GET     /api/members/sponsors                   api.ApiMembers.sponsors
 GET     /api/members/staff                      api.ApiMembers.staff
+GET     /api/members/{memberId}/favorites       api.ApiMembers.favorites
 GET     /api/members/{id}                       api.ApiMembers.member
 GET     /api/interests                          api.ApiInterests.list
 GET     /api/interests/{id}                     api.ApiInterests.interest
