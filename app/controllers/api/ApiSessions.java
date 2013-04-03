@@ -40,12 +40,18 @@ public class ApiSessions extends JsonpController {
     private static JsonSerializer[] getSerializers(boolean details) {
         return details ? DETAILED_TALK_SERIALIZERS : TALK_SERIALIZERS;
     }
+
     private static JsonSerializer TALK_SERIALIZERS[] = new JsonSerializer[] {
             new PlanedSlotJsonSerializer(false),
             new TalkJsonSerializer(false),
             new LightningTalkJsonSerializer(false),
             new MemberJsonSerializer(),
             new ConmmentJsonSerializer()
+            new PlanedSlotJsonSerializer(false),
+            new TalkJsonSerializer(false),
+            new LightningTalkJsonSerializer(false),
+            new MemberJsonSerializer(false),
+            new InterestJsonSerializer()
     };
 
     private static JsonSerializer DETAILED_TALK_SERIALIZERS[] = new JsonSerializer[] {
@@ -54,5 +60,10 @@ public class ApiSessions extends JsonpController {
             new LightningTalkJsonSerializer(true),
             new MemberJsonSerializer(),
             new ConmmentJsonSerializer()
+            new PlanedSlotJsonSerializer(true),
+            new TalkJsonSerializer(true),
+            new LightningTalkJsonSerializer(true),
+            new MemberJsonSerializer(true),
+            new InterestJsonSerializer()
     };
 }
