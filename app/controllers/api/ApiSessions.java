@@ -45,12 +45,8 @@ public class ApiSessions extends JsonpController {
             new PlanedSlotJsonSerializer(false),
             new TalkJsonSerializer(false),
             new LightningTalkJsonSerializer(false),
-            new MemberJsonSerializer(),
-            new ConmmentJsonSerializer()
-            new PlanedSlotJsonSerializer(false),
-            new TalkJsonSerializer(false),
-            new LightningTalkJsonSerializer(false),
             new MemberJsonSerializer(false),
+            new ConmmentJsonSerializer(),
             new InterestJsonSerializer()
     };
 
@@ -58,12 +54,8 @@ public class ApiSessions extends JsonpController {
             new PlanedSlotJsonSerializer(true),
             new TalkJsonSerializer(true),
             new LightningTalkJsonSerializer(true),
-            new MemberJsonSerializer(),
-            new ConmmentJsonSerializer()
-            new PlanedSlotJsonSerializer(true),
-            new TalkJsonSerializer(true),
-            new LightningTalkJsonSerializer(true),
             new MemberJsonSerializer(true),
+            new ConmmentJsonSerializer(),
             new InterestJsonSerializer()
     };
 }
