@@ -349,7 +349,7 @@ Sponsor(zenika):
          - Sponsor
     level: SILVER
     events:
-         - mixit12
+         - mixit13
 
 TwitterAccount(zenikaTwitter):
     provider: Twitter

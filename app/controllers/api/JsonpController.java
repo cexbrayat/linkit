@@ -27,7 +27,7 @@ public class JsonpController extends Controller {
     }
 
     @Util
-    protected static void renderJSON(Object o, JsonSerializer... adapters) {
+    protected static void renderJSON(Object o, JsonSerializer<?>... adapters) {
         String callback = getCallbackParameter();
         if (callback != null) {
             Controller.renderJSON(String.format(CALLBACK_FORMAT, callback, createGson(adapters).toJson(o)));
@@ -53,7 +53,7 @@ public class JsonpController extends Controller {
         return null;
     }
 
-    private static Gson createGson(JsonSerializer... adapters) {
+    private static Gson createGson(JsonSerializer<?>... adapters) {
         GsonBuilder gson = new GsonBuilder();
         if (adapters != null) {
             for (Object adapter : adapters) {
