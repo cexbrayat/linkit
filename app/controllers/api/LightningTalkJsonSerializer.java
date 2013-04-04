@@ -17,7 +17,7 @@ public class LightningTalkJsonSerializer extends SessionJsonSerializer implement
 
     @Override
     public JsonElement serialize(LightningTalk talk, Type type, JsonSerializationContext jsonSerializationContext) {
-        JsonObject result = serializeSession(talk);
+        JsonObject result = serializeSession(talk, type, jsonSerializationContext);
 
         result.addProperty("nbVotes", Vote.findNumberOfVotesBySession(talk));
 

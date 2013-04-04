@@ -27,7 +27,9 @@ public class JsonApiTest extends FunctionalTest {
 
     private void test(String url) {
         json(url);
+        jsonDetails(url);
         jsonp(url);
+        jsonpDetails(url);
     }
 
     private void json(String url) {
@@ -35,8 +37,18 @@ public class JsonApiTest extends FunctionalTest {
         assertJson(response);
     }
 
+    private void jsonDetails(String url) {
+        Response response = GET(url+"?details=true");
+        assertJson(response);
+    }
+
     private void jsonp(String url) {
         Response response = GET(url+"?callback=mycallback");
+        assertJsonp(response, "mycallback");
+    }
+
+    private void jsonpDetails(String url) {
+        Response response = GET(url+"?callback=mycallback&details=true");
         assertJsonp(response, "mycallback");
     }
 
@@ -59,6 +71,18 @@ public class JsonApiTest extends FunctionalTest {
     @Test
     public void testMember_notFound() {
         Response r = GET("/api/members/999999");
+        assertStatus(404, r);
+    }
+
+    @Test
+    public void testMemberFavorites() {
+        Member m = Member.all().first();
+        test("/api/members/"+m.id+"/favorites");
+    }
+
+    @Test
+    public void testMemberFavorites_notFound() {
+        Response r = GET("/api/members/999999/favorites");
         assertStatus(404, r);
     }
 
