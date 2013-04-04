@@ -43,12 +43,11 @@ public class Sponsor extends Member {
     }
 
     public static long countOn(ConferenceEvent event) {
-        return find("select count(distinct s) from Sponsor s join s.events e where e = ?", event).first();
+        return find("select count(distinct s) from Sponsor s join s.events e where e = ?", event).<Long>first();
     }
 
     /**
      * List sponsors for given event
-     * @param event
      */
     public static List<Sponsor> findOn(ConferenceEvent event){
         return Sponsor.find("select distinct s from Sponsor s join s.events e where e = ?", event).fetch();
@@ -56,9 +55,6 @@ public class Sponsor extends Member {
 
     /**
      * List sponsors by level for given event
-     * @param level
-     * @param event
-     * @return
      */
     public static List<Sponsor> findByEventAndLevel(ConferenceEvent event, Level level){
         return Sponsor.find("select distinct s from Sponsor s join s.events e where s.level = ? and e = ?", level, event).fetch();
