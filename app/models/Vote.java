@@ -46,7 +46,7 @@ public class Vote extends Model {
     }
 
     public static long countVotesByMember(Member member) {
-        return find("select count(v) from Vote v where v.member = :member and v.value is true").bind("member", member).first();
+        return find("select count(v) from Vote v where v.member = :member and v.value is true").bind("member", member).<Long>first();
     }
     
     public static long deleteForMember(Member member) {
