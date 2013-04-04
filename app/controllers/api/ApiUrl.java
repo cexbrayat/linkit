@@ -1,6 +1,7 @@
 package controllers.api;
 
 import play.mvc.Router;
+import play.vfs.VirtualFile;
 
 import java.lang.Object;
 import java.lang.String;
@@ -21,5 +22,11 @@ public class ApiUrl {
         Map<String, Object> params = new HashMap<String, Object>(1);
         params.put("id", id);
         return params;
+    }
+
+    public static String getFullUrl(final String path) {
+        if (path == null) return null;
+        if (path.startsWith("http")) return path;
+        return Router.reverse(VirtualFile.fromRelativePath(path), true);
     }
 }
