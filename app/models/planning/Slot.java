@@ -11,6 +11,7 @@ import org.joda.time.format.DateTimeFormatter;
 public enum Slot {
 
     // Jeudi
+    Jeudi_Keynote_AM(LocalDate.parse("2013-04-25"), Room.S1, LocalTime.parse("09:00"), LocalTime.parse("09:30")),
     Jeudi_S1_AM_1(LocalDate.parse("2013-04-25"), Room.S1, LocalTime.parse("09:30"), LocalTime.parse("10:30")),
     Jeudi_S2_AM_1(LocalDate.parse("2013-04-25"), Room.S2, LocalTime.parse("09:30"), LocalTime.parse("10:30")),
     Jeudi_S3_AM_1(LocalDate.parse("2013-04-25"), Room.S3, LocalTime.parse("09:30"), LocalTime.parse("10:30")),
@@ -46,6 +47,7 @@ public enum Slot {
     Jeudi_S3_PM_4(LocalDate.parse("2013-04-25"), Room.S3, LocalTime.parse("18:00"), LocalTime.parse("19:00")),
 
     // Vendredi
+    Vendredi_Keynote_AM(LocalDate.parse("2013-04-26"), Room.S1, LocalTime.parse("09:00"), LocalTime.parse("09:30")),
     Vendredi_S1_AM_1(LocalDate.parse("2013-04-26"), Room.S1, LocalTime.parse("09:30"), LocalTime.parse("10:30")),
     Vendredi_S2_AM_1(LocalDate.parse("2013-04-26"), Room.S2, LocalTime.parse("09:30"), LocalTime.parse("10:30")),
     Vendredi_S3_AM_1(LocalDate.parse("2013-04-26"), Room.S3, LocalTime.parse("09:30"), LocalTime.parse("10:30")),
@@ -74,7 +76,8 @@ public enum Slot {
     Vendredi_S2_PM_3(LocalDate.parse("2013-04-26"), Room.S2, LocalTime.parse("16:30"), LocalTime.parse("18:00")),
     Vendredi_S3_PM_3(LocalDate.parse("2013-04-26"), Room.S3, LocalTime.parse("16:30"), LocalTime.parse("18:00")),
     Vendredi_S4_PM_3(LocalDate.parse("2013-04-26"), Room.S4, LocalTime.parse("16:00"), LocalTime.parse("18:00")),
-    Vendredi_S5_PM_3(LocalDate.parse("2013-04-26"), Room.S5, LocalTime.parse("16:00"), LocalTime.parse("18:00"));
+    Vendredi_S5_PM_3(LocalDate.parse("2013-04-26"), Room.S5, LocalTime.parse("16:00"), LocalTime.parse("18:00")),
+    Vendredi_Keynote_PM(LocalDate.parse("2013-04-26"), Room.S1, LocalTime.parse("18:00"), LocalTime.parse("18:30"));
 
     /**
      * Holds constants for this enum.
