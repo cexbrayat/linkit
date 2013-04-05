@@ -159,6 +159,7 @@ content=Your comment
 content.note=&{markdown.note}
 enum.TalkFormat.Talk=Talk
 enum.TalkFormat.Workshop=Workshop
+enum.TalkFormat.Keynote=Keynote
 enum.TalkLevel.Beginner=Beginner
 enum.TalkLanguage.fr=French
 enum.TalkLanguage.en=English
