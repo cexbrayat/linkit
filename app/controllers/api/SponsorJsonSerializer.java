@@ -18,7 +18,7 @@ public class SponsorJsonSerializer extends AbstractMemberJsonSerializer implemen
     public JsonElement serialize(Sponsor sponsor, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject result = (JsonObject) serializeMember(sponsor, typeOfSrc, context);
 
-        result.addProperty("logo", sponsor.logoUrl);
+        result.addProperty("logo", ApiUrl.getFullUrl(sponsor.logoUrl));
         result.addProperty("level", sponsor.level.toString());
 
         return result;
