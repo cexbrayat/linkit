@@ -349,7 +349,7 @@ Sponsor(zenika):
          - Sponsor
     level: SILVER
     events:
-         - mixit12
+         - mixit13
 
 TwitterAccount(zenikaTwitter):
     provider: Twitter
@@ -395,9 +395,8 @@ Talk(talk2):
         - clacote
     valid: false
 
-Talk(talk3):
+Talk(talk131):
     event: mixit13
-    track: Gamy
     title: Une session de test 2013
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
@@ -405,6 +404,18 @@ Talk(talk3):
         - agnes
         - cedric
     valid: false
+
+Talk(talk132):
+    event: mixit13
+    track: Gamy
+    title: Une session de test 2013 validée
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - clacote
+        - cedric
+    valid: true
+    lang: fr
 
 LightningTalk(lt12):
     event: mixit12

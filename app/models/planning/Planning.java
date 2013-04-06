@@ -1,36 +1,64 @@
 package models.planning;
 
-import com.google.common.base.Function;
-import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import models.Session;
-import play.db.jpa.Model;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import models.Talk;
 
-/**
- * A planning, collection of {@link PlanedSlot}
- * @author Sryl <cyril.lacote@gmail.com>
- */
-@Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Planning extends Model {
-    
-    protected static final Function<PlanedSlot, Session> SESSION_FILTER = new Function<PlanedSlot, Session>() {
-        public Session apply(PlanedSlot ps) {
-            return ps.session;
+import java.util.*;
+
+public class Planning {
+
+    private List<PlanedSlot> slots = new ArrayList<PlanedSlot>();
+    private Map<Slot, Talk> talkPerSlot = new EnumMap<Slot, Talk>(Slot.class);
+    private List<Talk> talks = new ArrayList<Talk>();
+
+    void addSlot(PlanedSlot slot) {
+        slots.add(slot);
+        talkPerSlot.put(slot.slot, slot.talk);
+        talks.add(slot.talk);
+    }
+
+    void addSlots(Collection<PlanedSlot> slots) {
+        for (PlanedSlot slot : slots) {
+            addSlot(slot);
         }
-    };
-    
+    }
+
+    void addTalk(Talk talk) {
+        if (!talks.contains(talk)) {
+            slots.add(new PlanedSlot(talk));
+            talks.add(talk);
+        }
+    }
+
+    void addTalks(Collection<Talk> talks) {
+        for (Talk talk : talks) {
+            addTalk(talk);
+        }
+    }
+
+    public List<PlanedSlot> getSlots() {
+        return Collections.unmodifiableList(slots);
+    }
+
+    public List<Talk> getTalks() {
+        return Collections.unmodifiableList(talks);
+    }
+
     /**
-     * Plans given slot for given session
-     * @param slot
-     * @param s
+     * @param slot searched slot
+     * @return Talk on slot, or null if talk not planned.
      */
-    public abstract void addPlan(final Slot slot, final Session s);
-    
-    /**
-     * @return already planned session
-     */
-    public abstract Set<Session> getPlannedSessions();
+    public Talk getTalkOn(Slot slot) {
+        return talkPerSlot.get(slot);
+    }
+
+    public Talk getTalkById(final Long id) {
+        return Iterables.find(talks, new Predicate<Talk>() {
+            @Override
+            public boolean apply(Talk talk) {
+                return id.equals(talk.id);
+            }
+        }, null);
+    }
 }

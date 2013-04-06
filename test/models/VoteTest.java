@@ -1,7 +1,8 @@
 package models;
 
+import org.junit.Test;
+
 import java.util.Arrays;
-import org.junit.*;
 import java.util.Collections;
 
 /**
@@ -46,9 +47,9 @@ public class VoteTest extends BaseDataUnitTest {
         assertEquals(Arrays.asList(m1, m3), Vote.findVotersBySession(t));
     }
 
-    @Test public void findFavoriteTalksByMember() {
+    @Test public void findFavoriteTalksByMemberOn() {
         Member m = createMember("member");
-        assertEquals(Collections.emptyList(), Vote.findFavoriteTalksByMember(m));
+        assertEquals(Collections.emptyList(), Vote.findFavoriteTalksByMemberOn(m, ConferenceEvent.CURRENT));
 
         Talk t1 = createTalk();
         LightningTalk lt1 = createLT();
@@ -59,7 +60,7 @@ public class VoteTest extends BaseDataUnitTest {
         new Vote(t2, m, true).save();
         new Vote(lt2, m, true).save();
 
-        assertEquals(Arrays.asList(t1, t2), Vote.findFavoriteTalksByMember(m));
+        assertEquals(Arrays.asList(t1, t2), Vote.findFavoriteTalksByMemberOn(m, ConferenceEvent.CURRENT));
     }
 
     @Test public void countVotesByMember() {

@@ -28,7 +28,7 @@
                             <a href="@{Profile.show(session.username)}" title="Voir mon profil">Profil</a> consulté ${member.getNbLooks()} fois.<br />
                             <a href="@{Dashboard.settings()}" title="Mes préférences">Notifications</a> : #{if setting}&{'NotificationOption.'+setting.notificationOption+'.label'}#{/if}#{else}Non définies#{/else}<br />
                             <div class='alert-actions'>
-                                #{ticketing member/}
+                                #{a @Infos.inscription(), class:'btn small primary'}&{'button.ticketing'}#{/a}
                                 <a href="@{Profile.edit()}" class="btn small">&{'menu.login.edit'}</a>
 *{ The CFP is closed
                                 <a href="@{Sessions.create(session.username)}" class="btn small">Proposer une session</a>

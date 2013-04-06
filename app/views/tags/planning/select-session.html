@@ -1,0 +1,11 @@
+*{
+    - default _arg : enum Slot
+    - planning : existing planning
+}*
+<input type="hidden" name="slots[]" value="${_arg.name()}" />
+#{select "talkIds[]", value:_planning.getTalkOn(_arg)?.id}
+    #{option "-1"}???#{/option}
+    #{list items:_planning.getTalks(), as:"talk"}
+        #{option talk.id}${talk.format} - ${talk.title}#{/option}
+    #{/list}
+#{/select}

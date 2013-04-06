@@ -1,17 +1,17 @@
 package models;
 
-import java.util.EnumSet;
 import org.apache.commons.lang.StringUtils;
+import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.ElementCollection;
-import play.data.validation.MinSize;
 
 /**
  * A Mix-IT sponsor, giving a fucking load of money to buy better sandwiches than the ones given at WSN Paris.
@@ -43,12 +43,11 @@ public class Sponsor extends Member {
     }
 
     public static long countOn(ConferenceEvent event) {
-        return find("select count(distinct s) from Sponsor s join s.events e where e = ?", event).first();
+        return find("select count(distinct s) from Sponsor s join s.events e where e = ?", event).<Long>first();
     }
 
     /**
      * List sponsors for given event
-     * @param event
      */
     public static List<Sponsor> findOn(ConferenceEvent event){
         return Sponsor.find("select distinct s from Sponsor s join s.events e where e = ?", event).fetch();
@@ -56,9 +55,6 @@ public class Sponsor extends Member {
 
     /**
      * List sponsors by level for given event
-     * @param level
-     * @param event
-     * @return
      */
     public static List<Sponsor> findByEventAndLevel(ConferenceEvent event, Level level){
         return Sponsor.find("select distinct s from Sponsor s join s.events e where s.level = ? and e = ?", level, event).fetch();

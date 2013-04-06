@@ -39,12 +39,14 @@ menu.login.logout=Se déconnecter
 # Accueil
 mixit.slogan=Des idées pour tout de suite !
 mixit.header=Java, Agilité, Web, Innovations...
-ticketing.alert=La billetterie est ouverte!
+ticketing.alert=&{ticketing.soldout}
+ticketing.open=La billeterie est ouverte!
+ticketing.soldout=COMPLET
 button.about.mixit=A propos de Mix-IT
-button.talks=Les sessions
+button.talks=Le programme
 button.login=S'inscrire
 button.ticketing=Acheter mon billet
-button.ticketing.details=Via notre partenaire YurPlan
+button.ticketing.details=30€ une journée, 50€ les deux jours, via notre partenaire YurPlan
 button.vote.lightningtalks=Voter pour des lightning talks
 tab.lastactivities=Dernières activitiés
 tab.lastarticles=Derniers articles
@@ -86,13 +88,14 @@ faq.recording.answer=Toutes les sessions seront enregistrées au format audio (p
 # Registration
 registration.title=Ouverture d'un compte Mix-IT et paiement du billet
 registration.directives=Pour information, cette journée sera éligible au Droit Individuel à la Formation, l'un de nos sponsors fournira les certificats sur son stand, grâce à son organisme de formation. Vous pouvez donc demander à votre employeur d’assister à Mix-IT comme une formation classique, sans prendre de congé !
-registration.ticketing.signed=Vous avez un compte créé sur le site Mix-IT, il vous suffit maintenant d'achetez votre billet en cliquant sur le bouton ci-dessous :
+registration.ticketing.signed=Vous avez un compte créé sur le site Mix-IT, il vous suffit maintenant d'acheter votre billet en cliquant sur le bouton ci-dessous :
 registration.step1.create.account=Créer-vous un compte Mix-IT
 registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT !
 registration.step1.alternative=Si vous êtes allergique aux réseaux sociaux, achetez directement via notre partenaire 
 registration.step2.ticketing.unsigned=Achetez votre billet en vous rendant sur votre Dashboard Mix-IT
 registration.step2.ticketing.unsigned.why=L'achat de billet se fait via notre partenaire YurPlan
 registration.warning.email=Attention: vous devez utiliser le même email entre votre compte Mix-IT et votre paiement via notre partenaire
+registration.waiting-list=Oh non, Mix-IT est complet!<br/>Mais attendez. Pour vous donner un peu d'espoir (forcément illusoire), on va tenir une liste d'attente. Des places pourraient (sans aucune garantie) se libérer si les sponsors n'utilisent pas toutes leurs place attitrées. Nous nous ferons alors une joie de les distribuer aux inscrits sur cette liste.<br/>Saisissez vos informations <strong>sur &gt; <a href="https://docs.google.com/a/mix-it.fr/spreadsheet/viewform?formkey=dHdJcW1nVlViOUItbmxsY2F3eWVjbXc6MQ" title="Liste d'attente Mix-IT 2013" target="waiting">ce formulaire</a> &lt;</strong>.
 
 # Member fields
 members.speakers.none=Nous contactons actuellement nos prochains invités, avant d'ouvrir notre <em>Call For Paper</em> habituel.
@@ -124,12 +127,14 @@ newInterests=Autres intérêts
 newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
 
 # Session fields
-talks.description=Découvrez les descriptifs des sessions. Le nombre de track en parallèle peut varier chaque année
+talks.description=Découvrez les descriptifs des sessions, et leur planning jour par jour.
 talk.descriptive.section=Descriptif
 talk.title=Titre
 talk.title.note=Obligatoire. Un court titre pour votre session
 talk.format=Format
 talk.format.note=Obligatoire.
+talk.lang=Langage
+talk.lang.note=Obligatoire. La langue majoritairement utilisée dans cette session.
 talk.summary=Résumé
 talk.summary.note=Obligatoire. Un résumé de votre session. Il sera affiché dans les listes de sessions.
 talk.description=Description
@@ -152,6 +157,9 @@ content=Votre commentaire
 content.note=&{markdown.note}
 enum.TalkFormat.Talk=Conférence
 enum.TalkFormat.Workshop=Atelier
+enum.TalkFormat.Workshop=Keynote
+enum.TalkLanguage.fr=Français
+enum.TalkLanguage.en=Anglais
 enum.TalkLevel.Beginner=Débutant
 enum.TalkLevel.Experienced=Expérimenté
 enum.TalkLevel.Expert=Expert
@@ -260,6 +268,10 @@ since.days=il y a %d jours
 since.months=il y a %d mois
 since.years=il y a %d ans
 
+slot.time.format=HH'H'mm
+slot.date.format=EEEE dd
+slot.format=Le <strong>%1$s</strong>, de <strong>%2$s à %3$s</strong>, en salle <strong>%4$s</strong>.
+
 # Validation errors
 validation.errors=Quelques erreurs sont à corriger dans ta saisie mon ami !
 validation.required=La saisie est obligatoire
@@ -286,3 +298,7 @@ sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank">
   <hr/>\
   <p><a href="http://skillsmatter.com/" target="blank"><img src="/public/images/logo-skills-matter.jpg" style="float: left; margin-right: 10px; max-width: 100px" title="Skills Matter"/></a>Mix-IT est partenaire de <a href="http://skillsmatter.com/" target="blank">Skills Matter</a>. Cette société anglaise est connue pour la qualité de ses formations, animées par des experts du sujet, ainsi que pour son engagement dans l'organisation de conférences et d'événements très réguliers.</p>
 sponsors.partners.mixit13=
+
+planning.welcome=Accueil & petit-déjeuner
+planning.break=Pause
+planning.lunch=Déjeuner

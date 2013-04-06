@@ -1,0 +1,3 @@
+#{if session.username && _arg.valid}
+<i id="star-${_arg.id}" class="icon-star-empty star ${_class} #{if _arg.hasVoteFrom(session.username)} fav#{/if}" #{if _arg.event.current}onclick="fav(${_arg.id})"#{/if}></i>
+#{/if}

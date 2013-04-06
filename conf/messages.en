@@ -39,12 +39,14 @@ menu.login.logout=Logout
 # Welcome
 mixit.slogan=Ideas for now!
 mixit.header=Java, Agile, Web, Innovation...
-ticketing.alert=The ticketing is open!
+ticketing.alert=&{ticketing.soldout}
+ticketing.open=Ticketing is open!
+ticketing.soldout=SOLD-OUT
 button.about.mixit=About Mix-IT
-button.talks=Talks
+button.talks=Agenda
 button.login=Sign in
 button.ticketing=Buy my ticket
-button.ticketing.details=By our partner YurPlan
+button.ticketing.details=€30 for one day, €50 for two days, with our partner YurPlan
 button.vote.lightningtalks=Vote for lightning talks
 tab.lastactivities=Last activities
 tab.lastarticles=Last articles
@@ -92,7 +94,8 @@ registration.step1.create.account.why=And enjoy the social side of the Mix-IT we
 registration.step1.alternative=You can also buy your ticket via our partner if you don't like social networks
 registration.step2.ticketing.unsigned=Buy your ticket from your Mix-IT's Dashboard!
 registration.step2.ticketing.unsigned.why=The ticket purchase is done by our partner YurPlan
-  registration.warning.email=Warning: use the same email you use for your Mix-IT account and your payment via our partner
+registration.warning.email=Warning: use the same email you use for your Mix-IT account and your payment via our partner
+registration.waiting-list=Oh noes! Mix-IT is sold-out!<br/>But wait. To give you some hope, we've set up a waiting list. Some tickets might become available (but nothing sure) if some sponsors don't use all of their dedicated ones. We then would be happy to reopen them to people registered here.<br/><strong>Please fill in &gt; <a href="https://docs.google.com/a/mix-it.fr/spreadsheet/viewform?formkey=dHdJcW1nVlViOUItbmxsY2F3eWVjbXc6MQ" title="Mix-IT 2013 waiting list" target="waiting">this form</a> &lt;</strong>.
 
 # Member fields
 
@@ -126,12 +129,14 @@ members.speakers.none=We are contacting our guest speakers, before opening our u
 members.members.none=No members for now
 
 # Talk fields
-talks.description=Talks descriptions. Number of parallel tracks change from year to year
+talks.description=Discover all our amazing talks, and their schedule day by day.
 talk.descriptive.section=Description
 talk.title=Title
 talk.title.note=Required. A short title for your talk
 talk.format=Format
 talk.format.note=Required.
+talk.lang=Language
+talk.lang.note=Required. The language used in this talk.
 talk.summary=Summary
 talk.summary.note=Required. A summary for your talk. Will be displayed on sessions lists.
 talk.description=Description
@@ -154,7 +159,10 @@ content=Your comment
 content.note=&{markdown.note}
 enum.TalkFormat.Talk=Talk
 enum.TalkFormat.Workshop=Workshop
+enum.TalkFormat.Keynote=Keynote
 enum.TalkLevel.Beginner=Beginner
+enum.TalkLanguage.fr=French
+enum.TalkLanguage.en=English
 enum.TalkLevel.Experienced=Experienced
 enum.TalkLevel.Expert=Expert
 
@@ -262,6 +270,10 @@ since.days=%d days ago
 since.months=%d months ago
 since.years=%d years ago
 
+slot.time.format=HH:mm
+slot.date.format=EEEE dd
+slot.format=On <strong>%1$s</strong>, from <strong>%2$s to %3$s</strong>, in room <strong>%4$s</strong>
+
 # Validation errors
 validation.errors=Some mistakes must be corrected first my friend !
 validation.required=Required
@@ -288,3 +300,7 @@ sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank">
   <hr/>\
   <p><a href="http://skillsmatter.com/" target="blank"><img src="/public/images/logo-skills-matter.jpg" style="float: left; margin-right: 10px; max-width: 100px" title="Skills Matter"/></a>Mix-IT est partenaire de <a href="http://skillsmatter.com/" target="blank">Skills Matter</a>. Cette société anglaise est connue pour la qualité de ses formations, animées par des experts du sujet, ainsi que pour son engagement dans l'organisation de conférences et d'événements très réguliers.</p>
 sponsors.partners.mixit13=
+
+planning.welcome=Welcome & breakfast
+planning.break=Break
+planning.lunch=Lunch

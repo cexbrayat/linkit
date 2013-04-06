@@ -1,6 +1,7 @@
 package models;
 
 import models.activity.Activity;
+import models.activity.CommentSessionActivity;
 import models.activity.NewTalkActivity;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
@@ -8,7 +9,6 @@ import play.mvc.Router;
 
 import javax.persistence.*;
 import java.util.List;
-import models.activity.CommentSessionActivity;
 
 /**
  * A talk session
@@ -23,14 +23,14 @@ public class Talk extends Session {
 
     @Required
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(nullable = true, length = 20)
     public TalkFormat format = TalkFormat.Talk;
 
     public Integer maxAttendees;
 
     @Required
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
+    @Column(nullable = true, length = 20)
     public TalkLevel level = TalkLevel.Experienced;
 
     /** Markdown enabled */
@@ -50,15 +50,23 @@ public class Talk extends Session {
     }
     
     public static long countSpeakers() {
-        return find("select count(distinct s) from Talk t inner join t.speakers as s where t.valid=true and t.event = ?", ConferenceEvent.CURRENT).first();
+        return find("select count(distinct s) from Talk t inner join t.speakers as s where t.valid=true and t.event = ?", ConferenceEvent.CURRENT).<Long>first();
     }
 
     public static List<Member> findAllSpeakers() {
         return findAllSpeakersOn(ConferenceEvent.CURRENT);
     }
 
+    public static List<Member> findAllSpeakersOf(TalkFormat format) {
+        return find("select distinct s from Talk t inner join t.speakers s where t.valid=true and t.event = ? and t.format = ? order by s.lastname", ConferenceEvent.CURRENT, format).fetch();
+    }
+
     public static List<Member> findAllSpeakersOn(ConferenceEvent event) {
-        return find("select distinct t.speakers from Talk t where t.valid=true and t.event = ?", event).fetch();
+        return find("select distinct s from Talk t inner join t.speakers s where t.valid=true and t.event = ? order by s.lastname", event).fetch();
+    }
+
+    public static List<Member> findFailedSpeakersOn(ConferenceEvent event) {
+        return find("select distinct s from Talk t inner join t.speakers s where t.valid=false and t.event = ? order by s.lastname", event).fetch();
     }
 
     public static List<Talk> findAllValidatedOn(ConferenceEvent event) {

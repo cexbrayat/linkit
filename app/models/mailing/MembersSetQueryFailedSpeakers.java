@@ -1,6 +1,8 @@
 package models.mailing;
 
 import java.util.List;
+
+import models.ConferenceEvent;
 import models.Member;
 import models.Talk;
 
@@ -11,6 +13,6 @@ import models.Talk;
 public class MembersSetQueryFailedSpeakers implements MembersSetQuery {
 
     public List<Member> find() {
-        return Talk.find("select distinct t.speakers from Talk t where t.valid=false").fetch();
+        return Talk.findFailedSpeakersOn(ConferenceEvent.CURRENT);
     }
 }
