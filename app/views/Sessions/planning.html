@@ -57,7 +57,14 @@
         </tr>
         <tr>
             <th>09H00</th>
-            <td colspan="5" class="intermede">Keynote</td>
+            <td colspan="5" class="intermede">
+            #{if planning.getTalkOn(models.planning.Slot.Jeudi_Keynote_AM)}
+                #{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_Keynote_AM) /}
+            #{/if}
+            #{else}
+                Keynote
+            #{/else}
+            </td>
         </tr>
         <tr>
             <th>09H30</th>
@@ -178,7 +185,14 @@ Et tout au long de la journée :
     </tr>
     <tr>
         <th>09H00</th>
-        <td colspan="5" class="intermede">Keynote</td>
+        <td colspan="5" class="intermede">
+        #{if planning.getTalkOn(models.planning.Slot.Vendredi_Keynote_AM)}
+            #{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_Keynote_AM) /}
+        #{/if}
+        #{else}
+            Keynote
+        #{/else}
+        </td>
     </tr>
     <tr>
         <th>09H30</th>
@@ -261,6 +275,18 @@ Et tout au long de la journée :
     </tr>
     <tr>
         <th>18H00</th>
+    </tr>
+    <tr>
+        <th>18H30</th>
+        <td colspan="5" class="intermede">
+        #{if planning.getTalkOn(models.planning.Slot.Vendredi_Keynote_PM)}
+            #{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_Keynote_PM) /}
+        #{/if}
+        #{else}
+            Keynote
+        #{/else}
+        </td>
+        </td>
     </tr>
 
     </tbody>
