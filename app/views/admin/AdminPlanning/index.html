@@ -28,11 +28,11 @@
     <thead>
     <tr>
         <th>Horaire</th>
-        <th>Salle 100p</th>
-        <th>Salle 100p</th>
-        <th>Salle 80p</th>
-        <th>Salle 60p</th>
-        <th>Salle 25p</th>
+        <th>Salle Gosling</th>
+        <th>Salle Eich</th>
+        <th>Salle Nonaka</th>
+        <th>Salle Dijkstra</th>
+        <th>Salle Turing</th>
     </tr>
     </thead>
     <tbody>
@@ -146,11 +146,11 @@
     <thead>
     <tr>
         <th>Horaire</th>
-        <th>Salle 100p</th>
-        <th>Salle 100p</th>
-        <th>Salle 80p</th>
-        <th>Salle 60p</th>
-        <th>Salle 25p</th>
+        <th>Salle Gosling</th>
+        <th>Salle Eich</th>
+        <th>Salle Nonaka</th>
+        <th>Salle Dijkstra</th>
+        <th>Salle Turing</th>
     </tr>
     </thead>
     <tbody>
@@ -228,14 +228,15 @@
     </tr>
     <tr>
         <th></th>
-        <td colspan="3" class="intermede">&{'planning.break'}</td>
+        <td class="intermede">&{'planning.break'}</td>
+        <td rowspan="4">#{planning.select-session models.planning.Slot.Vendredi_S2_PM_3, planning:planning /}</td>
+        <td class="intermede">&{'planning.break'}</td>
         <td rowspan="4">#{planning.select-session models.planning.Slot.Vendredi_S4_PM_3, planning:planning /}</td>
         <td rowspan="4">#{planning.select-session models.planning.Slot.Vendredi_S5_PM_3, planning:planning /}</td>
     </tr>
     <tr>
         <th>16H30</th>
         <td rowspan="3">#{planning.select-session models.planning.Slot.Vendredi_S1_PM_3, planning:planning /}</td>
-        <td rowspan="3">#{planning.select-session models.planning.Slot.Vendredi_S2_PM_3, planning:planning /}</td>
         <td rowspan="3">#{planning.select-session models.planning.Slot.Vendredi_S3_PM_3, planning:planning /}</td>
     </tr>
     <tr>
