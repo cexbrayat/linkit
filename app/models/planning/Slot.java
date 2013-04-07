@@ -73,7 +73,7 @@ public enum Slot {
     Vendredi_S5_PM_2(LocalDate.parse("2013-04-26"), Room.S5, LocalTime.parse("14:30"), LocalTime.parse("16:00")),
 
     Vendredi_S1_PM_3(LocalDate.parse("2013-04-26"), Room.S1, LocalTime.parse("16:30"), LocalTime.parse("18:00")),
-    Vendredi_S2_PM_3(LocalDate.parse("2013-04-26"), Room.S2, LocalTime.parse("16:30"), LocalTime.parse("18:00")),
+    Vendredi_S2_PM_3(LocalDate.parse("2013-04-26"), Room.S2, LocalTime.parse("16:00"), LocalTime.parse("18:00")),
     Vendredi_S3_PM_3(LocalDate.parse("2013-04-26"), Room.S3, LocalTime.parse("16:30"), LocalTime.parse("18:00")),
     Vendredi_S4_PM_3(LocalDate.parse("2013-04-26"), Room.S4, LocalTime.parse("16:00"), LocalTime.parse("18:00")),
     Vendredi_S5_PM_3(LocalDate.parse("2013-04-26"), Room.S5, LocalTime.parse("16:00"), LocalTime.parse("18:00")),
