@@ -297,7 +297,11 @@ sponsors.forEvent=Sponsors de &{event.%s}
 sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
   <hr/>\
   <p><a href="http://skillsmatter.com/" target="blank"><img src="/public/images/logo-skills-matter.jpg" style="float: left; margin-right: 10px; max-width: 100px" title="Skills Matter"/></a>Mix-IT est partenaire de <a href="http://skillsmatter.com/" target="blank">Skills Matter</a>. Cette société anglaise est connue pour la qualité de ses formations, animées par des experts du sujet, ainsi que pour son engagement dans l'organisation de conférences et d'événements très réguliers.</p>
-sponsors.partners.mixit13=
+sponsors.partners.mixit13=<p>Mix-IT est aussi soutenu par des structures qui communiquent sur l'évènement. On les remercie beaucoup&nbsp;: sans eux, Mix-IT ne serait pas Mix-IT!\
+<div class="row" style="text-align: center">\
+<div class="span8"><a href="http://blog.humancoders.com/post/46250703742/mix-it-levenement-a-ne-pas-rater-sur-lyon" title="Article de Human Coders sur Mix-IT"><img src="@{'/public/images/logo-humancoders.png'}"/></a></div>\
+<div class="span8"><a href="http://afup.org/pages/site/?route=actualites/681/lafup-soutient-la-troisieme-edition-de-mixit" title="Article de l'AFUP sur Mix-IT"><img src="@{'/public/images/logo-afup.png'}"/></a></div>\
+</div></p>
 
 planning.welcome=Accueil & petit-déjeuner
 planning.break=Pause
