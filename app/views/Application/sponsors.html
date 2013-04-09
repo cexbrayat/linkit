@@ -1,6 +1,45 @@
 #{extends 'main.html' /}
 #{set title:'Liste des sponsors' /}
 
+#{set 'moreStyles'}
+
+<style>
+    .sponsor-name {
+        text-align: center;
+        width: 100%;
+    }
+
+    .sponsor {
+        text-align: center;
+    }
+
+    .sponsor hr {
+        margin: auto;
+    }
+    .links {
+        text-align: justify;
+        margin-left: 0px;
+    }
+
+    .member-card {
+        padding: 20px;
+    }
+
+    .sponsor.span6 {
+        width: 300px;
+    }
+
+    .sponsor.span4 {
+        width: 180px;
+    }
+
+    .sponsor.span3 {
+        width: 120px;
+    }
+</style>
+
+#{/set}
+
 <div class='alert-message'>
     &{'sponsors.register'}
 </div>
@@ -8,10 +47,43 @@
 #{if eventSponsors?.size() > 0}
 <h1>&{'sponsors.forEvent', event}</h1>
 
+
+%{
+
+def spanPerLevel = [
+(models.Sponsor.Level.GOLD):"span6",
+(models.Sponsor.Level.SILVER):"span4",
+(models.Sponsor.Level.BRONZE):"span3",
+]
+
+}%
+
 #{list items:models.Sponsor.Level.values(), as:'level'}
     #{if eventSponsors.get(level)}
         <h2>${level.toString().toLowerCase().capFirst()}</h2>
-        #{members members:eventSponsors.get(level) /}
+
+        <div class="row">
+        #{list eventSponsors.get(level), as:'sponsor'}
+            <div class="${spanPerLevel[sponsor.level]} hero-unit member-card sponsor">
+                <a href="@{Profile.show(sponsor.login)}" title="${sponsor}">
+                    <img src="${sponsor.logoUrl}" style="max-width: 100%; max-height: 100%" alt="Logo ${sponsor}" />
+                </a>
+                <h3 class="sponsor-name">${sponsor}</h3>
+                <hr/>
+                #{markdown sponsor.shortDescription /}
+                <div class="row links">
+                    #{list items:sponsor.getOrderedAccounts(), as:'account'}
+                        <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}" href="${account.url()}" rel="twipsy" title="&{'provider.'+account.provider.name()}"></a>
+                    #{/list}
+                    #{if sponsor.sharedLinks}
+                        #{list items:sponsor.sharedLinks, as:'link'}
+                            <a class="sharedLink" href="${link.URL}" rel="twipsy" title="${link.name.escapeHtmlAttr()}" target="_blank"><img src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/></a>
+                        #{/list}
+                    #{/if}
+                </div>
+            </div>
+        #{/list}
+        </div>
     #{/if}
 #{/list}
 #{/if}
