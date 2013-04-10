@@ -2,25 +2,19 @@ package controllers;
 
 import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.*;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
+import com.google.common.collect.Sets;
 import models.*;
-import org.apache.commons.collections.MultiMap;
-import play.Logger;
-
-import java.util.List;
-import java.util.Set;
 import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
+import play.Logger;
 import play.db.jpa.Transactional;
 import play.modules.search.Search;
 import play.templates.JavaExtensions;
 
 import javax.annotation.Nullable;
+import java.util.*;
 
 @Transactional(readOnly = true)
 public class Application extends PageController {
@@ -79,6 +73,9 @@ public class Application extends PageController {
     public static void sponsorsOf(ConferenceEvent event) {
         List<Sponsor> allSponsors = Sponsor.findOn(event);
         // WARNING : "sponsors" is already used as template variable, cf. PageController.loadDefaultData()
+
+        // shuffle sponsors
+        Collections.shuffle(allSponsors);
 
         Multimap<Sponsor.Level, Sponsor> eventSponsors = Multimaps.index(allSponsors, new Function<Sponsor, Sponsor.Level>() {
             @Override
