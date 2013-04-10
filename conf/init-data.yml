@@ -373,6 +373,162 @@ SharedLink(zenikaLink2):
     name: Blog
     URL: http://blog.zenika.com
 
+Sponsor(github):
+    logoUrl: /public/images/logo-github.jpg
+    lastname: Github
+    login: github
+    company: Github
+    email: info@github.com
+    shortDescription : Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github Github
+    badges:
+         - Sponsor
+    level: GOLD
+    events:
+         - mixit13
+
+Sponsor(Gold2):
+    logoUrl: /public/images/logo-cara.png
+    lastname: Gold2
+    login: Gold2
+    company: Gold2
+    email: info@Gold2.com
+    shortDescription : Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2 Gold2
+    badges:
+         - Sponsor
+    level: GOLD
+    events:
+         - mixit13
+
+Sponsor(Silver1):
+    logoUrl: /public/images/logo-elasticsearch.png
+    lastname: Silver1
+    login: Silver1
+    company: Silver1
+    email: info@Silver1.com
+    shortDescription : Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1 Silver1
+    badges:
+         - Sponsor
+    level: SILVER
+    events:
+         - mixit13
+
+Sponsor(Silver2):
+    logoUrl: /public/images/logo-google.png
+    lastname: Silver2
+    login: Silver2
+    company: Silver2
+    email: info@Silver2.com
+    shortDescription : Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2 Silver2
+    badges:
+         - Sponsor
+    level: SILVER
+    events:
+         - mixit13
+
+Sponsor(Silver3):
+    logoUrl: /public/images/logo-od.png
+    lastname: Silver3
+    login: Silver3
+    company: Silver3
+    email: info@Silver3.com
+    shortDescription : Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3 Silver3
+    badges:
+         - Sponsor
+    level: SILVER
+    events:
+         - mixit13
+
+Sponsor(Silver4):
+    logoUrl: /public/images/logo-sonarsource.jpg
+    lastname: Silver4
+    login: Silver4
+    company: Silver4
+    email: info@Silver4.com
+    shortDescription : Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4 Silver4
+    badges:
+         - Sponsor
+    level: SILVER
+    events:
+         - mixit13
+
+Sponsor(Silver5):
+    logoUrl: /public/images/logo-terredagile.jpg
+    lastname: Silver5
+    login: Silver5
+    company: Silver5
+    email: info@Silver5.com
+    shortDescription : Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5 Silver5
+    badges:
+         - Sponsor
+    level: SILVER
+    events:
+         - mixit13
+
+Sponsor(Bronze1):
+    logoUrl: /public/images/logo-elasticsearch.png
+    lastname: Bronze1
+    login: Bronze1
+    company: Bronze1
+    email: info@Bronze1.com
+    shortDescription : Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1 Bronze1
+    badges:
+         - Sponsor
+    level: BRONZE
+    events:
+         - mixit13
+
+Sponsor(Bronze2):
+    logoUrl: /public/images/logo-google.png
+    lastname: Bronze2
+    login: Bronze2
+    company: Bronze2
+    email: info@Bronze2.com
+    shortDescription : Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2 Bronze2
+    badges:
+         - Sponsor
+    level: BRONZE
+    events:
+         - mixit13
+
+Sponsor(Bronze3):
+    logoUrl: /public/images/logo-od.png
+    lastname: Bronze3
+    login: Bronze3
+    company: Bronze3
+    email: info@Bronze3.com
+    shortDescription : Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3 Bronze3
+    badges:
+         - Sponsor
+    level: BRONZE
+    events:
+         - mixit13
+
+Sponsor(Bronze4):
+    logoUrl: /public/images/logo-sonarsource.jpg
+    lastname: Bronze4
+    login: Bronze4
+    company: Bronze4
+    email: info@Bronze4.com
+    shortDescription : Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4 Bronze4
+    badges:
+         - Sponsor
+    level: BRONZE
+    events:
+         - mixit13
+
+Sponsor(Bronze5):
+    logoUrl: /public/images/logo-terredagile.jpg
+    lastname: Bronze5
+    login: Bronze5
+    company: Bronze5
+    email: info@Bronze5.com
+    shortDescription : Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5 Bronze5
+    badges:
+         - Sponsor
+    level: BRONZE
+    events:
+         - mixit13
+
 Talk(talk1):
     event: mixit12
     track: Trendy
