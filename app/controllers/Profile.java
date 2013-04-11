@@ -175,8 +175,6 @@ public class Profile extends PageController {
     }
 
     public static void show(String login) {
-// FIXME CLA Member.fetchForProfile
-//      Member member = Member.fetchForProfile(login);
         Member member = Member.findByLogin(login);
         notFoundIfNull(member);
 
@@ -188,20 +186,20 @@ public class Profile extends PageController {
         render(member, favorites);
     }
 
-    public static String link(String login, String loginToLink) {
-        if (StringUtils.isBlank(login)) Login.index(null);
-        Member.addLink(login, loginToLink);
-        Member member = Member.findByLogin(login);
-        renderArgs.put("_arg", member);
+    public static String link(Long memberId) {
+        notFoundIfNull(memberId);
+        Member member = Member.findById(memberId);
+        notFoundIfNull(member);
+        Member.addLink(Security.connected(), memberId);
+        renderArgs.put("_arg", Member.findByLogin(Security.connected()));
         renderArgs.put("_short", true);
         Template template = TemplateLoader.load(template("tags/member.html"));
-        Logger.info("Template:"+template.render(renderArgs.data));
         return template.render(renderArgs.data);
     }
 
-    public static void unlink(String login, String loginToLink) {
-        if (StringUtils.isBlank(login)) Login.index(null);
-        Member.removeLink(login, loginToLink);
+    public static void unlink(Long memberId) {
+        notFoundIfNull(memberId);
+        Member.removeLink(Security.connected(), memberId);
     }
     
     public static void delete() throws Throwable {

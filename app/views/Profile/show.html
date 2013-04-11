@@ -10,15 +10,15 @@
         offset: 5, placement: 'below'
       })
     });
-    var linkAction = #{jsAction @Profile.link(':linker', ':linked') /};
-    var unlinkAction = #{jsAction @Profile.unlink(':linker', ':linked') /};
+    var linkAction = #{jsAction @Profile.link(':memberId') /};
+    var unlinkAction = #{jsAction @Profile.unlink(':memberId') /};
     var link = function(){
-        $.get(linkAction({linker: '${session.username}', linked: '${member.login}'}), function(data) {
+        $.get(linkAction({memberId: ${member.id}}), function(data) {
             addLinker(data);
         });
     };
     var unlink = function(){
-        $.get(unlinkAction({linker: '${session.username}', linked: '${member.login}'}), function(data) {
+        $.get(unlinkAction({memberId: ${member.id}}), function(data) {
             removeLinker();
         });
     };
