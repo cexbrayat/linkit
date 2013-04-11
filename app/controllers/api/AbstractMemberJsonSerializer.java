@@ -36,9 +36,6 @@ public abstract class AbstractMemberJsonSerializer {
         if (CollectionUtils.isNotEmpty(member.linkers)) {
             result.add("linkers", JSON.toJsonArrayOfIds(member.linkers));
         }
-        if (CollectionUtils.isNotEmpty(member.interests)) {
-            result.add("linkers", JSON.toJsonArrayOfIds(member.interests));
-        }
         if (CollectionUtils.isNotEmpty(member.sharedLinks)) {
             result.add("sharedLinks", jsonSerializationContext.serialize(member.sharedLinks));
         }
