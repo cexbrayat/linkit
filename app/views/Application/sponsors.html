@@ -34,10 +34,30 @@
     }
 
     .sponsor.span3 {
-        width: 120px;
+        width: 130px;
     }
 </style>
 
+#{/set}
+
+#{set 'moreScripts'}
+<script>
+
+    var maxSponsorHeight = function(level) {
+        var maxHeight = Math.max.apply(null, $("div.sponsor.level"+level).map(function ()
+        {
+            return $(this).height();
+        }).get());
+        return maxHeight;
+    }
+
+    $(window).load(function() {
+        $("div.sponsor.levelGOLD").height(maxSponsorHeight('GOLD'));
+        $("div.sponsor.levelSILVER").height(maxSponsorHeight('SILVER'));
+        $("div.sponsor.levelBRONZE").height(maxSponsorHeight('BRONZE'));
+    });
+
+</script>
 #{/set}
 
 <div class='alert-message'>
@@ -64,7 +84,7 @@ def spanPerLevel = [
 
         <div class="row">
         #{list eventSponsors.get(level), as:'sponsor'}
-            <div class="${spanPerLevel[sponsor.level]} hero-unit member-card sponsor">
+            <div class="${spanPerLevel[sponsor.level]} hero-unit member-card sponsor level${level}">
                 <a href="@{Profile.show(sponsor.login)}" title="${sponsor}">
                     <img src="${sponsor.logoUrl}" style="max-width: 100%; max-height: 100%" alt="Logo ${sponsor}" />
                 </a>
