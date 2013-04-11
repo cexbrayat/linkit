@@ -589,3 +589,12 @@ LightningTalk(lt13):
     speakers:
         - agnes
         - cedric
+
+Member(memberTestAccent) :
+    firstname: Cédrïc
+    lastname: Yôlà
+    login: Cédrïc Yôlà
+    email: cedrix@yola.com
+    company : SQLi
+    shortDescription : |
+        J'ai un login avec des accents et je t'emmerde
