@@ -274,16 +274,16 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         }
     }
 
-    public static void addLink(String login, String loginToLink) {
+    public static void addLink(String login, Long idToLink) {
         Member member = Member.findByLogin(login);
-        Member memberToLink = Member.findByLogin(loginToLink);
+        Member memberToLink = Member.findById(idToLink);
         member.addLink(memberToLink);
         member.save();
     }
 
-    public static void removeLink(String login, String loginToUnlink) {
+    public static void removeLink(String login, Long idToUnlink) {
         Member member = Member.findByLogin(login);
-        Member memberToUnlink = Member.findByLogin(loginToUnlink);
+        Member memberToUnlink = Member.findById(idToUnlink);
         member.removeLink(memberToUnlink);
         member.save();
     }

@@ -66,8 +66,8 @@ public class Dashboard extends PageController {
         index();
     }
 
-    public static void link(String loginToLink) {
-        Member.addLink(Security.connected(), loginToLink);
+    public static void link(Long memberId) {
+        Member.addLink(Security.connected(), memberId);
         flash.success("Link ajouté!");
         index();
     }

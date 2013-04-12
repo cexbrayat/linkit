@@ -1,15 +1,14 @@
 package models;
 
-import java.util.Arrays;
-import java.util.List;
-
-import controllers.Application;
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
 import models.mailing.Mailing;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Unit tests for {@link Member} domain object
@@ -68,17 +67,19 @@ public class MemberTest extends BaseDataUnitTest {
     @Test
     public void addLink() {
         Member bob = Member.findByLogin("bob");
+        Member ced = Member.findByLogin("ced");
         final int originalLinksNb = bob.links.size();
-        Member.addLink("bob", "ced");
+        Member.addLink("bob", ced.id);
         assertEquals(originalLinksNb+1, bob.links.size());
     }
     
     @Test
     public void addLinkAlreadyLinked() {
         Member bob = Member.findByLogin("bob");
-        Member.addLink("bob", "ced");
+        Member ced = Member.findByLogin("ced");
+        Member.addLink("bob", ced.id);
         final int linksNb = bob.links.size();
-        Member.addLink("bob", "ced");
+        Member.addLink("bob", ced.id);
         assertEquals(linksNb, bob.links.size());
     }
     
@@ -86,15 +87,16 @@ public class MemberTest extends BaseDataUnitTest {
     public void addLinkMyself() {
         Member bob = Member.findByLogin("bob");
         final int linksNb = bob.links.size();
-        Member.addLink("bob", "bob");
+        Member.addLink("bob", bob.id);
         assertEquals(linksNb, bob.links.size());
     }
 
     @Test
     public void isLinkedTo() {
         Member bob = Member.findByLogin("bob");
+        Member ced = Member.findByLogin("ced");
         assertFalse(bob.isLinkedTo("ced"));
-        Member.addLink("bob", "ced");
+        Member.addLink("bob", ced.id);
         assertTrue(bob.isLinkedTo("ced"));
     }
 
@@ -103,7 +105,7 @@ public class MemberTest extends BaseDataUnitTest {
         Member ced = Member.findByLogin("ced");
         final int originalLinkersNb = ced.linkers.size();
         assertFalse(ced.hasForLinker("bob"));
-        Member.addLink("bob", "ced");
+        Member.addLink("bob", ced.id);
         assertEquals(originalLinkersNb+1, ced.linkers.size());
         assertTrue(ced.hasForLinker("bob"));
     }
