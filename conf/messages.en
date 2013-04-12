@@ -187,6 +187,8 @@ article.content=Content
 article.content.note=Required. The content of your article.<br/>&{markdown.note}
 
 # Email LinkIT
+email.email=Your email
+email.email.note=Required, because we have to answer.
 email.subject=Subject
 email.subject.note=Required
 email.message=Message

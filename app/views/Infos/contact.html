@@ -12,18 +12,29 @@
 <h1>Envoi d'un message à l'organisation</h1>
 
 #{form @Infos.send()}
-<fieldset> 
-    #{field 'email.subject'}
-    <div class="clearfix ${field.error?'error':''}"> 
-        <label for="${field.name}">&{field.name}</label> 
-        <div class="input span8"> 
-            <input class="span8" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" /> 
-            <span class="help-block">${field.error}</span>
-            <span class="help-block">&{field.name+".note"}</span>
-        </div> 
-    </div><!-- /clearfix -->
+<fieldset>
+
+    #{field 'email.email'}
+        <div class="clearfix ${field.error?'error':''}">
+            <label for="${field.name}">&{field.name}</label>
+            <div class="input span8">
+                <input class="span8" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" />
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
+        </div><!-- /clearfix -->
     #{/}
 
+    #{field 'email.subject'}
+    <div class="clearfix ${field.error?'error':''}">
+        <label for="${field.name}">&{field.name}</label>
+        <div class="input span8">
+            <input class="span8" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" />
+            <span class="help-block">${field.error}</span>
+            <span class="help-block">&{field.name+".note"}</span>
+        </div>
+    </div><!-- /clearfix -->
+    #{/}
 
     #{field 'email.message'}
     <div class="clearfix ${field.error?'error':''}"> 
