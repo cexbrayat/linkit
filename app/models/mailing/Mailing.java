@@ -14,6 +14,7 @@ import javax.persistence.Query;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import models.Member;
+import play.data.validation.Email;
 import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.db.jpa.JPA;
@@ -33,6 +34,9 @@ public class Mailing extends Model {
     @Required
     @Valid
     public String subject;
+
+    // Not mandatory : only used in contact from website
+    public String email;
 
     /** Markdown enabled */
     @Lob

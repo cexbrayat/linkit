@@ -1,6 +1,6 @@
 -------------------------------
 #{if email.from}
-L'utilisateur ${email.from} de login ${email.from}
+L'utilisateur ${email.from} de login ${email.from.login}
 #{/if}
 #{else}
 Un utilisateur non connecté

@@ -1,14 +1,13 @@
 package controllers;
 
-import java.util.List;
-
 import models.*;
 import models.mailing.Mailing;
 import models.mailing.MailingStatus;
 import models.mailing.MembersSet;
 import play.Logger;
 import play.data.validation.Validation;
-import play.i18n.Messages;
+
+import java.util.List;
 
 public class Infos extends PageController {
 
@@ -30,7 +29,10 @@ public class Infos extends PageController {
     }
     
     public static void contact() {
-        render();
+        Mailing email = new Mailing();
+        email.from = Member.findByLogin(Security.connected());
+        email.email = (email.from != null) ? email.from.email : null;
+        render(email);
     }
     public static void acces() {
         render();
@@ -54,9 +56,10 @@ public class Infos extends PageController {
         email.recipients = MembersSet.Staff;
         email.from = from;
         validation.valid(email);
+        validation.required("email.email", email.email);
+        validation.email("email.email", email.email);
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
-            flash.error(Messages.get("validation.errors"));
             render("Infos/contact.html", email);
         }
         email.save();
