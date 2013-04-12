@@ -145,6 +145,7 @@
                                 <li #{if request.controller=="Dashboard"}class="active"#{/if}><a href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
                                 <li><a href="@{Profile.show(session.username)}">&{'menu.login.profile'}</a></li>
                                 <li><a href="@{Profile.edit()}">&{'menu.login.edit'}</a></li>
+                                <li><a href="@{Dashboard.trombinoscope()}">&{'menu.login.trombinoscope'}</a></li>
                                 <li><a href="@{Dashboard.settings()}">&{'menu.login.settings'}</a></li>
                                 <li class="divider"></li>
                                 <li><a href="@{Secure.logout()}">&{'menu.login.logout'}</a></li>

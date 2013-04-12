@@ -33,6 +33,7 @@ menu.search=Search
 menu.login=Login
 menu.login.profile=See my profile
 menu.login.edit=Update my profile
+menu.login.trombinoscope=My rogue's gallery
 menu.login.settings=My settings
 menu.login.logout=Logout
 
