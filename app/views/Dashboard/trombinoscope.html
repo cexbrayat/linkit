@@ -1,0 +1,57 @@
+#{extends 'main.html' /}
+#{set title:'Mon trombinoscope' /}
+
+#{set 'moreStyles'}
+
+<style>
+
+    .trombi {
+        padding: 10px;
+        width: 150px;
+        height: 195px;
+        margin-left: 10px;
+        margin-bottom: 20px;
+    }
+    .member-name {
+        text-align: center;
+        vertical-align: middle;
+        font-size: 14px;
+        line-height: 15px;
+        height: 45px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+</style>
+
+#{/set}
+
+#{if links}
+
+<div class="row">
+#{list items:links, as:'link'}
+
+    <div class="span3 trombi hero-unit member-card">
+        #{gravatar.img link.email, size:150, class:'img-rounded' /}
+        <h2 class="member-name">
+            ${link.firstname}<br/>
+            ${link.lastname}<br/>
+            #{if link.twitterAccount}
+                @${link.twitterAccount?.screenName}
+            #{/if}
+        </h2>
+    </div>
+
+#{/list}
+</div>
+#{/if}
+#{else}
+
+    Oh non! Vous ne suivez personne qui a acheté son ticket!
+    #{if !member.ticketingRegistered}
+        Vous non plus, d'ailleurs, vous n'avez pas acheté le vôtre...
+    #{/if}
+
+#{/else}

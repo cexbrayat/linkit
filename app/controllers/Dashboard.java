@@ -74,7 +74,7 @@ public class Dashboard extends PageController {
 
     public static void trombinoscope() {
         Member member = Member.findByLogin(Security.connected());
-        List<Member> members = Member.findRegisteredLinkMembersOf(member);
-        render(members);
+        List<Member> links = Member.findRegisteredLinkMembersOf(member);
+        render(member, links);
     }
 }
