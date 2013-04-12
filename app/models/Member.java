@@ -618,4 +618,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
                 .append(Codec.hexMD5(email))
                 .toString();
     }
+
+    public static List<Member> findRegisteredLinkMembersOf(Member member) {
+        return find("select distinct l from Member m inner join m.links l where m = ? and l.ticketingRegistered = true order by l.lastname, l.firstname", member).fetch();
+    }
+
 }

@@ -71,4 +71,10 @@ public class Dashboard extends PageController {
         flash.success("Link ajouté!");
         index();
     }
+
+    public static void trombinoscope() {
+        Member member = Member.findByLogin(Security.connected());
+        List<Member> members = Member.findRegisteredLinkMembersOf(member);
+        render(members);
+    }
 }
