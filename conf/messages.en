@@ -313,6 +313,7 @@ sponsors.supporters.mixit13=<p>Mix-IT is also supported by organisations who com
                             <div class="span6 offset1"><a href="http://afup.org/pages/site/?route=actualites/681/lafup-soutient-la-troisieme-edition-de-mixit" title="Article de l'AFUP sur Mix-IT"><img src="/public/images/logo-afup.png" style="max-width: 100px"/></a></div>\
                             </div></p>
 
+planning.room=%1$s room
 planning.welcome=Welcome & breakfast
 planning.break=Break
 planning.lunch=Lunch
