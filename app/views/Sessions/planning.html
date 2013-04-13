@@ -49,11 +49,11 @@
     <thead>
         <tr>
             <th></th>
-            <th>Salle Gosling</th>
-            <th>Salle Eich</th>
-            <th>Salle Nonaka</th>
-            <th>Salle Dijkstra</th>
-            <th>Salle Turing</th>
+            <th>&{'planning.room', models.planning.Room.S1 }</th>
+            <th>&{'planning.room', models.planning.Room.S2 }</th>
+            <th>&{'planning.room', models.planning.Room.S3 }</th>
+            <th>&{'planning.room', models.planning.Room.S4 }</th>
+            <th>&{'planning.room', models.planning.Room.S5 }</th>
         </tr>
     </thead>
     <tbody>
@@ -102,7 +102,8 @@
         </tr>
         <tr>
             <th class="hour">13H00</th>
-            <td colspan="3" class="intermede">#{a @LightningTalks.listOn(models.ConferenceEvent.mixit13)}Ligthning Talks#{/a}</td>
+            <td class="intermede">#{a @LightningTalks.listOn(models.ConferenceEvent.mixit13)}Ligthning Talks#{/a}</td>
+            <td colspan="2" class="intermede">&{'planning.lunch'}</td>
             <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S4_PM_1) /}</td>
             <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S5_PM_1) /}</td>
         </tr>
@@ -167,11 +168,11 @@ Et tout au long de la journée :
     <thead>
     <tr>
         <th></th>
-        <th>Salle Gosling</th>
-        <th>Salle Eich</th>
-        <th>Salle Nonaka</th>
-        <th>Salle Dijkstra</th>
-        <th>Salle Turing</th>
+        <th>&{'planning.room', models.planning.Room.S1 }</th>
+        <th>&{'planning.room', models.planning.Room.S2 }</th>
+        <th>&{'planning.room', models.planning.Room.S3 }</th>
+        <th>&{'planning.room', models.planning.Room.S4 }</th>
+        <th>&{'planning.room', models.planning.Room.S5 }</th>
     </tr>
     </thead>
     <tbody>
@@ -220,7 +221,8 @@ Et tout au long de la journée :
     </tr>
     <tr>
         <th class="hour">13H00</th>
-        <td colspan="3" class="intermede">#{a @LightningTalks.listOn(models.ConferenceEvent.mixit13)}Ligthning Talks#{/a}</td>
+        <td class="intermede">#{a @LightningTalks.listOn(models.ConferenceEvent.mixit13)}Ligthning Talks#{/a}</td>
+        <td colspan="2" class="intermede">&{'planning.lunch'}</td>
         <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S4_PM_1) /}</td>
         <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S5_PM_1) /}</td>
     </tr>
