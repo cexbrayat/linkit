@@ -315,3 +315,7 @@ planning.room=Salle %1$s
 planning.welcome=Accueil & petit-déjeuner
 planning.break=Pause
 planning.lunch=Déjeuner
+
+trombinoscope.title=Mon trombinoscope
+trombinoscope.noRegisteredLinks=Oh non! Vous ne suivez personne qui a acheté son ticket!
+trombinoscope.notRegistered=Vous non plus, d'ailleurs, vous n'avez pas acheté le vôtre...

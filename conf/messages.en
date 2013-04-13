@@ -33,7 +33,7 @@ menu.search=Search
 menu.login=Login
 menu.login.profile=See my profile
 menu.login.edit=Update my profile
-menu.login.trombinoscope=My rogue's gallery
+menu.login.trombinoscope=My attendees' gallery
 menu.login.settings=My settings
 menu.login.logout=Logout
 
@@ -317,3 +317,7 @@ planning.room=%1$s room
 planning.welcome=Welcome & breakfast
 planning.break=Break
 planning.lunch=Lunch
+
+trombinoscope.title=My attendees' gallery
+trombinoscope.noRegisteredLinks=Oh noes! You follow nobody who bought a ticket!
+trombinoscope.notRegistered=You neither, you didn't even buy a ticket...
