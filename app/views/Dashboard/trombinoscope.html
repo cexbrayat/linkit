@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Mon trombinoscope' /}
+#{set title:messages.get('trombinoscope.title') /}
 
 #{set 'moreStyles'}
 
@@ -34,7 +34,7 @@
 #{list items:links, as:'link'}
 
     <div class="span3 trombi hero-unit member-card">
-        #{gravatar.img link.email, size:150, class:'img-rounded' /}
+        #{a @Profile.show(link.login)}#{gravatar.img link.email, size:150, class:'img-rounded' /}#{/a}
         <h2 class="member-name">
             ${link.firstname}<br/>
             ${link.lastname}<br/>
@@ -49,9 +49,11 @@
 #{/if}
 #{else}
 
-    Oh non! Vous ne suivez personne qui a acheté son ticket!
-    #{if !member.ticketingRegistered}
-        Vous non plus, d'ailleurs, vous n'avez pas acheté le vôtre...
-    #{/if}
+    <div class='alert-message'>
+        &{'trombinoscope.noRegisteredLinks'}
+        #{if !member.ticketingRegistered}
+            &{'trombinoscope.notRegistered'}
+        #{/if}
+    </div>
 
 #{/else}
