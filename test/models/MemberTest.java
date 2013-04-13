@@ -1,5 +1,6 @@
 package models;
 
+import com.google.common.collect.Lists;
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
@@ -132,7 +133,27 @@ public class MemberTest extends BaseDataUnitTest {
     protected static Member createMember(final String login) {
         return new Member(login).save();
     }
-    
+
+    @Test
+    public void findRegisteredLinkMembersOf() throws Exception {
+        Member member = createMember("test");
+        Member linked1 = createMember("linked1");
+        Member linked2 = createMember("linked2");
+        Member linked3 = createMember("linked3");
+        member.addLink(linked1); member.addLink(linked2); member.addLink(linked3);
+        member.save();
+
+        linked1.ticketingRegistered = true;
+        linked1.lastname = "ZZZ";
+        linked1.save();
+
+        linked3.ticketingRegistered = true;
+        linked3.lastname = "AAA";
+        linked3.save();
+
+        assertEquals(Lists.newArrayList(linked3, linked1), Member.findRegisteredLinkMembersOf(member));
+    }
+
     @Test
     public void testAddAccount() {
         final String login = "toto";
