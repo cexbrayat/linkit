@@ -34,7 +34,7 @@
 #{list items:links, as:'link'}
 
     <div class="span3 trombi hero-unit member-card">
-        #{gravatar.img link.email, size:150, class:'img-rounded' /}
+        #{a @Profile.show(link.login)}#{gravatar.img link.email, size:150, class:'img-rounded' /}#{/a}
         <h2 class="member-name">
             ${link.firstname}<br/>
             ${link.lastname}<br/>
