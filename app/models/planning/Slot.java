@@ -11,18 +11,18 @@ import org.joda.time.format.DateTimeFormatter;
 public enum Slot {
 
     // Jeudi
-    Jeudi_Keynote_AM(LocalDate.parse("2013-04-25"), Room.S1, LocalTime.parse("09:00"), LocalTime.parse("09:30")),
-    Jeudi_S1_AM_1(LocalDate.parse("2013-04-25"), Room.S1, LocalTime.parse("09:30"), LocalTime.parse("10:30")),
-    Jeudi_S2_AM_1(LocalDate.parse("2013-04-25"), Room.S2, LocalTime.parse("09:30"), LocalTime.parse("10:30")),
-    Jeudi_S3_AM_1(LocalDate.parse("2013-04-25"), Room.S3, LocalTime.parse("09:30"), LocalTime.parse("10:30")),
-    Jeudi_S4_AM_1(LocalDate.parse("2013-04-25"), Room.S4, LocalTime.parse("09:30"), LocalTime.parse("11:00")),
-    Jeudi_S5_AM_1(LocalDate.parse("2013-04-25"), Room.S5, LocalTime.parse("09:30"), LocalTime.parse("11:00")),
+    Jeudi_Keynote_AM(LocalDate.parse("2013-04-25"), Room.S1, LocalTime.parse("09:00"), LocalTime.parse("09:20")),
+    Jeudi_S1_AM_1(LocalDate.parse("2013-04-25"), Room.S1, LocalTime.parse("09:45"), LocalTime.parse("10:45")),
+    Jeudi_S2_AM_1(LocalDate.parse("2013-04-25"), Room.S2, LocalTime.parse("09:45"), LocalTime.parse("10:45")),
+    Jeudi_S3_AM_1(LocalDate.parse("2013-04-25"), Room.S3, LocalTime.parse("09:45"), LocalTime.parse("10:45")),
+    Jeudi_S4_AM_1(LocalDate.parse("2013-04-25"), Room.S4, LocalTime.parse("09:45"), LocalTime.parse("11:15")),
+    Jeudi_S5_AM_1(LocalDate.parse("2013-04-25"), Room.S5, LocalTime.parse("09:45"), LocalTime.parse("11:15")),
 
-    Jeudi_S1_AM_2(LocalDate.parse("2013-04-25"), Room.S1, LocalTime.parse("11:00"), LocalTime.parse("12:00")),
-    Jeudi_S2_AM_2(LocalDate.parse("2013-04-25"), Room.S2, LocalTime.parse("11:00"), LocalTime.parse("12:00")),
-    Jeudi_S3_AM_2(LocalDate.parse("2013-04-25"), Room.S3, LocalTime.parse("11:00"), LocalTime.parse("12:00")),
-    Jeudi_S4_AM_2(LocalDate.parse("2013-04-25"), Room.S4, LocalTime.parse("11:00"), LocalTime.parse("12:30")),
-    Jeudi_S5_AM_2(LocalDate.parse("2013-04-25"), Room.S5, LocalTime.parse("11:00"), LocalTime.parse("12:30")),
+    Jeudi_S1_AM_2(LocalDate.parse("2013-04-25"), Room.S1, LocalTime.parse("11:15"), LocalTime.parse("12:15")),
+    Jeudi_S2_AM_2(LocalDate.parse("2013-04-25"), Room.S2, LocalTime.parse("11:15"), LocalTime.parse("12:15")),
+    Jeudi_S3_AM_2(LocalDate.parse("2013-04-25"), Room.S3, LocalTime.parse("11:15"), LocalTime.parse("12:15")),
+    Jeudi_S4_AM_2(LocalDate.parse("2013-04-25"), Room.S4, LocalTime.parse("11:15"), LocalTime.parse("12:45")),
+    Jeudi_S5_AM_2(LocalDate.parse("2013-04-25"), Room.S5, LocalTime.parse("11:15"), LocalTime.parse("12:45")),
 
     Jeudi_S1_PM_1(LocalDate.parse("2013-04-25"), Room.S1, LocalTime.parse("13:30"), LocalTime.parse("14:30")),
     Jeudi_S2_PM_1(LocalDate.parse("2013-04-25"), Room.S2, LocalTime.parse("13:30"), LocalTime.parse("14:30")),
