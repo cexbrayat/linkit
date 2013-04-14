@@ -317,5 +317,8 @@ planning.break=Pause
 planning.lunch=Déjeuner
 
 trombinoscope.title=Mon trombinoscope
+trombinoscope.intro=Qu'est-ce que c'est?<br/>\
+  Ce sont les avatars des personnes que vous avez liées sur le site, et qui ont acheté un ticket pour Mix-IT 2013.<br/>\
+  Donc les gens que vous auriez envie de croiser le jour de la conférence.
 trombinoscope.noRegisteredLinks=Oh non! Vous ne suivez personne qui a acheté son ticket!
 trombinoscope.notRegistered=Vous non plus, d'ailleurs, vous n'avez pas acheté le vôtre...

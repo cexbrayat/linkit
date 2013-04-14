@@ -1,6 +1,10 @@
 #{extends 'main.html' /}
 #{set title:messages.get('trombinoscope.title') /}
 
+#{set 'moreScripts'}
+    <script src="@{'/public/javascripts/bootstrap-alerts.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+#{/set}
+
 #{set 'moreStyles'}
 
 <style>
@@ -27,6 +31,13 @@
 </style>
 
 #{/set}
+
+<div class="alert-message info" data-alert>
+    <a class="close" href="#">×</a>
+    <p>
+        &{'trombinoscope.intro'}
+    </p>
+</div>
 
 #{if links}
 
