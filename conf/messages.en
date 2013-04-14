@@ -319,5 +319,8 @@ planning.break=Break
 planning.lunch=Lunch
 
 trombinoscope.title=My attendees' gallery
+trombinoscope.intro=What is it?<br/>\
+  There are pictures of members you have linked on this site, and who bought a ticket for Mix-IT 2013.<br/>\
+  So it's people you're likely to want to meet on the conference showfloor.
 trombinoscope.noRegisteredLinks=Oh noes! You follow nobody who bought a ticket!
 trombinoscope.notRegistered=In fact, you neither didn't even buy a ticket...
