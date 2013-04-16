@@ -25,6 +25,9 @@ public abstract class SessionJsonSerializer {
         result.addProperty("title", session.title);
         result.addProperty("summary", session.summary);
         result.addProperty("description", session.description);
+        if (session.lang != null) {
+            result.addProperty("language", session.lang.toString());
+        }
 
         if (CollectionUtils.isNotEmpty(session.interests)) {
             if (details) {
