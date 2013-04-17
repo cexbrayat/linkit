@@ -18,8 +18,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.hibernate.annotations.IndexColumn;
 import play.Logger;
-import play.data.validation.MaxSize;
-import play.data.validation.Required;
+import play.data.validation.*;
 import play.db.jpa.Model;
 
 import javax.persistence.*;
@@ -28,8 +27,6 @@ import java.util.List;
 import models.mailing.Mailing;
 import org.apache.commons.lang.WordUtils;
 import play.Play;
-import play.data.validation.Email;
-import play.data.validation.Valid;
 import play.libs.Codec;
 import play.modules.search.Field;
 import play.modules.search.Indexed;
@@ -64,19 +61,24 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     static final String QUERY_BYLOGIN = "MemberByLogin";
     static final String QUERY_FORPROFILE = "MemberForProfile";
+    public static final String LOGIN_NOT_NUMERIC_PATTERN = "(?!^\\d+$)^.+$";
 
     static final String CACHE_ACCOUNT_PREFIX = "account_";
-    
+
     static final char[] CHAR_DELIMITER_NAME = {'-',' ','_','.'};
-    
+
     static final int JOBS_DELAY_AFTER_UPDATE = Integer.valueOf(Play.configuration.getProperty("linkit.job.delayAfterMemberUpdate", "2"));
-    
+
+
     /**
      * Internal login : functional key
      */
     @Column(nullable = false, unique = true, updatable = true)
     @IndexColumn(name = "login_UK_IDX", nullable = false)
     @Required
+    // Avoid numeric-only login
+    // numeric value is used by API /api/members/id to search by ID, instead of by login
+    @Match( value = LOGIN_NOT_NUMERIC_PATTERN, message = "error.notNumeric")  // Numérique interdit
     public String login;
 
     @Required

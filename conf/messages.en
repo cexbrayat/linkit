@@ -287,6 +287,7 @@ validation.url=This URL is invalid
 validation.unique=Value of this field %s already used by another member %s
 validation.googleID=This is not a valid Google ID
 validation.timezone=This does not match a valid clock time
+validation.notNumeric=This field can't receive a numeric value
 
 # Events
 event.mixit12=Mix-IT 2012
