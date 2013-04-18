@@ -7,6 +7,7 @@ import models.auth.TwitterOAuthAccount;
 import models.mailing.Mailing;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+import play.data.validation.Validation;
 
 import java.util.Arrays;
 import java.util.List;
@@ -475,5 +476,11 @@ public class MemberTest extends BaseDataUnitTest {
 
         //le membre est fan de la session
         assertTrue(t.hasVoteFrom(m.login));
+    }
+
+    @Test
+    public void loginShouldNotBeNumeric() {
+        Validation.valid("member", createMember("1234"));
+        assertTrue(Validation.hasError("member.login"));
     }
 }

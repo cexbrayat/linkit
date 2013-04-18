@@ -4,10 +4,7 @@ import models.*;
 import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
-import play.data.validation.CheckWith;
-import play.data.validation.Email;
-import play.data.validation.MaxSize;
-import play.data.validation.Required;
+import play.data.validation.*;
 import play.i18n.Messages;
 import play.mvc.With;
 import play.templates.Template;
@@ -56,7 +53,15 @@ public class Profile extends PageController {
         return result;
     }
     
-    public static void save(Long id, @Required String originalLogin, @Required String login, @Required String firstname, @Required String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription,
+    public static void save(
+            Long id,
+            @Required String originalLogin,
+            @Required @Match( value = Member.LOGIN_NOT_NUMERIC_PATTERN, message = "validation.notNumeric") String login,
+            @Required String firstname,
+            @Required String lastname,
+            String company,
+            @Required @Email String email,
+            @Required @MaxSize(140) String shortDescription, String longDescription,
             String twitterName, @CheckWith(GoogleIDCheck.class) String googlePlusId,
             String[] interests, String newInterests,
             List<SharedLink> sharedLinks) {
