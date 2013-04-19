@@ -49,6 +49,15 @@ public class ApiMembers extends JsonpController {
 
     public static void member(long id, boolean details) {
         Member member = Member.findById(id);
+        member(member, details);
+    }
+
+    public static void memberByLogin(String login, boolean details) {
+        Member member = Member.findByLogin(login);
+        member(member, details);
+    }
+
+    private static void member(Member member, boolean details) {
         notFoundIfNull(member);
         renderJSON(member, getSerializers(details));
     }
@@ -59,6 +68,15 @@ public class ApiMembers extends JsonpController {
 
     public static void favorites(long memberId) {
         Member member = Member.findById(memberId);
+        favorites(member);
+    }
+
+    public static void favoritesByLogin(String memberLogin) {
+        Member member = Member.findByLogin(memberLogin);
+        favorites(member);
+    }
+
+    private static void favorites(Member member) {
         notFoundIfNull(member);
         List<Talk> favorites = Vote.findFavoriteTalksByMemberOn(member, ConferenceEvent.CURRENT);
         renderJSON(favorites, TALK_SERIALIZERS);

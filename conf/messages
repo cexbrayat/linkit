@@ -285,6 +285,7 @@ validation.url=Ce n'est pas une URL valide
 validation.unique=La valeur du champ %s est déjà utilisée par l'utilisateur %s
 validation.googleID=Ce n'est pas à un Google ID valide
 validation.timezone=Cela ne correspond pas à un fuseau horaire connu
+validation.notNumeric=Ce champ ne peut contenir une valeur numérique.
 
 # Events
 event.mixit12=Mix-IT 2012
