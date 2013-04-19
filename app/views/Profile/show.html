@@ -82,15 +82,6 @@
     </div>
     <br/><br/>
 
-    #{secure.check models.Role.ADMIN_SESSION}
-    <div class="alert-message block-message info">
-        <h4>Staff</h4>
-        <p>
-            Email : ${member.email}
-        </p>
-    </div>
-    #{/secure.check}
-
     <div class="row">
         <div class="span6 offset1">
             <h3>${member.links.size()} #{if member.links.size()<=1} link #{/if}
@@ -238,4 +229,17 @@
             </div>
         </div>
     </div>
+
+    #{secure.check models.Role.ADMIN_SESSION}
+    <br/><br/>
+    <div class="row">
+        <div class="alert-message block-message info">
+            <h4>Staff</h4>
+            <p>
+                Email : ${member.email}
+            </p>
+        </div>
+    </div>
+    #{/secure.check}
+
 </div>
