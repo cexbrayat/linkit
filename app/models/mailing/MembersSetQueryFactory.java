@@ -30,6 +30,9 @@ public class MembersSetQueryFactory {
             case FailedSpeakers:
                 query = new MembersSetQueryFailedSpeakers();
                 break;
+            case LTSpeakers:
+                query = new MembersSetQueryLTSpeakers();
+                break;
         }
         return query;
     }

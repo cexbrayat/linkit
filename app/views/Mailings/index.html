@@ -51,7 +51,7 @@
                     <a class="btn primary" href="@{Mailings.show(mailing.id)}" title="Consulter">Consulter</a>
                     #{if mailing.isUpdatable()}
                     <a class="btn" href="@{Mailings.edit(mailing.id)}" title="Editer">Editer</a>
-                    <a class="btn danger" href="@{Mailings.cancel(mailing.id)}" title="Annuler">Annuler</a>
+                    <a class="btn danger" href="@{Mailings.delete(mailing.id)}" title="Supprimer">Supprimer</a>
                     <a class="btn danger" href="@{Mailings.send(mailing.id)}" title="Envoyer">Envoyer</a>
                     #{/if}
                 </td>

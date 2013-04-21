@@ -30,6 +30,11 @@ public class Exports extends PageController {
         renderTemplate("Exports/members.csv", members);
     }
 
+    public static void exportSpeakersLightningTalk() {
+        List<Member> members = LightningTalk.findAllSpeakersOn(ConferenceEvent.CURRENT);
+        renderTemplate("Exports/members.csv", members);
+    }
+
     public static void exportMembers() {
         List<Member> members = Member.find("order by lastname").fetch();
         renderTemplate("Exports/members.csv", members);
