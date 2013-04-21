@@ -1,14 +1,15 @@
 package controllers;
 
-import java.util.Date;
-import java.util.List;
-import models.mailing.Mailing;
 import models.Member;
 import models.Role;
+import models.mailing.Mailing;
 import play.Logger;
 import play.data.validation.Validation;
 import play.i18n.Messages;
 import play.mvc.With;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -63,13 +64,13 @@ public class Mailings extends PageController {
         index();
     }
     
-    public static void cancel(long mailingId) {
+    public static void delete(long mailingId) {
         Mailing mailing = Mailing.findById(mailingId);
         if (mailing.isUpdatable()) {
-            mailing.cancel();
-            flash.success("L'envoi du mailing \"%s\" a bien été annulé.", mailing);
+            mailing.delete();
+            flash.success("Le mailing \"%s\" a été supprimé.", mailing);
         } else {
-            flash.error("Le mailing \"%s\" ne peut pas être annulé : son envoi a déjà commencé", mailing);
+            flash.error("Le mailing \"%s\" ne peut pas être supprimé : son envoi a déjà commencé", mailing);
         }
         index();
     }
