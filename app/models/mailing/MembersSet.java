@@ -18,5 +18,7 @@ public enum MembersSet {
     /** Member with validated talk */
     Speakers,
     /** Member with non-validated talk */
-    FailedSpeakers;
+    FailedSpeakers,
+    /** Member having proposed a Lightning Talk */
+    LTSpeakers;
 }

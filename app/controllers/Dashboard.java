@@ -66,9 +66,15 @@ public class Dashboard extends PageController {
         index();
     }
 
-    public static void link(String loginToLink) {
-        Member.addLink(Security.connected(), loginToLink);
+    public static void link(Long memberId) {
+        Member.addLink(Security.connected(), memberId);
         flash.success("Link ajouté!");
         index();
+    }
+
+    public static void trombinoscope() {
+        Member member = Member.findByLogin(Security.connected());
+        List<Member> links = Member.findRegisteredLinkMembersOf(member);
+        render(member, links);
     }
 }

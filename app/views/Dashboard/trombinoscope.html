@@ -1,0 +1,70 @@
+#{extends 'main.html' /}
+#{set title:messages.get('trombinoscope.title') /}
+
+#{set 'moreScripts'}
+    <script src="@{'/public/javascripts/bootstrap-alerts.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+#{/set}
+
+#{set 'moreStyles'}
+
+<style>
+
+    .trombi {
+        padding: 10px;
+        width: 150px;
+        height: 195px;
+        margin-left: 10px;
+        margin-bottom: 20px;
+    }
+    .member-name {
+        text-align: center;
+        vertical-align: middle;
+        font-size: 14px;
+        line-height: 15px;
+        height: 45px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+</style>
+
+#{/set}
+
+<div class="alert-message info" data-alert>
+    <a class="close" href="#">×</a>
+    <p>
+        &{'trombinoscope.intro'}
+    </p>
+</div>
+
+#{if links}
+
+<div class="row">
+#{list items:links, as:'link'}
+
+    <div class="span3 trombi hero-unit member-card">
+        #{a @Profile.show(link.login)}#{gravatar.img link.email, size:150, class:'img-rounded' /}#{/a}
+        <h2 class="member-name">
+            ${link.firstname}<br/>
+            ${link.lastname}<br/>
+            #{if link.twitterAccount}
+                @${link.twitterAccount?.screenName}
+            #{/if}
+        </h2>
+    </div>
+
+#{/list}
+</div>
+#{/if}
+#{else}
+
+    <div class='alert-message'>
+        &{'trombinoscope.noRegisteredLinks'}
+        #{if !member.ticketingRegistered}
+            &{'trombinoscope.notRegistered'}
+        #{/if}
+    </div>
+
+#{/else}

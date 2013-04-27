@@ -1,12 +1,11 @@
 package models;
 
 import helpers.JavaExtensions;
-import play.Logger;
-
-import javax.persistence.*;
-import java.util.List;
 import play.modules.search.Indexed;
 import play.mvc.Router;
+
+import javax.persistence.Entity;
+import java.util.List;
 
 /**
  * @author Julien Ripault <tluapir@gmail.com>
@@ -23,6 +22,10 @@ public class LightningTalk extends Session {
 
     public static List<LightningTalk> findAllOn(ConferenceEvent event) {
         return find("event = ?", event).fetch();
+    }
+
+    public static List<Member> findAllSpeakersOn(ConferenceEvent event) {
+        return find("select distinct s from LightningTalk t inner join t.speakers s where t.event = ? order by s.lastname", event).fetch();
     }
 
     @Override

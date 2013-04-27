@@ -4,10 +4,7 @@ import models.*;
 import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
-import play.data.validation.CheckWith;
-import play.data.validation.Email;
-import play.data.validation.MaxSize;
-import play.data.validation.Required;
+import play.data.validation.*;
 import play.i18n.Messages;
 import play.mvc.With;
 import play.templates.Template;
@@ -56,7 +53,15 @@ public class Profile extends PageController {
         return result;
     }
     
-    public static void save(Long id, @Required String originalLogin, @Required String login, @Required String firstname, @Required String lastname, String company, @Required @Email String email, @Required @MaxSize(140) String shortDescription, String longDescription,
+    public static void save(
+            Long id,
+            @Required String originalLogin,
+            @Required @Match( value = Member.LOGIN_NOT_NUMERIC_PATTERN, message = "validation.notNumeric") String login,
+            @Required String firstname,
+            @Required String lastname,
+            String company,
+            @Required @Email String email,
+            @Required @MaxSize(140) String shortDescription, String longDescription,
             String twitterName, @CheckWith(GoogleIDCheck.class) String googlePlusId,
             String[] interests, String newInterests,
             List<SharedLink> sharedLinks) {
@@ -175,8 +180,6 @@ public class Profile extends PageController {
     }
 
     public static void show(String login) {
-// FIXME CLA Member.fetchForProfile
-//      Member member = Member.fetchForProfile(login);
         Member member = Member.findByLogin(login);
         notFoundIfNull(member);
 
@@ -188,20 +191,20 @@ public class Profile extends PageController {
         render(member, favorites);
     }
 
-    public static String link(String login, String loginToLink) {
-        if (StringUtils.isBlank(login)) Login.index(null);
-        Member.addLink(login, loginToLink);
-        Member member = Member.findByLogin(login);
-        renderArgs.put("_arg", member);
+    public static String link(Long memberId) {
+        notFoundIfNull(memberId);
+        Member member = Member.findById(memberId);
+        notFoundIfNull(member);
+        Member.addLink(Security.connected(), memberId);
+        renderArgs.put("_arg", Member.findByLogin(Security.connected()));
         renderArgs.put("_short", true);
         Template template = TemplateLoader.load(template("tags/member.html"));
-        Logger.info("Template:"+template.render(renderArgs.data));
         return template.render(renderArgs.data);
     }
 
-    public static void unlink(String login, String loginToLink) {
-        if (StringUtils.isBlank(login)) Login.index(null);
-        Member.removeLink(login, loginToLink);
+    public static void unlink(Long memberId) {
+        notFoundIfNull(memberId);
+        Member.removeLink(Security.connected(), memberId);
     }
     
     public static void delete() throws Throwable {

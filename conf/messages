@@ -33,6 +33,7 @@ menu.search=Rechercher
 menu.login=Se connecter
 menu.login.profile=Voir mon profil
 menu.login.edit=Editer mon profil
+menu.login.trombinoscope=Mon trombinoscope
 menu.login.settings=Mes préférences
 menu.login.logout=Se déconnecter
 
@@ -157,7 +158,7 @@ content=Votre commentaire
 content.note=&{markdown.note}
 enum.TalkFormat.Talk=Conférence
 enum.TalkFormat.Workshop=Atelier
-enum.TalkFormat.Workshop=Keynote
+enum.TalkFormat.Keynote=Keynote
 enum.TalkLanguage.fr=Français
 enum.TalkLanguage.en=Anglais
 enum.TalkLevel.Beginner=Débutant
@@ -185,6 +186,8 @@ article.content=Contenu
 article.content.note=Obligatoire. Le contenu de votre article.<br/>&{markdown.note}
 
 # Email LinkIT
+email.email=Votre email
+email.email.note=Obligatoire : il faut bien pouvoir vous répondre.
 email.subject=Sujet
 email.subject.note=Obligatoire
 email.message=Message
@@ -282,6 +285,7 @@ validation.url=Ce n'est pas une URL valide
 validation.unique=La valeur du champ %s est déjà utilisée par l'utilisateur %s
 validation.googleID=Ce n'est pas à un Google ID valide
 validation.timezone=Cela ne correspond pas à un fuseau horaire connu
+validation.notNumeric=Ce champ ne peut contenir une valeur numérique.
 
 # Events
 event.mixit12=Mix-IT 2012
@@ -294,11 +298,30 @@ event.mixit13.time=8H30-18H30
 # Sponsors
 sponsors.register=Vous voulez devenir un de nos sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202013]%%20Registration">Contactez-nous</a>! Voici l'<a href="https://docs.google.com/document/d/1b46HNg5dl5q-MjIdJ8oCfe6UiI_41gFdbSnHn-P-hBU/edit" title="Offre de sponsoring Mix-IT 2013">offre de sponsoring détaillée</a>.
 sponsors.forEvent=Sponsors de &{event.%s}
+sponsors.partners=Ils nous soutiennent
 sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
-  <hr/>\
-  <p><a href="http://skillsmatter.com/" target="blank"><img src="/public/images/logo-skills-matter.jpg" style="float: left; margin-right: 10px; max-width: 100px" title="Skills Matter"/></a>Mix-IT est partenaire de <a href="http://skillsmatter.com/" target="blank">Skills Matter</a>. Cette société anglaise est connue pour la qualité de ses formations, animées par des experts du sujet, ainsi que pour son engagement dans l'organisation de conférences et d'événements très réguliers.</p>
-sponsors.partners.mixit13=
+                            <hr/>\
+                            <p><a href="http://skillsmatter.com/" target="blank"><img src="/public/images/logo-skills-matter.jpg" style="float: left; margin-right: 10px; max-width: 100px" title="Skills Matter"/></a>Mix-IT est partenaire de <a href="http://skillsmatter.com/" target="blank">Skills Matter</a>. Cette société anglaise est connue pour la qualité de ses formations, animées par des experts du sujet, ainsi que pour son engagement dans l'organisation de conférences et d'événements très réguliers.</p>
+sponsors.partners.mixit13=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
+                            <hr/>\
+                            <p><a href="http://lyon.supinfo.com/" target="blank"><img src="/public/images/logo-supinfo.png" style="float: left; margin-right: 10px; max-width: 100px" title="SUPINFO Lyon"/></a><a href="http://lyon.supinfo.com/" target="blank">SUPINFO Lyon</a> a la gentillesse de nous ouvrir ses locaux et de nous proposer des étudiants sympathiques et motivés pour nous assister à l'organisation le jour de l'événement. Sans eux, Mix-IT ne pourrait pas avoir lieu.</p>
+sponsors.supporters=Ils nous supportent
+sponsors.supporters.mixit13=<p>Mix-IT est aussi soutenu par des structures qui communiquent sur l'évènement. On les remercie beaucoup&nbsp;: sans eux, Mix-IT ne serait pas Mix-IT!\
+                            <div class="row" style="text-align: center">\
+                            <div class="span8"><a href="http://blog.humancoders.com/post/46250703742/mix-it-levenement-a-ne-pas-rater-sur-lyon" title="Article de Human Coders sur Mix-IT"><img src="/public/images/logo-humancoders.png" style="max-width: 100px"/></a></div>\
+                            <div class="span8"><a href="http://afup.org/pages/site/?route=actualites/681/lafup-soutient-la-troisieme-edition-de-mixit" title="Article de l'AFUP sur Mix-IT"><img src="/public/images/logo-afup.png" style="max-width: 100px"/></a></div>\
+                            </div></p>
 
+planning.room=Salle %1$s
 planning.welcome=Accueil & petit-déjeuner
+planning.staff-intro=Le mot des organisateurs
+planning.speaker-pitch=Présentations des sessions du jour par leur speaker
 planning.break=Pause
 planning.lunch=Déjeuner
+
+trombinoscope.title=Mon trombinoscope
+trombinoscope.intro=Qu'est-ce que c'est?<br/>\
+  Ce sont les avatars des personnes que vous avez liées sur le site, et qui ont acheté un ticket pour Mix-IT 2013.<br/>\
+  Donc les gens que vous auriez envie de croiser le jour de la conférence.
+trombinoscope.noRegisteredLinks=Oh non! Vous ne suivez personne qui a acheté son ticket!
+trombinoscope.notRegistered=Vous non plus, d'ailleurs, vous n'avez pas acheté le vôtre...

@@ -1,15 +1,16 @@
 package models;
 
-import java.util.Arrays;
-import java.util.List;
-
-import controllers.Application;
+import com.google.common.collect.Lists;
 import models.auth.GoogleOAuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.TwitterOAuthAccount;
 import models.mailing.Mailing;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
+import play.data.validation.Validation;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Unit tests for {@link Member} domain object
@@ -68,17 +69,19 @@ public class MemberTest extends BaseDataUnitTest {
     @Test
     public void addLink() {
         Member bob = Member.findByLogin("bob");
+        Member ced = Member.findByLogin("ced");
         final int originalLinksNb = bob.links.size();
-        Member.addLink("bob", "ced");
+        Member.addLink("bob", ced.id);
         assertEquals(originalLinksNb+1, bob.links.size());
     }
     
     @Test
     public void addLinkAlreadyLinked() {
         Member bob = Member.findByLogin("bob");
-        Member.addLink("bob", "ced");
+        Member ced = Member.findByLogin("ced");
+        Member.addLink("bob", ced.id);
         final int linksNb = bob.links.size();
-        Member.addLink("bob", "ced");
+        Member.addLink("bob", ced.id);
         assertEquals(linksNb, bob.links.size());
     }
     
@@ -86,15 +89,16 @@ public class MemberTest extends BaseDataUnitTest {
     public void addLinkMyself() {
         Member bob = Member.findByLogin("bob");
         final int linksNb = bob.links.size();
-        Member.addLink("bob", "bob");
+        Member.addLink("bob", bob.id);
         assertEquals(linksNb, bob.links.size());
     }
 
     @Test
     public void isLinkedTo() {
         Member bob = Member.findByLogin("bob");
+        Member ced = Member.findByLogin("ced");
         assertFalse(bob.isLinkedTo("ced"));
-        Member.addLink("bob", "ced");
+        Member.addLink("bob", ced.id);
         assertTrue(bob.isLinkedTo("ced"));
     }
 
@@ -103,7 +107,7 @@ public class MemberTest extends BaseDataUnitTest {
         Member ced = Member.findByLogin("ced");
         final int originalLinkersNb = ced.linkers.size();
         assertFalse(ced.hasForLinker("bob"));
-        Member.addLink("bob", "ced");
+        Member.addLink("bob", ced.id);
         assertEquals(originalLinkersNb+1, ced.linkers.size());
         assertTrue(ced.hasForLinker("bob"));
     }
@@ -130,7 +134,27 @@ public class MemberTest extends BaseDataUnitTest {
     protected static Member createMember(final String login) {
         return new Member(login).save();
     }
-    
+
+    @Test
+    public void findRegisteredLinkMembersOf() throws Exception {
+        Member member = createMember("test");
+        Member linked1 = createMember("linked1");
+        Member linked2 = createMember("linked2");
+        Member linked3 = createMember("linked3");
+        member.addLink(linked1); member.addLink(linked2); member.addLink(linked3);
+        member.save();
+
+        linked1.ticketingRegistered = true;
+        linked1.lastname = "ZZZ";
+        linked1.save();
+
+        linked3.ticketingRegistered = true;
+        linked3.lastname = "AAA";
+        linked3.save();
+
+        assertEquals(Lists.newArrayList(linked3, linked1), Member.findRegisteredLinkMembersOf(member));
+    }
+
     @Test
     public void testAddAccount() {
         final String login = "toto";
@@ -452,5 +476,11 @@ public class MemberTest extends BaseDataUnitTest {
 
         //le membre est fan de la session
         assertTrue(t.hasVoteFrom(m.login));
+    }
+
+    @Test
+    public void loginShouldNotBeNumeric() {
+        Validation.valid("member", createMember("1234"));
+        assertTrue(Validation.hasError("member.login"));
     }
 }
