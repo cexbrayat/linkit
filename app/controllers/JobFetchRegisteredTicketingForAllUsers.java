@@ -16,9 +16,7 @@ import java.util.List;
  * Asynchronous fetch to check if member is registered at the ticketing partner
  * @author Agnes <agnes.crepet@gmail.com>
  */
-// AGNES : Disabled YurPlan : not usefull until mixit14!
-// FIXME Enable ticketing jobs
-@Every("2min")
+@Every("1d")
 @NoTransaction
 public class JobFetchRegisteredTicketingForAllUsers extends Job {
 

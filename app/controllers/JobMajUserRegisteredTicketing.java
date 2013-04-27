@@ -22,8 +22,6 @@ public class JobMajUserRegisteredTicketing extends Job {
         Logger.info("BEGIN JOB JobMajUserRegisteredTicketing for member with id %d", idMember);
         Member member = Member.findById(idMember);
         if (member != null) {
-            // AGNES Disabled YurPlan : not usefull until mixit14!
-            // FIXME Enable ticketing jobs
             String token = YurPlan.login();
             member.setTicketingRegistered(YurPlan.isRegisteredAttendee(member, token));
             member.save();
