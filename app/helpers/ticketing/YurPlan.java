@@ -90,7 +90,6 @@ public class YurPlan {
                 .append("&search=").append(email_attendee)
                 .append("&token=").append(token);
         JsonObject object = null;
-        Logger.info("url : %s", url);
         try {
             object = JSON.getAsObject(WS.url(url.toString())
                     .get().getString());
