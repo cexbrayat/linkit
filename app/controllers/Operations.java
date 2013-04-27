@@ -19,7 +19,7 @@ public class Operations extends PageController {
     }
     
     
-    public static void syncWeezEvent(long mailingId) {
+    public static void syncTicketing() {
         new JobFetchRegisteredTicketingForAllUsers().in(JOBS_DELAY_AFTER_UPDATE);
         index();
     }

@@ -35,8 +35,12 @@ public class JSON {
         return (getProperty(object, property) != null) ? getProperty(object, property).getAsLong() : null;
     }
 
+    public static JsonObject getObject(JsonObject object, String property) {
+        return (getProperty(object, property) != null) ? getProperty(object, property).getAsJsonObject() : null;
+    }
+
     private static JsonElement getProperty(JsonObject object, String property) {
-        if (object.get(property) != null && !object.get(property).isJsonNull()) {
+        if ((object != null) && (object.get(property) != null) && (!object.get(property).isJsonNull())) {
             return object.get(property);
         } else {
             return null;
