@@ -3,22 +3,20 @@ package controllers;
 import helpers.TransactionCallback;
 import helpers.TransactionCallbackWithoutResult;
 import helpers.TransactionTemplate;
-import helpers.ticketing.WeezEvent;
-import java.util.List;
-import java.util.Set;
+import helpers.ticketing.YurPlan;
 import models.Member;
 import play.Logger;
 import play.db.jpa.NoTransaction;
 import play.jobs.Every;
 import play.jobs.Job;
 
+import java.util.List;
+
 /**
  * Asynchronous fetch to check if member is registered at the ticketing partner
  * @author Agnes <agnes.crepet@gmail.com>
  */
-// CLA 07/02/2013 Disabled WeezEvent (useless exceptions in prod logs)
-// FIXME Enable ticketing jobs
-// @Every("3h")
+@Every("1d")
 @NoTransaction
 public class JobFetchRegisteredTicketingForAllUsers extends Job {
 
@@ -35,9 +33,7 @@ public class JobFetchRegisteredTicketingForAllUsers extends Job {
             }
         });
 
-        String sessionID = WeezEvent.login();
-        WeezEvent.setEvent(sessionID);
-        final Set<String> attendees = WeezEvent.getAttendees(sessionID);
+        final String token = YurPlan.login();
 
         txTemplate.setReadOnly(false);
         for (final Long memberId : memberIds) {
@@ -46,7 +42,7 @@ public class JobFetchRegisteredTicketingForAllUsers extends Job {
                 txTemplate.execute(new TransactionCallbackWithoutResult() {
                     public void doInTransaction() {
                         final Member member = Member.findById(memberId);
-                        member.setTicketingRegistered(WeezEvent.isRegisteredAttendee(member.email, attendees));
+                        member.setTicketingRegistered(YurPlan.isRegisteredAttendee(member, token));
                         member.save();
                     }
                 });

@@ -1,12 +1,12 @@
 package controllers;
 
-import helpers.ticketing.WeezEvent;
+import helpers.ticketing.YurPlan;
 import models.Member;
 import play.Logger;
 import play.jobs.Job;
 
 /**
- * Asynchronous fetch to check if users are registered at the ticketing partner
+ * Asynchronous fetch to check if a user is registered at the ticketing partner
  * @author Agnes <agnes.crepet@gmail.com>
  */
 public class JobMajUserRegisteredTicketing extends Job {
@@ -22,9 +22,9 @@ public class JobMajUserRegisteredTicketing extends Job {
         Logger.info("BEGIN JOB JobMajUserRegisteredTicketing for member with id %d", idMember);
         Member member = Member.findById(idMember);
         if (member != null) {
-            // CLA 07/02/2013 Disabled WeezEvent (useless exceptions in prod logs)
-            // FIXME Enable ticketing jobs
-            // WeezEvent.updateRegisteredAttendee(member);
+            String token = YurPlan.login();
+            member.setTicketingRegistered(YurPlan.isRegisteredAttendee(member, token));
+            member.save();
         } else {
             Logger.error("JOB JobMajUserRegisteredTicketing, member id %d not found", idMember);
         }
