@@ -29,7 +29,7 @@ public abstract class SessionJsonSerializer {
             result.addProperty("language", session.lang.toString());
         }
 
-        if (CollectionUtils.isNotEmpty(session.interests)) {
+        if (CollectionUtils.size(session.interests) != 0) {
             if (details) {
                 result.add("interests", jsonSerializationContext.serialize(session.interests));
             } else {
@@ -37,7 +37,7 @@ public abstract class SessionJsonSerializer {
             }
         }
 
-        if (CollectionUtils.isNotEmpty(session.speakers)) {
+        if (CollectionUtils.size(session.speakers) != 0) {
             if (details) {
                 JsonArray speakers = new JsonArray();
                 for (Member s : session.speakers) {
