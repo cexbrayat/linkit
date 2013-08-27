@@ -4,8 +4,7 @@
     <head>
         <title>#{get 'title' /} - Mix-IT 2013</title>
         <meta charset="${_response_encoding}">
-        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/bootstrap.less'}">
-        <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/linkit.less'}">
+        <link type="text/css" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
         <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/networks.css'}">
         <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/font-awesome.css'}">
         #{if canonical}<link rel="canonical" href="#{get 'canonical' /}">#{/if}
@@ -13,9 +12,9 @@
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="author" href="humans.txt" />
-        <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/bootstrap-twipsy.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/bootstrap-dropdown.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/tooltip.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/dropdown.js'}" type="text/javascript" charset="${_response_encoding}"></script>
         <script> 
             $(function () {
               $("a[rel=twipsy]").twipsy({
@@ -26,34 +25,6 @@
           </script> 
         #{get 'moreScripts' /}
         <script type="text/javascript">
-*{/ Pure websockets : ne fonctionne pas sous Chrome 16 avec Play 1.2.4
-            #{if session.username}
-            $(document).ready(function() {
-                if(window.MozWebSocket) window.WebSocket = window.MozWebSocket;
-                window.socket = new WebSocket('@@{LiveActivities.listen}');
-                window.socket.onopen = function(event) {
-                    console.log('connect');
-                    var msg = new Object();
-                    msg.id = '${session.username}';
-                    msg.connect = true;
-                    window.socket.send(JSON.stringify(msg));
-                }
-                window.socket.onclose = function(event) {
-                    console.log('disconnect');
-                    var msg = new Object();
-                    msg.id = '${session.username}';
-                    msg.connect = false;
-                    window.socket.send(JSON.stringify(msg));
-                }
-                window.socket.onmessage = function(event) {
-                    console.log(event.data);
-                }
-                window.socket.onerror = function(event) {
-                    console.log('Websocket error : ' + event);
-                }
-            });
-            #{/if}
-}*
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', '${play.configuration.getProperty("application.analytics.trackingId")}']);
             _gaq.push(['_trackPageview']);
