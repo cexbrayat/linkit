@@ -185,12 +185,13 @@
 </div>
 <!--/div-->
 </body>
+
 <footer>
     <div class="container">
     #{if sponsors}
         <div class="row">
             #{list items:sponsors, as:'sponsor'}
-                <div class="span2" style="text-align: center">
+                <div class="col-md-2" style="text-align: center">
                     <a href="@{Profile.show(sponsor.login)}">${sponsor.toString()}</a>
                 </div>
             #{/list}
@@ -199,25 +200,25 @@
         <br/>
 
         <div class="row">
-            <div class="span4">
+            <div class="col-md-3">
                 <iframe allowtransparency="true" frameborder="0" scrolling="no"
                         src="//platform.twitter.com/widgets/follow_button.html?screen_name=MixIT_Lyon&lang=fr&show_count=false"
                         style="width:350px; height:20px;">
                 </iframe>
             </div>
-            <div class="span4" style="text-align: center">
+            <div class="col-md-3" style="text-align: center">
                 <a href="http://www.cloudbees.com/" target="blank"><img
                         src="@{'/public/images/powered-by-cloudbees-button-120x30.png'}" title="Powered by Cloudbees"
                         height="20px"/></a>
             </div>
-            <div class="span4" style="text-align: center">
+            <div class="col-md-3" style="text-align: center">
                 Bugs, suggestions : <a href="https://trello.com/board/mix-it-2012/4f1b9ce056cf07e52f0072f7"
                                        target="blank"><img src="@{'/public/images/icon_trello_sm.png'}"
                                                            title="Trello (Suggestions, bugs, ...)" height="20px"
                                                            style="vertical-align: middle"/></a>
             </div>
-            <div class="span4" style="text-align: right">
-                &copy; 2013 Mix-IT
+            <div class="col-md-3">
+                <span class="pull-right">&copy; 2014 Mix-IT</span>
             </div>
         </div>
     </div>
