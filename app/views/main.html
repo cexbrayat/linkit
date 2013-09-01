@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/networks.css'}">
     <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/font-awesome.css'}">
+    <link type="text/less" rel="stylesheet" href="@{'/public/stylesheets/linkit.less'}">
 #{if canonical}
     <link rel="canonical" href="#{get 'canonical' /}">#{/if}
 #{get 'moreStyles' /}
@@ -42,7 +43,7 @@
     </script>
 </head>
 <body itemscope itemtype="http://schema.org/Product">
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -174,10 +175,10 @@
 <div class="container">
 
 #{if flash.success}
-    <div class="alert-message success">${flash.success}</div>
+    <div class="alert alert-success alert-dismissable">${flash.success}</div>
 #{/if}
 #{if flash.error}
-    <div class="alert-message error">${flash.error}</div>
+    <div class="alert alert-danger alert-dismissable">${flash.error}</div>
 #{/if}
 
 #{doLayout /}
