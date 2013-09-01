@@ -1,133 +1,187 @@
 #{extends 'main.html' /}
 #{set title:'Accueil' /}
-*{ #{set 'moreScripts'}
+#{set 'moreScripts'}
 <script src="@{'/public/javascripts/tab.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script>
-            $(function () {
-              $("a[rel=popover]").popover({
-              })
-            })
+    $(function () {
+        $("a[rel=popover]").popover({
+        })
+    })
 </script>
 #{/set}
 #{set 'moreStyles'}
+<style>
+    .headers {
+        text-align: center;
+    }
 
+    .headers h2 {
+        font-weight: normal;
+    }
+</style>
 #{/set}
-<div class="hero-unit">
-    <div class="row">
-        <div class="span7">
-            <h1 style="font-size: 40px">&{'event.'+models.ConferenceEvent.CURRENT+'.date'}</h1><h2 style="font-size: 20px">&{'event.'+models.ConferenceEvent.CURRENT+'.time'}</h2>
+<div>
+*{<div class="row">
+        <div class="col-md-6">
+            <h1>&{'event.'+models.ConferenceEvent.CURRENT+'.date'}</h1>
+            <h2>&{'event.'+models.ConferenceEvent.CURRENT+'.time'}</h2>
         </div>
-        <div class="span7" style="text-align: right">
-            <h3>&{'mixit.header'}</h3>
+        <div class="col-md-6">
+            <h3 class="pull-right">&{'mixit.header'}</h3>
         </div>
+    </div> }*
+    <div class="row" style="margin-top: 5%; text-align: center; height:250px;">
+        <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="60%"/>
     </div>
-    <div class="row" style="text-align: center">
-        <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="700" height="178" />
-    </div>
-    <div class="row">
-        <div class="span5 offset8">
+    <div class="row" style="margin-bottom: 5%;">
+        <div class="col-md-4 col-md-offset-8">
             <h3 itemprop="description">&{'mixit.slogan'}</h3>
         </div>
     </div>
 
-    <div class="soon">&{'ticketing.alert'}</div>
+*{ <div class="soon">&{'ticketing.alert'}</div>
 
-    <div class="row">
-        <div class="span12 offset1">
-            #{if session.username}
+     <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+        #{if session.username}
             <div class="row">
-                <div class="span4" style="text-align: center">
-                    <a href="@{Infos.inscription()}" class="btn primary" rel="popover" data-content="&{'button.ticketing.details'}" data-original-title="&{'button.ticketing'}" data-html="true">&{'button.ticketing'}</a>
+                <div class="col-md-3" style="text-align: center">
+                    <a href="@{Infos.inscription()}" class="btn primary" rel="popover"
+                       data-content="&{'button.ticketing.details'}" data-original-title="&{'button.ticketing'}"
+                       data-html="true">&{'button.ticketing'}</a>
                 </div>
-                <div class="span4" style="text-align: center">
-                    <a href="@{Sessions.planningMixIT13()}" class="btn primary" rel="popover" data-content="&{'talks.description'}" data-original-title="&{'button.talks'}" data-html="true">&{'button.talks'}</a>
+                <div class="col-md-3" style="text-align: center">
+                    <a href="@{Sessions.planningMixIT13()}" class="btn primary" rel="popover"
+                       data-content="&{'talks.description'}" data-original-title="&{'button.talks'}"
+                       data-html="true">&{'button.talks'}</a>
                 </div>
-                <div class="span4" style="text-align: center"> 
-                    <a href="@{LightningTalks.list()}" class="btn primary" rel="popover" data-content="&{'lightningtalk.short.description'}" data-original-title="&{'button.vote.lightningtalks'}" data-html="true">&{'button.vote.lightningtalks'}</a>
+                <div class="col-md-3" style="text-align: center">
+                    <a href="@{LightningTalks.list()}" class="btn primary" rel="popover"
+                       data-content="&{'lightningtalk.short.description'}"
+                       data-original-title="&{'button.vote.lightningtalks'}"
+                       data-html="true">&{'button.vote.lightningtalks'}</a>
                 </div>
             </div>
-            #{/if}
-            #{else}
+        #{/if}
+        #{else}
             <div class="row">
-                <div class="span4" style="text-align: center">
-                    <a href="@{Infos.about()}" class="btn primary" rel="popover" data-content="&{'mixit.short.description'}" data-original-title="&{'button.about.mixit'}" data-html="true">&{'button.about.mixit'}</a>
+                <div class="col-md-3" style="text-align: center">
+                    <a href="@{Infos.about()}" class="btn primary" rel="popover"
+                       data-content="&{'mixit.short.description'}" data-original-title="&{'button.about.mixit'}"
+                       data-html="true">&{'button.about.mixit'}</a>
                 </div>
-                <div class="span4" style="text-align: center">
-                    <a href="@{Sessions.planningMixIT13()}" class="btn primary" rel="popover" data-content="&{'talks.description'}" data-original-title="&{'button.talks'}" data-html="true">&{'button.talks'}</a>
+                <div class="col-md-3" style="text-align: center">
+                    <a href="@{Sessions.planningMixIT13()}" class="btn primary" rel="popover"
+                       data-content="&{'talks.description'}" data-original-title="&{'button.talks'}"
+                       data-html="true">&{'button.talks'}</a>
                 </div>
-                <div class="span4 " style="text-align: center">
-                    <a href="@{Infos.inscription()}" class="btn primary" rel="popover" data-content="&{'login.howto.intro'}" data-original-title="&{'login.why'}" data-html="true">&{'button.login'}</a>
+                <div class="col-md-3 " style="text-align: center">
+                    <a href="@{Infos.inscription()}" class="btn primary" rel="popover"
+                       data-content="&{'login.howto.intro'}" data-original-title="&{'login.why'}"
+                       data-html="true">&{'button.login'}</a>
                 </div>
             </div>
-            #{/else}
+        #{/else}
+        </div>
+    </div>          }*
+
+    <div class="row headers">
+        <div class="col-lg-4">
+            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
+                 alt="Generic placeholder image">
+
+            <h2>Heading</h2>
+
+            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
+                vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
+                cursus magna.</p>
+
+            <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+        </div>
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
+                 alt="Generic placeholder image">
+
+            <h2>Heading</h2>
+
+            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
+                mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                condimentum nibh.</p>
+
+            <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+        </div>
+        <!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
+                 alt="Generic placeholder image">
+
+            <h2>Heading</h2>
+
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                fermentum massa justo sit amet risus.</p>
+
+            <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+        </div>
+        <!-- /.col-lg-4 -->
+    </div>
+    <!-- /.row -->
+
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">First featurette heading. <span
+                    class="text-muted">It'll blow your mind.</span></h2>
+
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto"
+                 alt="Generic placeholder image">
         </div>
     </div>
-    <br/>
-    <br/>
-   
-    <div class="row">
-        <ul class="tabs" data-tabs="tabs">
-            <li class="active"><a href="#tabActivities">&{'tab.lastactivities'}</a></li>
-            <li><a href="#tabArticles">&{'tab.lastarticles'}</a></li>
-            <li><a href="#tabSessions">&{'tab.lasttalks'}</a></li>
-            <li><a href="#tabInscrits">&{'tab.lastattendees'}</a></li>
-        </ul>
-        <div id="tab-content" class="tab-content">    
-            <div class="tab-pane active" id="tabActivities">
-                <p id="activities" style="max-height: 200px"></p>
-                <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>  
-                <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
-        
-<script type="text/javascript">
-    var page = 1;
-    var size = 5;
-    var activitiesAction = #{jsAction @Activities.general(':page',':size') /};
-    var spinner = $('#activitiesSpinner');
-    var btnMoreActivities = $('#moreActivities');
-   
-    function loadMoreActivities(autoscroll) {
-        btnMoreActivities.addClass('disabled');
-        spinner.css("visibility", "visible");
-        $.get(activitiesAction({page: page, size: size}), function(data) {
-            $('#activities').append(data);
-            if (data) {
-                page++;
-            } else {
-                btnMoreActivities.css('visibility','hidden');
-            }
-            spinner.css("visibility", "hidden");
-            btnMoreActivities.removeClass('disabled');
-            if (autoscroll) {
-                $("#activities").animate({ scrollTop: $("#activities").attr("scrollHeight") - $('#activities').height() }, 1000);
-            }
-        });
-    }
-    
-    // Initial loading : first page
-    loadMoreActivities(false);
-</script>
-                
-            </div>
-            <div class="tab-pane" id="tabArticles">
-                #{list items:articles, as:'article'}
-                    #{article article /}
-                #{/list}
-            </div>
-            <div class="tab-pane" id="tabSessions">
-                #{list items:sessions, as:'s'}
-                    #{session-small s /}
-                #{/list}
-            </div>
-            <div class="tab-pane" id="tabInscrits">
-                <div class="row">
-                    #{list items:members, as:'member'}
-                    <div class="span6">
-                        #{member member /}
-                    </div>
-                    #{/list}
-                </div>
-            </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto"
+                 alt="Generic placeholder image">
+        </div>
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span>
+            </h2>
+
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
         </div>
     </div>
-</div>      }
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+
+            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
+                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto"
+                 alt="Generic placeholder image">
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <!-- /END THE FEATURETTES -->
+</div>
