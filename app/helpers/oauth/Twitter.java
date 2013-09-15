@@ -25,7 +25,7 @@ public class Twitter extends AbstractOAuthProviderImpl {
     @Override
     protected OAuthService buildService() {
          return new ServiceBuilder()
-               .provider(TwitterApi.Authenticate.class)
+               .provider(TwitterApi.class)
                .apiKey(getConfigString("consumerKey"))
                .apiSecret(getConfigString("consumerSecret"))
                .callback(getCallbackUrl())
