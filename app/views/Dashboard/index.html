@@ -10,33 +10,35 @@
 #{if member.email}
     <div class="img-thumbnail">#{gravatar.img member.email, size:100, default:'mm', rating:'pg', secure:true/}</div>
 #{/if}
-</div>
-
+</div><br/>
 <div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-2 text-center">
+    <div class="col-md-4"></div>
+    <div class="col-md-1 text-center">
     #{if member.badges}
         <span class="big-number">${member.badges.size()}</span><br/>
         <span>Badges</span>
     #{/if}
     </div>
-    <div class="col-md-2 text-center">
+    <div class="col-md-1 text-center">
+        <span class="big-number">${member.getNbLooks()}</span><br/>
+        <span>Consultations</span>
+    </div>
+    <div class="col-md-1 text-center">
     #{if member.links}
         <span class="big-number">${member.links.size()}</span><br/>
         <span>Following</span>
     #{/if}
     </div>
-    <div class="col-md-2 text-center">
+    <div class="col-md-1 text-center">
     #{if member.linkers}
         <span class="big-number">${member.linkers.size()}</span><br/>
         <span>Followers</span>
     #{/if}
     </div>
-    <div class="col-md-3"></div>
+    <div class="col-md-4"></div>
 </div><br/>
 <div class="row text-center">
-    #{a @Dashboard.trombinoscope(), class:'btn btn-primary'}&{'menu.login.trombinoscope'}#{/a}
-    <a href="@{Profile.edit()}" class="btn btn-default">&{'menu.login.edit'}</a>
+    <a href="@{Profile.edit()}" class="btn btn-primary">&{'menu.login.edit'}</a>
 </div>
 
 #{if suggestedSessions}
