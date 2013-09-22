@@ -19,6 +19,22 @@
     .headers h2 {
         font-weight: normal;
     }
+
+    .img-thumbnail {
+        padding: 10px;
+        border-radius: 0px;
+    }
+
+    .img-rotate-right {
+        -webkit-transform: rotate(2deg);
+        -o-transform:rotate(2deg);
+        transform: rotate(2deg);
+    }
+    .img-rotate-left {
+        -webkit-transform: rotate(-2deg);
+        -o-transform:rotate(-2deg);
+        transform: rotate(-2deg);
+    }
 </style>
 #{/set}
 <div>
@@ -88,8 +104,6 @@
 
     <div class="row headers">
         <div class="col-lg-4">
-            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
-                 alt="Generic placeholder image">
 
             <h2>Performance</h2>
 
@@ -101,8 +115,6 @@
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
-            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
-                 alt="Generic placeholder image">
 
             <h2>Valeur</h2>
 
@@ -114,8 +126,6 @@
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
-            <img class="img-circle" src="data:image/png;base64," data-src="holder.js/140x140"
-                 alt="Generic placeholder image">
 
             <h2>Bien être</h2>
 
@@ -142,7 +152,7 @@
                 commodo.</p>
         </div>
         <div class="col-md-5">
-            <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto"
+            <img class="featurette-image img-responsive img-thumbnail img-rotate-right" src="/public/images/mixit/lego.jpg"
                  alt="Generic placeholder image">
         </div>
     </div>
@@ -151,7 +161,7 @@
 
     <div class="row featurette">
         <div class="col-md-5">
-            <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto"
+            <img class="featurette-image img-responsive img-thumbnail img-rotate-left" src="/public/images/mixit/workshop.jpg"
                  alt="Generic placeholder image">
         </div>
         <div class="col-md-7">
@@ -174,7 +184,7 @@
                 commodo.</p>
         </div>
         <div class="col-md-5">
-            <img class="featurette-image img-responsive" src="data:image/png;base64," data-src="holder.js/500x500/auto"
+            <img class="featurette-image img-responsive img-thumbnail img-rotate-right" src="/public/images/mixit/speaker.jpg"
                  alt="Generic placeholder image">
         </div>
     </div>
