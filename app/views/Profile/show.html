@@ -156,7 +156,7 @@
     <h2>Mes intérêts</h2>
     #{list items:member.interests, as:'interest'}
         <a href="@{Application.searchByInterest(interest.name)}"><span
-                class="alert alert-info">${interest}</span></a>
+                class="">${interest}</span></a>
     #{/list}
 </div><br/>
 #{/if}

@@ -20,7 +20,7 @@
     <script src="@{'/public/javascripts/tooltip.js'}" type="text/javascript" charset="${_response_encoding}"></script>
     <script src="@{'/public/javascripts/dropdown.js'}" type="text/javascript" charset="${_response_encoding}"></script>
     <script>
-        $(function () {
+        $(function() {
             $("a[rel=twipsy]").tooltip({
                 live: true,
                 placement: 'below'
@@ -32,7 +32,7 @@
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', '${play.configuration.getProperty("application.analytics.trackingId")}']);
         _gaq.push(['_trackPageview']);
-        (function () {
+        (function() {
             var ga = document.createElement('script');
             ga.type = 'text/javascript';
             ga.async = true;
@@ -65,21 +65,21 @@
         #{/if}
             <li #{if request.controller=="Articles"}class="active"#{/if}><a
                     href="@{Articles.index()}">&{'menu.news'}</a></li>
-            <li class="dropdown">
+        *{<li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.agenda'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
-                    <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
-                *{ The CFP is closed
+                    <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>}*
+        *{ The CFP is closed
                             #{if session.username}
                                 <li class="divider"></li>
                                 <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                             #{/if}
 }*
-                *{<li><a href="@{Sessions.planningMixIT13()}">Planning 2013</a></li>}*
-                </ul>
+        *{<li><a href="@{Sessions.planningMixIT13()}">Planning 2013</a></li>}*
+        *{ </ul>}*
             </li>
-            <li class="dropdown">
+        *{<!li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.members'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li #{if request.action=="Application.speakers"}class="active"#{/if}><a
@@ -93,7 +93,7 @@
                     <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a
                             href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
                 </ul>
-            </li>
+            </li>}*
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.infos'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
