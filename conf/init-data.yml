@@ -251,12 +251,13 @@ GoogleAccount(nicolasGoogle):
 
 Staff(mathieu) :
     firstname: Mathieu
-    lastname: Calba
+    lastname: PetitDeDant
     login: mathieu
-    email: mathieu.calba@gmail.com
-    shortDescription : Android *for ever*!
+    email: mathieu.petitdant@gmail.com
+    shortDescription : Kent Beck *for ever*!
     interests:
          - java
+         - play
     badges:           
          - Staff
          - Attendee
@@ -270,12 +271,12 @@ models.auth.LinkItAccount(mathieuLinkIt):
 TwitterAccount(mathieuTwitter):
     provider: Twitter
     member: mathieu
-    screenName: npelloux
+    screenName: mpetitdant
 
 GoogleAccount(mathieuGoogle):
     provider: Google
     member: mathieu
-    googleId: 114873422112541119407
+    googleId: 117476886144863426166
 
 Staff(clacote) :
     firstname: Cyril
