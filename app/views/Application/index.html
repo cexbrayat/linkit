@@ -4,7 +4,7 @@
 <script src="@{'/public/javascripts/tab.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script>
-    $(function () {
+    $(function() {
         $("a[rel=popover]").popover({
         })
     })
@@ -27,13 +27,18 @@
 
     .img-rotate-right {
         -webkit-transform: rotate(2deg);
-        -o-transform:rotate(2deg);
+        -o-transform: rotate(2deg);
         transform: rotate(2deg);
     }
+
     .img-rotate-left {
         -webkit-transform: rotate(-2deg);
-        -o-transform:rotate(-2deg);
+        -o-transform: rotate(-2deg);
         transform: rotate(-2deg);
+    }
+
+    .icon-4 {
+        font-size: 7em;
     }
 </style>
 #{/set}
@@ -104,40 +109,57 @@
 
     <div class="row headers">
         <div class="col-lg-4">
-
-            <h2>Performance</h2>
-
-            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies
-                vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
-                cursus magna.</p>
-
-            <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+            <h1>Développement</h1>
+            <i class="icon-keyboard icon-4"></i>
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
-
-            <h2>Valeur</h2>
-
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras
-                mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris
-                condimentum nibh.</p>
-
-            <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+            <h1>Agilité</h1>
+            <i class="icon-table icon-4"></i>
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
-
-            <h2>Bien être</h2>
-
-            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
-                porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-                fermentum massa justo sit amet risus.</p>
-
-            <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
+            <h1>Innovation</h1>
+            <i class="icon-lightbulb icon-4"></i>
         </div>
         <!-- /.col-lg-4 -->
     </div>
     <!-- /.row -->
+
+    <div class="row">
+        <h4>Précédemment, à Mix-it</h4>
+
+        <div class="col-lg-2 headers">
+            <h3>Zach Holman</h1>
+                <img class="img-thumbnail"
+                     src="https://secure.gravatar.com/avatar/78b475797a14c84799063c7cd073962f?s=120&amp;d=mm&amp;r=pg">
+        </div>
+        <div class="col-lg-2 headers">
+            <h3>Pamela Fox</h1>
+                <img class="img-thumbnail"
+                     src="https://secure.gravatar.com/avatar/92dfeb863138a5a9c0453ed80f9c8c75?s=120&amp;d=mm&amp;r=pg">
+        </div>
+        <div class="col-lg-2 headers">
+            <h3>Simon Brown</h1>
+                <img class="img-thumbnail"
+                     src="https://secure.gravatar.com/avatar/9a8b47a6acdc3ecd219077951f7a09f0?s=120&d=mm&r=pg">
+        </div>
+        <div class="col-lg-2 headers">
+            <h3>Camille Roux</h1>
+                <img class="img-thumbnail"
+                     src="https://secure.gravatar.com/avatar/99516bb8f8ee4ba53a616f5e1b68c7d1?s=120&d=mm&r=pg">
+        </div>
+        <div class="col-lg-2 headers">
+            <h3>Bodil Stokke</h1>
+                <img class="img-thumbnail"
+                     src="https://secure.gravatar.com/avatar/f9f8e0403b0437662bdbc2b4e9c6ccf3?s=120&d=mm&r=pg">
+        </div>
+        <div class="col-lg-2 headers">
+            <h3>JC Grosjean</h1>
+                <img class="img-thumbnail"
+                     src="https://secure.gravatar.com/avatar/ce98206cafbd137079c111d48d691640?s=120&d=mm&r=pg">
+        </div>
+    </div>
 
     <!-- START THE FEATURETTES -->
 
@@ -145,14 +167,18 @@
 
     <div class="row featurette">
         <div class="col-md-7">
-            <h2 class="featurette-heading">Développement, Agilité, Innovation. <span class="text-muted">Des idées pour tout de suite!.</span></h2>
+            <h2 class="featurette-heading">Développement, Agilité, Innovation, Design, Lean StartUp. <span
+                    class="text-muted">Des idées pour tout de suite!</span></h2>
 
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
-                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
-                commodo.</p>
+            <p class="lead">Nous faisons des métiers passionants et d'une richesse incroyable : depuis l'idée jusqu'à la
+                mise en production en passant par la réalisation,
+                nous sommes les acteurs du Web et des logiciels d'aujourd'hui et de demain. Venez chercher
+                l'inspiration, les bonnes pratiques, les nouveaux outilsà Mix-it!
+                Mais surtout venez rencontrer et échanger avec d'autres passionnés.</p>
         </div>
-        <div class="col-md-5">
-            <img class="featurette-image img-responsive img-thumbnail img-rotate-right" src="/public/images/mixit/lego.jpg"
+        <div class="col-md-5 ">
+            <img class="featurette-image img-responsive img-thumbnail img-rotate-right"
+                 src="/public/images/mixit/lego.jpg"
                  alt="Generic placeholder image">
         </div>
     </div>
@@ -161,15 +187,19 @@
 
     <div class="row featurette">
         <div class="col-md-5">
-            <img class="featurette-image img-responsive img-thumbnail img-rotate-left" src="/public/images/mixit/workshop.jpg"
+            <img class="featurette-image img-responsive img-thumbnail img-rotate-left"
+                 src="/public/images/mixit/workshop.jpg"
                  alt="Generic placeholder image">
         </div>
         <div class="col-md-7">
-            <h2 class="featurette-heading">2 jours de conférences. <span class="text-muted">2 jours de plaisir!</span></h2>
+            <h2 class="featurette-heading">2 jours de conférences, d'ateliers et de surprises. <span class="text-muted">2 jours de plaisir!</span>
+            </h2>
 
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
-                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
-                commodo.</p>
+            <p class="lead">Des conférences pour découvrir, des jeux pour apprendre, des ateliers de développement ou
+                créatifs, Mix-IT c’est 2 jours intenses de progrès et de rencontres !
+                La soirée, ouverte à tous, est le moment idéal pour faire des connaissances et s’ouvrir aux autres
+                cultures.
+            </p>
         </div>
     </div>
 
@@ -179,12 +209,15 @@
         <div class="col-md-7">
             <h2 class="featurette-heading">500 participants. <span class="text-muted">50 speakers.</span></h2>
 
-            <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
-                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
-                commodo.</p>
+            <p class="lead">Afin de garder une dimension conviviale, le nombre de participants total se limite à 500 sur
+                les deux jours.
+                Quant aux speakers, ils seront internationaux, nationaux ou locaux et les formats proposés
+                corresponderont à leur contenu mais aussi à leur maturité.
+                Attendez vous à être étonnés!</p>
         </div>
         <div class="col-md-5">
-            <img class="featurette-image img-responsive img-thumbnail img-rotate-right" src="/public/images/mixit/speaker.jpg"
+            <img class="featurette-image img-responsive img-thumbnail img-rotate-right"
+                 src="/public/images/mixit/speaker.jpg"
                  alt="Generic placeholder image">
         </div>
     </div>
