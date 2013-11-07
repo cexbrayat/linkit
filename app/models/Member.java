@@ -154,6 +154,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
      */
     public long nbConsults;
 
+    /** true if profile is public (visible not connected)  */
+    public boolean publicProfile = false;
+
     public Member(String login) {
         this.login = login;
     }

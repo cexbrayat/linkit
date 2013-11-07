@@ -72,6 +72,7 @@ Staff(cedric) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 models.auth.LinkItAccount(cedLinkIt):
     provider: LinkIt
@@ -110,6 +111,7 @@ Staff(julien) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 SharedLink(juLink1):
     member: julien
@@ -143,6 +145,7 @@ Staff(agnes) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 models.auth.LinkItAccount(agnesAccount):
     provider: LinkIt
@@ -173,6 +176,7 @@ Staff(franck) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 models.auth.LinkItAccount(franckLinkIt):
     provider: LinkIt
@@ -203,6 +207,7 @@ Staff(romain) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: false
 
 models.auth.LinkItAccount(romainLinkIt):
     provider: LinkIt
@@ -232,6 +237,7 @@ Staff(nicolas) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 models.auth.LinkItAccount(nicolasLinkIt):
     provider: LinkIt
@@ -261,6 +267,7 @@ Staff(mathieu) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 models.auth.LinkItAccount(mathieuLinkIt):
     provider: LinkIt
@@ -290,6 +297,7 @@ Staff(clacote) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 models.auth.LinkItAccount(clacoteLinkIt):
     provider: LinkIt
@@ -351,6 +359,7 @@ Sponsor(zenika):
     level: SILVER
     events:
          - mixit13
+    publicProfile: true
 
 TwitterAccount(zenikaTwitter):
     provider: Twitter
@@ -386,6 +395,7 @@ Sponsor(github):
     level: GOLD
     events:
          - mixit13
+    publicProfile: true
 
 Sponsor(Gold2):
     logoUrl: /public/images/logo-cara.png
@@ -399,6 +409,7 @@ Sponsor(Gold2):
     level: GOLD
     events:
          - mixit13
+    publicProfile: true
 
 Sponsor(Silver1):
     logoUrl: /public/images/logo-elasticsearch.png
@@ -412,6 +423,7 @@ Sponsor(Silver1):
     level: SILVER
     events:
          - mixit13
+    publicProfile: true
 
 Sponsor(Silver2):
     logoUrl: /public/images/logo-google.png
@@ -425,6 +437,7 @@ Sponsor(Silver2):
     level: SILVER
     events:
          - mixit13
+    publicProfile: true
 
 Sponsor(Silver3):
     logoUrl: /public/images/logo-od.png
@@ -438,6 +451,7 @@ Sponsor(Silver3):
     level: SILVER
     events:
          - mixit13
+    publicProfile: true
 
 Sponsor(Silver4):
     logoUrl: /public/images/logo-sonarsource.jpg
@@ -451,6 +465,7 @@ Sponsor(Silver4):
     level: SILVER
     events:
          - mixit13
+    publicProfile: true
 
 Sponsor(Silver5):
     logoUrl: /public/images/logo-terredagile.jpg
@@ -464,6 +479,7 @@ Sponsor(Silver5):
     level: SILVER
     events:
          - mixit13
+    publicProfile: true
 
 Sponsor(Bronze1):
     logoUrl: /public/images/logo-elasticsearch.png
@@ -477,6 +493,7 @@ Sponsor(Bronze1):
     level: BRONZE
     events:
          - mixit13
+    publicProfile: true
 
 Sponsor(Bronze2):
     logoUrl: /public/images/logo-google.png
@@ -490,6 +507,7 @@ Sponsor(Bronze2):
     level: BRONZE
     events:
          - mixit13
+    publicProfile: true
 
 Sponsor(Bronze3):
     logoUrl: /public/images/logo-od.png
@@ -503,6 +521,7 @@ Sponsor(Bronze3):
     level: BRONZE
     events:
          - mixit13
+    publicProfile: true
 
 Sponsor(Bronze4):
     logoUrl: /public/images/logo-sonarsource.jpg
@@ -516,6 +535,7 @@ Sponsor(Bronze4):
     level: BRONZE
     events:
          - mixit13
+    publicProfile: true
 
 Sponsor(Bronze5):
     logoUrl: /public/images/logo-terredagile.jpg
@@ -529,6 +549,7 @@ Sponsor(Bronze5):
     level: BRONZE
     events:
          - mixit13
+    publicProfile: true
 
 Talk(talk1):
     event: mixit12
