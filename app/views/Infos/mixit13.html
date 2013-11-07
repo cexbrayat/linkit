@@ -1,0 +1,10 @@
+﻿#{extends 'main.html' /}
+#{set title:messages.get('event.mixit13') /}
+
+#{sessions sessions:talks, event:event/}
+
+<h2>Les speakers</h2>
+#{members members:speakers/}
+
+<h2>Les lightning talks</h2>
+#{lightning sessions:lightningTalks/}
