@@ -175,7 +175,7 @@
     <!-- /.navbar-collapse -->
 </nav>
 
-<div class="container">
+<div class="container #{if isHomePage}home-page#{/if}">
 
 #{if flash.success}
     <div class="alert alert-success alert-dismissable">${flash.success}</div>
