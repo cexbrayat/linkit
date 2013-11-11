@@ -338,10 +338,10 @@ GoogleAccount(pamelafoxGoogle):
     googleId: 104906919451670502090
 
 Article(article1):
-    title: Mix-IT 2012!
-    headline: Mix-IT seconde édition est annoncée pour le 26 avril 2012
+    title: Mix-IT 2013!
+    headline: Mix-IT seconde édition est annoncée pour le 26 avril 2013
     content: |
-        Vous l'attendiez tous... et bien voilà la conf [Mix-IT](http://www.mix-it.fr) 2012 aura lieu le 26 avril 2012 à Lyon! Stay tuned! Au programme on vous prépare toujours un bon mix de Java et d'Agilité, ainsi que d'autres langages et technologies innovantes.
+        Vous l'attendiez tous... et bien voilà la conf [Mix-IT](http://www.mix-it.fr) 2013 aura lieu le 26 avril 2013 à Lyon! Stay tuned! Au programme on vous prépare toujours un bon mix de Java et d'Agilité, ainsi que d'autres langages et technologies innovantes.
     author: agnes
     postedAt: 2011-11-25
     valid: true
@@ -358,7 +358,7 @@ Sponsor(zenika):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 TwitterAccount(zenikaTwitter):
@@ -394,7 +394,7 @@ Sponsor(github):
          - Sponsor
     level: GOLD
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Sponsor(Gold2):
@@ -408,7 +408,7 @@ Sponsor(Gold2):
          - Sponsor
     level: GOLD
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Sponsor(Silver1):
@@ -422,7 +422,7 @@ Sponsor(Silver1):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Sponsor(Silver2):
@@ -436,7 +436,7 @@ Sponsor(Silver2):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Sponsor(Silver3):
@@ -450,7 +450,7 @@ Sponsor(Silver3):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Sponsor(Silver4):
@@ -464,7 +464,7 @@ Sponsor(Silver4):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Sponsor(Silver5):
@@ -478,7 +478,7 @@ Sponsor(Silver5):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Sponsor(Bronze1):
@@ -492,7 +492,7 @@ Sponsor(Bronze1):
          - Sponsor
     level: BRONZE
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Sponsor(Bronze2):
@@ -506,7 +506,7 @@ Sponsor(Bronze2):
          - Sponsor
     level: BRONZE
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Sponsor(Bronze3):
@@ -520,7 +520,7 @@ Sponsor(Bronze3):
          - Sponsor
     level: BRONZE
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Sponsor(Bronze4):
@@ -534,7 +534,7 @@ Sponsor(Bronze4):
          - Sponsor
     level: BRONZE
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Sponsor(Bronze5):
@@ -548,13 +548,13 @@ Sponsor(Bronze5):
          - Sponsor
     level: BRONZE
     events:
-         - mixit13
+         - mixit14
     publicProfile: true
 
 Talk(talk1):
-    event: mixit12
+    event: mixit13
     track: Trendy
-    title: Session de test 2012 valide
+    title: Session de test 2013 valide
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
@@ -564,9 +564,9 @@ Talk(talk1):
     valid: true
 
 Talk(talk2):
-    event: mixit12
+    event: mixit13
     track: Trendy
-    title: Session de test 2012 non valide
+    title: Session de test 2013 non valide
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
@@ -574,8 +574,8 @@ Talk(talk2):
     valid: false
 
 Talk(talk131):
-    event: mixit13
-    title: Une session de test 2013
+    event: mixit14
+    title: Une session de test 2014
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
@@ -584,9 +584,9 @@ Talk(talk131):
     valid: false
 
 Talk(talk132):
-    event: mixit13
+    event: mixit14
     track: Gamy
-    title: Une session de test 2013 validée
+    title: Une session de test 2014 validée
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
@@ -596,18 +596,18 @@ Talk(talk132):
     lang: fr
 
 LightningTalk(lt12):
-    event: mixit12
-    title: LT de test 2012
-    summary: Un LT 2012
-    description: Un LT 2012.
-    speakers:
-        - julien
-
-LightningTalk(lt13):
     event: mixit13
     title: LT de test 2013
     summary: Un LT 2013
     description: Un LT 2013.
+    speakers:
+        - julien
+
+LightningTalk(lt13):
+    event: mixit14
+    title: LT de test 2014
+    summary: Un LT 2014
+    description: Un LT 2014.
     speakers:
         - agnes
         - cedric

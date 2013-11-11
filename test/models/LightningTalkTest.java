@@ -25,11 +25,11 @@ public class LightningTalkTest extends BaseDataUnitTest {
     }
 
     @Test public void findAllOn() {
-        final long initialCount = LightningTalk.findAllOn(ConferenceEvent.mixit13).size();
+        final long initialCount = LightningTalk.findAllOn(ConferenceEvent.mixit14).size();
         final LightningTalk lt = createLT("test");
-        assertEquals(initialCount+1, LightningTalk.findAllOn(ConferenceEvent.mixit13).size());
-        assertTrue(LightningTalk.findAllOn(ConferenceEvent.mixit13).contains(lt));
-        assertFalse(LightningTalk.findAllOn(ConferenceEvent.mixit12).contains(lt));
+        assertEquals(initialCount+1, LightningTalk.findAllOn(ConferenceEvent.mixit14).size());
+        assertTrue(LightningTalk.findAllOn(ConferenceEvent.mixit14).contains(lt));
+        assertFalse(LightningTalk.findAllOn(ConferenceEvent.mixit13).contains(lt));
     }
 
     @Test public void getNumberOfVotes() {
