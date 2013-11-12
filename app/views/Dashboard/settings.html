@@ -4,12 +4,6 @@
 <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/ui/jquery-ui-1.8.17.custom.css'}">
 #{/set}
 #{set 'moreScripts'}
-<!-- Requirements for managing form dirtiness -->
-<script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
-<script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
-<script src="@{'/public/javascripts/dirtiness.js'}"></script>
-<!-- End Requirements for managing form dirtiness -->
-<script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/jquery-ui-1.8.17.custom.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script>
     $(function() {
@@ -24,15 +18,9 @@
     });
 </script>
 #{/set}
-#{dirtyDialog/}
 
-#{form @saveSettings()}
-<ul class="tabs" data-tabs="tabs">
-    <li class="active"><a href="#tabNotifications">Notifications</a></li>
-</ul>
-<div id="tab-content" class="tab-content">
-    <div class="tab-pane active" id="tabNotifications" style="background-color: white">
-        <fieldset> 
+#{form @saveSettings(), role:"form"}
+        <fieldset>
             <legend>Notifications par mail</legend>
 
             #{field 'setting.id'}
@@ -40,39 +28,33 @@
             #{/}
 
             #{field 'setting.notificationOption'}
-            <div class="clearfix ${field.error?'error':''}"> 
-                <label for="${field.name}">&{field.name}</label> 
-                <div class="input"> 
-                    <ul class="inputs-list">
-                        #{list items:models.NotificationOption.values(), as:'option'}
-                        <li><label><input type="radio" name="${field.name}" value="${option}" ${setting.notificationOption == option?'checked':''} />&{'NotificationOption.'+option+'.label'}</label></li>
-                        #{/list}
-                    </ul>
-                    <span class="help-block">${field.error}</span>
-                    <span class="help-block">&{field.name+".note"}</span>
-                </div>
-            </div><!-- /clearfix -->
+            <div class="radio ${field.error?'has-error':''}">
+            #{list items:models.NotificationOption.values(), as:'option'}
+                <label>
+                    <input type="radio" name="${field.name}" value="${option}" ${setting.notificationOption == option?'checked':''} />
+                    &{'NotificationOption.'+option+'.label'}
+                </label>
+            #{/list}
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
             #{/}
 
             #{field 'setting.timezone'}
-            <div class="clearfix ${field.error?'error':''}"> 
+            <div class="form-group ${field.error?'has-error':''}">
                 <label for="${field.name}">&{field.name}</label> 
-                <div class="input"> 
-                    <input id="${field.id}" type="text" name="${field.name}" value="${field.value}" />
-                    <span class="help-block">${field.error}</span>
-                    <span class="help-block">&{field.name+".note"}</span>
-                </div>
-            </div><!-- /clearfix -->
+                <input id="${field.id}" type="text" name="${field.name}" value="${field.value}" class="form-control" />
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
             #{/}
 
         </fieldset>
-    </div>
-</div>
 
-<div class="actions">
-    <input type="submit" class="btn primary" value="Enregistrer"/>
-    <a href="@{index()}" class="btn">Annuler</a>
-</div>
+        <div class="form-group">
+            <input type="submit" class="btn primary" value="Enregistrer"/>
+            <a href="@{index()}" class="btn">Annuler</a>
+        </div>
 
 #{/form}
 
