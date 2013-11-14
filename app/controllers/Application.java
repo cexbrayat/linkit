@@ -37,7 +37,8 @@ public class Application extends PageController {
         List<Member> members = Member.recents(1, 14);
         // Unused
         // List<Map> tags = Interest.getCloud();
-        render(articles, sessions, members);
+        boolean isHomePage = true;
+        render(articles, sessions, members, isHomePage);
     }
 
     public static void members() {
