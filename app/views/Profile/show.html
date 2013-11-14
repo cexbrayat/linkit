@@ -90,23 +90,21 @@
     <div class="col-md-4"></div>
 </div><br/>
 
-<div class="row">
-
-    <div class="col-md-5"></div>
-    <div class="col-md-2">
-    #{list items:member.getOrderedAccounts(), as:'account'}
-        <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}"
-           href="${account.url()}" target="_blank" rel="twipsy" title="&{'provider.'+account.provider.name()}"></a>
-    #{/list}
-    #{if member.sharedLinks}
-        #{list items:member.sharedLinks, as:'link'}
-            <a class="sharedLink" href="${link.URL}" rel="twipsy" title="${link.name}" target="_blank"><img
-                    src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/></a>
+<div class="row" style="text-align:center;">
+    <div style="display: inline-block;">
+        #{list items:member.getOrderedAccounts(), as:'account'}
+            <a class="service-button ${account.provider.name().toLowerCase()} active" id="account${account.provider}"
+               href="${account.url()}" target="_blank" rel="twipsy" title="&{'provider.'+account.provider.name()}"></a>
         #{/list}
-    #{/if}
-        <div class="col-md-5"></div>
+        #{if member.sharedLinks}
+            #{list items:member.sharedLinks, as:'link'}
+                <a class="sharedLink" href="${link.URL}" rel="twipsy" title="${link.name}" target="_blank"><img
+                        src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/></a>
+            #{/list}
+        #{/if}
     </div>
-</div> <br/>
+</div>
+<br/>
 <div class="row text-center" itemprop="description" style="font-size: 18px; font-weight: 200;">
 #{markdown member.shortDescription /}
 </div>
