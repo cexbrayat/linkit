@@ -7,11 +7,11 @@
         <hr/>
         <section id="comment${comment.id}">
             <div class="row">
-                <div class="span3">
+                <div class="col-md-3">
                     #{member comment.author /}<br/>
                     ${comment.postedAt.format('dd/MM/yyyy hh:mm:ss')}
                 </div>
-                <div class="span13">
+                <div class="col-md-9">
                     <p>#{markdown comment.content /}</p>
                 </div>
             </div>
