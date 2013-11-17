@@ -586,6 +586,9 @@ Talk(talk131):
 Talk(talk132):
     event: mixit14
     track: Gamy
+    interests:
+        - java
+        - tdd
     title: Une session de test 2014 validée
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.

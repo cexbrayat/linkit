@@ -4,7 +4,6 @@
     <section id="comments">
         <h4>Vos commentaires :</h4>
         #{list items:_arg, as:"comment"}
-        <hr/>
         <section id="comment${comment.id}">
             <div class="row">
                 <div class="col-md-3">
@@ -16,6 +15,7 @@
                 </div>
             </div>
         </section>
+        <hr/>
         #{/list}
     </section>
 #{/if}
