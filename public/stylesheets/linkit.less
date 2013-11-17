@@ -3,6 +3,9 @@
 @mixitBlue : #00ADEE;
 @mixitDarkBlue : #005676;
 
+@warnColor : lighten(#C43C35, 40%);
+@infoColor : lighten(#c09853, 30%);
+
 .home-row {
   padding-bottom: 2.5em;
   padding-top: 2.5em;
@@ -49,7 +52,7 @@
 
 .container.home-page {
   max-width: 100%;
-  padding: 0;
+  padding: 0 15px;
   margin: 0;
 }
 body {
@@ -66,4 +69,107 @@ body {
 hr.featurette-divider {
   margin-top: 3em;
   margin-bottom: 3em;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+
+#sessionDetails {
+  .background-highlight {
+    background-color: @mixitLightGrey;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding : 0px 40px 0px 40px;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    blockquote, blockquote p{
+      font-size: 14px;
+      text-align: justify;
+    }
+  }
+
+  h4 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .row {
+    margin-bottom: 10px;
+  }
+
+}
+
+@colorTrackAgility: lighten(#C43C35, 30%);
+@colorTrackTechy:   lighten(#0064CD, 40%);
+@colorTrackTrendy:  lighten(#62c462, 20%);
+@colorTrackGamy:    lighten(#339BB9, 30%);
+@colorTrackWeby:    #9DF8FC; // ? quelle couleur choisie?
+
+.track.Agility {
+  background-color: @colorTrackAgility;
+}
+.track.Techy {
+  background-color: @colorTrackTechy;
+}
+.track.Trendy {
+  background-color: @colorTrackTrendy;
+}
+.track.Gamy {
+  background-color: @colorTrackGamy;
+}
+.track.Weby {
+  background-color: @colorTrackWeby;
+}
+
+.label.interest {
+  background-color: @mixitBlue;
+}
+
+.alert-message {
+  &.warning{
+    background-color: @warnColor;
+  }
+  &.info{
+    background-color: @infoColor;
+  }
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+#activities {
+  overflow: auto;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  min-height: 100px;
+}
+#activities .activity {
+  overflow: auto;
+  text-overflow: ellipsis;
+  display: inline-block;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 18px;
+  margin-bottom: 0px;
+  padding-bottom: 3px;
+  padding-top: 5px;
+  border-top: 1px solid;
+  border-color: #DCDCDC;
+  width: 100%;
+}
+
+#activities .activity:hover {
+  background-color: #DCDCDC;
+}
+
+.xxlarge {
+  width: 100%;
 }

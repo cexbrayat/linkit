@@ -14,27 +14,29 @@
     #{/if}
 #{/set}
 
-
-    <div class="hero-unit member-card">
+<div id="sessionDetails">
+    <div class="row background-highlight member-card">
         <div class="row">
-            <div class="span13"><h2 itemprop="name">[&{'enum.TalkFormat.'+talk.format}#{lang-flag talk.lang/}] ${talk.title}</h2></div>
-            #{star talk /}
-        </div>
-        <div class="row">
-            <div class="span12">
-                <p>
-                    #{if talk.track}Track : <span class="label track ${talk.track}">${talk.track}</span><br/>#{/if}
-                    #{if talk.interests}
-                        Tags :
-                        #{list items:talk.interests, as:'interest'}
-                        <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
-                        #{/list}
-                        <br/>
-                    #{/if}
-                </p>
+            <div class="col-md-12">
+                <span class="pull-right" style="margin-top: -3px;">
+                    #{star talk /}
+                </span>
+                <h2 itemprop="name">[&{'enum.TalkFormat.'+talk.format}#{lang-flag talk.lang/}] ${talk.title}</h2>
             </div>
-            <div id="favs-${talk.id}" style="float: right;">${talk.getNumberOfVotes()} favoris</div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                #{if talk.track}Track : <span class="label track ${talk.track}">${talk.track}</span>&nbsp;&nbsp;#{/if}
+                #{if talk.interests}
+                    Tags :
+                    #{list items:talk.interests, as:'interest'}
+                    <a href="@{Application.searchByInterest(interest.name)}"><span class="label interest">${interest}</span></a>
+                    #{/list}
+                #{/if}
+                <div class="pull-right" id="favs-${talk.id}" >${talk.getNumberOfVotes()} favoris</div>
+            </div>
+        </div>
+        <hr>
         <p itemprop="description">${talk.summary}</p>
 
     #{if slot}
@@ -77,13 +79,13 @@
         #{/secure.check}
 
         <div class="row">
-            <div class="span16">
+            <div class="col-md-12">
                 <div class="row">
                     #{list items:talk.speakers, as:'speaker'}
-                    <div class="span2" style="text-align: center">
+                    <div class="col-md-2" style="text-align: center">
                     #{if speaker.email}
                         #{if session.username}
-                            <a href="@{Profile.show(speaker.login)}"><img src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
+                            <a href="@{Profile.show(speaker.login)}"><img class="img-circle" src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
                         #{/if}
                         #{else}
                             <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right"><img src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
@@ -101,14 +103,14 @@
             </div>
          </div>
          <div class="row">
-            <div class="span14" style="text-align: justify;">
-                <blockquote style="font-size: 16px;">
+            <div class="col-md-12">
+                <blockquote>
                 #{markdown talk.description /}
                 </blockquote>
            </div>
         </div>
         <div class="row">
-            <div class="span11">
+            <div class="col-md-12">
                 <p>
                     ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
                     #{if talk.comments}
@@ -124,7 +126,7 @@
 
     #{if voters}
     <div class="row">
-        <div class="span16">
+        <div class="col-md-12">
             <h4>Ils ont mis cette session en favoris :</h4>
             
             #{list items:voters, as:'voter'}
@@ -135,12 +137,12 @@
     #{/if}
     
     <div class="row">
-        <div class="span16">
+        <div class="col-md-12">
             <p>
                 <h4>Activité récente</h4>
             </p>
             <p id="activities" style="max-height: 400px"></p>
-            <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>  
+            <a id="moreActivities" class="btn btn-default" onclick="loadMoreActivities(true)">&{'activities.more'}</a>
             <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
         
 <script type="text/javascript">
@@ -176,29 +178,31 @@
 
     #{comments talk.comments /}
 
-    <hr/>
     <section id="post">
         #{if session.username}
-        <div class="row">
-            #{form @Sessions.postComment(talk.id)}
-
-            #{field 'content'}
-            <div class="clearfix ${field.error?'error':''}">
-                <label for="${field.name}">&{field.name}</label>
-                <div class="input offset4">
-                    <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
-                    <span class="help-block">${field.error}</span>
-                    <span class="help-block">&{field.name+".note"}</span>
+            #{form @Sessions.postComment(talk.id), class:'form-inline'}
+                <div class="row">
+                    #{field 'content'}
+                    <div class="clearfix ${field.error?'error':''}">
+                        <label for="${field.name}" class="col-md-2">&{field.name}</label>
+                        <div class="input col-md-10">
+                            <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
+                            <span class="help-block">${field.error}</span>
+                            <span class="help-block pull-right">&{field.name+".note"}</span>
+                        </div>
+                    </div>
+                    #{/}
                 </div>
-            </div>
-            #{/}
-            <div class="actions">
-                <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
-            </div>
+                <div class="row">
+                    <div class="actions col-md-2 col-md-offset-5">
+                        <input type="submit" class="btn btn-primary large" value="Poster votre commentaire"/>
+                    </div>
+                </div>
             #{/form}
-        </div>
         #{/if}
         #{else}
         <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter cette session.
         #{/else}
     </section>
+
+</div>

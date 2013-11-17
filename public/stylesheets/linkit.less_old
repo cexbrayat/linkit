@@ -1,0 +1,247 @@
+@import "variables.less";
+@import "mixins.less";
+
+.soon {/** text **/
+    width: 200px;
+    font-size: 24px;
+    font-weight: 600;
+    color: red;
+    letter-spacing: 0.1em;
+    border: 5px solid red;
+    padding: 16px;
+    line-height: 75%;
+    text-align:center;
+    position:relative;
+    /**adjust as needed**/
+    top: -190px;
+    left: 10px;
+    /**note: CSS3 TRANSFORM: ROTATE DOESN'T WORK IN ALL BROWSERS YET**/
+    -webkit-transform: rotate(-20deg); /**safari, chrome**/
+    -moz-transform: rotate(-20deg); /**firefox**/
+    transform: rotate(-20deg); /**other browsers**/
+    .box-shadow(0 0 7px red);
+}
+
+
+ul.tabs {
+    margin: 0px;
+}
+.tab-pane {
+    border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+}
+
+.badge {
+    max-width: 45px;
+    max-height: 45px;
+    margin: 1px;
+    font-size: x-large;
+}
+
+
+#activities .google.reshare {
+    border-left: 1px solid #DCDCDC;
+    padding-left: 5px;
+    margin-left: 5px;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 18px;
+}
+
+.member {
+    vertical-align: top;
+    height: 20px;
+}
+.member img {
+    vertical-align: middle;
+}
+
+.sponsor {
+}
+
+.sponsor img{
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.sharedLink {
+}
+
+.sharedLink img {
+    height: 24px;
+    width: 24px;
+    margin-right: 3px;
+    vertical-align: middle;
+}
+
+.checkbox {
+    float: left;
+    width: 31%;
+    margin-right: 1%
+}
+
+.newline {
+    clear: left
+}
+
+.active {
+    /*color: #00cc00;*/
+}
+
+.inactive {
+    color: gray;
+}
+
+.btn.vote {
+    padding: 3px 5px 3px;
+    font-size: @basefont - 3px;
+}
+.vote-counter {
+    color: lightslategray;
+    font-weight: bold;
+    font-size: 140%;
+}
+
+h2.inactive {
+    color: @grayLight;
+}
+
+
+.showMore {
+    size: auto;
+    text-align: center;
+    border-top: 1px solid #ccc;
+}
+.showMore a {
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    padding: 2px;
+    .border-radius(0 0 6px 6px);
+}
+
+.btn.track {
+    &.Agility {
+        .gradientBar(lighten(@colorTrackAgility,10%), @colorTrackAgility);
+    }
+    &.Techy {
+        .gradientBar(lighten(@colorTrackTechy,10%), @colorTrackTechy);
+    }
+    &.Trendy {
+        .gradientBar(lighten(@colorTrackTrendy,10%), @colorTrackTrendy);
+    }
+    &.Gamy {
+        .gradientBar(lighten(@colorTrackGamy,10%), @colorTrackGamy);
+    }
+    &.Weby {
+        .gradientBar(lighten(@colorTrackWeby,10%), @colorTrackWeby);
+    }
+}
+
+body {
+  background-color: #eee;
+}
+
+.hero-unit {
+    background-color: @white;
+    -moz-border-radius: 10px;
+    -moz-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+    padding:10px 20px 10px;
+    background-color: @black;
+    background-image: -webkit-linear-gradient(top, #292929, #131313);
+    background-image: -o-linear-gradient(top, #292929, #131313);
+    background-image: linear-gradient(top, #292929, #131313);
+    color: #bfbfbf;
+    a {
+        color: #bfbfbf;
+    }
+}
+
+header {
+    padding:10px 10px 10px;
+    background-color: @black;
+    background-image: -webkit-linear-gradient(top, #292929, #131313);
+    background-image: -o-linear-gradient(top, #292929, #131313);
+    background-image: linear-gradient(top, #292929, #131313);
+    color: #bfbfbf;
+    a {
+        color: #bfbfbf;
+    }
+}
+
+.actions {
+    background-color: white;
+    border-top-color: @grayLight;
+}
+
+.welcome {
+}
+.welcome ul {
+    list-style: none;
+}
+.welcome ul li:before {
+    font-weight: bolder;
+    content: "\27A5 \0020";
+}
+
+.member-card {
+    padding: 20px 40px 20px 40px;
+    p {
+        font-size: 14px;
+    }
+}
+
+/* Countdown style */
+#countdown{
+    height: 110px;
+    margin-top: 2%;
+    text-align: center;
+}
+
+#countdown .dash {
+    width: 138px;
+    height: 96px;
+    background: transparent url('../images/dash.png') 0 0 no-repeat;
+    display: inline-block;
+    padding-left: 13px;
+    color: #333;
+}
+
+#countdown .weeks_dash {
+    background: transparent url('../images/dark_weeks_dash.png') 0 0 no-repeat;
+}
+
+#countdown .days_dash {
+    background: transparent url('../images/dark_days_dash.png') 0 0 no-repeat;
+}
+
+#countdown .hours_dash {
+    background: transparent url('../images/dark_hours_dash.png') 0 0 no-repeat;
+}
+
+#countdown .minutes_dash {
+    background: transparent url('../images/dark_minutes_dash.png') 0 0 no-repeat;
+}
+
+#countdown .seconds_dash {
+    background: transparent url('../images/dark_seconds_dash.png') 0 0 no-repeat;
+}
+
+#countdown .dash .digit {
+    font: bold 52pt Verdana;
+    font-weight: bold;
+    float: left;
+    width: 59px;
+    text-align: center;
+}
+
+#countdown .dash_title {
+    display: none;
+}
