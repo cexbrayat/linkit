@@ -43,11 +43,18 @@ public class Infos extends PageController {
     }
 
     public static void mixit12() {
-        ConferenceEvent event = ConferenceEvent.mixit12;
+        oldEvent(ConferenceEvent.mixit12);
+    }
+
+    private static void oldEvent(ConferenceEvent event) {
         List<Talk> talks = Talk.findAllValidatedOn(event);
         List<Member> speakers = Talk.findAllSpeakersOn(event);
         List<LightningTalk> lightningTalks = LightningTalk.findAllOn(event);
         render(event, talks, speakers, lightningTalks);
+    }
+
+    public static void mixit13() {
+        oldEvent(ConferenceEvent.mixit13);
     }
 
     public static void send(Mailing email) {

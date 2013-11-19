@@ -1,18 +1,42 @@
 #{extends 'main.html' /}
 #{set title:'Kit Multimedia' /}
 
+#{set 'moreStyles'}
+<style>
+    img.img-thumbnail {
+        margin-top: 20px;
+    }
+</style>
+#{/set}
+
 <h1>Kit Multimedia</h1>
 
 <h3>Logos MIX-IT disponibles:</h3>
 
-<ul class="media-grid">
-<li><a class="brand" target="blank" href="@{'/public/resources/logo-mixit.png'}"><img src="@{'/public/resources/logo-mixit.png'}" style="width:210px"/></a></li>
-<li><a class="brand" target="blank" href="@{'/public/resources/logo-mixit-black.png'}"><img src="@{'/public/resources/logo-mixit-black.png'}" style="width:210px"/></a></li>
-<li><a class="brand" target="blank" href="@{'/public/resources/logo-mixit-BW.png'}"><img src="@{'/public/resources/logo-mixit-BW.png'}" style="width:210px"/></a></li>
-<li><a class="brand" target="blank" href="@{'/public/resources/logo-mixit-BW-black.png'}"><img src="@{'/public/resources/logo-mixit-BW-black.png'}" style="width:210px"/></a></li>
-<li><a class="brand" target="blank" href="@{'/public/resources/logo-mixit-transparent.png'}"><img src="@{'/public/resources/logo-mixit-transparent.png'}" style="width:210px"/></a></li>
-<li><a class="brand" target="blank" href="@{'/public/resources/logo-mixit-sponsors.png'}"><img src="@{'/public/resources/logo-mixit-sponsors.png'}" style="width:210px"/></a></li>
-<li><a class="brand" target="blank" href="@{'/public/resources/logo-mixit-sponsors-BW.png'}"><img src="@{'/public/resources/logo-mixit-sponsors-BW.png'}" style="width:210px"/></a></li>
-<li><a class="brand" target="blank" href="@{'/public/resources/logo-mixit-sponsors-BW-black.png'}"><img src="@{'/public/resources/logo-mixit-sponsors-BW-black.png'}" style="width:210px"/></a></li>
-<li><a class="brand" target="blank" href="@{'/public/resources/mixit-banner.png'}"><img src="@{'/public/resources/mixit-banner.png'}" style="width:700px"/></a></li>
-</ul>
+<a target="blank" href="@{'/public/resources/logo-mixit.png'}">
+    <img src="@{'/public/resources/logo-mixit.png'}" class="img-thumbnail img-responsive"/>
+</a>
+<a target="blank" href="@{'/public/resources/logo-mixit-black.png'}">
+    <img src="@{'/public/resources/logo-mixit-black.png'}" class="img-thumbnail img-responsive"/>
+</a>
+<a target="blank" href="@{'/public/resources/logo-mixit-BW.png'}">
+    <img src="@{'/public/resources/logo-mixit-BW.png'}" class="img-thumbnail img-responsive"/>
+</a>
+<a target="blank" href="@{'/public/resources/logo-mixit-BW-black.png'}">
+    <img src="@{'/public/resources/logo-mixit-BW-black.png'}" class="img-thumbnail img-responsive"/>
+</a>
+<a target="blank" href="@{'/public/resources/logo-mixit-transparent.png'}">
+    <img src="@{'/public/resources/logo-mixit-transparent.png'}" class="img-thumbnail img-responsive"/>
+</a>
+<a target="blank" href="@{'/public/resources/logo-mixit-sponsors.png'}">
+    <img src="@{'/public/resources/logo-mixit-sponsors.png'}" class="img-thumbnail img-responsive"/>
+</a>
+<a target="blank" href="@{'/public/resources/logo-mixit-sponsors-BW.png'}">
+    <img src="@{'/public/resources/logo-mixit-sponsors-BW.png'}" class="img-thumbnail img-responsive"/>
+</a>
+<a target="blank" href="@{'/public/resources/logo-mixit-sponsors-BW-black.png'}">
+    <img src="@{'/public/resources/logo-mixit-sponsors-BW-black.png'}" class="img-thumbnail img-responsive"/>
+</a>
+<a target="blank" href="@{'/public/resources/mixit-banner.png'}">
+    <img src="@{'/public/resources/mixit-banner.png'}" class="img-thumbnail img-responsive"/>
+</a>

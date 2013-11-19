@@ -4,12 +4,12 @@ import play.mvc.Before;
 import play.mvc.Controller;
 
 /**
- * Copie de la classe SecureLinkIt de Play!, gérant les redirections vers notre page de login.
+ * Copie de la classe {@link Secure} de Play!, gérant les redirections vers notre page de login.
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public class SecureLinkIt extends Controller {
 
-    @Before(unless={"Profile.register", "Profile.save", "loginWith", "loginLinkIt", "signup"})
+    @Before(unless={"Profile.register", "Profile.save", "Profile.show", "loginWith", "loginLinkIt", "signup"})
     static void checkAccess() throws Throwable {
         // Authent
         if(!session.contains("username")) {

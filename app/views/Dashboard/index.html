@@ -1,216 +1,74 @@
 #{extends 'main.html' /}
 #{set title:'Mon dashboard' /}
-#{set 'moreScripts'}
-<script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-<script src="@{'/public/javascripts/bootstrap-popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-<script>
-            $(function () {
-              $("a[rel=popover]").popover({
-                offset: 5, placement: 'above'
-              })
-            })
-            
-</script>
-#{/set}
-
-    <div class="hero-unit">
-        <div class="row">
-            <div class="span8">
-                <h2>Mon dashboard</h2>
-                <div class="row">
-                    <div class="span2">
-                        #{if member.email}
-                        #{gravatar.img member.email, size:100, default:'mm', rating:'pg', secure:true/}
-                        #{/if}
-                   </div>
-                    <div class="span6">
-                        <div class="alert-message block-message info">
-                            <a href="@{Profile.show(session.username)}" title="Voir mon profil">Profil</a> consulté ${member.getNbLooks()} fois.<br />
-                            <a href="@{Dashboard.settings()}" title="Mes préférences">Notifications</a> : #{if setting}&{'NotificationOption.'+setting.notificationOption+'.label'}#{/if}#{else}Non définies#{/else}<br />
-                            <div class='alert-actions'>
-                                #{a @Dashboard.trombinoscope(), class:'btn small primary'}&{'menu.login.trombinoscope'}#{/a}
-*{ No need to buy ticket now
-                                #{a @Infos.inscription(), class:'btn small primary'}&{'button.ticketing'}#{/a}
-}*
-                                <a href="@{Profile.edit()}" class="btn small">&{'menu.login.edit'}</a>
-*{ The CFP is closed
-                                <a href="@{Sessions.create(session.username)}" class="btn small">Proposer une session</a>
-}*
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                #{if suggestedBadges}
-                    <h5>Il vous manque <a href="@{badges()}" title="badges manquants">${suggestedBadges.size()} badges</a>.</h5>
-                #{/if}
-
-                #{if member.getProposedTalks()}
-                    <h5>Mes propositions de sessions :</h5>
-                    <ul>
-                    #{list items:member.getProposedTalks(), as:'talk'}
-                        <li>#{session talk /}</li>
-                    #{/list}
-                    </ul>
-                #{/if}
-
-                #{if member.getLightningTalks()}
-                    <h5>Mes lightning talks :</h5>
-                    <ul>
-                    #{list items:member.getLightningTalks(), as:'lt'}
-                        <li><a href="@{LightningTalks.show(lt.id, lt.title.slugify())}">${lt}</a> : ${lt.getNumberOfVotes()} vote${lt.getNumberOfVotes().pluralize()}</li>
-                    #{/list}
-                    </ul>
-                #{/if}
-                #{if member.getValidatedTalks()}
-                    <h5>Mes sessions validées :</h5>
-                    <ul>
-                    #{list items:member.getValidatedTalks(), as:'talk'}
-                        <li>#{session talk /}</li>
-                    #{/list}
-                    </ul>
-                #{/if}
-                #{if comments}
-                    <h5>Mes commentaires récents :</h5>
-                    <ul>
-                    #{list items:comments, as:'comment'}
-                        <li>${comment.postedAt.since()},
-                            #{if comment instanceof models.SessionComment}
-                                sur la session "#{session comment.session /}"
-                            #{/if}
-                            #{if comment instanceof models.ArticleComment}
-                                sur l'<a href="@{Articles.show(comment.article.id, comment.article.title.slugify())}#comment${comment.id}">article "${comment.article}"</a>
-                            #{/if}
-                        </li>
-                    #{/list}
-                    </ul>
-                #{/if}
-                
-                <div class="row">
-                    #{if member.links}
-                        <div class="span4">
-                            <h4>Vous êtes lié à :</h4>
-                            #{list items:member.links, as:'link'}
-                               #{member link, short:true /}
-                            #{/list}
-                        </div>
-                    #{/if}
-                    #{if member.linkers}
-                        <div class="span4">
-                            <h4>Ils vous ont lié :</h4>
-                            #{list items:member.linkers, as:'link'}
-                               #{member link, short:true /}
-                            #{/list}
-                        </div>
-                    #{/if}
-                </div>
-
-                <br/>
-                <div class="row">
-                    <ul class="tabs" data-tabs="tabs">
-                    #{if suggestedMembers}
-                        <li class="active"><a href="#tabSuggestedMembers">Suggestions de liens</a></li>
-                    #{/if}
-                    #{if suggestedSessions}
-                        <li><a href="#tabSuggestedSessions">Suggestions de sessions</a></li>
-                    #{/if}
-                    </ul>
-                    <div id="tab-content" class="tab-content">
-                    #{if suggestedMembers}
-                        <div class="tab-pane active" id="tabSuggestedMembers">
-                            #{list suggestedMembers, as:'suggest'}
-                                #{member suggest /}
-                                <br/>
-                            #{/list}
-                        </div>
-                    #{/if}
-                    #{if suggestedSessions}
-                        <div class="tab-pane" id="tabSuggestedSessions">
-                            #{list suggestedSessions, as:'suggest'}
-                                #{session suggest /}<br/>
-                            #{/list}
-                        </div>
-                    #{/if}
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="span6" > <!-- timeline -->
-                <h2>Activités de vos links</h2>
-                <div class="row">
-                    <div class="span6">
-                        <a class="service-button linkit" id="LinkIt" onClick="handleProvider('LinkIt')" rel='twipsy' title="Cliquer pour filtrer le flux Mix-IT"></a>
-                        <a class="service-button twitter" id="Twitter" onClick="handleProvider('Twitter')" rel='twipsy' title="Cliquer pour filtrer le flux Twitter"></a>
-                        <a class="service-button google" id="Google" onClick="handleProvider('Google')" rel='twipsy' title="Cliquer pour filtrer le flux Google"></a>
-                        (Cliquez pour activer/désactiver un flux)
-                    </div>
-                    <br/>
-                    <br/>
-                    <div class="span6">
-                        <p id="activities" style="max-height: 500px"></p>
-                        <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>
-                        <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
-                    </div>
-
-                    <script type="text/javascript">
-                        var providers = ['${models.ProviderType.values().join("','")}'];
-                        var page = 1;
-                        var size = 5;
-                        var activitiesAction = #{jsAction @Activities.incoming(':providers', ':page',':size') /};
-                        var spinner = $('#activitiesSpinner');
-                        var btnMoreActivities = $('#moreActivities');
-
-                        function loadMoreActivities(autoscroll) {
-                            if (providers.length > 0) {
-                                btnMoreActivities.addClass('disabled');
-                                spinner.css("visibility", "visible");
-                                $.get(activitiesAction({providers: providers.join("${controllers.Activities.PROVIDERS_SEP}"), page: page, size: size}), function(data) {
-                                    $('#activities').append(data);
-                                    if (data) {
-                                        btnMoreActivities.css('visibility','visible');
-                                        page++;
-                                    } else {
-                                        btnMoreActivities.css('visibility','hidden');
-                                    }
-                                    spinner.css("visibility", "hidden");
-                                    btnMoreActivities.removeClass('disabled');
-                                    if (autoscroll) {
-                                        $("#activities").animate({ scrollTop: $("#activities").attr("scrollHeight") - $('#activities').height() }, 1000);
-                                    }
-                                });
-                            }
-                        }
-
-                        function handleProvider(provider){
-                            var contain = providers.indexOf(provider);
-                            if(contain != -1){
-                                providers = providers.filter(function(x){return x != provider})
-                                $('#'+provider).removeClass(provider.toLowerCase()).addClass(provider.toLowerCase()+'-off');
-                            }else{
-                                providers.push(provider);
-                                $('#'+provider).removeClass(provider.toLowerCase()+'-off').addClass(provider.toLowerCase());
-                            }
-                            $('#activities').empty();
-                            page = 1;
-                            size = 5;
-                            console.log(providers);
-                            loadMoreActivities(false);
-                        };
-
-                        // Initial loading : first page
-                        loadMoreActivities(false);
-                    </script>
-                </div>
-            </div>
-        </div>
+<style>
+    .big-number {
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
+<div class="row text-center">
+#{if member.email}
+    <div class="img-thumbnail">#{gravatar.img member.email, size:100, default:'mm', rating:'pg', secure:true/}</div>
+#{/if}
+</div><br/>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-1 text-center">
+    #{if member.badges}
+        <span class="big-number">${member.badges.size()}</span><br/>
+        <span>Badges</span>
+    #{/if}
     </div>
+    <div class="col-md-1 text-center">
+        <span class="big-number">${member.getNbLooks()}</span><br/>
+        <span>Consultations</span>
+    </div>
+    <div class="col-md-1 text-center">
+    #{if member.links}
+        <span class="big-number">${member.links.size()}</span><br/>
+        <span>Following</span>
+    #{/if}
+    </div>
+    <div class="col-md-1 text-center">
+    #{if member.linkers}
+        <span class="big-number">${member.linkers.size()}</span><br/>
+        <span>Followers</span>
+    #{/if}
+    </div>
+    <div class="col-md-4"></div>
+</div><br/>
+<div class="row text-center">
+    <a href="@{Profile.edit()}" class="btn btn-primary">&{'menu.login.edit'}</a>
+</div>
 
-    <div class="row">
-        #{list items:articles, as:'article'}
-        <div class="span-one-third">
-            #{article article /}
-        </div>
+#{if suggestedSessions}
+<div class="row">
+    <h2>Suggestion de sessions</h2>
+
+    <div>
+        #{list suggestedSessions, as:'suggest'}
+            #{session suggest /}<br/>
         #{/list}
     </div>
+</div>
+#{/if}
+#{if suggestedMembers}
+<div class="row">
+    <h2>Suggestion de membres</h2>
+
+    <div>
+        #{list suggestedMembers, as:'suggest'}
+            #{member suggest /}<br/>
+        #{/list}
+    </div>
+</div>
+#{/if}
+
+<div class="row">
+    <h2>Derniers articles</h2>
+#{list items:articles, as:'article'}
+    <div class="col-md-4">
+        #{article article /}
+    </div>
+#{/list}
 </div>

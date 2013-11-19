@@ -1,133 +1,236 @@
 #{extends 'main.html' /}
 #{set title:'Accueil' /}
 #{set 'moreScripts'}
-<script src="@{'/public/javascripts/bootstrap-tabs.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-<script src="@{'/public/javascripts/bootstrap-popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/tab.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script>
-            $(function () {
-              $("a[rel=popover]").popover({
-              })
-            })
+    $(function() {
+        $("a[rel=popover]").popover({
+        })
+    })
 </script>
 #{/set}
 #{set 'moreStyles'}
+<style>
+    .headers {
+        text-align: center;
+    }
 
+    .headers h2 {
+        font-weight: normal;
+    }
+
+    .img-thumbnail {
+        padding: 10px;
+        border-radius: 0px;
+    }
+
+    .img-rotate-right {
+        -webkit-transform: rotate(2deg);
+        -o-transform: rotate(2deg);
+        transform: rotate(2deg);
+    }
+
+    .img-rotate-left {
+        -webkit-transform: rotate(-2deg);
+        -o-transform: rotate(-2deg);
+        transform: rotate(-2deg);
+    }
+
+    .big-icons-header > div > div {
+        width: 30%;
+        display: inline-block;
+    }
+
+    .big-icons-header > div > div > h1 {
+        font-size: 4em;
+    }
+
+    .big-icons-header > div > div > i {
+        font-size: 7em;
+    }
+
+    @media (max-width: 1024px) {
+        .big-icons-header > div > div > h1 {
+            font-size: 2.4em;
+        }
+
+        .big-icons-header > div > div > i {
+            font-size: 4em;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .big-icons-header > div > div > h1 {
+            font-size: 1.2em;
+        }
+
+        .big-icons-header > div > div > i {
+            font-size: 2.5em;
+        }
+    }
+
+</style>
 #{/set}
-<div class="hero-unit">
-    <div class="row">
-        <div class="span7">
-            <h1 style="font-size: 40px">&{'event.'+models.ConferenceEvent.CURRENT+'.date'}</h1><h2 style="font-size: 20px">&{'event.'+models.ConferenceEvent.CURRENT+'.time'}</h2>
+<div>
+*{<div class="row">
+        <div class="col-md-6">
+            <h1>&{'event.'+models.ConferenceEvent.CURRENT+'.date'}</h1>
+            <h2>&{'event.'+models.ConferenceEvent.CURRENT+'.time'}</h2>
         </div>
-        <div class="span7" style="text-align: right">
-            <h3>&{'mixit.header'}</h3>
+        <div class="col-md-6">
+            <h3 class="pull-right">&{'mixit.header'}</h3>
         </div>
-    </div>
-    <div class="row" style="text-align: center">
-        <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="700" height="178" />
-    </div>
-    <div class="row">
-        <div class="span5 offset8">
+    </div> }*
+
+    <div class="row headers" style="text-align: center;">
+        <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="80%"/>
+        <div class="col-md-4 col-md-offset-8">
             <h3 itemprop="description">&{'mixit.slogan'}</h3>
         </div>
     </div>
 
-    <div class="soon">&{'ticketing.alert'}</div>
+*{ <div class="soon">&{'ticketing.alert'}</div>
+
+     <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+        #{if session.username}
+            <div class="row">
+                <div class="col-md-3" style="text-align: center">
+                    <a href="@{Infos.inscription()}" class="btn primary" rel="popover"
+                       data-content="&{'button.ticketing.details'}" data-original-title="&{'button.ticketing'}"
+                       data-html="true">&{'button.ticketing'}</a>
+                </div>
+                <div class="col-md-3" style="text-align: center">
+                    <a href="@{Sessions.planningMixIT13()}" class="btn primary" rel="popover"
+                       data-content="&{'talks.description'}" data-original-title="&{'button.talks'}"
+                       data-html="true">&{'button.talks'}</a>
+                </div>
+                <div class="col-md-3" style="text-align: center">
+                    <a href="@{LightningTalks.list()}" class="btn primary" rel="popover"
+                       data-content="&{'lightningtalk.short.description'}"
+                       data-original-title="&{'button.vote.lightningtalks'}"
+                       data-html="true">&{'button.vote.lightningtalks'}</a>
+                </div>
+            </div>
+        #{/if}
+        #{else}
+            <div class="row">
+                <div class="col-md-3" style="text-align: center">
+                    <a href="@{Infos.about()}" class="btn primary" rel="popover"
+                       data-content="&{'mixit.short.description'}" data-original-title="&{'button.about.mixit'}"
+                       data-html="true">&{'button.about.mixit'}</a>
+                </div>
+                <div class="col-md-3" style="text-align: center">
+                    <a href="@{Sessions.planningMixIT13()}" class="btn primary" rel="popover"
+                       data-content="&{'talks.description'}" data-original-title="&{'button.talks'}"
+                       data-html="true">&{'button.talks'}</a>
+                </div>
+                <div class="col-md-3 " style="text-align: center">
+                    <a href="@{Infos.inscription()}" class="btn primary" rel="popover"
+                       data-content="&{'login.howto.intro'}" data-original-title="&{'login.why'}"
+                       data-html="true">&{'button.login'}</a>
+                </div>
+            </div>
+        #{/else}
+        </div>
+    </div>          }*
+
+    <div class="row headers big-icons-header" style="padding-top: 0px;">
+        <div class="col-lg-12">
+            <div>
+                <h1>Développement</h1>
+                <i class="icon-keyboard"></i>
+            </div>
+            <div>
+                <h1>Agilité</h1>
+                <i class="icon-table"></i>
+            </div>
+            <div>
+                <h1>Innovation</h1>
+                <i class="icon-lightbulb"></i>
+            </div>
+        </div>
+        </div>
+        <!-- /.col-lg-4 -->
+    </div>
+    <!-- /.row -->
 
     <div class="row">
-        <div class="span12 offset1">
-            #{if session.username}
-            <div class="row">
-                <div class="span4" style="text-align: center">
-                    <a href="@{Infos.inscription()}" class="btn primary" rel="popover" data-content="&{'button.ticketing.details'}" data-original-title="&{'button.ticketing'}" data-html="true">&{'button.ticketing'}</a>
-                </div>
-                <div class="span4" style="text-align: center">
-                    <a href="@{Sessions.planningMixIT13()}" class="btn primary" rel="popover" data-content="&{'talks.description'}" data-original-title="&{'button.talks'}" data-html="true">&{'button.talks'}</a>
-                </div>
-                <div class="span4" style="text-align: center"> 
-                    <a href="@{LightningTalks.list()}" class="btn primary" rel="popover" data-content="&{'lightningtalk.short.description'}" data-original-title="&{'button.vote.lightningtalks'}" data-html="true">&{'button.vote.lightningtalks'}</a>
-                </div>
+        <div class="row speakers">
+            <div class="container">
+                <h4 id="previously"><span>Précédemment, à Mix-IT</span></h4>
+
+                #{speaker-on-home name:'Zach Holman', email:'zach@zachholman.com', login:'holman'/}
+                #{speaker-on-home name:'Pamela Fox', email:'pamela.fox@gmail.com', login:'pamelafox'/}
+                #{speaker-on-home name:'Simon Brown', email:'simon.brown@codingthearchitecture.com', login:'simonbrown'/}
+                #{speaker-on-home name:'Camille Roux', email:'contact@camilleroux.com', login:'camilleroux'/}
+                #{speaker-on-home name:'Bodil Stokke', email:'bodil@bodil.tv', login:'bodil'/}
+                #{speaker-on-home name:'JC Grosjean', email:'jcgrosjean@gmail.com', login:'jcQualitystreet'/}
             </div>
-            #{/if}
-            #{else}
-            <div class="row">
-                <div class="span4" style="text-align: center">
-                    <a href="@{Infos.about()}" class="btn primary" rel="popover" data-content="&{'mixit.short.description'}" data-original-title="&{'button.about.mixit'}" data-html="true">&{'button.about.mixit'}</a>
-                </div>
-                <div class="span4" style="text-align: center">
-                    <a href="@{Sessions.planningMixIT13()}" class="btn primary" rel="popover" data-content="&{'talks.description'}" data-original-title="&{'button.talks'}" data-html="true">&{'button.talks'}</a>
-                </div>
-                <div class="span4 " style="text-align: center">
-                    <a href="@{Infos.inscription()}" class="btn primary" rel="popover" data-content="&{'login.howto.intro'}" data-original-title="&{'login.why'}" data-html="true">&{'button.login'}</a>
-                </div>
-            </div>
-            #{/else}
         </div>
-    </div>
-    <br/>
-    <br/>
-   
-    <div class="row">
-        <ul class="tabs" data-tabs="tabs">
-            <li class="active"><a href="#tabActivities">&{'tab.lastactivities'}</a></li>
-            <li><a href="#tabArticles">&{'tab.lastarticles'}</a></li>
-            <li><a href="#tabSessions">&{'tab.lasttalks'}</a></li>
-            <li><a href="#tabInscrits">&{'tab.lastattendees'}</a></li>
-        </ul>
-        <div id="tab-content" class="tab-content">    
-            <div class="tab-pane active" id="tabActivities">
-                <p id="activities" style="max-height: 200px"></p>
-                <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>  
-                <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
-        
-<script type="text/javascript">
-    var page = 1;
-    var size = 5;
-    var activitiesAction = #{jsAction @Activities.general(':page',':size') /};
-    var spinner = $('#activitiesSpinner');
-    var btnMoreActivities = $('#moreActivities');
-   
-    function loadMoreActivities(autoscroll) {
-        btnMoreActivities.addClass('disabled');
-        spinner.css("visibility", "visible");
-        $.get(activitiesAction({page: page, size: size}), function(data) {
-            $('#activities').append(data);
-            if (data) {
-                page++;
-            } else {
-                btnMoreActivities.css('visibility','hidden');
-            }
-            spinner.css("visibility", "hidden");
-            btnMoreActivities.removeClass('disabled');
-            if (autoscroll) {
-                $("#activities").animate({ scrollTop: $("#activities").attr("scrollHeight") - $('#activities').height() }, 1000);
-            }
-        });
-    }
-    
-    // Initial loading : first page
-    loadMoreActivities(false);
-</script>
-                
+
+    <!-- START THE FEATURETTES -->
+
+
+    <div class="row featurette featurette1">
+        <div class="container">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Développement, Agilité, Innovation, DevOps, Lean Startup. <span
+                        class="text-muted">Des idées pour tout de suite!</span></h2>
+
+                <p class="lead">Nous faisons des métiers passionnants et d'une richesse incroyable&nbsp;: de l'idée à sa réalisation
+                    et sa mise en production, nous sommes les acteurs du Web et des logiciels d'aujourd'hui et de demain.
+                    Venez chercher l'inspiration, les bonnes pratiques, et les nouveaux outils à Mix-IT!
+                    Mais surtout venez rencontrer et échanger avec d'autres passionnés.</p>
             </div>
-            <div class="tab-pane" id="tabArticles">
-                #{list items:articles, as:'article'}
-                    #{article article /}
-                #{/list}
-            </div>
-            <div class="tab-pane" id="tabSessions">
-                #{list items:sessions, as:'s'}
-                    #{session-small s /}
-                #{/list}
-            </div>
-            <div class="tab-pane" id="tabInscrits">
-                <div class="row">
-                    #{list items:members, as:'member'}
-                    <div class="span6">
-                        #{member member /}
-                    </div>
-                    #{/list}
-                </div>
+            <div class="col-md-5 ">
+                <img class="featurette-image img-responsive img-thumbnail img-rotate-right"
+                     src="/public/images/mixit/lego.jpg"
+                     alt="Generic placeholder image">
             </div>
         </div>
     </div>
+
+
+    <div class="row featurette featurette2">
+        <div class="container">
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive img-thumbnail img-rotate-left"
+                     src="/public/images/mixit/workshop.jpg"
+                     alt="Generic placeholder image">
+            </div>
+            <div class="col-md-7">
+                <h2 class="featurette-heading">2 jours de conférences, d'ateliers et de surprises. <span class="text-muted">Et un tarif incroyable!</span>
+                </h2>
+
+                <p class="lead">Des conférences pour découvrir, des jeux pour apprendre, des ateliers de développement ou
+                    créatifs, Mix-IT c’est 2 jours intenses de progrès et de rencontres&nbsp;!
+                    La soirée, ouverte à tous, est aussi le moment idéal pour faire des connaissances et s'ouvrir aux autres
+                    cultures.
+                    Tout cela vous est proposé à un prix très abordable, bien inférieur aux habitudes, pour que tout un chacun puisse en profiter.
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row featurette featurette3">
+        <div class="container">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">500 participants. <span class="text-muted">50 speakers.</span></h2>
+
+                <p class="lead">Afin de garder une dimension conviviale, le nombre de participants est limité à 500 sur
+                    les deux jours. L'occasion de rencontrer en comité réduit les speakers locaux qui animent la communauté lyonnaise,
+                    mais aussi les stars internationales qui inspirent le Monde entier!
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive img-thumbnail img-rotate-right"
+                     src="/public/images/mixit/speaker.jpg"
+                     alt="Generic placeholder image">
+            </div>
+        </div>
+    </div>
+
+    <!-- /END THE FEATURETTES -->
 </div>

@@ -63,7 +63,7 @@ GoogleAccount(rguyLinkIt):
     googleId: 111962077049890418486
 
 Talk(sessionTestPast):
-    event: mixit12
+    event: mixit13
     title: Test title past
     track: Techy
     summary: Test summary
@@ -73,7 +73,7 @@ Talk(sessionTestPast):
            - rguy
 
 Talk(sessionTestCurrent):
-    event: mixit13
+    event: mixit14
     title: Test title current
     track: Techy
     summary: Test summary
@@ -108,7 +108,7 @@ Sponsor(sponsorCurrent) :
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit14
 
 Sponsor(sponsorPast) :
     firstname: ACMEPast
@@ -120,7 +120,7 @@ Sponsor(sponsorPast) :
          - Sponsor
     level: GOLD
     events:
-         - mixit12
+         - mixit13
 
 Sponsor(sponsorBoth) :
     firstname: ACMEBoth
@@ -134,3 +134,4 @@ Sponsor(sponsorBoth) :
     events:
          - mixit12
          - mixit13
+         - mixit14

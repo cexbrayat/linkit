@@ -183,12 +183,23 @@ public class Profile extends PageController {
         Member member = Member.findByLogin(login);
         notFoundIfNull(member);
 
+        checkProfileAccess(member);
+
         member.lookedBy(Member.findByLogin(Security.connected()));
         List<Talk> favorites = Vote.findFavoriteTalksByMemberOn(member, ConferenceEvent.CURRENT);
         Collections.shuffle(favorites);
 
         Logger.info("Show profil %s", member);
         render(member, favorites);
+    }
+
+    private static void checkProfileAccess(Member member) {
+        Member connectedMember = Member.findByLogin(Security.connected());
+        if (connectedMember == null && !member.publicProfile) {
+            Logger.info("Try to display profile of %s without being connected", member);
+            // redirect to login page
+            Login.index(request.url);
+        }
     }
 
     public static String link(Long memberId) {

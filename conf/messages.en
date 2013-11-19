@@ -26,7 +26,8 @@ menu.infos.kit=Multimedia kit
 menu.infos.contact=Contact
 menu.infos.access=Access
 menu.infos.hotels=Closest hotels
-menu.infos.2011=Mix-IT 2012
+menu.infos.2013=Mix-IT 2013
+menu.infos.2012=Mix-IT 2012
 menu.infos.2011=Mix-IT 2011
 menu.admin=Admin
 menu.search=Search
@@ -296,6 +297,9 @@ event.mixit12.time=8:30-18:30
 event.mixit13=Mix-IT 2013
 event.mixit13.date=April 25 & 26, 2013
 event.mixit13.time=8:30-18:30
+event.mixit14=Mix-IT 2014
+event.mixit14.date=April 2x & 2x, 2013
+event.mixit14.time=8:30-18:30
 
 # Sponsors
 sponsors.register=Do you wanna be one of our sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202013]%%20Registration">Contact us</a>! Here is the <a href="https://docs.google.com/document/d/1b46HNg5dl5q-MjIdJ8oCfe6UiI_41gFdbSnHn-P-hBU/edit" title="Sponsoring plan for Mix-IT 2013">detailled sponsoring plan</a> (in French).
@@ -305,6 +309,9 @@ sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank">
                             <hr/>\
                             <p><a href="http://skillsmatter.com/" target="blank"><img src="/public/images/logo-skills-matter.jpg" style="float: left; margin-right: 10px; max-width: 100px" title="Skills Matter"/></a>Mix-IT est partenaire de <a href="http://skillsmatter.com/" target="blank">Skills Matter</a>. Cette société anglaise est connue pour la qualité de ses formations, animées par des experts du sujet, ainsi que pour son engagement dans l'organisation de conférences et d'événements très réguliers.</p>
 sponsors.partners.mixit13=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
+                            <hr/>\
+                            <p><a href="http://lyon.supinfo.com/" target="blank"><img src="/public/images/logo-supinfo.png" style="float: left; margin-right: 10px; max-width: 100px" title="SUPINFO Lyon"/></a><a href="http://lyon.supinfo.com/" target="blank">SUPINFO Lyon</a> a la gentillesse de nous ouvrir ses locaux et de nous proposer des étudiants sympathiques et motivés pour nous assister à l'organisation le jour de l'événement. Sans eux, Mix-IT ne pourrait pas avoir lieu.</p>
+sponsors.partners.mixit14=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
                             <hr/>\
                             <p><a href="http://lyon.supinfo.com/" target="blank"><img src="/public/images/logo-supinfo.png" style="float: left; margin-right: 10px; max-width: 100px" title="SUPINFO Lyon"/></a><a href="http://lyon.supinfo.com/" target="blank">SUPINFO Lyon</a> a la gentillesse de nous ouvrir ses locaux et de nous proposer des étudiants sympathiques et motivés pour nous assister à l'organisation le jour de l'événement. Sans eux, Mix-IT ne pourrait pas avoir lieu.</p>
 sponsors.supporters=They support us

@@ -12,14 +12,13 @@
         <a href="@{LightningTalks.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg.title}</a>
     </h3>
 #{/else}
-<blockquote class="article headline">
+<i class="article headline">
     <p>${_arg.summary}</p>
-    <br/>
     <small>
         #{list items:_arg.speakers, as:'s'}
             #{member s /}
             #{if !s_isLast}, #{/if}
         #{/list}
     </small>
-</blockquote>
+</i>
 #{/if}

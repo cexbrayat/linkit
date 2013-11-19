@@ -407,7 +407,7 @@ public class MemberTest extends BaseDataUnitTest {
         assertNotSame(ConferenceEvent.CURRENT, event);
         assertFalse(m.isSpeakerOn(event));
 
-        // Creation d'un talk non valide sur l'événement courant par défaur
+        // Creation d'un talk non valide sur l'événement courant par défaut
         Talk t = new Talk();
         t.addSpeaker(m);
         t.save();
