@@ -1,11 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Editer un article' /}
 #{set 'moreScripts'}
-<!-- Requirements for managing form dirtiness -->
-<script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
-<script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
-<script src="@{'/public/javascripts/dirtiness.js'}"></script>
-<!-- End Requirements for managing form dirtiness -->
 <script src="@{'/public/javascripts/limitcountdown.js'}"></script>
 <script lang="text/javascript">
     $(function() {
@@ -14,14 +9,9 @@
     });
 </script>
 #{/set}
-#{dirtyDialog/}
 
-    <div class="page-header"> 
-        <h1>Edition d'un article</h1> 
-    </div>
-    <div class="row"> 
-        <div class="span12 columns"> 
-            #{form @Articles.save()} 
+    <div class="row">
+            #{form @Articles.save()}
                 #{field 'article.id'}
                     <input id="${field.id}" name="${field.name}" type="hidden" value="${field.value}" />
                 #{/}
@@ -30,22 +20,20 @@
                 <legend>Contenu</legend>
 
                 #{field 'article.title'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="form-group ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <input class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="50" type="text" value="${field.value}" />
-                        <span class="help-block" id="${field.id}Countdown">countdown</span>
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div>
+                    <input class="form-control" id="${field.id}" name="${field.name}" size="50" maxlength="50" type="text" value="${field.value}" />
+                    <span class="help-block" id="${field.id}Countdown">countdown</span>
+                    <span class="help-block">${field.error}</span>
+                    <span class="help-block">&{field.name+".note"}</span>
                 </div>
                 #{/}
 
                 #{field 'article.headline'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="form-group ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="255" rows="3">${field.value}</textarea>
+                        <textarea class="form-control" id="${field.id}" name="${field.name}" size="50" maxlength="255" rows="3">${field.value}</textarea>
                         <span class="help-block" id="${field.id}Countdown" style="font-weight: bold">countdown</span>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
@@ -54,10 +42,10 @@
                 #{/}
 
                 #{field 'article.content'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="form-group ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="20">${field.value}</textarea>
+                        <textarea class="form-control" id="${field.id}" name="${field.name}" size="50" rows="20">${field.value}</textarea>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
@@ -66,14 +54,13 @@
 
             </fieldset>
             <div class="actions">
-                <input type="submit" class="btn primary large" value="Enregistrer"/>
+                <input type="submit" class="btn btn-primary" value="Enregistrer"/>
                 #{if article.id}
                 <a href="@{Articles.show(article.id, article.title.slugify())}" class="btn large">Annuler</a>
                 #{/if}
                 #{else}
-                <a href="@{Articles.index()}" class="btn large">Annuler</a>
+                <a href="@{Articles.index()}" class="btn btn-default">Annuler</a>
                 #{/else}
             </div>
             #{/form}
-        </div>
     </div>
