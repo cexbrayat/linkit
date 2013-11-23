@@ -55,6 +55,10 @@ tab.lastarticles=Last articles
 tab.lasttalks=Last talks
 tab.lastattendees=Last members
 
+home.headers.development=Development
+home.headers.agility=Agility
+home.headers.innovation=Innovation
+
 # Login
 login.why=Why sign in?
 login.howto.intro=Beyond knowledge sharing, Mix-IT is also a good time to talk and make new contacts. The purpose of our site is to prepare you for that.
