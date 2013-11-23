@@ -58,25 +58,26 @@ tab.lastattendees=Derniers inscrits
 home.headers.development=Développement
 home.headers.agility=Agilité
 home.headers.innovation=Innovation
+home.speakers.previously=Précédemment, à Mix-IT
 
 home.featurette1.title=Développement, Agilité, Innovation, DevOps, Lean Startup.
-home.featurette1.subtitle=Des idées pour tout de suite!
-home.featurette1.text=Nous faisons des métiers passionnants et d'une richesse incroyable&nbsp;: \
-    de l'idée à sa réalisation et sa mise en production, nous sommes les acteurs du Web et des logiciels d'aujourd'hui \
-    et de demain. Venez chercher l'inspiration, les bonnes pratiques, et les nouveaux outils à Mix-IT! \
-    Mais surtout venez rencontrer et échanger avec d'autres passionnés.
-home.featurette2.title=2 jours de conférences, d'ateliers et de surprises.
-home.featurette2.subtitle=Et un tarif incroyable!
-home.featurette2.text=Des conférences pour découvrir, des jeux pour apprendre, des ateliers de développement ou \
-    créatifs, Mix-IT c’est 2 jours intenses de progrès et de rencontres&nbsp;! La soirée, ouverte à tous, \
-    est aussi le moment idéal pour faire des connaissances et s'ouvrir aux autres cultures. \
-    Tout cela vous est proposé à un prix très abordable, bien inférieur aux habitudes, pour que tout un chacun \
-    puisse en profiter.
-home.featurette3.title=500 participants.
-home.featurette3.subtitle=50 speakers.
-home.featurette3.text=Afin de garder une dimension conviviale, le nombre de participants est limité à 500 sur \
-    les deux jours. L'occasion de rencontrer en comité réduit les speakers locaux qui animent la communauté lyonnaise, \
+home.featurette1.subtitle=Des idées pour tout de suite&nbsp;!
+home.featurette1.text=Nous faisons des métiers passionnants et d'une richesse incroyable. \
+    Nous sommes les acteurs du Web et des logiciels d'aujourd'hui et de demain qui apportons des idées, \
+    les réalisent, et les mettent en production. Venez chercher l'inspiration, les bonnes pratiques, et les nouveaux \
+    outils&nbsp;: vous les trouverez à Mix-IT&nbsp;! Mais surtout venez rencontrer et échanger avec d'autres passionnés.
+home.featurette2.title=2 jours de conférences et d'ateliers.
+home.featurette2.subtitle=Et plein de suprises&nbsp;!
+home.featurette2.text=Des conférences pour faire des découvertes, des jeux pour apprendre, des ateliers de \
+    développement ou créatifs, Mix-IT c'est 2 jours intenses de progrès et de rencontres&nbsp;! \
+    La soirée, ouverte à tous, est aussi le moment idéal pour faire des connaissances et s'ouvrir aux autres cultures.
+    Mix-IT est une opportunité de rencontrer en comité réduit les speakers locaux qui animent la communauté locale, \
     mais aussi les stars internationales qui inspirent le Monde entier!
+home.featurette3.title=500 participants, 50 speakers.
+home.featurette3.subtitle=A un tarif incroyable&nbsp;!
+home.featurette3.text=Afin de garder une dimension conviviale, le nombre de participants est limité à 500. Nous nous \
+  battons pour vous proposer tout cela à un prix très abordable, pour que tout un chacun puisse en profiter.
+
 
 # Login
 login.why=Pourquoi ouvrir un compte sur le site Mix-IT ?
