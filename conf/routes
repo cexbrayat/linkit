@@ -51,6 +51,7 @@ GET     /interest/{interest}                    Application.searchByInterest
 # I fucking don't know why this route is not used!
 GET     /search/{query}                         Application.search 
 GET     /search                                 Application.search 
+POST    /lang                                   Application.lang
 
 # Activities    
 GET     /activities                             Activities.general
