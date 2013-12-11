@@ -8,7 +8,7 @@ import play.data.validation.Required;
 import play.modules.search.Indexed;
 
 /**
- * A comment on e session talk.
+ * A comment on a session talk.
  * @author Sryl <cyril.lacote@gmail.com>
  */
 @Entity

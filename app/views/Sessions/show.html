@@ -176,28 +176,42 @@
         </div>
     </div>
 
-    #{comments talk.comments /}
+    #{comments talk.comments, showPrivate:showPrivateComments /}
 
     <section id="post">
         #{if session.username}
-            #{form @Sessions.postComment(talk.id), class:'form-inline'}
-                <div class="row">
+            <div class="row">
+            #{form @Sessions.postComment(talk.id), class:'form-horizontal', role:'form'}
                     #{field 'content'}
-                    <div class="clearfix ${field.error?'error':''}">
-                        <label for="${field.name}" class="col-md-2">&{field.name}</label>
-                        <div class="input col-md-10">
+                    <div class="form-group ${field.error?'error':''}">
+                        <label for="${field.name}" class="col-md-2 control-label">&{field.name}</label>
+                        <div class="col-md-10">
                             <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
                             <span class="help-block">${field.error}</span>
                             <span class="help-block pull-right">&{field.name+".note"}</span>
                         </div>
                     </div>
                     #{/}
-                </div>
-                <div class="row">
-                    <div class="actions col-md-2 col-md-offset-5">
+                #{if showPrivateComments}
+                    #{field 'privatelyVisible'}
+                        <div class="form-group ${field.error?'error':''}">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="${field.id}" name="${field.name}" type="checkbox" value="true">
+                                        &{field.name}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    #{/}
+                #{/if}
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
                         <input type="submit" class="btn btn-primary large" value="Poster votre commentaire"/>
                     </div>
                 </div>
+            </div>
             #{/form}
         #{/if}
         #{else}

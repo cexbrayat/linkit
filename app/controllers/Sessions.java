@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.Booleans;
 import helpers.JavaExtensions;
 import helpers.Lists;
 import models.*;
@@ -56,11 +57,11 @@ public class Sessions extends PageController {
         render("Sessions/edit.html", talk, speakers);
     }
 
-    private static void checkReadAccess(Session talk) throws Throwable {
+    private static void checkReadAccess(Session talk) {
         // No need to be 
         // SecureLinkIt.checkAccess();
         Member user = Member.findByLogin(Security.connected());
-        if (talk.valid || (user instanceof Staff) || talk.hasSpeaker(Security.connected())) {
+        if (talk.valid || (user instanceof Staff) || talk.hasSpeaker(user)) {
             // alright!
         } else {
             flash.error("Vous n'avez pas officiellement accès à cette session, coquin!");
@@ -68,9 +69,9 @@ public class Sessions extends PageController {
         }
     }
 
-    private static void checkWriteAccess(Session talk) throws Throwable {
+    private static void checkWriteAccess(Session talk) {
         Member user = Member.findByLogin(Security.connected());
-        if ((user instanceof Staff) || talk.hasSpeaker(Security.connected())) {
+        if ((user instanceof Staff) || talk.hasSpeaker(user)) {
             // alright!
         } else {
             flash.error("Vous n'avez pas (ou plus :p) accès à la modification de cette session, coquin!");
@@ -111,7 +112,7 @@ public class Sessions extends PageController {
         return speakers;
     }
     
-    public static void show(final Long sessionId, String slugify, boolean noCount) throws Throwable {
+    public static void show(final Long sessionId, String slugify, boolean noCount) {
         Talk talk = Talk.findById(sessionId);
         notFoundIfNull(talk);
         checkReadAccess(talk);
@@ -121,18 +122,22 @@ public class Sessions extends PageController {
 
         List<Member> voters = Vote.findVotersBySession(talk);
         Collections.shuffle(voters);
-        
+
+        Member user = Member.findByLogin(Security.connected());
+        boolean showPrivateComments = user != null && user.canSeePrivateCommentsOf(talk);
+
         // Don't count look when coming from internal redirect
         if (!noCount) {
             talk.lookedBy(Member.findByLogin(Security.connected()));
         }
         
-        render(talk, voters, slot);
+        render(talk, voters, slot, showPrivateComments);
     }
 
     public static void postComment(
             Long talkId,
-            @Required String content) throws Throwable {
+            Boolean privatelyVisible,
+            @Required String content) {
         Session talk = Session.findById(talkId);
         notFoundIfNull(talk);
 
@@ -141,9 +146,13 @@ public class Sessions extends PageController {
         }
 
         Member author = Member.findByLogin(Security.connected());
-        talk.addComment(new SessionComment(author, talk, content));
+        SessionComment comment = new SessionComment(author, talk, content);
+        comment.privatelyVisible = Booleans.valueOrFalse(privatelyVisible);
+        talk.addComment(comment);
         talk.save();
+
         flash.success("Merci pour votre commentaire %s", author);
+
         show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 

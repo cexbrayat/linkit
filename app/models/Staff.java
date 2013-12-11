@@ -42,4 +42,10 @@ public class Staff extends Member {
         // A staff member is always registered
         this.ticketingRegistered = true;
     }
+
+    @Override
+    public boolean canSeePrivateCommentsOf(Talk talk) {
+        // Staff can see every comment
+        return true;
+    }
 }

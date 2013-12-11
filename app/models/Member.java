@@ -628,4 +628,7 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         return find("select distinct l from Member m inner join m.links l where m = ? and l.ticketingRegistered = true and l.class <> 'Sponsor' order by l.lastname, l.firstname", member).fetch();
     }
 
+    public boolean canSeePrivateCommentsOf(Talk talk) {
+        return talk.hasSpeaker(this);
+    }
 }

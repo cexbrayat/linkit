@@ -111,7 +111,11 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
 
     public boolean hasSpeaker(String username) {
         if (StringUtils.isBlank(username)) return false;
-        Member member = Member.findByLogin(username);
+        return hasSpeaker(Member.findByLogin(username));
+    }
+
+    public boolean hasSpeaker(Member member) {
+        if (member == null) return false;
         return speakers.contains(member);
     }
 
