@@ -101,7 +101,7 @@ public class SessionTest extends BaseDataUnitTest {
     
     @Test public void hasSpeakerNull() {
         final Session session = Session.all().first();
-        assertFalse(session.hasSpeaker(null));
+        assertFalse(session.hasSpeaker((String)null));
     }
     
     @Test public void hasSpeakerBlank() {

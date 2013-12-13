@@ -181,6 +181,7 @@ talk.newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les sépara
 talk.submit=Proposer une session
 content=Votre commentaire
 content.note=&{markdown.note}
+privatelyVisible=Faire ce commentaire en privé, i.e. seulement visible du staff et des speakers
 enum.TalkFormat.Talk=Conférence
 enum.TalkFormat.Workshop=Atelier
 enum.TalkFormat.Keynote=Keynote

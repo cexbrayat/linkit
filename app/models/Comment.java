@@ -3,15 +3,8 @@ package models;
 import helpers.JavaExtensions;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
+
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.Required;
@@ -54,6 +47,10 @@ public abstract class Comment extends Model {
     @Required
     @Temporal(value = TemporalType.TIMESTAMP)
     public Date postedAt;
+
+    /* true if private comment. A private comment is visible only to admin members and owners of commented entity (like speakers of a Session). */
+    @Column(name = "private")
+    public boolean privatelyVisible;
 
     public Comment(Member author, String content) {
         this.author = author;

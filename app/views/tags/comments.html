@@ -1,9 +1,14 @@
-*{ Display all _arg comments }*
+*{ Display comments list.
+   Parameters :
+   - (default) _arg : Comment collection.
+   - showPrivate : true if private comments should be listed.
+}*
 
 #{if _arg}
     <section id="comments">
         <h4>Vos commentaires :</h4>
         #{list items:_arg, as:"comment"}
+        #{if !comment.privatelyVisible || _showPrivate}
         <section id="comment${comment.id}">
             <div class="row">
                 <div class="col-md-2">
@@ -11,11 +16,18 @@
                     ${comment.postedAt.format('dd/MM/yyyy hh:mm:ss')}
                 </div>
                 <div class="col-md-10">
+                    #{if comment.privatelyVisible}
+                        <div class="alert alert-warning alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            This comment is private, only visible to speakers and staff members.
+                        </div>
+                    #{/if}
                     <p>#{markdown comment.content /}</p>
                 </div>
             </div>
         </section>
         <hr/>
+        #{/if}
         #{/list}
     </section>
 #{/if}
