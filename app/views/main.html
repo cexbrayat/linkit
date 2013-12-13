@@ -154,6 +154,10 @@
             <button type="submit" class="btn btn-default">&{'menu.search'}</button>
         </form>
         <ul class="nav navbar-nav navbar-right">
+            <li>
+            #{if lang == 'en'}#{a @Application.lang('fr', request.url)}Français#{/a}#{/if}
+            #{else}#{a @Application.lang('en', request.url)}English#{/a}#{/else}
+            </li>
         #{if session.username}
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle"

@@ -10,6 +10,7 @@ import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.db.jpa.Transactional;
+import play.i18n.Lang;
 import play.modules.search.Search;
 import play.templates.JavaExtensions;
 
@@ -203,5 +204,10 @@ public class Application extends PageController {
         Collections.sort(members);
 
         render(query, articles, talks, lightningtalks, members);
+    }
+
+    public static void lang(String lang, String url) {
+        Lang.change(lang);
+        redirect(url);
     }
 }
