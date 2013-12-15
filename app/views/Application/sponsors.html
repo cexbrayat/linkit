@@ -120,7 +120,7 @@ def spanPerLevel = [
 }%
 #{/if}
 
-#{if messages.get('sponsors.supporters.'+event)}
+#{if messages.get('sponsors.supporters.'+event) != 'sponsors.supporters.'+event}
 <br/>
 <div class="row">
     <h1>&{'sponsors.supporters'}</h1>
