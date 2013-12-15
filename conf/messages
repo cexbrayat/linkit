@@ -16,7 +16,7 @@ menu.members=Participants
 menu.members.speakers=Les speakers
 menu.members.all=Tous les participants
 menu.members.staff=Les membres du staff
-menu.members.sponsors=Les sponsors
+menu.members.sponsors=Sponsors
 menu.infos=Infos pratiques
 menu.infos.about=A propos de Mix-IT
 menu.infos.faq=FAQ
@@ -325,7 +325,7 @@ event.mixit14.date=29 et 30 avril 2014
 event.mixit14.time=8H30-18H30
 
 # Sponsors
-sponsors.register=Vous voulez devenir un de nos sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202013]%%20Registration">Contactez-nous</a>! Voici l'<a href="https://docs.google.com/document/d/1b46HNg5dl5q-MjIdJ8oCfe6UiI_41gFdbSnHn-P-hBU/edit" title="Offre de sponsoring Mix-IT 2013">offre de sponsoring détaillée</a>.
+sponsors.register=Vous voulez devenir un de nos sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202014]%%20Sponsoring">Contactez-nous</a>! Voici l'<a href="https://docs.google.com/document/d/1wblWy9JTUQYyXrWaaoe5YfGOo1EbUWbNkgMQzjyXBf8/edit?usp=sharing" title="Offre de sponsoring Mix-IT 2014">offre de sponsoring détaillée</a>.
 sponsors.forEvent=Sponsors de &{event.%s}
 sponsors.partners=Ils nous soutiennent
 sponsors.partners.mixit12.1=<p><a href="http://www.cloudbees.com/" target="blank"><img src="/public/images/logo-cloudbees.png" style="float: left; margin-right: 30px; max-width: 200px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>
