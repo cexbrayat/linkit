@@ -95,6 +95,9 @@
                             href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
                 </ul>
             </li>}*
+            <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a
+                    href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
+
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.infos'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
