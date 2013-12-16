@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Liste des sponsors' /}
+#{set title:'Les sponsors et partenaires' /}
 
 #{set 'moreStyles'}
 
@@ -11,6 +11,8 @@
 
     .sponsor {
         text-align: center;
+        padding: 20px;
+        margin: 10px;
     }
 
     .sponsor hr {
@@ -21,19 +23,15 @@
         margin-left: 0px;
     }
 
-    .member-card {
-        padding: 20px;
-    }
-
-    .sponsor.span6 {
+    .sponsor.col-sm-6 {
         width: 300px;
     }
 
-    .sponsor.span4 {
+    .sponsor.col-sm-4 {
         width: 180px;
     }
 
-    .sponsor.span3 {
+    .sponsor.col-sm-3 {
         width: 130px;
     }
 </style>
@@ -71,9 +69,9 @@
 %{
 
 def spanPerLevel = [
-(models.Sponsor.Level.GOLD):"span6",
-(models.Sponsor.Level.SILVER):"span4",
-(models.Sponsor.Level.BRONZE):"span3",
+(models.Sponsor.Level.GOLD):"col-sm-6",
+(models.Sponsor.Level.SILVER):"col-sm-4",
+(models.Sponsor.Level.BRONZE):"col-sm-3",
 ]
 
 }%
@@ -108,14 +106,24 @@ def spanPerLevel = [
 #{/list}
 #{/if}
 
-#{if messages.get('sponsors.partners.'+event)}
-<br/>
+#{if messages.get('sponsors.partners.'+event+'.1') != 'sponsors.partners.'+event+'.1'}
 <h1>&{'sponsors.partners'}</h1>
-&{'sponsors.partners.'+event}
+%{
+    for (int i = 1; messages.get('sponsors.partners.'+event+'.'+i) != 'sponsors.partners.'+event+'.'+i; i++) {
+}%
+        <div class="row">
+            #{if i > 1}<hr/>#{/if}
+            &{'sponsors.partners.'+event+'.'+i}
+        </div>
+%{
+    }   // end for
+}%
 #{/if}
 
-#{if messages.get('sponsors.supporters.'+event)}
+#{if messages.get('sponsors.supporters.'+event) != 'sponsors.supporters.'+event}
 <br/>
-<h1>&{'sponsors.supporters'}</h1>
-&{'sponsors.supporters.'+event}
+<div class="row">
+    <h1>&{'sponsors.supporters'}</h1>
+    &{'sponsors.supporters.'+event}
+</div>
 #{/if}

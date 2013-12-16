@@ -95,6 +95,9 @@
                             href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
                 </ul>
             </li>}*
+            <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a
+                    href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
+
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.infos'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -213,23 +216,39 @@
     #{/if}
         <br/>
 
-        <div class="row">
-            <div class="col-md-3">
-                <iframe allowtransparency="true" frameborder="0" scrolling="no"
-                        src="//platform.twitter.com/widgets/follow_button.html?screen_name=MixIT_Lyon&lang=fr&show_count=false"
-                        style="width:350px; height:20px;">
-                </iframe>
+        <div class="row" style="padding: 20px">
+            <div class="col-sm-3 col-xs-6">
+                <div class="center-block">
+                    <iframe allowtransparency="true" frameborder="0" scrolling="no"
+                            src="//platform.twitter.com/widgets/follow_button.html?screen_name=MixIT_Lyon&lang=fr&show_count=false"
+                            style="width:300px; height:20px; margin: auto;">
+                    </iframe>
+                </div>
             </div>
-            <div class="col-md-3" style="text-align: center">
-                <a href="http://www.cloudbees.com/" target="blank"><img
-                        src="@{'/public/images/powered-by-cloudbees-button-120x30.png'}" title="Powered by Cloudbees"
-                        height="20px"/></a>
+            <div class="col-sm-3 col-xs-6">
+                <div class="center-block">
+                    <a href="http://www.cpe.fr/" target="blank" style="margin: auto;">
+                        <img src="@{'/public/images/logo-cpe-mini.png'}" title="Hosted at CPE Lyon" height="20px"/>
+                    </a>
+                </div>
             </div>
-            <div class="col-md-3" style="text-align: center">
-                #{a @Infos.contact()}Bugs, suggestions, feedbacks#{/a}
+
+            <!-- Add the extra clearfix for only the required viewport -->
+            <div class="clearfix visible-xs"></div>
+
+            <div class="col-sm-3 col-xs-6">
+                <div class="center-block">
+                    <a href="http://www.cloudbees.com/" target="blank" style="margin: auto;">
+                        <img src="@{'/public/images/powered-by-cloudbees-button-120x30.png'}"
+                             title="Powered by Cloudbees"
+                             height="20px"/>
+                    </a>
+                </div>
             </div>
-            <div class="col-md-3">
-                <span class="pull-right">&copy; 2014 Mix-IT</span>
+            <div class="col-sm-3 col-xs-6">
+                <div class="center-block">
+                    <span style="margin: auto;">&copy; 2014 Mix-IT</span>
+                </div>
             </div>
         </div>
     </div>
