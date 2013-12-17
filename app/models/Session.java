@@ -1,8 +1,10 @@
 package models;
 
+import com.google.common.base.Function;
 import controllers.Application;
 import controllers.Mails;
 import java.util.*;
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import models.activity.Activity;
 import models.activity.CommentSessionActivity;
@@ -225,5 +227,16 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
 
     public int compareTo(Session other) {
         return new CompareToBuilder().append(this.title, other.title).toComparison();
+    }
+
+    private static final Function<Session,ConferenceEvent> SESSION_TO_EVENT = new Function<Session, ConferenceEvent>() {
+        @Override
+        public ConferenceEvent apply(@Nullable Session session) {
+            return session.event;
+        }
+    };
+
+    public static Function<Session,ConferenceEvent> toEvent() {
+        return SESSION_TO_EVENT;
     }
 }
