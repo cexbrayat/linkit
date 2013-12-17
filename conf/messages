@@ -56,6 +56,7 @@ tab.lasttalks=Dernières sessions
 tab.lastattendees=Derniers inscrits
 
 home.headers.development=Développement
+home.headers.development.short=Dev
 home.headers.agility=Agilité
 home.headers.innovation=Innovation
 home.speakers.previously=Précédemment, à Mix-IT
