@@ -1,41 +1,48 @@
 #{extends 'main.html' /}
 #{set 'canonical'}@@{Articles.show(article.id, article.title.slugify())}#{/set}
 #{set title:article.title /}
-<div class="hero-unit member-card">
-    <h2 itemprop="name">${article.title}</h2>
-    <strong itemprop="description">${article.headline}</strong>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h2 itemprop="name">${article.title}</h2>
+        <strong itemprop="description">${article.headline}</strong>
+    </div>
+</div>
 
+<div class="row">    
     #{secure.check models.Role.ADMIN_ARTICLE}
     <div class="alert alert-warning">
         #{if !article.valid}
         Cet article n'est pas publié.
         #{/if}
-        <div class='alert-actions'>
-            #{if article.valid}
-            <a href="@{Articles.unvalidate(article.id)}" class="btn btn-default">Invalider</a>
-            #{/if}
-            #{else}
-            <a href="@{Articles.validate(article.id)}" class="btn btn-primary">Publier</a>
-            #{/else}
-            <a href="@{Articles.edit(article.id)}" class="btn btn-default">Editer</a>
-            <a href="@{Articles.delete(article.id)}" class="btn btn-danger">Supprimer</a>
-        </div>
+        #{if article.valid}
+        <a href="@{Articles.unvalidate(article.id)}" class="btn btn-default">Invalider</a>
+        #{/if}
+        #{else}
+        <a href="@{Articles.validate(article.id)}" class="btn btn-primary">Publier</a>
+        #{/else}
+        <a href="@{Articles.edit(article.id)}" class="btn btn-default">Editer</a>
+        <a href="@{Articles.delete(article.id)}" class="btn btn-danger">Supprimer</a>
     </div>
     #{/secure.check}
+</div>
 
-    <br/>
-    <br/>
-    <blockquote class="article content">
+<br/>
+<br/>
+
+<div class="row">
+    <div class="article content col-md-8 col-md-offset-2">
         #{markdown article.content /}
         <br/>
         <small>Posté par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a> le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}</small>
-    </blockquote>
+    </div>
     <br/>
+    <div class="col-md-8 col-md-offset-2">
     ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}
     #{if article.comments}
         - <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
     #{/if}
     &mdash; #{socialbar/}
+    </div>
 </div>
 
 <div class="row">
