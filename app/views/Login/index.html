@@ -2,14 +2,6 @@
 #{set title:'Connexion à Mix-IT' /}
 #{set 'moreStyles' }
 <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/zocial.css'}" />
-<style>
-.login a {
-
-    width: 220px;
-    margin-bottom: 15px;
-}
-
-</style>
 #{/set}
 
 
@@ -18,16 +10,16 @@
     <div class="row">
         <div class="col-md-4">
             <div class="well login" style="font-size: 12px">
-                <a href="@{Login.loginWith(models.ProviderType.Twitter)}" class="zocial twitter">
+                <a href="@{Login.loginWith(models.ProviderType.Twitter)}" class="zocial twitter btn btn-block">
                     <span>Se connecter via Twitter</span>
                 </a>
-                <a href="@{Login.loginWith(models.ProviderType.Google)}" class="zocial google">
+                <a href="@{Login.loginWith(models.ProviderType.Google)}" class="zocial google btn btn-block">
                     <span>Se connecter via Google</span>
                 </a>
-                <a href="@{Login.loginWith(models.ProviderType.LinkedIn)}" class="zocial linkedin">
+                <a href="@{Login.loginWith(models.ProviderType.LinkedIn)}" class="zocial linkedin btn btn-block">
                     <span>Se connecter via LinkedIn</span>
                 </a>
-                <a href="@{Login.noNetwork()}" class="zocial guest" style="margin-bottom: 0px">
+                <a href="@{Login.noNetwork()}" class="zocial guest btn btn-block" style="margin-bottom: 0px">
                     <span>Avec un login/mot de passe</span>
                 </a>
             </div>
