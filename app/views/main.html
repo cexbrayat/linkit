@@ -108,9 +108,9 @@
 *{
                     <li #{if request.action=="Infos.inscription"}class="active"#{/if}><a
                             href="@{Infos.inscription()}">&{'menu.infos.inscription'}</a></li>
+}*
                     <li #{if request.action=="Infos.sponsors"}class="active"#{/if}><a
                             href="@{Application.sponsors()}">&{'menu.infos.sponsors'}</a></li>
-}*
                     <li #{if request.action=="Infos.contact"}class="active"#{/if}><a
                             href="@{Infos.contact()}">&{'menu.infos.contact'}</a></li>
                     <li #{if request.action=="Infos.kit"}class="active"#{/if}><a
@@ -121,11 +121,11 @@
                     <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a
                             href="@{Infos.hotels()}">&{'menu.infos.hotels'}</a></li>
 }*
-                    <!--<li #{if request.action=="Infos.mixit13"}class="active"#{/if}><a-->
-                            <!--href="@{Infos.mixit13()}">&{'menu.infos.2013'}</a></li>-->
-                    <!--<li #{if request.action=="Infos.mixit12"}class="active"#{/if}><a-->
-                            <!--href="@{Infos.mixit12()}">&{'menu.infos.2012'}</a></li>-->
-                    <!--<li><a href="http://2011.mix-it.fr" title="Mix-IT 2011">&{'menu.infos.2011'}</a></li>-->
+                    <li #{if request.action=="Infos.mixit13"}class="active"#{/if}><a
+                            href="@{Infos.mixit13()}">&{'menu.infos.2013'}</a></li>
+                    <li #{if request.action=="Infos.mixit12"}class="active"#{/if}><a
+                            href="@{Infos.mixit12()}">&{'menu.infos.2012'}</a></li>
+                    <li><a href="http://2011.mix-it.fr" title="Mix-IT 2011">&{'menu.infos.2011'}</a></li>
                 </ul>
             </li>
         #{secure.check 'admin'}
