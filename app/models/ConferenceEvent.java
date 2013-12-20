@@ -3,6 +3,7 @@ package models;
 public enum ConferenceEvent {
 
     // never modify this existing values heavily used in DB data.
+    // Their order should also be kept chronological (used to sort sessions).
     mixit12,
     mixit13,
     mixit14;

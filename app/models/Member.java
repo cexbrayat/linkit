@@ -1,10 +1,8 @@
 package models;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 import controllers.JobFetchUserTimeline;
 import controllers.JobMajUserRegisteredTicketing;
 import helpers.JavaExtensions;
@@ -13,6 +11,7 @@ import helpers.badge.BadgeComputer;
 import helpers.badge.BadgeComputerFactory;
 import models.activity.*;
 import models.auth.AuthAccount;
+import org.apache.commons.collections.MultiMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -21,6 +20,7 @@ import play.Logger;
 import play.data.validation.*;
 import play.db.jpa.Model;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.*;
 import java.util.List;
@@ -516,7 +516,7 @@ public class Member extends Model implements Lookable, Comparable<Member> {
                 .append(' ')
                 .append(lastname)
                 .toString()
-                ,CHAR_DELIMITER_NAME);
+                , CHAR_DELIMITER_NAME);
         
     }
 
@@ -592,6 +592,12 @@ public class Member extends Model implements Lookable, Comparable<Member> {
 
     public Set<Session> getValidatedTalks() {
         return Sets.filter(sessions, SessionPredicates.CURRENT_VALIDATED_TALK);
+    }
+
+    public Multimap<ConferenceEvent, Session> getPreviousValidatedTalks() {
+        return Multimaps.index(
+                Sets.filter(sessions, SessionPredicates.PREVIOUS_VALIDATED_TALK),
+                Session.toEvent());
     }
     
     public Set<Session> getProposedTalks() {

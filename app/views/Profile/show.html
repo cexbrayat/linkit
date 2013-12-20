@@ -149,6 +149,28 @@
 </div><br/>
 #{/if}
 
+%{
+    def previousTalks = member.getPreviousValidatedTalks();
+}%
+#{if previousTalks.size()}
+<div>
+    <h2>Mes talks aux éditions précédentes</h2>
+    #{list items:previousTalks.keySet(), as:'previousEvent'}
+    <div class="row">
+        <div class="col-md-2">
+            <h3>à &{'event.'+previousEvent}</h3>
+        </div>
+        <div class="col-md-10">
+            #{list items:member.getPreviousValidatedTalks().get(previousEvent), as:'talk'}
+                <div>#{session-small talk /}</div>
+            #{/list}
+        </div>
+    </div>
+    #{/list}
+
+</div><br/>
+#{/if}
+
 #{if member.interests}
 <div>
     <h2>Mes intérêts</h2>
@@ -213,7 +235,6 @@
             $('#activities').empty();
             page = 1;
             size = 5;
-            console.log(providers);
             loadMoreActivities(false);
         }
         // Initial loading : first page

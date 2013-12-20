@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 public abstract class SessionPredicates implements Serializable {
     public static final Predicate<Session> CURRENT_VALIDATED_TALK = new TalkPredicate(true, ConferenceEvent.CURRENT);
+    public static final Predicate<Session> PREVIOUS_VALIDATED_TALK = new PreviousValidatedTalkPredicate(ConferenceEvent.CURRENT);
     public static final Predicate<Session> CURRENT_PROPOSED_TALK = new TalkPredicate(false, ConferenceEvent.CURRENT);
     public static final Predicate<Session> CURRENT_LIGHTNING_TALK = new LightningTalkPredicate(ConferenceEvent.CURRENT);
 
@@ -24,6 +25,25 @@ public abstract class SessionPredicates implements Serializable {
             if (s instanceof Talk) {
                 Talk t = (Talk) s;
                 return t.valid == this.validated && t.event == this.event;
+            } else {
+                return false;
+            }
+        }
+
+    }
+
+    static class PreviousValidatedTalkPredicate implements Predicate<Session> {
+
+        private ConferenceEvent exclusiveMaxEvent;
+
+        public PreviousValidatedTalkPredicate(ConferenceEvent exclusiveMaxEvent) {
+            this.exclusiveMaxEvent = exclusiveMaxEvent;
+        }
+
+        public boolean apply(Session s) {
+            if (s instanceof Talk) {
+                Talk t = (Talk) s;
+                return t.valid == true && t.event.compareTo(this.exclusiveMaxEvent) < 0;
             } else {
                 return false;
             }
