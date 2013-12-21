@@ -62,21 +62,22 @@ home.headers.innovation=Innovation
 home.speakers.previously=Previously, at Mix-IT
 
 home.featurette1.title=Development, Agility, Innovation, DevOps, Lean Startup.
-home.featurette1.subtitle=Ideas for now&nbsp;!
+home.featurette1.subtitle=Ideas for now!
 home.featurette1.text=We are passionate and love our amazing jobs: we are the web and software builders, \
-    who bring the idea, build them, and push them live. Are you looking for inspiration, good practices and new tools? \
-    You’ll find them at Mix-IT! But more than everything else, you will be able meet and share with other passionates.
+who come up with the ideas, build them, and push them live. Are you looking for inspiration, \
+good practices and new tools? You’ll find them at Mix-IT! But more than anything else, \
+you will be able meet and share with other passionate people.
 home.featurette2.title=2 days of talks and workshops
 home.featurette2.subtitle=...full of surprises!
-home.featurette2.text=Conferences to discover new trends, games to learn, creative and development workshops to improve \
-    yourself, Mix-IT is a two intense and days of sharing days.The night party, open to anybody, is a great moment to \
-    network and open yourself to other cultures. Mix-IT is an opportunity to meet the speakers, those building the \
-    local communities, but also international stars who inspire the World.
-home.featurette3.title=500 attendees, 50 speakers.
+home.featurette2.text=Conferences to discover new trends, games for learning, \
+creative and development workshops to improve yourself... Mix-IT is two intense days of sharing. \
+The evening party, open to everybody, is a great moment to network and discover other cultures. \
+Mix-IT is an opportunity to meet the speakers, those building local communities, but also international \
+stars who inspire the world.
 home.featurette3.subtitle=At an amazing price!
-home.featurette3.text=In order to keep warm atmosphere, the maximum attendees would be 500. \
-    We struggle to keep the whole package at a really affordable price, because we want everyone to come and enjoy the \
-    event.
+home.featurette3.text=In order to keep the atmosphere warm, the maximum number of attendees \
+will be 500 for each day. We endeavour to keep the whole package at a really affordable price, \
+because we want everyone to come and enjoy the event.
 
 # Login
 login.why=Why sign in?
