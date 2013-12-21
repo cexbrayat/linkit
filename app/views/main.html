@@ -20,10 +20,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script>
         $(function() {
-            $("a[rel=twipsy]").tooltip({
-                live: true,
-                placement: 'below'
-            })
+            $('[data-toggle="tooltip"]').tooltip();
         })
     </script>
 #{get 'moreScripts' /}
