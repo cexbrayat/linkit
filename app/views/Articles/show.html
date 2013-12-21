@@ -48,7 +48,7 @@
 #{if previous || following}
 <div class="row">
     <div class="col-md-6">
-        #{if previous}<p><a id="previous" class="btn btn-default" data-toggle="tooltip" title="&{'article.previous'}" href="@{Articles.show(previous.id, previous.title.slugify())}">&laquo;&nbsp;${previous}</a></p>#{/if}&nbsp;
+        #{if previous}<p><a class="btn btn-default" data-toggle="tooltip" title="&{'article.previous'}" href="@{Articles.show(previous.id, previous.title.slugify())}">&laquo;&nbsp;${previous}</a></p>#{/if}&nbsp;
     </div>
     <div class="col-md-6" style="text-align: right">
         #{if following}<p><a class="btn btn-default" data-toggle="tooltip" title="&{'article.following'}" href="@{Articles.show(following.id, following.title.slugify())}">${following}&nbsp;&raquo;</a></p>#{/if}
