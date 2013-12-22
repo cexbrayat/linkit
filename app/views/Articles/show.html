@@ -10,7 +10,7 @@
 
 <div class="row">    
     #{secure.check models.Role.ADMIN_ARTICLE}
-    <div class="alert alert-warning">
+    <div class="alert alert-warning col-md-8 col-md-offset-2">
         #{if !article.valid}
         Cet article n'est pas publié.
         #{/if}
@@ -45,14 +45,16 @@
     </div>
 </div>
 
+#{if previous || following}
 <div class="row">
-    <div class="span8">
-        #{if previous}<p><a class="btn" href="@{Articles.show(previous.id, previous.title.slugify())}"><< ${previous}</a></p>#{/if}&nbsp;
+    <div class="col-md-6">
+        #{if previous}<p><a class="btn btn-default" data-toggle="tooltip" title="&{'article.previous'}" href="@{Articles.show(previous.id, previous.title.slugify())}">&laquo;&nbsp;${previous}</a></p>#{/if}&nbsp;
     </div>
-    <div class="span8" style="text-align: right">
-        #{if following}<p><a class="btn" href="@{Articles.show(following.id, following.title.slugify())}">${following} >></a></p>#{/if}
+    <div class="col-md-6" style="text-align: right">
+        #{if following}<p><a class="btn btn-default" data-toggle="tooltip" title="&{'article.following'}" href="@{Articles.show(following.id, following.title.slugify())}">${following}&nbsp;&raquo;</a></p>#{/if}
     </div>
 </div>
+#{/if}
 
 #{comments article.comments /}
 

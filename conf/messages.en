@@ -212,6 +212,8 @@ article.headline=Introduction
 article.headline.note=Required. Introduction which will be displayed in news<br/>&{markdown.note}
 article.content=Content              	
 article.content.note=Required. The content of your article.<br/>&{markdown.note}
+article.previous=Previous article
+article.following=Next article
 
 # Email LinkIT
 email.email=Your email
