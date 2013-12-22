@@ -1,6 +1,16 @@
 #{extends 'main.html' /}
 #{set 'canonical'}@@{Articles.show(article.id, article.title.slugify())}#{/set}
 #{set title:article.title /}
+
+#{set 'moreStyles'}
+<style>
+    #nav-buttons {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+#{/set}
+
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <h2 itemprop="name">${article.title}</h2>
@@ -46,9 +56,9 @@
 </div>
 
 #{if previous || following}
-<div class="row">
+<div class="row" id="nav-buttons">
     <div class="col-md-6">
-        #{if previous}<p><a class="btn btn-default" data-toggle="tooltip" title="&{'article.previous'}" href="@{Articles.show(previous.id, previous.title.slugify())}">&laquo;&nbsp;${previous}</a></p>#{/if}&nbsp;
+        #{if previous}<p><a class="btn btn-default" data-toggle="tooltip" title="&{'article.previous'}" href="@{Articles.show(previous.id, previous.title.slugify())}">&laquo;&nbsp;${previous}</a></p>#{/if}
     </div>
     <div class="col-md-6" style="text-align: right">
         #{if following}<p><a class="btn btn-default" data-toggle="tooltip" title="&{'article.following'}" href="@{Articles.show(following.id, following.title.slugify())}">${following}&nbsp;&raquo;</a></p>#{/if}
