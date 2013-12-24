@@ -129,20 +129,27 @@ h2 {
 @colorTrackGamy:    lighten(#339BB9, 30%);
 @colorTrackWeby:    #9DF8FC; // ? quelle couleur choisie?
 
+.track-display(@trackColor: transparent) {
+  border-left: 5px solid;
+  padding-left: 50px;
+  border-color: @trackColor;
+  margin-bottom: 3px;
+}
+
 .track.Agility {
-  background-color: @colorTrackAgility;
+  .track-display(@colorTrackAgility);
 }
 .track.Techy {
-  background-color: @colorTrackTechy;
+  .track-display(@colorTrackTechy);
 }
 .track.Trendy {
-  background-color: @colorTrackTrendy;
+  .track-display(@colorTrackTrendy);
 }
 .track.Gamy {
-  background-color: @colorTrackGamy;
+  .track-display(@colorTrackGamy);
 }
 .track.Weby {
-  background-color: @colorTrackWeby;
+  .track-display(@colorTrackWeby);
 }
 
 .label.interest {

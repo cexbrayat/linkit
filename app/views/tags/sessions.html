@@ -34,10 +34,10 @@
 
 #{if _sessions}
 
-#{if _event < models.ConferenceEvent.CURRENT}
+#{if _event < models.ConferenceEvent.mixit13}
 *{On affiche les boutons de filtre seulement pour les événements passés (parce qu'on ne sait pas quoi faire des tracks avec Mix-IT 2013...) }*
 <div class="row">
-    <div class="span11 offset2" style="text-align: center">
+    <div class="col-md-11 col-md-offset1" style="text-align: center">
         #{list items:models.Track.values(), as:'track'}
         <a id="btnFilter${track.name()}" data-track="${track}" class="btn large track ${track}" style="margin-left: 10px; margin-right: 10px" onclick="track('${track.name()}')" rel='twipsy' data-placement="below" title="&{'track.'+track.name()+'.description'}">${track.name()}</a>
         #{/list}
@@ -47,21 +47,16 @@
 #{/if}
 
 #{list items:_sessions, as:'talk'}
-<div class="row">
-    <div class="span14 hero-unit member-card session ${(talk instanceof models.Talk) ? talk.track?.toString() : ''}">
-        <div class="row">
-            <div class="span1 track ${(talk && talk instanceof models.Talk)?talk.track?.toString() : ''}" style="margin: -20px 0px -20px -10px; height: 150px;">&nbsp;</div>
-            <div class="span13" style="margin-top: -10px;">
-                <div>#{session-card talk /}</div>
-                <div>
-                    #{list items:talk.speakers, as:'speaker'}
-                        #{member speaker /}#{if !speaker_isLast}, #{/if}
-                    #{/list}
-                </div>
+    <div class="row">
+        <div class="col-md-12 track ${(talk && talk instanceof models.Talk)?talk.track?.toString() : ''}" >
+            <div>#{session-card talk /}</div>
+            <div>
+                #{list items:talk.speakers, as:'speaker'}
+                    #{member speaker /}#{if !speaker_isLast}, #{/if}
+                #{/list}
             </div>
         </div>
     </div>
-</div>
 #{/list}
 
 #{/if}
