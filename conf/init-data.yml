@@ -563,6 +563,16 @@ Talk(talk1-2012):
         - clacote
     valid: true
 
+Talk(talk2-2012):
+    event: mixit12
+    track: Weby
+    title: Session de test 2012 valide
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - mathieu
+    valid: true
+
 Talk(talk1):
     event: mixit13
     track: Trendy

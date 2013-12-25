@@ -2,30 +2,52 @@
 <script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
 <script >
     $(function() {
-        $("table#sortSession").tablesorter({ sortList: [[1,0]] });
+// MPT 25/12/13 : is that still useful ?
+//        $("table#sortSession").tablesorter({ sortList: [[1,0]] });
+
+        $("#tracks-filters").on('click', '.track-filter', function () {
+            track($(this).data("track"));
+        });
     });
     var track = function(type){
+        var disabledCount = $("a.track-filter.disabled").size();
+
         if(isDisabled(type)){
-            enable(type);
+            displayOnly(type);
         } else {
-            // Tous les autres boutons deviennent disabled
-            $("a.track").each(function(index) {
-                var iTrack = $(this).data('track');
-                if (iTrack != type) {
-                    disable(iTrack);
-                }
-            })
+            if ( disabledCount === 0) {
+                displayOnly(type);
+            } else {
+                displayAll();
+            }
         }
     }
+
+    var displayAll = function() {
+        $("a.track-filter").each(function() {
+            var iTrack = $(this).data('track');
+            enable(iTrack);
+        })
+    }
+
+    var displayOnly = function(type) {
+        $("a.track-filter").each(function() {
+            var iTrack = $(this).data('track');
+            if ( type != iTrack) {
+                disable(iTrack);
+            }
+        })
+        enable(type);
+    }
     var isDisabled = function(type) {
-        return $("a#btnFilter"+type).attr('disabled') === 'disabled';
+        return $("a#btnFilter"+type).hasClass('disabled');
     }
     var enable = function(type) {
-        $("a#btnFilter"+type).removeAttr('disabled');
+        $("a#btnFilter"+type).removeClass('disabled');
         $(".session."+type).show();
     }
     var disable = function(type) {
-        $("a#btnFilter"+type).attr('disabled','disabled');
+        $("a#btnFilter"+type).addClass('disabled');
         $(".session."+type).hide();
     }
 </script>
@@ -37,9 +59,9 @@
 #{if _event < models.ConferenceEvent.mixit13}
 *{On affiche les boutons de filtre seulement pour les événements passés (parce qu'on ne sait pas quoi faire des tracks avec Mix-IT 2013...) }*
 <div class="row">
-    <div class="col-md-11 col-md-offset1" style="text-align: center">
+    <div id="tracks-filters" class="col-md-11 col-md-offset1" style="text-align: center">
         #{list items:models.Track.values(), as:'track'}
-        <a id="btnFilter${track.name()}" data-track="${track}" class="btn large track ${track}" style="margin-left: 10px; margin-right: 10px" onclick="track('${track.name()}')" rel='twipsy' data-placement="below" title="&{'track.'+track.name()+'.description'}">${track.name()}</a>
+        <a id="btnFilter${track.name()}" data-track="${track}" class="btn large track track-filter ${track}" style="margin-left: 10px; margin-right: 10px" rel='twipsy' data-placement="below" title="&{'track.'+track.name()+'.description'}">${track.name()}</a>
         #{/list}
     </div>
 </div>
@@ -48,7 +70,7 @@
 
 #{list items:_sessions, as:'talk'}
     <div class="row">
-        <div class="col-md-12 track ${(talk && talk instanceof models.Talk)?talk.track?.toString() : ''}" >
+        <div class="col-md-12 session track ${(talk && talk instanceof models.Talk)?talk.track?.toString() : ''}" >
             <div>#{session-card talk /}</div>
             <div>
                 #{list items:talk.speakers, as:'speaker'}
