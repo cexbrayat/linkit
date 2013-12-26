@@ -98,7 +98,7 @@ about.long.description=Mix-IT est l’aboutissement de la collaboration entre <a
 about.whois=Mix-IT, c'est qui ?
 
 about.bio.profile.link.male=ou allez voir son <a href="%s">profil</a>
-about.bio.profile.link.female=&{'about.bio.profile.link.male'}
+about.bio.profile.link.female=ou allez voir son <a href="%s">profil</a>
 about.bio.agnes=Agnès Crépet est Java Champion et leader de deux Java User Groups&nbsp;: \
                 le <a href="http://www.lyonjug.org">Lyon JUG</a> et <a href="http://jduchess.org/duchess-france">Duchess France</a>. \
                 Elle est co-fondatrice, avec trois autres développeurs passionnés, de la société <a href="http://ninja-squad.fr">Ninja Squad</a>. \
