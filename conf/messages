@@ -97,6 +97,55 @@ about.short.description=Découvrez ce qu'est la conférence Mix-IT (et qui se ca
 about.long.description=Mix-IT est l’aboutissement de la collaboration entre <a href='http://lyonjug.org/' target='_blank'>le Lyon Java User Group</a> et <a href='http://www.clubagilerhonealpes.org/' target='_blank'>le Club Agile Rhône-Alpes</a> (première édition en 2011). Mix-it est né d’une envie commune de créer une conférence à <strong>Lyon</strong> accessible à tous, sur <strong>l’agilité</strong>, <strong>l'écosystème Java</strong> et <strong>les innovations IT</strong>, Web ou mobile. Le staff de Mix-it vous accueille pour des sessions d’expertise, des jeux et des rencontres. Entrepreneurs, Chefs de Projet, développeurs vous trouverez forcément des idées pour vos projets ! Les conférences peuvent être aussi bien en français qu'en anglais.
 about.whois=Mix-IT, c'est qui ?
 
+about.bio.profile.link=ou allez voir son <a href="%s">profil</a>
+about.bio.agnes=Agnès Crépet est Java Champion et leader de deux Java User Groups&nbsp;: \
+                le <a href="http://www.lyonjug.org">Lyon JUG</a> et <a href="http://jduchess.org/duchess-france">Duchess France</a>. \
+                Elle est co-fondatrice, avec trois autres développeurs passionnés, de la société <a href="http://ninja-squad.fr">Ninja Squad</a>. \
+                Dans d'autres sphères, elle est présidente de l'association <a href="http://www.avataria.org/">Avataria</a>, \
+                organisatrice d'événements culturels et de FabLab dans des lieux du patrimoine industriel de sa ville&nbsp;!
+about.bio.agnes.links=Suivez-la sur <a href="http://twitter.com/agnes_crepet">Twitter</a>
+about.bio.cedric=Cédric est avant tout un passionné. Par son travail déjà et c'est une chance. \
+                 Il tire toujours satisfaction à livrer un produit non seulement fonctionnel, mais aussi de qualité, \
+                 en ayant aidé ses collègues à progresser et si possible en ayant découvert de nouvelles idées. \
+                 Car il est aussi passionné par tout ce qui apparaît et qui transforme notre métier chaque jour. \
+                 Il tient d'ailleurs un blog, <a href="http://hypedrivendev.wordpress.com/">Hype Driven Developement</a>, \
+                 où il livre ses impressions sur les derniers frameworks à la mode, qu'il se fait un plaisir de tester. \
+                 Vous pouvez aussi suivre ses découvertes sur <a href="http://twitter.com/cedric_exbrayat">Twitter</a>. \
+                 Enfin, vous avez de fortes chances de le croiser bien entouré \
+                 par d'autres passionnés de la région. Il a en effet créé, avant cette conférence, \
+                 le <a href="http://www.lyonjug.org/">Lyon JUG</a>, dont il est président.
+about.bio.cedric.links=Suivez-le sur <a href="http://twitter.com/cedric_exbrayat">Twitter</a>, \
+                       son <a href="http://hypedrivendev.wordpress.com/">blog</a>
+about.bio.AlexisHassler=Alexis est développeur et formateur Java depuis la fin du siècle dernier. \
+                        Indépendant, il essaie d'aider ses clients à améliorer leur façon de développer et de déployer leurs applications Java. \
+                        Il est co-leader du <a href="http://www.lyonjug.org/">Lyon JUG</a> et prend très à coeur son rôle de porteur d'eau dans l'organisation de Mix-IT.
+about.bio.AlexisHassler.links=Suivez-le sur <a href="http://twitter.com/AlexisHassler">Twitter</a>, \
+                              <a href="https://plus.google.com/u/0/117951061342524071088/">Google+</a>, \
+                              son <a href="http://blog.alexis-hassler.com/">blog</a>
+about.bio.clacote=Cyril a d'abord travaillé une dizaine d'années en SSII pour varier les projets, comme développeur et formateur Java. \
+                Embauché par Google à Londres, il a tenté l'expérience, mais a finalement démissionné de cette boîte de rêve&nbsp;: \
+                le job cantonné à l'avant-vente l'éloignait trop de la technique. \
+                Depuis, il a monté la boîte ses rêves avec d'autres passionnés d'ici&nbsp;: <a href="http://ninja-squad.fr">Ninja Squad</a>, \
+                où il est surtout développeur, mais aussi comptable amateur et <em>Community Manager</em> par défaut.
+about.bio.clacote.links=Suivez-le sur <a href="http://twitter.com/clacote">Twitter</a>, \
+                      <a href="https://plus.google.com/114128610730314333831">Google+</a>
+about.bio.romain=En tant que praticien, formateur et coach agile, il accompagne les équipes et les clients finaux sur \
+                 leur projet de transformation organisationnelle par l'implantation des méthodes agiles comme processus de production. \
+                 Romain est membre du <a href="http://www.clubagilerhonealpes.org/">Club Agile Rhône-Alpes</a>.
+about.bio.romain.links=Suivez-le sur <a href="http://twitter.com/romaincouturier">Twitter</a>
+about.bio.franck=Franck fut d'abord un globe trotter en automation et depuis 10 ans se déchaîne dans la création de produit logiciel. \
+                 Passionné par le <em>Lean Startup</em>, gestion de produit en Flux, <em>design thinking</em> et \
+                 création d'espaces de confiance professionnel, Franck utilise actuellement ces principes dans son poste de \
+                 responsable d'innovation. \
+                 Afin de promouvoir les méthodes agile en Rhône-Alpes, il est membre du <a href="http://www.clubagilerhonealpes.org/">Club Agile Rhône-Alpes</a> \
+                 et co-animateur de <a href="https://twitter.com/xalec_">ALE Hangout</a> pour échanger sur les nouvelles tendances du développement de produit logiciel.
+about.bio.franck.links=Suivez-le sur <a href="https://twitter.com/franckdepierre">Twitter</a>, \
+                       son <a href="http://blog.lookingforanswers.me/">blog</a>
+about.bio.nicolas=Nicolas est développeur, <em>Scrum Master</em> et passionné par le développement logiciel et la sécurité informatique. \
+                  Après 5 ans passés sur les technologies C/C++ puis .Net, il fait aujourd'hui du Java \
+                  et s'essaye à transformer le monde du travail dans ses missions. \
+                  Nicolas est membre du <a href="http://www.clubagilerhonealpes.org/">Club Agile Rhône-Alpes</a>.
+about.bio.nicolas.links=Suivez-le sur <a href="https://twitter.com/npelloux">Twitter</a>
 
 # FAQ
 faq.title=Foire aux Questions
