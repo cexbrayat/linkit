@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
-#{set title:'Contacts' /}
+#{set title:'Contact' /}
 
-<h1>Envoi d'un message à l'organisation</h1>
+<h1>&{'contact.title'}</h1>
 
 #{form @Infos.send(), class:'form'}
 <fieldset>
@@ -12,7 +12,7 @@
             <input class="form-control" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" />
             <span class="help-block">${field.error}</span>
             <span class="help-block">&{field.name+".note"}</span>
-        </div><!-- /clearfix -->
+        </div>
     #{/}
 
     #{field 'email.subject'}
@@ -21,8 +21,19 @@
         <input class="form-control" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" />
         <span class="help-block">${field.error}</span>
         <span class="help-block">&{field.name+".note"}</span>
-    </div><!-- /clearfix -->
+    </div>
     #{/}
+
+    <input type="hidden" name="randomId" value="${randomId}" />
+    #{field 'captcha'}
+    <div class="form-group ${field.error ? 'has-error' : ''}">
+        <label for="${field.name}">&{field.name}</label>
+        <img class="" src="@{Infos.captcha(randomId)}" alt="captcha" />
+        <input class="form-control" type="text" name="${field.name}" id="${field.id}" size="5" maxlength="5" value="" />
+        <span class="help-block">${field.error}</span>
+        <span class="help-block">&{field.name+".note"}</span>
+    </div>
+    #{/field}
 
     #{field 'email.message'}
     <div class="form-group ${field.error?'has-error':''}">
@@ -30,7 +41,7 @@
         <textarea class="form-control" id="${field.id}" name="${field.name}" size="50" rows="10">${field.value}</textarea>
         <span class="help-block">${field.error}</span>
         <span class="help-block">&{field.name+".note"}</span>
-    </div><!-- /clearfix -->
+    </div>
     #{/}
 
 </fieldset>

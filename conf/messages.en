@@ -222,6 +222,10 @@ email.subject=Subject
 email.subject.note=Required
 email.message=Message
 email.message.note=Required. The content of your message.<br/>&{markdown.note}
+captcha=Are you a human being?
+captcha.note=Type the 5 letters you see. Only those used in "Mix-IT" are used.
+captcha.error=Sorry, robot friend, but your optical recognition is not yet to the point.
+contact.title=Send a message to the organization team
 
 # Mailing
 mailing.recipients=Recipients
