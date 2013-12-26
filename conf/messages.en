@@ -96,6 +96,32 @@ about.short.description=Discover what is Mix-IT (and who is behind), a conferenc
 about.long.description=Mix-IT is a conference organised by <a href='http://lyonjug.org/' target='_blank'>the Lyon Java User Group</a> and <a href='http://www.clubagilerhonealpes.org/' target='_blank'>the Club Agile Rhône-Alpes</a>. It aims to offer a mix of themes and activities around agile (Scrum, Kanban, XP, DevOps, Lean Startup, etc.), programming (Java, Javascript, Scala, Groovy, etc.), innovation, IT trends, and serious games to learn by practicing with others. You will have the opportunity to plan your day by focusing on a single topic or by skipping from one theme to another.  According to your wishes you can attend technical, organisational conferences or play educational games (agile game, code retreat, dojo). Please note that the majority of the talks are in French, with a few in English.
 about.whois=Mix-IT, who is it?
 
+about.bio.profile.link.male=or go check his <a href="%s">profile</a>
+about.bio.profile.link.female=or go check her <a href="%s">profile</a>
+about.bio.agnes=Agnès CREPET is the leader of 2 Java Users Groups in France: <a href="http://www.lyonjug.org">Lyon JUG</a> \
+                and <a href="http://jduchess.org/duchess-france">Duchess France</a>, and has been nominated Java Champion in 2012! \
+                She cofounded the <a href="http://ninja-squad.com">Ninja Squad</a> company with three other \
+                passionate developers. She keeps some of her time for the <a href="http://www.avataria.org/">Avataria</a> association, that she leads, \
+                which organizes concerts, festivals or FabLab, in locations of the industrial heritage of her city!
+about.bio.agnes.links=Follow her on <a href="http://twitter.com/agnes_crepet">Twitter</a>
+about.bio.agnes=Agnès CREPET is the leader of 2 Java Users Groups in France: <a href="http://www.lyonjug.org">Lyon JUG</a> \
+                and <a href="http://jduchess.org/duchess-france">Duchess France</a>, and has been nominated Java Champion in 2012! \
+                She cofounded the <a href="http://ninja-squad.com">Ninja Squad</a> company with three other \
+                passionate developers. She keeps some of her time for the <a href="http://www.avataria.org/">Avataria</a> association, that she leads, \
+                which organizes concerts, festivals or FabLab, in locations of the industrial heritage of her city!
+about.bio.agnes.links=Follow her on <a href="http://twitter.com/agnes_crepet">Twitter</a>
+about.bio.cedric=More than anything else, Cédric is passionate. About his work, first, which is rather nice. \
+                 Nothing makes him happier than delivering a product that is not only functional but also of premium quality, \
+                 than helping his colleagues improve and, if possible, coming up with new ideas. \
+                 Because he's also passionate about all the new stuff that transforms our work every day. \
+                 He also writes a blog by the way, <a href="http://hypedrivendev.wordpress.com/">Hype Driven Developement</a>, \
+                 where he shares his feelings about the latest trendy frameworks, that he enjoys testing. \
+                 You can also follow his discoveries on <a href="http://twitter.com/cedric_exbrayat">Twitter</a>. \
+                 Finally, you have good chances of meeting him surrounded by other passionate local people. \
+                 Indeed, besides this conference, he also founded and still leads the <a href="http://www.lyonjug.org">Lyon JUG</a>!
+about.bio.cedric.links=Follow him on <a href="http://twitter.com/cedric_exbrayat">Twitter</a>, \
+                       on his blog <a href="http://hypedrivendev.wordpress.com/">blog</a>
+
 # FAQ
 faq.title=Frequently Asked Questions
 faq.time.question=What is schedule time table?
