@@ -4,23 +4,21 @@
     - default _arg : the member
 }*
 <div class="row">
-    <div class="span14 hero-unit member-card">
+    <div class="col-md-12 hero-unit member-card">
         <div class="row">
-            <div class="span2">
-                <div class="row">
-                    #{if _arg instanceof models.Sponsor}
-                        <img src="${_arg.logoUrl}" style="max-width: 100px; max-height: 100px" alt="Logo ${_arg}" />
+            <div class="col-md-2 text-center">
+                #{if _arg instanceof models.Sponsor}
+                    <img src="${_arg.logoUrl}" style="max-width: 100px; max-height: 100px" alt="Logo ${_arg}" />
+                #{/if}
+                #{else}
+                    #{if _arg.email}
+                        #{gravatar.img _arg.email, size:100, default:'mm', rating:'pg', secure:true/}
                     #{/if}
-                    #{else}
-                        #{if _arg.email}
-                            #{gravatar.img _arg.email, size:100, default:'mm', rating:'pg', secure:true/}
-                        #{/if}
-                    #{/else}
-                </div>
+                #{/else}
             </div>
-            <div class="span12">
+            <div class="col-md-10">
                 <div class="row">
-                    <div class="span12" style="margin-left:0px">
+                    <div class="col-md-12" style="padding-left:0px">
                         <h2>
                             #{if _arg.ticketingRegistered}<i class="icon-check" style="color: green"></i> #{/if}
                             <a href="@{Profile.show(_arg.login)}" #{if !(session.username || _arg.publicProfile)}rel='twipsy' data-placement="right" title="Connectez-vous pour consulter son profil complet."#{/if}>${_arg}</a>

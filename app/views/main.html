@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 
+%{
+    def offline = play.configuration.getProperty("offline.resources");
+    def bootstrapCssUrl = "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css";
+    def bootsrtapJsUrl = "//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js";
+    def jQueryUrl = "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js";
+}%
+
 <html>
 <head>
     <title>#{get 'title' /} - &{'event.'+models.ConferenceEvent.CURRENT}</title>
     <meta charset="${_response_encoding}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="#{if offline}@{'/public/stylesheets/bootstrap.css'}#{/if}#{else}${bootstrapCssUrl}#{/else}">
     <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/networks.css'}">
     <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/font-awesome.css'}">
     <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/linkit.less'}">
@@ -15,9 +22,9 @@
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="icon" type="image/png" href="/favicon.png"/>
     <link rel="author" href="humans.txt"/>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"
+    <script src="#{if offline}@{'/public/javascripts/jquery.js'}#{/if}#{else}${jQueryUrl}#{/else}" type="text/javascript"
             charset="${_response_encoding}"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="#{if offline}@{'/public/javascripts/bootstrap.js'}#{/if}#{else}${bootstrapJsUrl}#{/else}"></script>
     <script>
         $(function() {
             $('[data-toggle="tooltip"]').tooltip();
@@ -105,9 +112,9 @@
 *{
                     <li #{if request.action=="Infos.inscription"}class="active"#{/if}><a
                             href="@{Infos.inscription()}">&{'menu.infos.inscription'}</a></li>
+}*
                     <li #{if request.action=="Infos.sponsors"}class="active"#{/if}><a
                             href="@{Application.sponsors()}">&{'menu.infos.sponsors'}</a></li>
-}*
                     <li #{if request.action=="Infos.contact"}class="active"#{/if}><a
                             href="@{Infos.contact()}">&{'menu.infos.contact'}</a></li>
                     <li #{if request.action=="Infos.kit"}class="active"#{/if}><a
@@ -118,11 +125,11 @@
                     <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a
                             href="@{Infos.hotels()}">&{'menu.infos.hotels'}</a></li>
 }*
-                    <!--<li #{if request.action=="Infos.mixit13"}class="active"#{/if}><a-->
-                            <!--href="@{Infos.mixit13()}">&{'menu.infos.2013'}</a></li>-->
-                    <!--<li #{if request.action=="Infos.mixit12"}class="active"#{/if}><a-->
-                            <!--href="@{Infos.mixit12()}">&{'menu.infos.2012'}</a></li>-->
-                    <!--<li><a href="http://2011.mix-it.fr" title="Mix-IT 2011">&{'menu.infos.2011'}</a></li>-->
+                    <li #{if request.action=="Infos.mixit13"}class="active"#{/if}><a
+                            href="@{Infos.mixit13()}">&{'menu.infos.2013'}</a></li>
+                    <li #{if request.action=="Infos.mixit12"}class="active"#{/if}><a
+                            href="@{Infos.mixit12()}">&{'menu.infos.2012'}</a></li>
+                    <li><a href="http://2011.mix-it.fr" title="Mix-IT 2011">&{'menu.infos.2011'}</a></li>
                 </ul>
             </li>
         #{secure.check 'admin'}

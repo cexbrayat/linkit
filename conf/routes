@@ -126,6 +126,7 @@ WS      /live                                   LiveActivities.listen
 
 # Infos
 GET     /mixit12                                Infos.mixit12
+GET     /mixit13                                Infos.mixit13
 GET     /about                                  Infos.about
 
 # Bots resources
