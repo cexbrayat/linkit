@@ -1,6 +1,6 @@
 *{ Displays _arg session }*
 <div class="row">
-    <div class="span12">
+    <div class="col-md-12">
         <span id="session${_arg.id}" data-id="${_arg.id}" class="session">
             #{if !_arg.valid}<span class="label important">non validé</span> #{/if}
         #{if _arg instanceof models.Talk}
