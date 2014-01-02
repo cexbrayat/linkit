@@ -1,0 +1,10 @@
+*{
+    - default arg (String) : member login, as seen in profile URL, and used in i18n resources keys.
+    - male (boolean): true for male, false for female.
+}*
+<p>
+    &{'about.bio.'+_arg}
+    <br/>
+    &{'about.bio.'+_arg+'.links'},
+    &{'about.bio.profile.link.'+(_male ? 'male' : 'female'), play.mvc.Router.reverse("Profile.show").add('login',_arg)}.
+</p>
