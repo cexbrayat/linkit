@@ -551,6 +551,28 @@ Sponsor(Bronze5):
          - mixit14
     publicProfile: true
 
+Talk(talk1-2012):
+    event: mixit12
+    track: Trendy
+    title: Session de test 2012 valide
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - cedric
+        - agnes
+        - clacote
+    valid: true
+
+Talk(talk2-2012):
+    event: mixit12
+    track: Weby
+    title: Session de test 2012 valide
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - mathieu
+    valid: true
+
 Talk(talk1):
     event: mixit13
     track: Trendy
@@ -561,6 +583,16 @@ Talk(talk1):
         - cedric
         - agnes
         - clacote
+    valid: true
+
+Talk(talk1b):
+    event: mixit13
+    track: Agility
+    title: Session agile 2013 valide
+    summary: Une session de test, track agile.
+    description: Lorem impsum sum sum sum.
+    speakers:
+        - cedric
     valid: true
 
 Talk(talk2):
@@ -605,6 +637,14 @@ LightningTalk(lt12):
     description: Un LT 2013.
     speakers:
         - julien
+
+LightningTalk(lt12b):
+    event: mixit13
+    title: second LT de test 2013
+    summary: Un LT 2013
+    description: Un LT 2013.
+    speakers:
+        - cedric
 
 LightningTalk(lt13):
     event: mixit14

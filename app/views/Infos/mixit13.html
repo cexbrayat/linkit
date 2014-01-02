@@ -1,10 +1,12 @@
 ﻿#{extends 'main.html' /}
 #{set title:messages.get('event.mixit13') /}
 
+*{TODO : factorize mixit13 and mixit12 pages ? + accordion on h1s ?}*
+
 #{sessions sessions:talks, event:event/}
 
-<h2>Les speakers</h2>
+<h1>Les speakers</h1>
 #{members members:speakers/}
 
-<h2>Les lightning talks</h2>
+<h1>Les lightning talks</h1>
 #{lightning sessions:lightningTalks/}
