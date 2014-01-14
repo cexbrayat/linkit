@@ -16,7 +16,7 @@
         <h1>Saisie d'une session</h1> 
     </div>
     <div class="row"> 
-        <div class="span16 columns"> 
+        <div class="col-md-12 columns">
             #{form @Sessions.save()} 
                 #{field 'talk.id'}
                     <input id="${field.id}" name="${field.name}" type="hidden" value="${field.value}" />
@@ -139,9 +139,9 @@
             </fieldset>
             <fieldset>
                 #{field 'talk.speakers'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
+                    <div class="input">
                         <ul class="inputs-list">
                             #{list items:speakers, as:'speaker'}
                             <li><label><input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} /> <span>${speaker}</span></label></li>
@@ -178,7 +178,7 @@
                 <div class="clearfix ${field.error?'error':''}"> 
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xlarge" id="${field.id}" name="newInterests" size="200" type="text" value="${newInterests}" /> 
+                        <input class="xxlarge" id="${field.id}" name="newInterests" type="text" value="${newInterests}" />
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
