@@ -6,19 +6,20 @@
 #{set 'moreStyles'}
 <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
 #{/set}
-*{   The CFP is closed!
-<div class="alert-message block-message info" data-alert>
-    <a class="close" href="#">×</a>
-    <p>&{'sessions.callForPaper'}</p>
-    <div class='alert-actions'>
-    #{if session.username}
-        <a class="btn" href="@{Sessions.create(session.username)}" title="Proposer une session">&{'talk.submit'}</a>
-    #{/if}
-    #{else}
-        <a href="@{Login.index(request.url)}" title="Se connecter" class="btn">Connectez-vous</a> pour proposer une session.
-    #{/else}
+
+#{if play.configuration.getProperty("cfp.isOpen") };
+    <div class="alert-message block-message info" data-alert>
+        <a class="close" href="#">×</a>
+        <p>&{'sessions.callForPaper'}</p>
+        <div class='alert-actions'>
+        #{if session.username}
+            <a class="btn" href="@{Sessions.create(session.username)}" title="Proposer une session">&{'talk.submit'}</a>
+        #{/if}
+        #{else}
+            <a href="@{Login.index(request.url)}" title="Se connecter" class="btn">Connectez-vous</a> pour proposer une session.
+        #{/else}
+        </div>
     </div>
-</div>
-}*
+#{/if}
 
 #{sessions sessions:sessions, event:event/}
