@@ -1,0 +1,19 @@
+﻿#{extends 'Mails/mail.html' /}
+#{set title:'Un commentaire pour vous!' /}
+
+<p>Cher ${recipient},</p>
+
+    Un commentaire vous concernant vient d'être posté : #{mails.activity activity /}
+
+    Son contenu est le suivant&nbsp;:<br/>
+
+    <blockquote>
+        #{markdown activity.comment.content /}
+    </blockquote>
+
+<p>
+    Bien affectueusement,
+</p>
+<p>
+    &nbsp;&nbsp;&nbsp;&nbsp;Mix-IT's bot.
+</p>
