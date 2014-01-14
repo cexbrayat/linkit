@@ -11,6 +11,9 @@
   padding-top: 2.5em;
 }
 
+.soon {
+  color: green;
+}
 
 #previously {
   width: 100%;
@@ -226,3 +229,55 @@ h3 {
     margin-bottom: 10px;
   }
 }
+
+.breaking {
+  position:absolute;
+  /**adjust as needed**/
+  top: 10%;
+  left: 10%;
+
+  border: 0.2em solid red;
+  padding: 0.5em;
+  width: 10em;
+
+  font-size: 120%;
+  font-weight: 600;
+  color: red;
+  letter-spacing: 0.1em;
+  line-height: 75%;
+  text-align:center;
+
+  /**note: CSS3 TRANSFORM: ROTATE DOESN'T WORK IN ALL BROWSERS YET**/
+  -webkit-transform: rotate(-20deg); /**safari, chrome**/
+  -moz-transform: rotate(-20deg); /**firefox**/
+  transform: rotate(-20deg); /**other browsers**/
+
+  a, a:visited {
+    color:red;
+  }
+}
+
+@media (min-width: 520px) {
+  .breaking {
+    top: 16%;
+    left: 18%;
+    font-size: 130%;
+  }
+}
+
+@media (min-width: 768px) {
+  .breaking {
+    top: 17%;
+    left: 18%;
+    font-size: 150%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .breaking {
+    top: 18%;
+    left: 16%;
+    font-size: 200%;
+  }
+}
+
