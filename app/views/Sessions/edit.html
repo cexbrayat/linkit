@@ -6,6 +6,32 @@
     $(function() {
         registerLimited('#talk_title', '#talk_titleCountdown', 50, "&{'remainingChars'}");
         registerLimited('#talk_summary', '#talk_summaryCountdown', 140, "&{'remainingChars'}");
+
+        $('#speakers-typeahead').typeahead({
+            name: 'speakers',
+            local: ['${speakers.join("','")}']
+        });
+
+        $('#speakers-typeahead').on('typeahead:selected', function (object, datum) {
+            addSpeaker(datum.value);
+        });
+
+        $('#speakers-typeahead').on('typeahead:autocompleted', function (object, datum) {
+            addSpeaker(datum.value);
+        });
+
+        // Warning : this will not handle homonyms !!
+        var addSpeaker = function(name) {
+            var $span = $(".speaker-checkbox > span:contains('" + name + "')");
+            var $label = $span.parent();
+            var $input = $label.find('input[type=checkbox]');
+
+            $label.show();
+            $('#speakers-typeahead').typeahead('setQuery', '');
+            $input.prop('checked', true);
+        };
+
+        $('.speaker-checkbox input[type=checkbox]:checked').parent().show();
     });
 </script>
 #{/set}
@@ -142,11 +168,16 @@
                 <div class="clearfix ${field.error?'error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input">
-                        <ul class="inputs-list">
-                            #{list items:speakers, as:'speaker'}
-                            <li><label><input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} /> <span>${speaker}</span></label></li>
-                            #{/list}
-                        </ul>
+                        <input id="speakers-typeahead" type="text" />
+
+                        #{list items:speakers, as:'speaker'}
+                            <div>
+                                <label style="display: none;" class="speaker-checkbox" >
+                                    <input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} />
+                                    <span>${speaker}</span>
+                                </label>
+                            </div>
+                        #{/list}
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>

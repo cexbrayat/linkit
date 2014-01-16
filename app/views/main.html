@@ -25,6 +25,7 @@
     <script src="#{if offline}@{'/public/javascripts/jquery.js'}#{/if}#{else}${jQueryUrl}#{/else}" type="text/javascript"
             charset="${_response_encoding}"></script>
     <script src="#{if offline}@{'/public/javascripts/bootstrap.js'}#{/if}#{else}${bootstrapJsUrl}#{/else}"></script>
+    <script src="@{'/public/javascripts/typeahead.min.js'}"></script>
     <script>
         $(function() {
             $('[data-toggle="tooltip"]').tooltip();

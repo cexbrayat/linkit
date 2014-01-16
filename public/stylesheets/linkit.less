@@ -137,11 +137,10 @@ h3 {
 @colorTrackWeby:    #9DF8FC; // ? quelle couleur choisie?
 
 .track-display(@trackColor: transparent) {
-  border-left: 1px solid;
+  border-left: 5px solid;
+  padding-left: 50px;
   border-color: @trackColor;
-  background-color: @trackColor;
   margin-bottom: 3px;
-  color: #333333;
 }
 
 .track-filter {
@@ -228,6 +227,110 @@ h3 {
     margin-top: 20px;
     margin-bottom: 10px;
   }
+}
+
+@media (min-width: 767px) {
+  .breaking {
+    position:absolute;
+    /**adjust as needed**/
+    top: 18%;
+    left: 14%;
+
+    border: 0.2em solid red;
+    padding: 0.5em;
+    width: 10em;
+
+    font-size: 200%;
+    font-weight: 600;
+    color: red;
+    letter-spacing: 0.1em;
+    line-height: 75%;
+    text-align:center;
+
+    /**note: CSS3 TRANSFORM: ROTATE DOESN'T WORK IN ALL BROWSERS YET**/
+    -webkit-transform: rotate(-20deg); /**safari, chrome**/
+    -moz-transform: rotate(-20deg); /**firefox**/
+    transform: rotate(-20deg); /**other browsers**/
+
+    a, a:visited {
+      color:red;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .breaking {
+    display: none;
+  }
+}
+
+
+
+
+/* scaffolding */
+/* ----------- */
+
+
+.tt-dropdown-menu {
+  //text-align: left;
+}
+
+.typeahead,
+.tt-query,
+.tt-hint {
+  width: 422px;
+  height: 30px;
+  padding: 8px 12px;
+  border: 2px solid #ccc;
+  outline: none;
+}
+
+.typeahead {
+  //background-color: #fff;
+}
+
+.typeahead:focus {
+  //border: 2px solid #0097cf;
+}
+
+.tt-query {
+//  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+//  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+//  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+//  color: #999
+}
+
+.tt-dropdown-menu {
+  width: 422px;
+  //margin-top: 12px;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+//  -webkit-border-radius: 8px;
+//  -moz-border-radius: 8px;
+//  border-radius: 8px;
+//  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+//  -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+//  box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.tt-suggestion.tt-is-under-cursor {
+  color: #fff;
+  background-color: @mixitBlue;
+}
+
+.tt-suggestion p {
+  margin: 0;
 }
 
 .breaking {
