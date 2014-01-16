@@ -1,19 +1,21 @@
 ﻿#{extends 'Mails/mail.html' /}
-#{set title:'Un commentaire pour vous!' /}
+#{set title:'A comment is waiting for your answer' /}
 
-<p>Cher ${recipient},</p>
-
-    Un commentaire vous concernant vient d'être posté : #{mails.activity activity /}
-
-    Son contenu est le suivant&nbsp;:<br/>
-
-    <blockquote>
-        #{markdown activity.comment.content /}
-    </blockquote>
+<p>Dear ${recipient},</p>
 
 <p>
-    Bien affectueusement,
+    <br/>
+    A comment appeared on your stuff:<br/>
+    <div class="panel panel-default">
+        <div class="panel-heading">#{mails.activity activity /}</div>
+        <div class="panel-body">
+            #{markdown activity.comment.content /}
+        </div>
+    </div>
+
 </p>
+
 <p>
-    &nbsp;&nbsp;&nbsp;&nbsp;Mix-IT's bot.
+    <br/><br/>
+    Mix-IT's bot.
 </p>

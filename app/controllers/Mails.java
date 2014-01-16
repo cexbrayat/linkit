@@ -59,7 +59,7 @@ public class Mails extends Mailer {
     }
 
     public static void commentNotification(Member recipient, CommentActivity activity) {
-        setSubject("[Mix-IT] - Un commentaire pour vous!");
+        setSubject("[Mix-IT] - A comment is waiting for your answer!");
         setFrom(FROM_MIXIT);
         addRecipient(recipient.email);
         send(recipient, activity);
