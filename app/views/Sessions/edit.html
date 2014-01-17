@@ -73,7 +73,7 @@
                 #{/}
 }*
                 #{field 'talk.title'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="50" type="text" value="${field.value}" />
@@ -85,7 +85,7 @@
                 #{/}
 
                 #{field 'talk.format'}
-                    <div class="clearfix ${field.error?'error':''}">
+                    <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.id}">&{field.name}</label>
                         <div class="input">
                             #{select field.name, value:field.value}
@@ -100,7 +100,7 @@
                 #{/}
 
                 #{field 'talk.lang'}
-                    <div class="clearfix ${field.error?'error':''}">
+                    <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.id}">&{field.name}</label>
                         <div class="input">
                             #{select field.name, value:field.value}
@@ -116,7 +116,7 @@
                 #{/}
 
                 #{field 'talk.summary'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label>
                     <div class="input"> 
                         <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="140" rows="2">${field.value}</textarea>
@@ -128,7 +128,7 @@
                 #{/}
 
                 #{field 'talk.description'}
-                <div class="clearfix ${field.error?'error':''}">
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label>
                     <div class="input">
                         <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="20">${field.value}</textarea>
@@ -139,7 +139,7 @@
                 #{/}
 
                 #{field 'talk.level'}
-                    <div class="clearfix ${field.error?'error':''}">
+                    <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.id}">&{field.name}</label>
                         <div class="input">
                             #{select field.name, value:field.value}
@@ -154,7 +154,7 @@
                 #{/}
 
                 #{field 'talk.maxAttendees'}
-                    <div class="clearfix ${field.error?'error':''}">
+                    <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.name}">&{field.name}</label>
                         <div class="input">
                             #{select field.name, value:field.value}
@@ -169,7 +169,7 @@
                 #{/}
 
                 #{field 'talk.speakers'}
-                <div class="clearfix ${field.error?'error':''}">
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input">
                         <input id="speakers-typeahead" type="text" />
@@ -189,7 +189,7 @@
                 #{/}
 
                 #{field 'talk.interests'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input">
                         <input id="interests-typeahead" type="text" />
@@ -211,7 +211,7 @@
                 #{/}
 
                 #{field 'talk.newInterests'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xxlarge" id="${field.id}" name="newInterests" type="text" value="${newInterests}" />
