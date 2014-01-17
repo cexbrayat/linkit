@@ -18,58 +18,32 @@ import play.jobs.Job;
  * Base job for mails notifications of last activities
  * @author Sryl <cyril.lacote@gmail.com>
  */
-public class BaseJobNotifications extends Job {
+public class BaseJobNotifications extends BaseSinceLastTimeJob {
 
     private NotificationOption option;
-    private static final String PARAM_LAST_NOTIFICATION_PREFIX = "LastNotification";
 
     public BaseJobNotifications(NotificationOption option) {
-        this.option = option;
+        super(option.toString());
     }
 
     @Override
-    public void doJob() {
-        if (!"test".equals(Play.id)) {
-            Logger.debug("BEGIN job notifications %s", option);
-
-            // Stores job start time
-            final Date begin = new Date();
-            // Retrieve LastNotification date
-            Date lastNotification = getLastNotification();
-            // Find notifiable members
-            List<Member> notifiables = Setting.findNotified(option);
-            if (!notifiables.isEmpty()) {
-                // Find general Activities to be notified to everyone
-                List<Activity> general = Activity.notifiablesBetween(lastNotification, begin);
-                for (Member member : notifiables) {
-                    // Find notifiable activities for Member
-                    SortedSet<Activity> activities = new TreeSet<Activity>(Activity.notifiablesForBetween(member, lastNotification, begin));
-                    // Merge activities for member
-                    activities.addAll(general);
-                    if (!activities.isEmpty()) {
-                        Logger.info("Notifying user %s of %d activities", member, activities.size());
-                        Setting setting = Setting.findByMember(member);
-                        Mails.notification(member, setting, activities);
-                    }
+    protected void doJobBetween(Date start, Date end) {
+        // Find notifiable members
+        List<Member> notifiables = Setting.findNotified(option);
+        if (!notifiables.isEmpty()) {
+            // Find general Activities to be notified to everyone
+            List<Activity> general = Activity.notifiablesBetween(start, end);
+            for (Member member : notifiables) {
+                // Find notifiable activities for Member
+                SortedSet<Activity> activities = new TreeSet<Activity>(Activity.notifiablesForBetween(member, start, end));
+                // Merge activities for member
+                activities.addAll(general);
+                if (!activities.isEmpty()) {
+                    Logger.info("Notifying user %s of %d activities", member, activities.size());
+                    Setting setting = Setting.findByMember(member);
+                    Mails.notification(member, setting, activities);
                 }
             }
-            // Set LastNotification parameter
-            setLastNotification(begin);
-            Logger.debug("END job notifications %s", option);
         }
     }
-    
-    private String getParamLastNotificationKey() {
-        return PARAM_LAST_NOTIFICATION_PREFIX+option.name();
-    }
-    
-    protected Date getLastNotification() {
-        String strLastNotification = GeneralParameter.get(getParamLastNotificationKey());
-        return (strLastNotification == null) ? null : DateTime.parse(strLastNotification).toDate();
-    }
-
-    protected void setLastNotification(Date value) {
-        GeneralParameter.set(getParamLastNotificationKey(), new DateTime(value).toString());
-    }
-
 }

@@ -4,6 +4,7 @@ import models.Member;
 import models.Session;
 import models.Setting;
 import models.activity.Activity;
+import models.activity.CommentActivity;
 import models.mailing.Mailing;
 import models.mailing.MembersSet;
 import models.mailing.MembersSetQueryFactory;
@@ -43,7 +44,7 @@ public class Mails extends Mailer {
         mailing.addActualRecipient(recipient);
     }
     
-    public static void notification(Member recipient, Setting setting, Collection<Activity> activities) {
+    public static void notification(Member recipient, Setting setting, Collection<? extends Activity> activities) {
         setSubject("[Mix-IT] - Que s'est-il passé?");
         setFrom(FROM_MIXIT);
         addRecipient(recipient.email);
@@ -55,5 +56,12 @@ public class Mails extends Mailer {
         for (Member member : members) {
             addRecipient(member.email);
         }
+    }
+
+    public static void commentNotification(Member recipient, CommentActivity activity) {
+        setSubject("[Mix-IT] - A comment is waiting for your answer!");
+        setFrom(FROM_MIXIT);
+        addRecipient(recipient.email);
+        send(recipient, activity);
     }
 }

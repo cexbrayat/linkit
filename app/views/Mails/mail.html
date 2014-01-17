@@ -3,19 +3,21 @@
     <head>
         <title>#{get 'title' /} - &{'event.'+models.ConferenceEvent.CURRENT}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link type="text/css" rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
         <link type="text/css" rel="stylesheet" href="@@{'/public/stylesheets/linkit.less'}">
     </head>
-    <header>
-        <a class="brand" href="@@{Application.index()}"><img src="@@{'/public/images/mini-mixit.png'}" /></a>&nbsp;-&nbsp;&{'event.'+models.ConferenceEvent.CURRENT+'.date'}
-    </header>
     <body>
-        <div class="container-fluid">
-            <div class="content">
+        <div class="container">
+            <div class="row">
+                <a href="@@{Application.index()}"><img style="vertical-align: top;" src="@@{'/public/images/mini-mixit.png'}" /></a>
+                &nbsp;-&nbsp;
+                &{'event.'+models.ConferenceEvent.CURRENT+'.date'}
+            </div>
+            <hr>
+            <div class="row">
                 #{doLayout /}
             </div>
-        </div>
+        </div><!-- /.container -->
     </body>
-    <footer>
-        <p>&{'event.'+models.ConferenceEvent.CURRENT}</p>
-    </footer>
 </html>

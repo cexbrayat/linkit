@@ -46,34 +46,34 @@
     #{/if}
 
         #{if !talk.valid}
-            <div class="alert-message block-message warning">
+            <div class="alert alert-warning">
                 <p>Merci pour votre proposition! Le comité de sélection vous dira prochainement si votre session a été retenue.</p>
             </div>
         #{/if}
         #{if talk.hasSpeaker(session.username)}
-            <div class="alert-message block-message warning">
+            <div class="alert alert-warning">
                 <p>Bienvenue sur votre session, ami speaker!</p>
                 <div class='alert-actions'>
-                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer votre session</a>
+                    <a class="btn btn-default" href="@{Sessions.edit(talk.id)}">Editer votre session</a>
                 </div>
             </div>
         #{/if}
 
     #{secure.check models.Role.ADMIN_SESSION}
-            <div class="alert-message block-message info">
+            <div class="alert alert-info">
                 <p><strong>Staff</strong></p>
                 #{if talk.valid}            
                 <p>Invalider une session supprimera les éventuelles activités existantes sur cette session, mais pas les commentaires.</p>
                 #{/if}
                 <div class='alert-actions'>
-                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer</a>
+                    <a class="btn btn-primary" href="@{Sessions.edit(talk.id)}">Editer</a>
                 #{if talk.valid}            
-                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment invalider cette session?')) window.location='@{Sessions.unvalidate(talk.id)}';">Invalider</a>
+                    <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment invalider cette session?')) window.location='@{Sessions.unvalidate(talk.id)}';">Invalider</a>
                 #{/if}
                 #{else}
-                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment valider cette session?')) window.location='@{Sessions.validate(talk.id)}';">Valider</a>
+                    <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment valider cette session?')) window.location='@{Sessions.validate(talk.id)}';">Valider</a>
                 #{/else}
-                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment supprimer cette session?')) window.location='@{Sessions.delete(talk.id)}';">Supprimer</a>
+                    <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment supprimer cette session?')) window.location='@{Sessions.delete(talk.id)}';">Supprimer</a>
                 </div>
             </div>
         #{/secure.check}
