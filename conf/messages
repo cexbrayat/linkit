@@ -422,3 +422,28 @@ trombinoscope.intro=Qu'est-ce que c'est?<br/>\
   Donc les gens que vous auriez envie de croiser le jour de la conférence.
 trombinoscope.noRegisteredLinks=Oh non! Vous ne suivez personne qui a acheté son ticket!
 trombinoscope.notRegistered=Vous non plus, d'ailleurs, vous n'avez pas acheté le vôtre...
+
+cfp.title=Call For Papers
+cfp.subtitle=C'est vous qui ferez le succès de cette édition
+cfp.theme.title=Thème imposé
+cfp.theme.content=Rassurez-vous, il est très ouvert. C'est le slogan de Mix-IT&nbsp;: "<strong>des idées pour tout de suite</strong>"&nbsp;!
+cfp.quality.title=Qu'est-ce qui fait que ma session sera top&nbsp;?
+cfp.quality.1=La question à vous poser est simple&nbsp;: "avec quoi je veux que mon public reparte et se dise "c'était génial&nbsp;!". \
+              Cela peut être des idées, des concepts, des outils, des apprentissages, ...<br>\
+              <strong>Votre soumission doit expliciter ce que votre public en retirera</strong>.<br>
+cfp.quality.2=Soignez la forme de votre description. Une ou deux lignes ne suffisent pas pour comprendre ce que vous avez en tête. \
+              Explicitez le contenu et le message de votre session.<br/>\
+              <strong>Votre soumission deviendra le descriptif public de votre session si elle est retenue</strong>.<br>\
+              Vous aurez le temps d'affiner d'ici-là, mais votre soumission doit faire envie à l'équipe d'organisation pour être \
+              sélectionnée, mais aussi faire envie aux participants qui auront le choix entre plusieurs sessions.
+cfp.attendees.title=L'audience
+cfp.attendees.1=Le public de Mix-IT est composé aussi bien de débutants, d'experts, d'agilistes, de développeurs, \
+                d'entrepreneurs, de managers évoluant essentiellement dans le milieu IT, mais pas tous&nbsp;!<br>\
+                Si jamais vous doutez, <a href="%s">sollicitez-nous</a>, nous sommes là pour vous aider&nbsp;!<br>
+cfp.attendees.2=Un système de <strong>commentaire privé</strong> sur votre session permet également d'échanger avec l'équipe d'organisation.
+cfp.conclusion=Vous avez tout ça&nbsp;? Alors votre session est déjà en bonne position pour la sélection&nbsp;! ;)
+cfp.speaking.io=N'hésitez pas à prendre conseil auprès des meilleurs&nbsp;: \
+                Zach Holman (<a href="%s">speaker à Mix-IT 2013</a>) a publié \
+                <a href="http://speaking.io" target="zach">un site</a> (en anglais) tirant l'essence de son expérience \
+                de speaker. Il a notamment <a href="http://speaking.io/plan/writing-a-cfp/" target="zach">un article \
+                consacré à la réponse aux CFP</a>.
