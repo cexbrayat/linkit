@@ -440,10 +440,11 @@ cfp.attendees.title=L'audience
 cfp.attendees.1=Le public de Mix-IT est composé aussi bien de débutants, d'experts, d'agilistes, de développeurs, \
                 d'entrepreneurs, de managers évoluant essentiellement dans le milieu IT, mais pas tous&nbsp;!<br>\
                 Si jamais vous doutez, <a href="%s">sollicitez-nous</a>, nous sommes là pour vous aider&nbsp;!<br>
-cfp.attendees.2=Un système de <strong>commentaire privé</strong> sur votre session permet également d'échanger avec l'équipe d'organisation.
+cfp.attendees.2=Un système de <strong>commentaire privé</strong> sur la page de votre session permet également d'échanger avec l'équipe d'organisation.
 cfp.conclusion=Vous avez tout ça&nbsp;? Alors votre session est déjà en bonne position pour la sélection&nbsp;! ;)
 cfp.speaking.io=N'hésitez pas à prendre conseil auprès des meilleurs&nbsp;: \
                 Zach Holman (<a href="%s">speaker à Mix-IT 2013</a>) a publié \
                 <a href="http://speaking.io" target="zach">un site</a> (en anglais) tirant l'essence de son expérience \
                 de speaker. Il a notamment <a href="http://speaking.io/plan/writing-a-cfp/" target="zach">un article \
                 consacré à la réponse aux CFP</a>.
+cfp.action=Je suis prêt à soumettre&nbsp!
