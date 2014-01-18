@@ -9,6 +9,7 @@ import models.planning.Planning;
 import models.planning.Slot;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
+import play.Play;
 import play.cache.Cache;
 import play.data.validation.Required;
 import play.data.validation.Valid;
@@ -19,6 +20,8 @@ import play.libs.Images;
 import java.util.*;
 
 public class Sessions extends PageController {
+
+    private static final boolean CFP_OPEN = Boolean.valueOf(Play.configuration.getProperty("cfp.isOpen", "false"));
 
     public static void index() {
         listOn(ConferenceEvent.CURRENT);
@@ -41,20 +44,24 @@ public class Sessions extends PageController {
         render("Sessions/list.html", sessions, event);
     }
 
-    public static void create(final String speakerLogin) throws Throwable {
-        if (!Security.check(Role.ADMIN_SESSION)) {
-          forbidden("Damned! The Call for Paper is closed!!!");
+    public static void create(final String speakerLogin, boolean briefed) throws Throwable {
+        if (!(CFP_OPEN || Security.check(Role.ADMIN_SESSION))) {
+          forbidden("Damned! The Call For Paper is closed!!!");
         }
 
         SecureLinkIt.checkAccess(); // Connected
 
-        Member speaker = Member.findByLogin(speakerLogin);
-        Talk talk = new Talk();
-        if (speaker != null) {
-            talk.addSpeaker(speaker);
+        if (briefed) {
+            Member speaker = Member.findByLogin(speakerLogin);
+            Talk talk = new Talk();
+            if (speaker != null) {
+                talk.addSpeaker(speaker);
+            }
+            List<Member> speakers = speakersFor(talk, speaker);
+            render("Sessions/edit.html", talk, speakers);
+        } else {
+            render("Sessions/cfp-briefing.html", speakerLogin);
         }
-        List<Member> speakers = speakersFor(talk, speaker);
-        render("Sessions/edit.html", talk, speakers);
     }
 
     private static void checkReadAccess(Session talk) {

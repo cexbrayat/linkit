@@ -1,0 +1,65 @@
+#{extends 'main.html' /}
+#{set title:'CFP - Call For Papers' /}
+
+#{set 'moreStyles'}
+<style>
+    p {
+        text-align: justify;
+    }
+</style>
+#{/set}
+
+<div class="jumbotron">
+    <h1>Call For Papers</h1>
+    C'est vous qui ferez le succès de cette édition<br>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2>Thème imposé</h2>
+        Rassurez-vous, il est très ouvert. C'est le slogan de Mix-IT&nbsp;: "<strong>des idées pour tout de suite</strong>"&nbsp;!
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <h2>Qu'est-ce qui fait que ma session sera top&nbsp;?</h2>
+
+        <p>
+            La question à vous poser est simple&nbsp;: "avec quoi je veux que mon public reparte et se dise "c'était génial&nbsp;!".
+            Cela peut être des idées, des concepts, des outils, des apprentissages, ...<br>
+            <strong>Votre soumission doit expliciter ce que votre public en retirera</strong>.<br>
+
+        </p>
+        <p>
+            Soignez la forme de votre description. Une ou deux lignes ne suffisent pas pour comprendre ce que vous avez en tête.
+            Explicitez le contenu et le message de votre session.<br/>
+            <strong>Votre soumission deviendra le descriptif public de votre session si elle est retenue</strong>.<br>
+            Vous aurez le temps d'affiner d'ici-là, mais votre soumission doit faire envie à l'équipe d'organisation pour être
+            sélectionnée, mais aussi faire envie aux participants qui auront le choix entre plusieurs sessions.
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <h2>L'audience</h2>
+        <p>
+            Le public de Mix-IT est composé aussi bien de débutants, d'experts, d'agilistes, de développeurs,
+            d'entrepreneurs, de managers évoluant essentiellement dans le milieu IT, mais pas tous&nbsp;!<br>
+            Si jamais vous doutez, #{a @Infos.contact()}sollicitez-nous#{/a}, nous sommes là pour vous aider&nbsp;!<br>
+        </p>
+        <p>
+            Un système de <strong>commentaire privé</strong> sur votre session permet également d'échanger avec l'équipe d'organisation.
+        </p>
+    </div>
+</div>
+
+<hr>
+<p>
+    Vous avez tout ça&nbsp;? Alors votre session est déjà en bonne position pour la sélection&nbsp;! ;)
+</p>
+<p>
+    N'hésitez pas à prendre conseil auprès des meilleurs&nbsp;: Zach Holman (#{a @Profile.show('holman')}speaker à Mix-IT 2013#{/a}) a publié <a href="http://speaking.io">un site</a> (en anglais) tirant l'essence de son expérience de speaker. Il a notamment <a href="http://speaking.io/plan/writing-a-cfp/">un article consacré à la réponse aux CFP</a>.
+</p>
+
+
+<p style="margin: 30px;">
+    #{a @Sessions.create(speakerLogin:speakerLogin, briefed:true), class:"btn btn-primary btn-lg"}Now I'm ready to submit!#{/a}
+</p>
