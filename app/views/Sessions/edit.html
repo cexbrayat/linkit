@@ -38,8 +38,8 @@
             $('.'+checkboxClass+' input[type=checkbox]:checked').parent().show();
         };
 
-        initTypeahead('speakers-typeahead', 'speaker-checkbox', ['${speakers.join("','")}']);
-        initTypeahead('interests-typeahead', 'interest-checkbox', ['${models.Interest.findAllOrdered().join("','")}']);
+        initTypeahead('speakers-typeahead', 'speaker-checkbox', ['#{list items:speakers, as:'s'}${s.raw()}#{if !_isFirst}','#{/if}#{/list}']);
+        initTypeahead('interests-typeahead', 'interest-checkbox', ['#{list items:models.Interest.findAllOrdered(), as:'i'}${i.raw()}#{if !_isFirst}','#{/if}#{/list}']);
     });
 </script>
 #{/set}
