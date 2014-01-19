@@ -75,7 +75,7 @@
 #{/set}
 <div>
     <div class="row headers" style="position: relative">
-        #{if play.configuration.getProperty('cfp.isOpen') }
+        #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
             <div class="breaking">&{'home.breaking.cfp.open'}</div>
         #{/if}
         *{ <div class="soon">&{'ticketing.alert'}</div> }*
@@ -87,12 +87,15 @@
 
     <div id="date" class="row headers">
         <h2><span itemprop="startDate">&{'event.'+models.ConferenceEvent.CURRENT+'.date'}</span>. <span itemprop="location">Lyon,&nbsp;France</span>.</h2>
-    #{if play.configuration.getProperty('cfp.isOpen') }
+    #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
         <div style="text-align: center">
-            <a href="@{Sessions.create(session.username)}" class="btn btn-lg btn-success">&{'menu.agenda.submit'}</a>
+            <div class="well col-sm-4 col-sm-offset-4">
+                <a href="@{Sessions.create(session.username)}" class="btn btn-lg btn-danger btn-block">&{'menu.agenda.submit'}</a>
+            </div>
         </div>
     #{/if}
     </div>
+
 
 *{
      <div class="row">
