@@ -64,10 +64,12 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="js-navbar-to-collapse">
         <ul class="nav navbar-nav">
+*{ Menu too large #111, and dashboard pretty useless now
         #{if session.username}
             <li #{if request.controller=="Dashboard"}class="active"#{/if}><a
                     href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
         #{/if}
+}*
             <li #{if request.controller=="Articles"}class="active"#{/if}><a
                     href="@{Articles.index()}">&{'menu.news'}</a></li>
         <li class="dropdown">
