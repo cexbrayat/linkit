@@ -4,16 +4,52 @@
 <script src="@{'/public/javascripts/limitcountdown.js'}"></script>
 <script lang="text/javascript">
     $(function() {
+        // Remaining chars management on title and summary
         registerLimited('#talk_title', '#talk_titleCountdown', 50, "&{'remainingChars'}");
         registerLimited('#talk_summary', '#talk_summaryCountdown', 140, "&{'remainingChars'}");
+
+        // Autocomplete fields
+        var initTypeahead = function(typeaheadId, checkboxClass, values) {
+            $('#'+typeaheadId).typeahead({
+                name: typeaheadId,
+                local: values
+            });
+            $('#'+typeaheadId).on('typeahead:selected', function (object, datum) {
+                addElement(datum.value);
+            });
+
+            $('#'+typeaheadId).on('typeahead:autocompleted', function (object, datum) {
+                addElement(datum.value);
+            });
+
+            // Warning : this will not handle homonyms !!
+            var addElement = function(name) {
+                var $span = $('.'+checkboxClass+' > span').filter(function() {
+                    return $(this).text() === name;
+                });
+
+                var $label = $span.parent();
+                var $input = $label.find('input[type=checkbox]');
+
+                $label.show();
+                $('#'+typeaheadId).typeahead('setQuery', '');
+                $input.prop('checked', true);
+            };
+
+            // Show already checked
+            $('.'+checkboxClass+' input[type=checkbox]:checked').parent().show();
+        };
+        initTypeahead('speakers-typeahead', 'speaker-checkbox', ['#{list items:speakers, as:'s'}${s.toString().escapeJavaScript().raw()}#{if !_isFirst}','#{/if}#{/list}']);
+        initTypeahead('interests-typeahead', 'interest-checkbox', ['#{list items:models.Interest.findAllOrdered(), as:'i'}${i.toString().escapeJavaScript().raw()}#{if !_isFirst}','#{/if}#{/list}']);
     });
+
 </script>
 #{/set}
 #{dirtyDialog/}
 
 <div class="container">
     <div class="page-header"> 
-        <h1>Saisie d'une session</h1> 
+        <h1>&{'talk.edit.title'}</h1>
     </div>
     <div class="row"> 
         <div class="col-md-12 columns">
@@ -22,8 +58,6 @@
                     <input id="${field.id}" name="${field.name}" type="hidden" value="${field.value}" />
                 #{/}
 
-            <fieldset> 
-                <legend>&{'talk.descriptive.section'}</legend>
 *{ Track is not required during CFP
                 #{field 'talk.track'}
                 <div class="clearfix ${field.error?'error':''}"> 
@@ -41,7 +75,7 @@
                 #{/}
 }*
                 #{field 'talk.title'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="50" type="text" value="${field.value}" />
@@ -53,12 +87,12 @@
                 #{/}
 
                 #{field 'talk.format'}
-                    <div class="clearfix ${field.error?'error':''}">
+                    <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.id}">&{field.name}</label>
                         <div class="input">
-                            #{select field.name, value:field.value}
+                            #{select field.name, value:field.value, id:'session-format-select'}
                                 #{list items:models.TalkFormat.values(), as:'format'}
-                                    #{option format}&{'enum.TalkFormat.'+format}#{/option}
+                                    #{option format}&{'enum.TalkFormat.'+format}&nbsp;-&nbsp;&{'enum.TalkFormat.'+format+'.duration'}</span>#{/option}
                                 #{/list}
                             #{/select}
                             <span class="help-block">${field.error}</span>
@@ -68,7 +102,7 @@
                 #{/}
 
                 #{field 'talk.lang'}
-                    <div class="clearfix ${field.error?'error':''}">
+                    <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.id}">&{field.name}</label>
                         <div class="input">
                             #{select field.name, value:field.value}
@@ -84,7 +118,7 @@
                 #{/}
 
                 #{field 'talk.summary'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label>
                     <div class="input"> 
                         <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="140" rows="2">${field.value}</textarea>
@@ -96,18 +130,38 @@
                 #{/}
 
                 #{field 'talk.description'}
-                <div class="clearfix ${field.error?'error':''}">
-                    <label for="${field.name}">&{field.name}</label>
-                    <div class="input">
-                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="20">${field.value}</textarea>
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div>
-                </div><!-- /clearfix -->
+                    <div class="clearfix ${field.error?'has-error':''}">
+                        <label for="${field.name}">&{field.name}</label>
+                        <div class="row">
+                            <div class="col-md-8">
+
+
+                                <div class="input">
+                                    <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="25">${field.value}</textarea>
+                                    <span class="help-block">${field.error}</span>
+                                    <span class="help-block">&{field.name+".note"}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="text-align:justify;">
+                                &{'talk.description.advices'}
+                            </div>
+                        </div>
+                    </div><!-- /clearfix -->
+                #{/}
+
+                #{field 'talk.ideaForNow'}
+                    <div class="clearfix ${field.error?'has-error':''}">
+                        <label for="${field.name}">&{field.name}</label>
+                        <div class="input">
+                            <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="3">${field.value}</textarea>
+                            <span class="help-block">${field.error}</span>
+                            <span class="help-block">&{field.name+".note"}</span>
+                        </div>
+                    </div><!-- /clearfix -->
                 #{/}
 
                 #{field 'talk.level'}
-                    <div class="clearfix ${field.error?'error':''}">
+                    <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.id}">&{field.name}</label>
                         <div class="input">
                             #{select field.name, value:field.value}
@@ -122,7 +176,7 @@
                 #{/}
 
                 #{field 'talk.maxAttendees'}
-                    <div class="clearfix ${field.error?'error':''}">
+                    <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.name}">&{field.name}</label>
                         <div class="input">
                             #{select field.name, value:field.value}
@@ -136,17 +190,20 @@
                     </div><!-- /clearfix -->
                 #{/}
 
-            </fieldset>
-            <fieldset>
                 #{field 'talk.speakers'}
-                <div class="clearfix ${field.error?'error':''}">
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input">
-                        <ul class="inputs-list">
-                            #{list items:speakers, as:'speaker'}
-                            <li><label><input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} /> <span>${speaker}</span></label></li>
-                            #{/list}
-                        </ul>
+                        <input id="speakers-typeahead" type="text" />
+
+                        #{list items:speakers, as:'speaker'}
+                            <div>
+                                <label style="display: none;" class="speaker-checkbox" >
+                                    <input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} />
+                                    <span>${speaker}</span>
+                                </label>
+                            </div>
+                        #{/list}
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div>
@@ -154,16 +211,19 @@
                 #{/}
 
                 #{field 'talk.interests'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
+                    <div class="input">
+                        <input id="interests-typeahead" type="text" />
 
-                        <ul class="inputs-list">
-                            #{list items:models.Interest.findAllOrdered(), as:'interest'}
-                                <li><label><input type="checkbox" name="interests" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} /> <span>${interest}</span></label></li>
-
-                            #{/list}
-                        </ul>                        
+                        #{list items:models.Interest.findAllOrdered(), as:'interest'}
+                            <div>
+                                <label style="display: none;" class="interest-checkbox" >
+                                    <input type="checkbox" name="interests" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} />
+                                    <span>${interest}</span>
+                                </label>
+                            </div>
+                        #{/list}
                         <span class="help-block newline">${field.error}</span>
                         <span class="help-block newline">&{field.name+".note"}</span>
                     </div>
@@ -173,7 +233,7 @@
                 #{/}
 
                 #{field 'talk.newInterests'}
-                <div class="clearfix ${field.error?'error':''}"> 
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <input class="xxlarge" id="${field.id}" name="newInterests" type="text" value="${newInterests}" />
@@ -182,7 +242,7 @@
                     </div> 
                 </div><!-- /clearfix -->
                 #{/}
-            </fieldset>
+
             <div class="actions">
                 <input type="submit" class="btn btn-primary" value="&{'button.save'}"/>
                 #{if talk.id}
