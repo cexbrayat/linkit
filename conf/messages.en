@@ -192,9 +192,9 @@ talk.lang.note=Required. The language used in this talk.
 talk.summary=Summary
 talk.summary.note=Required. A summary for your talk. Will be displayed on sessions lists.
 talk.description=Description
-talk.description.advices=<b>Theme: </b>"Ideas for now!"<br><br><b>You attendees: </b>beginners, experts, agile folk, developers, entrepreneurs, managers mainly from the IT field (but not all of them).<br><br>What do I want people to <b>leave my session with, saying “That was amazing!"</b>: ideas, concepts, tools, learnings, ...<br><br>Explain your session’s <b>content and message</b>, for the Mix-IT staff ... and mostly <b>for the audience!</b><br>On your session page, a <b>private comments</b> system also enables exchanges with selection committee.<br><br>Ask us! And take advice from the bests: http://speaking.io/plan/writing-a-cfp/
+talk.description.advices=<b>Theme: </b>"Ideas for now!"<br><br><b>You attendees: </b>beginners, experts, agile folk, developers, entrepreneurs, managers mainly from the IT field (but not all of them).<br><br>What do I want people to <b>leave my session with, saying “That was amazing!"</b>: ideas, concepts, tools, learnings, ...<br><br>Explain your session’s <b>content and message</b>, for the Mix-IT staff ... and mostly <b>for the audience!</b><br>On your session page, a <b>private comments</b> system also enables exchanges with selection committee.<br><br>Ask us! And <a href="http://speaking.io/plan/writing-a-cfp/" target="zach">take advice from the bests</a>.
 talk.description.note=Required. The full description of your talk.<br/>&{markdown.note}
-talk.ideaForNow=Wich \"Ideas for now\"&reg; attendees can leave with?
+talk.ideaForNow=Which \"Ideas for now\" attendees will leave with?
 talk.ideaForNow.note=Optional. List ideas that attendees can apply when they go back to their office.<br/>&{markdown.note}
 talk.level=Level
 talk.level.note=Required. Level of knowledge required to enjoy your talk.
