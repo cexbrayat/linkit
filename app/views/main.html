@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 %{
-    def offline = play.configuration.getProperty("offline.resources");
+    def offline = java.lang.Boolean.valueOf(play.configuration.getProperty("offline.resources"));
     def bootstrapCssUrl = "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css";
     def bootsrtapJsUrl = "//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js";
     def jQueryUrl = "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js";
@@ -64,10 +64,12 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="js-navbar-to-collapse">
         <ul class="nav navbar-nav">
+*{ Menu too large #111, and dashboard pretty useless now
         #{if session.username}
             <li #{if request.controller=="Dashboard"}class="active"#{/if}><a
                     href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
         #{/if}
+}*
             <li #{if request.controller=="Articles"}class="active"#{/if}><a
                     href="@{Articles.index()}">&{'menu.news'}</a></li>
         <li class="dropdown">
@@ -158,7 +160,7 @@
                        placeholder="&{'menu.search'}" value="${params.query}">
             #{/field}
             </div>
-            <button type="submit" class="btn btn-default">&{'menu.search'}</button>
+            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> </button>
         </form>
         <ul class="nav navbar-nav navbar-right">
             <li>
