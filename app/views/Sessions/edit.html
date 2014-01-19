@@ -4,9 +4,11 @@
 <script src="@{'/public/javascripts/limitcountdown.js'}"></script>
 <script lang="text/javascript">
     $(function() {
+        // Remaining chars management on title and summary
         registerLimited('#talk_title', '#talk_titleCountdown', 50, "&{'remainingChars'}");
         registerLimited('#talk_summary', '#talk_summaryCountdown', 140, "&{'remainingChars'}");
 
+        // Autocomplete fields
         var initTypeahead = function(typeaheadId, checkboxClass, values) {
             $('#'+typeaheadId).typeahead({
                 name: typeaheadId,
@@ -37,10 +39,22 @@
             // Show already checked
             $('.'+checkboxClass+' input[type=checkbox]:checked').parent().show();
         };
-
         initTypeahead('speakers-typeahead', 'speaker-checkbox', ['#{list items:speakers, as:'s'}${s.raw()}#{if !_isFirst}','#{/if}#{/list}']);
         initTypeahead('interests-typeahead', 'interest-checkbox', ['#{list items:models.Interest.findAllOrdered(), as:'i'}${i.raw()}#{if !_isFirst}','#{/if}#{/list}']);
+
+        // Session duration displays
+        var $sessionFormatSelect = $('#session-format-select');
+        var displayCurrentTalkFormatDuration = function() {
+            var selected = $sessionFormatSelect .find('option:selected').attr('value');
+            $('.sessions-format-duration').hide();
+            $('.sessions-format-duration.'+selected).show();
+        };
+        $sessionFormatSelect.on('change', function() {
+            displayCurrentTalkFormatDuration();
+        })
+        displayCurrentTalkFormatDuration();
     });
+
 </script>
 #{/set}
 #{dirtyDialog/}
@@ -88,11 +102,14 @@
                     <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.id}">&{field.name}</label>
                         <div class="input">
-                            #{select field.name, value:field.value}
+                            #{select field.name, value:field.value, id:'session-format-select'}
                                 #{list items:models.TalkFormat.values(), as:'format'}
                                     #{option format}&{'enum.TalkFormat.'+format}#{/option}
                                 #{/list}
                             #{/select}
+                            #{list items:models.TalkFormat.values(), as:'format'}
+                                <span class='sessions-format-duration ${format}' style="display: none">&nbsp;&nbsp;(&{'enum.TalkFormat.'+format+'.duration'})</span>
+                            #{/list}
                             <span class="help-block">${field.error}</span>
                             <span class="help-block">&{field.name+".note"}</span>
                         </div>

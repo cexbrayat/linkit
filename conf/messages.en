@@ -212,6 +212,7 @@ privatelyVisible=Make this comment private, i.e. only visible to staff and speak
 enum.TalkFormat.Talk=Talk
 enum.TalkFormat.Workshop=Workshop
 enum.TalkFormat.Keynote=Keynote
+enum.TalkFormat.Keynote=Short Keynote
 enum.TalkLevel.Beginner=Beginner
 enum.TalkLanguage.fr=French
 enum.TalkLanguage.en=English
