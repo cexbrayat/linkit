@@ -394,3 +394,28 @@ trombinoscope.intro=What is it?<br/>\
   So it's people you're likely to want to meet on the conference showfloor.
 trombinoscope.noRegisteredLinks=Oh noes! You follow nobody who bought a ticket!
 trombinoscope.notRegistered=In fact, you neither didn't even buy a ticket...
+
+cfp.title=Call For Papers
+cfp.subtitle=You're in charge of this year success
+cfp.theme.title=Theme
+cfp.theme.content=Only one theme is mandatory, but it's pretty open. It's Mix-IT's slogan: <strong>Ideas for now</strong>!
+cfp.quality.title=How to make a great session
+cfp.quality.1=The question to ask yourself is simple: What do I want people to leave my session with, saying “That was amazing!”. \
+              That may be ideas, concepts, tools, learnings, ...<br>\
+              <strong>Your submission must explain what your audience will remember back home</strong>.<br>
+cfp.quality.2=Pay attention to your description. One or two lines aren't enough for us to understand your ideas. \
+              Explain your session’s content and message.<br/>\
+              <strong>Your submitted content will become the public description of your session if it's selected</strong>.<br>\
+              You'll have plenty of time to refine it, but keep in mind that your submission has to appeal both organization team \
+              to be selected, and future attendees who'll have the choice of several tracks.
+cfp.attendees.title=The attendees
+cfp.attendees.1=Mix-IT attendees are a mixed bunch: beginners, expert, agile folk, developers, entrepreneurs, managers from the IT field (but not all of them!)<br>\
+                If you are unsure, <a href="%s">please contact us</a>, we are here to help you!<br>
+cfp.attendees.2=On your session page, a <strong>private comments</strong> system also enables exchanges with selection committee.
+cfp.conclusion=Have you got all that? So, now your session is suitable for being selected by our committee. ;)
+cfp.speaking.io=Take advice from the bests: \
+                Zach Holman (<a href="%s">speaker at Mix-IT 2013</a>) put online \
+                <a href="http://speaking.io" target="zach">a website</a> with all his speaker experience. \
+                He wrote <a href="http://speaking.io/plan/writing-a-cfp/" target="zach">an article \
+                about CFP writing</a>.
+cfp.action=Now I'm ready to submit!
