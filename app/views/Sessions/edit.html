@@ -39,8 +39,8 @@
             // Show already checked
             $('.'+checkboxClass+' input[type=checkbox]:checked').parent().show();
         };
-        initTypeahead('speakers-typeahead', 'speaker-checkbox', ['#{list items:speakers, as:'s'}${s.raw()}#{if !_isFirst}','#{/if}#{/list}']);
-        initTypeahead('interests-typeahead', 'interest-checkbox', ['#{list items:models.Interest.findAllOrdered(), as:'i'}${i.raw()}#{if !_isFirst}','#{/if}#{/list}']);
+        initTypeahead('speakers-typeahead', 'speaker-checkbox', ['#{list items:speakers, as:'s'}${s.toString().escapeJavaScript().raw()}#{if !_isFirst}','#{/if}#{/list}']);
+        initTypeahead('interests-typeahead', 'interest-checkbox', ['#{list items:models.Interest.findAllOrdered(), as:'i'}${i.toString().escapeJavaScript().raw()}#{if !_isFirst}','#{/if}#{/list}']);
     });
 
 </script>
