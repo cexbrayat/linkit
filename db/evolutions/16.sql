@@ -1,5 +1,5 @@
 # --- !Ups
-alter table Talk add column ideaForNow int(11);
+alter table SESSION add column ideaForNow longtext;
 
 # --- !Downs
-alter table Talk drop column ideaForNow;
+alter table SESSION drop column ideaForNow;
