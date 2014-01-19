@@ -217,6 +217,7 @@ newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant pa
 
 # Session fields
 talks.description=Découvrez les descriptifs des sessions, et leur planning jour par jour.
+talk.edit.title=Saisie d'une session
 talk.descriptive.section=Descriptif
 talk.title=Titre
 talk.title.note=Obligatoire. Un court titre pour votre session
