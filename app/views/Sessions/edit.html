@@ -41,18 +41,6 @@
         };
         initTypeahead('speakers-typeahead', 'speaker-checkbox', ['#{list items:speakers, as:'s'}${s.raw()}#{if !_isFirst}','#{/if}#{/list}']);
         initTypeahead('interests-typeahead', 'interest-checkbox', ['#{list items:models.Interest.findAllOrdered(), as:'i'}${i.raw()}#{if !_isFirst}','#{/if}#{/list}']);
-
-        // Session duration displays
-        var $sessionFormatSelect = $('#session-format-select');
-        var displayCurrentTalkFormatDuration = function() {
-            var selected = $sessionFormatSelect .find('option:selected').attr('value');
-            $('.sessions-format-duration').hide();
-            $('.sessions-format-duration.'+selected).show();
-        };
-        $sessionFormatSelect.on('change', function() {
-            displayCurrentTalkFormatDuration();
-        })
-        displayCurrentTalkFormatDuration();
     });
 
 </script>
@@ -104,12 +92,9 @@
                         <div class="input">
                             #{select field.name, value:field.value, id:'session-format-select'}
                                 #{list items:models.TalkFormat.values(), as:'format'}
-                                    #{option format}&{'enum.TalkFormat.'+format}#{/option}
+                                    #{option format}&{'enum.TalkFormat.'+format}&nbsp;-&nbsp;&{'enum.TalkFormat.'+format+'.duration'}</span>#{/option}
                                 #{/list}
                             #{/select}
-                            #{list items:models.TalkFormat.values(), as:'format'}
-                                <span class='sessions-format-duration ${format}' style="display: none">&nbsp;&nbsp;(&{'enum.TalkFormat.'+format+'.duration'})</span>
-                            #{/list}
                             <span class="help-block">${field.error}</span>
                             <span class="help-block">&{field.name+".note"}</span>
                         </div>
