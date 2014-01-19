@@ -70,20 +70,20 @@
         #{/if}
             <li #{if request.controller=="Articles"}class="active"#{/if}><a
                     href="@{Articles.index()}">&{'menu.news'}</a></li>
-        *{<li class="dropdown">
+        <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.agenda'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
-                    <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>}*
-        *{ The CFP is closed
-                            #{if session.username}
-                                <li class="divider"></li>
-                                <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
-                            #{/if}
-}*
-        *{<li><a href="@{Sessions.planningMixIT13()}">Planning 2013</a></li>}*
-        *{ </ul>}*
-            </li>
+                    *{<li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>}*
+                    #{if play.configuration.getProperty('cfp.isOpen') }
+                        <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
+                        #{if session.username}
+                            <li class="divider"></li>
+                            <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
+                        #{/if}
+                    #{/if}
+                    *{<li><a href="@{Sessions.planningMixIT13()}">Planning 2013</a></li>}*
+                </ul>
+        </li>
         *{<!li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.members'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
