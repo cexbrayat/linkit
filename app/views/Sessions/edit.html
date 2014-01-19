@@ -132,10 +132,19 @@
                 #{field 'talk.description'}
                     <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.name}">&{field.name}</label>
-                        <div class="input">
-                            <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="20">${field.value}</textarea>
-                            <span class="help-block">${field.error}</span>
-                            <span class="help-block">&{field.name+".note"}</span>
+                        <div class="row">
+                            <div class="col-md-8">
+
+
+                                <div class="input">
+                                    <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="25">${field.value}</textarea>
+                                    <span class="help-block">${field.error}</span>
+                                    <span class="help-block">&{field.name+".note"}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="text-align:justify;">
+                                &{'talk.description.advices'}
+                            </div>
                         </div>
                     </div><!-- /clearfix -->
                 #{/}
