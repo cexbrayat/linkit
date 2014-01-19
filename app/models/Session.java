@@ -60,6 +60,11 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
     @Field
     public String description;
 
+    @Column
+    @Lob
+    @Field
+    public String ideaForNow;
+
     @ManyToMany
     @Required
     public Set<Member> speakers = new HashSet<Member>();
