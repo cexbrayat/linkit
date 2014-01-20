@@ -171,9 +171,9 @@ twitterName.note=Your Twitter account, if you have one. The "@" is not necessary
 googlePlusId=Google+
 googlePlusId.note=Your Google+ ID if you have one, i.e. the numeric id displayed in your profil URL: https://plus.google.com/{ID}
 interests=Point of interests
-interests.note=These interests are displayed on your profil and help to suggest new contacts.
+interests.note=These keywords are displayed on your profil and help to suggest new contacts.
 newInterests=Other point of interests
-newInterests.note=You can add new interests (separated by comma)
+newInterests.note=You can add new keywords (separated by comma)
 
 # Members
 members.speakers.none=We are contacting our guest speakers, before opening our usual <em>Call For Paper</em>.
@@ -206,9 +206,9 @@ talk.speakers.note=Required. Choose the speaker(s)
 talk.track=Mix-IT track
 talk.track.note=Required
 talk.interests=Main keywords of your session
-talk.interests.note=These interests will be linked with your talk, and let the attendees to find this talk by searching by interests.
+talk.interests.note=These keywords will be linked with your talk, and let the attendees to find this talk by searching by keywords.
 talk.newInterests=Add new keywords
-talk.newInterests.note=You could type other interests (separated by comma)
+talk.newInterests.note=You could type other keywords (separated by comma)
 talk.submit=Submit a Talk
 content=Your comment
 content.note=&{markdown.note}

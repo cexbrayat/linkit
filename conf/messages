@@ -210,10 +210,10 @@ twitterName=Twitter
 twitterName.note=Votre compte twitter si vous en avez un (ex : mix_it). Le "@" n'est pas nécessaire.
 googlePlusId=Google+
 googlePlusId.note=Votre ID Google+ si vous en avez un, i.e. celui numérique affiché dans l'URL de votre profil : https://plus.google.com/{ID}
-interests=Intérêts existants
-interests.note=Ces intérêts seront affichés sur votre profil et nous serviront à vous proposer de nouvelles connaissances.
-newInterests=Autres intérêts
-newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
+interests=Mot-clés existants
+interests.note=Ces mot-clés seront affichés sur votre profil et nous serviront à vous proposer de nouvelles connaissances.
+newInterests=Autres mot-clés
+newInterests.note=Vous pouvez saisir de nouveaux mot-clés (en les séparant par une virgule)
 
 # Session fields
 talks.description=Découvrez les descriptifs des sessions, et leur planning jour par jour.
@@ -242,10 +242,10 @@ talk.speakers.note=Obligatoire. Choisissez le ou les speakers
 talk.track=Track Mix-IT
 talk.track.note=Obligatoire
 talk.interests=Mots-clés des thèmes abordés
-talk.interests.note=Ces intérêts seront associés à la session, et permettront aux utilisateurs de trouver cette session en recherchant par intérêt.
+talk.interests.note=Ces mot-clés seront associés à la session, et permettront aux utilisateurs de trouver cette session en recherchant par mot-clé.
 talk.newInterests=Ajouter des mots-clés
 talk.newInterests=Ajouter des mots-clés
-talk.newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
+talk.newInterests.note=Vous pouvez saisir de nouveaux mot-clés (en les séparant par une virgule)
 talk.submit=Proposer une session
 content=Votre commentaire
 content.note=&{markdown.note}
