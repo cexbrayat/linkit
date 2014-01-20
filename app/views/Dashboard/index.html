@@ -41,6 +41,15 @@
     <a href="@{Profile.edit()}" class="btn btn-primary">&{'menu.login.edit'}</a>
 </div>
 
+#{if sessions}
+<div>
+    <h2>Mes sessions soumises</h2>
+    #{list sessions, as:'mySession'}
+        <div>#{session-small mySession /}</div>
+    #{/list}
+</div><br/>
+#{/if}
+
 #{if suggestedSessions}
 <div class="row">
     <h2>Suggestion de sessions</h2>
