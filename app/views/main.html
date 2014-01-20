@@ -3,7 +3,7 @@
 %{
     def offline = java.lang.Boolean.valueOf(play.configuration.getProperty("offline.resources"));
     def bootstrapCssUrl = "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css";
-    def bootsrtapJsUrl = "//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js";
+    def bootstrapJsUrl = "//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js";
     def jQueryUrl = "//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js";
 }%
 
@@ -78,7 +78,9 @@
                 <ul class="dropdown-menu">
                     *{<li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>}*
                     #{if play.configuration.getProperty('cfp.isOpen') }
+*{ Hide Lightning Talks page : submission broken #120
                         <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
+}*
                         #{if session.username}
                             <li class="divider"></li>
                             <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
