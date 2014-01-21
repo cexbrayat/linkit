@@ -131,9 +131,10 @@
 
                 #{field 'talk.description'}
                     <div class="clearfix ${field.error?'has-error':''}">
-                        <label for="${field.name}">&{field.name}</label>
                         <div class="row">
                             <div class="col-md-8">
+                                <label for="${field.name}">&{field.name}</label>
+                                <span class="pull-right">&{'markdown.note'}</span>
                                 <div class="input">
                                     <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="25">${field.value}</textarea>
                                     <span class="help-block">${field.error}</span>
@@ -150,6 +151,7 @@
                 #{field 'talk.ideaForNow'}
                     <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.name}">&{field.name}</label>
+                        <span class="pull-right">&{'markdown.note'}</span>
                         <div class="input">
                             <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="3">${field.value}</textarea>
                             <span class="help-block">${field.error}</span>
