@@ -57,6 +57,11 @@ public class Sessions extends PageController {
             if (speaker != null) {
                 talk.addSpeaker(speaker);
             }
+            // Fix #133
+            Member user = Member.findByLogin(Security.connected());
+            if (user != null) {
+                talk.addSpeaker(user);
+            }
             List<Member> speakers = speakersFor(talk, speaker);
             render("Sessions/edit.html", talk, speakers);
         } else {
