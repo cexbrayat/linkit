@@ -183,6 +183,7 @@ members.members.none=No members for now
 talks.description=Discover all our amazing talks, and their schedule day by day.
 talk.edit.title=Session edition
 talk.descriptive.section=Description
+talk.ideaForNow.show=Ideas for now:
 talk.title=Title
 talk.title.note=Required. A short title for your talk
 talk.format=Format

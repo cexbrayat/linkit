@@ -217,6 +217,7 @@ newInterests.note=Vous pouvez saisir de nouveaux mot-clés (en les séparant par
 
 # Session fields
 talks.description=Découvrez les descriptifs des sessions, et leur planning jour par jour.
+talk.ideaForNow.show=Idées pour tout de suite :
 talk.edit.title=Saisie d'une session
 talk.descriptive.section=Descriptif
 talk.title=Titre
@@ -243,7 +244,6 @@ talk.track=Track Mix-IT
 talk.track.note=Obligatoire
 talk.interests=Mots-clés des thèmes abordés
 talk.interests.note=Ces mot-clés seront associés à la session, et permettront aux utilisateurs de trouver cette session en recherchant par mot-clé.
-talk.newInterests=Ajouter des mots-clés
 talk.newInterests=Ajouter des mots-clés
 talk.newInterests.note=Vous pouvez saisir de nouveaux mot-clés (en les séparant par une virgule)
 talk.submit=Proposer une session
