@@ -134,8 +134,6 @@
                         <label for="${field.name}">&{field.name}</label>
                         <div class="row">
                             <div class="col-md-8">
-
-
                                 <div class="input">
                                     <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="25">${field.value}</textarea>
                                     <span class="help-block">${field.error}</span>
@@ -165,6 +163,7 @@
                         <label for="${field.id}">&{field.name}</label>
                         <div class="input">
                             #{select field.name, value:field.value}
+                                #{option ''}#{/option}
                                 #{list items:models.TalkLevel.values(), as:'level'}
                                     #{option level}&{'enum.TalkLevel.'+level}#{/option}
                                 #{/list}
