@@ -20,7 +20,7 @@
                 <legend>Contenu</legend>
 
                 #{field 'article.title'}
-                <div class="form-group ${field.error?'error':''}">
+                <div class="form-group ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <input class="form-control" id="${field.id}" name="${field.name}" size="50" maxlength="50" type="text" value="${field.value}" />
                     <span class="help-block" id="${field.id}Countdown">countdown</span>
@@ -30,7 +30,7 @@
                 #{/}
 
                 #{field 'article.headline'}
-                <div class="form-group ${field.error?'error':''}">
+                <div class="form-group ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <textarea class="form-control" id="${field.id}" name="${field.name}" size="50" maxlength="255" rows="3">${field.value}</textarea>
@@ -42,7 +42,7 @@
                 #{/}
 
                 #{field 'article.content'}
-                <div class="form-group ${field.error?'error':''}">
+                <div class="form-group ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
                         <textarea class="form-control" id="${field.id}" name="${field.name}" size="50" rows="20">${field.value}</textarea>

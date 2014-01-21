@@ -183,7 +183,7 @@
             <div class="row">
             #{form @Sessions.postComment(talk.id), class:'form-horizontal', role:'form'}
                     #{field 'content'}
-                    <div class="form-group ${field.error?'error':''}">
+                    <div class="form-group ${field.error?'has-error':''}">
                         <label for="${field.name}" class="col-md-2 control-label">&{field.name}</label>
                         <div class="col-md-10">
                             <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
@@ -194,7 +194,7 @@
                     #{/}
                 #{if showPrivateComments}
                     #{field 'privatelyVisible'}
-                        <div class="form-group ${field.error?'error':''}">
+                        <div class="form-group ${field.error?'has-error':''}">
                             <div class="col-md-offset-2 col-md-10">
                                 <div class="checkbox">
                                     <label>
