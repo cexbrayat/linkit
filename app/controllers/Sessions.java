@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.Play;
 import play.cache.Cache;
+import play.data.validation.MinSize;
 import play.data.validation.Required;
 import play.data.validation.Valid;
 import play.data.validation.Validation;
@@ -175,15 +176,27 @@ public class Sessions extends PageController {
         renderBinary(captcha);
     }
 
-    public static void save(@Valid Talk talk, String[] interests, String newInterests) throws Throwable {
+    public static void save(@Valid Talk talk, @Required @MinSize(1) Long[] speakerIds, String[] interests, String newInterests) throws Throwable {
         checkWriteAccess(talk);
         Logger.info("Tentative d'enregistrement de la session %s", talk);
+
+        if (speakerIds != null) {
+            List<Member> newSpeakers = new ArrayList<Member>(speakerIds.length);
+            for (Long id : speakerIds) {
+                Member speaker = Member.findById(id);
+                if (speaker != null) {
+                    newSpeakers.add(speaker);
+                }
+            }
+            talk.updateSpeakers(newSpeakers);
+        }
         if (interests != null) {
             talk.updateInterests(interests);
         }
         if (newInterests != null) {
             talk.addInterests(StringUtils.splitByWholeSeparator(newInterests, ","));
         }
+        validation.valid(talk);
         if (Validation.hasErrors()) {
             Logger.error(Validation.errors().toString());
             flash.error(Messages.get("validation.errors"));
