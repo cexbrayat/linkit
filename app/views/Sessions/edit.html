@@ -97,7 +97,7 @@
                 <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="50" type="text" value="${field.value}" />
+                        <input class="xxlarge form-control" id="${field.id}" name="${field.name}" size="50" maxlength="50" type="text" value="${field.value}" />
                         <span class="help-block" id="${field.id}Countdown" style="font-weight: bold">countdown</span>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
@@ -140,7 +140,7 @@
                 <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label>
                     <div class="input"> 
-                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" maxlength="140" rows="2">${field.value}</textarea>
+                        <textarea class="xxlarge form-control" id="${field.id}" name="${field.name}" size="50" maxlength="140" rows="2">${field.value}</textarea>
                         <span class="help-block" id="${field.id}Countdown" style="font-weight: bold">countdown</span>
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
@@ -155,7 +155,7 @@
                                 <label for="${field.name}">&{field.name}</label>
                                 <span class="pull-right">&{'markdown.note'}</span>
                                 <div class="input">
-                                    <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="25">${field.value}</textarea>
+                                    <textarea class="xxlarge form-control" id="${field.id}" name="${field.name}" size="50" rows="25">${field.value}</textarea>
                                     <span class="help-block">${field.error}</span>
                                     <span class="help-block">&{field.name+".note"}</span>
                                 </div>
@@ -172,7 +172,7 @@
                         <label for="${field.name}">&{field.name}</label>
                         <span class="pull-right">&{'markdown.note'}</span>
                         <div class="input">
-                            <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="3">${field.value}</textarea>
+                            <textarea class="xxlarge form-control" id="${field.id}" name="${field.name}" size="50" rows="3">${field.value}</textarea>
                             <span class="help-block">${field.error}</span>
                             <span class="help-block">&{field.name+".note"}</span>
                         </div>
@@ -234,7 +234,7 @@
                 <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input">
-                        <input id="interests-typeahead" type="text" />
+                        <input id="interests-typeahead" type="text" class="form-control" />
 
                         #{list items:models.Interest.findAllOrdered(), as:'interest'}
                             <div>
@@ -256,7 +256,7 @@
                 <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input"> 
-                        <input class="xxlarge" id="${field.id}" name="newInterests" type="text" value="${newInterests}" />
+                        <input class="xxlarge form-control" id="${field.id}" name="newInterests" type="text" value="${newInterests}" />
                         <span class="help-block">${field.error}</span>
                         <span class="help-block">&{field.name+".note"}</span>
                     </div> 
