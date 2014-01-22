@@ -31,7 +31,7 @@ public class Talk extends Session {
     @Required
     @Enumerated(EnumType.STRING)
     @Column(nullable = true, length = 20)
-    public TalkLevel level = TalkLevel.Experienced;
+    public TalkLevel level;
 
     /** Markdown enabled */
     @Lob

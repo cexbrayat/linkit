@@ -9,17 +9,26 @@
         registerLimited('#talk_summary', '#talk_summaryCountdown', 140, "&{'remainingChars'}");
 
         // Autocomplete fields
-        var initTypeahead = function(typeaheadId, checkboxClass, values) {
-            $('#'+typeaheadId).typeahead({
+        var initTypeahead = function(typeaheadId, checkboxClass, values, onNewElement) {
+            var $typeahead = $('#'+typeaheadId);
+            $typeahead.typeahead({
                 name: typeaheadId,
                 local: values
             });
-            $('#'+typeaheadId).on('typeahead:selected', function (object, datum) {
+            $typeahead.on('typeahead:selected', function (object, datum) {
                 addElement(datum.value);
             });
 
-            $('#'+typeaheadId).on('typeahead:autocompleted', function (object, datum) {
+            $typeahead.on('typeahead:autocompleted', function (object, datum) {
                 addElement(datum.value);
+            });
+
+            $typeahead.on('blur', function () {
+                var typeaheadValue = $(this).val();
+                if ( typeaheadValue ) {
+                    onNewElement(typeaheadValue);
+                }
+                $typeahead.typeahead('setQuery', '');
             });
 
             // Warning : this will not handle homonyms !!
@@ -32,15 +41,25 @@
                 var $input = $label.find('input[type=checkbox]');
 
                 $label.show();
-                $('#'+typeaheadId).typeahead('setQuery', '');
+                $typeahead.typeahead('setQuery', '');
                 $input.prop('checked', true);
             };
 
             // Show already checked
             $('.'+checkboxClass+' input[type=checkbox]:checked').parent().show();
         };
+
+        // Triggered when an interest is not found in checkboxes => adds it in new interests input
+        var onNewInterest = function(interestName) {
+            var currentValue = $('#talk_newInterests').val();
+            if ( currentValue ) {
+                currentValue = currentValue + ', ';
+            }
+            $('#talk_newInterests').val(currentValue + interestName);
+        }
+
         initTypeahead('speakers-typeahead', 'speaker-checkbox', ['#{list items:speakers, as:'s'}${s.toString().escapeJavaScript().raw()}#{if !_isFirst}','#{/if}#{/list}']);
-        initTypeahead('interests-typeahead', 'interest-checkbox', ['#{list items:models.Interest.findAllOrdered(), as:'i'}${i.toString().escapeJavaScript().raw()}#{if !_isFirst}','#{/if}#{/list}']);
+        initTypeahead('interests-typeahead', 'interest-checkbox', ['#{list items:models.Interest.findAllOrdered(), as:'i'}${i.toString().escapeJavaScript().raw()}#{if !_isFirst}','#{/if}#{/list}'], onNewInterest);
     });
 
 </script>
@@ -131,11 +150,10 @@
 
                 #{field 'talk.description'}
                     <div class="clearfix ${field.error?'has-error':''}">
-                        <label for="${field.name}">&{field.name}</label>
                         <div class="row">
                             <div class="col-md-8">
-
-
+                                <label for="${field.name}">&{field.name}</label>
+                                <span class="pull-right">&{'markdown.note'}</span>
                                 <div class="input">
                                     <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="25">${field.value}</textarea>
                                     <span class="help-block">${field.error}</span>
@@ -152,6 +170,7 @@
                 #{field 'talk.ideaForNow'}
                     <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.name}">&{field.name}</label>
+                        <span class="pull-right">&{'markdown.note'}</span>
                         <div class="input">
                             <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="3">${field.value}</textarea>
                             <span class="help-block">${field.error}</span>
@@ -165,6 +184,7 @@
                         <label for="${field.id}">&{field.name}</label>
                         <div class="input">
                             #{select field.name, value:field.value}
+                                #{option ''}#{/option}
                                 #{list items:models.TalkLevel.values(), as:'level'}
                                     #{option level}&{'enum.TalkLevel.'+level}#{/option}
                                 #{/list}
