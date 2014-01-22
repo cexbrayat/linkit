@@ -73,7 +73,7 @@
     #{form @Articles.postComment(article.id), class:'form-inline'}
         <div class="row">
             #{field 'content'}
-                <div class="clearfix ${field.error?'error':''}">
+                <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}" class="col-md-2">&{field.name}</label>
                     <div class="input col-md-10">
                         <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>

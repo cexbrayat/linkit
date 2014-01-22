@@ -81,7 +81,7 @@
 <fieldset>
     <legend>Profil</legend>
     #{field 'login'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
 
             <div class="form-group">
                 <label for="${field.name}">&{field.name}</label>
@@ -94,7 +94,7 @@
     #{/}
 
     #{field 'lastname'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
 
             <div class="form-group">
                 <label for="${field.name}">&{field.name}</label>
@@ -107,7 +107,7 @@
     #{/}
 
     #{field 'firstname'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
 
             <div class="form-group">
                 <label for="${field.name}">&{field.name}</label>
@@ -121,7 +121,7 @@
     #{/}
 
     #{field 'company'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
 
             <div class="form-group">
                 <label for="${field.name}">&{field.name}</label>
@@ -135,7 +135,7 @@
     #{/}
 
     #{field 'email'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
 
             <div class="form-group">
                 <label for="${field.name}">&{field.name}</label>
@@ -149,7 +149,7 @@
     #{/}
 
     #{field 'shortDescription'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
 
             <div class="form-group">
                 <label for="${field.name}">&{field.name}</label>
@@ -164,7 +164,7 @@
     #{/}
 
     #{field 'longDescription'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
 
             <div class="form-group">
                 <label for="${field.name}">&{field.name}</label>
@@ -190,7 +190,7 @@
     <legend>Vos comptes sociaux</legend>
 
     #{field 'twitterName'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
 
             <div class="form-group">
                 <label for="${field.name}">&{field.name}</label>
@@ -204,7 +204,7 @@
     #{/}
 
     #{field 'googlePlusId'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
 
             <div class="form-group">
                 <label for="${field.name}">&{field.name}</label>
@@ -229,7 +229,7 @@
 
     #{list items:0..4, as:'i'}
         #{field 'sharedLinks['+i+']'}
-            <div class="clearfix ${field.error?'error':''}">
+            <div class="clearfix ${field.error?'has-error':''}">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-4 ">
@@ -288,7 +288,7 @@
     <legend>Intérêts</legend>
 
     #{field 'interests'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
 
             <div class="form-group">
                 <label for="${field.name}">&{field.name}</label>
@@ -310,7 +310,7 @@
     #{/}
 
     #{field 'newInterests'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
 
             <div class="form-group">
                 <label for="${field.name}">&{field.name}</label>

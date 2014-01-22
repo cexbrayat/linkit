@@ -120,7 +120,7 @@
         #{form @LightningTalks.postComment(talk.id)}
 
         #{field 'content'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="clearfix ${field.error?'has-error':''}">
             <label for="${field.name}">&{field.name}</label>
             <div class="input offset4">
                 <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>

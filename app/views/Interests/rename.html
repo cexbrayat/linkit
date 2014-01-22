@@ -13,7 +13,7 @@
     <fieldset>
         <div class="span16 columns">
             #{field 'newNameInterest'}
-            <div class="clearfix ${field.error?'error':''}"> 
+            <div class="clearfix ${field.error?'has-error':''}">
                 <label for="${field.name}">Nouveau Nom</label> 
                 <div class="input"> 
                     <input class="xxlarge" id="${field.id}" name="${field.name}" type="text" value="${interest}" />
