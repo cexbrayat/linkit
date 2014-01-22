@@ -210,16 +210,16 @@
                     </div><!-- /clearfix -->
                 #{/}
 
-                #{field 'talk.speakers'}
+                #{field 'speakerIds'}
                 <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
                     <div class="input">
-                        <input id="speakers-typeahead" type="text" />
+                        <input id="speakers-typeahead" class="form-control" type="text" />
 
                         #{list items:speakers, as:'speaker'}
                             <div>
                                 <label style="display: none;" class="speaker-checkbox" >
-                                    <input type="checkbox" name="${field.name}.id" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} />
+                                    <input type="checkbox" name="${field.id}" value="${speaker.id}" ${talk.speakers.contains(speaker)?'checked':''} />
                                     <span>${speaker}</span>
                                 </label>
                             </div>
