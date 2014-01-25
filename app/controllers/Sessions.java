@@ -176,7 +176,7 @@ public class Sessions extends PageController {
         renderBinary(captcha);
     }
 
-    public static void save(@Valid Talk talk, @Required @MinSize(1) Long[] speakerIds, String[] interests, String newInterests) throws Throwable {
+    public static void save(Talk talk, @Required @MinSize(1) Long[] speakerIds, String[] interests, String newInterests) throws Throwable {
         checkWriteAccess(talk);
         Logger.info("Tentative d'enregistrement de la session %s", talk);
 
