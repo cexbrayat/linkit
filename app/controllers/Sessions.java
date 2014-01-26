@@ -84,7 +84,7 @@ public class Sessions extends PageController {
 
     private static void checkWriteAccess(Session talk) {
         Member user = Member.findByLogin(Security.connected());
-        if ((user instanceof Staff) || talk.hasSpeaker(user)) {
+        if ((user instanceof Staff) || talk.speakers.isEmpty() || talk.hasSpeaker(user)) {
             // alright!
         } else {
             flash.error("Vous n'avez pas (ou plus :p) accès à la modification de cette session, coquin!");
