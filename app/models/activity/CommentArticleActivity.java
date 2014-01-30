@@ -41,9 +41,4 @@ public class CommentArticleActivity extends CommentActivity {
                 .addRef("comment"+comment.id)
                 .url;
     }
-
-    @Override
-    public Set<Member> getNotifiableMembers() {
-        return Collections.singleton(this.member);
-    }
 }

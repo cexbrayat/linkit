@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-12">
         <span id="session${_arg.id}" data-id="${_arg.id}" class="session">
-            #{if !_arg.valid}<span class="label important">non validé</span> #{/if}
+            #{if !_arg.valid}<span class="label label-warning">non validé</span> #{/if}
         #{if _arg instanceof models.Talk}
             <h2>
                 [&{'enum.TalkFormat.'+_arg.format}#{lang-flag _arg.lang /}]

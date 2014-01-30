@@ -4,8 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.google.common.collect.Sets;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
+
+import java.util.Collections;
+import java.util.Set;
 
 /**
  * A comment on a session talk.
@@ -35,4 +39,9 @@ public class SessionComment extends Comment {
         return delete("delete SessionComment sc where sc.session = ?", session);
     }
 
+    @Override
+    public Set<Member> getNotifiableMembers() {
+        // Don't notify author of comment
+        return Sets.difference(this.session.speakers, Collections.singleton(this.author));
+    }
 }
