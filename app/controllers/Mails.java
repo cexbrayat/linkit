@@ -1,10 +1,10 @@
 package controllers;
 
+import models.Comment;
 import models.Member;
 import models.Session;
 import models.Setting;
 import models.activity.Activity;
-import models.activity.CommentActivity;
 import models.mailing.Mailing;
 import models.mailing.MembersSet;
 import models.mailing.MembersSetQueryFactory;
@@ -58,10 +58,10 @@ public class Mails extends Mailer {
         }
     }
 
-    public static void commentNotification(Member recipient, CommentActivity activity) {
-        setSubject("[Mix-IT] - A comment is waiting for your answer!");
+    public static void commentNotification(Member recipient, Comment comment) {
+        setSubject(String.format("[Mix-IT] - A comment by %s is waiting for your answer!", comment.author));
         setFrom(FROM_MIXIT);
         addRecipient(recipient.email);
-        send(recipient, activity);
+        send(recipient, comment);
     }
 }

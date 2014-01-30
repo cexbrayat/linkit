@@ -1,0 +1,2 @@
+*{ Display a ArticleComment }*
+#{mails.member _arg.author /} commented the article "<a href="@@{Articles.show(_arg.article.id, _arg.article.title.slugify())}" title="Show article">${_arg.article}</a>"

@@ -31,9 +31,4 @@ public class CommentSessionActivity extends CommentActivity {
     public String getUrl() {
         return session.getShowUrl()+"#comment"+comment.id;
     }
-
-    @Override
-    public Set<Member> getNotifiableMembers() {
-        return comment.session.speakers;
-    }
 }

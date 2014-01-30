@@ -7,6 +7,9 @@ import javax.persistence.ManyToOne;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
 
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * A comment on a session talk.
  * @author Sryl <cyril.lacote@gmail.com>
@@ -35,4 +38,8 @@ public class SessionComment extends Comment {
         return delete("delete SessionComment sc where sc.session = ?", session);
     }
 
+    @Override
+    public Set<Member> getNotifiableMembers() {
+        return Collections.unmodifiableSet(this.session.speakers);
+    }
 }

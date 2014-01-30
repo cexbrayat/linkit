@@ -7,6 +7,9 @@ import javax.persistence.ManyToOne;
 import play.data.validation.Required;
 import play.modules.search.Indexed;
 
+import java.util.Collections;
+import java.util.Set;
+
 /**
  * A comment on e session talk.
  * @author Sryl <cyril.lacote@gmail.com>
@@ -25,5 +28,10 @@ public class ArticleComment extends Comment {
     public ArticleComment(Member author, Article article, String content) {
         super(author, content);
         this.article = article;
+    }
+
+    @Override
+    public Set<Member> getNotifiableMembers() {
+        return Collections.singleton(this.author);
     }
 }
