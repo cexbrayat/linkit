@@ -49,7 +49,7 @@ public abstract class CommentActivity extends Activity {
             where = builder.and(where, before);
         }
         cq.where(where);
-        cq.orderBy(builder.desc(activity.get(AT)));
+        cq.orderBy(builder.asc(activity.get(AT)));
         return em().createQuery(cq).getResultList();
     }
 
