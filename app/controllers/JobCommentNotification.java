@@ -8,6 +8,7 @@ import models.Member;
 import models.Setting;
 import models.Staff;
 import models.activity.CommentActivity;
+import play.Logger;
 import play.jobs.Every;
 import play.jobs.Job;
 
@@ -31,13 +32,19 @@ public class JobCommentNotification extends BaseSinceLastTimeJob {
         // We only want new comments starting now.
         Date realStart = (start == null) ? new Date() : start;
 
+        Logger.debug("Fetching CommentActivity from %s to %s", start, end);
+
         List<CommentActivity> comments = CommentActivity.between(realStart, end);
+        Logger.debug("Found %d activities", comments.size());
 
         if (!comments.isEmpty()) {
             // Staff people always get notified
             Set<Staff> staff = Sets.newHashSet(Staff.<Staff>findAll());
 
             for (CommentActivity activity : comments) {
+
+                Logger.debug("Notifying comment of session %s", activity.session);
+
                 Set<Member> notifiableMembers = activity.getNotifiableMembers();
                 Set<Member> allNotifiablePeople = Sets.union(staff, notifiableMembers);
                 for (Member member : allNotifiablePeople) {
