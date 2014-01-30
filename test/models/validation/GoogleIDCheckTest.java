@@ -43,22 +43,32 @@ public class GoogleIDCheckTest extends UnitTest {
         assertTrue(validation.hasErrors());
     }
 
-    @Test public void checkOK() {
+    @Test public void checkOKNumber() {
         validation.valid(new DomainObject("114128610730314333831"));
         assertFalse(validation.hasErrors());
     }
-    
-    @Test public void checkKONotANumber() {
+
+    @Test public void checkKONotANumberWithoutPlus() {
         validation.valid(new DomainObject("1a4128610730314333831"));
         assertTrue(validation.hasErrors());
     }
-    
-    @Test public void checkKOTooShort() {
+
+    @Test public void checkOKVanityName() {
+        validation.valid(new DomainObject("+LaurentVictorino"));
+        assertFalse(validation.hasErrors());
+    }
+
+    @Test public void checkKONameWhitespaces() {
+        validation.valid(new DomainObject("+Laurent Victorino"));
+        assertTrue(validation.hasErrors());
+    }
+
+    @Test public void checkKONumberTooShort() {
         validation.valid(new DomainObject("99999999999999999999"));
         assertTrue(validation.hasErrors());
     }
     
-    @Test public void checkKOTooLong() {
+    @Test public void checkKONumberTooLong() {
         validation.valid(new DomainObject("1000000000000000000000"));
         assertTrue(validation.hasErrors());
     }

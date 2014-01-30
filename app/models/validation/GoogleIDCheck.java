@@ -13,7 +13,7 @@ import play.data.validation.Check;
  */
 public class GoogleIDCheck extends Check {
 
-    private static final int LENGHT = 21;
+    private static final int NUMERIC_LENGTH = 21;
     
     private static final Set<Class> acceptedClasses = new HashSet<Class>();
     static {
@@ -38,12 +38,16 @@ public class GoogleIDCheck extends Check {
         if (value instanceof String) {
             String strValue = (String) value;
             if (StringUtils.isEmpty(strValue)) return true;
-            if (strValue.length() != LENGHT) return false;
-            if (!StringUtils.isNumeric(strValue)) return false;
+            if (StringUtils.isNumeric(strValue)) {
+                if (strValue.length() != NUMERIC_LENGTH) return false;
+            } else {
+                if (!strValue.startsWith("+")) return false;
+                if (StringUtils.containsAny(strValue, " \t")) return false;
+            }
         } else {
             Long lValue = (Long) value;
-            if (lValue >= Math.pow(10,LENGHT)) return false;
-            if (lValue < Math.pow(10,LENGHT-1)) return false;
+            if (lValue >= Math.pow(10, NUMERIC_LENGTH)) return false;
+            if (lValue < Math.pow(10, NUMERIC_LENGTH -1)) return false;
         }
         return true;
     }
