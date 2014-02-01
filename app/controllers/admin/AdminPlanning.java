@@ -1,6 +1,7 @@
 package controllers.admin;
 
 import com.google.common.base.Joiner;
+import com.google.common.collect.Lists;
 import controllers.Check;
 import controllers.SecureLinkIt;
 import models.ConferenceEvent;
@@ -58,5 +59,23 @@ public class AdminPlanning extends Controller {
 
         PlanedSlot.save(planning);
         index();
+    }
+
+    public static void feedback() {
+        ConferenceEvent event = ConferenceEvent.CURRENT;
+        List<Talk> talks = Talk.findAllOn(event);
+
+        // Filter by feedback (old-school without FluentIterable)
+        List<Talk> talksWithFeedback = Lists.newArrayList();
+        List<Talk> talksWithoutFeedback = Lists.newArrayListWithExpectedSize(talks.size());
+        for (Talk talk : talks) {
+            if (talk.feedback) {
+                talksWithFeedback.add(talk);
+            } else {
+                talksWithoutFeedback.add(talk);
+            }
+        }
+
+        render(event, talksWithFeedback, talksWithoutFeedback);
     }
 }

@@ -1,6 +1,7 @@
 package models;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import controllers.Application;
 import controllers.Mails;
 import java.util.*;
@@ -89,6 +90,9 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
     @Enumerated(EnumType.STRING)
     @Required   // But nullable : must give language when editing, but not always given on old sessions.
     public TalkLanguage lang;
+
+    /* true if Staff has given feedback */
+    public boolean feedback;
 
     protected Session() {
         this.event = ConferenceEvent.CURRENT;

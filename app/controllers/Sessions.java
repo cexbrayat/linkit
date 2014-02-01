@@ -17,6 +17,7 @@ import play.data.validation.Valid;
 import play.data.validation.Validation;
 import play.i18n.Messages;
 import play.libs.Images;
+import play.mvc.With;
 
 import java.util.*;
 
@@ -208,7 +209,7 @@ public class Sessions extends PageController {
         Logger.info("Session %s enregistrée", talk);
         show(talk.id, JavaExtensions.slugify(talk.title), true);
     }
-    
+
     public static void validate(long talkId) throws Throwable {
         Talk talk = Talk.findById(talkId);
         notFoundIfNull(talk);
@@ -217,13 +218,24 @@ public class Sessions extends PageController {
         talk.validate();
         show(talkId, JavaExtensions.slugify(talk.title), true);
     }
-    
+
     public static void unvalidate(long talkId) throws Throwable {
         Talk talk = Talk.findById(talkId);
         notFoundIfNull(talk);
         checkWriteAccess(talk);
 
         talk.unvalidate();
+        show(talkId, JavaExtensions.slugify(talk.title), true);
+    }
+
+    public static void feedback(long talkId, boolean feedback) throws Throwable {
+        Talk talk = Talk.findById(talkId);
+        notFoundIfNull(talk);
+        checkWriteAccess(talk);
+
+        talk.feedback = feedback;
+        talk.save();
+
         show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 }

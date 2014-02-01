@@ -1,0 +1,12 @@
+#{extends 'main.html' /}
+#{set title:'ADMIN - Feedback' /}
+
+<h1>Sessions sans feedback</h1>
+
+#{sessions sessions:talksWithoutFeedback, event:models.ConferenceEvent.CURRENT /}
+
+<hr/>
+
+<h1>Sessions avec feedback</h1>
+
+#{sessions sessions:talksWithFeedback, event:models.ConferenceEvent.CURRENT /}
