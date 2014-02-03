@@ -67,7 +67,7 @@
                 #{/if}
                 <div class='alert-actions'>
                     <a class="btn btn-primary" href="@{Sessions.edit(talk.id)}">Editer</a>
-                #{if talk.valid}            
+                #{if talk.valid}
                     <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment invalider cette session?')) window.location='@{Sessions.unvalidate(talk.id)}';">Invalider</a>
                 #{/if}
                 #{else}
@@ -185,6 +185,21 @@
 </script>
         </div>
     </div>
+
+    #{secure.check models.Role.ADMIN_SESSION}
+    <div class="alert alert-info">
+        <p><strong>Staff : feedbacks</strong></p>
+        <div class='alert-actions'>
+            <a href="@{admin.AdminPlanning.feedback()}">Retour à la liste des feedbacks</a>
+            #{if talk.feedback}
+                <a class="btn btn-warning" href="@{Sessions.feedback(talk.id, false)}">Enlever feedback</a>
+            #{/if}
+            #{else}
+                <a class="btn btn-warning" href="@{Sessions.feedback(talk.id, true)}">Marquer feedback</a>
+            #{/else}
+        </div>
+    </div>
+    #{/secure.check}
 
     #{comments talk.comments, showPrivate:showPrivateComments /}
 
