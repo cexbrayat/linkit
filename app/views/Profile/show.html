@@ -260,7 +260,12 @@
 
         <p>
             Email : ${member.email}<br/>
-            #{a @admin.MembersAdmin.show(member.id), class:'btn btn-primary'}Edit in CRUD#{/a}
+
+            #{a @admin.MembersAdmin.show(member.id), class:'btn btn-primary'}Edit Member in CRUD#{/a}
+            #{if member instanceof models.Sponsor}
+                #{a @admin.SponsorsAdmin.show(member.id), class:'btn btn-primary'}Edit Sponsor in CRUD#{/a}
+            #{/if}
+
         </p>
     </div>
 </div>
