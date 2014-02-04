@@ -259,7 +259,8 @@
         <h4>Staff</h4>
 
         <p>
-            Email : ${member.email}
+            Email : ${member.email}<br/>
+            #{a @admin.MembersAdmin.show(member.id), class:'btn btn-primary'}Edit in CRUD#{/a}
         </p>
     </div>
 </div>
