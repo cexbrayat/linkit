@@ -1,9 +1,9 @@
 *{ Display a NewVoteActivity }*
 #{member _arg.member /}
 #{if _arg.session instanceof models.Talk}
-a mis en favoris la session
+    &{'activity.NewVoteActivity.talk'}
 #{/if}
 #{else}
-a voté pour le Lightning Talk
+    &{'activity.NewVoteActivity.lightning'}
 #{/else}
 "#{session _arg.session /}"

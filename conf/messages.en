@@ -175,6 +175,41 @@ interests.note=These keywords are displayed on your profil and help to suggest n
 newInterests=Other point of interests
 newInterests.note=You can add new keywords (separated by comma)
 
+profile.myTalks=My talks
+profile.myBiography=My biography
+profile.myLightningTalks=My lightning talks
+profile.myPreviousTalks=My previous talks
+profile.myInterests=My interests
+profile.myActivities=My activities
+profile.activities.filter=Click to filter the timeline of &{provider.%s}
+profile.myFavouriteSessions=My favourite sessions
+
+profile.create=Create
+profile.update=Update
+profile.edit.yourProfile=your profile
+profile.edit.signup=Create a new profile after a first login with &{provider.%s}.
+profile.edit.avatar=Your avatar
+profile.edit.avatar.gravatar=Avatars are managed by <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a>. \
+                      We only display the avatar associated to the email you gave us. \
+                      Login on <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a> \
+                      to create or update your avatar.
+profile.edit.profile=Profile
+profile.edit.social=Social networks
+profile.edit.social.1=Your account on social networks.
+profile.edit.social.2=The public timelines of accounts you give us are <strong>automatically fetched</strong> and <strong>publicly displayed</strong>.
+profile.edit.social.accounts=Your social accounts
+profile.edit.links=Your links
+profile.edit.links.what=Links you want to display on your profile page and would like to share.
+profile.edit.links.yours=Yours links
+profile.edit.ticketing=Ticketing
+profile.edit.ticketing.buy=Buy a ticket
+profile.edit.interests=Fields of interest
+profile.edit.interests.what=The fields your interested in, and those you like to explore at Mix-IT and on this website.
+profile.edit.interests.interests=Interests
+profile.edit.save=Save
+profile.edit.cancel=Cancel
+profile.edit.delete=Delete my account
+
 # Members
 members.speakers.none=We are contacting our guest speakers, before opening our usual <em>Call For Paper</em>.
 members.members.none=No members for now
@@ -420,3 +455,24 @@ cfp.speaking.io=Take advice from the bests: \
                 He wrote <a href="http://speaking.io/plan/writing-a-cfp/" target="zach">an article \
                 about CFP writing</a>.
 cfp.action=Now I'm ready to submit!
+
+activity.BuyTicketActivity=bought a ticket!
+activity.CommentArticleActivity=commented the article
+activity.showArticle=Show article
+activity.CommentSessionActivity=commented the session
+activity.EarnBadgeActivity=earned the badge
+activity.LinkActivity=followed
+activity.LookArticleActivity=read the article
+activity.LookProfileActivity=looked up the profile of
+activity.LookSessionActivity=looked up the session
+activity.NewArticleActivity.start=The article
+activity.NewArticleActivity.end=has been pusblished
+activity.NewTalkActivity.start=The session
+activity.NewTalkActivity.end=has been added
+activity.NewVoteActivity.talk=faved the session
+activity.NewVoteActivity.lightning=voted for
+activity.SharedLinkActivity=shared the link
+activity.SignUpActivity=signed up
+activity.UpdateProfileActivity=updated his profile
+activity.UpdateSessionActivity.start=The session
+activity.UpdateSessionActivity.end=has been updated

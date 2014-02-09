@@ -55,31 +55,36 @@
 #{/set}
 
 <div class="page-header">
-    <h1>${registrationProvider ? 'Création' : 'Edition'} de votre profil</h1>
+    <h1>${registrationProvider ? messages.get('profile.create') : messages.get('profile.update')} &{'profile.edit.yourProfile'}</h1>
 </div>
 
 #{if registrationProvider}
 <div class="alert alert-warning">
-    Création d'un nouveau profil suite à votre connexion via &{'provider.'+registrationProvider}.
+    &{'profile.edit.signup', registrationProvider}
 </div>
 #{/if}
 
 <div>
-    <h2>Informations</h2>
 
-    <p>Saisissez vos coordonnées</p>
-    <h4>Votre Image:</h4>
-
-    <p>Les avatars sont gérés par <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a>.
-        Nous affichons l'avatar correspondant à l'email que vous nous indiquez.
-        Connectez-vous sur le site <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a>
-        pour créer ou modifier votre image.</p>
+#{if member.email}
+    <h4>&{'profile.edit.avatar'}</h4>
+    <div class="row">
+        <div class="col-sm-10">
+            <p>
+                &{'profile.edit.avatar.gravatar'}
+            </p>
+        </div>
+        <div class="col-sm-2">
+            <div class="img-thumbnail img-responsive pull-left">#{gravatar.img member.email, size:100, default:'mm', rating:'pg', secure:true/}</div>
+        </div>
+    </div>
 </div>
+#{/if}
 
 #{form @Profile.save(member.id, originalLogin)}
 
 <fieldset>
-    <legend>Profil</legend>
+    <legend>&{'profile.edit.profile'}</legend>
     #{field 'login'}
         <div class="clearfix ${field.error?'has-error':''}">
 
@@ -179,15 +184,12 @@
 </fieldset>
 <hr/>
 <div>
-    <h2>Réseaux sociaux</h2>
-
-    <p>Vos comptes sur les différents réseaux sociaux.</p>
-
-    <p>Les données publiques des comptes que vous indiquerez seront <strong>automatiquement récupérées</strong> et
-        <strong>publiquement affichées</strong>.</p>
+    <h2>&{'profile.edit.social'}</h2>
+    <p>&{'profile.edit.social.1'}</p>
+    <p>&{'profile.edit.social.2'}</p>
 </div>
 <fieldset>
-    <legend>Vos comptes sociaux</legend>
+    <legend>&{'profile.edit.social.accounts'}</legend>
 
     #{field 'twitterName'}
         <div class="clearfix ${field.error?'has-error':''}">
@@ -221,11 +223,10 @@
 </fieldset>
 
 <hr/>
-<h2>Vos liens</h2>
-
-<p>Des liens que vous voulez faire apparaître sur votre profil et que vous aimeriez partager.</p>
+<h2>&{'profile.edit.links'}</h2>
+<p>&{'profile.edit.links.what'}</p>
 <fieldset>
-    <legend>Vos liens</legend>
+    <legend>&{'profile.edit.links.yours'}</legend>
 
     #{list items:0..4, as:'i'}
         #{field 'sharedLinks['+i+']'}
@@ -268,9 +269,9 @@
     #{/list}
 </fieldset>
 <hr/>
-<h2>Inscription</h2>
+<h2>&{'profile.edit.ticketing'}</h2>
 <fieldset>
-    <legend>Achat du billet</legend>
+    <legend>&{'profile.edit.ticketing.buy'}</legend>
     <div class="clearfix">
         <div class="form-group">
             #{ticketing member/}
@@ -281,11 +282,10 @@
 
 </fieldset>
 <hr/>
-<h2>Centres d'intérêt</h2>
-
-<p>Les sujets qui vous intéressent, et que vous souhaitez creuser à Mix-IT et sur ce site.</p>
+<h2>&{'profile.edit.interests'}</h2>
+<p>&{'profile.edit.interests.what'}</p>
 <fieldset>
-    <legend>Intérêts</legend>
+    <legend>&{'profile.edit.interests.interests'}</legend>
 
     #{field 'interests'}
         <div class="clearfix ${field.error?'has-error':''}">
@@ -324,13 +324,13 @@
     #{/}
 </fieldset>
 <div class="actions">
-    <input type="submit" class="btn btn-primary" value="Enregistrer"/>
+    <input type="submit" class="btn btn-primary" value="&{'profile.edit.save'}"/>
     #{if member.id} *{création de profil si member.id == null}*
-        <a href="@{Profile.show(originalLogin)}" class="btn btn-default">Annuler</a>
-        <a href="@{Profile.delete()}" class="btn btn-danger">Supprimer mon compte</a>
+        <a href="@{Profile.show(originalLogin)}" class="btn btn-default">&{'profile.edit.cancel'}</a>
+        <a href="@{Profile.delete()}" class="btn btn-danger">&{'profile.edit.delete'}</a>
     #{/if}
     #{else}
-        <a href="@{Application.index()}" class="btn btn-default">Annuler</a>
+        <a href="@{Application.index()}" class="btn btn-default">&{'profile.edit.cancel'}</a>
     #{/else}
 </div>
 

@@ -1,2 +1,2 @@
 *{ Display a LookArticleActivity }*
-#{member _arg.member /} a consulté l'article "<a href="@{Articles.show(_arg.article.id, _arg.article.title.slugify())}" title="Consulter l'article">${_arg.article}</a>"
+#{member _arg.member /} &{'activity.LookArticleActivity'} "<a href="@{Articles.show(_arg.article.id, _arg.article.title.slugify())}" title="&{'activity.showArticle'}">${_arg.article}</a>"
