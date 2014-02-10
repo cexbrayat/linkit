@@ -119,6 +119,40 @@ about.bio.cedric=More than anything else, Cédric is passionate. About his work,
                  Indeed, besides this conference, he also founded and still leads the <a href="http://www.lyonjug.org">Lyon JUG</a>!
 about.bio.cedric.links=Follow him on <a href="http://twitter.com/cedric_exbrayat">Twitter</a>, \
                        on his blog <a href="http://hypedrivendev.wordpress.com/">blog</a>
+about.bio.AlexisHassler=Alexis has been a developer and a Java trainer, since the end of the last century. \
+                        A freelancer, he helps his customers to improve their development and Java application deployment. \
+                        He is a co-leader of the <a href="http://www.lyonjug.org">Lyon JUG</a> and really enjoys bringing drinking water to the conference.
+about.bio.AlexisHassler.links=Follow him on <a href="http://twitter.com/AlexisHassler">Twitter</a>, \
+                              <a href="https://plus.google.com/u/0/117951061342524071088/">Google+</a>, \
+                              his <a href="http://blog.alexis-hassler.com/">blog</a>
+about.bio.clacote=Cyril started his career in a service company as a developer and Java trainer. \
+                  He tried Google London, but gave up as the pre-sales position was too far from his technical interests. \
+                  Since then, he has set up his own company, <a href="http://ninja-squad.com">Ninja Squad</a>, \
+                  with other passionate people, where he is a developer, the accountant and the default <em>Community Manager</em>.
+about.bio.clacote.links=Follow him on <a href="http://twitter.com/clacote">Twitter</a>, \
+                        <a href="https://plus.google.com/114128610730314333831">Google+</a>
+about.bio.romain=Romain is an agile coach and trainer. He works (or sometimes plays) with teams to create better \
+                 environments and sharing experiences to improve their projects. \
+                 He has been playing with Post-ITs for many years, and has recently added to his tool box: 10kg of Lego \
+                 and Prockey markers for graphic facilitation. For his own pleasure, he reads comic books and is an \
+                 active <a href="http://lyon.clubagilerhonealpes.org/">Club Agile Rhône-Alpes</a> member.
+about.bio.romain.links=Follow him on <a href="http://twitter.com/romaincouturier">Twitter</a>
+about.bio.franck=Franck used to be a globe trotter in Automation, and for the last 10 years he has been creating software products. \
+                 Passionate about themes like Lean Startup movement, product management flow, design thinking and trust space creation, \
+                 Franck uses these principles in his current product innovation management job. \
+                 In order to promote the agile methodologies, he is a member of the <a href="http://lyon.clubagilerhonealpes.org/">Club Agile Rhône-Alpes</a> \
+                 and an <a href="https://twitter.com/xalec_">ALE Hangout</a> co-organiser.
+about.bio.franck.links=Follow him on <a href="https://twitter.com/franckdepierre">Twitter</a>, \
+                       his <a href="http://blog.lookingforanswers.me/">blog</a>
+about.bio.nicolas=Nicolas is a developer, <em>Scrum Master</em>, who is passionate about software development and computer security. \
+                  After 5 years working with C/C++ and .Net, today he is a Java developer. Also, he tries to hack his working culture on his different projects.
+                  Nicolas is a <a href="http://lyon.clubagilerhonealpes.org/">Club Agile Rhône-Alpes</a> member.
+about.bio.nicolas.links=Follow him on <a href="https://twitter.com/npelloux">Twitter</a>
+about.bio.mathieu=Mathieu claims to be a simple craftsman developer (on Java/JEE and Web). \
+                  After more than 6 years in a service company in Paris, he moved to Lyon in early 2012 and one year later, \
+                  he started his independent consulting activity. Today, he is a member of the <a href="http://devlyon.fr/">DevLyon</a> group. \
+                  With his agile knowledge, he helps his team to self organise and continuously improve. He joined the organization team for Mix-IT 2014.
+about.bio.mathieu.links=Follow him on <a href="https://twitter.com/mpetitdant">Twitter</a>
 
 # FAQ
 faq.title=Frequently Asked Questions
