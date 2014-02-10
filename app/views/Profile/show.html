@@ -125,7 +125,7 @@
 
 #{if member.getValidatedTalks()}
 <div>
-    <h2>Mes talks</h2>
+    <h2>&{'profile.myTalks'}</h2>
     #{list items:member.getValidatedTalks(), as:'talk'}
         <div>#{session-small talk /}</div>
     #{/list}
@@ -135,14 +135,14 @@
 
 #{if member.longDescription}
 <div id="longDescription">
-    <h2>Ma biographie</h2>
+    <h2>&{'profile.myBiography'}</h2>
     #{markdown member.longDescription /}
 </div><br/>
 #{/if}
 
 #{if member.getLightningTalks()}
 <div>
-    <h2>Mes lightning talks</h2>
+    <h2>&{'profile.myLightningTalks'}</h2>
     #{list items:member.getLightningTalks(), as:'lt'}
         <div>#{session-small lt /}</div>
     #{/list}
@@ -154,7 +154,7 @@
 }%
 #{if previousTalks.size()}
 <div>
-    <h2>Mes talks aux éditions précédentes</h2>
+    <h2>&{'profile.myPreviousTalks'}</h2>
     #{list items:previousTalks.keySet(), as:'previousEvent'}
     <div class="row">
         <div class="col-md-2">
@@ -173,7 +173,7 @@
 
 #{if member.interests}
 <div>
-    <h2>Mes intérêts</h2>
+    <h2>&{'profile.myInterests'}</h2>
     #{list items:member.interests, as:'interest'}
         <a href="@{Application.searchByInterest(interest.name)}"><span
                 class="">${interest}</span></a>
@@ -182,11 +182,11 @@
 #{/if}
 
 <div>
-    <h2>Mes activités</h2>
+    <h2>&{'profile.myActivities'}</h2>
 #{list items:member.getAccountProviders(), as:'provider'}
     <a class="service-button ${provider.name().toLowerCase()}" id="${provider}"
        onClick="handleProvider('${provider}')" rel='twipsy'
-       title="Cliquer pour filtrer le flux &{'provider.'+provider}"></a>
+       title="&{'profile.activities.filter', provider}"></a>
 #{/list}
     <br/><br/>
 
@@ -244,7 +244,7 @@
 
 #{if favorites}
 <div>
-    <h2>Mes sessions favorites</h2>
+    <h2></h2>
     #{list items:favorites, as:'favorite'}
         <div>#{session-small favorite /}</div>
     #{/list}

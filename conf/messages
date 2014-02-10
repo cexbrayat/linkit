@@ -215,6 +215,41 @@ interests.note=Ces mot-clés seront affichés sur votre profil et nous serviront
 newInterests=Autres mot-clés
 newInterests.note=Vous pouvez saisir de nouveaux mot-clés (en les séparant par une virgule)
 
+profile.myTalks=Mes talks
+profile.myBiography=Ma biographie
+profile.myLightningTalks=Mes lightning talks
+profile.myPreviousTalks=Mes talks aux éditions précédentes
+profile.myInterests=Mes intérêts
+profile.myActivities=Mes activités
+profile.activities.filter=Cliquer pour filtrer le flux &{provider.%s}
+profile.myFavouriteSessions=Mes sessions favorites
+
+profile.create=Créer
+profile.update=Modifier
+profile.edit.yourProfile=votre profil
+profile.edit.signup=Création d'un nouveau profil suite à une première connexion par &{provider.%s}.
+profile.edit.avatar=Votre avatar
+profile.edit.avatar.gravatar=Les avatars sont gérés par <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a>. \
+                      Nous affichons l'avatar correspondant à l'email que vous nous indiquez. \
+                      Connectez-vous sur le site <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a> \
+                      pour créer ou modifier votre image.
+profile.edit.profile=Profil
+profile.edit.social=Réseaux sociaux
+profile.edit.social.1=Vos comptes sur les différents réseaux sociaux.
+profile.edit.social.2=Les données publiques des comptes que vous indiquerez seront <strong>automatiquement récupérées</strong> et <strong>publiquement affichées</strong>.
+profile.edit.social.accounts=Vos comptes sociaux
+profile.edit.links=Vos liens
+profile.edit.links.what=Des liens que vous voulez faire apparaître sur votre profil et que vous aimeriez partager.
+profile.edit.links.yours=Vos liens
+profile.edit.ticketing=Inscription
+profile.edit.ticketing.buy=Achat du billet
+profile.edit.interests=Centres d'intérêt
+profile.edit.interests.what=Les sujets qui vous intéressent, et que vous souhaitez creuser à Mix-IT et sur ce site.
+profile.edit.interests.interests=Intérêts
+profile.edit.save=Enregistrer
+profile.edit.cancel=Annuler
+profile.edit.delete=Supprimer mon compte
+
 # Session fields
 talks.description=Découvrez les descriptifs des sessions, et leur planning jour par jour.
 talk.ideaForNow.show=Idées pour tout de suite :
@@ -457,3 +492,24 @@ cfp.speaking.io=N'hésitez pas à prendre conseil auprès des meilleurs&nbsp;: \
                 de speaker. Il a notamment <a href="http://speaking.io/plan/writing-a-cfp/" target="zach">un article \
                 consacré à la réponse aux CFP</a>.
 cfp.action=Je suis prêt à soumettre&nbsp!
+
+activity.BuyTicketActivity=a acheté son billet!
+activity.CommentArticleActivity=a commenté l'article
+activity.showArticle=Consulter l'article
+activity.CommentSessionActivity=a commenté la session
+activity.EarnBadgeActivity=a reçu le badge
+activity.LinkActivity=s'est linké à
+activity.LookArticleActivity=a consulté l'article
+activity.LookProfileActivity=a consulté le profile de
+activity.LookSessionActivity=a consulté la session
+activity.NewArticleActivity.start=L'article
+activity.NewArticleActivity.end=a été publié
+activity.NewTalkActivity.start=La session
+activity.NewTalkActivity.end=a été ajoutée
+activity.NewVoteActivity.talk=a mis en favoris la session
+activity.NewVoteActivity.lightning=a voté pour le Lightning Talk
+activity.SharedLinkActivity=a partagé le lien
+activity.SignUpActivity=s'est inscrit
+activity.UpdateProfileActivity=a mis à jour son profil
+activity.UpdateSessionActivity.start=La session
+activity.UpdateSessionActivity.end=a été mise à jour
