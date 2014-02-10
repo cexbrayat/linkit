@@ -82,6 +82,10 @@ home.featurette3.text=Afin de garder une dimension conviviale, le nombre de part
 home.breaking.cfp.open=CFP ouvert !
 
 # Login
+login.with.Twitter=Se connecter via Twitter
+login.with.Google=Se connecter via Google
+login.with.LinkedIn=Se connecter via LinkedIn
+login.with.LoginPassword=Avec un login/mot de passe
 login.why=Pourquoi ouvrir un compte sur le site Mix-IT ?
 login.howto.intro=Au-delà du partage de connaissances, Mix-IT est aussi un moment pour échanger et faire de nouveaux contacts. La vocation de notre site est de vous préparer à cela.
 login.howto.part1=Vous créez un compte Mix-IT qui vous permettra de :

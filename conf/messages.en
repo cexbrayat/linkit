@@ -83,6 +83,10 @@ because we want everyone to come and enjoy the event.
 home.breaking.cfp.open=CFP is open!
 
 # Login
+login.with.Twitter=Login with Twitter
+login.with.Google=Login with Google
+login.with.LinkedIn=Login with LinkedIn
+login.with.LoginPassword=Login with password
 login.why=Why sign in?
 login.howto.intro=Beyond knowledge sharing, Mix-IT is also a good time to talk and make new contacts. The purpose of our site is to prepare you for that.
 login.howto.part1=Creating a Mix-IT account will let you:
