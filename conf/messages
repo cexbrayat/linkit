@@ -270,7 +270,7 @@ talk.summary.note=Obligatoire. Un résumé de votre session. Il sera affiché da
 talk.description=Description
 talk.description.advices=<b>Le thème : </b>"Des idées pour tout de suite&nbsp;!"<br><br><b>Votre audience : </b>débutants, experts, agilistes, développeurs, entrepreneurs, managers essentiellement du milieu IT (mais pas tous).<br><br>Pensez à <b>ce qui fera dire "C'était&nbsp;génial&nbsp;!"</b> : idées, concepts, outils, apprentissages, ...<br><br><b>Soignez la forme </b>et <b>explicitez le contenu</b>, le message : pour le staff Mix-IT ... et surtout <b>pour le public !</b><br>Nous vous ferons des retours pour l'améliorer si nécessaire.<br><br>Sollicitez nous&nbsp;! Et <a href="http://speaking.io/plan/writing-a-cfp/" target="zach">inspirez-vous des meilleurs</a>.
 talk.description.note=Obligatoire. La description complète de votre session.<br/>
-talk.ideaForNow=Avec quelles \"Idées pour tout de suite\" les participants repartirons ?
+talk.ideaForNow=Avec quelles \"Idées pour tout de suite\" les participants repartiront ?
 talk.ideaForNow.note=Optionnel. Listez les idées applicables rapidement par les participants, à leur retour au bureau.<br/>
 talk.level=Niveau
 talk.level.note=Obligatoire. Niveau de connaissances requis pour profiter de votre session.
