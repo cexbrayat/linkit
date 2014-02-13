@@ -29,7 +29,7 @@ public class JobFetchUserTimeline extends Job {
     
     @Override
     public void doJob() {
-        Logger.info("BEGIN JOB JobFetchUserTimeline for member %s", member);
+        Logger.debug("BEGIN JOB JobFetchUserTimeline for member %s", member);
         for (final Account account : accounts) {
             txTemplate.execute(new TransactionCallbackWithoutResult() {
                 public void doInTransaction() {
@@ -37,6 +37,6 @@ public class JobFetchUserTimeline extends Job {
                 }
             });
         }
-        Logger.info("END JOB JobFetchUserTimeline for member %s", member);
+        Logger.debug("END JOB JobFetchUserTimeline for member %s", member);
     }
 }

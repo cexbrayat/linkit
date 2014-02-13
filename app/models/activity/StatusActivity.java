@@ -67,11 +67,11 @@ public class StatusActivity extends Activity {
                 int delay = Minutes.minutesBetween(lastFetch, new DateTime()).getMinutes();
                 if (delay < FETCH_PERIOD) {
                     fetch = false;
-                    Logger.info("Fetch timeline for %s on %s : already done %d minutes ago (< %d configured period)", account.member, account.provider, delay, FETCH_PERIOD);
+                    Logger.debug("Fetch timeline for %s on %s : already done %d minutes ago (< %d configured period)", account.member, account.provider, delay, FETCH_PERIOD);
                 }
             }
             if (fetch) {
-                Logger.info("Fetch timeline for %s on %s", account.member, account.provider);
+                Logger.debug("Fetch timeline for %s on %s", account.member, account.provider);
                 List<StatusActivity> statuses = account.fetchActivities();
                 if (!statuses.isEmpty()) {
                     // Memorizing most recent id
