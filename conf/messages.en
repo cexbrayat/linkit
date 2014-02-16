@@ -511,6 +511,6 @@ activity.NewVoteActivity.talk=faved the session
 activity.NewVoteActivity.lightning=voted for
 activity.SharedLinkActivity=shared the link
 activity.SignUpActivity=signed up
-activity.UpdateProfileActivity=updated his profile
+activity.UpdateProfileActivity=updated their profile
 activity.UpdateSessionActivity.start=The session
 activity.UpdateSessionActivity.end=has been updated
