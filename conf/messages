@@ -24,6 +24,7 @@ menu.infos.inscription=Inscription
 menu.infos.sponsors=Sponsors
 menu.infos.kit=Kit Multimédia
 menu.infos.contact=Contact
+menu.infos.codeOfConduct=Code de conduite
 menu.infos.access=Accès à la conférence
 menu.infos.hotels=Hôtels à proximité
 menu.infos.2013=Mix-IT 2013
@@ -161,6 +162,20 @@ about.bio.mathieu=Mathieu se revendique simple artisan développeur (sur les tec
                   Agiliste à ses heures, il aide de son mieux son équipe à s'améliorer et s'auto organiser. \
                   Il a rejoint l'organisation pour Mix-IT 2014.
 about.bio.mathieu.links=Suivez-le sur <a href="https://twitter.com/mpetitdant">Twitter</a>
+
+page.codeOfConduct.title=Code de conduite
+page.codeOfConduct.description=Les principes à respecter si vous venez à Mix-IT
+page.codeOfConduct.content=Vous avez été géniaux les années précédentes, et nous espérons que cette année encore la \
+                           conférence se déroulera sans incidents. Néanmoins d'autres exemples de conférences montrent \
+                           qu'un dérapage peut toujours arriver. Nous avons donc décider de mettre en place un \
+                           Code de Conduite et de contribuer à faire de nos communautés un endroit agréable pour tous \
+                           les participants quel que soit leur origine, sexe, age, sexualité...<br/>\
+                           Profitez de ces deux jours et continuez à faire de Mix-IT la conférence que nous aimons. \
+                           De toute évidence, ces principes nous semblent naturels, et ils devraient être appliqués \
+                           dans cette conférence comme dans la vie de tous les jours sans qu'on ait besoin de les rappeler.
+page.codeOfConduct.action=Notre code de conduite collaboratif :
+page.codeOfConduct.link=http://confcodeofconduct.com/index-fr.html
+page.codeOfConduct.url=http://confcodeofconduct.com/index-fr.html
 
 # FAQ
 faq.title=Foire aux Questions
