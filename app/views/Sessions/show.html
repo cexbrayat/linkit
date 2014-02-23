@@ -21,14 +21,12 @@
                 <span class="pull-right" style="margin-top: -3px;">
                     #{star talk /}
                 </span>
-                <h2 itemprop="name">[&{'enum.TalkFormat.'+talk.format}#{lang-flag talk.lang/}] ${talk.title}</h2>
+                <h2 itemprop="name"> ${talk.title} [&{'enum.TalkFormat.'+talk.format}#{lang-flag talk.lang/}]</h2>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                #{if talk.track}Track : <span class="label track ${talk.track}">${talk.track}</span>&nbsp;&nbsp;#{/if}
                 #{if talk.interests}
-                    Tags :
                     #{list items:talk.interests, as:'interest'}
                     <a href="@{Application.searchByInterest(interest.name)}"><span class="label interest">${interest}</span></a>
                     #{/list}
@@ -104,18 +102,14 @@
          </div>
         <div class="row">
             <div class="col-md-12">
-                <blockquote>
                 #{markdown talk.description /}
-                </blockquote>
             </div>
         </div>
     #{if talk.ideaForNow}
         <div class="row">
             <div class="col-md-12">
                 <p>&{'talk.ideaForNow.show'}</p>
-                <blockquote>
                 #{markdown talk.ideaForNow /}
-                </blockquote>
             </div>
         </div>
     #{/if}
