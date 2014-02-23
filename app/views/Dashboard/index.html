@@ -42,30 +42,34 @@
 </div>
 
 #{if sessions}
-<div>
+<div class="row">
     <h2>Mes sessions soumises</h2>
-    #{list sessions, as:'mySession'}
-        <div>#{session-small mySession /}</div>
-    #{/list}
-</div><br/>
+
+    <div class="col-md-12">
+        #{list sessions, as:'mySession'}
+            <div>#{session-small mySession /}</div>
+        #{/list}
+    </div>
+</div>
 #{/if}
 
 #{if suggestedSessions}
 <div class="row">
     <h2>Suggestion de sessions</h2>
 
-    <div>
+    <div class="col-md-12">
         #{list suggestedSessions, as:'suggest'}
             #{session suggest /}<br/>
         #{/list}
     </div>
 </div>
 #{/if}
+
 #{if suggestedMembers}
 <div class="row">
     <h2>Suggestion de membres</h2>
 
-    <div>
+    <div class="col-md-12">
         #{list suggestedMembers, as:'suggest'}
             #{member suggest /}<br/>
         #{/list}
@@ -75,6 +79,7 @@
 
 <div class="row">
     <h2>Derniers articles</h2>
+    
 #{list items:articles, as:'article'}
     <div class="col-md-4">
         #{article article /}
