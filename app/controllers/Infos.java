@@ -58,6 +58,10 @@ public class Infos extends PageController {
         render();
     }
 
+    public static void codeOfConduct() {
+        render();
+    }
+
     public static void mixit12() {
         oldEvent(ConferenceEvent.mixit12);
     }

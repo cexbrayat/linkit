@@ -1,0 +1,30 @@
+﻿#{extends 'main.html' /}
+#{set title:messages.get('page.codeOfConduct.title') /}
+#{set 'moreStyles'}
+<style>
+    p {
+        text-align: justify;
+    }
+</style>
+#{/set}
+
+<div class="jumbotron">
+    <h1>&{'page.codeOfConduct.title'}</h1>
+    <p>&{'page.codeOfConduct.description'}</p>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <p>&{'page.codeOfConduct.content'}</p>
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">&{'page.codeOfConduct.action'}</h3>
+            </div>
+            <div class="panel-body">
+                <span class="glyphicon glyphicon-link"></span> <a href="&{'page.codeOfConduct.url'}">&{'page.codeOfConduct.link'}</a>
+            </div>
+        </div>
+    </div>
+</div>

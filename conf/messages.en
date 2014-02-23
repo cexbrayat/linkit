@@ -25,6 +25,7 @@ menu.infos.inscription=Registration
 menu.infos.sponsors=Sponsors
 menu.infos.kit=Multimedia kit
 menu.infos.contact=Contact
+menu.infos.codeOfConduct=Code of conduct
 menu.infos.access=Access
 menu.infos.hotels=Closest hotels
 menu.infos.2013=Mix-IT 2013
@@ -157,6 +158,19 @@ about.bio.mathieu=Mathieu claims to be a simple craftsman developer (on Java/JEE
                   he started his independent consulting activity. Today, he is a member of the <a href="http://devlyon.fr/">DevLyon</a> group. \
                   With his agile knowledge, he helps his team to self organise and continuously improve. He joined the organization team for Mix-IT 2014.
 about.bio.mathieu.links=Follow him on <a href="https://twitter.com/mpetitdant">Twitter</a>
+
+page.codeOfConduct.title=Conf Code of Conduct
+page.codeOfConduct.description=Fundamentals to follow if you attend Mix-IT
+page.codeOfConduct.content=You attendees were awesome on previous years, and we hope that this year will be the same, without any incident. \
+                           However, we have seen in other conferences that a slip can always happen. \
+                           We then decided to have a Code of Conduct to ensure that our communities stay a friendly \
+                           place for any attendee, no matter their origin, gender, age or sexual preferences.<br/>\
+                           Enjoy those two days and keep making Mix-IT the conference we enjoy. \
+                           Those guidelines seem obvious to us, and should be applied in this conference \
+                           or in every day life without having to remind them.
+page.codeOfConduct.action=Our collaborative code of conduct:
+page.codeOfConduct.link=http://confcodeofconduct.com
+page.codeOfConduct.url=http://confcodeofconduct.com
 
 # FAQ
 faq.title=Frequently Asked Questions

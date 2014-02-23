@@ -122,6 +122,8 @@
                             href="@{Application.sponsors()}">&{'menu.infos.sponsors'}</a></li>
                     <li #{if request.action=="Infos.contact"}class="active"#{/if}><a
                             href="@{Infos.contact()}">&{'menu.infos.contact'}</a></li>
+                    <li #{if request.action=="Infos.codeOfConduct"}class="active"#{/if}><a
+                            href="@{Infos.codeOfConduct()}">&{'menu.infos.codeOfConduct'}</a></li>
                     <li #{if request.action=="Infos.kit"}class="active"#{/if}><a
                             href="@{Infos.kit()}">&{'menu.infos.kit'}</a></li>
 *{
@@ -257,7 +259,7 @@
             </div>
             <div class="col-sm-3 col-xs-6">
                 <div class="center-block">
-                    <span style="margin: auto;">&copy; 2014 Mix-IT</span>
+                    #{a @Infos.codeOfConduct()}&{'page.codeOfConduct.title'}#{/a}
                 </div>
             </div>
         </div>
