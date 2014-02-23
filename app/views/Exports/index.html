@@ -1,9 +1,10 @@
 #{extends 'main.html' /}
 #{set title:'Export de données' /}
 
-<h1>Export de données<small>Ou comment combler Romain Couturier</small></h1>
+<h1>Export de données <small>Ou comment combler Romain Couturier</small></h1>
 <p>
-    Export des <a href="@{Exports.exportSessions()}">propositions de sessions à valider</a>
+    Export des <a href="@{Exports.exportSessions()}">propositions de sessions à valider</a>.<br/>
+    La page produite affiche les sessions en une carte par écran. Il suffit alors de l'imprimer en choisissant plusieurs pages par écran (4, 6, 9, ...) : on obtient alors des petites cartes à découper de la taille qu'on désire.
 </p>
 <p>
     Export des <a href="@{Exports.exportSpeakers()}">speakers</a>
