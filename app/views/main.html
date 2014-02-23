@@ -65,18 +65,12 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="js-navbar-to-collapse">
         <ul class="nav navbar-nav">
-*{ Menu too large #111, and dashboard pretty useless now
-        #{if session.username}
-            <li #{if request.controller=="Dashboard"}class="active"#{/if}><a
-                    href="@{Dashboard.index}">&{'menu.dashboard'}</a></li>
-        #{/if}
-}*
             <li #{if request.controller=="Articles"}class="active"#{/if}><a
                     href="@{Articles.index()}">&{'menu.news'}</a></li>
-        <li class="dropdown">
+            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.agenda'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                    *{<li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>}*
+                    <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
                     #{if play.configuration.getProperty('cfp.isOpen') }
 *{ Hide Lightning Talks page : submission broken #120
                         <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
@@ -88,8 +82,8 @@
                     #{/if}
                     *{<li><a href="@{Sessions.planningMixIT13()}">Planning 2013</a></li>}*
                 </ul>
-        </li>
-        *{<!li class="dropdown">
+            </li>
+            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.members'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li #{if request.action=="Application.speakers"}class="active"#{/if}><a
@@ -103,10 +97,7 @@
                     <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a
                             href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
                 </ul>
-            </li>}*
-            <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a
-                    href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
-
+            </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.infos'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
