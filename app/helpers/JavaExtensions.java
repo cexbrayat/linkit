@@ -63,4 +63,9 @@ public final class JavaExtensions extends play.templates.JavaExtensions {
         if (day == null) return null;
         return day.toString(Messages.get("slot.date.format"), Lang.getLocale());
     }
+
+    public static String i18n(Enum e) {
+        if (e == null) return null;
+        return Messages.get("enum."+e.getClass().getSimpleName()+'.'+e.name());
+    }
 }

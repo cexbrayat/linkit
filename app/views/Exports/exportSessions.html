@@ -49,7 +49,7 @@
             <thead>
                 <tr class="title">
                     <td>
-                        <strong>${talk.title}</strong> [&{'enum.TalkFormat.'+talk.format}#{lang-flag talk.lang /}]
+                        [&{'enum.TalkFormat.'+talk.format}#{lang-flag talk.lang /}] <strong>${talk.title}</strong>
                     </td>
                 </tr>
             </thead>
@@ -68,6 +68,21 @@
                         <p>
                             #{markdown talk.description /}
                         </p>
+                        #{if talk.ideaForNow}
+                        <p>
+                            <strong>Idées :</strong>
+                            #{markdown talk.ideaForNow /}
+                        </p>
+                        #{/if}
+                    </td>
+                </tr>
+                <tr class="meta">
+                    <td>
+                        #{if talk.level}<strong>&{'talk.level'}</strong>&nbsp;: ${talk.level.i18n()}.#{/if}
+                        #{if talk.maxAttendees}<strong>&{'talk.maxAttendees'}</strong>&nbsp;: ${talk.maxAttendees}.#{/if}
+                        #{if talk.interests}
+                            <strong>Mot-clés</strong>&nbsp;: #{list talk.interests, as:'keyword'}${keyword.name}#{if !keyword_isLast}, #{/if}#{/list}.
+                        #{/if}
                     </td>
                 </tr>
             </tbody>
