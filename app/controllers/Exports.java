@@ -17,7 +17,7 @@ public class Exports extends PageController {
 
     public static void exportSessions() {
         List<Talk> talks = Talk.find("valid = false and event = ? order by track, title", ConferenceEvent.CURRENT).fetch();
-        renderPDF(talks);
+        render(talks);
     }
 
     public static void exportSpeakers() {
