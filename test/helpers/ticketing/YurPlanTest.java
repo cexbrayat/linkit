@@ -1,21 +1,19 @@
 package helpers.ticketing;
 
+import com.google.common.collect.Sets;
 import models.Member;
-import org.junit.Ignore;
+import org.junit.After;
 import org.junit.Test;
 import play.Play;
 import play.test.UnitTest;
 
-import java.lang.Exception;
-import java.lang.RuntimeException;
 import java.util.Set;
 
 /**
  * Unit tests for {@link helpers.ticketing.YurPlan}
- * Pour ces tests on presuppose d'un user contact@mix-it.fr a un billet pour l'event MIX-IT 2013 sous YurPlan
+ * Pour ces tests on presuppose d'un user agnes007@no-log.org a un billet pour l'event MIX-IT 2013 sous YurPlan
  * @author agnes <agnes.crepet@gmail.com>
  */
-@Ignore // tests don't work anymore
 public class YurPlanTest extends UnitTest {
 
     protected static Member createMember(final String email) {
@@ -41,14 +39,18 @@ public class YurPlanTest extends UnitTest {
     public void testIsRegisteredAttendeeOK() {
         String token = YurPlan.login();
         //the attendee with email toto@toto.fr does not exist in YurPlan
-        assertTrue(YurPlan.isRegisteredAttendee(createMember("agnes007@no-log.org"), token));
+        Member member = createMember("agnes007@no-log.org");
+        assertTrue(YurPlan.isRegisteredAttendee(member, token));
+        member.delete();
     }
 
     @Test
     public void testIsRegisteredAttendeeKO() {
         String token = YurPlan.login();
         //the attendee with email toto@toto.fr does not exist in YurPlan
-        assertFalse(YurPlan.isRegisteredAttendee(createMember("toto@toto.fr"), token));
+        Member member = createMember("toto@toto.fr");
+        assertFalse(YurPlan.isRegisteredAttendee(member, token));
+        member.delete();
     }
 
 
