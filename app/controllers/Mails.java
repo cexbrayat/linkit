@@ -64,4 +64,11 @@ public class Mails extends Mailer {
         addRecipient(recipient.email);
         send(recipient, comment);
     }
+
+    public static void resetPasswordLink(String email, String passwordResetCode) {
+        setSubject("[Mix-IT] - Password reset");
+        setFrom(FROM_MIXIT);
+        addRecipient(email);
+        send(passwordResetCode);
+    }
 }

@@ -83,6 +83,7 @@ home.featurette3.text=Afin de garder une dimension conviviale, le nombre de part
 home.breaking.cfp.open=CFP ouvert !
 
 # Login
+login.title=Connexion à Mix-IT
 login.with.Twitter=Se connecter via Twitter
 login.with.Google=Se connecter via Google
 login.with.LinkedIn=Se connecter via LinkedIn
@@ -96,6 +97,20 @@ login.howto.part1.3=commenter les sessions
 login.howto.part1.4=de gagner des badges en fonction de votre activité sur le site (un peu de fun !)
 login.howto.part1.5=et plus encore (le site continuera à évoluer, on travaille en mode <em>agile</em>) !
 login.howto.part2=Pourquoi avoir développé cet aspect social pour notre site ? Au-delà de s'être fait plaisir techniquement (ce qui reste un facteur fort motivant, on reste des développeurs : <em>"Programming, Motherfucker"</em> !) nous espérons que cela peut être un terreau fertile pour les échanges le jour de la conférence !
+login.password.lost=Mot de passe oublié ?
+login.password.lost.email=Email :
+login.password.lost.password=Mot de passe :
+login.password.lost.password.confirm=Confirmez votre mot de passe :
+login.password.lost.title=&{'login.title'} : mot de passe oublié.
+login.password.lost.requestReset=Réinitialiser le mot de passe
+login.already.logged-in=Déjà connecté !
+login.email.unknown=Cet email n'est pas connu de nos services !
+login.password.lost.mail-sent=Un mail contenant un lien de réinitialisation vous a été envoyé.
+login.password.lost.mailing.content=Pour réinitialiser votre mot de passe cliquez sur le lien suivant :
+login.password.lost.password-check-failed=Les mots de passe ne correspondent pas !
+login.password.lost.no-LinkItAccount=Un compte existe pour cet email mais aucun mot de passe n'y est associé. Veuillez tenter de vous connecter via un autre mode de connexion.
+login.password.lost.password-changed=Votre mot de passe a correctement été modifié !
+login.password.lost.unknown-uuid=Ce lien n'est plus valide, merci de réessayer.
 
 # About
 about.page.title=A propos de l'organisation
