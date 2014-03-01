@@ -40,8 +40,9 @@ public class LinkItAccount extends AuthAccount {
         return Crypto.passwordHash(password + salt, HashType.SHA256);
     }
 
-    public void updatePassword(String newPasswordHash) {
-        password = newPasswordHash;
+    public void updatePassword(String password) {
+        String newPasswordHash = hashPassword(password);
+        this.password = newPasswordHash;
         save();
     }
 }

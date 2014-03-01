@@ -20,6 +20,7 @@ import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 import play.Logger;
+import play.cache.Cache;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.data.validation.Validation;
@@ -39,7 +40,7 @@ public class Login extends PageController {
     private static final String SECRET_KEY = "secret";
     private static final String RETURN_URL = "url";
 
-    private static final Map<String, String> passwordResetRequests = new HashMap<String, String>();
+    //private static final Map<String, String> passwordResetRequests = new HashMap<String, String>();
 
     /**
      * Displays available authentication methods
@@ -217,7 +218,7 @@ public class Login extends PageController {
         }
 
         String passwordResetCode = Codec.UUID();
-        passwordResetRequests.put(passwordResetCode, email);
+        Cache.add(passwordResetCode, email, "1h");
 
         //TODO : url in mail variabilisée ?
         Mails.resetPasswordLink(email, passwordResetCode);
@@ -243,8 +244,6 @@ public class Login extends PageController {
             renderTemplate("Login/newPassword.html", uuid);
         }
 
-        String newPasswordHash = LinkItAccount.hashPassword(password);
-
         Member member = Member.findByEmail(email);
 
         LinkItAccount account = (LinkItAccount) LinkItAccount.find(ProviderType.LinkIt, member.email);
@@ -254,15 +253,16 @@ public class Login extends PageController {
             Validation.addError("password", Messages.get("login.password.lost.no-LinkItAccount"));
             renderTemplate("Login/newPassword.html", uuid);
         } else {
-            account.updatePassword(newPasswordHash);
+            account.updatePassword(password);
         }
 
+        Cache.delete(uuid);
         flash.success(Messages.get("login.password.lost.password-changed"));
         onSuccessfulAuthentication(member.login);
     }
 
     private static String checkUUID(String uuid) {
-        String email = passwordResetRequests.remove(uuid);
+        String email = (String) Cache.get(uuid);
 
         if (email == null) {
             flash.error(Messages.get("login.password.lost.unknown-uuid"));
