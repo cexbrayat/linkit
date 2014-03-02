@@ -72,14 +72,12 @@
                 <ul class="dropdown-menu">
                     <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
                     #{if Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
-*{ Hide Lightning Talks page : submission broken #120
-                        <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
-}*
                         #{if session.username}
                             <li class="divider"></li>
                             <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                         #{/if}
                     #{/if}
+                    <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
                     *{<li><a href="@{Sessions.planningMixIT13()}">Planning 2013</a></li>}*
                 </ul>
             </li>
