@@ -52,6 +52,62 @@
         registerLimited('#shortDescription', '#shortDescriptionCountdown', 140, "&{'remainingChars'}");
     });
 </script>
+<script lang="text/javascript">
+    $(function() {
+        // Autocomplete fields
+        var initTypeahead = function(typeaheadId, checkboxClass, values, onNewElement) {
+            var $typeahead = $('#'+typeaheadId);
+            $typeahead.typeahead({
+                name: typeaheadId,
+                local: values
+            });
+            $typeahead.on('typeahead:selected', function (object, datum) {
+                addElement(datum.value);
+            });
+
+            $typeahead.on('typeahead:autocompleted', function (object, datum) {
+                addElement(datum.value);
+            });
+
+            $typeahead.on('blur', function () {
+                var typeaheadValue = $(this).val();
+                if ( typeaheadValue ) {
+                    onNewElement(typeaheadValue);
+                }
+                $typeahead.typeahead('setQuery', '');
+            });
+
+            // Warning : this will not handle homonyms !!
+            var addElement = function(name) {
+                var $span = $('.'+checkboxClass+' > span').filter(function() {
+                    return $(this).text() === name;
+                });
+
+                var $label = $span.parent();
+                var $input = $label.find('input[type=checkbox]');
+
+                $label.show();
+                $typeahead.typeahead('setQuery', '');
+                $input.prop('checked', true);
+            };
+
+            // Show already checked
+            $('.'+checkboxClass+' input[type=checkbox]:checked').parent().show();
+        };
+
+        // Triggered when an interest is not found in checkboxes => adds it in new interests input
+        var onNewInterest = function(interestName) {
+            var currentValue = $('#newInterests').val();
+            if ( currentValue ) {
+                currentValue = currentValue + ', ';
+            }
+            $('#newInterests').val(currentValue + interestName);
+        }
+
+        initTypeahead('interests-typeahead', 'interest-checkbox', ['#{list items:models.Interest.findAllOrdered(), as:'i'}${i.toString().escapeJavaScript().raw()}#{if !_isFirst}','#{/if}#{/list}'], onNewInterest);
+    });
+
+</script>
 #{/set}
 
 <div class="page-header">
@@ -289,24 +345,24 @@
 
     #{field 'interests'}
         <div class="clearfix ${field.error?'has-error':''}">
+            <label for="${field.name}">&{field.name}</label>
+            <div class="input">
+                <input id="interests-typeahead" type="text" class="form-control" />
 
-            <div class="form-group">
-                <label for="${field.name}">&{field.name}</label>
-
-                <ul class="inputs-list">
-                    #{list items:models.Interest.findAllOrdered(), as:'interest'}
-                        <li><label><input type="checkbox" name="${field.name}"
-                                          value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} />
-                            <span>${interest}</span></label></li>
-                    #{/list}
-                </ul>
+                #{list items:models.Interest.findAllOrdered(), as:'interest'}
+                    <div>
+                        <label style="display: none;" class="interest-checkbox" >
+                            <input type="checkbox" name="interests" value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} />
+                            <span>${interest}</span>
+                        </label>
+                    </div>
+                #{/list}
                 <span class="help-block newline">${field.error}</span>
                 <span class="help-block newline">&{field.name+".note"}</span>
             </div>
 
         </div>
         <!-- /clearfix -->
-
     #{/}
 
     #{field 'newInterests'}
