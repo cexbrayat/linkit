@@ -1,11 +1,63 @@
 #{extends 'main.html' /}
 #{set title:'Editer un lightning talk' /}
 #{set 'moreScripts'}
-<!-- Requirements for managing form dirtiness -->
-<script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
-<script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
-<script src="@{'/public/javascripts/dirtiness.js'}"></script>
-<!-- End Requirements for managing form dirtiness -->
+<script lang="text/javascript">
+    $(function() {
+
+        // Autocomplete fields
+        var initTypeahead = function(typeaheadId, checkboxClass, values, onNewElement) {
+            var $typeahead = $('#'+typeaheadId);
+            $typeahead.typeahead({
+                name: typeaheadId,
+                local: values
+            });
+            $typeahead.on('typeahead:selected', function (object, datum) {
+                addElement(datum.value);
+            });
+
+            $typeahead.on('typeahead:autocompleted', function (object, datum) {
+                addElement(datum.value);
+            });
+
+            $typeahead.on('blur', function () {
+                var typeaheadValue = $(this).val();
+                if ( typeaheadValue ) {
+                    onNewElement(typeaheadValue);
+                }
+                $typeahead.typeahead('setQuery', '');
+            });
+
+            // Warning : this will not handle homonyms !!
+            var addElement = function(name) {
+                var $span = $('.'+checkboxClass+' > span').filter(function() {
+                    return $(this).text() === name;
+                });
+
+                var $label = $span.parent();
+                var $input = $label.find('input[type=checkbox]');
+
+                $label.show();
+                $typeahead.typeahead('setQuery', '');
+                $input.prop('checked', true);
+            };
+
+            // Show already checked
+            $('.'+checkboxClass+' input[type=checkbox]:checked').parent().show();
+        };
+
+        // Triggered when an interest is not found in checkboxes => adds it in new interests input
+        var onNewInterest = function(interestName) {
+            var currentValue = $('#talk_newInterests').val();
+            if ( currentValue ) {
+                currentValue = currentValue + ', ';
+            }
+            $('#talk_newInterests').val(currentValue + interestName);
+        }
+
+        initTypeahead('interests-typeahead', 'interest-checkbox', ['#{list items:models.Interest.findAllOrdered(), as:'i'}${i.toString().escapeJavaScript().raw()}#{if !_isFirst}','#{/if}#{/list}'], onNewInterest);
+    });
+
+</script>
 #{/set}
 #{dirtyDialog/}
 
@@ -79,16 +131,18 @@
                 #{field 'talk.interests'}
                 <div class="clearfix ${field.error?'has-error':''}">
                     <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
+                    <div class="input">
+                        <input id="interests-typeahead" type="text" class="form-control" />
 
-                        <ul class="inputs-list">
-                            #{list items:models.Interest.findAllOrdered(), as:'interest'}
-                            <span class="checkbox">
-                                <li><label><input type="checkbox" name="interests" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} /> <span>${interest}</span></label></li>
-                            </span>
+                        #{list items:models.Interest.findAllOrdered(), as:'interest'}
+                            <div>
+                                <label style="display: none;" class="interest-checkbox" >
+                                    <input type="checkbox" name="interests" value="${interest.name}" ${talk?.interests.contains(interest)?'checked':''} />
+                                    <span>${interest}</span>
+                                </label>
+                            </div>
+                        #{/list}
 
-                            #{/list}
-                        </ul>                        
                         <span class="help-block newline">${field.error}</span>
                         <span class="help-block newline">&{field.name+".note"}</span>
                     </div>
