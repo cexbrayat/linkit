@@ -6,7 +6,7 @@
     </div>
 
         <div class="row">
-            <div class="span7">
+            <div class="col-md-6">
                 <h3>Saisissez votre login/mot de passe</h3>
                 <form action="@{signup()}">
                 <fieldset>
@@ -22,7 +22,7 @@
                         <label for="${field.name}">Login :</label>
                         <div class="input">
                           <input type="text" name="${field.name}" 
-                            value="${login}" class="${field.errorClass}" />
+                            value="${login}" class="${field.errorClass} form-control" />
                         </div>
                     </div>
                     #{/field}
@@ -32,11 +32,12 @@
                         <label for="${field.name}">Mot de passe :</label>
                         <div class="input">
                           <input type="password" name="${field.name}" 
-                            value="${password}" class="${field.errorClass}" />
+                            value="${password}" class="${field.errorClass} form-control" />
                         </div>
                     </div>
                     #{/field}
-                
+
+                        <br>
                     <div class="actions">
                         <input type="submit" class="btn primary" value="S'enregistrer"/>
                     </div>
