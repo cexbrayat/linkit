@@ -57,7 +57,7 @@ public class Profile extends PageController {
             Long id,
             @Required String originalLogin,
             @Required @Match( value = Member.LOGIN_NOT_NUMERIC_PATTERN, message = "validation.notNumeric") String login,
-            @Required String firstname,
+            String firstname,
             @Required String lastname,
             String company,
             @Required @Email String email,
@@ -84,6 +84,7 @@ public class Profile extends PageController {
         member.email = email;
         member.lastname = lastname;
         member.company = company;
+
 
         twitterName = cleanTwitterName(twitterName);
         TwitterAccount twitter = member.getTwitterAccount();
@@ -152,6 +153,11 @@ public class Profile extends PageController {
         other = Member.findByEmail(email);
         if (other != null && !member.equals(other)) {
             validation.addError("email", "validation.unique", email);
+        }
+
+        // #198 firstname not mandatory for Sponsor
+        if (!(member instanceof Sponsor)) {
+            Validation.required("firstname", firstname);
         }
 
         if (validation.hasErrors()) {

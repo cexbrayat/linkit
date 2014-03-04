@@ -167,6 +167,7 @@
         </div>
     #{/}
 
+#{ifnot (member instanceof models.Sponsor)}
     #{field 'firstname'}
         <div class="clearfix ${field.error?'has-error':''}">
 
@@ -180,6 +181,7 @@
         </div>
         <!-- /clearfix -->
     #{/}
+#{/ifnot}
 
     #{field 'company'}
         <div class="clearfix ${field.error?'has-error':''}">
