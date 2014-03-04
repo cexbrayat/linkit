@@ -7,13 +7,13 @@
                     <fieldset class="form-group">
 
                     #{ifErrors}
-                        <p class="error">
+                        <p class="has-error">
                             Corrigez les erreurs.
                         </p>
                     #{/ifErrors}
 
                     #{field 'login'}
-                        <div class="clearfix">
+                        <div class="clearfix ${field.error?'has-error':''}">
                             <label for="${field.name}">Login :</label>
                             <div class="input">
                                 <input type="text" name="${field.name}"
@@ -32,10 +32,11 @@
                         </div><br/>
                     #{/field}
 
+                        <br>
                         <div class="actions">
                             <input type="submit" class="btn btn-primary" value="Se connecter"/>
-                            &nbsp;
                             <input type="submit" formaction="@{signup()}" class="btn btn-default" value="S'enregistrer">
+                            <input type="submit" formaction="@{goToRequestPasswordReset()}" class="btn btn-default" value="&{'login.password.lost'}">
                         </div>
                     </fieldset>
                 </form>

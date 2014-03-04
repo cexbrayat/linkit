@@ -84,6 +84,7 @@ because we want everyone to come and enjoy the event.
 home.breaking.cfp.open=CFP is open!
 
 # Login
+login.title=Login to Mix-IT
 login.with.Twitter=Login with Twitter
 login.with.Google=Login with Google
 login.with.LinkedIn=Login with LinkedIn
@@ -97,6 +98,20 @@ login.howto.part1.3=comment the talks
 login.howto.part1.4=earn some badges depends on your activities on the Website (and have some fun!)
 login.howto.part1.5=and more (the site will continue to evolve: it works in an <em>agile</em> mode)!
 login.howto.part2=If we developed such a social part, beyond the mere pleasure we had to build it (which remains a strong motivating factor, we remain developers : <em> "Programming, Motherfucker" </em>!), that's because, in our opinion, it's a fertile ground for exchanges on the day of the conference!
+login.password.lost=Password lost?
+login.password.lost.email=Email:
+login.password.lost.password=Password:
+login.password.lost.password.confirm=Please confirm your password:
+login.password.lost.title=&{login.title}: password lost.
+login.password.lost.requestReset=Reset password
+login.already.logged-in=Already logged-in!
+login.email.unknown=This email is not known by Mix-IT!
+login.password.lost.mail-sent=A mail with password reset link has been sent to you.
+login.password.lost.mailing.content=To reset your password, please follow this link:
+login.password.lost.password-check-failed=Passwords does not match!
+login.password.lost.no-LinkItAccount=An account exists for this email. But no password has been attached to it. Please try login again with your Google/Twitter/LinkedIn account.
+login.password.lost.password-changed=Your password has successfully been changed!
+login.password.lost.unknown-uuid=This link is not valid anymore, please try again.
 
 # About
 about.page.title=About organization

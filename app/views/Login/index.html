@@ -1,12 +1,12 @@
 #{extends 'main.html' /}
-#{set title:'Connexion à Mix-IT' /}
+#{set title:messages.get('login.title') /}
 #{set 'moreStyles' }
 <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/zocial.css'}" />
 #{/set}
 
 
 <div class="hero-unit">
-    <h2>Connexion à Mix-IT</h2>
+    <h2>&{'login.title'}</h2>
     <div class="row">
         <div class="col-md-4">
             <div class="well login" style="font-size: 12px">

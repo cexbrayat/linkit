@@ -11,6 +11,7 @@ import helpers.badge.BadgeComputer;
 import helpers.badge.BadgeComputerFactory;
 import models.activity.*;
 import models.auth.AuthAccount;
+import models.auth.LinkItAccount;
 import org.apache.commons.collections.MultiMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;

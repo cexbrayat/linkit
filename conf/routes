@@ -37,6 +37,8 @@ GET     /api/interests/{id}                     api.ApiInterests.interest
 # Login
 GET     /login                                  Login.index
 GET     /login/nonetwork                        Login.noNetwork
+GET     /login/passwordlost                     Login.requestPasswordReset
+GET     /login/resetPassword/{uuid}             Login.newPassword
 GET     /login/linkit                           Login.loginLinkIt
 GET     /login/signup                           Login.signup
 GET     /login/with/{provider}                  Login.loginWith
