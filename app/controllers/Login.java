@@ -245,11 +245,12 @@ public class Login extends PageController {
         }
 
         Member member = Member.findByEmail(email);
-
-        LinkItAccount account = (LinkItAccount) LinkItAccount.find(ProviderType.LinkIt, member.email);
+        LinkItAccount account = null;
+        if (member != null) {
+            account = (LinkItAccount) LinkItAccount.find(ProviderType.LinkIt, member.login);
+        }
 
         if (account == null) {
-            //FIXME : create LinkIt account ?
             Validation.addError("password", Messages.get("login.password.lost.no-LinkItAccount"));
             renderTemplate("Login/newPassword.html", uuid);
         } else {
