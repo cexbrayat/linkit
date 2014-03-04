@@ -7,7 +7,7 @@
 <link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
 #{/set}
 
-#{if play.configuration.getProperty("cfp.isOpen") }
+#{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
     <div class="alert alert-info alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <p>&{'sessions.callForPaper'}</p>

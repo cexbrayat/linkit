@@ -48,7 +48,7 @@ public class Sessions extends PageController {
 
     public static void create(final String speakerLogin, boolean briefed) throws Throwable {
         if (!(CFP_OPEN || Security.check(Role.ADMIN_SESSION))) {
-          forbidden("Damned! The Call For Paper is closed!!!");
+         // forbidden("Damned! The Call For Paper is closed!!!");
         }
 
         SecureLinkIt.checkAccess(); // Connected
