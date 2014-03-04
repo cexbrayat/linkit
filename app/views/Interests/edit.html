@@ -10,20 +10,24 @@
 </script>
 #{/set}
 
-<p>
-<h3>Ami du staff, tu peux modérer les intérêts de deux façons:</h3>
-<h5><ul><li><strong>Suppression</strong> définitive des intérêts</li>
-        <li><strong>Fusion d'intérêts</strong>: il est possible, par exemple, de merger les intérêts "Agile" et "Agilité" pour ne garder que l'intérêt "Agilité"</li>
-    </ul>
-</h5>
-</p>
+<div class="alert alert-info">
+    <h3>Ami du staff, tu peux modérer les intérêts de deux façons:</h3>
+    <h5>
+        <ul>
+            <li><strong>Suppression</strong> définitive des intérêts</li>
+            <li><strong>Fusion d'intérêts</strong>: il est possible, par exemple, de merger les intérêts "Agile" et
+                "Agilité" pour ne garder que l'intérêt "Agilité"
+            </li>
+        </ul>
+    </h5>
+</div>
 
 
 #{form @Interests.delete()} 
 
 <div class="row">
     <fieldset>
-    <div class="span16 columns">
+    <div class="col-md-12 columns">
         #{field 'interests'}
         <div class="clearfix ${field.error?'has-error':''}">
             <table class="zebra-striped" id="sortSession"> 
@@ -34,8 +38,8 @@
                         </th> 
                         <th>
                             <div class="alert-actions" style="text-align: center">
-                                <input type="submit"  class="btn small danger" value="Supprimer"/>
-                                <input type="submit" formaction="@{Interests.chooseInterestForMerge()}"  class="btn small" value="Fusionner"/>
+                                <input type="submit"  class="btn small btn-danger" value="Supprimer"/>
+                                <input type="submit" formaction="@{Interests.chooseInterestForMerge()}"  class="btn btn-default small" value="Fusionner"/>
                             </div>
                         </th>
                     </tr> 
@@ -47,7 +51,7 @@
                             <a href="@{Interests.rename(interest.id)}" class="btn small">Renommer</a>
                         </td>
                         <td>
-                            <div style="text-align: center"><input type="checkbox" name="interestsToBeDeleted" value="${interest.id}" /></div>
+                            <div style="text-align: center"><input style="height: 25px;width: 25px;" type="checkbox" name="interestsToBeDeleted" value="${interest.id}" /></div>
                         </td>
                     </tr>
                 #{/list}
