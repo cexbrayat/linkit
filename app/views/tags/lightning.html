@@ -29,7 +29,7 @@
             </thead>
             <tbody>
                 #{list items:_sessions, as:'talk'}
-                <tr>
+                <tr style="height: 51px;">
                     <td>
                         #{lang-flag talk.lang/}<a href="@{LightningTalks.show(talk.id, talk.title.slugify())}">${talk}</a>
                     </td>

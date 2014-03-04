@@ -6,7 +6,7 @@ function vote(id) {
         }
         else {
             $("#counter-" + id).html(data);
-            $("#vote-" + id).toggleClass("disabled danger primary");
+            $("#vote-" + id).toggleClass("btn-danger btn-primary");
             $("#vote-" + id).html((value)?'+1':'-1');
         }
     })

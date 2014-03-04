@@ -5,7 +5,7 @@
 }*
 <span class="vote-counter order" id="counter-${_arg.id}">${_arg.getNumberOfVotes()}</span><span class="vote-counter"> vote${_arg.getNumberOfVotes().pluralize()}</span>
 #{if _arg.event.current && session.username && !_arg.hasSpeaker(session.username)}
-<a id="vote-${_arg.id}" title="Voter"
-     class="btn vote ${_arg.hasVoteFrom(session.username) ? 'btn-danger' : 'btn-primary'}"
+<a id="vote-${_arg.id}" title="Voter" style="width: 46px;"
+     class="pull-right btn vote ${_arg.hasVoteFrom(session.username) ? 'btn-danger' : 'btn-primary'}"
      onclick="vote(${_arg.id})">${_arg.hasVoteFrom(session.username) ? '-1' : '+1'}</a>
 #{/if}
