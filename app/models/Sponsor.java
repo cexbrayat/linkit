@@ -62,14 +62,6 @@ public class Sponsor extends Member {
 
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder();
-        if (StringUtils.isNotBlank(firstname)) {
-            str.append(firstname);
-        }
-        if (StringUtils.isNotBlank(lastname)) {
-            if (str.length() > 0) str.append(' ');
-            str.append(lastname);
-        }
-        return str.toString();
+        return this.lastname;
     }
 }
