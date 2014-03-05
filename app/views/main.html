@@ -71,7 +71,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.agenda'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
-                    #{if play.configuration.getProperty('cfp.isOpen') }
+                    #{if Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
 *{ Hide Lightning Talks page : submission broken #120
                         <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
 }*
