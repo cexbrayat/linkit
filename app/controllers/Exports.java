@@ -20,6 +20,11 @@ public class Exports extends PageController {
         render(talks);
     }
 
+    public static void exportSessionsCSV() {
+        List<Session> sessions = Talk.find("event = ? order by format, title", ConferenceEvent.CURRENT).fetch();
+        renderTemplate("Exports/sessions.csv", sessions);
+    }
+
     public static void exportSpeakers() {
         List<Member> members = Talk.findAllSpeakers();
         renderTemplate("Exports/members.csv", members);
