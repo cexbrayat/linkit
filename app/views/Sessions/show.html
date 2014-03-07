@@ -60,7 +60,7 @@
     #{secure.check models.Role.ADMIN_SESSION}
             <div class="alert alert-info">
                 <p><strong>Staff</strong></p>
-                #{if talk.valid}            
+                #{if talk.valid}
                 <p>Invalider une session supprimera les éventuelles activités existantes sur cette session, mais pas les commentaires.</p>
                 #{/if}
                 <div class='alert-actions'>
@@ -73,6 +73,9 @@
                 #{/else}
                     <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment supprimer cette session?')) window.location='@{Sessions.delete(talk.id)}';">Supprimer</a>
                 </div>
+            </div>
+            <div>
+              <p>Talk niveau ${talk.level}</p>
             </div>
         #{/secure.check}
 
@@ -108,7 +111,7 @@
     #{if talk.ideaForNow}
         <div class="row">
             <div class="col-md-12">
-                <p>&{'talk.ideaForNow.show'}</p>
+                <p><strong>&{'talk.ideaForNow.show'}</strong></p>
                 #{markdown talk.ideaForNow /}
             </div>
         </div>
@@ -132,14 +135,14 @@
     <div class="row">
         <div class="col-md-12">
             <h4>Ils ont mis cette session en favoris :</h4>
-            
+
             #{list items:voters, as:'voter'}
                 #{member voter /}#{if !voter_isLast},#{/if}
             #{/list}
         </div>
     </div>
     #{/if}
-    
+
     <div class="row">
         <div class="col-md-12">
             <p>
@@ -148,14 +151,14 @@
             <p id="activities" style="max-height: 400px"></p>
             <a id="moreActivities" class="btn btn-default" onclick="loadMoreActivities(true)">&{'activities.more'}</a>
             <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
-        
+
 <script type="text/javascript">
     var page = 1;
     var size = 5;
     var activitiesAction = #{jsAction @Activities.session(':sessionId', ':page',':size') /};
     var spinner = $('#activitiesSpinner');
     var btnMoreActivities = $('#moreActivities');
-   
+
     function loadMoreActivities(autoscroll) {
         btnMoreActivities.addClass('disabled');
         spinner.css("visibility", "visible");
@@ -173,7 +176,7 @@
             }
         });
     }
-    
+
     // Initial loading : first page
     loadMoreActivities(false);
 </script>
