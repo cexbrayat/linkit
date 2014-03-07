@@ -60,6 +60,7 @@
     #{secure.check models.Role.ADMIN_SESSION}
             <div class="alert alert-info">
                 <p><strong>Staff</strong></p>
+                <p>Talk niveau : ${talk.level}</p>
                 #{if talk.valid}
                 <p>Invalider une session supprimera les éventuelles activités existantes sur cette session, mais pas les commentaires.</p>
                 #{/if}
@@ -73,9 +74,6 @@
                 #{/else}
                     <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment supprimer cette session?')) window.location='@{Sessions.delete(talk.id)}';">Supprimer</a>
                 </div>
-            </div>
-            <div>
-              <p>Talk niveau ${talk.level}</p>
             </div>
         #{/secure.check}
 
