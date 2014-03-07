@@ -285,7 +285,7 @@ members.members.none=No members for now
 talks.description=Discover all our amazing talks, and their schedule day by day.
 talk.edit.title=Session edition
 talk.descriptive.section=Description
-talk.ideaForNow.show=Ideas for now:
+talk.ideaForNow.show=Ideas for now
 talk.title=Title
 talk.title.note=Required. A short title for your talk
 talk.format=Format
@@ -341,11 +341,11 @@ lightningtalk.submit=Submit a lightning talk
 lightningtalk.alert.login=Sign in to propose a lightning talk
 
 # Article fields
-article.title=Title                          
+article.title=Title
 article.title.note=Required. A short description for this article
 article.headline=Introduction
 article.headline.note=Required. Introduction which will be displayed in news<br/>&{markdown.note}
-article.content=Content              	
+article.content=Content
 article.content.note=Required. The content of your article.<br/>&{markdown.note}
 article.previous=Previous article
 article.following=Next article
