@@ -74,6 +74,9 @@
                     <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment supprimer cette session?')) window.location='@{Sessions.delete(talk.id)}';">Supprimer</a>
                 </div>
             </div>
+            <div>
+              <p>Talk niveau ${talk.level}</p>
+            </div>
         #{/secure.check}
 
         <div class="row">
