@@ -543,3 +543,10 @@ activity.SignUpActivity=signed up
 activity.UpdateProfileActivity=updated their profile
 activity.UpdateSessionActivity.start=The session
 activity.UpdateSessionActivity.end=has been updated
+
+# countdown
+countdown=Tickets sale opens in
+countdown.days=days
+countdown.hours=hours
+countdown.minutes=minutes
+countdown.seconds=seconds

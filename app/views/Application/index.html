@@ -3,10 +3,21 @@
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/tab.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/moment.min.js'}"></script>
 <script>
     $(function() {
         $("a[rel=popover]").popover({
         })
+        var countdown = function(){
+          var duration = moment.duration(moment('20140317T15:00:00','YYYYMMDDTHH:mm:ss').diff(moment()));
+          var timeLeft = duration.days() + "  &{'countdown.days'}  ";
+          timeLeft += duration.hours() + " &{'countdown.hours'} ";
+          timeLeft += duration.minutes() + " &{'countdown.minutes'} ";
+          timeLeft += duration.seconds() + " &{'countdown.seconds'} ";
+          $('#time-left').html(timeLeft);
+        };
+        countdown();
+        window.setInterval(countdown, 1000);
     })
 </script>
 #{/set}
@@ -141,6 +152,11 @@
         #{/else}
         </div>
     </div>          }*
+
+    <div class="row headers big-icons-header" style="padding-top: 0px;">
+      <h1>&{'countdown'}</h1>
+      <h1><span id='time-left'></span>!</h1>
+    </div>
 
 
     <div class="row headers big-icons-header" style="padding-top: 0px;">
