@@ -4,21 +4,20 @@
 <script src="@{'/public/javascripts/tab.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/moment.min.js'}"></script>
+<script src="@{'/public/javascripts/moment.lang-fr.js'}"></script>
 <script>
     $(function() {
         $("a[rel=popover]").popover({
-        })
+        });
+
         var countdown = function(){
+          moment.lang('${lang}');
           var duration = moment.duration(moment('20140317T15:00:00','YYYYMMDDTHH:mm:ss').diff(moment()));
-          var timeLeft = duration.days() + "  &{'countdown.days'}  ";
-          timeLeft += duration.hours() + " &{'countdown.hours'} ";
-          timeLeft += duration.minutes() + " &{'countdown.minutes'} ";
-          timeLeft += duration.seconds() + " &{'countdown.seconds'}! ";
-          $('#time-left').html(timeLeft);
+          $('#time-left').html(duration.humanize());
         };
         countdown();
         window.setInterval(countdown, 1000);
-    })
+    });
 </script>
 #{/set}
 #{set 'moreStyles'}
@@ -85,19 +84,44 @@
 </style>
 #{/set}
 <div>
+    %{
+        Calendar opening = Calendar.getInstance();
+        opening.set(2014, 2, 10, 15, 00, 00);
+        boolean ticketSales = Calendar.getInstance().after(opening);
+    }%
     <div class="row headers" style="position: relative">
+
+
         #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
             <div class="breaking">&{'home.breaking.cfp.open'}</div>
         #{/if}
-        *{ <div class="soon">&{'ticketing.alert'}</div> }*
+
+        #{if ticketSales}
+            <div class="breaking">&{'home.breaking.tickets.open'}</div>
+        #{/if}
+
         <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="60%"/>
         <div class="col-md-4 col-md-offset-8">
             <h3 itemprop="description">&{'mixit.slogan'}</h3>
         </div>
     </div>
 
+
+
     <div id="date" class="row headers">
         <h2><span itemprop="startDate">&{'event.'+models.ConferenceEvent.CURRENT+'.date'}</span>. <span itemprop="location">Lyon,&nbsp;France</span>.</h2>
+
+    #{if !ticketSales}
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1" style="padding-top: 0px; color: grey;">
+                <div class="well text-center ">
+                    <h2 id="time-left-h2" style="margin: 5px;">&{'countdown'} <span id='time-left'></span></h2>
+                </div>
+            </div>
+        </div>
+    #{/if}
+
+
     #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
         <div style="text-align: center">
             <div class="well col-sm-4 col-sm-offset-4">
@@ -110,6 +134,9 @@
         <div style="text-align: center">
             <div class="well col-sm-4 col-sm-offset-4">
                 <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
+                #{if ticketSales}
+                    <a target="_blank" href="http://yurplan.com/event/Mix-IT-2014/2834" class="btn btn-lg btn-danger btn-block">&{'button.ticketing'}</a>
+                #{/if}
             </div>
         </div>
     #{/else}
@@ -167,6 +194,8 @@
         <h2 id='time-left'></h2>
       </div>
     </div>
+
+
 
 
     <div class="row headers big-icons-header" style="padding-top: 0px;">
