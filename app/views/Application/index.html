@@ -13,7 +13,7 @@
           var timeLeft = duration.days() + "  &{'countdown.days'}  ";
           timeLeft += duration.hours() + " &{'countdown.hours'} ";
           timeLeft += duration.minutes() + " &{'countdown.minutes'} ";
-          timeLeft += duration.seconds() + " &{'countdown.seconds'} ";
+          timeLeft += duration.seconds() + " &{'countdown.seconds'}! ";
           $('#time-left').html(timeLeft);
         };
         countdown();
@@ -153,9 +153,11 @@
         </div>
     </div>          }*
 
-    <div class="row headers big-icons-header" style="padding-top: 0px;">
-      <h1>&{'countdown'}</h1>
-      <h1><span id='time-left'></span>!</h1>
+    <div class="row col-lg-6 col-lg-offset-3" style="padding-top: 0px;">
+      <div class="well text-center ">
+        <h2 style="margin-top: 5px;">&{'countdown'}</h2>
+        <h2 id='time-left'></h2>
+      </div>
     </div>
 
 
