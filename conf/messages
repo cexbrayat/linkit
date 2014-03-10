@@ -547,3 +547,10 @@ activity.SignUpActivity=s'est inscrit
 activity.UpdateProfileActivity=a mis à jour son profil
 activity.UpdateSessionActivity.start=La session
 activity.UpdateSessionActivity.end=a été mise à jour
+
+# countdown
+countdown=Ouverture de la billeterie dans
+countdown.days=jours
+countdown.hours=heures
+countdown.minutes=minutes
+countdown.seconds=secondes
