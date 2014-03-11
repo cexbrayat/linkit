@@ -2,7 +2,10 @@
 #{set title:'Accueil' /}
 
 %{
-    def ticketSalesStartDate = helpers.ticketing.YurPlan.ticketSalesStartDate;
+    def ticketSalesStartDate = ticketSalesStartDate = Calendar.getInstance();
+ticketSalesStartDate.set(2014, Calendar.MARCH, 17, 15, 00, 00);
+
+//def ticketSalesStartDate = helpers.ticketing.YurPlan.ticketSalesStartDate;
     def ticketSales = helpers.ticketing.YurPlan.ticketSales ;
 }%
 
@@ -23,7 +26,16 @@
               moment.lang('${lang}');
               var duration = moment.duration(moment('${ticketSalesStartDate.format("YYYYMMddHH:mm:ss")}','YYYYMMDDHH:mm:ss').diff(moment()));
               if ( duration.asMilliseconds() > 0 )  {
-                $('#time-left').html(duration.humanize());
+                  var timeLeft = '';
+                  if ( duration.days() > 0 ) {
+                    timeLeft += duration.days() + "  &{'countdown.days'}  ";
+                  }
+                  if ( duration.hours() > 0 ) {
+                    timeLeft += duration.hours() + " &{'countdown.hours'} ";
+                  }
+                  timeLeft += duration.minutes() + " &{'countdown.minutes'} ";
+                  timeLeft += duration.seconds() + " &{'countdown.seconds'} ";
+                  $('#time-left').html(timeLeft);
               } else {
                   console.log("reload")
                   location.reload();
@@ -123,7 +135,7 @@
 
     #{if !ticketSales}
         <div class="row">
-            <div class="col-lg-6 col-lg-offset-3" style="padding-top: 0px; color: grey;">
+            <div class="col-sm-offset-1 col-sm-10" style="padding-top: 0px; color: grey;">
                 <div class="well text-center ">
                     <h2 id="time-left-h2" style="margin: 5px;">&{'countdown'} <span id='time-left'></span></h2>
                 </div>
