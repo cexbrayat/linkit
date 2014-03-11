@@ -29,7 +29,7 @@ public class YurPlan {
 
     static {
         ticketSalesStartDate = Calendar.getInstance();
-        ticketSalesStartDate.set(2014, 2, 17, 15, 00, 00);
+        ticketSalesStartDate.set(2014, Calendar.MARCH, 17, 15, 00, 00);
         ticketSales = Calendar.getInstance().after(ticketSalesStartDate);
     }
 
