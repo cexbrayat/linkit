@@ -1,5 +1,13 @@
 #{extends 'main.html' /}
 #{set title:'Accueil' /}
+
+%{
+    def ticketSalesStartDate = helpers.ticketing.YurPlan.ticketSalesStartDate;
+    def ticketSales = helpers.ticketing.YurPlan.ticketSales ;
+}%
+
+
+
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/tab.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
@@ -10,13 +18,20 @@
         $("a[rel=popover]").popover({
         });
 
-        var countdown = function(){
-          moment.lang('${lang}');
-          var duration = moment.duration(moment('20140317T15:00:00','YYYYMMDDTHH:mm:ss').diff(moment()));
-          $('#time-left').html(duration.humanize());
-        };
-        countdown();
-        window.setInterval(countdown, 1000);
+        #{if !ticketSales }
+            var countdown = function(){
+              moment.lang('${lang}');
+              var duration = moment.duration(moment('${ticketSalesStartDate.format("YYYYMMddHH:mm:ss")}','YYYYMMDDHH:mm:ss').diff(moment()));
+              if ( duration.asMilliseconds() > 0 )  {
+                $('#time-left').html(duration.humanize());
+              } else {
+                  console.log("reload")
+                  location.reload();
+              }
+            };
+            countdown();
+            window.setInterval(countdown, 1000);
+        #{/if}
     });
 </script>
 #{/set}
@@ -84,11 +99,6 @@
 </style>
 #{/set}
 <div>
-    %{
-        Calendar opening = Calendar.getInstance();
-        opening.set(2014, 2, 17, 15, 00, 00);
-        boolean ticketSales = Calendar.getInstance().after(opening);
-    }%
     <div class="row headers" style="position: relative">
 
 
@@ -113,7 +123,7 @@
 
     #{if !ticketSales}
         <div class="row">
-            <div class="col-lg-10 col-lg-offset-1" style="padding-top: 0px; color: grey;">
+            <div class="col-lg-6 col-lg-offset-3" style="padding-top: 0px; color: grey;">
                 <div class="well text-center ">
                     <h2 id="time-left-h2" style="margin: 5px;">&{'countdown'} <span id='time-left'></span></h2>
                 </div>
@@ -135,7 +145,9 @@
             <div class="well col-sm-4 col-sm-offset-4">
                 <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
                 #{if ticketSales}
-                    <a target="_blank" href="http://yurplan.com/event/Mix-IT-2014/2834" class="btn btn-lg btn-danger btn-block">&{'button.ticketing'}</a>
+                    <div style="margin-top: 5px;">
+                        #{ticketing member, buttonClass:'btn btn-lg btn-danger btn-block'/}
+                    </div>
                 #{/if}
             </div>
         </div>
@@ -188,17 +200,7 @@
         </div>
     </div>          }*
 
-    <div class="row col-lg-6 col-lg-offset-3" style="padding-top: 0px;">
-      <div class="well text-center ">
-        <h2 style="margin-top: 5px;">&{'countdown'}</h2>
-        <h2 id='time-left'></h2>
-      </div>
-    </div>
-
-
-
-
-    <div class="row headers big-icons-header" style="padding-top: 0px;">
+     <div class="row headers big-icons-header" style="padding-top: 0px;">
         <div class="col-lg-12">
             <div>
                 <h1>

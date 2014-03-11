@@ -1,12 +1,22 @@
+%{
+    if ( _buttonClass == null ) {
+        _buttonClass = 'btn btn-sm btn-primary'
+    }
+}%
+
+%{
+    def ticketSales = helpers.ticketing.YurPlan.ticketSales ;
+}%
+
 *{
 <span class="label label-warning"><i class="icon-warning-sign"></i> &{'ticketing.soldout'}</span>
 }*
 
-#{if _arg.ticketingRegistered}
+#{if _arg?.ticketingRegistered}
     <span class="label label-success"><i class="icon-check"></i> Mon billet est déjà payé!</span>
 #{/if}
-*{
 #{else}
-<a href="${helpers.ticketing.YurPlan.REGISTRATION_URL}" data-toggle="tooltip" data-placement="right" title="&{'button.ticketing.details'}" onclick="var w=window.open('${helpers.ticketing.YurPlan.REGISTRATION_URL}', 'yurplan', 'width=650, height=450, top=100, left=100, toolbar=no, resizable=yes, scrollbars=yes, status=no'); w.focus(); return false;"><span class="btn btn-sm btn-primary">&{'button.ticketing'}</span></a>
+    #{if ticketSales}
+        <a href="${helpers.ticketing.YurPlan.REGISTRATION_URL}" data-toggle="tooltip" data-placement="right" title="&{'button.ticketing.details'}" onclick="var w=window.open('${helpers.ticketing.YurPlan.REGISTRATION_URL}', 'yurplan', 'width=650, height=450, top=100, left=100, toolbar=no, resizable=yes, scrollbars=yes, status=no'); w.focus(); return false;"><span class="${_buttonClass}">&{'button.ticketing'}</span></a>
+    #{/if}
 #{/else}
-}*
