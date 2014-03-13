@@ -119,7 +119,12 @@
                 <p>
                     ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
                     #{if talk.comments}
-                        &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+                        #{if showPrivateComments}
+                            &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+                        #{/if}
+                        #{else}
+                            &mdash; <a href="#comments">${talk.publicComments.size()} commentaire${talk.comments.size().pluralize()}</a>
+                        #{/else}
                     #{/if}
                     #{if talk.valid}
                         &mdash; #{socialbar/}
@@ -218,7 +223,7 @@
                             <div class="col-md-offset-2 col-md-10">
                                 <div class="checkbox">
                                     <label>
-                                        <input id="${field.id}" name="${field.name}" type="checkbox" value="true" checked>
+                                        <input id="${field.id}" name="${field.name}" type="checkbox" >
                                         &{field.name}
                                     </label>
                                 </div>
