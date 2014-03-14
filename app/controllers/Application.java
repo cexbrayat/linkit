@@ -33,13 +33,23 @@ public class Application extends PageController {
         }
 
         // Three recent articles
-        List<Article> articles = Article.recents(1, 3);
-        List<Talk> sessions = Talk.recents(ConferenceEvent.CURRENT, 1, 3);
-        List<Member> members = Member.recents(1, 14);
         // Unused
+//        List<Article> articles = Article.recents(1, 3);
+//        List<Talk> sessions = Talk.recents(ConferenceEvent.CURRENT, 1, 3);
+//        List<Member> members = Member.recents(1, 14);
+
         // List<Map> tags = Interest.getCloud();
+
+        List<Member> currentGuestSpeakers = Talk.guestSpeakers(ConferenceEvent.CURRENT);
+
+        List<Member> guestSpeakersToDisplay = null;
+        if (currentGuestSpeakers.size() > 5 ) {
+            Collections.shuffle(currentGuestSpeakers);
+            guestSpeakersToDisplay = currentGuestSpeakers.subList(0, 6);
+        }
+
         boolean isHomePage = true;
-        render(articles, sessions, members, isHomePage);
+        render(/*articles, sessions, members, */isHomePage, guestSpeakersToDisplay);
     }
 
     public static void members() {

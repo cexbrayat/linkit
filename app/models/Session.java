@@ -263,4 +263,15 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
     public static Function<Session,ConferenceEvent> toEvent() {
         return SESSION_TO_EVENT;
     }
+
+    public static List<Member> guestSpeakers(ConferenceEvent event) {
+        return find("select distinct speaker " +
+                "from Session s " +
+                "inner join s.speakers speaker " +
+                "inner join s.comments c " +
+                "where lower(c.content) like '%guest speaker%' " +
+                "and s.event = ? " +
+                "and s.valid = true", event).fetch();
+    }
+
 }
