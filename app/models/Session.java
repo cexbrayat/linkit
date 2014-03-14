@@ -145,6 +145,17 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
         }
     }
 
+    public List<SessionComment> getPublicComments() {
+        List<SessionComment> result = new ArrayList<SessionComment>();
+
+        for (SessionComment comment : comments) {
+            if ( !comment.privatelyVisible ) {
+                result.add(comment);
+            }
+        }
+        return result;
+    }
+
     public static <T extends Session> List<T> findValidatedLinkedWith(Interest interest) {
         return find("valid = true and ? in elements(interests)", interest).fetch();
     }
