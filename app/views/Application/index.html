@@ -2,10 +2,7 @@
 #{set title:'Accueil' /}
 
 %{
-    def ticketSalesStartDate = ticketSalesStartDate = Calendar.getInstance();
-ticketSalesStartDate.set(2014, Calendar.MARCH, 17, 15, 00, 00);
-
-//def ticketSalesStartDate = helpers.ticketing.YurPlan.ticketSalesStartDate;
+    def ticketSalesStartDate = helpers.ticketing.YurPlan.ticketSalesStartDate;
     def ticketSales = helpers.ticketing.YurPlan.ticketSales ;
 }%
 

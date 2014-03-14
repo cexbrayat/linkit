@@ -8,6 +8,7 @@ import play.Play;
 import play.libs.WS;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * YurPlan ticketing provider
@@ -28,9 +29,9 @@ public class YurPlan {
 
 
     static {
-        ticketSalesStartDate = Calendar.getInstance();
+        ticketSalesStartDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
         ticketSalesStartDate.set(2014, Calendar.MARCH, 17, 15, 00, 00);
-        ticketSales = Calendar.getInstance().after(ticketSalesStartDate);
+        ticketSales = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).after(ticketSalesStartDate);
     }
 
     /**
