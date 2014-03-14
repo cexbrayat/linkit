@@ -45,7 +45,6 @@ public class Application extends PageController {
         List<Member> guestSpeakersToDisplay = null;
         if (currentGuestSpeakers.size() > 5 ) {
             Collections.shuffle(currentGuestSpeakers);
-            List tmp =                                                  currentGuestSpeakers.subList(0, 6);
             guestSpeakersToDisplay = currentGuestSpeakers.subList(0, 6);
         }
 

@@ -4,8 +4,8 @@
     - login (for profile link)
 }*
 <div class="col-lg-2 headers">
-    <h3 style="height: 44px; margin-top: 0px; margin-top: 5px;">${_name}</h3>
     #{a @Profile.show(_login)}
-        <img style="vertical-align: bottom;" class="img-thumbnail" src="#{gravatar.url _email, size:120, default:'mm', rating:'pg', secure:false/}" />
+        <img class="img-thumbnail" src="#{gravatar.url _email, size:120, default:'mm', rating:'pg', secure:false/}" />
     #{/a}
+    <h3>${_name}</h3>
 </div>
