@@ -113,7 +113,9 @@ def spanPerLevel = [
 }%
         <div class="row">
             #{if i > 1}<hr/>#{/if}
-            &{'sponsors.partners.'+event+'.'+i}
+            <div class="col-xs-12">
+                &{'sponsors.partners.'+event+'.'+i}
+            </div>
         </div>
 %{
     }   // end for
