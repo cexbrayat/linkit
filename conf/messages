@@ -343,6 +343,7 @@ lightningtalk.short.description=Tout participant peut <strong>proposer</strong> 
 lightningtalk.long.description=Pourquoi ne pas tenter votre chance? C'est l'occasion de synthétiser votre connaissance sur un sujet et de donner aux autres participants envie de le connaître plus ! En fonction des votes des participants, votre sujet peut être choisi. Les sujets gagnants seront annoncés les jours des conférences.
 lightningtalk.submit=Proposer un Lightning Talk
 lightningtalk.alert.login=Connectez-vous pour proposer Lightning Talk
+lightningtalk=Lightning Talk
 
 # Article fields
 article.title=Titre

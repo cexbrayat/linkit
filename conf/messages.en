@@ -340,6 +340,7 @@ lightningtalk.short.description=Each attendee could <strong>submit</strong> a li
 lightningtalk.long.description= Why not try your luck? This is an opportunity to synthesize your knowledge on a subject and to invite other participants to investigate more! According to the votes of the participants, your subject can be chosen. The topics winners will be announced the day of the conference.
 lightningtalk.submit=Submit a lightning talk
 lightningtalk.alert.login=Sign in to propose a lightning talk
+lightningtalk=Lightning talk
 
 # Article fields
 article.title=Title

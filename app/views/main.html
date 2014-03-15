@@ -71,10 +71,10 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.agenda'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
-                    #{if Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
-*{ Hide Lightning Talks page : submission broken #120
+                    #{if session.username}
                         <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
-}*
+                    #{/if}
+                    #{if Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
                         #{if session.username}
                             <li class="divider"></li>
                             <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>

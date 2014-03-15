@@ -10,69 +10,83 @@
 #{/if}
 #{/set}
 
-<div class="hero-unit member-card">
-    <h2 itemprop="name">#{if talk.lang}#{lang-flag talk.lang/}&nbsp;#{/if}${talk.title}</h2>
+<div id="ltDetails" class="sessionDetails">
+    <div class="row background-highlight member-card">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 itemprop="name">${talk.title} [&{'lightningtalk'} #{lang-flag talk.lang/}]</h2>
+        </div>
+    </div>
+
     #{if talk.interests}
-    <p>
-        #{list items:talk.interests, as:'interest'}
-            <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
-        #{/list}
-    </p>
+        <div class="row">
+            <div class="col-md-12">
+                #{list items:talk.interests, as:'interest'}
+                    <a href="@{Application.searchByInterest(interest.name)}"><span class="label interest">${interest}</span></a>
+                #{/list}
+            </div>
+        </div>
     #{/if}
+
+    <hr>
     <p itemprop="description">${talk.summary}</p>
     
-    <div class="alert-message block-message info">
+    <div class="alert alert-info" style="height:64px;">
         <p>#{vote talk /}</p>
     </div>
     
     #{if talk.hasSpeaker(session.username)}
-        <div class="alert-message block-message warning">
+        <div class="alert alert-warning">
             <p>Vous êtes un des speakers de ce Lightning Talk.</p>
             <div class='alert-actions'>
-                <a class="btn" href="@{LightningTalks.edit(talk.id)}">Editer</a>
-                <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment supprimer ce talk?')) window.location='@{LightningTalks.delete(talk.id)}';">Supprimer</a>
+                <a class="btn btn-default" href="@{LightningTalks.edit(talk.id)}">Editer</a>
+                <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment supprimer ce talk?')) window.location='@{LightningTalks.delete(talk.id)}';">Supprimer</a>
             </div>
         </div>
     #{/if}
 
     <div class="row">
-        #{list items:talk.speakers, as:'speaker'}
-        <div class="span2" style="text-align: center">
-        #{if speaker.email}
-            #{if session.username}
-                <a href="@{Profile.show(speaker.login)}"><img src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
-            #{/if}
-            #{else}
-                <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right"><img src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
-            #{/else}
-        #{/if}<br/>
-        #{if session.username}
-            <a href="@{Profile.show(speaker.login)}">${speaker}</a>
-        #{/if}
-        #{else}
-            <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">${speaker}</a>
-        #{/else}
+        <div class="col-md-12">
+            <div class="row">
+                #{list items:talk.speakers, as:'speaker'}
+                <div class="col-md-2" style="text-align: center">
+                #{if speaker.email}
+                    #{if session.username}
+                        <a href="@{Profile.show(speaker.login)}"><img class="img-circle" src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
+                    #{/if}
+                    #{else}
+                        <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right"><img src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
+                    #{/else}
+                #{/if}<br/>
+                #{if session.username}
+                    <a href="@{Profile.show(speaker.login)}">${speaker}</a>
+                #{/if}
+                #{else}
+                    <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right">${speaker}</a>
+                #{/else}
+                </div>
+                #{/list}
+            </div>
         </div>
-        #{/list}
      </div>
      <div class="row">
-        <div class="span14" style="text-align: justify;">
-            <blockquote style="font-size: 16px;">
+        <div class="col-md-12" >
             #{markdown talk.description /}
-            </blockquote>
         </div>
     </div>
     <div class="row">
-        ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
-        #{if talk.comments}
-            &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
-        #{/if}
-        #{if talk.valid}
-            &mdash; #{socialbar/}
-        #{/if}
+        <div class="col-md-12">
+            ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
+            #{if talk.comments}
+                &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+            #{/if}
+            #{if talk.valid}
+                &mdash; #{socialbar/}
+            #{/if}
+        </div>
+    </div>
     </div>
 </div>
-
 <div class="row">
     <div class="span16">
         <h4>Activité récente</h4>
@@ -113,7 +127,6 @@
 
 #{comments talk.comments /}
 
-<hr/>
 <section id="post">
     #{if session.username}
     <div class="row">
