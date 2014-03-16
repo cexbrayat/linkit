@@ -7,7 +7,7 @@
 #{if session.username}
 <p><b>&{'registration.ticketing.signed'}</b></p>
 <div class="alert alert-info">
-    &{'registration.warning.email'}
+    &{'registration.warning.email', member?.email}
 </div>
 <p>#{ticketing member/}</p>
 
