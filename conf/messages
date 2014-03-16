@@ -49,7 +49,7 @@ button.about.mixit=A propos de Mix-IT
 button.talks=Le programme
 button.login=S'inscrire
 button.ticketing=Acheter mon billet
-button.ticketing.details=30€ une journée, 50€ les deux jours, via notre partenaire YurPlan
+button.ticketing.details=50€ les deux jours, via notre partenaire YurPlan
 button.vote.lightningtalks=Voter pour des lightning talks
 tab.lastactivities=Dernières activitiés
 tab.lastarticles=Derniers articles
@@ -82,6 +82,7 @@ home.featurette3.text=Afin de garder une dimension conviviale, le nombre de part
   battons pour vous proposer tout cela à un prix très abordable, pour que tout un chacun puisse en profiter.
 
 home.breaking.cfp.open=CFP ouvert !
+home.breaking.tickets.open=Billeterie ouverte
 
 # Login
 login.title=Connexion à Mix-IT

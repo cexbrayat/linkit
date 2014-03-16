@@ -7,6 +7,9 @@ import play.Logger;
 import play.Play;
 import play.libs.WS;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 /**
  * YurPlan ticketing provider
  *
@@ -20,6 +23,16 @@ public class YurPlan {
     private static final String API_PWD = Play.configuration.getProperty("yurplan.api.password");
     private static final String API_KEY = Play.configuration.getProperty("yurplan.api.key");
     private static final String EVENT = Play.configuration.getProperty("yurplan.api.event");
+
+    public static Calendar ticketSalesStartDate;
+    public static boolean ticketSales;
+
+
+    static {
+        ticketSalesStartDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        ticketSalesStartDate.set(2014, Calendar.MARCH, 17, 15, 00, 00);
+        ticketSales = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).after(ticketSalesStartDate);
+    }
 
     /**
      * User URL for ticketing
