@@ -28,7 +28,7 @@ public class YurPlan {
 
     static {
         ticketSalesStartDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
-        ticketSalesStartDate.set(2014, Calendar.MARCH, 16, 21, 11, 00);
+        ticketSalesStartDate.set(2014, Calendar.MARCH, 17, 15, 00, 00);
     }
 
     /**
