@@ -25,13 +25,10 @@ public class YurPlan {
     private static final String EVENT = Play.configuration.getProperty("yurplan.api.event");
 
     public static Calendar ticketSalesStartDate;
-    public static boolean ticketSales;
-
 
     static {
         ticketSalesStartDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
-        ticketSalesStartDate.set(2014, Calendar.MARCH, 17, 15, 00, 00);
-        ticketSales = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).after(ticketSalesStartDate);
+        ticketSalesStartDate.set(2014, Calendar.MARCH, 16, 21, 11, 00);
     }
 
     /**
@@ -39,6 +36,10 @@ public class YurPlan {
      */
     public static final String REGISTRATION_URL = Play.configuration.getProperty("yurplan.url");
     private String token;
+
+    public static boolean isTicketSales() {
+        return Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).after(ticketSalesStartDate);
+    }
 
     public static String login() {
         return login(API_URL, API_EMAIL, API_PWD, API_KEY);
