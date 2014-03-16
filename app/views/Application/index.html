@@ -21,7 +21,7 @@
         #{if !ticketSales }
             var countdown = function(){
               moment.lang('${lang}');
-              var duration = moment.duration(moment('${ticketSalesStartDate.format("YYYYMMddHH:mm:ss")}','YYYYMMDDHH:mm:ss').diff(moment()));
+              var duration = moment.duration(moment('${ticketSalesStartDate.format("yyyyMMddHH:mm:ss")}','YYYYMMDDHH:mm:ss').diff(moment()));
               if ( duration.asMilliseconds() > 0 )  {
                   var timeLeft = '';
                   if ( duration.days() > 0 ) {
