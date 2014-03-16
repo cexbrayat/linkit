@@ -105,10 +105,8 @@
                             href="@{Infos.about()}">&{'menu.infos.about'}</a></li>
                     <li #{if request.action=="Infos.faq"}class="active"#{/if}><a
                             href="@{Infos.faq()}">&{'menu.infos.faq'}</a></li>
-*{
                     <li #{if request.action=="Infos.inscription"}class="active"#{/if}><a
                             href="@{Infos.inscription()}">&{'menu.infos.inscription'}</a></li>
-}*
                     <li #{if request.action=="Infos.sponsors"}class="active"#{/if}><a
                             href="@{Application.sponsors()}">&{'menu.infos.sponsors'}</a></li>
                     <li #{if request.action=="Infos.contact"}class="active"#{/if}><a
