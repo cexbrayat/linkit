@@ -1,116 +1,72 @@
 #{extends 'main.html' /}
 #{set title:'Accès site' /}
 
-    <h1>Comment accéder au site?</h1>
+    <h1>&{'venue.access.how-to'}</h1>
 
 <div class="row">
     <div class="col-md-6">
-        <h2>Lieu :<br/><a target="_blank" href="http://www.cpe.fr/">CPE Lyon</a></h2>
+        <h2>&{'venue.access.place'}<br/><a target="_blank" href="http://www.cpe.fr/">CPE Lyon</a></h2>
         <address>
             Rue Victor Grignard<br/>
             69100 Villeurbanne
         </address>
         <p>
-        <strong>Attention : ne prenez pas en compte l'adresse officielle de CPE (43, boulevard du 11 Novembre 1918)</strong>
+        <strong>&{'venue.access.place.warning'}</strong>
         </p>
         <p>
-            Nous vous convions à privilégier les transports en commun, les vélos ou la marche pour venir à la conférence. C'est plus écologique et sachez aussi que les places de parking aux alentours de CPE ne sont pas nombreuses!
+            &{'venue.access.car.warning'}
         </p>
     </div>
     <div class="col-md-6">
         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2782.373042200367!2d4.8690248!3d45.7837537!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4ea977b847259%3A0x9efbb71d73134a76!2sCPE+Lyon!5e0!3m2!1sen!2sfr!4v1395092643710" width="400" height="300" frameborder="0" style="border:0"></iframe>
-        <br /><small><a href="https://www.google.fr/maps/place/CPE+Lyon/@45.7837537,4.8690248,17z/data=!3m1!4b1!4m2!3m1!1s0x47f4ea977b847259:0x9efbb71d73134a76" >Ouvrir la carte</a></small>
+        <br /><small><a href="https://www.google.fr/maps/place/CPE+Lyon/@45.7837537,4.8690248,17z/data=!3m1!4b1!4m2!3m1!1s0x47f4ea977b847259:0x9efbb71d73134a76" >&{'venue.access.open-map'}</a></small>
     </div>    
 </div>
 
 <div class="row">
     <div class="col-md-6">
-        <h2>En Vélo</h2>
+        <h2>&{'venue.access.by-bike.title'}</h2>
         <p>
-            Lyon possède un réseau de Vélo en libre service : <a target="blank" href="http://www.velov.grandlyon.com/">les Vélo'V</a>.
-            Les stations les plus proches de CPE Lyon sont les stations <strong>10084 - La Doua / Avenue des Arts</strong>
-            (Avenue des Arts, Villeurbanne) et <strong>10102 - DOUA / Gaston Berger</strong> (Avenue Gaston Berger, Villeurbanne).
+            &{'venue.access.by-bike.details'}
         </p>
     </div>
     <div class="col-md-6">
-        <h2>En métro</h2>
+        <h2>&{'venue.access.by-public-transportation.title'}</h2>
         <p>
-            Voir les itinéraires précis sur le site du <a target="_blank" href="http://www.tcl.fr/">réseau TCL</a> (Tram, Métro, Bus).
-            La station de métro la plus proche de CPE Lyon est <strong>La Doua Gaston-Berger</strong> sur les
-            <strong>lignes T1 et T4</strong> : <br>
-            Descendez à <strong>La Doua Gaston-Berger</strong>, tournez à droite Rue Gaston Berger,
-            passez l'immeuble "ASTREE" puis prenez la première à gauche, rue Victor Grignard :
-            CPE est à quelques mètres à votre droite (environ 5 min de marche du tram, le parcours sera fléché).
+            &{'venue.access.by-public-transportation.details'}
         </p>
     </div>
 </div>
 <div class="row">
     <div class="col-md-6">
-        <h2>En train</h2>
+        <h2>&{'venue.access.by-train.title'}</h2>
         <p>
-            A partir de <strong>la Gare de Part-Dieu</strong>, prendre le tram T1, direction <strong>IUT - Feyssine</strong>,
-            ou tram T4, direction <strong>La Doua G. Berger</strong>. Descendre à l'arrêt (ou terminus pour les T4)
-            <strong>La Doua Gaston-Berger</strong>.
+            &{'venue.access.by-train.details.part-dieu'}
+        </p>
         <p>
-            A partir de <strong>la Gare Perrache</strong>, prendre le métro Ligne A, direction <strong>Vaulx-en-Velin la Soie</strong>,
-            changer à la station <strong>Charpennes</strong> et prendre le tram T1, direction <strong>IUT - Feyssine</strong>,
-            ou tram T4, direction <strong>La Doua G. Berger</strong>. Descendre à l'arrêt (ou terminus pour les T4)
-            <strong>La Doua Gaston-Berger</strong>.
+            &{'venue.access.by-train.details.perrache'}
+        </p>
     </div>
     <div class="col-md-6">
-        <h2>En avion</h2>
-        <p><a target="_blank" href="http://www.lyonaeroports.com/">L'aéroport de Saint-Exupéry</a> est l'aéroport le plus proche de lyon. Grâce à la ligne de train express <a target="blank" href="http://www.rhonexpress.fr/">Rhône Express</a> (un train toutes les 15 minutes), vous êtes en 30 minutes au centre de Lyon, à la Gare Part-Dieu. </p>
+        <h2>&{'venue.access.by-plane.title'}</h2>
         <p>
-            A partir de <strong>la Gare de Part-Dieu</strong>, prendre le tram T1, direction <strong>IUT - Feyssine</strong>,
-            ou tram T4, direction <strong>La Doua G. Berger</strong>. Descendre à l'arrêt (ou terminus pour les T4)
-            <strong>La Doua Gaston-Berger</strong>.
+            &{'venue.access.by-plane.details'}
+        </p>
+        <p>
+            &{'venue.access.by-train.details.part-dieu'}
         </p>
     </div>
 </div>
 
-    <!-- Work Line ----------------------------------------------------------------------------->
-<h2>En voiture</h2>
-<p>
-    Si votre GPS ne connaît pas CPE Lyon, entrez l'adresse suivante :<br>
-    <strong>Rue Victor Grignard<br>
-    Villeurbanne</strong>
-</p>
-*{<p>
-    <strong>Arrivée par le Nord de Lyon (Autoroute A6):</strong>
-    <ul>
-        <li>Prendre la sortie 39C vers Part-Dieu de l'autoroute A6</li>
-        <li>Prendre légèrement à droite sur le Cours Verdun Récamier</li>	
-        <li>Continuer sur le Pont Gallieni</li>
-        <li>Continuer sur l'avenue Berthelot sur 1,2 km</li>
-        <li>Continuer sur l'avenue Jean Mermoz sur 700 m</li>
-        <li>Prendre légèrement à gauche sur la rue du Professeur Morat puis continuez sur 25m</li>
-        <li>Prendre à gauche sur Rue Jean Desparmet</li>
-    </ul>
-</p>
-<p>
-    <strong>Arrivée par le Sud de Lyon (Autoroute A7) ou l'Ouest de Lyon (Autoroute A43):</strong> 
-    <ul>
-        <li>Prendre la sortie D383 en direction de E70/Grenoble/Chambéry/Bourg/Genève/Périphérique/Saint-Fons</li>
-        <li>Prendre la sortie A43 en direction de Parilly/Saint-Priest/Chambéry/Grenoble/Aéroport Saint-Exupéry</li>
-        <li>Rester sur la file de droite et suivre Parilly pour rejoindre la rue Lionel Terray puis continuez sur 400 m</li>
-        <li>Au rond-point, prendre la 4e sortie et continuer sur la rue Lionel Terray puis continuez sur 1,1 km</li> 
-        <li>Au rond-point, prendre la 2e sortie sur l'avenue Jean Mermoz puis continuez sur 300 m</li> 	
-        <li>Prendre la bretelle pour rejoindre l'avenue Jean Mermoz puis continuez sur 600 m</li>	
-        <li>Prendre complétement à droite sur la rue du Professeur Morat puis continuez sur 10m</li>
-        <li>Prendre à gauche sur la rue Jean Desparmet</li>
-    </ul>
-</p>        
+<div class="row">
+    <div class="col-md-6">
+        <h2>&{'venue.access.by-car.title'}</h2>
+        <p>
+            &{'venue.access.by-car.details'}
+        </p>
+        <p>
+            &{'venue.access.by-car.warning'}
+        </p>
+    </div>
+</div>
 
-<p>
-    <strong>Arrivée par l'Est de Lyon (Autoroute A43):</strong>
-    <ul>
-        <li>Sur la fin de l'A43, prendre l'avenue Jean Mermoz et continuez sur 500m</li>
-        <li>Prendre complétement à droite sur la rue du Professeur Morat puis continuez sur 10m</li>
-        <li>Prendre à gauche sur la rue Jean Desparmet</li>
-    </ul>
-</p>
-}*
-<p>
-    Il n'y a que peu de places de parkings accessibles à proximité de CPE Lyon. Aussi ne pouvons que vous conseiller d'éviter la voiture.
-    Sachez que le réseau de transport en commun lyonnais vous propose des <a href="http://www.tcl.fr/Decouvrir-TCL/Tous-les-services-TCL/Les-parcs-relais" target="_blank" title="Parc-relais TCL">parcs-relais</a> où vous pouvez laisser votre voiture gratuitement contre un titre de transport.
-</p>
