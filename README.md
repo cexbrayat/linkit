@@ -1,17 +1,24 @@
-First: get "conf/secrets.conf" from us.
 
-## Execution
+# Prerequisites
+
+Runs only with [Play Framework 1.2.4](http://downloads.typesafe.com/releases/play-1.2.4.zip).
+
+If you want to deploy on TEST or PROD environments, you need to get `conf/secrets.conf` file from us (ask gently).
+
+# Execution
 
 ````
-    play deps --sync
-    play run
+play deps --sync
+play run
 ````
+
+# Deploy on real environments
 
 ## Deploy CloudBees TEST
 
 ````
-    play evolutions:apply --%cloudbeestest
-    play bees:app:deploy --%cloudbeestest
+play evolutions:apply --%cloudbeestest
+play bees:app:deploy --%cloudbeestest
 ````
 
 ## Deploy CloudBees PROD
@@ -24,6 +31,6 @@ If you're impacting DB with DDL SQL scripts, it's a good idea to take a snapshot
 - Click (camera icon) "create snasphot"
 
 ````
-    play evolutions:apply --%cloudbees
-    play bees:app:deploy --%cloudbees
+play evolutions:apply --%cloudbees
+play bees:app:deploy --%cloudbees
 `````
