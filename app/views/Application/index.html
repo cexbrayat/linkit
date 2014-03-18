@@ -4,6 +4,7 @@
 %{
     def ticketSalesStartDate = helpers.ticketing.YurPlan.ticketSalesStartDate;
     def ticketSales = helpers.ticketing.YurPlan.ticketSales ;
+    def soldOut = helpers.ticketing.YurPlan.soldOut ;
 }%
 
 
@@ -18,7 +19,7 @@
         $("a[rel=popover]").popover({
         });
 
-        #{if !ticketSales }
+        #{if !ticketSales && !soldOut}
             var countdown = function(){
               moment.lang('${lang}');
               var duration = moment.duration(moment('${ticketSalesStartDate.format("yyyyMMddHH:mm:ss")}','YYYYMMDDHH:mm:ss').diff(moment()));
@@ -115,11 +116,15 @@
             <div class="breaking">&{'home.breaking.cfp.open'}</div>
         #{/if}
 
-        #{if ticketSales}
+        #{if ticketSales && ! soldOut }
             <div class="breaking">&{'home.breaking.tickets.open'}</div>
         #{/if}
 
-        <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="60%"/>
+        #{if soldOut }
+            <div class="breaking">&{'ticketing.soldout'}</div>
+        #{/if}
+
+            <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="60%"/>
         <div class="col-md-4 col-md-offset-8">
             <h3 itemprop="description">&{'mixit.slogan'}</h3>
         </div>
@@ -130,7 +135,7 @@
     <div id="date" class="row headers">
         <h2><span itemprop="startDate">&{'event.'+models.ConferenceEvent.CURRENT+'.date'}</span>. <span itemprop="location">Lyon,&nbsp;France</span>.</h2>
 
-    #{if !ticketSales}
+    #{if !ticketSales && !soldOut}
         <div class="row">
             <div class="col-sm-offset-1 col-sm-10" style="padding-top: 0px; color: grey;">
                 <div class="well text-center ">

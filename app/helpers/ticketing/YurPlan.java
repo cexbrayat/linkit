@@ -25,6 +25,7 @@ public class YurPlan {
     private static final String EVENT = Play.configuration.getProperty("yurplan.api.event");
 
     public static Calendar ticketSalesStartDate;
+    public static boolean soldOut = true;
 
     static {
         ticketSalesStartDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
@@ -38,7 +39,7 @@ public class YurPlan {
     private String token;
 
     public static boolean isTicketSales() {
-        return Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).after(ticketSalesStartDate);
+        return Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).after(ticketSalesStartDate) && !soldOut;
     }
 
     public static String login() {
