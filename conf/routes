@@ -132,6 +132,7 @@ GET     /code-of-conduct                        Infos.codeOfConduct
 GET     /mixit12                                Infos.mixit12
 GET     /mixit13                                Infos.mixit13
 GET     /about                                  Infos.about
+GET     /mixteen                                Infos.mixteen
 
 # Bots resources
 *       /favicon.ico                            staticFile:public/images/favicon.ico
