@@ -52,11 +52,12 @@
     }
 </script>
 
-<h2>&{'sessions.forEvent', _event}</h2>
-
 #{if _sessions}
 
-#{if _event < models.ConferenceEvent.mixit13}
+#{if _event}
+<h2>&{'sessions.forEvent', _event}</h2>
+
+    #{if _event < models.ConferenceEvent.mixit13}
 *{On affiche les boutons de filtre seulement pour les événements passés (parce qu'on ne sait pas quoi faire des tracks avec Mix-IT 2013...) }*
 <div class="row">
     <div id="tracks-filters" class="col-md-11 col-md-offset1" style="text-align: center">
@@ -66,6 +67,7 @@
     </div>
 </div>
 <br/>
+    #{/if}
 #{/if}
 
 #{list items:_sessions, as:'talk'}
