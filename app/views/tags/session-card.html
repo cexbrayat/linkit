@@ -7,7 +7,8 @@
                     [&{'enum.TalkFormat.'+_arg.format}#{lang-flag _arg.lang /} #{if !_arg.valid}<span class="label label-warning">non validé</span> #{/if}]
                     <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}">${_arg.title}</a>
                     #{if session.username}
-                        <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="Consulter cette session"><i class="icon-star-empty star #{if _arg.hasVoteFrom(session.username)} fav#{/if}" style="float: right; "></i></a>
+                        <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="Consulter cette session"></a>
+                        #{star _arg/}
                     #{/if}
                 </h2>
             #{/if}

@@ -1,5 +1,6 @@
 *{ Display all sessions "sessions" for ConferenceEvent "event" }*
 <script src="@{'/public/javascripts/jquery.tablesorter.min.js'}"></script>
+<script src="@{'/public/javascripts/star.js'}"></script>
 <script >
     $(function() {
 // MPT 25/12/13 : is that still useful ?
@@ -50,6 +51,7 @@
         $("a#btnFilter"+type).addClass('disabled');
         $(".session."+type).hide();
     }
+    var favAction = #{jsAction @Votes.vote(':talkId', ':fav') /};
 </script>
 
 #{if _sessions}
