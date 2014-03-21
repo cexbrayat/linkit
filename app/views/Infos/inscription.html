@@ -1,6 +1,9 @@
 #{extends 'main.html' /}
 #{set title:'Inscription' /}
 
+%{
+    def soldOut = helpers.ticketing.YurPlan.soldOut ;
+}%
 
 <h1>&{'registration.title'}</h1>
 <p>&{'registration.directives'}</p>
@@ -11,11 +14,11 @@
 </div>
 <p>#{ticketing member/}</p>
 
-*{
-<div class="alert alert-warning">
-&{'registration.waiting-list'}
-</div>
-}*
+#{if soldOut}
+    <div class="alert alert-warning">
+        &{'registration.waiting-list'}
+    </div>
+#{/if}
 
 #{/if}
 
