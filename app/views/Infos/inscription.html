@@ -8,17 +8,20 @@
 <h1>&{'registration.title'}</h1>
 <p>&{'registration.directives'}</p>
 #{if session.username}
-<p><b>&{'registration.ticketing.signed'}</b></p>
-<div class="alert alert-info">
-    &{'registration.warning.email', member?.email}
-</div>
-<p>#{ticketing member/}</p>
+    #{if !soldOut}
+        <p><b>&{'registration.ticketing.signed'}</b></p>
+        <div class="alert alert-info">
+            &{'registration.warning.email', member?.email}
+        </div>
+    #{/if}
 
-#{if soldOut}
-    <div class="alert alert-warning">
-        &{'registration.waiting-list'}
-    </div>
-#{/if}
+    <p>#{ticketing member/}</p>
+
+    #{if soldOut}
+        <div class="alert alert-warning">
+            &{'registration.waiting-list'}
+        </div>
+    #{/if}
 
 #{/if}
 
