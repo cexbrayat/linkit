@@ -1,10 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Inscription' /}
 
-%{
-    def soldOut = helpers.ticketing.YurPlan.soldOut ;
-}%
-
 <h1>&{'registration.title'}</h1>
 <p>&{'registration.directives'}</p>
 #{if session.username}

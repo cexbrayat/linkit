@@ -49,7 +49,11 @@ public class Application extends PageController {
         }
 
         boolean isHomePage = true;
-        render(/*articles, sessions, members, */isHomePage, guestSpeakersToDisplay);
+        Calendar ticketSalesStartDate = helpers.ticketing.YurPlan.ticketSalesStartDate;
+        boolean ticketSales = helpers.ticketing.YurPlan.isTicketSales() ;
+        boolean soldOut = helpers.ticketing.YurPlan.soldOut ;
+
+        render(/*articles, sessions, members, */isHomePage, guestSpeakersToDisplay, ticketSalesStartDate, ticketSales, soldOut);
     }
 
     public static void members() {
