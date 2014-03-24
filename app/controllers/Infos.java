@@ -26,7 +26,8 @@ public class Infos extends PageController {
     
     public static void inscription() {
         Member member = Member.findByLogin(Security.connected());
-        render(member);
+        boolean soldOut = helpers.ticketing.YurPlan.soldOut ;
+        render(member, soldOut);
     }
 
     public static void kit() {
