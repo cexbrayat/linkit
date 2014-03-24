@@ -30,8 +30,8 @@ public class Sessions extends PageController {
     }
 
     public static void planningMixIT13() {
-        Planning planning = PlanedSlot.on(ConferenceEvent.CURRENT, true);
-        renderTemplate("Sessions/planning.html", planning);
+        Planning planning = PlanedSlot.on(ConferenceEvent.mixit13, true);
+        renderTemplate("Sessions/planningMixIT13.html", planning);
     }
 
     public static void listOn(ConferenceEvent event) {
