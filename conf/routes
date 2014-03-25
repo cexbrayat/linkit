@@ -81,6 +81,7 @@ GET     /dashboard/settings                     Dashboard.settings
 
 # Sessions
 GET     /mixit13/planning                       Sessions.planningMixIT13
+GET     /planning                               Sessions.planning
 GET     /sessions                               Sessions.index
 GET     /{event}/sessions                       Sessions.listOn
 GET     /session/new                            Sessions.create

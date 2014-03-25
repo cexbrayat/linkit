@@ -30,8 +30,13 @@ public class Sessions extends PageController {
     }
 
     public static void planningMixIT13() {
-        Planning planning = PlanedSlot.on(ConferenceEvent.mixit13, true);
+        Planning planning = PlanedSlot.on(ConferenceEvent.mixit13, true /*should'nt this be false ?*/);
         renderTemplate("Sessions/planningMixIT13.html", planning);
+    }
+
+     public static void planning() {
+        Planning planning = PlanedSlot.on(ConferenceEvent.CURRENT, true /*should'nt this be false ?*/);
+        renderTemplate("Sessions/planning.html", planning);
     }
 
     public static void listOn(ConferenceEvent event) {
