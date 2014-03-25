@@ -4,8 +4,7 @@
 <script src="@{'/public/javascripts/star.js'}"></script>
 <script>
     $(function () {
-        $("a[rel=popover]").popover({
-        })
+        $("a[data-toggle=popover]").popover()
     });
 
     var favAction = #{jsAction @Votes.vote(':talkId', ':fav') /};
