@@ -50,6 +50,41 @@ public enum Slot {
     Mardi_2014_A1_Keynote_3(Mardi_2014, Room.A1, _16_50, _17_10),
     Mardi_2014_A1_Keynote_4(Mardi_2014, Room.A1, _17_40, _18_10),
 
+    // Mercredi
+    //Talks
+    Mercredi_2014_A1_Talk_1(Mercredi_2014, Room.A1, _09_30, _10_20),
+    Mercredi_2014_A2_Talk_1(Mercredi_2014, Room.A2, _09_30, _10_20),
+    Mercredi_2014_S1_Talk_1(Mercredi_2014, Room.S1, _09_30, _10_20),
+    Mercredi_2014_S2_Talk_1(Mercredi_2014, Room.S2, _09_30, _10_20),
+    Mercredi_2014_A1_Talk_2(Mercredi_2014, Room.A1, _10_35, _11_25),
+    Mercredi_2014_A2_Talk_2(Mercredi_2014, Room.A2, _10_35, _11_25),
+    Mercredi_2014_S1_Talk_2(Mercredi_2014, Room.S1, _10_35, _11_25),
+    Mercredi_2014_S2_Talk_2(Mercredi_2014, Room.S2, _10_35, _11_25),
+    Mercredi_2014_A1_Talk_3(Mercredi_2014, Room.A1, _11_40, _12_30),
+    Mercredi_2014_A2_Talk_3(Mercredi_2014, Room.A2, _11_40, _12_30),
+    Mercredi_2014_S1_Talk_3(Mercredi_2014, Room.S1, _11_40, _12_30),
+    Mercredi_2014_S2_Talk_3(Mercredi_2014, Room.S2, _11_40, _12_30),
+    Mercredi_2014_A1_Talk_4(Mercredi_2014, Room.A1, _13_40, _14_30),
+    Mercredi_2014_A2_Talk_4(Mercredi_2014, Room.A2, _13_40, _14_30),
+    Mercredi_2014_S1_Talk_4(Mercredi_2014, Room.S1, _13_40, _14_30),
+    Mercredi_2014_S2_Talk_4(Mercredi_2014, Room.S2, _13_40, _14_30),
+    Mercredi_2014_A1_Talk_5(Mercredi_2014, Room.A1, _14_50, _15_40),
+    Mercredi_2014_A2_Talk_5(Mercredi_2014, Room.A2, _14_50, _15_40),
+    Mercredi_2014_S1_Talk_5(Mercredi_2014, Room.S1, _14_50, _15_40),
+    Mercredi_2014_S2_Talk_5(Mercredi_2014, Room.S2, _14_50, _15_40),
+    //Workshops
+    Mercredi_2014_S3_Workshop_1(Mercredi_2014, Room.S3, _09_30, _10_30),
+    Mercredi_2014_S4_Workshop_1(Mercredi_2014, Room.S4, _09_30, _10_30),
+    Mercredi_2014_S3_Workshop_2(Mercredi_2014, Room.S3, _11_40, _13_40),
+    Mercredi_2014_S4_Workshop_2(Mercredi_2014, Room.S4, _11_40, _13_40),
+    Mercredi_2014_S3_Workshop_3(Mercredi_2014, Room.S3, _13_50, _15_50),
+    Mercredi_2014_S4_Workshop_3(Mercredi_2014, Room.S4, _13_50, _15_50),
+    //Others
+    Mercredi_2014_A1_Keynote_1(Mercredi_2014, Room.A1, _16_10, _16_30),
+    Mercredi_2014_A1_Keynote_2(Mercredi_2014, Room.A1, _16_30, _16_50),
+    Mercredi_2014_A1_Keynote_3(Mercredi_2014, Room.A1, _16_50, _17_10),
+    Mercredi_2014_A1_Keynote_4(Mercredi_2014, Room.A1, _17_40, _18_10),
+
     /**************************************************************************/
     /*******                     2013 slots                           *********/
     /**************************************************************************/
