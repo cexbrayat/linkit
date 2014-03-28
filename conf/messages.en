@@ -559,19 +559,18 @@ countdown.seconds=seconds
 #venue
 venue.access.how-to=How to access the venue?
 venue.access.place=Venue :
-venue.access.place.warning=Warning : do not take the official CPE address into account (43, boulevard du 11 Novembre 1918)
-venue.access.car.warning=We invite you to use public transportation, public bikes or walk to access the venue. That's greener and be aware that there is not moch parking spots around CPE!
+venue.access.place.warning=Warning : ignore the official CPE address into account (43, boulevard du 11 Novembre 1918)
+venue.access.car.warning=We invite you to use public transportation, public bikes or walk to access the venue. For a greener day !
 venue.access.open-map=Open the map
 venue.access.by-bike.title=By bike
 venue.access.by-bike.details=Lyon has a public bike rental system: <a target="blank" href="http://www.velov.grandlyon.com/">les Vélo'V</a>. Closest stations are <strong>10084 - La Doua / Avenue des Arts</strong> (Avenue des Arts, Villeurbanne) and <strong>10102 - DOUA / Gaston Berger</strong> (Avenue Gaston Berger, Villeurbanne).
 venue.access.by-public-transportation.title=By public transportation
-venue.access.by-public-transportation.details=Please see detailed routes on the <a target="_blank" href="http://www.tcl.fr/">TCL network</a> website (Tram, Métro, Bus). The closest tram station is <strong>La Doua Gaston-Berger</strong> on <strong>T1 and T4 lines</strong> : <br> Get down at <strong>La Doua Gaston-Berger</strong>, turn right on Rue Gaston Berger, pass the "ASTREE" building then take the first road on the left, rue Victor Grignard : CPE is right there a few meters away on your right (5 min walk from the tram stop, the route will be signposted).
+venue.access.by-public-transportation.details=Please see detailed routes on the <a target="_blank" href="http://www.tcl.fr/">TCL network</a> website (Tram, Métro, Bus). The closest tram station is <strong>La Doua Gaston-Berger</strong> on <strong>T1 and T4 lines</strong> : <br> Get off at <strong>La Doua Gaston-Berger</strong>, turn right on Rue Gaston Berger, pass the "ASTREE" building then take the first road on the left, rue Victor Grignard : CPE is right there a few meters away on your right (5 min walk from the tram stop, the route will be signposted).
 venue.access.by-train.title=By train
-venue.access.by-train.tram-details=take the tram T1, towards <strong>IUT - Feyssine</strong>, or tram T4, towards <strong>La Doua G. Berger</strong>. Get down on stop (or terminus for T4) <strong>La Doua Gaston-Berger</strong>.
+venue.access.by-train.tram-details=take the tram T1, towards <strong>IUT - Feyssine</strong>, or tram T4, towards <strong>La Doua G. Berger</strong>. Get off at <strong>La Doua Gaston-Berger</strong> (which is the terminus for T4).
 venue.access.by-train.details.part-dieu=From the <strong>Gare de Part-Dieu</strong> station, &{venue.access.by-train.tram-details}
 venue.access.by-train.details.perrache=From the <strong>la Gare Perrache</strong> station, take the métro Ligne A, towards <strong>Vaulx-en-Velin la Soie</strong>, change at <strong>Charpennes</strong> station and &{venue.access.by-train.tram-details}
 venue.access.by-plane.title=By plane
 venue.access.by-plane.details=<a target="_blank" href="http://www.lyonaeroports.com/">Saint-Exupéry airport</a> is the closest to Lyon. Thanks to the <a target="blank" href="http://www.rhonexpress.fr/">Rhône Express</a> train line (a train every 15 minutes), you are in the center of Lyon in about 30 minutes, at the Part-Dieu Station.
 venue.access.by-car.title=By car
 venue.access.by-car.details=Entre the following address in your GPS: <br> <strong> Rue Victor Grignard<br> Villeurbanne <br>France</strong>
-venue.access.by-car.warning=There is not much parking spots around CPE Lyon. Thus we can only advise you to avoid using your car. But if you do please notice the <a href="http://www.tcl.fr/Decouvrir-TCL/Tous-les-services-TCL/Les-parcs-relais" target="_blank" title="Parc-relais TCL">parcs-relais</a> from the Lyon public transportation where you can leave your car freely against a public transportation ticket that will bring you to the venue.
