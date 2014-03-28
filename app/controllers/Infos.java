@@ -105,4 +105,9 @@ public class Infos extends PageController {
 
         Application.index();
     }
+
+	public static void mixteen() {
+		render();
+	}
+
 }
