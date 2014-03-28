@@ -192,22 +192,24 @@ page.codeOfConduct.url=http://confcodeofconduct.com
 # FAQ
 faq.title=Frequently Asked Questions
 faq.time.question=What is schedule time table?
-faq.time.answer=Thie year, Mix-IT is a 2 days conference. We welcome you from 8:30 a.m. The keynote starts at 9 a.m. The final keynote is at 6 p.m. and its duration is 15 minutes.
+faq.time.answer=Mix-IT is a 2 days conference. We welcome you from 8:30 a.m. The talks starts at 9 a.m. And the day ends between 6 p.m. and 6:30 p.m.
 faq.login.question=Why create an account on the Mix-IT Website?
 faq.login.answer=See <a href="%s">the login page</a> to understand the interest of the social side of the Website!
 faq.registration.question=How to buy my ticket?
 faq.registration.answer=See <a href="%s">the registration page</a> to buy my ticket.
-faq.dif.question=How can I use my (Droit Individuel à la Formation) for Mix-IT?
+faq.dif.question=
+faq.dif.answer=
 faq.gravatar.question=How to change my profil image?
 faq.gravatar.answer=The avatars are managed by <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. We display the avatar wich matches the email you give us on your profile. Sign in on the website <a href="http://www.gravatar.com" target="_blank">Gravatar</a> in order to to create or update your image.
 faq.twitter.question=Twitter
 faq.twitter.answer=<a target=""blank" href="http://twitter.com/MixIT_Lyon">@MixIT_Lyon</a> is the Twitter account of the Mix-IT conference MIX-IT. Follow it now and use the hashtag <strong>#mixit14</strong></p>
 faq.recording.question=Recording of the talks
 faq.recording.answer=All the talks will be recored in audio format (maybe some will be in video format) and will be available on our website soon after the conference!
+faq.billing.question=How do i get an invoice for my tickets?
+faq.billing.answer=To get your invoice, you must log into our ticketing partner's website: <a href="http://yurplan.com" target="_blank">yurplan.com</a>. In the 'Mes Billets' section, you will find a button to edit you invoice ('Télécharger la facture'). <br><b>NB :</b> This invoice does not show any VAT, this is normal since Mix-IT is a non profit organisation that does not collect VAT.
 
 # Registration
 registration.title=Account and ticketing
-registration.directives=
 registration.ticketing.signed=You have an account on Mix-IT website, now : you just have to buy your ticket! Please click the button below :
 registration.step1.create.account=Create an account
 registration.step1.create.account.why=And enjoy the social side of the Mix-IT website!
