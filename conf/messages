@@ -565,7 +565,7 @@ countdown.seconds=secondes
 venue.access.how-to=Comment accéder au site ?
 venue.access.place=Lieu :
 venue.access.place.warning=Attention : ne prenez pas en compte l'adresse officielle de CPE (43, boulevard du 11 Novembre 1918)
-venue.access.car.warning=Nous vous convions à privilégier les transports en commun, les vélos ou la marche pour venir à la conférence. C'est plus écologique et sachez aussi que les places de parking aux alentours de CPE ne sont pas nombreuses!
+venue.access.car.warning=Nous vous convions à privilégier les transports en commun, les vélos ou la marche pour venir à la conférence. Votre journée n'en sera que plus verte !
 venue.access.open-map=Ouvrir la carte
 venue.access.by-bike.title=En Vélo
 venue.access.by-bike.details=Lyon possède un réseau de Vélo en libre service : <a target="blank" href="http://www.velov.grandlyon.com/">les Vélo'V</a>. Les stations les plus proches de CPE Lyon sont les stations <strong>10084 - La Doua / Avenue des Arts</strong> (Avenue des Arts, Villeurbanne) et <strong>10102 - DOUA / Gaston Berger</strong> (Avenue Gaston Berger, Villeurbanne).
@@ -578,4 +578,3 @@ venue.access.by-plane.title=En avion
 venue.access.by-plane.details=<a target="_blank" href="http://www.lyonaeroports.com/">L'aéroport de Saint-Exupéry</a> est l'aéroport le plus proche de lyon. Grâce à la ligne de train express <a target="blank" href="http://www.rhonexpress.fr/">Rhône Express</a> (un train toutes les 15 minutes), vous êtes en 30 minutes au centre de Lyon, à la Gare Part-Dieu.
 venue.access.by-car.title=En voiture
 venue.access.by-car.details=Entrez l'adresse suivante dans votre GPS :<br> <strong> Rue Victor Grignard<br> Villeurbanne </strong>
-venue.access.by-car.warning=Il n'y a que peu de places de parkings accessibles à proximité de CPE Lyon. Aussi ne pouvons que vous conseiller d'éviter la voiture. Sachez que le réseau de transport en commun lyonnais vous propose des <a href="http://www.tcl.fr/Decouvrir-TCL/Tous-les-services-TCL/Les-parcs-relais" target="_blank" title="Parc-relais TCL">parcs-relais</a> où vous pouvez laisser votre voiture gratuitement contre un titre de transport.
