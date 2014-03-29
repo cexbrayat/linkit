@@ -25,7 +25,8 @@ public class AdminPlanning extends Controller {
 
     public static void index() {
         Planning planning = PlanedSlot.on(ConferenceEvent.CURRENT, true);
-        render(planning);
+        boolean isAdmin = true;
+        render("Sessions/planning.html", planning, isAdmin);
     }
 
     public static void save(List<Slot> slots, List<Long> talkIds) {

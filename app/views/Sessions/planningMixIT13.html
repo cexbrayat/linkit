@@ -1,0 +1,293 @@
+#{extends 'main.html' /}
+#{set title:'Planning Mix-IT 2013' /}
+#{set 'moreScripts'}
+<script src="@{'/public/javascripts/star.js'}"></script>
+<script>
+    $(function () {
+        $("a[data-toggle=popover]").popover()
+    });
+
+    var favAction = #{jsAction @Votes.vote(':talkId', ':fav') /};
+
+</script>
+#{/set}
+
+#{set 'moreStyles'}
+<link type="text/css" rel="stylesheet" href="@{'/public/stylesheets/star.less'}">
+<style>
+
+    table {
+        background-color: white;
+    }
+    td.intermede {
+        text-align: center;
+    }
+    table th {
+        text-align: center;
+    }
+    td {
+        border: 1px solid;
+    }
+    th.hour {
+        vertical-align: top;
+        padding-top: 0px;
+        text-align: right;
+        font-size: 11px;
+    }
+
+    .popover {
+        width: 500px;
+    }
+</style>
+#{/set}
+
+<h1>Jeudi 25 avril</h1>
+
+<table class="condensed-table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>&{'planning.room', models.planning.Room.S1 }</th>
+            <th>&{'planning.room', models.planning.Room.S2 }</th>
+            <th>&{'planning.room', models.planning.Room.S3 }</th>
+            <th>&{'planning.room', models.planning.Room.S4 }</th>
+            <th>&{'planning.room', models.planning.Room.S5 }</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th class="hour">08H00</th>
+            <td colspan="5" class="intermede">&{'planning.welcome'}</td>
+        </tr>
+        <tr>
+            <th class="hour">08H45</th>
+            <td colspan="5" class="intermede">&{'planning.staff-intro'}</td>
+        </tr>
+        <tr>
+            <th class="hour">09H00</th>
+            <td colspan="5" class="intermede">
+            #{if planning.getTalkOn(models.planning.Slot.Jeudi_Keynote_AM)}
+                #{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_Keynote_AM) /}
+            #{/if}
+            #{else}
+                Keynote
+            #{/else}
+            </td>
+        </tr>
+        <tr>
+            <th class="hour">09H20</th>
+            <td colspan="5" class="intermede">&{'planning.speaker-pitch'}</td>
+        </tr>
+        <tr>
+            <th class="hour">09H45</th>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S1_AM_1) /}</td>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S2_AM_1) /}</td>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S3_AM_1) /}</td>
+            <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S4_AM_1) /}</td>
+            <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S5_AM_1) /}</td>
+        </tr>
+        <tr>
+            <th class="hour">10H45</th>
+            <td colspan="3" class="intermede">&{'planning.break'}</td>
+        </tr>
+        <tr>
+            <th class="hour">11H15</th>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S1_AM_2) /}</td>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S2_AM_2) /}</td>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S3_AM_2) /}</td>
+            <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S4_AM_2) /}</td>
+            <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S5_AM_2) /}</td>
+        </tr>
+        <tr>
+            <th class="hour">12H15</th>
+            <td colspan="3" class="intermede">&{'planning.lunch'}</td>
+        </tr>
+        <tr>
+            <th class="hour">12H45</th>
+            <td colspan="5" class="intermede">&{'planning.lunch'}</td>
+        </tr>
+        <tr>
+            <th class="hour">13H00</th>
+            <td class="intermede">#{a @LightningTalks.listOn(models.ConferenceEvent.mixit13)}Ligthning Talks#{/a}</td>
+            <td colspan="2" class="intermede">&{'planning.lunch'}</td>
+            <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S4_PM_1) /}</td>
+            <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S5_PM_1) /}</td>
+        </tr>
+        <tr>
+            <th class="hour">13H30</th>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S1_PM_1) /}</td>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S2_PM_1) /}</td>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S3_PM_1) /}</td>
+        </tr>
+        <tr>
+            <th class="hour">14H30</th>
+            <td colspan="3" class="intermede">&{'planning.break'}</td>
+            <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S4_PM_2) /}</td>
+            <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S5_PM_2) /}</td>
+        </tr>
+        <tr>
+            <th class="hour">15H00</th>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S1_PM_2) /}</td>
+        	<td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S2_PM_2) /}</td>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S3_PM_2) /}</td>
+        </tr>
+        <tr>
+            <th class="hour">16H00</th>
+            <td colspan="3" class="intermede">&{'planning.break'}</td>
+            <td rowspan="4">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S4_PM_3) /}</td>
+            <td rowspan="4">#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S5_PM_3) /}</td>
+        </tr>
+        <tr>
+            <th class="hour">16H30</th>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S1_PM_3) /}</td>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S2_PM_3) /}</td>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S3_PM_3) /}</td>
+        </tr>
+        <tr>
+            <th class="hour">17H30</th>
+            <td colspan="3" class="intermede">&{'planning.break'}</td>
+        </tr>
+        <tr>
+            <th class="hour">18H00</th>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S1_PM_4) /}</td>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S2_PM_4) /}</td>
+            <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Jeudi_S3_PM_4) /}</td>
+        </tr>
+        <tr>
+            <th class="hour">19H00</th>
+            <td colspan="5"></td>
+        </tr>
+        <tr>
+            <th class="hour">Soirée</th>
+            <td class="intermede" colspan="5">Mix-IT party</td>
+        </tr>
+
+    </tbody>
+</table>
+
+Et tout au long de la journée :
+#{session-small planning.getTalkById(305L) /}
+
+<h1>Vendredi 26 avril</h1>
+
+<table class="condensed-table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>&{'planning.room', models.planning.Room.S1 }</th>
+        <th>&{'planning.room', models.planning.Room.S2 }</th>
+        <th>&{'planning.room', models.planning.Room.S3 }</th>
+        <th>&{'planning.room', models.planning.Room.S4 }</th>
+        <th>&{'planning.room', models.planning.Room.S5 }</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th class="hour">08H00</th>
+        <td colspan="5" class="intermede">&{'planning.welcome'}</td>
+    </tr>
+    <tr>
+        <th class="hour">08H45</th>
+        <td colspan="5" class="intermede">&{'planning.staff-intro'}</td>
+    </tr>
+    <tr>
+        <th class="hour">09H00</th>
+        <td colspan="5" class="intermede">
+        #{if planning.getTalkOn(models.planning.Slot.Vendredi_Keynote_AM)}
+            #{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_Keynote_AM) /}
+        #{/if}
+        #{else}
+            Keynote
+        #{/else}
+        </td>
+    </tr>
+    <tr>
+        <th class="hour">09H20</th>
+        <td colspan="5" class="intermede">&{'planning.speaker-pitch'}</td>
+    </tr>
+    <tr>
+        <th class="hour">09H45</th>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S1_AM_1) /}</td>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S2_AM_1) /}</td>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S3_AM_1) /}</td>
+        <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S4_AM_1) /}</td>
+        <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S5_AM_1) /}</td>
+    </tr>
+    <tr>
+        <th class="hour">10H45</th>
+        <td colspan="3" class="intermede">&{'planning.break'}</td>
+    </tr>
+    <tr>
+        <th class="hour">11H15</th>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S1_AM_2) /}</td>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S2_AM_2) /}</td>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S3_AM_2) /}</td>
+        <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S4_AM_2) /}</td>
+        <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S5_AM_2) /}</td>
+    </tr>
+    <tr>
+        <th class="hour">12H15</th>
+        <td colspan="3" class="intermede">&{'planning.lunch'}</td>
+    </tr>
+    <tr>
+        <th class="hour">12H45</th>
+        <td colspan="5" class="intermede">&{'planning.lunch'}</td>
+    </tr>
+    <tr>
+        <th class="hour">13H00</th>
+        <td class="intermede">#{a @LightningTalks.listOn(models.ConferenceEvent.mixit13)}Ligthning Talks#{/a}</td>
+        <td colspan="2" class="intermede">&{'planning.lunch'}</td>
+        <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S4_PM_1) /}</td>
+        <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S5_PM_1) /}</td>
+    </tr>
+    <tr>
+        <th class="hour">13H30</th>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S1_PM_1) /}</td>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S2_PM_1) /}</td>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S3_PM_1) /}</td>
+    </tr>
+    <tr>
+        <th class="hour">14H30</th>
+        <td colspan="3" class="intermede">&{'planning.break'}</td>
+        <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S4_PM_2) /}</td>
+        <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S5_PM_2) /}</td>
+    </tr>
+    <tr>
+        <th class="hour">15H00</th>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S1_PM_2) /}</td>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S2_PM_2) /}</td>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S3_PM_2) /}</td>
+    </tr>
+    <tr>
+        <th class="hour">16H00</th>
+        <td class="intermede">&{'planning.break'}</td>
+        <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S2_PM_3) /}</td>
+        <td class="intermede">&{'planning.break'}</td>
+        <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S4_PM_3) /}</td>
+        <td rowspan="2">#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S5_PM_3) /}</td>
+    </tr>
+    <tr>
+        <th class="hour">16H30</th>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S1_PM_3) /}</td>
+        <td>#{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_S3_PM_3) /}</td>
+    </tr>
+    <tr>
+        <th class="hour">18H00</th>
+        <td colspan="5" class="intermede">
+        #{if planning.getTalkOn(models.planning.Slot.Vendredi_Keynote_PM)}
+            #{session-on-planning planning.getTalkOn(models.planning.Slot.Vendredi_Keynote_PM) /}
+        #{/if}
+        #{else}
+            Keynote
+        #{/else}
+        </td>
+    </tr>
+    <tr>
+        <th class="hour">18H30</th>
+    </tr>
+
+    </tbody>
+</table>
+
+Et tout au long de la journée :
+#{session-small planning.getTalkById(305L) /}
