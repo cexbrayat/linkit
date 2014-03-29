@@ -238,4 +238,8 @@ public class Sessions extends PageController {
 
         show(talkId, JavaExtensions.slugify(talk.title), true);
     }
+
+    public static void mixteen() {
+        render();
+    }
 }
