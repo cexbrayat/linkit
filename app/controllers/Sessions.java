@@ -29,14 +29,21 @@ public class Sessions extends PageController {
         listOn(ConferenceEvent.CURRENT);
     }
 
-    public static void planningMixIT13() {
-        Planning planning = PlanedSlot.on(ConferenceEvent.mixit13, true /*should'nt this be false ?*/);
-        renderTemplate("Sessions/planningMixIT13.html", planning);
+    public static void planning(ConferenceEvent event) {
+        Planning planning = PlanedSlot.on(event, false);
+
+        switch (event) {
+            case mixit13:
+                renderTemplate("Sessions/planningMixIT13.html", planning);
+            case mixit14:
+                renderTemplate("Sessions/planning.html", planning);
+            default :
+                notFound();
+        }
     }
 
-     public static void planning() {
-        Planning planning = PlanedSlot.on(ConferenceEvent.CURRENT, true /*should'nt this be false ?*/);
-        renderTemplate("Sessions/planning.html", planning);
+    public static void currentPlanning() {
+        planning(ConferenceEvent.CURRENT);
     }
 
     public static void listOn(ConferenceEvent event) {

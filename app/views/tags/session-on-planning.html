@@ -5,7 +5,7 @@
 
 #{if !_editing}
     %{
-        def session = _planning.getTalkOn(_arg);
+        def session = _planning?.getTalkOn(_arg);
     }%
     #{if session}
         #{star session, class:'mini' /}
