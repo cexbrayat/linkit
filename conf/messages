@@ -198,22 +198,24 @@ page.codeOfConduct.url=http://confcodeofconduct.com/index-fr.html
 # FAQ
 faq.title=Foire aux Questions
 faq.time.question=Quelles sont les horaires de la conférence ?
-faq.time.answer=La conférence se déroule sur 2 jours cette année. Nous vous accueillons à chaque fois à partir de 8H30. La keynote du matin démarre à 9H. La keynote du soir est à 18H et dure 15 minutes.
+faq.time.answer=La conférence se déroule sur 2 jours. Nous vous accueillons pour chaque journée à partir de 8H30. Les sessions du matin débutent à 9h30. La fin de journée est entre 18h et 18h30.
 faq.login.question=Pourquoi ouvrir un compte sur le site Mix-IT ?
 faq.login.answer=Voir <a href="%s">la page de connexion</a> pour comprendre l'intérêt de la partie sociale du site !
 faq.registration.question=Comment acheter son billet ?
 faq.registration.answer=Voir <a href="%s">la page des inscriptions</a> pour acheter son billet.
 faq.dif.question=Comment puis-je utiliser mon DIF (Droit Individuel à la Formation) pour Mix-IT ?
+faq.dif.answer=Oui, ce n'est pas Mix-IT directement qui gère cet aspect mais nous nous efforçons chaque année de trouver un partenaire organisme de formation pour vous le permettre. Cette année ce sera notre sponsor Objet Direct qui gérera cet aspect. Ce partenaire vous fera signer des feuilles de présence le jour même et vous remettra une attestation par la suite.
 faq.gravatar.question=Comment changer l'image de son profil ?
 faq.gravatar.answer=Les avatars sont gérés par <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. Nous affichons l'avatar correspondant à l'email que vous nous indiquez sur votre profil. Connectez-vous sur le site <a href="http://www.gravatar.com" target="_blank">Gravatar</a> pour créer ou modifier votre image.
 faq.twitter.question=Twitter
 faq.twitter.answer=<a target=""blank" href="http://twitter.com/MixIT_Lyon">@MixIT_Lyon</a> est le compte Twitter de la conférence MIX-IT. Abonnez-vous au compte et utilisez le hashtag <strong>#mixit14</strong></p>
 faq.recording.question=Enregistrement des sessions
 faq.recording.answer=Toutes les sessions seront enregistrées au format audio (peut-être vidéo pour certaines) et seront disponibles après la conférence sur notre site !
+faq.billing.question=Comment obtenir une facture pour ma place MiX-iT ?
+faq.billing.answer=Pour obtenir votre facture, vous devez vous connecter sur le site de notre partenaire billeterie : <a href="http://yurplan.com" target="_blank">yurplan.com</a>. Dans la section 'Mes Billets', vous trouverez un bouton permettant d'éditer votre facture. <br><b>NB :</b> Cette facture ne présente pas de TVA ni de montant HT, cela est tout à fait normal : la conférence est portée par une association loi 1901 qui ne collecte pas la TVA, nous ne pouvons donc pas la faire apparaître sur la facture.
 
 # Registration
 registration.title=Ouverture d'un compte Mix-IT et paiement du billet
-registration.directives=Pour information, cette journée sera éligible au Droit Individuel à la Formation, l'un de nos sponsors fournira les certificats sur son stand, grâce à son organisme de formation. Vous pouvez donc demander à votre employeur d’assister à Mix-IT comme une formation classique, sans prendre de congé !
 registration.ticketing.signed=Vous avez un compte créé sur le site Mix-IT, il vous suffit maintenant d'acheter votre billet en cliquant sur le bouton ci-dessous :
 registration.step1.create.account=Créer-vous un compte Mix-IT
 registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT !
