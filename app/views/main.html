@@ -81,6 +81,9 @@
                         #{/if}
                     #{/if}
                     *{<li><a href="@{Sessions.planningMixIT13()}">Planning 2013</a></li>}*
+                    <li #{if request.action=="Sessions.mixteen"}class="active"#{/if}>
+                        <a href="@{Sessions.mixteen()}">&{'menu.agenda.mixteen'}</a>
+                    </li>
                 </ul>
             </li>
             <li class="dropdown">
@@ -121,8 +124,6 @@
                     <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a
                             href="@{Infos.hotels()}">&{'menu.infos.hotels'}</a></li>
 }*
-                    <li #{if request.action=="Infos.mixteen"}class="active"#{/if}><a
-                            href="@{Infos.mixteen()}">&{'menu.infos.mixteen'}</a></li>
                     <li #{if request.action=="Infos.mixit13"}class="active"#{/if}><a
                             href="@{Infos.mixit13()}">&{'menu.infos.2013'}</a></li>
                     <li #{if request.action=="Infos.mixit12"}class="active"#{/if}><a

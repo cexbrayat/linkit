@@ -95,6 +95,7 @@ GET     /session/{sessionId}/{slugify}          Sessions.show
 # Just in case we forget the slugified title as parameter
 GET     /session/{sessionId}                    Sessions.show
 GET     /session/fav/{talkId}/{fav}             Sessions.fav
+GET     /mixit14/mixteen                        Sessions.mixteen
 
 # Lightning
 GET     /lightnings                             LightningTalks.list
@@ -133,7 +134,6 @@ GET     /code-of-conduct                        Infos.codeOfConduct
 GET     /mixit12                                Infos.mixit12
 GET     /mixit13                                Infos.mixit13
 GET     /about                                  Infos.about
-GET     /mixteen                                Infos.mixteen
 
 # Bots resources
 *       /favicon.ico                            staticFile:public/images/favicon.ico
