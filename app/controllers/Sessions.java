@@ -30,7 +30,7 @@ public class Sessions extends PageController {
     }
 
     public static void planning(ConferenceEvent event) {
-        Planning planning = PlanedSlot.on(event, false);
+        Planning planning = PlanedSlot.on(event, true);
 
         switch (event) {
             case mixit13:
