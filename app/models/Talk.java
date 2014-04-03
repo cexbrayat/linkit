@@ -75,6 +75,15 @@ public class Talk extends Session {
 
     public void validate() {
         this.valid = true;
+
+        // All speakers are now ticketing registered
+        if (event != null && event.isCurrent()) {
+            for (Member speaker : speakers) {
+                speaker.setTicketingRegistered(true);
+                speaker.save();
+            }
+        }
+
         save();
         new NewTalkActivity(this).save();
         
