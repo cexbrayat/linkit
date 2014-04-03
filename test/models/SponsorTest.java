@@ -54,12 +54,4 @@ public class SponsorTest extends BaseDataUnitTest {
         s.lastname = lastName;
         return s;
     }
-    
-    @Test public void testToString() {
-        assertEquals("lastName", createSponsor("toto", null, "lastName").toString());
-        assertEquals("lastName", createSponsor("toto", "", "lastName").toString());
-        assertEquals("firstName", createSponsor("toto", "firstName", null).toString());
-        assertEquals("firstName", createSponsor("toto", "firstName", "").toString());
-        assertEquals("firstName lastName", createSponsor("toto", "firstName", "lastName").toString());
-    }
 }
