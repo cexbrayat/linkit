@@ -24,7 +24,7 @@ public class JobFetchRegisteredTicketingForAllUsers extends Job {
 
     @Override
     public void doJob() {
-        Logger.info("BEGIN JOB JobFetchRegisteredTicketingUser for all members");
+        Logger.info("BEGIN JOB JobFetchRegisteredTicketingUser for all non-registered members");
 
         txTemplate.setReadOnly(true);
         final List<Long> memberIds = txTemplate.execute(new TransactionCallback() {
@@ -42,7 +42,7 @@ public class JobFetchRegisteredTicketingForAllUsers extends Job {
                 txTemplate.execute(new TransactionCallbackWithoutResult() {
                     public void doInTransaction() {
                         final Member member = Member.findById(memberId);
-                        member.setTicketingRegistered(YurPlan.isRegisteredAttendee(member, token));
+                        member.updateTicketingRegistered(token);
                         member.save();
                     }
                 });

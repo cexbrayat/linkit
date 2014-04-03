@@ -23,7 +23,7 @@ public class JobMajUserRegisteredTicketing extends Job {
         Member member = Member.findById(idMember);
         if (member != null) {
             String token = YurPlan.login();
-            member.setTicketingRegistered(YurPlan.isRegisteredAttendee(member, token));
+            member.updateTicketingRegistered(token);
             member.save();
         } else {
             Logger.error("JOB JobMajUserRegisteredTicketing, member id %d not found", idMember);

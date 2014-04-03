@@ -42,6 +42,12 @@ public class Sponsor extends Member {
         this.badges.add(Badge.Sponsor);
     }
 
+    @Override
+    public void updateTicketingRegistered(String yurplanToken) {
+        boolean registered = events.contains(ConferenceEvent.CURRENT);
+        setTicketingRegistered(registered);
+    }
+
     public static long countOn(ConferenceEvent event) {
         return find("select count(distinct s) from Sponsor s join s.events e where e = ?", event).<Long>first();
     }
