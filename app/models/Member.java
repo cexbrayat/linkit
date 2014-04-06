@@ -9,6 +9,7 @@ import helpers.JavaExtensions;
 import helpers.badge.BadgeComputationContext;
 import helpers.badge.BadgeComputer;
 import helpers.badge.BadgeComputerFactory;
+import helpers.ticketing.YurPlan;
 import models.activity.*;
 import models.auth.AuthAccount;
 import models.auth.LinkItAccount;
@@ -259,6 +260,17 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         
     public static List<Long> findAllIds() {
         return find("select m.id from Member m").fetch();
+    }
+
+    public void updateTicketingRegistered(String yurplanToken) {
+        boolean registered = false;
+        if (isSpeakerOn(ConferenceEvent.CURRENT)) {
+            registered = true;
+        }
+        if (!registered) {
+            registered = YurPlan.isRegisteredAttendee(this, yurplanToken);
+        }
+        setTicketingRegistered(registered);
     }
 
     public void addLink(Member linked) {

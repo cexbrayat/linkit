@@ -33,6 +33,12 @@ public class Staff extends Member {
     }
 
     @Override
+    public void updateTicketingRegistered(String yurplanToken) {
+        // Staff always have a ticket
+        setTicketingRegistered(true);
+    }
+
+    @Override
     public boolean hasRole(String profile) {
         return ROLES.contains(profile);
     }
