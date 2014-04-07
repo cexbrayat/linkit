@@ -498,7 +498,10 @@ sponsors.supporters.mixit13=<p>Mix-IT est aussi soutenu par des structures qui c
 planning.room=Salle %1$s
 planning.welcome=Accueil & petit-déjeuner
 planning.staff-intro=Le mot des organisateurs
+planning.staff-ending=Clôture des organisateurs
 planning.speaker-pitch=Présentations des sessions du jour par leur speaker
+planning.speaker-pitch.am=Présentations des sessions du matin par leur speaker
+planning.speaker-pitch.pm=Présentations des sessions de l'après midi par leur speaker
 planning.break=Pause
 planning.lunch=Déjeuner
 

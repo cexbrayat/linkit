@@ -25,6 +25,9 @@
             #{/list}
         </span>
     #{/if}
+    #{else}
+        Session
+    #{/else}
 #{/if}
 #{else}
     #{planning.select-session _arg, planning:_planning /}
