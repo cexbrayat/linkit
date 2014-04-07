@@ -45,7 +45,7 @@ public abstract class SessionJsonSerializer {
                     speaker.addProperty("id", s.id);
                     speaker.addProperty("firstname", s.firstname);
                     speaker.addProperty("lastname", s.lastname);
-                    result.addProperty("urlimage", s.getUrlImage());
+                    speaker.addProperty("urlimage", s.getUrlImage());
                     speaker.addProperty("url", ApiUrl.getMemberUrl(s.id));
                     speakers.add(speaker);
                 }
@@ -61,8 +61,12 @@ public abstract class SessionJsonSerializer {
     public JsonObject serializeTalk(Talk talk, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject result = serializeSession(talk, type, jsonSerializationContext);
 
-        result.addProperty("format", talk.format.toString());
-        result.addProperty("level", talk.level.toString());
+        if (talk.format != null) {
+            result.addProperty("format", talk.format.toString());
+        }
+        if (talk.level != null) {
+            result.addProperty("level", talk.level.toString());
+        }
         if (talk.track != null) {
             result.addProperty("track", talk.track.toString());
         }
