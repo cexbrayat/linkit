@@ -1,7 +1,7 @@
 #{extends 'main.html' /}
 #{set title:'Planning Mix-IT 2014' /}
 #{set 'moreScripts'}
-<script src="@{'/public/javascripts/star.js'}"></script>
+<script src="@{'/public/javascripts/star.js'}" xmlns="http://www.w3.org/1999/html"></script>
 <script>
     $(function () {
         $("a[data-toggle=popover]").popover()
@@ -24,20 +24,25 @@
     }
     table th {
         text-align: center;
+        border: none !important;
     }
     td {
-        border: 1px solid;
+        border: 1px solid #ddd;
     }
     th.hour {
         vertical-align: top;
         padding-top: 0px;
-        text-align: right;
         font-size: 11px;
-    /*    -webkit-transform: translate(0px, -0.5em);
-        -moz-transform: translate(0px, -0.5em);
-        -ms-transform: translate(0px, -0.5em);
-        -o-transform: translate(0px, -0.5em);
-        */
+        -webkit-transform: translate(0px, -1.5em);
+        -moz-transform: translate(0px, -1.5em);
+        -ms-transform: translate(0px, -1.5em);
+        -o-transform: translate(0px, -1.5em);
+    }
+    th.hour:first-child {
+        text-align: right;
+    }
+    th.hour:last-child {
+        text-align: left;
     }
 
     .popover {
@@ -47,334 +52,366 @@
 #{/set}
 
 #{form @admin.AdminPlanning.save()}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Mardi 29 avril</h1>
 
-<h1>Mardi 29 avril</h1>
+            <table class="table condensed-table">
+                <thead>
+                    <tr>
+                        <th class="hour"></th>
+                        <th>${models.planning.Room.A1 }</th>
+                        <th>${models.planning.Room.A2 }</th>
+                        <th>&{'planning.room', models.planning.Room.S1 }</th>
+                        <th>&{'planning.room', models.planning.Room.S2 }</th>
+                        <th>&{'planning.room', models.planning.Room.S3 }</th>
+                        <th>&{'planning.room', models.planning.Room.S4 }</th>
+                        <th class="hour"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th class="hour">8h30</th>
+                        <td colspan="6" class="intermede">&{'planning.welcome'}</td>
+                        <th class="hour">8h30</th>
+                    </tr>
+                    <tr>
+                        <th class="hour">9h00</th>
+                        <td colspan="6" class="intermede">&{'planning.staff-intro'} & &{'planning.speaker-pitch.am'}</td>
+                        <th class="hour">9h00</th>
+                    </tr>
+                    <tr>
+                        <th class="hour">9h15</th>
+                        <td colspan="6" class="intermede">
+                            #{if planning.getTalkOn(models.planning.Slot.Mardi_2014_A1_Keynote_1) || isAdmin}
+                                #{session-on-planning models.planning.Slot.Mardi_2014_A1_Keynote_1, planning:planning, editing:isAdmin /}
+                            #{/if}
+                            #{else}
+                                Keynote
+                            #{/else}
+                        </td>
+                        <th class="hour">9h15</th>
+                    </tr>
+                    <tr>
+                        <th class="hour">9h40</th>
+                        <td colspan="6" class="intermede">&{'planning.break'}</td>
+                        <th class="hour">9h40</th>
+                    </tr>
+                    <tr>
+                        <th class="hour">10h</th>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_A1_Talk_1, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_A2_Talk_1, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_S1_Talk_1, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_S2_Talk_1, planning:planning, editing:isAdmin /}</td>
+                        <td rowspan="3">#{session-on-planning models.planning.Slot.Mardi_2014_S3_Workshop_1, planning:planning, editing:isAdmin /}</td>
+                        <td rowspan="3">#{session-on-planning models.planning.Slot.Mardi_2014_S4_Workshop_1, planning:planning, editing:isAdmin /}</td>
+                        <th class="hour">10h</th>
+                    </tr>
+                    <tr>
+                        <th class="hour">10h50</th>
+                        <td colspan="4" class="intermede">&{'planning.break'}</td>
+                    </tr>
+                    <tr>
+                        <th class="hour">11h10</th>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_A1_Talk_2, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_A2_Talk_2, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_S1_Talk_2, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_S2_Talk_2, planning:planning, editing:isAdmin /}</td>
+                    </tr>
+                    <tr>
+                        <th class="hour">12h</th>
+                        <td colspan="4" rowspan="2" class="intermede">&{'planning.lunch'}</td>
+                        <td colspan="2" class="intermede">&{'planning.lunch'}</td>
+                        <th class="hour">12h</th>
+                    </tr>
+                    <tr>
+                        <th class="hour"></th>
+                        <td rowspan="4">#{session-on-planning models.planning.Slot.Mardi_2014_S3_Workshop_2, planning:planning, editing:isAdmin /}</td>
+                        <td rowspan="4">#{session-on-planning models.planning.Slot.Mardi_2014_S4_Workshop_2, planning:planning, editing:isAdmin /}</td>
+                        <th class="hour">12h30</th>
+                    </tr>
 
-<table class="condensed-table">
-    <thead>
-        <tr>
-            <th></th>
-            <th>${models.planning.Room.A1 }</th>
-            <th>${models.planning.Room.A2 }</th>
-            <th>&{'planning.room', models.planning.Room.S1 }</th>
-            <th>&{'planning.room', models.planning.Room.S2 }</th>
-            <th>&{'planning.room', models.planning.Room.S3 }</th>
-            <th>&{'planning.room', models.planning.Room.S4 }</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th class="hour">8h30</th>
-            <td colspan="6" class="intermede">&{'planning.welcome'}</td>
-        </tr>
-        <tr>
-            <th class="hour">9h00</th>
-            <td colspan="6" class="intermede">&{'planning.staff-intro'} & &{'planning.speaker-pitch.am'}</td>
-        </tr>
-        <tr>
-            <th class="hour">9h15</th>
-            <td colspan="6" class="intermede">
-                #{if planning.getTalkOn(models.planning.Slot.Mardi_2014_A1_Keynote_1) || isAdmin}
-                    #{session-on-planning models.planning.Slot.Mardi_2014_A1_Keynote_1, planning:planning, editing:isAdmin /}
-                #{/if}
-                #{else}
-                    Keynote
-                #{/else}
-            </td>
-        </tr>
-        <tr>
-            <th class="hour">9h40</th>
-            <td colspan="6" class="intermede">&{'planning.break'}</td>
-        </tr>
-        <tr>
-            <th class="hour">10h</th>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_A1_Talk_1, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_A2_Talk_1, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_S1_Talk_1, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_S2_Talk_1, planning:planning, editing:isAdmin /}</td>
-            <td rowspan="3">#{session-on-planning models.planning.Slot.Mardi_2014_S3_Workshop_1, planning:planning, editing:isAdmin /}</td>
-            <td rowspan="3">#{session-on-planning models.planning.Slot.Mardi_2014_S4_Workshop_1, planning:planning, editing:isAdmin /}</td>
-        </tr>
-        <tr>
-            <th class="hour">10h50</th>
-            <td colspan="4" class="intermede">&{'planning.break'}</td>
-        </tr>
-        <tr>
-            <th class="hour">11h10</th>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_A1_Talk_2, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_A2_Talk_2, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_S1_Talk_2, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_S2_Talk_2, planning:planning, editing:isAdmin /}</td>
-        </tr>
-        <tr>
-            <th class="hour">12h</th>
-            <td colspan="4" rowspan="2" class="intermede">&{'planning.lunch'}</td>
-            <td colspan="2" class="intermede">&{'planning.lunch'}</td>
-        </tr>
-        <tr>
-            <th class="hour"></th>
-            <td rowspan="4">#{session-on-planning models.planning.Slot.Mardi_2014_S3_Workshop_2, planning:planning, editing:isAdmin /}</td>
-            <td rowspan="4">#{session-on-planning models.planning.Slot.Mardi_2014_S4_Workshop_2, planning:planning, editing:isAdmin /}</td>
-            <th class="hour">12h30</th>
-        </tr>
+                    <tr>
+                        <th class="hour">13h00</th>
+                        <td class="intermede">#{a @LightningTalks.listOn(models.ConferenceEvent.CURRENT)}Ligthning Talks#{/a}</td>
+                        <td colspan="3" class="intermede">&{'planning.break'}</td>
+                    </tr>
+                    <tr>
+                        <th class="hour">13h30</th>
+                        <td colspan="4" class="intermede">&{'planning.speaker-pitch.pm'}</td>
+                    </tr>
+                    <tr>
+                        <th class="hour">13h40</th>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_A1_Talk_3, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_A2_Talk_3, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_S1_Talk_3, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_S2_Talk_3, planning:planning, editing:isAdmin /}</td>
+                    </tr>
+                    <tr>
+                        <th class="hour">14h30</th>
+                        <td colspan="6" class="intermede">&{'planning.break'}</td>
+                        <th class="hour">14h30</th>
+                    </tr>
+                    <tr>
+                        <th class="hour">14h50</th>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_A1_Talk_4, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_A2_Talk_4, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_S1_Talk_4, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_S2_Talk_4, planning:planning, editing:isAdmin /}</td>
+                        <td rowspan="3">#{session-on-planning models.planning.Slot.Mardi_2014_S3_Workshop_3, planning:planning, editing:isAdmin /}</td>
+                        <td rowspan="3">#{session-on-planning models.planning.Slot.Mardi_2014_S4_Workshop_3, planning:planning, editing:isAdmin /}</td>
+                        <th class="hour">14h50</th>
+                    </tr>
+                    <tr>
+                        <th class="hour">15h40</th>
+                        <td colspan="4" class="intermede">&{'planning.break'}</td>
+                    </tr>
+                    <tr>
+                        <th class="hour">16h</th>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_A1_Talk_5, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_A2_Talk_5, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_S1_Talk_5, planning:planning, editing:isAdmin /}</td>
+                        <td>#{session-on-planning models.planning.Slot.Mardi_2014_S2_Talk_5, planning:planning, editing:isAdmin /}</td>
+                    </tr>
+                    <tr>
+                        <th class="hour">16h50</th>
+                        <td colspan="6" class="intermede">&{'planning.break'}</td>
+                        <th class="hour">16h50</th>
+                    </tr>
+                    <tr>
+                        <th class="hour">17h10</th>
+                        <td colspan="6" class="intermede">
+                            #{if planning.getTalkOn(models.planning.Slot.Mardi_2014_A1_Keynote_2) || isAdmin}
+                                #{session-on-planning models.planning.Slot.Mardi_2014_A1_Keynote_2, planning:planning, editing:isAdmin /}
+                            #{/if}
+                            #{else}
+                                Keynote
+                            #{/else}
+                        </td>
+                        <th class="hour">17h10</th>
+                    </tr>
 
-        <tr>
-            <th class="hour">13h00</th>
-            <td class="intermede">#{a @LightningTalks.listOn(models.ConferenceEvent.CURRENT)}Ligthning Talks#{/a}</td>
-            <td colspan="3" class="intermede">&{'planning.break'}</td>
-        </tr>
-        <tr>
-            <th class="hour">13h30</th>
-            <td colspan="4" class="intermede">&{'planning.speaker-pitch.pm'}</td>
-        </tr>
-        <tr>
-            <th class="hour">13h40</th>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_A1_Talk_3, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_A2_Talk_3, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_S1_Talk_3, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_S2_Talk_3, planning:planning, editing:isAdmin /}</td>
-        </tr>
-        <tr>
-            <th class="hour">14h30</th>
-            <td colspan="6" class="intermede">&{'planning.break'}</td>
-        </tr>
-        <tr>
-            <th class="hour">14h50</th>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_A1_Talk_4, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_A2_Talk_4, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_S1_Talk_4, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_S2_Talk_4, planning:planning, editing:isAdmin /}</td>
-            <td rowspan="3">#{session-on-planning models.planning.Slot.Mardi_2014_S3_Workshop_3, planning:planning, editing:isAdmin /}</td>
-            <td rowspan="3">#{session-on-planning models.planning.Slot.Mardi_2014_S4_Workshop_3, planning:planning, editing:isAdmin /}</td>
-        </tr>
-        <tr>
-            <th class="hour">15h40</th>
-            <td colspan="4" class="intermede">&{'planning.break'}</td>
-        </tr>
-        <tr>
-            <th class="hour">16h</th>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_A1_Talk_5, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_A2_Talk_5, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_S1_Talk_5, planning:planning, editing:isAdmin /}</td>
-            <td>#{session-on-planning models.planning.Slot.Mardi_2014_S2_Talk_5, planning:planning, editing:isAdmin /}</td>
-        </tr>
-        <tr>
-            <th class="hour">16h50</th>
-            <td colspan="6" class="intermede">&{'planning.break'}</td>
-        </tr>
-        <tr>
-            <th class="hour">17h10</th>
-            <td colspan="6" class="intermede">
-                #{if planning.getTalkOn(models.planning.Slot.Mardi_2014_A1_Keynote_2) || isAdmin}
-                    #{session-on-planning models.planning.Slot.Mardi_2014_A1_Keynote_2, planning:planning, editing:isAdmin /}
-                #{/if}
-                #{else}
-                    Keynote
-                #{/else}
-            </td>
-        </tr>
+                    <tr>
+                        <th class="hour">17h35</th>
+                        <td colspan="6" class="intermede">
+                            #{if planning.getTalkOn(models.planning.Slot.Mardi_2014_A1_Keynote_3) || isAdmin}
+                                #{session-on-planning models.planning.Slot.Mardi_2014_A1_Keynote_3, planning:planning, editing:isAdmin /}
+                            #{/if}
+                            #{else}
+                                Keynote
+                            #{/else}
+                        </td>
+                        <th class="hour">17h35</th>
+                    </tr>
+                    <tr>
+                        <th class="hour">18h</th>
+                        <td colspan="6">&nbsp;</td>
+                        <th class="hour">18h</th>
+                    </tr>
+                    <tr>
+                        <th class="hour">20h</th>
+                        <td class="intermede" colspan="6">
+                            <br>
+                            Mix-IT party
+                            <br>
+                            <br>
+                        </td>
+                        <th class="hour">20h</th>
+                    </tr>
+                </tbody>
+            </table>
 
-        <tr>
-            <th class="hour">17h35</th>
-            <td colspan="6" class="intermede">
-                #{if planning.getTalkOn(models.planning.Slot.Mardi_2014_A1_Keynote_3) || isAdmin}
-                    #{session-on-planning models.planning.Slot.Mardi_2014_A1_Keynote_3, planning:planning, editing:isAdmin /}
-                #{/if}
-                #{else}
-                    Keynote
-                #{/else}
-            </td>
-        </tr>
-        <tr>
-            <th class="hour">18h</th>
-            <td colspan="6"></td>
-        </tr>
-        <tr>
-            <th class="hour">Soirée</th>
-            <td class="intermede" colspan="6">
-                <br>
-                Mix-IT party
-                <br>
-                <br>
-            </td>
-        </tr>
-    </tbody>
-</table>
+            <br>
+            <p>
+            Et tout au long de la journée :
+                #{session-small planning.getTalkById(362L) /}
+                #{session-small planning.getTalkById(442L) /}
+            </p>
+        </div>
 
-<br>
-<p>
-Et tout au long de la journée :
-    #{session-small planning.getTalkById(362L) /}
-    #{session-small planning.getTalkById(442L) /}
-</p>
+        <div class="col-md-12">
+            <h1>Mercredi 30 avril</h1>
 
-<h1>Mercredi 30 avril</h1>
+            <table class="table condensed-table">
+                <thead>
+                <tr>
+                    <th class="hour"></th>
+                    <th >${models.planning.Room.A1 }</th>
+                    <th>${models.planning.Room.A2 }</th>
+                    <th>&{'planning.room', models.planning.Room.S1 }</th>
+                    <th>&{'planning.room', models.planning.Room.S2 }</th>
+                    <th>&{'planning.room', models.planning.Room.S3 }</th>
+                    <th>&{'planning.room', models.planning.Room.S4 }</th>
+                    <th class="hour"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th class="hour">8h30</th>
+                    <td colspan="6" class="intermede">&{'planning.welcome'}</td>
+                    <th class="hour">8h30</th>
+                </tr>
+                <tr>
+                    <th class="hour">9h00</th>
+                    <td colspan="6" class="intermede">&{'planning.staff-intro'} & &{'planning.speaker-pitch.am'}</td>
+                    <th class="hour">9h00</th>
+                </tr>
+                <tr>
+                    <th class="hour">9h15</th>
+                    <td colspan="6" class="intermede">
+                        #{if planning.getTalkOn(models.planning.Slot.Mercredi_2014_A1_Keynote_1) || isAdmin}
+                            #{session-on-planning models.planning.Slot.Mercredi_2014_A1_Keynote_1, planning:planning, editing:isAdmin /}
+                        #{/if}
+                        #{else}
+                            Keynote
+                        #{/else}
+                    </td>
+                    <th class="hour">9h15</th>
+                </tr>
+                <tr>
+                    <th class="hour">9h40</th>
+                    <td colspan="6" class="intermede">&{'planning.break'}</td>
+                    <th class="hour">9h40</th>
+                </tr>
+                <tr>
+                    <th class="hour">10h</th>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A1_Talk_1, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A2_Talk_1, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S1_Talk_1, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S2_Talk_1, planning:planning, editing:isAdmin /}</td>
+                    <td rowspan="3">#{session-on-planning models.planning.Slot.Mercredi_2014_S3_Workshop_1, planning:planning, editing:isAdmin /}</td>
+                    <td rowspan="3">#{session-on-planning models.planning.Slot.Mercredi_2014_S4_Workshop_1, planning:planning, editing:isAdmin /}</td>
+                    <th class="hour">10h</th>
+                </tr>
+                <tr>
+                    <th class="hour">10h50</th>
+                    <td colspan="4" class="intermede">&{'planning.break'}</td>
+                </tr>
+                <tr>
+                    <th class="hour">11h10</th>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A1_Talk_2, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A2_Talk_2, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S1_Talk_2, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S2_Talk_2, planning:planning, editing:isAdmin /}</td>
+                </tr>
+                <tr>
+                    <th class="hour">12h</th>
+                    <td colspan="4" rowspan="2" class="intermede">&{'planning.lunch'}</td>
+                    <td colspan="2" class="intermede">&{'planning.lunch'}</td>
+                    <th class="hour">12h</th>
+                </tr>
+                <tr>
+                    <th class="hour"></th>
+                    <td rowspan="4">#{session-on-planning models.planning.Slot.Mercredi_2014_S3_Workshop_2, planning:planning, editing:isAdmin /}</td>
+                    <td rowspan="4">#{session-on-planning models.planning.Slot.Mercredi_2014_S4_Workshop_2, planning:planning, editing:isAdmin /}</td>
+                    <th class="hour">12h30</th>
+                </tr>
 
-<table class="condensed-table">
-    <thead>
-    <tr>
-        <th></th>
-        <th>${models.planning.Room.A1 }</th>
-        <th>${models.planning.Room.A2 }</th>
-        <th>&{'planning.room', models.planning.Room.S1 }</th>
-        <th>&{'planning.room', models.planning.Room.S2 }</th>
-        <th>&{'planning.room', models.planning.Room.S3 }</th>
-        <th>&{'planning.room', models.planning.Room.S4 }</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <th class="hour">8h30</th>
-        <td colspan="6" class="intermede">&{'planning.welcome'}</td>
-    </tr>
-    <tr>
-        <th class="hour">9h00</th>
-        <td colspan="6" class="intermede">&{'planning.staff-intro'} & &{'planning.speaker-pitch.am'}</td>
-    </tr>
-    <tr>
-        <th class="hour">9h15</th>
-        <td colspan="6" class="intermede">
-            #{if planning.getTalkOn(models.planning.Slot.Mercredi_2014_A1_Keynote_1) || isAdmin}
-                #{session-on-planning models.planning.Slot.Mercredi_2014_A1_Keynote_1, planning:planning, editing:isAdmin /}
+                <tr>
+                    <th class="hour">13h00</th>
+                    <td colspan="1" class="intermede">
+                        #{if planning.getTalkOn(models.planning.Slot.Mercredi_2014_A1_Keynote_2) || isAdmin}
+                            #{session-on-planning models.planning.Slot.Mercredi_2014_A1_Keynote_2, planning:planning, editing:isAdmin /}
+                        #{/if}
+                        #{else}
+                            Keynote
+                        #{/else}
+                    </td>
+                    <td colspan="3" class="intermede"></td>
+                </tr>
+                <tr>
+                    <th class="hour">13h30</th>
+                    <td colspan="4" class="intermede">&{'planning.speaker-pitch.pm'}</td>
+                </tr>
+                <tr>
+                    <th class="hour">13h40</th>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A1_Talk_3, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A2_Talk_3, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S1_Talk_3, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S2_Talk_3, planning:planning, editing:isAdmin /}</td>
+                </tr>
+                <tr>
+                    <th class="hour">14h30</th>
+                    <td colspan="6" class="intermede">&{'planning.break'}</td>
+                    <th class="hour">14h30</th>
+                </tr>
+                <tr>
+                    <th class="hour">14h50</th>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A1_Talk_4, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A2_Talk_4, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S1_Talk_4, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S2_Talk_4, planning:planning, editing:isAdmin /}</td>
+                    <td rowspan="3">#{session-on-planning models.planning.Slot.Mercredi_2014_S3_Workshop_3, planning:planning, editing:isAdmin /}</td>
+                    <td rowspan="3">#{session-on-planning models.planning.Slot.Mercredi_2014_S4_Workshop_3, planning:planning, editing:isAdmin /}</td>
+                    <th class="hour">14h50</th>
+                </tr>
+                <tr>
+                    <th class="hour">15h40</th>
+                    <td colspan="4" class="intermede">&{'planning.break'}</td>
+                </tr>
+                <tr>
+                    <th class="hour">16h</th>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A1_Talk_5, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A2_Talk_5, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S1_Talk_5, planning:planning, editing:isAdmin /}</td>
+                    <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S2_Talk_5, planning:planning, editing:isAdmin /}</td>
+                </tr>
+                <tr>
+                    <th class="hour">16h50</th>
+                    <td colspan="6" class="intermede">&{'planning.break'}</td>
+                    <th class="hour">16h50</th>
+                </tr>
+                <tr>
+                    <th class="hour">17h10</th>
+                    <td colspan="6" class="intermede">
+                        #{if planning.getTalkOn(models.planning.Slot.Mercredi_2014_A1_Keynote_3) || isAdmin}
+                            #{session-on-planning models.planning.Slot.Mercredi_2014_A1_Keynote_3, planning:planning, editing:isAdmin /}
+                        #{/if}
+                        #{else}
+                            Keynote
+                        #{/else}
+                    </td>
+                    <th class="hour">17h10</th>
+                </tr>
+
+                <tr>
+                    <th class="hour">17h35</th>
+                    <td colspan="6" class="intermede">
+                        #{if planning.getTalkOn(models.planning.Slot.Mercredi_2014_A1_Keynote_4) || isAdmin}
+                            #{session-on-planning models.planning.Slot.Mercredi_2014_A1_Keynote_4, planning:planning, editing:isAdmin /}
+                        #{/if}
+                        #{else}
+                            Keynote
+                        #{/else}
+                    </td>
+                    <th class="hour">17h35</th>
+                </tr>
+                <tr>
+                    <th class="hour">18h</th>
+                    <td colspan="6" class="intermede">&{'planning.staff-ending'}</td>
+                    <th class="hour">18h</th>
+                </tr>
+                <tr>
+                    <th class="hour">18h10</th>
+                    <td colspan="6" style="border:none;">&nbsp;</td>
+                    <th class="hour">18h10</th>
+                </tr>
+                </tbody>
+            </table>
+            <br>
+            <p>
+                Et tout au long de la journée :
+                #{session-small planning.getTalkById(362L) /}
+                #{session-small planning.getTalkById(442L) /}
+            </p>
+
+
+
+            #{if isAdmin}
+                <div>
+                    <input type="submit" class="btn btn-large btn-danger " value="Ecraser le planning" />
+                </div>
             #{/if}
-            #{else}
-                Keynote
-            #{/else}
-        </td>
-    </tr>
-    <tr>
-        <th class="hour">9h40</th>
-        <td colspan="6" class="intermede">&{'planning.break'}</td>
-    </tr>
-    <tr>
-        <th class="hour">10h</th>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A1_Talk_1, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A2_Talk_1, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S1_Talk_1, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S2_Talk_1, planning:planning, editing:isAdmin /}</td>
-        <td rowspan="3">#{session-on-planning models.planning.Slot.Mercredi_2014_S3_Workshop_1, planning:planning, editing:isAdmin /}</td>
-        <td rowspan="3">#{session-on-planning models.planning.Slot.Mercredi_2014_S4_Workshop_1, planning:planning, editing:isAdmin /}</td>
-    </tr>
-    <tr>
-        <th class="hour">10h50</th>
-        <td colspan="4" class="intermede">&{'planning.break'}</td>
-    </tr>
-    <tr>
-        <th class="hour">11h10</th>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A1_Talk_2, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A2_Talk_2, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S1_Talk_2, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S2_Talk_2, planning:planning, editing:isAdmin /}</td>
-    </tr>
-    <tr>
-        <th class="hour">12h</th>
-        <td colspan="4" rowspan="2" class="intermede">&{'planning.lunch'}</td>
-        <td colspan="2" class="intermede">&{'planning.lunch'}</td>
-    </tr>
-    <tr>
-        <th class="hour"></th>
-        <td rowspan="4">#{session-on-planning models.planning.Slot.Mercredi_2014_S3_Workshop_2, planning:planning, editing:isAdmin /}</td>
-        <td rowspan="4">#{session-on-planning models.planning.Slot.Mercredi_2014_S4_Workshop_2, planning:planning, editing:isAdmin /}</td>
-        <th class="hour">12h30</th>
-    </tr>
-
-    <tr>
-        <th class="hour">13h00</th>
-        <td colspan="1" class="intermede">
-            #{if planning.getTalkOn(models.planning.Slot.Mercredi_2014_A1_Keynote_2) || isAdmin}
-                #{session-on-planning models.planning.Slot.Mercredi_2014_A1_Keynote_2, planning:planning, editing:isAdmin /}
-            #{/if}
-            #{else}
-                Keynote
-            #{/else}
-        </td>
-        <td colspan="3" class="intermede"></td>
-    </tr>
-    <tr>
-        <th class="hour">13h30</th>
-        <td colspan="4" class="intermede">&{'planning.speaker-pitch.pm'}</td>
-    </tr>
-    <tr>
-        <th class="hour">13h40</th>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A1_Talk_3, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A2_Talk_3, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S1_Talk_3, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S2_Talk_3, planning:planning, editing:isAdmin /}</td>
-    </tr>
-    <tr>
-        <th class="hour">14h30</th>
-        <td colspan="6" class="intermede">&{'planning.break'}</td>
-    </tr>
-    <tr>
-        <th class="hour">14h50</th>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A1_Talk_4, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A2_Talk_4, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S1_Talk_4, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S2_Talk_4, planning:planning, editing:isAdmin /}</td>
-        <td rowspan="3">#{session-on-planning models.planning.Slot.Mercredi_2014_S3_Workshop_3, planning:planning, editing:isAdmin /}</td>
-        <td rowspan="3">#{session-on-planning models.planning.Slot.Mercredi_2014_S4_Workshop_3, planning:planning, editing:isAdmin /}</td>
-    </tr>
-    <tr>
-        <th class="hour">15h40</th>
-        <td colspan="4" class="intermede">&{'planning.break'}</td>
-    </tr>
-    <tr>
-        <th class="hour">16h</th>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A1_Talk_5, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_A2_Talk_5, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S1_Talk_5, planning:planning, editing:isAdmin /}</td>
-        <td>#{session-on-planning models.planning.Slot.Mercredi_2014_S2_Talk_5, planning:planning, editing:isAdmin /}</td>
-    </tr>
-    <tr>
-        <th class="hour">16h50</th>
-        <td colspan="6" class="intermede">&{'planning.break'}</td>
-    </tr>
-    <tr>
-        <th class="hour">17h10</th>
-        <td colspan="6" class="intermede">
-            #{if planning.getTalkOn(models.planning.Slot.Mercredi_2014_A1_Keynote_3) || isAdmin}
-                #{session-on-planning models.planning.Slot.Mercredi_2014_A1_Keynote_3, planning:planning, editing:isAdmin /}
-            #{/if}
-            #{else}
-                Keynote
-            #{/else}
-        </td>
-    </tr>
-
-    <tr>
-        <th class="hour">17h35</th>
-        <td colspan="6" class="intermede">
-            #{if planning.getTalkOn(models.planning.Slot.Mercredi_2014_A1_Keynote_4) || isAdmin}
-                #{session-on-planning models.planning.Slot.Mercredi_2014_A1_Keynote_4, planning:planning, editing:isAdmin /}
-            #{/if}
-            #{else}
-                Keynote
-            #{/else}
-        </td>
-    </tr>
-    <tr>
-        <th class="hour">18h</th>
-        <td colspan="6" class="intermede">&{'planning.staff-ending'}</td>
-    </tr>
-    <tr>
-        <th class="hour">18h10</th>
-    </tr>
-    </tbody>
-</table>
-<br>
-<p>
-    Et tout au long de la journée :
-    #{session-small planning.getTalkById(362L) /}
-    #{session-small planning.getTalkById(442L) /}
-</p>
-
-
-
-    #{if isAdmin}
-    <div>
-        <input type="submit" class="btn btn-large btn-danger " value="Ecraser le planning" />
+        #{/form}
     </div>
-#{/if}
-#{/form}
+</div>
