@@ -7,13 +7,44 @@
     - elementId : (option) id of DOM element
 }*
 <span class="member">
-#{if !_static}
-<a id="#{if _elementId}${_elementId}#{/if}#{else}member${_arg.login}#{/else}" href="@{Profile.show(_arg.login)}" rel='twipsy' data-placement='right' title="#{if _short}#{if _arg.ticketingRegistered}<i class='icon-check' style='color: green'></i> #{/if}<strong>${_arg.toString().escapeHtmlAttr()}</strong><br/>#{/if}#{markdown _arg.shortDescription, escapeHtmlAttr:true /}#{if !(session?.username || _arg.publicProfile)}<strong>Connectez-vous pour consulter son profil complet.</strong>#{/if}" data-html="true">
-#{/if}
-#{if _arg instanceof models.Sponsor}<img src="${_arg.logoUrl}" style="max-width: 20px; max-height: 20px" alt="Logo ${_arg}" />#{/if}
-#{else}#{if _arg.email}#{gravatar.img _arg.email, size:20, default:'mm', rating:'pg', secure:false/}#{/if}#{/else}
-#{if !_short}#{if _arg.ticketingRegistered} <i class="icon-check" style="color: green"></i>#{/if} ${_arg}#{/if}
-#{if !_static}
-</a>
-#{/if}
+    #{if !_static}
+        <a id="#{if _elementId}
+                    ${_elementId}
+               #{/if}
+               #{else}
+                    member${_arg.login}
+               #{/else}"
+           href="@{Profile.show(_arg.login)}"
+           rel='twipsy'
+           data-placement='right'
+           title="#{if _short}
+                        #{if _arg.ticketingRegistered}<i class='icon-check' style='color: green'></i> #{/if}
+                        <strong>${_arg.toString().escapeHtmlAttr()}</strong><br/>
+                  #{/if}
+                  #{markdown _arg.shortDescription, escapeHtmlAttr:true /}
+                  #{if !(session?.username || _arg.publicProfile)}
+                        <strong>Connectez-vous pour consulter son profil complet.</strong>
+                  #{/if}"
+           data-html="true">
+    #{/if}
+
+    #{if _arg instanceof models.Sponsor}
+        <img src="${_arg.logoUrl}" style="max-width: 20px; max-height: 20px" alt="Logo ${_arg}" />
+    #{/if}
+    #{else}
+        #{if _arg.email}
+            #{gravatar.img _arg.email, size:20, default:'mm', rating:'pg', secure:false/}
+        #{/if}
+    #{/else}
+
+    #{if !_short}
+        #{if _arg.ticketingRegistered}
+            <i class="icon-check" style="color: green"></i>
+        #{/if}
+        ${_arg}
+    #{/if}
+
+    #{if !_static}
+        </a>
+    #{/if}
 </span>
