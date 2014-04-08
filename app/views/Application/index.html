@@ -233,7 +233,12 @@
         <div class="row">
             <div class="row speakers">
                 <div class="container">
-                    <h4 id="this-year" class="centeredWithLine"><span>&{'home.speakers.this-year'}</span></h4>
+                    <h4 id="this-year" class="centeredWithLine">
+                        <span>
+                            &{'home.speakers.this-year'}
+                            (<a href=@{Sessions.listOn(models.ConferenceEvent.CURRENT)}>&{'home.more'}</a>)
+                        </span>
+                    </h4>
                     #{list items:guestSpeakersToDisplay, as:'speaker'}
                         #{speaker-on-home name:speaker.toString(), email:speaker.email, login:speaker.login/}
                     #{/list}
@@ -245,7 +250,12 @@
     <div class="row">
         <div class="row speakers">
             <div class="container">
-                <h4 id="previously" class="centeredWithLine"><span>&{'home.speakers.previously'}</span></h4>
+                <h4 id="previously" class="centeredWithLine">
+                    <span>
+                        &{'home.speakers.previously'}
+                        (<a href=@{Sessions.listOn(models.ConferenceEvent.mixit13)}>&{'home.more'}</a>)
+                    </span>
+                </h4>
                 #{speaker-on-home name:'Zach Holman', email:'zach@zachholman.com', login:'holman'/}
                 #{speaker-on-home name:'Pamela Fox', email:'pamela.fox@gmail.com', login:'pamelafox'/}
                 #{speaker-on-home name:'Simon Brown', email:'simon.brown@codingthearchitecture.com', login:'simonbrown'/}

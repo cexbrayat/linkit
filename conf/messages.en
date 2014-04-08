@@ -19,7 +19,7 @@ menu.members.speakers=Speakers
 menu.members.all=All members
 menu.members.staff=Staff members
 menu.members.sponsors=Our sponsors
-menu.infos=Informations
+menu.infos=Information
 menu.infos.about=About Mix-IT
 menu.infos.faq=FAQ
 menu.infos.inscription=Registration
@@ -64,6 +64,7 @@ home.headers.agility=Agility
 home.headers.innovation=Innovation
 home.speakers.previously=Previously, at Mix-IT
 home.speakers.this-year=This year, at Mix-IT
+home.more=more
 
 home.featurette1.title=Development, Agility, Innovation, DevOps, Lean Startup.
 home.featurette1.subtitle=Ideas for now!

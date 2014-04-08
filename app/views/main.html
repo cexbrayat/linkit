@@ -110,8 +110,6 @@
                             href="@{Infos.faq()}">&{'menu.infos.faq'}</a></li>
                     <li #{if request.action=="Infos.inscription"}class="active"#{/if}><a
                             href="@{Infos.inscription()}">&{'menu.infos.inscription'}</a></li>
-                    <li #{if request.action=="Infos.sponsors"}class="active"#{/if}><a
-                            href="@{Application.sponsors()}">&{'menu.infos.sponsors'}</a></li>
                     <li #{if request.action=="Infos.contact"}class="active"#{/if}><a
                             href="@{Infos.contact()}">&{'menu.infos.contact'}</a></li>
                     <li #{if request.action=="Infos.codeOfConduct"}class="active"#{/if}><a
@@ -124,6 +122,7 @@
                     <li #{if request.action=="Infos.hotels"}class="active"#{/if}><a
                             href="@{Infos.hotels()}">&{'menu.infos.hotels'}</a></li>
 }*
+                    <li class="divider"></li>
                     <li #{if request.action=="Infos.mixit13"}class="active"#{/if}><a
                             href="@{Infos.mixit13()}">&{'menu.infos.2013'}</a></li>
                     <li #{if request.action=="Infos.mixit12"}class="active"#{/if}><a
