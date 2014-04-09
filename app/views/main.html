@@ -80,7 +80,7 @@
                             <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                         #{/if}
                     #{/if}
-                    *{<li><a href="@{Sessions.planningMixIT13()}">Planning 2013</a></li>}*
+                    <li #{if request.action=="Sessions.currentPlanning"}class="active"#{/if}><a href="@{Sessions.currentPlanning}">Planning</a></li>
                     <li #{if request.action=="Sessions.mixteen"}class="active"#{/if}>
                         <a href="@{Sessions.mixteen()}">&{'menu.agenda.mixteen'}</a>
                     </li>
