@@ -85,6 +85,7 @@ home.featurette3.text=Afin de garder une dimension conviviale, le nombre de part
 
 home.breaking.cfp.open=CFP ouvert !
 home.breaking.tickets.open=Billeterie ouverte
+home.planning=Consulter le planning détaillé
 
 # Login
 login.title=Connexion à Mix-IT
