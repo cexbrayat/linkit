@@ -81,7 +81,7 @@ public enum Slot {
     //Others
     Mercredi_2014_A1_Keynote_1(Mercredi_2014, Room.A1, _09_15, _09_40),
     Mercredi_2014_A1_Keynote_2(Mercredi_2014, Room.A1, _13_00, _13_30),
-    Mercredi_2014_A1_Keynote_3(Mercredi_2014, Room.A1, _17_35, _18_00),
+    Mercredi_2014_A1_Keynote_3(Mercredi_2014, Room.A1, _17_10, _17_35),
     Mercredi_2014_A1_Keynote_4(Mercredi_2014, Room.A1, _17_35, _18_00),
 
 
