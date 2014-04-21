@@ -142,7 +142,9 @@
         <div style="text-align: center">
             <div class="well col-sm-4 col-sm-offset-4">
                 <a href="@{Sessions.create(session.username)}" class="btn btn-lg btn-danger btn-block">&{'menu.agenda.submit'}</a>
-                <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
+                #{if session.username}
+                    <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
+                #{/if}
             </div>
         </div>
     #{/if}
@@ -155,7 +157,9 @@
                     </div>
                 #{/if}
                 <a href="@{Sessions.currentPlanning()}" class="btn btn-lg btn-primary btn-block">&{'home.planning'}</a>
-                <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
+                #{if session.username}
+                    <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
+                #{/if}
             </div>
         </div>
     #{/else}
