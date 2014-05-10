@@ -112,9 +112,11 @@
             <div class="breaking">&{'home.breaking.tickets.open'}</div>
         #{/if}
 
-        #{if soldOut }
+        *{ #{if soldOut }
             <div class="breaking">&{'ticketing.soldout'}</div>
-        #{/if}
+        #{/if} }*
+
+            <div class="breaking">&{'mixit.past.event'}</div>
 
             <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="60%"/>
         <div class="col-md-4 col-md-offset-8">
@@ -151,6 +153,7 @@
     #{else}
         <div style="text-align: center">
             <div class="well col-sm-4 col-sm-offset-4">
+            *{
                 #{if ticketSales}
                     <div style="margin-top: 5px;">
                         #{ticketing member, buttonClass:'btn btn-lg btn-danger btn-block'/}
@@ -160,6 +163,8 @@
                 #{if session.username}
                     <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
                 #{/if}
+                }*
+                <a target="_blank" href="https://fr.surveymonkey.com/s/VCL2BZL" class="btn btn-lg btn-info btn-block">&{'mixit.poll.goto'}</a>
             </div>
         </div>
     #{/else}
