@@ -175,11 +175,11 @@ about.bio.nicolas=Nicolas is a developer, <em>Scrum Master</em>, who is passiona
                   After 5 years working with C/C++ and .Net, today he is a Java developer. Also, he tries to hack his working culture on his different projects.
                   Nicolas is a <a href="http://lyon.clubagilerhonealpes.org/">Club Agile Rhône-Alpes</a> member.
 about.bio.nicolas.links=Follow him on <a href="https://twitter.com/npelloux">Twitter</a>
-about.bio.mathieu=Mathieu claims to be a simple craftsman developer (on Java/JEE and Web). \
+about.bio.mpetitdant=Mathieu claims to be a simple craftsman developer (on Java/JEE and Web). \
                   After more than 6 years in a service company in Paris, he moved to Lyon in early 2012 and one year later, \
                   he started his independent consulting activity. Today, he is a member of the <a href="http://devlyon.fr/">DevLyon</a> group. \
                   With his agile knowledge, he helps his team to self organise and continuously improve. He joined the organization team for Mix-IT 2014.
-about.bio.mathieu.links=Follow him on <a href="https://twitter.com/mpetitdant">Twitter</a>
+about.bio.mpetitdant.links=Follow him on <a href="https://twitter.com/mpetitdant">Twitter</a>
 
 page.codeOfConduct.title=Conf Code of Conduct
 page.codeOfConduct.description=Fundamentals to follow if you attend Mix-IT
