@@ -1,25 +1,13 @@
 package models;
 
-import java.util.regex.Matcher;
-import jodd.lagarto.dom.jerry.Jerry;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.http.json.JsonHttpRequest;
-import com.google.api.client.http.json.JsonHttpRequestInitializer;
-import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.plus.Plus;
-import com.google.api.services.plus.PlusRequest;
+import com.google.api.services.plus.PlusRequestInitializer;
 import com.google.api.services.plus.model.Activity;
 import com.google.api.services.plus.model.ActivityFeed;
-import com.google.api.services.plus.model.ActivityObjectActor;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.regex.Pattern;
-import javax.persistence.Entity;
+import jodd.lagarto.dom.jerry.Jerry;
 import jodd.lagarto.dom.jerry.JerryFunction;
 import models.activity.StatusActivity;
 import models.validation.GoogleIDCheck;
@@ -28,6 +16,14 @@ import play.Logger;
 import play.Play;
 import play.data.validation.CheckWith;
 import play.data.validation.Required;
+
+import javax.persistence.Entity;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static jodd.lagarto.dom.jerry.Jerry.jerry;
 
 /**
@@ -47,15 +43,7 @@ public class GoogleAccount extends Account {
     
     static final Pattern PROFILE_URL = Pattern.compile("^https://plus.google.com/(\\d+)/?$");
 
-    static class PlusRequestInitializer implements JsonHttpRequestInitializer {
-
-        public void initialize(JsonHttpRequest request) {
-            PlusRequest plusRequest = (PlusRequest) request;
-            plusRequest.setPrettyPrint(true);
-            plusRequest.setKey(Play.configuration.getProperty("Google.apiKey"));
-        }
-    }
-    static final Plus api = Plus.builder(new NetHttpTransport(), new GsonFactory()).setJsonHttpRequestInitializer(new PlusRequestInitializer()).build();
+    static final String GOOGLE_API_KEY = Play.configuration.getProperty("Google.apiKey");
 
     public GoogleAccount(final String googleId) {
         super(ProviderType.Google);
@@ -76,11 +64,12 @@ public class GoogleAccount extends Account {
 
         DateFormat googleFormatter = new SimpleDateFormat(DATE_FORMAT, Locale.ENGLISH);
         try {
+            Plus api = new Plus.Builder(GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), new GoogleCredential()).setPlusRequestInitializer(new PlusRequestInitializer(GOOGLE_API_KEY)).build();
             ActivityFeed feed = api.activities().list(this.googleId, "public").execute();
             for (Activity activity : feed.getItems()) {
-                String content = activity.getPlusObject().getContent();
+                String content = activity.getObject().getContent();
                 if ("share".equals(activity.getVerb())) {
-                    content = "<br/>Message original de " + mention(activity.getPlusObject().getActor()) + " : <div class='google reshare'>" + content + "</div>";
+                    content = "<br/>Message original de " + mention(activity.getActor()) + " : <div class='google reshare'>" + content + "</div>";
                 }
                 String annotation = activity.getAnnotation();
                 if (StringUtils.isNotBlank(annotation)) {
@@ -95,7 +84,7 @@ public class GoogleAccount extends Account {
         return statuses;
     }
 
-    static private String mention(ActivityObjectActor actor) {
+    static private String mention(Activity.Actor actor) {
         return mention(actor.getId(), actor.getDisplayName());
     }
 
