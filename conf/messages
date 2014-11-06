@@ -178,12 +178,35 @@ about.bio.nicolas=Nicolas est développeur, <em>Scrum Master</em> et passionné 
                   et s'essaye à transformer le monde du travail dans ses missions. \
                   Nicolas est membre du <a href="http://lyon.clubagilerhonealpes.org/">Club Agile Rhône-Alpes</a>.
 about.bio.nicolas.links=Suivez-le sur <a href="https://twitter.com/npelloux">Twitter</a>
-about.bio.mathieu=Mathieu se revendique simple artisan développeur (sur les technos Java/JEE et Web). \
+about.bio.mpetitdant=Mathieu se revendique simple artisan développeur (sur les technos Java/JEE et Web). \
                   Après plus de 6 ans en SSII à Paris, il a rejoint Lyon début 2012 et pris son envol en tant qu'indépendant un an plus tard. \
                   Il fait aussi désormais partie du groupe <a href="http://devlyon.fr/">DevLyon</a>. \
                   Agiliste à ses heures, il aide de son mieux son équipe à s'améliorer et s'auto organiser. \
                   Il a rejoint l'organisation pour Mix-IT 2014.
-about.bio.mathieu.links=Suivez-le sur <a href="https://twitter.com/mpetitdant">Twitter</a>
+about.bio.mpetitdant.links=Suivez-le sur <a href="https://twitter.com/mpetitdant">Twitter</a>
+about.bio.sdeleuze=Sébastien travaille chez <a href="http://www.pivotal.io/">Pivotal</a> en tant que membre de l'équipe de développement de Spring Framework. \
+                   Il est également Google Developer Expert Dart, et a créé il y a quelques années 2 projets Open Source&nbsp;: \
+                   <a href="http://openscales.org/">OpenScales</a> (bibliothèque Flex de référence pour tout ce que est cartographie) \
+                   et <a href="http://resthub.org/">RESThub</a> (stack HTML5 basée sur Spring et Backbone.js). \
+                   Il a rejoint l'organisation pour Mix-IT 2015.
+about.bio.sdeleuze.links=Suivez-le sur <a href="https://twitter.com/sdeleuze">Twitter</a>
+about.bio.ph.charriere=Philippe a déjà (bien) dépassé la 40aine, et pourtant il continue encore à "geeker" au travail comme à la maison sur divers sujets tous liés au développement. \
+                       Il est aujourd'hui "enterprise advocate" & directeur technique chez SQLi-Lyon avec une addiction sévère pour tout ce qui touche à javascript et aux single page applications, \
+                       mais aussi pour un petit langage dynamique Gaulois du nom de Golo. \
+                       Il a rejoint l'organisation pour Mix-IT 2015.
+about.bio.ph.charriere.links=Suivez le sur <a href="https://twitter.com/k33g_org">Twitter</a>, <a href="https://plus.google.com/+PhilippeCharrière">Google+</a>, son <a href="http://k33g.github.io/">blog</a>
+about.bio.gregalexandre=Grégory a rencontré l'agilité il y a maintenant plus de 6 ans en entrant chez CLT-Services en tant que développeur ASP.NET/C# et a, \
+                        par la même occasion, découvert ce qu'était le Scrum, l'XP, le Lean, le Kanban, la vie quoi... \
+                        Vite attiré par l'aspect fonctionnel de ses projets il s'est d'abord tourné vers le Scrum Mastering puis le Product Ownership qui lui a permis de parfaire ses compétences en Business Value Management. \
+                        Après avoir été présent à la création de Coactiv, la branche Agilité de CLT-Services, Grégory accompagne désormais les entreprises et leurs équipes dans leur transformation et leur transition vers l'agilité. \
+                        Ses outils préférés : la métaphore, le jeu d'entreprise et l'humour. \
+                        Il a rejoint l'organisation pour Mix-IT 2015.
+about.bio.gregalexandre.links=Suivez le sur <a href="https://twitter.com/gregalexandre">Twitter</a>
+about.bio.guillaumeehret=Guillaume se plait dans tout ce qui tourne autour du développement logiciel et n'hésite pas à changer les casquettes&nbsp;: \
+                         développeur, chef de projet plutôt technique, architecte.... Pour simplifier il se définit comme un développeur agile indépendant. \
+                         Son site web est disponible à l'adresse <a href="http://dev-mind.fr/">http://dev-mind.fr/</a> et vous pouvez aussi suivre <a href="http://javamind-fr.blogspot.fr">son blog</a> où il parle de développement Java, Web, Android et Agilité. \
+                         Il a rejoint l'organisation pour Mix-IT 2015.
+about.bio.guillaumeehret.links=Suivez le sur <a href="https://twitter.com/guillaumeehret">Twitter</a> ou sur <a href="http://javamind-fr.blogspot.fr">son blog</a>
 
 page.codeOfConduct.title=Code de conduite
 page.codeOfConduct.description=Les principes à respecter si vous venez à Mix-IT

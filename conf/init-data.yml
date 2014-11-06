@@ -255,10 +255,10 @@ GoogleAccount(nicolasGoogle):
     member: nicolas
     googleId: 105069688047906196113
 
-Staff(mathieu) :
+Staff(mpetitdant) :
     firstname: Mathieu
     lastname: PetitDeDant
-    login: mathieu
+    login: mpetitdant
     email: mathieu.petitdant@gmail.com
     shortDescription : Kent Beck *for ever*!
     interests:
@@ -271,18 +271,18 @@ Staff(mathieu) :
 
 models.auth.LinkItAccount(mathieuLinkIt):
     provider: LinkIt
-    member: mathieu
+    member: mpetitdant
     #password: mathieu
     password: Q8ZCnQXbEZu7EnAtOG4N1fu3s16uYuYkf/WwbHbw+H8=
 
 TwitterAccount(mathieuTwitter):
     provider: Twitter
-    member: mathieu
+    member: mpetitdant
     screenName: mpetitdant
 
 GoogleAccount(mathieuGoogle):
     provider: Google
-    member: mathieu
+    member: mpetitdant
     googleId: 117476886144863426166
 
 Staff(clacote) :
@@ -570,7 +570,7 @@ Talk(talk2-2012):
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
-        - mathieu
+        - mpetitdant
     valid: true
 
 Talk(talk1):
@@ -640,7 +640,7 @@ Talk(talk1324):
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
         - agnes
-        - mathieu
+        - mpetitdant
     valid: true
     lang: fr
 
