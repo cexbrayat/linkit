@@ -33,64 +33,22 @@
     </div>
 
 </div>
-<div class="row" id="who">
-    <div class="col-md-4">
-        <h3 id="agnes">Agnès CREPET</h3>
-        #{bio-on-about 'agnes', male:false /}
-    </div>
+<div class="row">
 
-    <div class="col-md-4">
-        <h3 id="alexis">Alexis HASSLER</h3>
-        #{bio-on-about 'AlexisHassler', male:true /}
-    </div>
+    #{list staff, as:'member'}
+        <div class="col-md-4">
+            <h3 id="${member.login}">
+                <div class="img-thumbnail img-responsive" style="text-align: center;">#{gravatar.img member.email, size:100, default:'mm', rating:'pg', secure:true/}</div>
+                ${member}
+            </h3>
 
-    <div class="col-md-4">
-        <h3 id="cyril">Cyril LACÔTE</h3>
-        #{bio-on-about 'clacote', male:true /}
-    </div>
+            <p>
+                &{'about.bio.'+member.login}
+                <br/>
+                &{'about.bio.'+member.login+'.links'},
+                &{'about.bio.profile.link.'+(member.male ? 'male' : 'female'), play.mvc.Router.reverse("Profile.show").add('login',member.login)}.
+            </p>
 
-    <div class="col-md-4">
-        <h3 id="nicolas">Nicolas PELLOUX-PRAYER</h3>
-        #{bio-on-about 'nicolas', male:true /}
-    </div>
-
-    <div class="col-md-4">
-        <h3 id="mathieu">Mathieu PETITDANT</h3>
-        #{bio-on-about 'mpetitdant', male:true /}
-    </div>
-
-    <div class="col-md-4">
-        <h3 id="mathieu">Grégory ALEXANDRE</h3>
-        #{bio-on-about 'gregalexandre', male:true /}
-    </div>
-
-    <div class="col-md-4">
-        <h3 id="mathieu">Philippe CHARRIERE</h3>
-        #{bio-on-about 'ph.charriere', male:true /}
-    </div>
-
-    <div class="col-md-4">
-        <h3 id="mathieu">Sébastien DELEUZE</h3>
-        #{bio-on-about 'sdeleuze', male:true /}
-    </div>
-
-    <div class="col-md-4">
-        <h3 id="mathieu">Guillaume EHRET</h3>
-        #{bio-on-about 'guillaumeehret', male:true /}
-    </div>
+        </div>
+    #{/list}
 </div>
-
-<h2>Les fondateurs historiques</h2>
-<p>
-    Ils ont créé Mix-IT, mais sont depuis partis vers de nouvelles aventures.
-    Depuis, leur esprit veille sur la conférence.
-</p>
-
-<h3 id="romain">Romain COUTURIER</h3>
-#{bio-on-about 'romain', male:true /}
-
-<h3 id="franck">Franck DEPIERRE</h3>
-#{bio-on-about 'franck', male:true /}
-
-<h3 id="cedric">Cédric EXBRAYAT</h3>
-#{bio-on-about 'cedric', male:true /}
