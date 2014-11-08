@@ -60,7 +60,7 @@ Interest(kotlin2):
     
 Interest(dart):
     name: Dart
-    
+
 Staff(cedric) :
     firstname: Cédric
     lastname: Exbrayat
@@ -101,39 +101,6 @@ SharedLink(cedLink2):
     ordernum: 1
     name: Mon blog HypeDrivenDev
     URL: http://hypedrivendev.wordpress.com/
-
-Staff(julien) :
-    firstname: Julien
-    lastname: Ripault
-    login: julien
-    email: tluapir@gmail.com
-    shortDescription : Entretenir mes cheveux et ma guitare sont mes activités principales.
-    badges:           
-         - Staff
-         - Attendee
-    publicProfile: true
-
-SharedLink(juLink1):
-    member: julien
-    ordernum: 0
-    name: "Ma passion : la musique"
-    URL: http://lolannonces.fr/tag/frederic-francois/
-
-models.auth.LinkItAccount(juLinkIt):
-    provider: LinkIt
-    member: julien
-    #password: julien
-    password: 6eZDiYfyb+WLEqDA+jIvdrGh20Q2JsaTYUfir9MK8R4=
-
-TwitterAccount(juTwitter):
-    provider: Twitter
-    member: julien
-    screenName: julien_ripault
-
-GoogleAccount(juGoogle):
-    provider: Google
-    member: julien
-    googleId: 105928763613547015053
     
 Staff(agnes) :
     firstname: Agnès
@@ -314,6 +281,97 @@ GoogleAccount(clacoteGoogle):
     provider: Google
     member: clacote
     googleId: 114128610730314333831
+
+Staff(philippe) :
+    firstname: Philippe
+    lastname: Charrière
+    login: ph.charriere
+    email: ph.charriere@gmail.com
+    shortDescription : Geek night and day
+    interests:
+         - java
+         - javascript
+    badges:
+         - Staff
+         - Attendee
+    publicProfile: true
+
+TwitterAccount(philippeTwitter):
+    provider: Twitter
+    member: philippe
+    screenName: k33g_org
+
+GoogleAccount(philippeGoogle):
+    provider: Google
+    member: philippe
+    googleId: +PhilippeCharrière
+
+Staff(sebastien) :
+    firstname: Sébastien
+    lastname: Deleuze
+    login: sdeleuze
+    email: seb@deleuze.fr
+    shortDescription : Spring and Twitter
+    interests:
+         - java
+         - javascript
+    badges:
+         - Staff
+         - Attendee
+    publicProfile: true
+
+TwitterAccount(sebastienTwitter):
+    provider: Twitter
+    member: philippe
+    screenName: sdeleuze
+
+GoogleAccount(sebastienGoogle):
+    provider: Google
+    member: sebastien
+    googleId: 113362004587028218539
+
+Staff(guillaume) :
+    firstname: Guillaume
+    lastname: Ehret
+    login: guillaumeehret
+    email: gui.ehret@gmail.com
+    shortDescription : JavaMind night and day
+    interests:
+         - java
+         - javascript
+    badges:
+         - Staff
+         - Attendee
+    publicProfile: true
+
+TwitterAccount(guillaumeTwitter):
+    provider: Twitter
+    member: guillaume
+    screenName: guillaumeehret
+
+GoogleAccount(guillaumeGoogle):
+    provider: Google
+    member: guillaume
+    googleId: 115129243268336273837
+
+Staff(gregalexandre) :
+    firstname: Grégory
+    lastname: Alexandre
+    login: gregalexandre
+    email: g.alexandre@coactiv.fr
+    shortDescription : Agile and stuff
+    interests:
+         - java
+         - javascript
+    badges:
+         - Staff
+         - Attendee
+    publicProfile: true
+
+TwitterAccount(gregalexandreTwitter):
+    provider: Twitter
+    member: gregalexandre
+    screenName: gregalexandre
 
 Member(pamelafox) :
     firstname: Pamela
@@ -664,7 +722,7 @@ LightningTalk(lt12):
     summary: Un LT 2013
     description: Un LT 2013.
     speakers:
-        - julien
+        - mpetitdant
 
 LightningTalk(lt12b):
     event: mixit13

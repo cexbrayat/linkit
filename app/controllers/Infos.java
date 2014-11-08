@@ -12,12 +12,19 @@ import play.i18n.Messages;
 import play.libs.Codec;
 import play.libs.Images;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Infos extends PageController {
 
     public static void about() {
-        render();
+        List<Staff> staff = Staff.findAll();
+
+        // Shuffle team members list.
+        Collections.shuffle(staff);
+
+        render(staff);
     }
 
     public static void faq() {
