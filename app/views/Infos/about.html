@@ -33,9 +33,16 @@
     </div>
 
 </div>
-<div class="row">
 
-    #{list staff, as:'member'}
+%{ boolean rowOpened = false }%
+
+#{list staff, as:'member'}
+
+#{if (member_index - 1) % 3 == 0}
+    <div class="row">
+    %{ rowOpened = true }%
+#{/if}
+
         <div class="col-md-4">
             <h3 id="${member.login}">
                 <div class="img-thumbnail img-responsive" style="text-align: center;">#{gravatar.img member.email, size:100, default:'mm', rating:'pg', secure:true/}</div>
@@ -50,5 +57,11 @@
             </p>
 
         </div>
-    #{/list}
-</div>
+#{if (member_index - 1) % 3 == 2}
+    </div>
+    %{ rowOpened = false }%
+#{/if}
+#{/list}
+#{if rowOpened}
+    </div>
+#{/if}
