@@ -85,6 +85,10 @@ public class Infos extends PageController {
         oldEvent(ConferenceEvent.mixit13);
     }
 
+    public static void mixit14() {
+        oldEvent(ConferenceEvent.mixit14);
+    }
+
     public static void send(Mailing email, @Required String captcha, String randomId) {
         Member from = Member.findByLogin(Security.connected());
         List<Member> staff = Staff.findAll();
