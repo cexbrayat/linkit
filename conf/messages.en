@@ -29,6 +29,7 @@ menu.infos.contact=Contact
 menu.infos.codeOfConduct=Code of conduct
 menu.infos.access=Access
 menu.infos.hotels=Closest hotels
+menu.infos.2014=Mix-IT 2014
 menu.infos.2013=Mix-IT 2013
 menu.infos.2012=Mix-IT 2012
 menu.infos.2011=Mix-IT 2011
@@ -207,7 +208,7 @@ faq.dif.answer=
 faq.gravatar.question=How to change my profil image?
 faq.gravatar.answer=The avatars are managed by <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. We display the avatar wich matches the email you give us on your profile. Sign in on the website <a href="http://www.gravatar.com" target="_blank">Gravatar</a> in order to to create or update your image.
 faq.twitter.question=Twitter
-faq.twitter.answer=<a target=""blank" href="http://twitter.com/MixIT_Lyon">@MixIT_Lyon</a> is the Twitter account of the Mix-IT conference MIX-IT. Follow it now and use the hashtag <strong>#mixit14</strong></p>
+faq.twitter.answer=<a target=""blank" href="http://twitter.com/MixIT_Lyon">@MixIT_Lyon</a> is the Twitter account of the Mix-IT conference MIX-IT. Follow it now and use the hashtag <strong>#mixit15</strong></p>
 faq.recording.question=Recording of the talks
 faq.recording.answer=All the talks will be recored in audio format (maybe some will be in video format) and will be available on our website soon after the conference!
 faq.billing.question=How do i get an invoice for my tickets?
@@ -476,9 +477,12 @@ event.mixit13.time=8:30-18:30
 event.mixit14=Mix-IT 2014
 event.mixit14.date=April 29 & 30, 2014
 event.mixit14.time=8:30-18:30
+event.mixit15=Mix-IT 2015
+event.mixit15.date=April 16 & 17, 2015
+event.mixit15.time=8:30-18:30
 
 # Sponsors
-sponsors.register=Do you wanna be one of our sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202014]%%20Sponsoring">Contact us</a>! Here is the <a href="https://docs.google.com/document/d/1aPJ4NWJ4ObZmpHKjHfQtAQQI1k7FfRXU9sjU9SYI_9s/edit?usp=sharing" title="Sponsoring plan for Mix-IT 2014">detailled sponsoring plan</a>.
+sponsors.register=Do you wanna be one of our sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202015]%%20Sponsoring">Contact us</a>! Here is the <a href="https://drive.google.com/file/d/0Bz7mGrhIjvKOZGZldjE0RW5Hd28/view?usp=sharing" title="Sponsoring plan for Mix-IT 2015">detailled sponsoring plan</a>.
 sponsors.forEvent=Sponsors of &{event.%s}
 sponsors.partners=Partners
 sponsors.partners.mixit12.1=<p><a href="http://www.cloudbees.com/" target="blank"><img src="/public/images/logo-cloudbees.png" style="float: left; margin-right: 30px; max-width: 200px" title="Powered by Cloudbees"/></a>Thanks to <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> for providing for free an <em>On-Demand</em> Run@Cloud platform, an extended MySQL instance, and a bronze <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a> service!</p>

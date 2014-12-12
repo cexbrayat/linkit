@@ -40,7 +40,7 @@ public class Application extends PageController {
 
         // List<Map> tags = Interest.getCloud();
 
-        List<Member> currentGuestSpeakers = Talk.guestSpeakers(ConferenceEvent.CURRENT);
+        List<Member> currentGuestSpeakers = Talk.guestSpeakers(ConferenceEvent.mixit14);
 
         List<Member> guestSpeakersToDisplay = null;
         if (currentGuestSpeakers.size() > 5 ) {

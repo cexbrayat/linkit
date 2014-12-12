@@ -151,9 +151,9 @@
         </div>
     #{/if}
     #{else}
+    *{
         <div style="text-align: center">
             <div class="well col-sm-4 col-sm-offset-4">
-            *{
                 #{if ticketSales}
                     <div style="margin-top: 5px;">
                         #{ticketing member, buttonClass:'btn btn-lg btn-danger btn-block'/}
@@ -163,10 +163,10 @@
                 #{if session.username}
                     <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
                 #{/if}
-                }*
                 <a target="_blank" href="https://fr.surveymonkey.com/s/VCL2BZL" class="btn btn-lg btn-info btn-block">&{'mixit.poll.goto'}</a>
             </div>
         </div>
+    }*
     #{/else}
     </div>
 
@@ -243,10 +243,10 @@
         <div class="row">
             <div class="row speakers">
                 <div class="container">
-                    <h4 id="this-year" class="centeredWithLine">
+                    <h4 id="last-year" class="centeredWithLine">
                         <span>
                             &{'home.speakers.this-year'}
-                            (<a href=@{Sessions.listOn(models.ConferenceEvent.CURRENT)}>&{'home.more'}</a>)
+                            (<a href=@{Sessions.listOn(models.ConferenceEvent.mixit14)}>&{'home.more'}</a>)
                         </span>
                     </h4>
                     #{list items:guestSpeakersToDisplay, as:'speaker'}
@@ -263,7 +263,7 @@
                 <h4 id="previously" class="centeredWithLine">
                     <span>
                         &{'home.speakers.previously'}
-                        (<a href=@{Sessions.listOn(models.ConferenceEvent.mixit13)}>&{'home.more'}</a>)
+                        (<a href=@{Sessions.listOn(models.ConferenceEvent.mixit14)}>&{'home.more'}</a>)
                     </span>
                 </h4>
                 #{speaker-on-home name:'Zach Holman', email:'zach@zachholman.com', login:'holman'/}
