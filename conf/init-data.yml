@@ -192,10 +192,10 @@ GoogleAccount(romainGoogle):
     member: romain
     googleId: 113173388528230315265
 
-Staff(nicolas) :
+Staff(npelloux) :
     firstname: Nicolas
     lastname: Pelloux-Prayer
-    login: nicolas
+    login: npelloux
     email: nicolaspellouxprayer@gmail.com
     shortDescription : CARA *for ever*!
     interests:
@@ -206,20 +206,20 @@ Staff(nicolas) :
          - Attendee
     publicProfile: true
 
-models.auth.LinkItAccount(nicolasLinkIt):
+models.auth.LinkItAccount(npellouxLinkIt):
     provider: LinkIt
-    member: nicolas
+    member: npelloux
     #password: nicolas
     password: 2NlOQ+QV47f1N+qoX/OTAsaxP5CjOamLrLleNKTE2j8=
 
-TwitterAccount(nicolasTwitter):
+TwitterAccount(npellouxTwitter):
     provider: Twitter
-    member: nicolas
+    member: npelloux
     screenName: npelloux
 
-GoogleAccount(nicolasGoogle):
+GoogleAccount(npellouxGoogle):
     provider: Google
-    member: nicolas
+    member: npelloux
     googleId: 105069688047906196113
 
 Staff(mpetitdant) :
