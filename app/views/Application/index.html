@@ -4,12 +4,17 @@
 #{set 'moreScripts'}
 <script src="@{'/public/javascripts/tab.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/popover.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/modal.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 <script src="@{'/public/javascripts/moment.min.js'}"></script>
 <script src="@{'/public/javascripts/moment.lang-fr.js'}"></script>
 <script>
     $(function() {
         $("a[rel=popover]").popover({
         });
+
+        if ( window.location.search.contains("showMixit14Video") ) {
+            $('#mixit14VideoModal').modal('show');
+        }
 
         #{if !ticketSales && !soldOut}
             var countdown = function(){
@@ -168,6 +173,28 @@
         </div>
     }*
     #{/else}
+
+        <div style="text-align: center" >
+            <div class="well col-lg-4 col-lg-offset-4 visible-lg">
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#mixit14VideoModal">
+                    &{'home.check-out.video.mixit14'}
+                </button>
+                <div class="modal" id="mixit14VideoModal">
+                    <div class="modal-dialog" style="width: 40em; height: 22.5em;" >
+                        <div class="modal-content">
+                            <div class="modal-body" style="height: 0px; padding: 0;">
+                                <iframe style="width: 40em; height: 25em;" src="http://www.youtube.com/embed/1FO-FnhqfSA" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center" class="hidden-lg">
+                <a href="http://www.youtube.com/embed/1FO-FnhqfSA" class="btn btn-info btn-lg" >&{'home.check-out.video.mixit14'}</a>
+            </div>
+        </div>
+
     </div>
 
 
