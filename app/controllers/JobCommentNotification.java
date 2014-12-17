@@ -19,7 +19,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-@Every("1min")
+// FIXME Restore notification after site migrated out of CloudBees
+// @Every("1min")
 public class JobCommentNotification extends BaseSinceLastTimeJob {
 
     public JobCommentNotification() {
