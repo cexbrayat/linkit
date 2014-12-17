@@ -12,32 +12,45 @@
         $("a[rel=popover]").popover({
         });
 
-        if ( window.location.search.contains("showMixit14Video") ) {
+        var setVideoInPlaceHolder = function(){
+            $('#mixit14VideoPlaceholder').html('<iframe style="width: 40em; height: 25em;" src="http://www.youtube.com/embed/1FO-FnhqfSA" frameborder="0" allowfullscreen></iframe>');
+        }
+
+        if ( window.location.search.indexOf("showMixit14Video") !== -1 ) {
+            setVideoInPlaceHolder();
             $('#mixit14VideoModal').modal('show');
         }
 
+        var mixit14VideoModal = $('#mixit14VideoModal');
+        mixit14VideoModal.on('shown.bs.modal', function () {
+            setVideoInPlaceHolder();
+        });
+        mixit14VideoModal.on('hide.bs.modal', function () {
+            $('#mixit14VideoPlaceholder').html('');
+        });
+
         #{if !ticketSales && !soldOut}
-            var countdown = function(){
-              moment.lang('${lang}');
-              var duration = moment.duration(moment('${ticketSalesStartDate.format("yyyyMMddHH:mm:ss")}','YYYYMMDDHH:mm:ss').diff(moment()));
-              if ( duration.asMilliseconds() > 0 )  {
-                  var timeLeft = '';
-                  if ( duration.days() > 0 ) {
+        var countdown = function(){
+            moment.lang('${lang}');
+            var duration = moment.duration(moment('${ticketSalesStartDate.format("yyyyMMddHH:mm:ss")}','YYYYMMDDHH:mm:ss').diff(moment()));
+            if ( duration.asMilliseconds() > 0 )  {
+                var timeLeft = '';
+                if ( duration.days() > 0 ) {
                     timeLeft += duration.days() + "  &{'countdown.days'}  ";
-                  }
-                  if ( duration.hours() > 0 ) {
+                }
+                if ( duration.hours() > 0 ) {
                     timeLeft += duration.hours() + " &{'countdown.hours'} ";
-                  }
-                  timeLeft += duration.minutes() + " &{'countdown.minutes'} ";
-                  timeLeft += duration.seconds() + " &{'countdown.seconds'} ";
-                  $('#time-left').html(timeLeft);
-              } else {
-                  console.log("reload")
-                  location.reload();
-              }
-            };
-            countdown();
-            window.setInterval(countdown, 1000);
+                }
+                timeLeft += duration.minutes() + " &{'countdown.minutes'} ";
+                timeLeft += duration.seconds() + " &{'countdown.seconds'} ";
+                $('#time-left').html(timeLeft);
+            } else {
+                console.log("reload")
+                location.reload();
+            }
+        };
+        countdown();
+        window.setInterval(countdown, 1000);
         #{/if}
     });
 </script>
@@ -110,20 +123,20 @@
 
 
         #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
-            <div class="breaking">&{'home.breaking.cfp.open'}</div>
+        <div class="breaking">&{'home.breaking.cfp.open'}</div>
         #{/if}
 
         #{if ticketSales && ! soldOut }
-            <div class="breaking">&{'home.breaking.tickets.open'}</div>
+        <div class="breaking">&{'home.breaking.tickets.open'}</div>
         #{/if}
 
         *{ #{if soldOut }
-            <div class="breaking">&{'ticketing.soldout'}</div>
+        <div class="breaking">&{'ticketing.soldout'}</div>
         #{/if} }*
 
-            <div class="breaking">&{'mixit.past.event'}</div>
+        <div class="breaking">&{'mixit.past.event'}</div>
 
-            <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="60%"/>
+        <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="60%"/>
         <div class="col-md-4 col-md-offset-8">
             <h3 itemprop="description">&{'mixit.slogan'}</h3>
         </div>
@@ -134,7 +147,7 @@
     <div id="date" class="row headers">
         <h2><span itemprop="startDate">&{'event.'+models.ConferenceEvent.CURRENT+'.date'}</span>. <span itemprop="location">Lyon,&nbsp;France</span>.</h2>
 
-    #{if !ticketSales && !soldOut}
+        #{if !ticketSales && !soldOut}
         <div class="row">
             <div class="col-sm-offset-1 col-sm-10" style="padding-top: 0px; color: grey;">
                 <div class="well text-center ">
@@ -142,37 +155,37 @@
                 </div>
             </div>
         </div>
-    #{/if}
+        #{/if}
 
 
-    #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
+        #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
         <div style="text-align: center">
             <div class="well col-sm-4 col-sm-offset-4">
                 <a href="@{Sessions.create(session.username)}" class="btn btn-lg btn-danger btn-block">&{'menu.agenda.submit'}</a>
                 #{if session.username}
-                    <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
+                <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
                 #{/if}
             </div>
         </div>
-    #{/if}
-    #{else}
-    *{
+        #{/if}
+        #{else}
+        *{
         <div style="text-align: center">
             <div class="well col-sm-4 col-sm-offset-4">
                 #{if ticketSales}
-                    <div style="margin-top: 5px;">
-                        #{ticketing member, buttonClass:'btn btn-lg btn-danger btn-block'/}
-                    </div>
+                <div style="margin-top: 5px;">
+                    #{ticketing member, buttonClass:'btn btn-lg btn-danger btn-block'/}
+                </div>
                 #{/if}
                 <a href="@{Sessions.currentPlanning()}" class="btn btn-lg btn-primary btn-block">&{'home.planning'}</a>
                 #{if session.username}
-                    <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
+                <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
                 #{/if}
                 <a target="_blank" href="https://fr.surveymonkey.com/s/VCL2BZL" class="btn btn-lg btn-info btn-block">&{'mixit.poll.goto'}</a>
             </div>
         </div>
-    }*
-    #{/else}
+        }*
+        #{/else}
 
         <div style="text-align: center" >
             <div class="well col-lg-4 col-lg-offset-4 visible-lg">
@@ -183,7 +196,7 @@
                     <div class="modal-dialog" style="width: 40em; height: 22.5em;" >
                         <div class="modal-content">
                             <div class="modal-body" style="height: 0px; padding: 0;">
-                                <iframe style="width: 40em; height: 25em;" src="http://www.youtube.com/embed/1FO-FnhqfSA" frameborder="0" allowfullscreen></iframe>
+                                <span id="mixit14VideoPlaceholder"></span>
                             </div>
                         </div>
                     </div>
@@ -198,10 +211,10 @@
     </div>
 
 
-*{
-     <div class="row">
+    *{
+    <div class="row">
         <div class="col-md-10 col-md-offset-1">
-        #{if session.username}
+            #{if session.username}
             <div class="row">
                 <div class="col-md-3" style="text-align: center">
                     <a href="@{Infos.inscription()}" class="btn primary" rel="popover"
@@ -220,8 +233,8 @@
                        data-html="true">&{'button.vote.lightningtalks'}</a>
                 </div>
             </div>
-        #{/if}
-        #{else}
+            #{/if}
+            #{else}
             <div class="row">
                 <div class="col-md-3" style="text-align: center">
                     <a href="@{Infos.about()}" class="btn primary" rel="popover"
@@ -239,11 +252,11 @@
                        data-html="true">&{'button.login'}</a>
                 </div>
             </div>
-        #{/else}
+            #{/else}
         </div>
     </div>          }*
 
-     <div class="row headers big-icons-header" style="padding-top: 0px;">
+    <div class="row headers big-icons-header" style="padding-top: 0px;">
         <div class="col-lg-12">
             <div>
                 <h1>
@@ -261,107 +274,107 @@
                 <i class="icon-lightbulb"></i>
             </div>
         </div>
-        </div>
-        <!-- /.col-lg-4 -->
     </div>
-    <!-- /.row -->
+    <!-- /.col-lg-4 -->
+</div>
+<!-- /.row -->
 
-    #{if guestSpeakersToDisplay?.size() > 5 }
-        <div class="row">
-            <div class="row speakers">
-                <div class="container">
-                    <h4 id="last-year" class="centeredWithLine">
+#{if guestSpeakersToDisplay?.size() > 5 }
+<div class="row">
+    <div class="row speakers">
+        <div class="container">
+            <h4 id="last-year" class="centeredWithLine">
                         <span>
                             &{'home.speakers.last-year'}
                             (<a href=@{Sessions.listOn(models.ConferenceEvent.mixit14)}>&{'home.more'}</a>)
                         </span>
-                    </h4>
-                    #{list items:guestSpeakersToDisplay, as:'speaker'}
-                        #{speaker-on-home name:speaker.toString(), email:speaker.email, login:speaker.login/}
-                    #{/list}
-                </div>
-            </div>
+            </h4>
+            #{list items:guestSpeakersToDisplay, as:'speaker'}
+            #{speaker-on-home name:speaker.toString(), email:speaker.email, login:speaker.login/}
+            #{/list}
         </div>
-    #{/if}
+    </div>
+</div>
+#{/if}
 
-    <div class="row">
-        <div class="row speakers">
-            <div class="container">
-                <h4 id="previously" class="centeredWithLine">
+<div class="row">
+    <div class="row speakers">
+        <div class="container">
+            <h4 id="previously" class="centeredWithLine">
                     <span>
                         &{'home.speakers.previously'}
                         (<a href=@{Sessions.listOn(models.ConferenceEvent.mixit14)}>&{'home.more'}</a>)
                     </span>
-                </h4>
-                #{speaker-on-home name:'Zach Holman', email:'zach@zachholman.com', login:'holman'/}
-                #{speaker-on-home name:'Pamela Fox', email:'pamela.fox@gmail.com', login:'pamelafox'/}
-                #{speaker-on-home name:'Simon Brown', email:'simon.brown@codingthearchitecture.com', login:'simonbrown'/}
-                #{speaker-on-home name:'Camille Roux', email:'contact@camilleroux.com', login:'camilleroux'/}
-                #{speaker-on-home name:'Bodil Stokke', email:'bodil@bodil.tv', login:'bodil'/}
-                #{speaker-on-home name:'JC Grosjean', email:'jcgrosjean@gmail.com', login:'jcQualitystreet'/}
-            </div>
+            </h4>
+            #{speaker-on-home name:'Zach Holman', email:'zach@zachholman.com', login:'holman'/}
+            #{speaker-on-home name:'Pamela Fox', email:'pamela.fox@gmail.com', login:'pamelafox'/}
+            #{speaker-on-home name:'Simon Brown', email:'simon.brown@codingthearchitecture.com', login:'simonbrown'/}
+            #{speaker-on-home name:'Camille Roux', email:'contact@camilleroux.com', login:'camilleroux'/}
+            #{speaker-on-home name:'Bodil Stokke', email:'bodil@bodil.tv', login:'bodil'/}
+            #{speaker-on-home name:'JC Grosjean', email:'jcgrosjean@gmail.com', login:'jcQualitystreet'/}
         </div>
     </div>
+</div>
 
 
-    <!-- START THE FEATURETTES -->
+<!-- START THE FEATURETTES -->
 
 
-    <div class="row featurette featurette1">
-        <div class="container">
-            <div class="col-md-7">
-                <h2 class="featurette-heading">
-                    &{'home.featurette1.title'}
-                    <span class="text-muted">&{'home.featurette1.subtitle'}</span>
-                </h2>
+<div class="row featurette featurette1">
+    <div class="container">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">
+                &{'home.featurette1.title'}
+                <span class="text-muted">&{'home.featurette1.subtitle'}</span>
+            </h2>
 
-                <p class="lead">&{'home.featurette1.text'}</p>
-            </div>
-            <div class="col-md-5 ">
-                <img class="featurette-image img-responsive img-thumbnail img-rotate-right"
-                     src="/public/images/mixit/lego.jpg"
-                     alt="Mix-IT">
-            </div>
+            <p class="lead">&{'home.featurette1.text'}</p>
+        </div>
+        <div class="col-md-5 ">
+            <img class="featurette-image img-responsive img-thumbnail img-rotate-right"
+                 src="/public/images/mixit/lego.jpg"
+                 alt="Mix-IT">
         </div>
     </div>
+</div>
 
 
-    <div class="row featurette featurette2">
-        <div class="container">
-            <div class="col-md-5">
-                <img class="featurette-image img-responsive img-thumbnail img-rotate-left"
-                     src="/public/images/mixit/speaker.jpg"
-                     alt="Mix-IT">
-            </div>
-            <div class="col-md-7">
-                <h2 class="featurette-heading">
-                    &{'home.featurette2.title'}
-                    <span class="text-muted">&{'home.featurette2.subtitle'}</span>
-                </h2>
+<div class="row featurette featurette2">
+    <div class="container">
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive img-thumbnail img-rotate-left"
+                 src="/public/images/mixit/speaker.jpg"
+                 alt="Mix-IT">
+        </div>
+        <div class="col-md-7">
+            <h2 class="featurette-heading">
+                &{'home.featurette2.title'}
+                <span class="text-muted">&{'home.featurette2.subtitle'}</span>
+            </h2>
 
-                <p class="lead">&{'home.featurette2.text'}</p>
-            </div>
+            <p class="lead">&{'home.featurette2.text'}</p>
         </div>
     </div>
+</div>
 
 
-        <div class="row featurette featurette3">
-            <div class="container">
-                <div class="col-md-7">
-                    <h2 class="featurette-heading">
-                    &{'home.featurette3.title'}
-                        <span class="text-muted">&{'home.featurette3.subtitle'}</span>
-                    </h2>
+<div class="row featurette featurette3">
+    <div class="container">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">
+                &{'home.featurette3.title'}
+                <span class="text-muted">&{'home.featurette3.subtitle'}</span>
+            </h2>
 
-                    <p class="lead">&{'home.featurette3.text'}</p>
-                </div>
-                <div class="col-md-5">
-                    <img class="featurette-image img-responsive img-thumbnail img-rotate-right"
-                         src="/public/images/mixit/workshop.jpg"
-                         alt="Mix-IT">
-                </div>
-            </div>
+            <p class="lead">&{'home.featurette3.text'}</p>
         </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive img-thumbnail img-rotate-right"
+                 src="/public/images/mixit/workshop.jpg"
+                 alt="Mix-IT">
+        </div>
+    </div>
+</div>
 
-    <!-- /END THE FEATURETTES -->
+<!-- /END THE FEATURETTES -->
 </div>
