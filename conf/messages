@@ -510,7 +510,7 @@ event.mixit15.date=16 et 17 avril 2015
 event.mixit15.time=8H30-18H30
 
 # Sponsors
-sponsors.register=Vous voulez devenir un de nos sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202015]%%20Sponsoring">Contactez-nous</a>! Voici l'<a href="https://drive.google.com/file/d/0Bz7mGrhIjvKOQ0x1cTVBTmxFQW8/view?usp=sharing" title="Offre de sponsoring Mix-IT 2015">offre de sponsoring détaillée</a>.
+sponsors.register=Vous voulez devenir un de nos sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202015]%%20Sponsoring">Contactez-nous</a>! Voici l'<a href="https://drive.google.com/file/d/0B43BPeaKpurvYV93R3lXM3VYNjg/view?usp=sharing" title="Offre de sponsoring Mix-IT 2015">offre de sponsoring détaillée</a>.
 sponsors.forEvent=Sponsors de &{event.%s}
 sponsors.partners=Ils nous soutiennent
 sponsors.partners.mixit12.1=<p><a href="http://www.cloudbees.com/" target="blank"><img src="/public/images/logo-cloudbees.png" style="float: left; margin-right: 30px; max-width: 200px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>
