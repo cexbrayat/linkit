@@ -7,7 +7,8 @@ import play.jobs.Every;
  * Asynchronous "instant" notifications of new activities (actually, every 5 minutes...)
  * @author Sryl <cyril.lacote@gmail.com>
  */
-@Every("5min")
+// FIXME Restore notification after site migrated out of CloudBees
+// @Every("5min")
 public class JobNotificationsInstant extends BaseJobNotifications {
 
     public JobNotificationsInstant() {
