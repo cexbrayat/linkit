@@ -12,25 +12,14 @@ play deps --sync
 play run
 ````
 
-# Deploy on real environments
+# Deploy on Cloud Foundry
 
-## Deploy CloudBees TEST
+ * [Install the cf client](https://github.com/cloudfoundry/cli#downloads)
+ * `cf login -a https://api.run.pivotal.io`
+ * Clone the Git repository
+ * Retreive the `conf/secrets.conf`
+ * Eventually run `play deps --sync`
+ * `play war -o ../mixit.war`
+ * `cf push`
 
-````
-play evolutions:apply --%cloudbeestest
-play bees:app:deploy --%cloudbeestest
-````
-
-## Deploy CloudBees PROD
-
-If you're impacting DB with DDL SQL scripts, it's a good idea to take a snapshot of DB (to be able to restore it in case of dramatic failure) :
-
-- Go to https://grandcentral.cloudbees.com/
-- Log in
-- Choose "mixitdatabase" DB
-- Click (camera icon) "create snasphot"
-
-````
-play evolutions:apply --%cloudbees
-play bees:app:deploy --%cloudbees
-`````
+If you're impacting DB with DDL SQL scripts, it's a good idea to make a database export before.
