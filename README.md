@@ -18,8 +18,8 @@ That will create a H2 DB in memory, with default static data from `conf/init-dat
 
 - [Install the CloudFoundry client](https://github.com/cloudfoundry/cli#downloads)
 - `cf login -a https://api.run.pivotal.io`
-  - Choose PROD space.
-- Clone the Git repository
+    - Choose `production space.
+    - If space not chosen, you can do it later with cf target -s production`
 - Retrieve the `conf/secrets.conf`
 - Eventually run `play deps --sync`
 - `play war -o ../mixit.war --%cloudfoundry`
