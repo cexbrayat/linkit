@@ -98,8 +98,7 @@
         #{/list}
         #{if member.sharedLinks}
             #{list items:member.sharedLinks, as:'link'}
-                <a class="sharedLink" href="${link.URL}" rel="twipsy" title="${link.name}" target="_blank"><img
-                        src="https://getfavicon.appspot.com/${link.URL.urlEncode()}"/></a>
+                <a class="sharedLink" href="${link.URL}" rel="twipsy" title="${link.name}" target="_blank">#{favicon link.URL /}</a>
             #{/list}
         #{/if}
     </div>
