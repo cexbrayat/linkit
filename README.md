@@ -5,32 +5,26 @@ Runs only with [Play Framework 1.2.4](http://downloads.typesafe.com/releases/pla
 
 If you want to deploy on TEST or PROD environments, you need to get `conf/secrets.conf` file from us (ask gently).
 
-# Execution
+# Running locally
 
 ````
 play deps --sync
 play run
 ````
 
-# Deploy on real environments
+That will create a H2 DB in memory, with default static data from `conf/init-data.yml`, and programmatic dummy data from `app/controllers/PopulateOnStart.java`.
 
-## Deploy CloudBees TEST
+# Deploy on Cloud Foundry
 
-````
-play evolutions:apply --%cloudbeestest
-play bees:app:deploy --%cloudbeestest
-````
+- [Install the CloudFoundry client](https://github.com/cloudfoundry/cli#downloads)
+- `cf login -a https://api.run.pivotal.io`
+    - Choose `production space.
+    - If space not chosen, you can do it later with cf target -s production`
+- Retrieve the `conf/secrets.conf`
+- Eventually run `play deps --sync`
+- `play war -o ../mixit.war --%cloudfoundry`
+- `cf push`
 
-## Deploy CloudBees PROD
+App runs temporarily on http://mixit.cfapps.io/
 
-If you're impacting DB with DDL SQL scripts, it's a good idea to take a snapshot of DB (to be able to restore it in case of dramatic failure) :
-
-- Go to https://grandcentral.cloudbees.com/
-- Log in
-- Choose "mixitdatabase" DB
-- Click (camera icon) "create snasphot"
-
-````
-play evolutions:apply --%cloudbees
-play bees:app:deploy --%cloudbees
-`````
+If you're impacting DB with DDL SQL scripts, it's a good idea to make a database export before.

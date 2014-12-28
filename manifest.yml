@@ -1,0 +1,6 @@
+memory: 512M
+instances: 1
+buildpack: https://github.com/mix-it/java-buildpack.git
+applications:
+- name: mixit
+  path: ../mixit.war
