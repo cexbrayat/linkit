@@ -6,13 +6,13 @@
 <div class="row">
     <div class="col-md-12 hero-unit member-card">
         <div class="row">
-            <div class="col-md-2 col-xs-4 text-center h2-margins" >
+            <div class="col-md-2 col-xs-4 text-center h2-margins img-responsive" >
                 #{if _arg instanceof models.Sponsor}
-                    <img src="${_arg.logoUrl}" style="max-width: 100px; max-height: 100px" alt="Logo ${_arg}" />
+                    <img src="${_arg.logoUrl}" class="img-responsive" alt="Logo ${_arg}" />
                 #{/if}
                 #{else}
                     #{if _arg.email}
-                        #{gravatar.img _arg.email, size:100, default:'mm', rating:'pg', secure:true/}
+                        <img src="#{gravatar.url _arg.email, size:100, default:'mm', rating:'pg', secure:true/}" class="img-responsive" />
                     #{/if}
                 #{/else}
             </div>
