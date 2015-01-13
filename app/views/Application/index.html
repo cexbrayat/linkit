@@ -14,7 +14,7 @@
 
         var setVideoInPlaceHolder = function(){
             $('#mixit14VideoPlaceholder').html('<iframe style="width: 40em; height: 25em;" src="http://www.youtube.com/embed/1FO-FnhqfSA" frameborder="0" allowfullscreen></iframe>');
-        }
+        };
 
         if ( window.location.search.indexOf("showMixit14Video") !== -1 ) {
             setVideoInPlaceHolder();
@@ -130,12 +130,12 @@
         <div class="breaking">&{'home.breaking.tickets.open'}</div>
         #{/if}
 
-        *{ #{if soldOut }
+*{
+        #{if soldOut }
         <div class="breaking">&{'ticketing.soldout'}</div>
-        #{/if} }*
-
+        #{/if}
         <div class="breaking">&{'mixit.past.event'}</div>
-
+}*
         <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="60%"/>
         <div class="col-md-4 col-md-offset-8">
             <h3 itemprop="description">&{'mixit.slogan'}</h3>
@@ -158,13 +158,26 @@
         #{/if}
 
 
-        #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
-        <div style="text-align: center">
+        <div class="row" style="text-align: center">
             <div class="well col-sm-4 col-sm-offset-4">
-                <a href="@{Sessions.create(session.username)}" class="btn btn-lg btn-danger btn-block">&{'menu.agenda.submit'}</a>
+            #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
+                <a href="@{Sessions.create(session.username)}" class="btn btn-lg btn-primary btn-block">&{'menu.agenda.submit'}</a>
                 #{if session.username}
                 <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
-                #{/if}
+            #{/if}
+                <a href="http://www.youtube.com/embed/1FO-FnhqfSA" class="btn btn-lg btn-default btn-block hidden-lg" >&{'home.check-out.video.mixit14'}</a>
+                <button type="button" class="btn btn-default btn-lg btn-block visible-lg" data-toggle="modal" data-target="#mixit14VideoModal">
+                &{'home.check-out.video.mixit14'}
+                </button>
+                <div class="modal" id="mixit14VideoModal">
+                    <div class="modal-dialog" style="width: 40em; height: 22.5em;" >
+                        <div class="modal-content">
+                            <div class="modal-body" style="height: 0px; padding: 0;">
+                                <span id="mixit14VideoPlaceholder"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         #{/if}
@@ -186,27 +199,6 @@
         </div>
         }*
         #{/else}
-
-        <div style="text-align: center" >
-            <div class="well col-lg-4 col-lg-offset-4 visible-lg">
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#mixit14VideoModal">
-                    &{'home.check-out.video.mixit14'}
-                </button>
-                <div class="modal" id="mixit14VideoModal">
-                    <div class="modal-dialog" style="width: 40em; height: 22.5em;" >
-                        <div class="modal-content">
-                            <div class="modal-body" style="height: 0px; padding: 0;">
-                                <span id="mixit14VideoPlaceholder"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div style="text-align: center" class="hidden-lg">
-                <a href="http://www.youtube.com/embed/1FO-FnhqfSA" class="btn btn-info btn-lg" >&{'home.check-out.video.mixit14'}</a>
-            </div>
-        </div>
 
     </div>
 
