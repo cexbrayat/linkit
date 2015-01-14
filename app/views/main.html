@@ -67,11 +67,12 @@
         <ul class="nav navbar-nav">
             <li #{if request.controller=="Articles"}class="active"#{/if}><a
                     href="@{Articles.index()}">&{'menu.news'}</a></li>
-        *{
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.agenda'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
+*{
                     <li><a href="@{Sessions.index()}">&{'menu.agenda.sessions'}</a></li>
+}*
                     <li><a href="@{LightningTalks.list()}">&{'menu.agenda.lightningtalks'}</a></li>
                     #{if Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
                         #{if session.username}
@@ -79,13 +80,14 @@
                             <li><a href="@{Sessions.create(session.username)}">&{'menu.agenda.submit'}</a></li>
                         #{/if}
                     #{/if}
+*{
                     <li #{if request.action=="Sessions.currentPlanning"}class="active"#{/if}><a href="@{Sessions.currentPlanning}">Planning</a></li>
                     <li #{if request.action=="Sessions.mixteen"}class="active"#{/if}>
                         <a href="@{Sessions.mixteen()}">&{'menu.agenda.mixteen'}</a>
                     </li>
+}*
                 </ul>
             </li>
-        }*
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.members'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
