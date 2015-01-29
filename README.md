@@ -18,13 +18,13 @@ That will create a H2 DB in memory, with default static data from `conf/init-dat
 
 - [Install the CloudFoundry client](https://github.com/cloudfoundry/cli#downloads)
 - `cf login -a https://api.run.pivotal.io`
-    - Choose `production space.
-    - If space not chosen, you can do it later with cf target -s production`
+    - Choose `production` space.
+    - If space not chosen, you can do it later with `cf target -s production`
 - Retrieve the `conf/secrets.conf`
 - Eventually run `play deps --sync`
 - `play war -o ../mixit.war --%cloudfoundry`
 - `cf push`
 
-App runs temporarily on http://mixit.cfapps.io/
+App runs on http://mix-it.fr, which is a DNS alias for http://mixit.cfapps.io/
 
 If you're impacting DB with DDL SQL scripts, it's a good idea to make a database export before.
