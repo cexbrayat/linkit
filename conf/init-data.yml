@@ -716,6 +716,20 @@ Talk(talk13245):
     valid: true
     lang: fr
 
+Talk(talk2015_1):
+    event: mixit15
+    interests:
+        - java
+        - tdd
+    title: Une 3ème session
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - clacote
+        - cedric
+    valid: true
+    lang: fr
+
 LightningTalk(lt12):
     event: mixit13
     title: LT de test 2013

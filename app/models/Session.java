@@ -269,7 +269,7 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
                 "from Session s " +
                 "inner join s.speakers speaker " +
                 "inner join s.comments c " +
-                "where lower(c.content) like '%guest speaker%' " +
+                "where s.guest = true " +
                 "and s.event = ? " +
                 "and s.valid = true", event).fetch();
     }
