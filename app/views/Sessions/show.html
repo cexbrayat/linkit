@@ -75,7 +75,7 @@
                     #{/else}
 
                     #{if talk.guest}
-                        <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment merquer cette session comme non invité ?')) window.location='@{Sessions.markAsNotGuest(talk.id)}';">Retirer l'information 'invité'</a>
+                        <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment supprimer l\'information invité ?')) window.location='@{Sessions.markAsNotGuest(talk.id)}';">Retirer l'information 'invité'</a>
                     #{/if}
                     #{else}
                         <a class="btn btn-info" onclick="if (confirm('Voulez-vous vraiment marquer cette session comme invité ?')) window.location='@{Sessions.markAsGuest(talk.id)}';">Marquer comme invité</a>
