@@ -59,7 +59,7 @@
 
     #{secure.check models.Role.ADMIN_SESSION}
             <div class="alert alert-info">
-                <p><strong>Staff</strong></p>
+                <p><strong>Staff#{if talk.guest}&nbsp;-&nbsp;Speaker invité#{/if}</strong></p>
                 <p>Talk niveau : ${talk.level}</p>
                 #{if talk.valid}
                 <p>Invalider une session supprimera les éventuelles activités existantes sur cette session, mais pas les commentaires.</p>
@@ -242,6 +242,11 @@
                 #{/if}
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
+                        #{secure.check models.Role.ADMIN_SESSION}
+                            <div class="alert alert-info">
+                                #{if talk.guest}<p><strong>Attention: Ce speaker est invité</strong></p>#{/if}
+                            </div>
+                        #{/}
                         <input type="submit" class="btn btn-primary large" value="Poster votre commentaire"/>
                     </div>
                 </div>
