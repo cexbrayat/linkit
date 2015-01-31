@@ -33,6 +33,9 @@ public class Talk extends Session {
     @Column(nullable = true, length = 20)
     public TalkLevel level;
 
+    /** Is this session a guest session **/
+    public boolean guest;
+
     /** Markdown enabled */
     @Lob
     public String comment;
@@ -114,5 +117,15 @@ public class Talk extends Session {
                 .add("sessionId", this.id)
                 .add("slugify", this.title)
                 .url;
+    }
+
+    public void markAsGuest() {
+        this.guest = true;
+        save();
+    }
+
+    public void markAsNotGuest() {
+        this.guest = false;
+        save();
     }
 }

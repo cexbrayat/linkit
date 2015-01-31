@@ -59,19 +59,28 @@
 
     #{secure.check models.Role.ADMIN_SESSION}
             <div class="alert alert-info">
-                <p><strong>Staff</strong></p>
+                <p><strong>Staff#{if talk.guest}&nbsp;-&nbsp;Speaker invité#{/if}</strong></p>
                 <p>Talk niveau : ${talk.level}</p>
                 #{if talk.valid}
                 <p>Invalider une session supprimera les éventuelles activités existantes sur cette session, mais pas les commentaires.</p>
                 #{/if}
                 <div class='alert-actions'>
                     <a class="btn btn-primary" href="@{Sessions.edit(talk.id)}">Editer</a>
-                #{if talk.valid}
-                    <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment invalider cette session?')) window.location='@{Sessions.unvalidate(talk.id)}';">Invalider</a>
-                #{/if}
-                #{else}
-                    <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment valider cette session?')) window.location='@{Sessions.validate(talk.id)}';">Valider</a>
-                #{/else}
+
+                    #{if talk.valid}
+                        <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment invalider cette session?')) window.location='@{Sessions.unvalidate(talk.id)}';">Invalider</a>
+                    #{/if}
+                    #{else}
+                        <a class="btn btn-info" onclick="if (confirm('Voulez-vous vraiment valider cette session?')) window.location='@{Sessions.validate(talk.id)}';">Valider</a>
+                    #{/else}
+
+                    #{if talk.guest}
+                        <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment supprimer l\'information invité ?')) window.location='@{Sessions.markAsNotGuest(talk.id)}';">Retirer l'information 'invité'</a>
+                    #{/if}
+                    #{else}
+                        <a class="btn btn-info" onclick="if (confirm('Voulez-vous vraiment marquer cette session comme invité ?')) window.location='@{Sessions.markAsGuest(talk.id)}';">Marquer comme invité</a>
+                    #{/else}
+
                     <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment supprimer cette session?')) window.location='@{Sessions.delete(talk.id)}';">Supprimer</a>
                 </div>
             </div>
@@ -233,6 +242,11 @@
                 #{/if}
                 <div class="form-group">
                     <div class="col-md-10 col-md-offset-2">
+                        #{secure.check models.Role.ADMIN_SESSION}
+                            <div class="alert alert-info">
+                                #{if talk.guest}<p><strong>Attention: Ce speaker est invité</strong></p>#{/if}
+                            </div>
+                        #{/}
                         <input type="submit" class="btn btn-primary large" value="Poster votre commentaire"/>
                     </div>
                 </div>

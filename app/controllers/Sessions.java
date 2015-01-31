@@ -240,6 +240,24 @@ public class Sessions extends PageController {
         show(talkId, JavaExtensions.slugify(talk.title), true);
     }
 
+    public static void markAsGuest(long talkId) throws Throwable {
+        Talk talk = Talk.findById(talkId);
+        notFoundIfNull(talk);
+        checkWriteAccess(talk);
+
+        talk.markAsGuest();
+        show(talkId, JavaExtensions.slugify(talk.title), true);
+    }
+
+    public static void markAsNotGuest(long talkId) throws Throwable {
+        Talk talk = Talk.findById(talkId);
+        notFoundIfNull(talk);
+        checkWriteAccess(talk);
+
+        talk.markAsNotGuest();
+        show(talkId, JavaExtensions.slugify(talk.title), true);
+    }
+
     public static void feedback(long talkId, boolean feedback) throws Throwable {
         Talk talk = Talk.findById(talkId);
         notFoundIfNull(talk);
