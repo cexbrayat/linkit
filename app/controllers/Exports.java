@@ -16,12 +16,12 @@ public class Exports extends PageController {
     }
 
     public static void exportSessions() {
-        List<Talk> talks = Talk.find("valid = false and event = ? order by track, title", ConferenceEvent.CURRENT).fetch();
+        List<Talk> talks = Talk.find("valid = false and event = ? order by id", ConferenceEvent.CURRENT).fetch();
         render(talks);
     }
 
     public static void exportSessionsCSV() {
-        List<Session> sessions = Talk.find("event = ? order by format, title", ConferenceEvent.CURRENT).fetch();
+        List<Session> sessions = Talk.find("event = ? order by id", ConferenceEvent.CURRENT).fetch();
         renderTemplate("Exports/sessions.csv", sessions);
     }
 
