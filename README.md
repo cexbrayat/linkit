@@ -23,6 +23,7 @@ That will create a H2 DB in memory, with default static data from `conf/init-dat
 - Retrieve the `conf/secrets.conf`
 - Eventually run `play deps --sync`
 - `play war -o ../mixit.war --%cloudfoundry`
+- Eventually run `play evolutions:apply --%cloudfoundry`
 - `cf push`
 
 App runs on http://mix-it.fr, which is a DNS alias for http://mixit.cfapps.io/
