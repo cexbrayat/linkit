@@ -25,11 +25,15 @@ public class YurPlan {
     private static final String EVENT = Play.configuration.getProperty("yurplan.api.event");
 
     public static Calendar ticketSalesStartDate;
-    public static boolean soldOut = true;
+
+    private static final boolean SOLD_OUT = Boolean.valueOf(Play.configuration.getProperty("ticketing.sold-out", "false"));
+
+    // The old flag was set manually
+    public static boolean soldOut = SOLD_OUT;
 
     static {
         ticketSalesStartDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
-        ticketSalesStartDate.set(2014, Calendar.MARCH, 17, 15, 00, 00);
+        ticketSalesStartDate.set(2015, Calendar.MARCH, 16, 15, 00, 00);
     }
 
     /**

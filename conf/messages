@@ -573,6 +573,8 @@ cfp.speaking.io=N'hésitez pas à prendre conseil auprès des meilleurs&nbsp;: \
                 consacré à la réponse aux CFP</a>.
 cfp.action=Je suis prêt à soumettre&nbsp!
 
+warning.cfp-closed.only-for-guests=Attention, les soumissions publiques sont cloturées. Ce formulaire reste accessible uniquement pour les invités. Les sessions non invitées seront rejetées.
+
 activity.BuyTicketActivity=a acheté son billet!
 activity.CommentArticleActivity=a commenté l'article
 activity.showArticle=Consulter l'article

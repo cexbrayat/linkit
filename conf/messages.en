@@ -546,6 +546,8 @@ cfp.speaking.io=Take advice from the bests: \
                 about CFP writing</a>.
 cfp.action=Now I'm ready to submit!
 
+warning.cfp-closed.only-for-guests=Warning: public submissions are closed. This form stays accessible only to allow guest submissions. Non guest submissions will be rejected.
+
 activity.BuyTicketActivity=bought a ticket!
 activity.CommentArticleActivity=commented the article
 activity.showArticle=Show article
