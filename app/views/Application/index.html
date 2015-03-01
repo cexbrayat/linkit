@@ -123,19 +123,18 @@
 
 
         #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
-        <div class="breaking">&{'home.breaking.cfp.open'}</div>
+            <div class="breaking">&{'home.breaking.cfp.open'}</div>
         #{/if}
+        #{elseif ticketSales && ! soldOut }
+            <div class="breaking">&{'home.breaking.tickets.open'}</div>
+        #{/elseif}
+        #{elseif soldOut }
+            <div class="breaking">&{'ticketing.soldout'}</div>
+        #{/elseif}
+        #{else}
+            *{ <div class="breaking">&{'mixit.past.event'}</div> }*
+        #{/else}
 
-        #{if ticketSales && ! soldOut }
-        <div class="breaking">&{'home.breaking.tickets.open'}</div>
-        #{/if}
-
-*{
-        #{if soldOut }
-        <div class="breaking">&{'ticketing.soldout'}</div>
-        #{/if}
-        <div class="breaking">&{'mixit.past.event'}</div>
-}*
         <img src="@{'/public/images/logo-mixit.png'}" alt="Mix-IT" width="60%"/>
         <div class="col-md-4 col-md-offset-8">
             <h3 itemprop="description">&{'mixit.slogan'}</h3>
@@ -148,26 +147,27 @@
         <h2><span itemprop="startDate">&{'event.'+models.ConferenceEvent.CURRENT+'.date'}</span>. <span itemprop="location">Lyon,&nbsp;France</span>.</h2>
 
         #{if !ticketSales && !soldOut}
-        <div class="row">
-            <div class="col-sm-offset-1 col-sm-10" style="padding-top: 0px; color: grey;">
-                <div class="well text-center ">
-                    <h2 id="time-left-h2" style="margin: 5px;">&{'countdown'} <span id='time-left'></span></h2>
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10" style="padding-top: 0px; color: grey;">
+                    <div class="well text-center ">
+                        <h2 id="time-left-h2" style="margin: 5px;">&{'countdown'} <span id='time-left'></span></h2>
+                    </div>
                 </div>
             </div>
-        </div>
         #{/if}
 
 
         <div class="row" style="text-align: center">
             <div class="well col-sm-4 col-sm-offset-4">
-            #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
-                <a href="@{Sessions.create(session.username)}" class="btn btn-lg btn-primary btn-block">&{'menu.agenda.submit'}</a>
+                #{if java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
+                    <a href="@{Sessions.create(session.username)}" class="btn btn-lg btn-primary btn-block">&{'menu.agenda.submit'}</a>
+                #{/if}
                 #{if session.username}
-                <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
-            #{/if}
+                    <a href="@{LightningTalks.create()}" class="btn btn-lg btn-info btn-block">&{'lightningtalk.submit'}</a>
+                #{/if}
                 <a href="http://www.youtube.com/embed/1FO-FnhqfSA" class="btn btn-lg btn-default btn-block hidden-lg" >&{'home.check-out.video.mixit14'}</a>
                 <button type="button" class="btn btn-default btn-lg btn-block visible-lg" data-toggle="modal" data-target="#mixit14VideoModal">
-                &{'home.check-out.video.mixit14'}
+                    &{'home.check-out.video.mixit14'}
                 </button>
                 <div class="modal" id="mixit14VideoModal">
                     <div class="modal-dialog" style="width: 40em; height: 22.5em;" >
@@ -180,7 +180,6 @@
                 </div>
             </div>
         </div>
-        #{/if}
         #{else}
         *{
         <div style="text-align: center">
