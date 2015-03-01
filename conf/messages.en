@@ -38,6 +38,7 @@ menu.search=Search
 menu.login=Login
 menu.login.profile=See my profile
 menu.login.edit=Update my profile
+menu.login.editSpeakerConstraints=Update my constraints
 menu.login.trombinoscope=My attendees' gallery
 menu.login.settings=My settings
 menu.login.logout=Logout
@@ -288,6 +289,10 @@ profile.edit.interests.interests=Interests
 profile.edit.save=Save
 profile.edit.cancel=Cancel
 profile.edit.delete=Delete my account
+
+profile.editSpeakerConstraints.title=Update your speaker constraints.
+profile.editSpeakerConstraints.save=Save constraints
+profile.editSpeakerConstraints.cancel=Cancel
 
 # Members
 members.speakers.none=We are contacting our guest speakers, before opening our usual <em>Call For Paper</em>.
@@ -592,3 +597,37 @@ venue.access.by-plane.title=By plane
 venue.access.by-plane.details=<a target="_blank" href="http://www.lyonaeroports.com/">Saint-Exupéry airport</a> is the closest to Lyon. Thanks to the <a target="blank" href="http://www.rhonexpress.fr/">Rhône Express</a> train line (a train every 15 minutes), you are in the center of Lyon in about 30 minutes, at the Part-Dieu Station.
 venue.access.by-car.title=By car
 venue.access.by-car.details=Entre the following address in your GPS: <br> <strong> Rue Victor Grignard<br> Villeurbanne <br>France</strong>
+
+#speaker constraints
+speakerConstraints.transportation.legend=Transportation
+speakerConstraints.transportation.note=Connaitre votre moyen de transport et vos heures de départ/arrivée nous permet d'anticiper au mieux votre venue et d'améliorer votre accueil.
+
+constraints.transportationType=Type de transport
+enum.TransportationType.CAR=Car
+enum.TransportationType.PLANE=Plane
+enum.TransportationType.TRAIN=Train
+enum.TransportationType.OTHER=Other
+constraints.arrivalTime=Arrival date and time
+constraints.departureTime=Departure date and time
+constraints.arrivalPlace=Arrival place
+constraints.departurePlace=Departure place
+
+constraints.pickup=If you can do it, please pick me up (at the airport or train station)
+pickup.note=Wherever possible, Mix-IT staff tries to pick-up foreign speakers to enhance their Mix-IT experience.
+
+speakerConstraints.presence.legend=Presences
+speakerConstraints.presence.note=Knowing your presences, that's avoiding too much emails during planification; but also allow us to book the proper number of meals and hotel rooms.
+
+constraints.conference.dayMinusOne=Day D-1 (15 apr.)
+constraints.conference.day1=Day 1 (16 apr.)
+constraints.conference.day2=Day 2 (17 apr.)
+constraints.conference.am=Morning conferences
+constraints.conference.pm=Afternoon conferences
+constraints.dinner-party=Diner/Party
+constraints.hotel=Hotel
+
+
+speakerConstraints.other.legend=Additionnal details
+constraints.additionalHotelDetails=Additionnal hotel constraints
+constraints.additionalHotelDetails.note=Tell us here any hotel specific request (I'm coming with someone, I need air conditioning, allergies, ...)
+constraints.additionalDetails=Anything else ?

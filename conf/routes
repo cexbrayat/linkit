@@ -66,6 +66,7 @@ GET     /activities/{login}/{providers}         Activities.of
 # Profile
 POST    /profile/save/{originalLogin}           Profile.save
 GET     /profile/edit                           Profile.edit
+GET     /profile/editspeakerconstraints         Profile.editSpeakerConstraints
 GET     /profile/register/{login}/{provider}    Profile.register
 GET     /profile/link                           Profile.link
 GET     /profile/unlink                         Profile.unlink

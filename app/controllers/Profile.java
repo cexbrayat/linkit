@@ -5,6 +5,7 @@ import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.*;
+import play.db.jpa.JPABase;
 import play.i18n.Messages;
 import play.mvc.With;
 import play.templates.Template;
@@ -24,6 +25,15 @@ public class Profile extends PageController {
         Logger.info("Edition du profil " + member);
         String originalLogin = member.login;
         render(member, originalLogin);
+    }
+
+    public static void editSpeakerConstraints() {
+        Member member = Member.findByLogin(Security.connected());
+        if (member == null) Login.index(request.url);
+
+        Logger.info("Edition des contraintes du speaker " + member);
+        SpeakerConstaints constraints = SpeakerConstaints.find("bySpeakerAndEvent", member, ConferenceEvent.CURRENT).first();
+        render(constraints);
     }
 
     public static void register(String login, ProviderType provider) {
@@ -51,6 +61,18 @@ public class Profile extends PageController {
             result = "http://"+result;
         }
         return result;
+    }
+
+    public static void saveSpeakerConstraints(SpeakerConstaints constraints, boolean pickup) {
+        constraints.event = ConferenceEvent.CURRENT;
+        constraints.speaker = Member.findByLogin(Security.connected());
+
+        constraints.pickup = pickup;
+
+        constraints.save();
+
+        flash.success("Your constraints have been saved.");
+        Dashboard.index();
     }
     
     public static void save(
