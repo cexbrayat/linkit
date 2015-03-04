@@ -5,7 +5,6 @@ import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.data.validation.*;
-import play.db.jpa.JPABase;
 import play.i18n.Messages;
 import play.mvc.With;
 import play.templates.Template;
@@ -27,13 +26,13 @@ public class Profile extends PageController {
         render(member, originalLogin);
     }
 
-    public static void editSpeakerConstraints() {
+    public static void editSpeakerPreferences() {
         Member member = Member.findByLogin(Security.connected());
         if (member == null) Login.index(request.url);
 
         Logger.info("Edition des contraintes du speaker " + member);
-        SpeakerConstaints constraints = SpeakerConstaints.find("bySpeakerAndEvent", member, ConferenceEvent.CURRENT).first();
-        render(constraints);
+        SpeakerPreferences preferences = SpeakerPreferences.find("bySpeakerAndEvent", member, ConferenceEvent.CURRENT).first();
+        render(preferences);
     }
 
     public static void register(String login, ProviderType provider) {
@@ -63,15 +62,15 @@ public class Profile extends PageController {
         return result;
     }
 
-    public static void saveSpeakerConstraints(SpeakerConstaints constraints, boolean pickup) {
-        constraints.event = ConferenceEvent.CURRENT;
-        constraints.speaker = Member.findByLogin(Security.connected());
+    public static void saveSpeakerPreferences(SpeakerPreferences preferences, boolean pickup) {
+        preferences.event = ConferenceEvent.CURRENT;
+        preferences.speaker = Member.findByLogin(Security.connected());
 
-        constraints.pickup = pickup;
+        preferences.pickup = pickup;
 
-        constraints.save();
+        preferences.save();
 
-        flash.success("Your constraints have been saved.");
+        flash.success(Messages.get("preferences.saved"));
         Dashboard.index();
     }
     

@@ -37,7 +37,7 @@ menu.search=Rechercher
 menu.login=Se connecter
 menu.login.profile=Voir mon profil
 menu.login.edit=Editer mon profil
-menu.login.editSpeakerConstraints=Modifier mes préférences
+menu.login.editSpeakerPreferences=Modifier mes préférences
 menu.login.trombinoscope=Mon trombinoscope
 menu.login.settings=Mes préférences
 menu.login.logout=Se déconnecter
@@ -621,40 +621,44 @@ venue.access.by-plane.details=<a target="_blank" href="http://www.lyonaeroports.
 venue.access.by-car.title=En voiture
 venue.access.by-car.details=Entrez l'adresse suivante dans votre GPS :<br> <strong> Rue Victor Grignard<br> Villeurbanne </strong>
 
-#speaker constraints
-profile.editSpeakerConstraints.title=Modifier vos préférences speaker
-profile.editSpeakerConstraints.save=Sauvegarder les préférences
-profile.editSpeakerConstraints.cancel=Annuler
+#speaker preferences
+profile.editSpeakerPreferences.title=Modifier vos préférences speaker
+profile.editSpeakerPreferences.save=Sauvegarder les préférences
+profile.editSpeakerPreferences.cancel=Annuler
 
-speakerConstraints.transportation.legend=Transports
-speakerConstraints.transportation.note=Connaitre votre moyen de transport et vos heures de départ/arrivée nous permet d'anticiper au mieux votre venue et d'améliorer votre accueil.
+speakerPreferences.transportation.legend=Transports
+speakerPreferences.transportation.note=Connaitre votre moyen de transport et vos heures de départ/arrivée nous permet d'anticiper au mieux votre venue et d'améliorer votre accueil.
 
-constraints.transportationType=Type de transport
+preferences.transportationType=Type de transport
 enum.TransportationType.CAR=Voiture
 enum.TransportationType.PLANE=Avion
 enum.TransportationType.TRAIN=Train
 enum.TransportationType.OTHER=Autre
-constraints.arrivalTime=Date et heure d'arrivée
-constraints.departureTime=Date et heure de départ
-constraints.arrivalPlace=Lieu d'arrivée
-constraints.departurePlace=Lieu de départ
-constraints.pickup=Je souhaite qu'on vienne me chercher.
+preferences.arrivalTime=Date et heure d'arrivée
+preferences.arrivalTime.note=Format requis : dd/mm/yyyy hh:ss
+preferences.departureTime=Date et heure de départ
+preferences.departureTime.note=&{preferences.arrivalTime.note}
+preferences.arrivalPlace=Lieu d'arrivée
+preferences.departurePlace=Lieu de départ
+preferences.pickup=Je souhaite qu'on vienne me chercher.
 
-speakerConstraints.presence.legend=Présences
-speakerConstraints.presence.note=Connaitre vos présences c'est éviter les allers retours sur le travail de planification des sessions mais aussi nous permettre de réserver le bon nombre de repas et places aux soirées.
+speakerPreferences.presence.legend=Présences
+speakerPreferences.presence.note=Connaitre vos présences c'est éviter les allers retours sur le travail de planification des sessions mais aussi nous permettre de réserver le bon nombre de repas et places aux soirées.
 
-constraints.conference.dayMinusOne=Jour J-1 (15 avr.)
-constraints.conference.day1=Jour 1 (16 avr.)
-constraints.conference.day2=Jour 2 (17 avr.)
-constraints.conference.am=Conférence matin
-constraints.conference.pm=Conférence après-midi
-constraints.dinner-party=Diner/Soirée
-constraints.hotel=Hôtel
+preferences.conference.dayMinusOne=Jour J-1 (15 avr.)
+preferences.conference.day1=Jour 1 (16 avr.)
+preferences.conference.day2=Jour 2 (17 avr.)
+preferences.conference.am=Conférence matin
+preferences.conference.pm=Conférence après-midi
+preferences.dinner-party=Diner/Soirée
+preferences.hotel=Hôtel
 
 pickup.note=Dans la mesure du possible les orgas de Mix-IT vont chercher les speakers (en général étrangers) qui en ont besoin.
 
-speakerConstraints.other.legend=Détails supplémentaires
-constraints.additionalHotelDetails=Préférences supplémentaires hotel
-constraints.additionalHotelDetails.note=Saisissez ici toute demande ou contrainte supplémentaire par rapport à l'hotel (je viens avec mon conjoint, ma chambre doit être climatisée, je suis allergique aux plumes, ...)
-constraints.additionalDetails=Détails supplémentaires
-constraints.additionalDetails.note=Tout autre détail à ajouter.
+speakerPreferences.other.legend=Détails supplémentaires
+preferences.additionalHotelDetails=Préférences supplémentaires hotel
+preferences.additionalHotelDetails.note=Saisissez ici toute demande ou contrainte supplémentaire par rapport à l'hotel (je viens avec mon conjoint, ma chambre doit être climatisée, je suis allergique aux plumes, ...)
+preferences.additionalDetails=Détails supplémentaires
+preferences.additionalDetails.note=Tout autre détail à ajouter.
+
+preferences.saved=Vos préférences ont été sauvegardées.

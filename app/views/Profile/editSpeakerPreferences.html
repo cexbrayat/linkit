@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:messages.get('profile.editSpeakerConstraints.title') /}
+#{set title:messages.get('profile.editSpeakerPreferences.title') /}
 #{set 'moreScripts'}
     <!-- Requirements for managing form dirtiness
     <script src="@{'/public/javascripts/modal.js'}"></script>
@@ -9,21 +9,21 @@
 #{/set}
 
 <div class="page-header">
-    <h1>&{'profile.editSpeakerConstraints.title'}</h1>
+    <h1>&{'profile.editSpeakerPreferences.title'}</h1>
 </div>
 
-#{form @Profile.saveSpeakerConstraints()}
-    #{field 'constraints.id'}
-        <input id="${field.id}" name="${field.name}" type="hidden" value="${constraints?.id}" />
+#{form @Profile.saveSpeakerPreferences()}
+    #{field 'preferences.id'}
+        <input id="${field.id}" name="${field.name}" type="hidden" value="${preferences?.id}" />
     #{/}
 
     <fieldset>
-        <legend>&{'speakerConstraints.transportation.legend'}</legend>
-        <div>&{'speakerConstraints.transportation.note'}</div><br>
+        <legend>&{'speakerPreferences.transportation.legend'}</legend>
+        <div>&{'speakerPreferences.transportation.note'}</div><br>
 
         <div class="row">
             <div class="col-md-4">
-                #{field 'constraints.transportationType'}
+                #{field 'preferences.transportationType'}
                     <div class="clearfix ${field.error?'has-error':''}">
                         <label for="${field.id}">&{field.name}</label>
                         <div class="input">
@@ -41,13 +41,13 @@
             </div>
 
             <div class="col-md-3">
-                #{field 'constraints.arrivalTime'}
+                #{field 'preferences.arrivalTime'}
                     <div class="clearfix ${field.error?'has-error':''}">
                         <div class="form-group">
                             <label for="${field.name}">&{field.name}</label>
-                            <input type="datetime" class="form-control" id="${field.id}" name="${field.name}" value="${constraints?.arrivalTime}" />
+                            <input type="datetime" class="form-control" id="${field.id}" name="${field.name}" value="${preferences?.arrivalTime}" />
                             <span class="help-block">${field.error}</span>
-                           *{ <span class="help-block">&{field.name+'.note'}</span> }*
+                            <span class="help-block">&{field.name+'.note'}</span>
                         </div>
                     </div>
                     <!-- /clearfix -->
@@ -56,11 +56,11 @@
             </div>
 
             <div class="col-md-3">
-                #{field 'constraints.arrivalPlace'}
+                #{field 'preferences.arrivalPlace'}
                     <div class="clearfix ${field.error?'has-error':''}">
                         <div class="form-group">
                             <label for="${field.name}">&{field.name}</label>
-                            <input type="text" class="form-control" id="${field.id}" name="${field.name}" value="${constraints?.arrivalPlace}" />
+                            <input type="text" class="form-control" id="${field.id}" name="${field.name}" value="${preferences?.arrivalPlace}" />
                             <span class="help-block">${field.error}</span>
                             *{ <span class="help-block">&{field.name+'.note'}</span> }*
                         </div>
@@ -78,9 +78,9 @@
                 #{field 'pickup'}
                     <div class="clearfix ${field.error?'has-error':''}">
                         <div class="form-group">
-                            <label for="${field.name}">&{'constraints.'+field.name}</label>
+                            <label for="${field.name}">&{'preferences.'+field.name}</label>
                             <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if constraints?.pickup}checked#{/} />
+                                   #{if preferences?.pickup}checked#{/} />
                             <span class="help-block">${field.error}</span>
                             <span class="help-block">&{field.name+'.note'}</span>
                         </div>
@@ -90,13 +90,13 @@
             </div>
 
             <div class="col-md-3">
-                #{field 'constraints.departureTime'}
+                #{field 'preferences.departureTime'}
                     <div class="clearfix ${field.error?'has-error':''}">
                         <div class="form-group">
                             <label for="${field.name}">&{field.name}</label>
-                            <input type="datetime" class="form-control" id="${field.id}" name="${field.name}" value="${constraints?.departureTime}" />
+                            <input type="datetime" class="form-control" id="${field.id}" name="${field.name}" value="${preferences?.departureTime}" />
                             <span class="help-block">${field.error}</span>
-                           *{ <span class="help-block">&{field.name+'.note'}</span> }*
+                            <span class="help-block">&{field.name+'.note'}</span>
                         </div>
                     </div>
                     <!-- /clearfix -->
@@ -104,11 +104,11 @@
             </div>
 
             <div class="col-md-3">
-                #{field 'constraints.departurePlace'}
+                #{field 'preferences.departurePlace'}
                     <div class="clearfix ${field.error?'has-error':''}">
                         <div class="form-group">
                             <label for="${field.name}">&{field.name}</label>
-                            <input type="text" class="form-control" id="${field.id}" name="${field.name}" value="${constraints?.departurePlace}" />
+                            <input type="text" class="form-control" id="${field.id}" name="${field.name}" value="${preferences?.departurePlace}" />
                             <span class="help-block">${field.error}</span>
                            *{ <span class="help-block">&{field.name+'.note'}</span> }*
                         </div>
@@ -122,109 +122,109 @@
 
 
     <fieldset>
-        <legend>&{'speakerConstraints.presence.legend'}</legend>
-        <div>&{'speakerConstraints.presence.note'}</div><br>
+        <legend>&{'speakerPreferences.presence.legend'}</legend>
+        <div>&{'speakerPreferences.presence.note'}</div><br>
 
         <table class="table table-bordered text-center" style="">
             <tr>
                 <th>&nbsp;</th>
-                <th class="text-center">&{'constraints.conference.dayMinusOne'}</th>
-                <th class="text-center">&{'constraints.conference.day1'}</th>
-                <th class="text-center">&{'constraints.conference.day2'}</th>
+                <th class="text-center">&{'preferences.conference.dayMinusOne'}</th>
+                <th class="text-center">&{'preferences.conference.day1'}</th>
+                <th class="text-center">&{'preferences.conference.day2'}</th>
             </tr>
 
             <tr>
-                <th>&{'constraints.conference.am'}</th>
+                <th>&{'preferences.conference.am'}</th>
                 <td>&nbsp;</td>
                 <td>
-                    #{field 'constraints.presenceFirstAM'}
+                    #{field 'preferences.presenceFirstAM'}
                         <div class="form-group">
                             <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if constraints?.presenceFirstAM}checked#{/} />
+                                   #{if preferences?.presenceFirstAM}checked#{/} />
                         </div>
                     #{/}
                 </td>
                 <td>
-                    #{field 'constraints.presenceSecondAM'}
+                    #{field 'preferences.presenceSecondAM'}
                         <div class="form-group">
                             <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if constraints?.presenceSecondAM}checked#{/} />
+                                   #{if preferences?.presenceSecondAM}checked#{/} />
                         </div>
                     #{/}
                 </td>
             </tr>
 
             <tr>
-                <th>&{'constraints.conference.pm'}</th>
+                <th>&{'preferences.conference.pm'}</th>
                 <td>&nbsp;</td>
                 <td>
-                    #{field 'constraints.presenceFirstPM'}
+                    #{field 'preferences.presenceFirstPM'}
                         <div class="form-group">
                             <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if constraints?.presenceFirstPM}checked#{/} />
+                                   #{if preferences?.presenceFirstPM}checked#{/} />
                         </div>
                     #{/}
                 </td>
                 <td>
-                    #{field 'constraints.presenceSecondPM'}
+                    #{field 'preferences.presenceSecondPM'}
                         <div class="form-group">
                             <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if constraints?.presenceSecondPM}checked#{/} />
+                                   #{if preferences?.presenceSecondPM}checked#{/} />
                         </div>
                     #{/}
                 </td>
             </tr>
 
             <tr>
-                <th>&{'constraints.dinner-party'}</th>
+                <th>&{'preferences.dinner-party'}</th>
                 <td>
-                    #{field 'constraints.eveningBefore'}
+                    #{field 'preferences.eveningBefore'}
                         <div class="form-group">
                             <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if constraints?.eveningBefore}checked#{/}/>
+                                   #{if preferences?.eveningBefore}checked#{/}/>
                         </div>
                     #{/}
                 </td>
                 <td>
-                    #{field 'constraints.eveningDuring'}
+                    #{field 'preferences.eveningDuring'}
                         <div class="form-group">
                             <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if constraints?.eveningDuring}checked#{/}/>
+                                   #{if preferences?.eveningDuring}checked#{/}/>
                         </div>
                     #{/}
                 </td>
                 <td>
-                    #{field 'constraints.eveningAfter'}
+                    #{field 'preferences.eveningAfter'}
                         <div class="form-group">
                             <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if constraints?.eveningAfter}checked#{/} />
+                                   #{if preferences?.eveningAfter}checked#{/} />
                         </div>
                     #{/}
                 </td>
             </tr>
             <tr>
-                <th>&{'constraints.hotel'}</th>
+                <th>&{'preferences.hotel'}</th>
                 <td>
-                    #{field 'constraints.hotelNightBefore'}
+                    #{field 'preferences.hotelNightBefore'}
                         <div class="form-group">
                             <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if constraints?.hotelNightBefore}checked#{/} />
+                                   #{if preferences?.hotelNightBefore}checked#{/} />
                         </div>
                     #{/}
                 </td>
                 <td>
-                    #{field 'constraints.hotelNightDuring'}
+                    #{field 'preferences.hotelNightDuring'}
                         <div class="form-group">
                             <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if constraints?.hotelNightDuring}checked#{/} />
+                                   #{if preferences?.hotelNightDuring}checked#{/} />
                         </div>
                     #{/}
                 </td>
                 <td>
-                    #{field 'constraints.hotelNightAfter'}
+                    #{field 'preferences.hotelNightAfter'}
                         <div class="form-group">
                             <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if constraints?.hotelNightAfter}checked#{/} />
+                                   #{if preferences?.hotelNightAfter}checked#{/} />
                         </div>
                     #{/}
                 </td>
@@ -234,14 +234,14 @@
     </fieldset>
 
     <fieldset>
-        <legend>&{'speakerConstraints.other.legend'}</legend>
+        <legend>&{'speakerPreferences.other.legend'}</legend>
 
-        #{field 'constraints.additionalHotelDetails'}
+        #{field 'preferences.additionalHotelDetails'}
             <div class="clearfix ${field.error?'has-error':''}">
                 <div class="form-group">
                     <label for="${field.name}">&{field.name}</label>
                     <textarea class="form-control" id="${field.id}" name="${field.name}" size="30"
-                              rows="1">${constraints?.additionalHotelDetails}</textarea>
+                              rows="1">${preferences?.additionalHotelDetails}</textarea>
                     <span class="help-block">${field.error}</span>
                     <span class="help-block">&{field.name+'.note'}</span>
                 </div>
@@ -249,12 +249,12 @@
             <!-- /clearfix -->
         #{/}
 
-        #{field 'constraints.additionalDetails'}
+        #{field 'preferences.additionalDetails'}
             <div class="clearfix ${field.error?'has-error':''}">
                 <div class="form-group">
                     <label for="${field.name}">&{field.name}</label>
                     <textarea class="form-control" id="${field.id}" name="${field.name}" size="30"
-                              rows="1">${constraints?.additionalDetails}</textarea>
+                              rows="1">${preferences?.additionalDetails}</textarea>
                     <span class="help-block">${field.error}</span>
                 </div>
             </div>
@@ -263,8 +263,8 @@
     </fieldset>
 
     <div class="actions">
-        <input type="submit" class="btn btn-primary" value="&{'profile.editSpeakerConstraints.save'}"/>
-        <a href="@{Dashboard.index()}" class="btn btn-default">&{'profile.editSpeakerConstraints.cancel'}</a>
+        <input type="submit" class="btn btn-primary" value="&{'profile.editSpeakerPreferences.save'}"/>
+        <a href="@{Dashboard.index()}" class="btn btn-default">&{'profile.editSpeakerPreferences.cancel'}</a>
     </div>
 
 #{/form}

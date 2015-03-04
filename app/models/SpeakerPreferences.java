@@ -32,7 +32,7 @@ import play.modules.search.Field;
 @Table( uniqueConstraints = {
         @UniqueConstraint(name = "SpeakerEventUnique", columnNames = {"speaker_id", "event"})
 })
-public class SpeakerConstaints extends Model {
+public class SpeakerPreferences extends Model {
 
     public static final String EVENT = "event";
 
