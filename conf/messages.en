@@ -38,7 +38,7 @@ menu.search=Search
 menu.login=Login
 menu.login.profile=See my profile
 menu.login.edit=Update my profile
-menu.login.editSpeakerConstraints=Update my constraints
+menu.login.editSpeakerConstraints=Update my preferences
 menu.login.trombinoscope=My attendees' gallery
 menu.login.settings=My settings
 menu.login.logout=Logout
@@ -289,10 +289,6 @@ profile.edit.interests.interests=Interests
 profile.edit.save=Save
 profile.edit.cancel=Cancel
 profile.edit.delete=Delete my account
-
-profile.editSpeakerConstraints.title=Update your speaker constraints.
-profile.editSpeakerConstraints.save=Save constraints
-profile.editSpeakerConstraints.cancel=Cancel
 
 # Members
 members.speakers.none=We are contacting our guest speakers, before opening our usual <em>Call For Paper</em>.
@@ -599,10 +595,14 @@ venue.access.by-car.title=By car
 venue.access.by-car.details=Entre the following address in your GPS: <br> <strong> Rue Victor Grignard<br> Villeurbanne <br>France</strong>
 
 #speaker constraints
-speakerConstraints.transportation.legend=Transportation
-speakerConstraints.transportation.note=Connaitre votre moyen de transport et vos heures de départ/arrivée nous permet d'anticiper au mieux votre venue et d'améliorer votre accueil.
+profile.editSpeakerConstraints.title=Update your speaker preferences.
+profile.editSpeakerConstraints.save=Save preferences
+profile.editSpeakerConstraints.cancel=Cancel
 
-constraints.transportationType=Type de transport
+speakerConstraints.transportation.legend=Transportation
+speakerConstraints.transportation.note=Knowing your transportation details allow us to anticipate your arrival and facilitate our work.
+
+constraints.transportationType=Transportation type
 enum.TransportationType.CAR=Car
 enum.TransportationType.PLANE=Plane
 enum.TransportationType.TRAIN=Train
@@ -613,10 +613,10 @@ constraints.arrivalPlace=Arrival place
 constraints.departurePlace=Departure place
 
 constraints.pickup=If you can do it, please pick me up (at the airport or train station)
-pickup.note=Wherever possible, Mix-IT staff tries to pick-up foreign speakers to enhance their Mix-IT experience.
+pickup.note=Whenever possible, Mix-IT staff tries to pick-up foreign speakers to enhance their Mix-IT experience.
 
 speakerConstraints.presence.legend=Presences
-speakerConstraints.presence.note=Knowing your presences, that's avoiding too much emails during planification; but also allow us to book the proper number of meals and hotel rooms.
+speakerConstraints.presence.note=Knowing your presences, that's avoiding too much emails during planification; but also allowing us to book the proper number of meals and hotel rooms.
 
 constraints.conference.dayMinusOne=Day D-1 (15 apr.)
 constraints.conference.day1=Day 1 (16 apr.)
@@ -628,6 +628,6 @@ constraints.hotel=Hotel
 
 
 speakerConstraints.other.legend=Additionnal details
-constraints.additionalHotelDetails=Additionnal hotel constraints
+constraints.additionalHotelDetails=Additionnal hotel preferences
 constraints.additionalHotelDetails.note=Tell us here any hotel specific request (I'm coming with someone, I need air conditioning, allergies, ...)
 constraints.additionalDetails=Anything else ?

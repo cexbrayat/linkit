@@ -37,7 +37,7 @@ menu.search=Rechercher
 menu.login=Se connecter
 menu.login.profile=Voir mon profil
 menu.login.edit=Editer mon profil
-menu.login.editSpeakerConstraints=Modifier mes contraintes
+menu.login.editSpeakerConstraints=Modifier mes préférences
 menu.login.trombinoscope=Mon trombinoscope
 menu.login.settings=Mes préférences
 menu.login.logout=Se déconnecter
@@ -320,9 +320,6 @@ profile.edit.save=Enregistrer
 profile.edit.cancel=Annuler
 profile.edit.delete=Supprimer mon compte
 
-profile.editSpeakerConstraints.title=Modifier vos contraintes speaker
-profile.editSpeakerConstraints.save=Sauvegarder les contraintes
-profile.editSpeakerConstraints.cancel=Annuler
 
 # Session fields
 talks.description=Découvrez les descriptifs des sessions, et leur planning jour par jour.
@@ -625,6 +622,10 @@ venue.access.by-car.title=En voiture
 venue.access.by-car.details=Entrez l'adresse suivante dans votre GPS :<br> <strong> Rue Victor Grignard<br> Villeurbanne </strong>
 
 #speaker constraints
+profile.editSpeakerConstraints.title=Modifier vos préférences speaker
+profile.editSpeakerConstraints.save=Sauvegarder les préférences
+profile.editSpeakerConstraints.cancel=Annuler
+
 speakerConstraints.transportation.legend=Transports
 speakerConstraints.transportation.note=Connaitre votre moyen de transport et vos heures de départ/arrivée nous permet d'anticiper au mieux votre venue et d'améliorer votre accueil.
 
@@ -653,7 +654,7 @@ constraints.hotel=Hôtel
 pickup.note=Dans la mesure du possible les orgas de Mix-IT vont chercher les speakers (en général étrangers) qui en ont besoin.
 
 speakerConstraints.other.legend=Détails supplémentaires
-constraints.additionalHotelDetails=Contraintes supplémentaires hotel
+constraints.additionalHotelDetails=Préférences supplémentaires hotel
 constraints.additionalHotelDetails.note=Saisissez ici toute demande ou contrainte supplémentaire par rapport à l'hotel (je viens avec mon conjoint, ma chambre doit être climatisée, je suis allergique aux plumes, ...)
 constraints.additionalDetails=Détails supplémentaires
 constraints.additionalDetails.note=Tout autre détail à ajouter.
