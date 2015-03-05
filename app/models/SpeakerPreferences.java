@@ -34,11 +34,9 @@ import play.modules.search.Field;
 })
 public class SpeakerPreferences extends Model {
 
-    public static final String EVENT = "event";
-
-    @Column(name = EVENT, nullable = false, updatable = false, length = 10)
     @Enumerated(EnumType.STRING)
     @Required
+    @ManyToOne(optional = false)
     public ConferenceEvent event;
 
     @OneToOne
