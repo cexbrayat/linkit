@@ -30,9 +30,20 @@ public class Dashboard extends PageController {
         // Five recent comments
         List<Comment> comments = Comment.recentsByMember(member, 5);
 
-        render(member, setting, suggestedMembers, suggestedSessions, suggestedBadges, sessions, articles, comments);
+        boolean hasValidSessionOnCurrentEvent = hasValidSessionOnCurrentEvent(sessions);
+
+        render(member, setting, suggestedMembers, suggestedSessions, suggestedBadges, sessions, articles, comments, hasValidSessionOnCurrentEvent);
     }
-    
+
+    private static boolean hasValidSessionOnCurrentEvent(List<Session> sessions) {
+        for (Session session : sessions) {
+            if (session.valid ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void badges() {
         Member member = Member.findByLogin(Security.connected());
         Set<Badge> suggestedBadges = Suggestion.missingBadgesFor(member);

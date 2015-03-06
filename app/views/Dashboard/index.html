@@ -39,7 +39,7 @@
 </div><br/>
 <div class="row text-center">
     <a href="@{Profile.edit()}" class="btn btn-primary">&{'menu.login.edit'}</a>
-    #{if sessions.findAll{ s -> s.valid } }
+    #{if hasValidSessionOnCurrentEvent }
         <a href="@{Profile.editSpeakerPreferences()}" class="btn btn-primary">&{'menu.login.editSpeakerPreferences'}</a>
     #{/if}
 </div>
