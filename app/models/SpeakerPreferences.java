@@ -36,7 +36,6 @@ public class SpeakerPreferences extends Model {
 
     @Enumerated(EnumType.STRING)
     @Required
-    @ManyToOne(optional = false)
     public ConferenceEvent event;
 
     @OneToOne
