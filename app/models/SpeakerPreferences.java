@@ -1,25 +1,11 @@
 package models;
 
-import com.google.common.base.Function;
-import com.google.common.base.Predicate;
-import controllers.Application;
-import controllers.Mails;
-import java.util.*;
-import javax.annotation.Nullable;
-import javax.persistence.*;
-import models.activity.Activity;
-import models.activity.CommentSessionActivity;
-import models.activity.LookSessionActivity;
-import models.activity.UpdateSessionActivity;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.builder.CompareToBuilder;
-import org.joda.time.LocalDateTime;
-import play.Logger;
-import play.data.validation.MaxSize;
+import models.dto.SpeakerPreferencesDTO;
 import play.data.validation.Required;
 import play.db.jpa.Model;
-import play.modules.search.Field;
-import play.modules.search.Field;
+
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -63,9 +49,6 @@ public class SpeakerPreferences extends Model {
     public String departurePlace;
 
     @Column
-    public boolean pickup;
-
-    @Column
     public boolean eveningBefore;
 
     @Column
@@ -97,5 +80,24 @@ public class SpeakerPreferences extends Model {
     public boolean presenceSecondPM;
 
 
+    public void updateFromDTO(SpeakerPreferencesDTO preferences) {
+        additionalDetails  = preferences.additionalDetails;
+        transportationType   = preferences. transportationType;
+        arrivalTime      = preferences. arrivalTime;
+        arrivalPlace = preferences. arrivalPlace;
+        departureTime  = preferences. departureTime;
+        departurePlace   = preferences. departurePlace;
+        eveningBefore   = preferences. eveningBefore;
+        eveningDuring  = preferences. eveningDuring;
+        eveningAfter     = preferences. eveningAfter;
+        hotelNightBefore     = preferences. hotelNightBefore;
+        hotelNightDuring     = preferences. hotelNightDuring;
+        hotelNightAfter    = preferences. hotelNightAfter;
+        additionalHotelDetails   = preferences. additionalHotelDetails;
+        presenceFirstAM   = preferences. presenceFirstAM;
+        presenceFirstPM   = preferences. presenceFirstPM;
+        presenceSecondAM  = preferences. presenceSecondAM;
+        presenceSecondPM   = preferences. presenceSecondPM;
 
+    }
 }

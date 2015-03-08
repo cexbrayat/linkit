@@ -75,18 +75,6 @@
         <div class="row">
 
             <div class="col-md-4">
-                #{field 'pickup'}
-                    <div class="clearfix ${field.error?'has-error':''}">
-                        <div class="form-group">
-                            <label for="${field.name}">&{'preferences.'+field.name}</label>
-                            <input type="checkbox" class="form-control" id="${field.id}" name="${field.name}"
-                                   #{if preferences?.pickup}checked#{/} />
-                            <span class="help-block">${field.error}</span>
-                            <span class="help-block">&{field.name+'.note'}</span>
-                        </div>
-                    </div>
-                    <!-- /clearfix -->
-                #{/}
             </div>
 
             <div class="col-md-3">

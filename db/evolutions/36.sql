@@ -10,7 +10,6 @@ create table `speakerpreferences` (
   `departureTime` datetime DEFAULT NULL,
   `arrivalPlace` varchar(255) DEFAULT NULL,
   `departurePlace` varchar(255) DEFAULT NULL,
-  `pickup` bit default false,
   `eveningBefore` bit default false,
   `eveningDuring` bit default false,
   `eveningAfter` bit default false,
