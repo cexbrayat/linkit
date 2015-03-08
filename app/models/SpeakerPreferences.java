@@ -38,13 +38,12 @@ public class SpeakerPreferences extends Model {
     @Required
     public ConferenceEvent event;
 
-    @OneToOne
     @Required
+    @ManyToOne(optional = false)
     public Member speaker;
 
     @Column
     @Lob
-    @Field
     public String additionalDetails;
 
     @Column
@@ -85,6 +84,7 @@ public class SpeakerPreferences extends Model {
     public boolean hotelNightAfter;
 
     @Column
+    @Lob
     public String additionalHotelDetails;
 
     @Column
