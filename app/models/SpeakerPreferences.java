@@ -79,6 +79,9 @@ public class SpeakerPreferences extends Model {
     @Column
     public boolean presenceSecondPM;
 
+    @Column
+    public Date lastEditTime;
+
 
     public void updateFromDTO(SpeakerPreferencesDTO preferences) {
         additionalDetails  = preferences.additionalDetails;
@@ -99,5 +102,10 @@ public class SpeakerPreferences extends Model {
         presenceSecondAM  = preferences. presenceSecondAM;
         presenceSecondPM   = preferences. presenceSecondPM;
 
+    }
+
+    @PrePersist
+    public void updateLastEditTime() {
+        lastEditTime = new Date();
     }
 }

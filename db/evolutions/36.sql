@@ -20,6 +20,7 @@ create table `speakerpreferences` (
   `presenceFirstPM` bit default false,
   `presenceSecondAM` bit default false,
   `presenceSecondPM` bit default false,
+  `lastEditTime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `speaker_event_UK` (`event`,`speaker_id`),
   KEY `speaker_FK` (`speaker_id`),
