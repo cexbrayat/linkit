@@ -36,6 +36,7 @@ public class SpeakerPreferences extends Model {
     @Enumerated(EnumType.STRING)
     public TransportationType transportationType;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column
     public Date arrivalTime;
 
@@ -43,6 +44,7 @@ public class SpeakerPreferences extends Model {
     public String arrivalPlace;
 
     @Column
+    @Temporal(TemporalType.TIMESTAMP)
     public Date departureTime;
 
     @Column
@@ -80,6 +82,7 @@ public class SpeakerPreferences extends Model {
     public boolean presenceSecondPM;
 
     @Column
+    @Temporal(TemporalType.TIMESTAMP)
     public Date lastEditTime;
 
 
