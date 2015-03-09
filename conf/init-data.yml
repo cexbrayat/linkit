@@ -294,6 +294,8 @@ Staff(philippe) :
     badges:
          - Staff
          - Attendee
+    links:
+         - clacote
     publicProfile: true
 
 TwitterAccount(philippeTwitter):
@@ -416,7 +418,7 @@ Sponsor(zenika):
          - Sponsor
     level: SILVER
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 TwitterAccount(zenikaTwitter):
@@ -452,7 +454,7 @@ Sponsor(github):
          - Sponsor
     level: GOLD
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Sponsor(Gold2):
@@ -466,7 +468,7 @@ Sponsor(Gold2):
          - Sponsor
     level: GOLD
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Sponsor(Silver1):
@@ -480,7 +482,7 @@ Sponsor(Silver1):
          - Sponsor
     level: SILVER
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Sponsor(Silver2):
@@ -494,7 +496,7 @@ Sponsor(Silver2):
          - Sponsor
     level: SILVER
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Sponsor(Silver3):
@@ -508,7 +510,7 @@ Sponsor(Silver3):
          - Sponsor
     level: SILVER
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Sponsor(Silver4):
@@ -522,7 +524,7 @@ Sponsor(Silver4):
          - Sponsor
     level: SILVER
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Sponsor(Silver5):
@@ -536,7 +538,7 @@ Sponsor(Silver5):
          - Sponsor
     level: SILVER
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Sponsor(Bronze1):
@@ -550,7 +552,7 @@ Sponsor(Bronze1):
          - Sponsor
     level: BRONZE
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Sponsor(Bronze2):
@@ -564,7 +566,7 @@ Sponsor(Bronze2):
          - Sponsor
     level: BRONZE
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Sponsor(Bronze3):
@@ -578,7 +580,7 @@ Sponsor(Bronze3):
          - Sponsor
     level: BRONZE
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Sponsor(Bronze4):
@@ -592,7 +594,7 @@ Sponsor(Bronze4):
          - Sponsor
     level: BRONZE
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Sponsor(Bronze5):
@@ -606,7 +608,7 @@ Sponsor(Bronze5):
          - Sponsor
     level: BRONZE
     events:
-         - mixit14
+         - mixit15
     publicProfile: true
 
 Talk(talk1-2012):
@@ -664,7 +666,7 @@ Talk(talk2):
     valid: false
 
 Talk(talk131):
-    event: mixit14
+    event: mixit15
     title: Une session de test 2014
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
@@ -674,7 +676,7 @@ Talk(talk131):
     valid: false
 
 Talk(talk132):
-    event: mixit14
+    event: mixit15
     track: Gamy
     interests:
         - java
@@ -689,7 +691,7 @@ Talk(talk132):
     lang: fr
 
 Talk(talk1324):
-    event: mixit14
+    event: mixit15
     interests:
         - java
         - tdd
@@ -703,7 +705,7 @@ Talk(talk1324):
     lang: fr
 
 Talk(talk13245):
-    event: mixit14
+    event: mixit15
     interests:
         - java
         - tdd
@@ -747,7 +749,7 @@ LightningTalk(lt12b):
         - cedric
 
 LightningTalk(lt13):
-    event: mixit14
+    event: mixit15
     title: LT de test 2014
     summary: Un LT 2014
     description: Un LT 2014.
