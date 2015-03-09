@@ -5,6 +5,7 @@ import play.data.validation.Required;
 import play.db.jpa.Model;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -19,6 +20,7 @@ import java.util.Date;
         @UniqueConstraint(name = "SpeakerEventUnique", columnNames = {"speaker_id", "event"})
 })
 public class SpeakerPreferences extends Model {
+
 
     @Enumerated(EnumType.STRING)
     @Required
@@ -36,16 +38,14 @@ public class SpeakerPreferences extends Model {
     @Enumerated(EnumType.STRING)
     public TransportationType transportationType;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column
-    public Date arrivalTime;
+    public String arrivalTime;
 
     @Column
     public String arrivalPlace;
 
     @Column
-    @Temporal(TemporalType.TIMESTAMP)
-    public Date departureTime;
+    public String departureTime;
 
     @Column
     public String departurePlace;
@@ -87,28 +87,38 @@ public class SpeakerPreferences extends Model {
 
 
     public void updateFromDTO(SpeakerPreferencesDTO preferences) {
-        additionalDetails  = preferences.additionalDetails;
-        transportationType   = preferences. transportationType;
-        arrivalTime      = preferences. arrivalTime;
-        arrivalPlace = preferences. arrivalPlace;
-        departureTime  = preferences. departureTime;
-        departurePlace   = preferences. departurePlace;
-        eveningBefore   = preferences. eveningBefore;
-        eveningDuring  = preferences. eveningDuring;
-        eveningAfter     = preferences. eveningAfter;
-        hotelNightBefore     = preferences. hotelNightBefore;
-        hotelNightDuring     = preferences. hotelNightDuring;
-        hotelNightAfter    = preferences. hotelNightAfter;
-        additionalHotelDetails   = preferences. additionalHotelDetails;
-        presenceFirstAM   = preferences. presenceFirstAM;
-        presenceFirstPM   = preferences. presenceFirstPM;
-        presenceSecondAM  = preferences. presenceSecondAM;
-        presenceSecondPM   = preferences. presenceSecondPM;
+        additionalDetails = preferences.additionalDetails;
+        transportationType = preferences.transportationType;
+        arrivalTime = preferences.arrivalTime;
+        arrivalPlace = preferences.arrivalPlace;
+        departureTime = preferences.departureTime;
+        departurePlace = preferences.departurePlace;
+        eveningBefore = preferences.eveningBefore;
+        eveningDuring = preferences.eveningDuring;
+        eveningAfter = preferences.eveningAfter;
+        hotelNightBefore = preferences.hotelNightBefore;
+        hotelNightDuring = preferences.hotelNightDuring;
+        hotelNightAfter = preferences.hotelNightAfter;
+        additionalHotelDetails = preferences.additionalHotelDetails;
+        presenceFirstAM = preferences.presenceFirstAM;
+        presenceFirstPM = preferences.presenceFirstPM;
+        presenceSecondAM = preferences.presenceSecondAM;
+        presenceSecondPM = preferences.presenceSecondPM;
 
     }
 
     @PrePersist
     public void updateLastEditTime() {
         lastEditTime = new Date();
+    }
+
+    public String getArrivalTimeStr(String dateFormat) {
+        final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(dateFormat);
+        return SIMPLE_DATE_FORMAT.format(arrivalTime);
+    }
+
+    public String getDepartureTimeStr(String dateFormat) {
+        final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(dateFormat);
+        return SIMPLE_DATE_FORMAT.format(departureTime);
     }
 }
