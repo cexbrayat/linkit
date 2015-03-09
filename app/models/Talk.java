@@ -1,5 +1,6 @@
 package models;
 
+import com.google.common.collect.Lists;
 import models.activity.Activity;
 import models.activity.CommentSessionActivity;
 import models.activity.NewTalkActivity;
@@ -69,7 +70,10 @@ public class Talk extends Session {
     }
 
     public static List<Member> findFailedSpeakersOn(ConferenceEvent event) {
-        return find("select distinct s from Talk t inner join t.speakers s where t.valid=false and t.event = ? order by s.lastname", event).fetch();
+        List<Member> failed = find("select distinct s from Talk t inner join t.speakers s where t.valid=false and t.event = ? order by s.lastname", event).fetch();
+        List<Member> noSuccesses = Lists.newArrayList(failed);
+        noSuccesses.removeAll(findAllSpeakersOn(event));
+        return noSuccesses;
     }
 
     public static List<Talk> findAllValidatedOn(ConferenceEvent event) {
