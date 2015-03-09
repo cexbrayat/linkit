@@ -30,12 +30,6 @@ public abstract class AbstractMemberJsonSerializer {
         result.addProperty("urlimage", member.getUrlImage());
         result.addProperty("nbConsults", member.nbConsults);
 
-        if (CollectionUtils.size(member.links) != 0) {
-            result.add("links", JSON.toJsonArrayOfIds(member.links));
-        }
-        if (CollectionUtils.size(member.linkers) != 0) {
-            result.add("linkers", JSON.toJsonArrayOfIds(member.linkers));
-        }
         if (CollectionUtils.size(member.sharedLinks) != 0) {
             result.add("sharedLinks", jsonSerializationContext.serialize(member.sharedLinks));
         }
