@@ -89,18 +89,18 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">&{'menu.members'} <b class="caret"></b></a>
                 <ul class="dropdown-menu">
-         *{
                     <li #{if request.action=="Application.speakers"}class="active"#{/if}><a
                             href="@{Application.speakers()}">&{'menu.members.speakers'}</a></li>
+         *{
                 #{if session.username}
                     <li #{if request.controller=="Profile" || request.action=="Application.members"}class="active"#{/if}>
                         <a href="@{Application.members()}">&{'menu.members.all'}</a></li>
                 #{/if}
         }*
-                    <li #{if request.action=="Application.staff"}class="active"#{/if}><a
-                            href="@{Application.staff()}">&{'menu.members.staff'}</a></li>
                     <li #{if request.action=="Application.sponsors"}class="active"#{/if}><a
                             href="@{Application.sponsors()}">&{'menu.members.sponsors'}</a></li>
+                    <li #{if request.action=="Application.staff"}class="active"#{/if}><a
+                            href="@{Application.staff()}">&{'menu.members.staff'}</a></li>
                 </ul>
             </li>
             <li class="dropdown">
