@@ -30,6 +30,11 @@ public class Exports extends PageController {
         renderTemplate("Exports/members.csv", members);
     }
 
+    public static void exportFailedSpeakers() {
+        List<Member> members = Talk.findFailedSpeakersOn(ConferenceEvent.CURRENT);
+        renderTemplate("Exports/members.csv", members);
+    }
+
     public static void exportSpeakersWorkshop() {
         List<Member> members = Talk.findAllSpeakersOf(TalkFormat.Workshop);
         renderTemplate("Exports/members.csv", members);
