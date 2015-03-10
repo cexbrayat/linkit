@@ -37,6 +37,7 @@ menu.search=Rechercher
 menu.login=Se connecter
 menu.login.profile=Voir mon profil
 menu.login.edit=Editer mon profil
+menu.login.editSpeakerPreferences=Modifier mes préférences
 menu.login.trombinoscope=Mon trombinoscope
 menu.login.settings=Mes préférences
 menu.login.logout=Se déconnecter
@@ -318,6 +319,7 @@ profile.edit.interests.interests=Intérêts
 profile.edit.save=Enregistrer
 profile.edit.cancel=Annuler
 profile.edit.delete=Supprimer mon compte
+
 
 # Session fields
 talks.description=Découvrez les descriptifs des sessions, et leur planning jour par jour.
@@ -620,3 +622,46 @@ venue.access.by-plane.title=En avion
 venue.access.by-plane.details=<a target="_blank" href="http://www.lyonaeroports.com/">L'aéroport de Saint-Exupéry</a> est l'aéroport le plus proche de lyon. Grâce à la ligne de train express <a target="blank" href="http://www.rhonexpress.fr/">Rhône Express</a> (un train toutes les 15 minutes), vous êtes en 30 minutes au centre de Lyon, à la Gare Part-Dieu.
 venue.access.by-car.title=En voiture
 venue.access.by-car.details=Entrez l'adresse suivante dans votre GPS :<br> <strong> Rue Victor Grignard<br> Villeurbanne </strong>
+
+#speaker preferences
+profile.editSpeakerPreferences.title=Modifier vos préférences speaker
+profile.editSpeakerPreferences.save=Sauvegarder les préférences
+profile.editSpeakerPreferences.cancel=Annuler
+
+speakerPreferences.transportation.legend=Transports
+speakerPreferences.transportation.note=Connaitre votre moyen de transport et vos heures de départ/arrivée nous permet d'anticiper au mieux votre venue et d'améliorer votre accueil.
+
+preferences.transportationType=Type de transport
+enum.TransportationType.CAR=Voiture
+enum.TransportationType.PLANE=Avion
+enum.TransportationType.TRAIN=Train
+enum.TransportationType.OTHER=Autre
+preferences.arrivalTime=Date et heure d'arrivée
+datetime.format=dd/MM/yyyy hh:mm
+preferences.arrivalTime.note=Format requis : &{datetime.format}
+preferences.departureTime=Date et heure de départ
+preferences.departureTime.note=&{preferences.arrivalTime.note}
+preferences.arrivalPlace=Lieu d'arrivée
+preferences.departurePlace=Lieu de départ
+preferences.pickup=Je souhaite qu'on vienne me chercher.
+
+speakerPreferences.presence.legend=Présences
+speakerPreferences.presence.note=Connaitre vos présences c'est éviter les allers retours sur le travail de planification des sessions mais aussi nous permettre de réserver le bon nombre de repas et places aux soirées.
+
+preferences.conference.dayMinusOne=Jour J-1 (15 avr.)
+preferences.conference.day1=Jour 1 (16 avr.)
+preferences.conference.day2=Jour 2 (17 avr.)
+preferences.conference.am=Conférence matin
+preferences.conference.pm=Conférence après-midi
+preferences.dinner-party=Diner/Soirée
+preferences.hotel=Hôtel
+
+pickup.note=Dans la mesure du possible les orgas de Mix-IT vont chercher les speakers (en général étrangers) qui en ont besoin.
+
+speakerPreferences.other.legend=Détails supplémentaires
+preferences.additionalHotelDetails=Préférences supplémentaires hotel
+preferences.additionalHotelDetails.note=Saisissez ici toute demande ou contrainte supplémentaire par rapport à l'hotel (je viens avec mon conjoint, ma chambre doit être climatisée, je suis allergique aux plumes, ...)
+preferences.additionalDetails=Détails supplémentaires
+preferences.additionalDetails.note=Tout autre détail à ajouter.
+
+preferences.saved=Vos préférences ont été sauvegardées.

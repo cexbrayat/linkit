@@ -38,6 +38,7 @@ menu.search=Search
 menu.login=Login
 menu.login.profile=See my profile
 menu.login.edit=Update my profile
+menu.login.editSpeakerPreferences=Update my preferences
 menu.login.trombinoscope=My attendees' gallery
 menu.login.settings=My settings
 menu.login.logout=Logout
@@ -594,3 +595,46 @@ venue.access.by-plane.title=By plane
 venue.access.by-plane.details=<a target="_blank" href="http://www.lyonaeroports.com/">Saint-Exupéry airport</a> is the closest to Lyon. Thanks to the <a target="blank" href="http://www.rhonexpress.fr/">Rhône Express</a> train line (a train every 15 minutes), you are in the center of Lyon in about 30 minutes, at the Part-Dieu Station.
 venue.access.by-car.title=By car
 venue.access.by-car.details=Entre the following address in your GPS: <br> <strong> Rue Victor Grignard<br> Villeurbanne <br>France</strong>
+
+#speaker preferences
+profile.editSpeakerPreferences.title=Update your speaker preferences.
+profile.editSpeakerPreferences.save=Save preferences
+profile.editSpeakerPreferences.cancel=Cancel
+
+speakerPreferences.transportation.legend=Transportation
+speakerPreferences.transportation.note=Knowing your transportation details allow us to anticipate your arrival and facilitate our work.
+
+preferences.transportationType=Transportation type
+enum.TransportationType.CAR=Car
+enum.TransportationType.PLANE=Plane
+enum.TransportationType.TRAIN=Train
+enum.TransportationType.OTHER=Other
+preferences.arrivalTime=Arrival date and time
+datetime.format=yyyy/MM/dd hh:mm
+preferences.arrivalTime.note=Requested format: &{datetime.format}
+preferences.departureTime=Departure date and time
+preferences.departureTime.note=&{preferences.arrivalTime.note}
+preferences.arrivalPlace=Arrival place
+preferences.departurePlace=Departure place
+
+preferences.pickup=If you can do it, please pick me up (at the airport or train station)
+pickup.note=Whenever possible, Mix-IT staff tries to pick-up foreign speakers to enhance their Mix-IT experience.
+
+speakerPreferences.presence.legend=Presences
+speakerPreferences.presence.note=Knowing your presences, that's avoiding too much emails during planification; but also allowing us to book the proper number of meals and hotel rooms.
+
+preferences.conference.dayMinusOne=Day D-1 (15 apr.)
+preferences.conference.day1=Day 1 (16 apr.)
+preferences.conference.day2=Day 2 (17 apr.)
+preferences.conference.am=Morning conferences
+preferences.conference.pm=Afternoon conferences
+preferences.dinner-party=Diner/Party
+preferences.hotel=Hotel
+
+
+speakerPreferences.other.legend=Additionnal details
+preferences.additionalHotelDetails=Additionnal hotel preferences
+preferences.additionalHotelDetails.note=Tell us here any hotel specific request (I'm coming with someone, I need air conditioning, allergies, ...)
+preferences.additionalDetails=Anything else ?
+
+preferences.saved=Your preferences have been saved.

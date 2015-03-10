@@ -729,6 +729,7 @@ Talk(talk2015_1):
     speakers:
         - clacote
         - cedric
+        - mpetitdant
     valid: true
     lang: fr
 
