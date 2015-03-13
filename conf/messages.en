@@ -206,9 +206,11 @@ faq.login.question=Why create an account on the Mix-IT Website?
 faq.login.answer=See <a href="%s">the login page</a> to understand the interest of the social side of the Website!
 faq.registration.question=How to buy my ticket?
 faq.registration.answer=See <a href="%s">the registration page</a> to buy my ticket.
-faq.dif.question=
-faq.dif.answer=
-faq.gravatar.question=How to change my profil image?
+faq.dif.question=Est-il possible de participer à Mix-IT au titre de la formation ?
+faq.dif.answer=Cette année ce sera notre sponsor <a href="/profile/VISEO">Viseo</a> qui gèrera cet aspect. Ce partenaire vous fera signer chaque jour sur place une feuille de présence et vous remettra une attestation de formation. Lors de l'achat de vos places, une case à cocher vous permettra d'indiquer cette volonté. Nous vous invitons à <a href="mailto:mix-it@viseo.com">vous rapprocher de notre partenaire</a> pour toute question relative à ce sujet.
+faq.cpf.question=Est-il possible d'utiliser mon CPF pour m'inscrire à Mix-IT ?
+faq.cpf.answer=Mix-IT n'est pas recensée dans le référentiel des formations éligibles à l'utilisation de votre Compte Personnel de Formation (CPF). Néanmoins, notre partenaire <a href="/profile/VISEO">Viseo</a> vous délivrera sur place une attestation de formation rendant possible l'inscription au titre de la formation professionnelle. Nous vous invitons à <a href="mailto:mix-it@viseo.com">vous rapprocher de notre partenaire</a> pour toute question relative à ce sujet.
+faq.gravatar.question=How to change my profile image?
 faq.gravatar.answer=The avatars are managed by <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. We display the avatar wich matches the email you give us on your profile. Sign in on the website <a href="http://www.gravatar.com" target="_blank">Gravatar</a> in order to to create or update your image.
 faq.twitter.question=Twitter
 faq.twitter.answer=<a target=""blank" href="http://twitter.com/MixIT_Lyon">@MixIT_Lyon</a> is the Twitter account of the Mix-IT conference MIX-IT. Follow it now and use the hashtag <strong>#mixit15</strong></p>

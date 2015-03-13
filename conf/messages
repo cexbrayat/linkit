@@ -234,8 +234,10 @@ faq.login.question=Pourquoi ouvrir un compte sur le site Mix-IT ?
 faq.login.answer=Voir <a href="%s">la page de connexion</a> pour comprendre l'intérêt de la partie sociale du site !
 faq.registration.question=Comment acheter son billet ?
 faq.registration.answer=Voir <a href="%s">la page des inscriptions</a> pour acheter son billet.
-faq.dif.question=Comment puis-je utiliser mon DIF (Droit Individuel à la Formation) pour Mix-IT ?
-faq.dif.answer=Oui, ce n'est pas Mix-IT directement qui gère cet aspect mais nous nous efforçons chaque année de trouver un partenaire organisme de formation pour vous le permettre. Cette année ce sera notre sponsor Objet Direct qui gérera cet aspect. Ce partenaire vous fera signer des feuilles de présence le jour même et vous remettra une attestation par la suite.
+faq.dif.question=Est-il possible de participer à Mix-IT au titre de la formation ?
+faq.dif.answer=Cette année ce sera notre sponsor <a href="/profile/VISEO">Viseo</a> qui gèrera cet aspect. Ce partenaire vous fera signer chaque jour sur place une feuille de présence et vous remettra une attestation de formation. Lors de l'achat de vos places, une case à cocher vous permettra d'indiquer cette volonté. Nous vous invitons à <a href="mailto:mix-it@viseo.com">vous rapprocher de notre partenaire</a> pour toute question relative à ce sujet.
+faq.cpf.question=Est-il possible d'utiliser mon CPF pour m'inscrire à Mix-IT ?
+faq.cpf.answer=Mix-IT n'est pas recensée dans le référentiel des formations éligibles à l'utilisation de votre Compte Personnel de Formation (CPF). Néanmoins, notre partenaire <a href="/profile/VISEO">Viseo</a> vous délivrera sur place une attestation de formation rendant possible l'inscription au titre de la formation professionnelle. Nous vous invitons à <a href="mailto:mix-it@viseo.com">vous rapprocher de notre partenaire</a> pour toute question relative à ce sujet.
 faq.gravatar.question=Comment changer l'image de son profil ?
 faq.gravatar.answer=Les avatars sont gérés par <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. Nous affichons l'avatar correspondant à l'email que vous nous indiquez sur votre profil. Connectez-vous sur le site <a href="http://www.gravatar.com" target="_blank">Gravatar</a> pour créer ou modifier votre image.
 faq.twitter.question=Twitter
