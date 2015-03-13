@@ -1,18 +1,19 @@
 package models;
 
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
-import com.google.common.collect.ComparisonChain;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 import controllers.JobFetchUserTimeline;
 import controllers.JobMajUserRegisteredTicketing;
 import helpers.JavaExtensions;
 import helpers.badge.BadgeComputationContext;
 import helpers.badge.BadgeComputer;
 import helpers.badge.BadgeComputerFactory;
+import helpers.ticketing.YurPlan;
 import models.activity.*;
 import models.auth.AuthAccount;
+import models.auth.LinkItAccount;
+import org.apache.commons.collections.MultiMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -21,6 +22,7 @@ import play.Logger;
 import play.data.validation.*;
 import play.db.jpa.Model;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.util.*;
 import java.util.List;
@@ -154,6 +156,9 @@ public class Member extends Model implements Lookable, Comparable<Member> {
      */
     public long nbConsults;
 
+    /** true if profile is public (visible not connected)  */
+    public boolean publicProfile = false;
+
     public Member(String login) {
         this.login = login;
     }
@@ -255,6 +260,17 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         
     public static List<Long> findAllIds() {
         return find("select m.id from Member m").fetch();
+    }
+
+    public void updateTicketingRegistered(String yurplanToken) {
+        boolean registered = false;
+        if (isSpeakerOn(ConferenceEvent.CURRENT)) {
+            registered = true;
+        }
+        if (!registered) {
+            registered = YurPlan.isRegisteredAttendee(this, yurplanToken);
+        }
+        setTicketingRegistered(registered);
     }
 
     public void addLink(Member linked) {
@@ -513,7 +529,7 @@ public class Member extends Model implements Lookable, Comparable<Member> {
                 .append(' ')
                 .append(lastname)
                 .toString()
-                ,CHAR_DELIMITER_NAME);
+                , CHAR_DELIMITER_NAME);
         
     }
 
@@ -590,6 +606,12 @@ public class Member extends Model implements Lookable, Comparable<Member> {
     public Set<Session> getValidatedTalks() {
         return Sets.filter(sessions, SessionPredicates.CURRENT_VALIDATED_TALK);
     }
+
+    public Multimap<ConferenceEvent, Session> getPreviousValidatedTalks() {
+        return Multimaps.index(
+                Sets.filter(sessions, SessionPredicates.PREVIOUS_VALIDATED_TALK),
+                Session.toEvent());
+    }
     
     public Set<Session> getProposedTalks() {
         return Sets.filter(sessions, SessionPredicates.CURRENT_PROPOSED_TALK);
@@ -625,4 +647,7 @@ public class Member extends Model implements Lookable, Comparable<Member> {
         return find("select distinct l from Member m inner join m.links l where m = ? and l.ticketingRegistered = true and l.class <> 'Sponsor' order by l.lastname, l.firstname", member).fetch();
     }
 
+    public boolean canSeePrivateCommentsOf(Talk talk) {
+        return talk.hasSpeaker(this);
+    }
 }

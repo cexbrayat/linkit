@@ -1,6 +1,7 @@
 package controllers;
 
 import models.*;
+import models.dto.SpeakerPreferencesDTO;
 import models.validation.GoogleIDCheck;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
@@ -24,6 +25,15 @@ public class Profile extends PageController {
         Logger.info("Edition du profil " + member);
         String originalLogin = member.login;
         render(member, originalLogin);
+    }
+
+    public static void editSpeakerPreferences() {
+        Member member = Member.findByLogin(Security.connected());
+        if (member == null) Login.index(request.url);
+
+        Logger.info("Edition des contraintes du speaker " + member);
+        SpeakerPreferences preferences = SpeakerPreferences.find("bySpeakerAndEvent", member, ConferenceEvent.CURRENT).first();
+        render(preferences);
     }
 
     public static void register(String login, ProviderType provider) {
@@ -52,12 +62,36 @@ public class Profile extends PageController {
         }
         return result;
     }
-    
+
+    public static void saveSpeakerPreferences(SpeakerPreferencesDTO preferences) {
+        SpeakerPreferences preferencesEntity = getOrCreateSpeakerPreferences();
+
+        preferencesEntity.updateFromDTO(preferences);
+        preferencesEntity.save();
+
+        flash.success(Messages.get("preferences.saved"));
+        Dashboard.index();
+    }
+
+    private static SpeakerPreferences getOrCreateSpeakerPreferences() {
+        Member member = Member.findByLogin(Security.connected());
+        ConferenceEvent event = ConferenceEvent.CURRENT;
+        SpeakerPreferences preferencesEntity = SpeakerPreferences.find("bySpeakerAndEvent", member, ConferenceEvent.CURRENT).first();
+
+        if ( preferencesEntity == null ) {
+            preferencesEntity = new SpeakerPreferences();
+        }
+
+        preferencesEntity.event = event;
+        preferencesEntity.speaker = member;
+        return preferencesEntity;
+    }
+
     public static void save(
             Long id,
             @Required String originalLogin,
             @Required @Match( value = Member.LOGIN_NOT_NUMERIC_PATTERN, message = "validation.notNumeric") String login,
-            @Required String firstname,
+            String firstname,
             @Required String lastname,
             String company,
             @Required @Email String email,
@@ -84,6 +118,7 @@ public class Profile extends PageController {
         member.email = email;
         member.lastname = lastname;
         member.company = company;
+
 
         twitterName = cleanTwitterName(twitterName);
         TwitterAccount twitter = member.getTwitterAccount();
@@ -154,6 +189,11 @@ public class Profile extends PageController {
             validation.addError("email", "validation.unique", email);
         }
 
+        // #198 firstname not mandatory for Sponsor
+        if (!(member instanceof Sponsor)) {
+            Validation.required("firstname", firstname);
+        }
+
         if (validation.hasErrors()) {
             Logger.error(validation.errors().toString());
             flash.error(Messages.get("validation.errors"));
@@ -183,12 +223,23 @@ public class Profile extends PageController {
         Member member = Member.findByLogin(login);
         notFoundIfNull(member);
 
+        checkProfileAccess(member);
+
         member.lookedBy(Member.findByLogin(Security.connected()));
         List<Talk> favorites = Vote.findFavoriteTalksByMemberOn(member, ConferenceEvent.CURRENT);
         Collections.shuffle(favorites);
 
         Logger.info("Show profil %s", member);
         render(member, favorites);
+    }
+
+    private static void checkProfileAccess(Member member) {
+        Member connectedMember = Member.findByLogin(Security.connected());
+        if (connectedMember == null && !member.publicProfile) {
+            Logger.info("Try to display profile of %s without being connected", member);
+            // redirect to login page
+            Login.index(request.url);
+        }
     }
 
     public static String link(Long memberId) {

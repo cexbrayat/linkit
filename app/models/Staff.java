@@ -3,6 +3,8 @@ package models;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Entity;
+
+import com.google.common.collect.ImmutableList;
 import play.modules.search.Indexed;
 
 /**
@@ -12,7 +14,9 @@ import play.modules.search.Indexed;
 @Entity
 @Indexed
 public class Staff extends Member {
-    
+
+    private static final ImmutableList<String> FEMALE_STAFF_MEMBER_LOGINS = ImmutableList.of("agnes");
+
     /**
      * Authorized roles for a staff person
      */
@@ -33,6 +37,12 @@ public class Staff extends Member {
     }
 
     @Override
+    public void updateTicketingRegistered(String yurplanToken) {
+        // Staff always have a ticket
+        setTicketingRegistered(true);
+    }
+
+    @Override
     public boolean hasRole(String profile) {
         return ROLES.contains(profile);
     }
@@ -41,5 +51,15 @@ public class Staff extends Member {
     public void setTicketingRegistered(boolean ticketingRegistered) {
         // A staff member is always registered
         this.ticketingRegistered = true;
+    }
+
+    @Override
+    public boolean canSeePrivateCommentsOf(Talk talk) {
+        // Staff can see every comment
+        return true;
+    }
+
+    public boolean isMale() {
+        return !FEMALE_STAFF_MEMBER_LOGINS.contains(this.login);
     }
 }

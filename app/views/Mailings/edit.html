@@ -1,11 +1,6 @@
 #{extends 'main.html' /}
 #{set title:'Editer un mailing' /}
 #{set 'moreScripts'}
-<!-- Requirements for managing form dirtiness -->
-<script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
-<script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
-<script src="@{'/public/javascripts/dirtiness.js'}"></script>
-<!-- End Requirements for managing form dirtiness -->
 #{/set}
 #{dirtyDialog/}
 
@@ -17,7 +12,7 @@
     #{/}
 
     #{field 'mailing.recipients'}
-    <div class="clearfix ${field.error?'error':''}"> 
+    <div class="clearfix ${field.error?'has-error':''}">
         <label for="${field.name}">&{field.name}</label> 
         <div class="input"> 
             <ul class="inputs-list">
@@ -32,7 +27,7 @@
     #{/}
 
     #{field 'mailing.subject'}
-    <div class="clearfix ${field.error?'error':''}"> 
+    <div class="clearfix ${field.error?'has-error':''}">
         <label for="${field.name}">&{field.name}</label> 
         <div class="input"> 
             <input class="xlarge" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" /> 
@@ -43,7 +38,7 @@
     #{/}
 
     #{field 'mailing.message'}
-    <div class="clearfix ${field.error?'error':''}"> 
+    <div class="clearfix ${field.error?'has-error':''}">
         <label for="${field.name}">&{field.name}</label> 
         <div class="input"> 
             <textarea class="xxlarge" id="${field.id}" name="${field.name}" size="50" rows="10">${field.value}</textarea>

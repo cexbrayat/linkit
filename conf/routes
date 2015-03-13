@@ -10,6 +10,7 @@ GET     /                                       Application.index
 
 GET     /admin/planning                         admin.AdminPlanning.index
 POST    /admin/planning/save                    admin.AdminPlanning.save
+GET     /admin/feedback                         admin.AdminPlanning.feedback
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
@@ -36,6 +37,8 @@ GET     /api/interests/{id}                     api.ApiInterests.interest
 # Login
 GET     /login                                  Login.index
 GET     /login/nonetwork                        Login.noNetwork
+GET     /login/passwordlost                     Login.requestPasswordReset
+GET     /login/resetPassword/{uuid}             Login.newPassword
 GET     /login/linkit                           Login.loginLinkIt
 GET     /login/signup                           Login.signup
 GET     /login/with/{provider}                  Login.loginWith
@@ -51,6 +54,7 @@ GET     /interest/{interest}                    Application.searchByInterest
 # I fucking don't know why this route is not used!
 GET     /search/{query}                         Application.search 
 GET     /search                                 Application.search 
+POST    /lang                                   Application.lang
 
 # Activities    
 GET     /activities                             Activities.general
@@ -62,6 +66,8 @@ GET     /activities/{login}/{providers}         Activities.of
 # Profile
 POST    /profile/save/{originalLogin}           Profile.save
 GET     /profile/edit                           Profile.edit
+GET     /profile/speakerpreferences             Profile.editSpeakerPreferences
+POST    /profile/speakerpreferences             Profile.saveSpeakerPreferences
 GET     /profile/register/{login}/{provider}    Profile.register
 GET     /profile/link                           Profile.link
 GET     /profile/unlink                         Profile.unlink
@@ -76,7 +82,8 @@ POST    /dashboard/settings/save                Dashboard.saveSettings
 GET     /dashboard/settings                     Dashboard.settings
 
 # Sessions
-GET     /mixit13/planning                       Sessions.planningMixIT13
+GET     /planning                               Sessions.currentPlanning
+GET     /{event}/planning                       Sessions.planning
 GET     /sessions                               Sessions.index
 GET     /{event}/sessions                       Sessions.listOn
 GET     /session/new                            Sessions.create
@@ -90,6 +97,7 @@ GET     /session/{sessionId}/{slugify}          Sessions.show
 # Just in case we forget the slugified title as parameter
 GET     /session/{sessionId}                    Sessions.show
 GET     /session/fav/{talkId}/{fav}             Sessions.fav
+GET     /mixit14/mixteen                        Sessions.mixteen
 
 # Lightning
 GET     /lightnings                             LightningTalks.list
@@ -124,7 +132,10 @@ GET     /logout                                 Secure.logout
 WS      /live                                   LiveActivities.listen
 
 # Infos
+GET     /code-of-conduct                        Infos.codeOfConduct
 GET     /mixit12                                Infos.mixit12
+GET     /mixit13                                Infos.mixit13
+GET     /about                                  Infos.about
 
 # Bots resources
 *       /favicon.ico                            staticFile:public/images/favicon.ico

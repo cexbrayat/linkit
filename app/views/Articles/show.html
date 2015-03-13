@@ -1,80 +1,97 @@
 #{extends 'main.html' /}
 #{set 'canonical'}@@{Articles.show(article.id, article.title.slugify())}#{/set}
 #{set title:article.title /}
-<div class="hero-unit member-card">
-    <h2 itemprop="name">${article.title}</h2>
-    <strong itemprop="description">${article.headline}</strong>
 
+#{set 'moreStyles'}
+<style>
+    #nav-buttons {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+#{/set}
+
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h2 itemprop="name">${article.title}</h2>
+        <strong itemprop="description">${article.headline}</strong>
+    </div>
+</div>
+
+<div class="row">    
     #{secure.check models.Role.ADMIN_ARTICLE}
-    <div class="alert-message block-message warning">
+    <div class="alert alert-warning col-md-8 col-md-offset-2">
         #{if !article.valid}
         Cet article n'est pas publié.
         #{/if}
-        <div class='alert-actions'>
-            #{if article.valid}
-            <a href="@{Articles.unvalidate(article.id)}" class="btn small" >Invalider</a>
-            #{/if}
-            #{else}
-            <a href="@{Articles.validate(article.id)}" class="btn small primary" >Publier</a>
-            #{/else}
-            <a href="@{Articles.edit(article.id)}" class="btn small">Editer</a>
-            <a href="@{Articles.delete(article.id)}" class="btn small danger">Supprimer</a>
-        </div>
+        #{if article.valid}
+        <a href="@{Articles.unvalidate(article.id)}" class="btn btn-default">Invalider</a>
+        #{/if}
+        #{else}
+        <a href="@{Articles.validate(article.id)}" class="btn btn-primary">Publier</a>
+        #{/else}
+        <a href="@{Articles.edit(article.id)}" class="btn btn-default">Editer</a>
+        <a href="@{Articles.delete(article.id)}" class="btn btn-danger">Supprimer</a>
     </div>
     #{/secure.check}
+</div>
 
-    <br/>
-    <br/>
-    <blockquote class="article content">
+<br/>
+<br/>
+
+<div class="row">
+    <div class="article content col-md-8 col-md-offset-2">
         #{markdown article.content /}
         <br/>
         <small>Posté par <a href="@{Profile.show(article.author.login)}">#{member article.author /}</a> le ${article.postedAt.format('dd/MM/yyyy à hh:mm')}</small>
-    </blockquote>
+    </div>
     <br/>
+    <div class="col-md-8 col-md-offset-2">
     ${article.getNbLooks()} consultation${article.getNbLooks().pluralize()}
     #{if article.comments}
         - <a href="#comments">${article.comments.size()} commentaire${article.comments.size().pluralize()}</a>
     #{/if}
     &mdash; #{socialbar/}
+    </div>
 </div>
 
-<div class="row">
-    <div class="span8">
-        #{if previous}<p><a class="btn" href="@{Articles.show(previous.id, previous.title.slugify())}"><< ${previous}</a></p>#{/if}&nbsp;
+#{if previous || following}
+<div class="row" id="nav-buttons">
+    <div class="col-md-6">
+        #{if previous}<p><a class="btn btn-default" data-toggle="tooltip" title="&{'article.previous'}" href="@{Articles.show(previous.id, previous.title.slugify())}">&laquo;&nbsp;${previous}</a></p>#{/if}
     </div>
-    <div class="span8" style="text-align: right">
-        #{if following}<p><a class="btn" href="@{Articles.show(following.id, following.title.slugify())}">${following} >></a></p>#{/if}
+    <div class="col-md-6" style="text-align: right">
+        #{if following}<p><a class="btn btn-default" data-toggle="tooltip" title="&{'article.following'}" href="@{Articles.show(following.id, following.title.slugify())}">${following}&nbsp;&raquo;</a></p>#{/if}
     </div>
 </div>
+#{/if}
 
 #{comments article.comments /}
 
-<hr/>
 <section id="post">
-    #{if session.username}
-
-    <div class="row">
-        #{form @Articles.postComment(article.id)}
-
-        #{field 'content'}
-        <div class="clearfix ${field.error?'error':''}">
-            <div class="span3">
-                <label for="${field.name}">&{field.name}</label>
-            </div>
-            <div class="input offset3">
-                <textarea class="span13" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
-                <span class="help-block">${field.error}</span>
-                <span class="help-block">&{field.name+".note"}</span>
+#{if session.username}
+    #{form @Articles.postComment(article.id), class:'form-inline'}
+        <div class="row">
+            #{field 'content'}
+                <div class="clearfix ${field.error?'has-error':''}">
+                    <label for="${field.name}" class="col-md-2">&{field.name}</label>
+                    <div class="input col-md-10">
+                        <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
+                        <span class="help-block">${field.error}</span>
+                        <span class="help-block pull-right">&{field.name+".note"}</span>
+                    </div>
+                </div>
+            #{/}
+        </div>
+        <div class="row">
+            <div class="actions col-md-2 col-md-offset-5">
+                <input type="submit" class="btn btn-primary large" value="Poster votre commentaire"/>
             </div>
         </div>
-        #{/}
-        <div class="actions">
-            <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
-        </div>
-        #{/form}
-    </div>
-    #{/if}
-    #{else}
+    #{/form}
+#{/if}
+#{else}
     <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter cet article.
-    #{/else}
+#{/else}
 </section>
+

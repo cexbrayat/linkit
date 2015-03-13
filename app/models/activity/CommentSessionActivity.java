@@ -7,6 +7,8 @@ import models.Member;
 import models.Session;
 import play.data.validation.Required;
 
+import java.util.Set;
+
 /**
  * A comment activity : someone ({@link Activity#member} commented on a session ({@link Activity#session}
  * @author Agnes <agnes.crepet@gmail.com>

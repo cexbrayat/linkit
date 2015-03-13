@@ -21,11 +21,7 @@ public class LinkItAccount extends AuthAccount {
 
     public LinkItAccount(String password) {
         super(ProviderType.LinkIt);
-        
-        // Retrieve salt from configuration & create hashed password
-        String salt = Play.configuration.get("application.salt").toString();
-        
-        this.password = Crypto.passwordHash(password + salt, HashType.SHA256);
+        this.password = hashPassword(password)          ;
     }
     
     @Override
@@ -36,5 +32,17 @@ public class LinkItAccount extends AuthAccount {
     @Override
     public void initMemberProfile() {
         // Nothing;
+    }
+
+    public static String hashPassword(String password) {
+        // Retrieve salt from configuration & create hashed password
+        String salt = Play.configuration.get("application.salt").toString();
+        return Crypto.passwordHash(password + salt, HashType.SHA256);
+    }
+
+    public void updatePassword(String password) {
+        String newPasswordHash = hashPassword(password);
+        this.password = newPasswordHash;
+        save();
     }
 }

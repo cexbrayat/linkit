@@ -10,6 +10,7 @@ import models.activity.Activity;
 import org.apache.commons.lang.StringUtils;
 import play.Logger;
 import play.db.jpa.Transactional;
+import play.i18n.Lang;
 import play.modules.search.Search;
 import play.templates.JavaExtensions;
 
@@ -32,12 +33,27 @@ public class Application extends PageController {
         }
 
         // Three recent articles
-        List<Article> articles = Article.recents(1, 3);
-        List<Talk> sessions = Talk.recents(ConferenceEvent.CURRENT, 1, 3);
-        List<Member> members = Member.recents(1, 14);
         // Unused
+//        List<Article> articles = Article.recents(1, 3);
+//        List<Talk> sessions = Talk.recents(ConferenceEvent.CURRENT, 1, 3);
+//        List<Member> members = Member.recents(1, 14);
+
         // List<Map> tags = Interest.getCloud();
-        render(articles, sessions, members);
+
+        List<Member> currentGuestSpeakers = Talk.guestSpeakers(ConferenceEvent.mixit14);
+
+        List<Member> guestSpeakersToDisplay = null;
+        if (currentGuestSpeakers.size() > 5 ) {
+            Collections.shuffle(currentGuestSpeakers);
+            guestSpeakersToDisplay = currentGuestSpeakers.subList(0, 6);
+        }
+
+        boolean isHomePage = true;
+        Calendar ticketSalesStartDate = helpers.ticketing.YurPlan.ticketSalesStartDate;
+        boolean ticketSales = helpers.ticketing.YurPlan.isTicketSales() ;
+        boolean soldOut = helpers.ticketing.YurPlan.soldOut ;
+
+        render(/*articles, sessions, members, */isHomePage, guestSpeakersToDisplay, ticketSalesStartDate, ticketSales, soldOut);
     }
 
     public static void members() {
@@ -202,5 +218,10 @@ public class Application extends PageController {
         Collections.sort(members);
 
         render(query, articles, talks, lightningtalks, members);
+    }
+
+    public static void lang(String lang, String url) {
+        Lang.change(lang);
+        redirect(url);
     }
 }

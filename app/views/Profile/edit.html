@@ -1,19 +1,19 @@
 #{extends 'main.html' /}
 #{set title:'Editer mon profil' /}
 #{set 'moreScripts'}
-<!-- Requirements for managing form dirtiness -->
-<script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
+<!-- Requirements for managing form dirtiness
+<script src="@{'/public/javascripts/modal.js'}"></script>
 <script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
-<script src="@{'/public/javascripts/dirtiness.js'}"></script>
+<script src="@{'/public/javascripts/dirtiness.js'}"></script>-->
 <!-- End Requirements for managing form dirtiness -->
 <script src="@{'/public/javascripts/limitcountdown.js'}"></script>
 <script lang="text/javascript">
     var nbLinks = 5;
     function inputName(i) {
-        return $('#sharedLinks'+i+'_name');
+        return $('#sharedLinks' + i + '_name');
     }
     function inputUrl(i) {
-        return $('#sharedLinks'+i+'_URL');
+        return $('#sharedLinks' + i + '_URL');
     }
     function setSharedLink(i, name, url) {
         inputName(i).val('');
@@ -33,271 +33,365 @@
     }
     function moveUpSharedLink(i) {
         if (i > 0) {
-            var valuesPrevious = getSharedLink(i-1);
+            var valuesPrevious = getSharedLink(i - 1);
             var valuesCurrent = getSharedLink(i);
             setSharedLink(i, valuesPrevious);
-            setSharedLink(i-1, valuesCurrent);
+            setSharedLink(i - 1, valuesCurrent);
         }
     }
     function moveDownSharedLink(i) {
         if (i < nbLinks - 1) {
-            var valuesNext = getSharedLink(i+1);
+            var valuesNext = getSharedLink(i + 1);
             var valuesCurrent = getSharedLink(i);
             setSharedLink(i, valuesNext);
-            setSharedLink(i+1, valuesCurrent);
+            setSharedLink(i + 1, valuesCurrent);
         }
     }
-    
+
     $(function() {
         registerLimited('#shortDescription', '#shortDescriptionCountdown', 140, "&{'remainingChars'}");
     });
 </script>
+<script lang="text/javascript">
+    $(function() {
+        // Autocomplete fields
+        var initTypeahead = function(typeaheadId, checkboxClass, values, onNewElement) {
+            var $typeahead = $('#'+typeaheadId);
+            $typeahead.typeahead({
+                name: typeaheadId,
+                local: values
+            });
+            $typeahead.on('typeahead:selected', function (object, datum) {
+                addElement(datum.value);
+            });
+
+            $typeahead.on('typeahead:autocompleted', function (object, datum) {
+                addElement(datum.value);
+            });
+
+            $typeahead.on('blur', function () {
+                var typeaheadValue = $(this).val();
+                if ( typeaheadValue ) {
+                    onNewElement(typeaheadValue);
+                }
+                $typeahead.typeahead('setQuery', '');
+            });
+
+            // Warning : this will not handle homonyms !!
+            var addElement = function(name) {
+                var $span = $('.'+checkboxClass+' > span').filter(function() {
+                    return $(this).text() === name;
+                });
+
+                var $label = $span.parent();
+                var $input = $label.find('input[type=checkbox]');
+
+                $label.show();
+                $typeahead.typeahead('setQuery', '');
+                $input.prop('checked', true);
+            };
+
+            // Show already checked
+            $('.'+checkboxClass+' input[type=checkbox]:checked').parent().show();
+        };
+
+        // Triggered when an interest is not found in checkboxes => adds it in new interests input
+        var onNewInterest = function(interestName) {
+            var currentValue = $('#newInterests').val();
+            if ( currentValue ) {
+                currentValue = currentValue + ', ';
+            }
+            $('#newInterests').val(currentValue + interestName);
+        }
+
+        initTypeahead('interests-typeahead', 'interest-checkbox', ['#{list items:models.Interest.findAllOrdered(), as:'i'}${i.toString().escapeJavaScript().raw()}#{if !_isFirst}','#{/if}#{/list}'], onNewInterest);
+    });
+
+</script>
 #{/set}
 
-    <div class="page-header"> 
-        <h1>${registrationProvider ? 'Création' : 'Edition'} de votre profil</h1> 
-    </div>
+<div class="page-header">
+    <h1>${registrationProvider ? messages.get('profile.create') : messages.get('profile.update')} &{'profile.edit.yourProfile'}</h1>
+</div>
 
-    #{if registrationProvider}
-    <div class="alert-message block-message warning">
-        Création d'un nouveau profil suite à votre connexion via &{'provider.'+registrationProvider}.
-    </div>
-    #{/if}
-
-    #{form @Profile.save(member.id, originalLogin)} 
-    <div class="row"> 
-        <div class="span3 columns"> 
-            <h2>Informations</h2> 
-            <p>Saisissez vos coordonnées</p>
-            <h4>Votre Image:</h4>
-            <p>Les avatars sont gérés par <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a>.
-Nous affichons l'avatar correspondant à l'email que vous nous indiquez.
-Connectez-vous sur le site <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a> pour créer ou modifier votre image.</p>
-        </div> 
-        <div class="span8 columns"> 
-            <fieldset> 
-                <legend>Profil</legend>
-                #{field 'login'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <input class="span6" id="${field.id}" name="${field.name}" size="10" type="text" value="${member.login}" />
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div>
-                </div>
-                #{/}
-                
-                #{field 'lastname'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" x-autocompletetype="surname" value="${member?.lastname}" />
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div>
-                </div>
-                #{/}
-
-                #{field 'firstname'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" x-autocompletetype="given-name" value="${member?.firstname}" /> 
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div> 
-                </div><!-- /clearfix -->
-                #{/}
-
-                #{field 'company'}
-                <div class="clearfix ${field.error?'error':''}">
-                    <label for="${field.name}">&{field.name}</label>
-                    <div class="input">
-                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" x-autocompletetype="organization" value="${member?.company}" />
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div>
-                </div><!-- /clearfix -->
-                #{/}
-
-                #{field 'email'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="email" x-autocompletetype="email" value="${member?.email}" /> 
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div> 
-                </div><!-- /clearfix -->
-                #{/}
-
-                #{field 'shortDescription'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <textarea class="span6" id="${field.id}" name="${field.name}" size="30" maxlength="140" rows="2">${member?.shortDescription}</textarea>
-                        <span class="help-inline" id="${field.id}Countdown" style="font-weight: bold"></span>
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+'.note'}</span>
-                    </div> 
-                </div><!-- /clearfix -->
-                #{/}
-
-                #{field 'longDescription'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <textarea class="span9" id="${field.id}" name="${field.name}" size="30" rows="4">${member?.longDescription}</textarea>
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+'.note'}</span>
-                    </div> 
-                </div><!-- /clearfix -->
-                #{/}
-            </fieldset>
-        </div>
-    </div>
-    <hr/>
-    <div class="row"> 
-        <div class="span3 columns"> 
-            <h2>Réseaux sociaux</h2> 
-            <p>Vos comptes sur les différents réseaux sociaux.</p> 
-            <p>Les données publiques des comptes que vous indiquerez seront <strong>automatiquement récupérées</strong> et <strong>publiquement affichées</strong>.</p>
-        </div> 
-        <div class="span7 columns">
-            <fieldset>
-                <legend>Vos comptes sociaux</legend>
- 
-                #{field 'twitterName'}
-                <div class="clearfix ${field.error?'error':''}">
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Twitter)?.screenName}" /> 
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div> 
-                </div><!-- /clearfix -->
-                #{/}
-
-                #{field 'googlePlusId'}
-                <div class="clearfix ${field.error?'error':''}">
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <input class="span6" id="${field.id}" name="${field.name}" size="30" type="text" value="${member?.getAccount(models.ProviderType.Google)?.googleId}" /> 
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div>
-
-                </div><!-- /clearfix -->
-                #{/}
-
-            </fieldset>
-        </div>
-    </div>
-    <hr/>
-    <div class="row"> 
-        <div class="span3 columns"> 
-            <h2>Vos liens</h2> 
-            <p>Des liens que vous voulez faire apparaître sur votre profil et que vous aimeriez partager.</p> 
-        </div> 
-        <div class="span13 columns">
-            <fieldset>
-                <legend>Vos liens</legend>
- 
-                #{list items:0..4, as:'i'}
-                    #{field 'sharedLinks['+i+']'}
-                    <div class="clearfix ${field.error?'error':''}">
-                        <div class="input">
-                            <div class="inline-inputs">
-                                <input class="span2" id="sharedLinks${i}_name" name="${field.name}.name" placeholder="Nom du lien" type="text" maxlength="25" value="${member.sharedLinks[i]?.name}" /> 
-                                <input class="span6" id="sharedLinks${i}_URL" name="${field.name}.URL" placeholder="URL du lien" type="text" value="${member.sharedLinks[i]?.URL}" /> 
-                                <a class="ignoredirty" rel='twipsy' title="Déplacer ce lien vers le haut" onclick="moveUpSharedLink(${i})"><img class="action ignoredirty" src="@{'/public/images/icons/moveup.png'}" alt="Déplacer vers le haut" style="vertical-align: bottom"/></a>
-                                <a class="ignoredirty" rel='twipsy' title="Déplacer ce lien vers le bas" onclick="moveDownSharedLink(${i})"><img class="action ignoredirty" src="@{'/public/images/icons/movedown.png'}" alt="Déplacer vers le bas" style="vertical-align: bottom"/></a>
-                                <a class="ignoredirty" rel='twipsy' title="Supprimer ce lien" onclick="deleteSharedLink(${i})"><img class="action ignoredirty" src="@{'/public/images/icons/remove.png'}" alt="Supprimer" style="vertical-align: bottom"/></a>
-                                <span class="help-block">#{error 'sharedLinks['+i+'].name' /}</span>
-                                <span class="help-block">#{error 'sharedLinks['+i+'].URL' /}</span>
-                            </div>
-                        </div> 
-                    </div><!-- /clearfix -->
-                    #{/}
-                #{/list}
-            </fieldset>
-        </div>
-    </div>
-    <hr/>
-    <div class="row"> 
-        <div class="span3 columns"> 
-            <h2>Inscription</h2> 
-        </div>
-        <div class="span13 columns">
-          <fieldset>
-                <legend>Achat du billet</legend>
-           <div class="clearfix">
-               <div class="input">
-                    #{ticketing member/}
-                    <br/>
-                    <span class="help-block">&{'registration.warning.email'}</span>
-               </div>
-           </div>
-                
-          </fieldset>
-        </div>
-    </div>
-    <hr/>
-    <div class="row"> 
-        <div class="span3 columns"> 
-            <h2>Centres d'intérêt</h2> 
-            <p>Les sujets qui vous intéressent, et que vous souhaitez creuser à Mix-IT et sur ce site.</p> 
-        </div> 
-        <div class="span13 columns">
-            <fieldset>
-                <legend>Intérêts</legend>
- 
-                #{field 'interests'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-
-                        <ul class="inputs-list">
-                            #{list items:models.Interest.findAllOrdered(), as:'interest'}
-                            <span class="checkbox">
-                                <li><label><input type="checkbox" name="${field.name}" value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} /> <span>${interest}</span></label></li>
-                            </span>
-
-                            #{/list}
-                        </ul>                        
-                        <span class="help-block newline">${field.error}</span>
-                        <span class="help-block newline">&{field.name+".note"}</span>
-                    </div>
-
-                </div><!-- /clearfix -->
-
-                #{/}
-
-                #{field 'newInterests'}
-                <div class="clearfix ${field.error?'error':''}"> 
-                    <label for="${field.name}">&{field.name}</label> 
-                    <div class="input"> 
-                        <input class="span6" id="${field.id}" name="${field.name}" size="200" type="text" value="${newInterests}" /> 
-                        <span class="help-block">${field.error}</span>
-                        <span class="help-block">&{field.name+".note"}</span>
-                    </div> 
-                </div><!-- /clearfix -->
-                #{/}
-            </fieldset>
-          </div>
-        </div>
-        <div class="actions">
-            <input type="submit" class="btn primary" value="Enregistrer"/>
-#{if member.id} *{création de profil si member.id == null}*
-            <a href="@{Profile.show(originalLogin)}" class="btn">Annuler</a>
-            <a href="@{Profile.delete()}" class="btn danger" >Supprimer mon compte</a>
+#{if registrationProvider}
+<div class="alert alert-warning">
+    &{'profile.edit.signup', registrationProvider}
+</div>
 #{/if}
-#{else}
-            <a href="@{Application.index()}" class="btn">Annuler</a>
-#{/else}
-        </div>
 
-    #{/form}
-    
+<div>
+
+#{if member.email}
+    <h4>&{'profile.edit.avatar'}</h4>
+    <div class="row">
+        <div class="col-sm-10">
+            <p>
+                &{'profile.edit.avatar.gravatar'}
+            </p>
+        </div>
+        <div class="col-sm-2">
+            <div class="img-thumbnail img-responsive pull-left">#{gravatar.img member.email, size:100, default:'mm', rating:'pg', secure:true/}</div>
+        </div>
+    </div>
+</div>
+#{/if}
+
+#{form @Profile.save(member.id, originalLogin)}
+
+<fieldset>
+    <legend>&{'profile.edit.profile'}</legend>
+    #{field 'login'}
+        <div class="clearfix ${field.error?'has-error':''}">
+
+            <div class="form-group">
+                <label for="${field.name}">&{field.name}</label>
+                <input class="form-control" id="${field.id}" name="${field.name}" size="10" type="text"
+                       value="${member.login}"/>
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
+        </div>
+    #{/}
+
+    #{field 'lastname'}
+        <div class="clearfix ${field.error?'has-error':''}">
+
+            <div class="form-group">
+                <label for="${field.name}">&{field.name}</label>
+                <input class="form-control" id="${field.id}" name="${field.name}" size="30" type="text"
+                       x-autocompletetype="surname" value="${member?.lastname}"/>
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
+        </div>
+    #{/}
+
+#{ifnot (member instanceof models.Sponsor)}
+    #{field 'firstname'}
+        <div class="clearfix ${field.error?'has-error':''}">
+
+            <div class="form-group">
+                <label for="${field.name}">&{field.name}</label>
+                <input class="form-control" id="${field.id}" name="${field.name}" size="30" type="text"
+                       x-autocompletetype="given-name" value="${member?.firstname}"/>
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
+        </div>
+        <!-- /clearfix -->
+    #{/}
+#{/ifnot}
+
+    #{field 'company'}
+        <div class="clearfix ${field.error?'has-error':''}">
+
+            <div class="form-group">
+                <label for="${field.name}">&{field.name}</label>
+                <input class="form-control" id="${field.id}" name="${field.name}" size="30" type="text"
+                       x-autocompletetype="organization" value="${member?.company}"/>
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
+        </div>
+        <!-- /clearfix -->
+    #{/}
+
+    #{field 'email'}
+        <div class="clearfix ${field.error?'has-error':''}">
+
+            <div class="form-group">
+                <label for="${field.name}">&{field.name}</label>
+                <input class="form-control" id="${field.id}" name="${field.name}" size="30" type="email"
+                       x-autocompletetype="email" value="${member?.email}"/>
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
+        </div>
+        <!-- /clearfix -->
+    #{/}
+
+    #{field 'shortDescription'}
+        <div class="clearfix ${field.error?'has-error':''}">
+
+            <div class="form-group">
+                <label for="${field.name}">&{field.name}</label>
+                <textarea class="form-control" id="${field.id}" name="${field.name}" size="30" maxlength="140"
+                          rows="2">${member?.shortDescription}</textarea>
+                <span class="help-inline" id="${field.id}Countdown" style="font-weight: bold"></span>
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+'.note'}</span>
+            </div>
+        </div>
+        <!-- /clearfix -->
+    #{/}
+
+    #{field 'longDescription'}
+        <div class="clearfix ${field.error?'has-error':''}">
+
+            <div class="form-group">
+                <label for="${field.name}">&{field.name}</label>
+                <textarea class="form-control" id="${field.id}" name="${field.name}" size="30"
+                          rows="4">${member?.longDescription}</textarea>
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+'.note'}</span>
+            </div>
+        </div>
+        <!-- /clearfix -->
+    #{/}
+</fieldset>
+<hr/>
+<div>
+    <h2>&{'profile.edit.social'}</h2>
+    <p>&{'profile.edit.social.1'}</p>
+    <p>&{'profile.edit.social.2'}</p>
+</div>
+<fieldset>
+    <legend>&{'profile.edit.social.accounts'}</legend>
+
+    #{field 'twitterName'}
+        <div class="clearfix ${field.error?'has-error':''}">
+
+            <div class="form-group">
+                <label for="${field.name}">&{field.name}</label>
+                <input class="form-control" id="${field.id}" name="${field.name}" size="30" type="text"
+                       value="${member?.getAccount(models.ProviderType.Twitter)?.screenName}"/>
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
+        </div>
+        <!-- /clearfix -->
+    #{/}
+
+    #{field 'googlePlusId'}
+        <div class="clearfix ${field.error?'has-error':''}">
+
+            <div class="form-group">
+                <label for="${field.name}">&{field.name}</label>
+                <input class="form-control" id="${field.id}" name="${field.name}" size="30" type="text"
+                       value="${member?.getAccount(models.ProviderType.Google)?.googleId}"/>
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
+
+        </div>
+        <!-- /clearfix -->
+    #{/}
+
+</fieldset>
+
+<hr/>
+<h2>&{'profile.edit.links'}</h2>
+<p>&{'profile.edit.links.what'}</p>
+<fieldset>
+    <legend>&{'profile.edit.links.yours'}</legend>
+
+    #{list items:0..4, as:'i'}
+        #{field 'sharedLinks['+i+']'}
+            <div class="clearfix ${field.error?'has-error':''}">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4 ">
+                            <input class="form-control" id="sharedLinks${i}_name" name="${field.name}.name"
+                                   placeholder="Nom du lien" type="text" maxlength="25"
+                                   value="${member.sharedLinks[i]?.name}"/>
+                        </div>
+                        <div class="col-md-4 ">
+                            <input class="form-control" id="sharedLinks${i}_URL" name="${field.name}.URL"
+                                   placeholder="URL du lien" type="text" value="${member.sharedLinks[i]?.URL}"/>
+                        </div>
+                        <div class="col-md-4 ">
+                            <a class="ignoredirty" rel='twipsy' title="Déplacer ce lien vers le haut"
+                               onclick="moveUpSharedLink(${i})"><img class="action ignoredirty"
+                                                                     src="@{'/public/images/icons/moveup.png'}"
+                                                                     alt="Déplacer vers le haut"
+                                                                     style="vertical-align: bottom"/></a>
+                            <a class="ignoredirty" rel='twipsy' title="Déplacer ce lien vers le bas"
+                               onclick="moveDownSharedLink(${i})"><img class="action ignoredirty"
+                                                                       src="@{'/public/images/icons/movedown.png'}"
+                                                                       alt="Déplacer vers le bas"
+                                                                       style="vertical-align: bottom"/></a>
+                            <a class="ignoredirty" rel='twipsy' title="Supprimer ce lien"
+                               onclick="deleteSharedLink(${i})"><img class="action ignoredirty"
+                                                                     src="@{'/public/images/icons/remove.png'}"
+                                                                     alt="Supprimer"
+                                                                     style="vertical-align: bottom"/></a>
+                            <span class="help-block">#{error 'sharedLinks['+i+'].name' /}</span>
+                            <span class="help-block">#{error 'sharedLinks['+i+'].URL' /}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /clearfix -->
+        #{/}
+    #{/list}
+</fieldset>
+<hr/>
+<h2>&{'profile.edit.ticketing'}</h2>
+<fieldset>
+    <legend>&{'profile.edit.ticketing.buy'}</legend>
+    <div class="clearfix">
+        <div class="form-group">
+            #{ticketing member/}
+            <br/>
+            <span class="help-block">&{'registration.warning.email', member?.email}</span>
+        </div>
+    </div>
+
+</fieldset>
+<hr/>
+<h2>&{'profile.edit.interests'}</h2>
+<p>&{'profile.edit.interests.what'}</p>
+<fieldset>
+    <legend>&{'profile.edit.interests.interests'}</legend>
+
+    #{field 'interests'}
+        <div class="clearfix ${field.error?'has-error':''}">
+            <label for="${field.name}">&{field.name}</label>
+            <div class="input">
+                <input id="interests-typeahead" type="text" class="form-control" />
+
+                #{list items:models.Interest.findAllOrdered(), as:'interest'}
+                    <div>
+                        <label style="display: none;" class="interest-checkbox" >
+                            <input type="checkbox" name="interests" value="${interest.name}" ${member?.interests.contains(interest)?'checked':''} />
+                            <span>${interest}</span>
+                        </label>
+                    </div>
+                #{/list}
+                <span class="help-block newline">${field.error}</span>
+                <span class="help-block newline">&{field.name+".note"}</span>
+            </div>
+
+        </div>
+        <!-- /clearfix -->
+    #{/}
+
+    #{field 'newInterests'}
+        <div class="clearfix ${field.error?'has-error':''}">
+
+            <div class="form-group">
+                <label for="${field.name}">&{field.name}</label>
+                <input class="form-control" id="${field.id}" name="${field.name}" size="200" type="text"
+                       value="${newInterests}"/>
+                <span class="help-block">${field.error}</span>
+                <span class="help-block">&{field.name+".note"}</span>
+            </div>
+        </div>
+        <!-- /clearfix -->
+    #{/}
+</fieldset>
+<div class="actions">
+    <input type="submit" class="btn btn-primary" value="&{'profile.edit.save'}"/>
+    #{if member.id} *{création de profil si member.id == null}*
+        <a href="@{Profile.show(originalLogin)}" class="btn btn-default">&{'profile.edit.cancel'}</a>
+        <a href="@{Profile.delete()}" class="btn btn-danger">&{'profile.edit.delete'}</a>
+    #{/if}
+    #{else}
+        <a href="@{Application.index()}" class="btn btn-default">&{'profile.edit.cancel'}</a>
+    #{/else}
+</div>
+
+#{/form}
+
 #{dirtyDialog /}

@@ -1,5 +1,6 @@
 package models;
 
+import com.google.common.collect.Lists;
 import models.activity.Activity;
 import models.activity.CommentSessionActivity;
 import models.activity.NewTalkActivity;
@@ -31,7 +32,10 @@ public class Talk extends Session {
     @Required
     @Enumerated(EnumType.STRING)
     @Column(nullable = true, length = 20)
-    public TalkLevel level = TalkLevel.Experienced;
+    public TalkLevel level;
+
+    /** Is this session a guest session **/
+    public boolean guest;
 
     /** Markdown enabled */
     @Lob
@@ -66,7 +70,10 @@ public class Talk extends Session {
     }
 
     public static List<Member> findFailedSpeakersOn(ConferenceEvent event) {
-        return find("select distinct s from Talk t inner join t.speakers s where t.valid=false and t.event = ? order by s.lastname", event).fetch();
+        List<Member> failed = find("select distinct s from Talk t inner join t.speakers s where t.valid=false and t.event = ? order by s.lastname", event).fetch();
+        List<Member> noSuccesses = Lists.newArrayList(failed);
+        noSuccesses.removeAll(findAllSpeakersOn(event));
+        return noSuccesses;
     }
 
     public static List<Talk> findAllValidatedOn(ConferenceEvent event) {
@@ -75,6 +82,15 @@ public class Talk extends Session {
 
     public void validate() {
         this.valid = true;
+
+        // All speakers are now ticketing registered
+        if (event != null && event.isCurrent()) {
+            for (Member speaker : speakers) {
+                speaker.setTicketingRegistered(true);
+                speaker.save();
+            }
+        }
+
         save();
         new NewTalkActivity(this).save();
         
@@ -105,5 +121,15 @@ public class Talk extends Session {
                 .add("sessionId", this.id)
                 .add("slugify", this.title)
                 .url;
+    }
+
+    public void markAsGuest() {
+        this.guest = true;
+        save();
+    }
+
+    public void markAsNotGuest() {
+        this.guest = false;
+        save();
     }
 }

@@ -42,6 +42,12 @@ public class Sponsor extends Member {
         this.badges.add(Badge.Sponsor);
     }
 
+    @Override
+    public void updateTicketingRegistered(String yurplanToken) {
+        boolean registered = events.contains(ConferenceEvent.CURRENT);
+        setTicketingRegistered(registered);
+    }
+
     public static long countOn(ConferenceEvent event) {
         return find("select count(distinct s) from Sponsor s join s.events e where e = ?", event).<Long>first();
     }
@@ -62,14 +68,6 @@ public class Sponsor extends Member {
 
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder();
-        if (StringUtils.isNotBlank(firstname)) {
-            str.append(firstname);
-        }
-        if (StringUtils.isNotBlank(lastname)) {
-            if (str.length() > 0) str.append(' ');
-            str.append(lastname);
-        }
-        return str.toString();
+        return this.lastname;
     }
 }

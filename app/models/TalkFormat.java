@@ -4,5 +4,5 @@ public enum TalkFormat {
 
     Talk,
     Workshop,
-    Keynote;
+    Keynote,
 }

@@ -39,7 +39,7 @@ public class LightningTalks extends PageController {
     private static void checkAccess(Session talk) throws Throwable {
         SecureLinkIt.checkAccess();
         Member user = Member.findByLogin(Security.connected());
-        if (!(user instanceof Staff || talk.hasSpeaker(user.login))) {
+        if (!(user instanceof Staff || talk.hasSpeaker(user))) {
             unauthorized();
         }
     }

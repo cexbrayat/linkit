@@ -14,27 +14,27 @@
     #{/if}
 #{/set}
 
-
-    <div class="hero-unit member-card">
+<div id="sessionDetails" class="sessionDetails">
+    <div class="row background-highlight member-card">
         <div class="row">
-            <div class="span13"><h2 itemprop="name">[&{'enum.TalkFormat.'+talk.format}#{lang-flag talk.lang/}] ${talk.title}</h2></div>
-            #{star talk /}
-        </div>
-        <div class="row">
-            <div class="span12">
-                <p>
-                    #{if talk.track}Track : <span class="label track ${talk.track}">${talk.track}</span><br/>#{/if}
-                    #{if talk.interests}
-                        Tags :
-                        #{list items:talk.interests, as:'interest'}
-                        <a href="@{Application.searchByInterest(interest.name)}"><span class="label notice">${interest}</span></a>
-                        #{/list}
-                        <br/>
-                    #{/if}
-                </p>
+            <div class="col-md-12">
+                <span class="pull-right" style="margin-top: -3px;">
+                    #{star talk /}
+                </span>
+                <h2 itemprop="name"> ${talk.title} [&{'enum.TalkFormat.'+talk.format}#{lang-flag talk.lang/}]</h2>
             </div>
-            <div id="favs-${talk.id}" style="float: right;">${talk.getNumberOfVotes()} favoris</div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                #{if talk.interests}
+                    #{list items:talk.interests, as:'interest'}
+                    <a href="@{Application.searchByInterest(interest.name)}"><span class="label interest">${interest}</span></a>
+                    #{/list}
+                #{/if}
+                <div class="pull-right" id="favs-${talk.id}" >${talk.getNumberOfVotes()} favoris</div>
+            </div>
+        </div>
+        <hr>
         <p itemprop="description">${talk.summary}</p>
 
     #{if slot}
@@ -44,46 +44,56 @@
     #{/if}
 
         #{if !talk.valid}
-            <div class="alert-message block-message warning">
+            <div class="alert alert-warning">
                 <p>Merci pour votre proposition! Le comité de sélection vous dira prochainement si votre session a été retenue.</p>
             </div>
         #{/if}
         #{if talk.hasSpeaker(session.username)}
-            <div class="alert-message block-message warning">
+            <div class="alert alert-warning">
                 <p>Bienvenue sur votre session, ami speaker!</p>
                 <div class='alert-actions'>
-                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer votre session</a>
+                    <a class="btn btn-default" href="@{Sessions.edit(talk.id)}">Editer votre session</a>
                 </div>
             </div>
         #{/if}
 
     #{secure.check models.Role.ADMIN_SESSION}
-            <div class="alert-message block-message info">
-                <p><strong>Staff</strong></p>
-                #{if talk.valid}            
+            <div class="alert alert-info">
+                <p><strong>Staff#{if talk.guest}&nbsp;-&nbsp;Speaker invité#{/if}</strong></p>
+                <p>Talk niveau : ${talk.level}</p>
+                #{if talk.valid}
                 <p>Invalider une session supprimera les éventuelles activités existantes sur cette session, mais pas les commentaires.</p>
                 #{/if}
                 <div class='alert-actions'>
-                    <a class="btn" href="@{Sessions.edit(talk.id)}">Editer</a>
-                #{if talk.valid}            
-                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment invalider cette session?')) window.location='@{Sessions.unvalidate(talk.id)}';">Invalider</a>
-                #{/if}
-                #{else}
-                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment valider cette session?')) window.location='@{Sessions.validate(talk.id)}';">Valider</a>
-                #{/else}
-                    <a class="btn danger" onclick="if (confirm('Voulez-vous vraiment supprimer cette session?')) window.location='@{Sessions.delete(talk.id)}';">Supprimer</a>
+                    <a class="btn btn-primary" href="@{Sessions.edit(talk.id)}">Editer</a>
+
+                    #{if talk.valid}
+                        <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment invalider cette session?')) window.location='@{Sessions.unvalidate(talk.id)}';">Invalider</a>
+                    #{/if}
+                    #{else}
+                        <a class="btn btn-info" onclick="if (confirm('Voulez-vous vraiment valider cette session?')) window.location='@{Sessions.validate(talk.id)}';">Valider</a>
+                    #{/else}
+
+                    #{if talk.guest}
+                        <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment supprimer l\'information invité ?')) window.location='@{Sessions.markAsNotGuest(talk.id)}';">Retirer l'information 'invité'</a>
+                    #{/if}
+                    #{else}
+                        <a class="btn btn-info" onclick="if (confirm('Voulez-vous vraiment marquer cette session comme invité ?')) window.location='@{Sessions.markAsGuest(talk.id)}';">Marquer comme invité</a>
+                    #{/else}
+
+                    <a class="btn btn-danger" onclick="if (confirm('Voulez-vous vraiment supprimer cette session?')) window.location='@{Sessions.delete(talk.id)}';">Supprimer</a>
                 </div>
             </div>
         #{/secure.check}
 
         <div class="row">
-            <div class="span16">
+            <div class="col-md-12">
                 <div class="row">
                     #{list items:talk.speakers, as:'speaker'}
-                    <div class="span2" style="text-align: center">
+                    <div class="col-md-2" style="text-align: center">
                     #{if speaker.email}
                         #{if session.username}
-                            <a href="@{Profile.show(speaker.login)}"><img src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
+                            <a href="@{Profile.show(speaker.login)}"><img class="img-circle" src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
                         #{/if}
                         #{else}
                             <a href="@{Login.index()}" rel='twipsy' title="Connectez-vous pour consulter son profil" data-placement="right"><img src="#{gravatar.url speaker.email, default:'mm', rating:'pg', secure:true/}" itemprop="image"></img></a>
@@ -100,19 +110,30 @@
                 </div>
             </div>
          </div>
-         <div class="row">
-            <div class="span14" style="text-align: justify;">
-                <blockquote style="font-size: 16px;">
-                #{markdown talk.description /}
-                </blockquote>
-           </div>
-        </div>
         <div class="row">
-            <div class="span11">
+            <div class="col-md-12" style="text-align: justify">
+                #{markdown talk.description /}
+            </div>
+        </div>
+    #{if talk.ideaForNow}
+        <div class="row">
+            <div class="col-md-12" style="text-align: justify">
+                <p><strong>&{'talk.ideaForNow.show'}</strong></p>
+                #{markdown talk.ideaForNow /}
+            </div>
+        </div>
+    #{/if}
+        <div class="row">
+            <div class="col-md-12">
                 <p>
                     ${talk.getNbLooks()} consultation${talk.getNbLooks().pluralize()}
                     #{if talk.comments}
-                        &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+                        #{if showPrivateComments}
+                            &mdash; <a href="#comments">${talk.comments.size()} commentaire${talk.comments.size().pluralize()}</a>
+                        #{/if}
+                        #{else}
+                            &mdash; <a href="#comments">${talk.publicComments.size()} commentaire${talk.publicComments.size().pluralize()}</a>
+                        #{/else}
                     #{/if}
                     #{if talk.valid}
                         &mdash; #{socialbar/}
@@ -124,32 +145,32 @@
 
     #{if voters}
     <div class="row">
-        <div class="span16">
+        <div class="col-md-12">
             <h4>Ils ont mis cette session en favoris :</h4>
-            
+
             #{list items:voters, as:'voter'}
                 #{member voter /}#{if !voter_isLast},#{/if}
             #{/list}
         </div>
     </div>
     #{/if}
-    
+
     <div class="row">
-        <div class="span16">
+        <div class="col-md-12">
             <p>
                 <h4>Activité récente</h4>
             </p>
             <p id="activities" style="max-height: 400px"></p>
-            <a id="moreActivities" class="btn small" onclick="loadMoreActivities(true)">&{'activities.more'}</a>  
+            <a id="moreActivities" class="btn btn-default" onclick="loadMoreActivities(true)">&{'activities.more'}</a>
             <img id="activitiesSpinner" class="spinner" src="/public/images/spinner.gif" alt="chargement..." />
-        
+
 <script type="text/javascript">
     var page = 1;
     var size = 5;
     var activitiesAction = #{jsAction @Activities.session(':sessionId', ':page',':size') /};
     var spinner = $('#activitiesSpinner');
     var btnMoreActivities = $('#moreActivities');
-   
+
     function loadMoreActivities(autoscroll) {
         btnMoreActivities.addClass('disabled');
         spinner.css("visibility", "visible");
@@ -167,38 +188,74 @@
             }
         });
     }
-    
+
     // Initial loading : first page
     loadMoreActivities(false);
 </script>
         </div>
     </div>
 
-    #{comments talk.comments /}
+    #{secure.check models.Role.ADMIN_SESSION}
+    <div class="alert alert-info">
+        <p><strong>Staff : feedbacks</strong></p>
+        <div class='alert-actions'>
+            <a href="@{admin.AdminPlanning.feedback()}">Retour à la liste des feedbacks</a>
+            #{if talk.feedback}
+                <a class="btn btn-warning" href="@{Sessions.feedback(talk.id, false)}">Enlever feedback</a>
+            #{/if}
+            #{else}
+                <a class="btn btn-warning" href="@{Sessions.feedback(talk.id, true)}">Marquer feedback</a>
+            #{/else}
+        </div>
+    </div>
+    #{/secure.check}
 
-    <hr/>
+    #{comments talk.comments, showPrivate:showPrivateComments /}
+
     <section id="post">
         #{if session.username}
-        <div class="row">
-            #{form @Sessions.postComment(talk.id)}
-
-            #{field 'content'}
-            <div class="clearfix ${field.error?'error':''}">
-                <label for="${field.name}">&{field.name}</label>
-                <div class="input offset4">
-                    <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
-                    <span class="help-block">${field.error}</span>
-                    <span class="help-block">&{field.name+".note"}</span>
+            <div class="row">
+            #{form @Sessions.postComment(talk.id), class:'form-horizontal', role:'form'}
+                    #{field 'content'}
+                    <div class="form-group ${field.error?'has-error':''}">
+                        <label for="${field.name}" class="col-md-2 control-label">&{field.name}</label>
+                        <div class="col-md-10">
+                            <textarea class="xxlarge" id="${field.id}" name="${field.name}" rows="5">${params.content}</textarea>
+                            <span class="help-block">${field.error}</span>
+                            <span class="help-block pull-right">&{field.name+".note"}</span>
+                        </div>
+                    </div>
+                    #{/}
+                #{if showPrivateComments}
+                    #{field 'privatelyVisible'}
+                        <div class="form-group ${field.error?'has-error':''}">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="${field.id}" name="${field.name}" type="checkbox" #{if showPrivateComments}checked="checked"#{/if} >
+                                        &{field.name}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    #{/}
+                #{/if}
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        #{secure.check models.Role.ADMIN_SESSION}
+                            <div class="alert alert-info">
+                                #{if talk.guest}<p><strong>Attention: Ce speaker est invité</strong></p>#{/if}
+                            </div>
+                        #{/}
+                        <input type="submit" class="btn btn-primary large" value="Poster votre commentaire"/>
+                    </div>
                 </div>
             </div>
-            #{/}
-            <div class="actions">
-                <input type="submit" class="btn primary large" value="Poster votre commentaire"/>
-            </div>
             #{/form}
-        </div>
         #{/if}
         #{else}
         <a href="@{Login.index(request.url+'#post')}" title="Se connecter">Connectez-vous</a> pour commenter cette session.
         #{/else}
     </section>
+
+</div>

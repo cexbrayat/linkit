@@ -3,15 +3,13 @@ package models;
 import helpers.JavaExtensions;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import java.util.Set;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Table;
 import play.data.validation.Required;
@@ -55,6 +53,10 @@ public abstract class Comment extends Model {
     @Temporal(value = TemporalType.TIMESTAMP)
     public Date postedAt;
 
+    /* true if private comment. A private comment is visible only to admin members and owners of commented entity (like speakers of a Session). */
+    @Column(name = "private")
+    public boolean privatelyVisible;
+
     public Comment(Member author, String content) {
         this.author = author;
         this.setContent(content);
@@ -76,7 +78,27 @@ public abstract class Comment extends Model {
     public final void setContent(String content) {
         this.content = JavaExtensions.sanitizeHtml(content);
     }
-    
+
+    public static List<Comment> between(Date start, Date end) {
+        CriteriaBuilder builder = em().getCriteriaBuilder();
+        CriteriaQuery<Comment> cq = builder.createQuery(Comment.class);
+        Root<Comment> comment = cq.from(Comment.class);
+        Predicate where = builder.conjunction();
+        if (start != null) {
+            Predicate after = builder.greaterThanOrEqualTo(comment.<Date>get(POSTEDAT), start);
+            where = builder.and(where, after);
+        }
+        if (end != null) {
+            Predicate before = builder.lessThan(comment.<Date>get(POSTEDAT), end);
+            where = builder.and(where, before);
+        }
+        cq.where(where);
+        cq.orderBy(builder.asc(comment.get(POSTEDAT)));
+        return em().createQuery(cq).getResultList();
+    }
+
+    public abstract Set<Member> getNotifiableMembers();
+
     @Override
     public String toString() {
         return author + " le " + postedAt;

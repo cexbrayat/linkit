@@ -17,29 +17,33 @@
 
     var voteAction = #{jsAction @Votes.vote(':talk', ':value') /};
 </script>
-<table class="zebra-striped" id="sortSession">
-    <thead>
-        <tr>
-            <th>Titre</th>
-            <th>Speaker(s)</th>
-            <th>Vote</th>
-        </tr>
-    </thead>
-    <tbody>
-        #{list items:_sessions, as:'talk'}
-        <tr>
-            <td>
-                #{lang-flag talk.lang/}<a href="@{LightningTalks.show(talk.id, talk.title.slugify())}">${talk}</a>
-            </td>
-            <td>
-                #{list items:talk.speakers, as:'speaker'}
-                #{member speaker /}#{if !speaker_isLast}, #{/if}
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped" id="sortSession">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Speaker(s)</th>
+                    <th>Vote</th>
+                </tr>
+            </thead>
+            <tbody>
+                #{list items:_sessions, as:'talk'}
+                <tr style="height: 51px;">
+                    <td>
+                        #{lang-flag talk.lang/}<a href="@{LightningTalks.show(talk.id, talk.title.slugify())}">${talk}</a>
+                    </td>
+                    <td>
+                        #{list items:talk.speakers, as:'speaker'}
+                        #{member speaker /}#{if !speaker_isLast}, #{/if}
+                        #{/list}
+                    </td>
+                    <td>
+                        #{vote talk /}
+                    </td>
+                </tr>
                 #{/list}
-            </td>
-            <td>
-                #{vote talk /}
-            </td>
-        </tr>
-        #{/list}
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
+</div>

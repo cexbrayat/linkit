@@ -1,38 +1,30 @@
 #{extends 'main.html' /}
-#{set title:'Connexion à Mix-IT' /}
+#{set title:messages.get('login.title') /}
 #{set 'moreStyles' }
 <link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/zocial.css'}" />
-<style>
-.login a {
-
-    width: 220px;
-    margin-bottom: 15px;
-}
-
-</style>
 #{/set}
 
 
 <div class="hero-unit">
-    <h2>Connexion à Mix-IT</h2>
+    <h2>&{'login.title'}</h2>
     <div class="row">
-        <div class="span5">
+        <div class="col-md-4">
             <div class="well login" style="font-size: 12px">
-                <a href="@{Login.loginWith(models.ProviderType.Twitter)}" class="zocial twitter">
-                    <span>Se connecter via Twitter</span>
+                <a href="@{Login.loginWith(models.ProviderType.Twitter)}" class="zocial twitter btn btn-block">
+                    <span>&{'login.with.Twitter'}</span>
                 </a>
-                <a href="@{Login.loginWith(models.ProviderType.Google)}" class="zocial google">
-                    <span>Se connecter via Google</span>
+                <a href="@{Login.loginWith(models.ProviderType.Google)}" class="zocial google btn btn-block">
+                    <span>&{'login.with.Google'}</span>
                 </a>
-                <a href="@{Login.loginWith(models.ProviderType.LinkedIn)}" class="zocial linkedin">
-                    <span>Se connecter via LinkedIn</span>
+                <a href="@{Login.loginWith(models.ProviderType.LinkedIn)}" class="zocial linkedin btn btn-block">
+                    <span>&{'login.with.LinkedIn'}</span>
                 </a>
-                <a href="@{Login.noNetwork()}" class="zocial guest" style="margin-bottom: 0px">
-                    <span>Avec un login/mot de passe</span>
+                <a href="@{Login.noNetwork()}" class="zocial guest btn btn-block" style="margin-bottom: 0px">
+                    <span>&{'login.with.LoginPassword'}</span>
                 </a>
             </div>
         </div>
-        <div class="span9">
+        <div class="col-md-8">
             <p>
                 &{'login.howto.intro'}
             </p>
@@ -49,7 +41,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="span14">
+        <div class="col-md-12">
                 &{'login.howto.part2'}
         </div>
     </div>

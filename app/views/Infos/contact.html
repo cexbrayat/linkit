@@ -1,55 +1,50 @@
 #{extends 'main.html' /}
-#{set title:'Contacts' /}
-#{set 'moreScripts'}
-<!-- Requirements for managing form dirtiness -->
-<script src="@{'/public/javascripts/bootstrap-modal.js'}"></script>
-<script src="@{'/public/javascripts/jquery.dirtyforms.js'}"></script>
-<script src="@{'/public/javascripts/dirtiness.js'}"></script>
-<!-- End Requirements for managing form dirtiness -->
-#{/set}
-#{dirtyDialog/}
+#{set title:'Contact' /}
 
-<h1>Envoi d'un message à l'organisation</h1>
+<h1>&{'contact.title'}</h1>
 
-#{form @Infos.send()}
+#{form @Infos.send(), class:'form'}
 <fieldset>
 
     #{field 'email.email'}
-        <div class="clearfix ${field.error?'error':''}">
+        <div class="form-group ${field.error?'has-error':''}">
             <label for="${field.name}">&{field.name}</label>
-            <div class="input span8">
-                <input class="span8" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" />
-                <span class="help-block">${field.error}</span>
-                <span class="help-block">&{field.name+".note"}</span>
-            </div>
-        </div><!-- /clearfix -->
-    #{/}
-
-    #{field 'email.subject'}
-    <div class="clearfix ${field.error?'error':''}">
-        <label for="${field.name}">&{field.name}</label>
-        <div class="input span8">
-            <input class="span8" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" />
+            <input class="form-control" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" />
             <span class="help-block">${field.error}</span>
             <span class="help-block">&{field.name+".note"}</span>
         </div>
-    </div><!-- /clearfix -->
     #{/}
 
+    #{field 'email.subject'}
+    <div class="form-group ${field.error?'has-error':''}">
+        <label for="${field.name}">&{field.name}</label>
+        <input class="form-control" id="${field.id}" name="${field.name}" size="30" type="text" value="${field.value}" />
+        <span class="help-block">${field.error}</span>
+        <span class="help-block">&{field.name+".note"}</span>
+    </div>
+    #{/}
+
+    <input type="hidden" name="randomId" value="${randomId}" />
+    #{field 'captcha'}
+    <div class="form-group ${field.error ? 'has-error' : ''}">
+        <label for="${field.name}">&{field.name}</label>
+        <img class="" src="@{Infos.captcha(randomId)}" alt="captcha" />
+        <input class="form-control" type="text" name="${field.name}" id="${field.id}" size="5" maxlength="5" value="" />
+        <span class="help-block">${field.error}</span>
+        <span class="help-block">&{field.name+".note"}</span>
+    </div>
+    #{/field}
+
     #{field 'email.message'}
-    <div class="clearfix ${field.error?'error':''}"> 
+    <div class="form-group ${field.error?'has-error':''}">
         <label for="${field.name}">&{field.name}</label> 
-        <div class="input span8"> 
-            <textarea class="span8" id="${field.id}" name="${field.name}" size="50" rows="10">${field.value}</textarea>
-            <span class="help-block">${field.error}</span>
-            <span class="help-block">&{field.name+".note"}</span>
-        </div> 
-    </div><!-- /clearfix -->
+        <textarea class="form-control" id="${field.id}" name="${field.name}" size="50" rows="10">${field.value}</textarea>
+        <span class="help-block">${field.error}</span>
+        <span class="help-block">&{field.name+".note"}</span>
+    </div>
     #{/}
 
 </fieldset>
 
-<div class="actions span8">
-    <input type="submit" class="btn primary large" value="Envoyer"/>
-</div>
+<input type="submit" class="btn btn-default" value="Envoyer"/>
 #{/form}

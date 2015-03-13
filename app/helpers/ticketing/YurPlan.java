@@ -7,6 +7,9 @@ import play.Logger;
 import play.Play;
 import play.libs.WS;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 /**
  * YurPlan ticketing provider
  *
@@ -21,11 +24,27 @@ public class YurPlan {
     private static final String API_KEY = Play.configuration.getProperty("yurplan.api.key");
     private static final String EVENT = Play.configuration.getProperty("yurplan.api.event");
 
+    public static Calendar ticketSalesStartDate;
+
+    private static final boolean SOLD_OUT = Boolean.valueOf(Play.configuration.getProperty("ticketing.sold-out", "false"));
+
+    // The old flag was set manually
+    public static boolean soldOut = SOLD_OUT;
+
+    static {
+        ticketSalesStartDate = Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris"));
+        ticketSalesStartDate.set(2015, Calendar.MARCH, 16, 15, 00, 00);
+    }
+
     /**
      * User URL for ticketing
      */
     public static final String REGISTRATION_URL = Play.configuration.getProperty("yurplan.url");
     private String token;
+
+    public static boolean isTicketSales() {
+        return Calendar.getInstance(TimeZone.getTimeZone("Europe/Paris")).after(ticketSalesStartDate) && !soldOut;
+    }
 
     public static String login() {
         return login(API_URL, API_EMAIL, API_PWD, API_KEY);

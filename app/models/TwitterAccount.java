@@ -6,11 +6,7 @@ import com.google.gson.JsonObject;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.persistence.Entity;
@@ -52,8 +48,12 @@ public class TwitterAccount extends Account {
     }
 
     public List<StatusActivity> fetchActivities() {
+        List<StatusActivity> statuses = Collections.emptyList();
+
+        // FIXME https://github.com/mix-it/linkit/issues/110
+/*
         List<StatusActivity> statuses = new ArrayList<StatusActivity>();
-        
+
         StringBuilder url = new StringBuilder("https://api.twitter.com/1/statuses/user_timeline.json?include_rts=true");
         url.append("&screen_name=").append(this.screenName);
         if (this.lastStatusId != null) {
@@ -80,6 +80,7 @@ public class TwitterAccount extends Account {
                 Logger.error(e, "Exception while parsing Twitter feed for %s. Responce received : %s", this.member, response.toString());
             }
         }
+*/
         return statuses;
     }
 

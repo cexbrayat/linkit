@@ -43,8 +43,10 @@ public class Interests extends PageController {
         Interest survivorInterest = Interest.findById(survivorInterestId);
         if (interests != null) {
             for (Long interestToBeDeleted : interests) {
-                Interest i = Interest.findById(interestToBeDeleted);
-                i.merge(survivorInterest);
+                if (interestToBeDeleted != survivorInterestId) {
+                    Interest i = Interest.findById(interestToBeDeleted);
+                    i.merge(survivorInterest);
+                }
             }
             flash.success("Intérêts fusionnés");
         }

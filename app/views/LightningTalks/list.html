@@ -1,21 +1,21 @@
 #{extends 'main.html' /}
 #{set title:'Les lightning talks' /}
 #{set 'moreScripts'}
-<script src="@{'/public/javascripts/bootstrap-alerts.js'}"></script>
+<script src="@{'/public/javascripts/alert.js'}"></script>
 #{/set}
 
 
-<div class="alert-message block-message" data-alert>
+<div class="alert alert-info alert-dismissable" data-alert>
     <a class="close" href="#">×</a>
     <p>&{'lightningtalk.short.description'}</p>
     <p>&{'lightningtalk.long.description'}</p>
     <p></p>
     <div class='alert-actions'>
     #{if session.username}
-        <a class="btn" href="@{LightningTalks.create()}" title="Proposer un Lightning Talk">&{'lightningtalk.submit'}</a>
+        <a class="btn btn-primary" href="@{LightningTalks.create()}" title="Proposer un Lightning Talk">&{'lightningtalk.submit'}</a>
     #{/if}
     #{else}
-        <a href="@{Login.index(request.url)}" title="Se connecter" class="btn">&{'lightningtalk.alert.login'}</a>
+        <a href="@{Login.index(request.url)}" title="Se connecter" class="btn btn-primary">&{'lightningtalk.alert.login'}</a>
     #{/else}
     </div>
 </div>

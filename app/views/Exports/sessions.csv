@@ -1,0 +1,4 @@
+"Type";"Nom";"Résumé";"Speakers";"Valid";"Lien"
+#{list items:sessions, as:'s'}
+"${s.format}";"${s.title.replaceAll('"','""')}";"${s.summary.replaceAll('"','""')}";"#{list s.speakers, as:'speaker'}${speaker.toString()}#{if !speaker_isLast}, #{/if}#{/list}";${s.valid};"@@{Sessions.show(s.id, s.title.slugify())}"
+#{/list}

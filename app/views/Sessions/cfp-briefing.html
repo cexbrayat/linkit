@@ -1,0 +1,61 @@
+#{extends 'main.html' /}
+#{set title:'CFP - Call For Papers' /}
+
+#{set 'moreStyles'}
+<style>
+    p {
+        text-align: justify;
+    }
+</style>
+#{/set}
+
+<div class="jumbotron">
+    <h1>&{'cfp.title'}</h1>
+    &{'cfp.subtitle'}
+</div>
+
+#{if !java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
+    <p class="bg-danger" style="background-color: #F2DEDE; padding: 15px;">&{'warning.cfp-closed.only-for-guests'}</p>
+#{/if}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h2>&{'cfp.theme.title'}</h2>
+        &{'cfp.theme.content'}
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <h2>&{'cfp.quality.title'}</h2>
+
+        <p>
+            &{'cfp.quality.1'}
+        </p>
+        <p>
+            &{'cfp.quality.2'}
+        </p>
+    </div>
+    <div class="col-sm-6">
+        <h2>&{'cfp.attendees.title'}</h2>
+        <p>
+            &{'cfp.attendees.1', play.mvc.Router.reverse("Infos.contact")}
+        </p>
+        <p>
+            &{'cfp.attendees.2'}
+        </p>
+    </div>
+</div>
+
+<hr>
+<p>&{'cfp.conclusion'}</p>
+<p>&{'cfp.speaking.io', play.mvc.Router.reverse("Profile.show").add("login","holman")}</p>
+
+</p>
+
+#{if !java.lang.Boolean.valueOf(play.configuration.getProperty('cfp.isOpen', 'false')) }
+    <p class="bg-danger" style="background-color: #F2DEDE; padding: 15px;">&{'warning.cfp-closed.only-for-guests'}</p>
+#{/if}
+
+<p style="margin: 30px;">
+    #{a @Sessions.create(speakerLogin:speakerLogin, briefed:true), class:"btn btn-primary btn-lg"}&{'cfp.action'}#{/a}
+</p>

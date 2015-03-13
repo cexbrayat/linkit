@@ -60,7 +60,7 @@ Interest(kotlin2):
     
 Interest(dart):
     name: Dart
-    
+
 Staff(cedric) :
     firstname: Cédric
     lastname: Exbrayat
@@ -72,6 +72,7 @@ Staff(cedric) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 models.auth.LinkItAccount(cedLinkIt):
     provider: LinkIt
@@ -100,38 +101,6 @@ SharedLink(cedLink2):
     ordernum: 1
     name: Mon blog HypeDrivenDev
     URL: http://hypedrivendev.wordpress.com/
-
-Staff(julien) :
-    firstname: Julien
-    lastname: Ripault
-    login: julien
-    email: tluapir@gmail.com
-    shortDescription : Entretenir mes cheveux et ma guitare sont mes activités principales.
-    badges:           
-         - Staff
-         - Attendee
-
-SharedLink(juLink1):
-    member: julien
-    ordernum: 0
-    name: "Ma passion : la musique"
-    URL: http://lolannonces.fr/tag/frederic-francois/
-
-models.auth.LinkItAccount(juLinkIt):
-    provider: LinkIt
-    member: julien
-    #password: julien
-    password: 6eZDiYfyb+WLEqDA+jIvdrGh20Q2JsaTYUfir9MK8R4=
-
-TwitterAccount(juTwitter):
-    provider: Twitter
-    member: julien
-    screenName: julien_ripault
-
-GoogleAccount(juGoogle):
-    provider: Google
-    member: julien
-    googleId: 105928763613547015053
     
 Staff(agnes) :
     firstname: Agnès
@@ -143,6 +112,7 @@ Staff(agnes) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 models.auth.LinkItAccount(agnesAccount):
     provider: LinkIt
@@ -173,6 +143,7 @@ Staff(franck) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 models.auth.LinkItAccount(franckLinkIt):
     provider: LinkIt
@@ -203,6 +174,7 @@ Staff(romain) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: false
 
 models.auth.LinkItAccount(romainLinkIt):
     provider: LinkIt
@@ -220,10 +192,10 @@ GoogleAccount(romainGoogle):
     member: romain
     googleId: 113173388528230315265
 
-Staff(nicolas) :
+Staff(npelloux) :
     firstname: Nicolas
     lastname: Pelloux-Prayer
-    login: nicolas
+    login: npelloux
     email: nicolaspellouxprayer@gmail.com
     shortDescription : CARA *for ever*!
     interests:
@@ -232,27 +204,28 @@ Staff(nicolas) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
-models.auth.LinkItAccount(nicolasLinkIt):
+models.auth.LinkItAccount(npellouxLinkIt):
     provider: LinkIt
-    member: nicolas
+    member: npelloux
     #password: nicolas
     password: 2NlOQ+QV47f1N+qoX/OTAsaxP5CjOamLrLleNKTE2j8=
 
-TwitterAccount(nicolasTwitter):
+TwitterAccount(npellouxTwitter):
     provider: Twitter
-    member: nicolas
+    member: npelloux
     screenName: npelloux
 
-GoogleAccount(nicolasGoogle):
+GoogleAccount(npellouxGoogle):
     provider: Google
-    member: nicolas
+    member: npelloux
     googleId: 105069688047906196113
 
-Staff(mathieu) :
+Staff(mpetitdant) :
     firstname: Mathieu
     lastname: PetitDeDant
-    login: mathieu
+    login: mpetitdant
     email: mathieu.petitdant@gmail.com
     shortDescription : Kent Beck *for ever*!
     interests:
@@ -261,21 +234,22 @@ Staff(mathieu) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 models.auth.LinkItAccount(mathieuLinkIt):
     provider: LinkIt
-    member: mathieu
+    member: mpetitdant
     #password: mathieu
     password: Q8ZCnQXbEZu7EnAtOG4N1fu3s16uYuYkf/WwbHbw+H8=
 
 TwitterAccount(mathieuTwitter):
     provider: Twitter
-    member: mathieu
+    member: mpetitdant
     screenName: mpetitdant
 
 GoogleAccount(mathieuGoogle):
     provider: Google
-    member: mathieu
+    member: mpetitdant
     googleId: 117476886144863426166
 
 Staff(clacote) :
@@ -290,6 +264,7 @@ Staff(clacote) :
     badges:           
          - Staff
          - Attendee
+    publicProfile: true
 
 models.auth.LinkItAccount(clacoteLinkIt):
     provider: LinkIt
@@ -306,6 +281,99 @@ GoogleAccount(clacoteGoogle):
     provider: Google
     member: clacote
     googleId: 114128610730314333831
+
+Staff(philippe) :
+    firstname: Philippe
+    lastname: Charrière
+    login: ph.charriere
+    email: ph.charriere@gmail.com
+    shortDescription : Geek night and day
+    interests:
+         - java
+         - javascript
+    badges:
+         - Staff
+         - Attendee
+    links:
+         - clacote
+    publicProfile: true
+
+TwitterAccount(philippeTwitter):
+    provider: Twitter
+    member: philippe
+    screenName: k33g_org
+
+GoogleAccount(philippeGoogle):
+    provider: Google
+    member: philippe
+    googleId: +PhilippeCharrière
+
+Staff(sebastien) :
+    firstname: Sébastien
+    lastname: Deleuze
+    login: sdeleuze
+    email: seb@deleuze.fr
+    shortDescription : Spring and Twitter
+    interests:
+         - java
+         - javascript
+    badges:
+         - Staff
+         - Attendee
+    publicProfile: true
+
+TwitterAccount(sebastienTwitter):
+    provider: Twitter
+    member: philippe
+    screenName: sdeleuze
+
+GoogleAccount(sebastienGoogle):
+    provider: Google
+    member: sebastien
+    googleId: 113362004587028218539
+
+Staff(guillaume) :
+    firstname: Guillaume
+    lastname: Ehret
+    login: guillaumeehret
+    email: gui.ehret@gmail.com
+    shortDescription : JavaMind night and day
+    interests:
+         - java
+         - javascript
+    badges:
+         - Staff
+         - Attendee
+    publicProfile: true
+
+TwitterAccount(guillaumeTwitter):
+    provider: Twitter
+    member: guillaume
+    screenName: guillaumeehret
+
+GoogleAccount(guillaumeGoogle):
+    provider: Google
+    member: guillaume
+    googleId: 115129243268336273837
+
+Staff(gregalexandre) :
+    firstname: Grégory
+    lastname: Alexandre
+    login: gregalexandre
+    email: g.alexandre@coactiv.fr
+    shortDescription : Agile and stuff
+    interests:
+         - java
+         - javascript
+    badges:
+         - Staff
+         - Attendee
+    publicProfile: true
+
+TwitterAccount(gregalexandreTwitter):
+    provider: Twitter
+    member: gregalexandre
+    screenName: gregalexandre
 
 Member(pamelafox) :
     firstname: Pamela
@@ -330,10 +398,10 @@ GoogleAccount(pamelafoxGoogle):
     googleId: 104906919451670502090
 
 Article(article1):
-    title: Mix-IT 2012!
-    headline: Mix-IT seconde édition est annoncée pour le 26 avril 2012
+    title: Mix-IT 2013!
+    headline: Mix-IT seconde édition est annoncée pour le 26 avril 2013
     content: |
-        Vous l'attendiez tous... et bien voilà la conf [Mix-IT](http://www.mix-it.fr) 2012 aura lieu le 26 avril 2012 à Lyon! Stay tuned! Au programme on vous prépare toujours un bon mix de Java et d'Agilité, ainsi que d'autres langages et technologies innovantes.
+        Vous l'attendiez tous... et bien voilà la conf [Mix-IT](http://www.mix-it.fr) 2013 aura lieu le 26 avril 2013 à Lyon! Stay tuned! Au programme on vous prépare toujours un bon mix de Java et d'Agilité, ainsi que d'autres langages et technologies innovantes.
     author: agnes
     postedAt: 2011-11-25
     valid: true
@@ -350,7 +418,8 @@ Sponsor(zenika):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 TwitterAccount(zenikaTwitter):
     provider: Twitter
@@ -385,7 +454,8 @@ Sponsor(github):
          - Sponsor
     level: GOLD
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 Sponsor(Gold2):
     logoUrl: /public/images/logo-cara.png
@@ -398,7 +468,8 @@ Sponsor(Gold2):
          - Sponsor
     level: GOLD
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 Sponsor(Silver1):
     logoUrl: /public/images/logo-elasticsearch.png
@@ -411,7 +482,8 @@ Sponsor(Silver1):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 Sponsor(Silver2):
     logoUrl: /public/images/logo-google.png
@@ -424,7 +496,8 @@ Sponsor(Silver2):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 Sponsor(Silver3):
     logoUrl: /public/images/logo-od.png
@@ -437,7 +510,8 @@ Sponsor(Silver3):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 Sponsor(Silver4):
     logoUrl: /public/images/logo-sonarsource.jpg
@@ -450,7 +524,8 @@ Sponsor(Silver4):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 Sponsor(Silver5):
     logoUrl: /public/images/logo-terredagile.jpg
@@ -463,7 +538,8 @@ Sponsor(Silver5):
          - Sponsor
     level: SILVER
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 Sponsor(Bronze1):
     logoUrl: /public/images/logo-elasticsearch.png
@@ -476,7 +552,8 @@ Sponsor(Bronze1):
          - Sponsor
     level: BRONZE
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 Sponsor(Bronze2):
     logoUrl: /public/images/logo-google.png
@@ -489,7 +566,8 @@ Sponsor(Bronze2):
          - Sponsor
     level: BRONZE
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 Sponsor(Bronze3):
     logoUrl: /public/images/logo-od.png
@@ -502,7 +580,8 @@ Sponsor(Bronze3):
          - Sponsor
     level: BRONZE
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 Sponsor(Bronze4):
     logoUrl: /public/images/logo-sonarsource.jpg
@@ -515,7 +594,8 @@ Sponsor(Bronze4):
          - Sponsor
     level: BRONZE
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
 Sponsor(Bronze5):
     logoUrl: /public/images/logo-terredagile.jpg
@@ -528,9 +608,10 @@ Sponsor(Bronze5):
          - Sponsor
     level: BRONZE
     events:
-         - mixit13
+         - mixit15
+    publicProfile: true
 
-Talk(talk1):
+Talk(talk1-2012):
     event: mixit12
     track: Trendy
     title: Session de test 2012 valide
@@ -542,10 +623,42 @@ Talk(talk1):
         - clacote
     valid: true
 
-Talk(talk2):
+Talk(talk2-2012):
     event: mixit12
+    track: Weby
+    title: Session de test 2012 valide
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - mpetitdant
+    valid: true
+
+Talk(talk1):
+    event: mixit13
     track: Trendy
-    title: Session de test 2012 non valide
+    title: Session de test 2013 valide
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - cedric
+        - agnes
+        - clacote
+    valid: true
+
+Talk(talk1b):
+    event: mixit13
+    track: Agility
+    title: Session agile 2013 valide
+    summary: Une session de test, track agile.
+    description: Lorem impsum sum sum sum.
+    speakers:
+        - cedric
+    valid: true
+
+Talk(talk2):
+    event: mixit13
+    track: Trendy
+    title: Session de test 2013 non valide
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
@@ -553,8 +666,8 @@ Talk(talk2):
     valid: false
 
 Talk(talk131):
-    event: mixit13
-    title: Une session de test 2013
+    event: mixit15
+    title: Une session de test 2014
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
@@ -563,9 +676,12 @@ Talk(talk131):
     valid: false
 
 Talk(talk132):
-    event: mixit13
+    event: mixit15
     track: Gamy
-    title: Une session de test 2013 validée
+    interests:
+        - java
+        - tdd
+    title: Une session de test 2014 validée
     summary: Une session de test, maintenant qu'on ne peut plus en saisir
     description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
@@ -574,19 +690,70 @@ Talk(talk132):
     valid: true
     lang: fr
 
-LightningTalk(lt12):
-    event: mixit12
-    title: LT de test 2012
-    summary: Un LT 2012
-    description: Un LT 2012.
+Talk(talk1324):
+    event: mixit15
+    interests:
+        - java
+        - tdd
+    title: Une seconde session
+    summary: Une seconde session
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
     speakers:
-        - julien
+        - agnes
+        - mpetitdant
+    valid: true
+    lang: fr
 
-LightningTalk(lt13):
+Talk(talk13245):
+    event: mixit15
+    interests:
+        - java
+        - tdd
+    title: Une 3ème session
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - clacote
+        - cedric
+    valid: true
+    lang: fr
+
+Talk(talk2015_1):
+    event: mixit15
+    interests:
+        - java
+        - tdd
+    title: Une 3ème session
+    summary: Une session de test, maintenant qu'on ne peut plus en saisir
+    description: Comme le CFP est terminé, on ne peut plus saisir de session.
+    speakers:
+        - clacote
+        - cedric
+        - mpetitdant
+    valid: true
+    lang: fr
+
+LightningTalk(lt12):
     event: mixit13
     title: LT de test 2013
     summary: Un LT 2013
     description: Un LT 2013.
+    speakers:
+        - mpetitdant
+
+LightningTalk(lt12b):
+    event: mixit13
+    title: second LT de test 2013
+    summary: Un LT 2013
+    description: Un LT 2013.
+    speakers:
+        - cedric
+
+LightningTalk(lt13):
+    event: mixit15
+    title: LT de test 2014
+    summary: Un LT 2014
+    description: Un LT 2014.
     speakers:
         - agnes
         - cedric

@@ -9,14 +9,15 @@ menu.live=DIRECT
 menu.dashboard=Mon dashboard
 menu.news=Actualités
 menu.agenda=Programme
-menu.agenda.sessions=Sessions
+menu.agenda.sessions=Conférences, ateliers
 menu.agenda.lightningtalks=Lightning talks
 menu.agenda.submit=Proposer une session
+menu.agenda.mixteen=Mix-TeeN
 menu.members=Participants
 menu.members.speakers=Les speakers
 menu.members.all=Tous les participants
 menu.members.staff=Les membres du staff
-menu.members.sponsors=Les sponsors
+menu.members.sponsors=Nos sponsors
 menu.infos=Infos pratiques
 menu.infos.about=A propos de Mix-IT
 menu.infos.faq=FAQ
@@ -24,8 +25,11 @@ menu.infos.inscription=Inscription
 menu.infos.sponsors=Sponsors
 menu.infos.kit=Kit Multimédia
 menu.infos.contact=Contact
+menu.infos.codeOfConduct=Code de conduite
 menu.infos.access=Accès à la conférence
 menu.infos.hotels=Hôtels à proximité
+menu.infos.2014=Mix-IT 2014
+menu.infos.2013=Mix-IT 2013
 menu.infos.2012=Mix-IT 2012
 menu.infos.2011=Mix-IT 2011
 menu.admin=Admin
@@ -33,6 +37,7 @@ menu.search=Rechercher
 menu.login=Se connecter
 menu.login.profile=Voir mon profil
 menu.login.edit=Editer mon profil
+menu.login.editSpeakerPreferences=Modifier mes préférences
 menu.login.trombinoscope=Mon trombinoscope
 menu.login.settings=Mes préférences
 menu.login.logout=Se déconnecter
@@ -41,20 +46,59 @@ menu.login.logout=Se déconnecter
 mixit.slogan=Des idées pour tout de suite !
 mixit.header=Java, Agilité, Web, Innovations...
 ticketing.alert=&{ticketing.soldout}
-ticketing.open=La billeterie est ouverte!
+ticketing.open=La billetterie est ouverte!
 ticketing.soldout=COMPLET
+mixit.past.event=Rendez-vous en 2015 !
+mixit.poll.goto=Remplir le sondage #mixit14
 button.about.mixit=A propos de Mix-IT
 button.talks=Le programme
 button.login=S'inscrire
 button.ticketing=Acheter mon billet
-button.ticketing.details=30€ une journée, 50€ les deux jours, via notre partenaire YurPlan
+button.ticketing.details=50€ les deux jours, via notre partenaire YurPlan
 button.vote.lightningtalks=Voter pour des lightning talks
 tab.lastactivities=Dernières activitiés
 tab.lastarticles=Derniers articles
 tab.lasttalks=Dernières sessions
 tab.lastattendees=Derniers inscrits
 
+home.headers.development=Développement
+home.headers.development.short=Dev
+home.headers.agility=Agilité
+home.headers.innovation=Innovation
+home.speakers.previously=Précédemment, à Mix-IT
+home.speakers.this-year=Cette année, à Mix-IT
+home.speakers.last-year=L'année dernière, à Mix-IT
+home.more=plus
+home.check-out.video.mixit14=Voir la vidéo Mix-IT 2014
+
+home.featurette1.title=Développement, Agilité, Innovation, DevOps, Lean Startup.
+home.featurette1.subtitle=Des idées pour tout de suite&nbsp;!
+home.featurette1.text=Nous faisons des métiers passionnants et d'une richesse incroyable. \
+    Nous sommes les acteurs du Web et des logiciels d'aujourd'hui et de demain qui apportons des idées, \
+    les réalisent, et les mettent en production. Venez chercher l'inspiration, les bonnes pratiques, et les nouveaux \
+    outils&nbsp;: vous les trouverez à Mix-IT&nbsp;! Mais surtout venez rencontrer et échanger avec d'autres passionnés.
+home.featurette2.title=2 jours de conférences et d'ateliers.
+home.featurette2.subtitle=Et plein de surprises&nbsp;!
+home.featurette2.text=Des conférences pour faire des découvertes, des jeux pour apprendre, des ateliers de \
+    développement ou créatifs, Mix-IT c'est 2 jours intenses de progrès et de rencontres&nbsp;! \
+    La soirée, ouverte à tous, est aussi le moment idéal pour faire des connaissances et s'ouvrir aux autres cultures.
+    Mix-IT est une opportunité de rencontrer en comité réduit les speakers locaux qui animent la communauté locale, \
+    mais aussi les stars internationales qui inspirent le Monde entier!
+home.featurette3.title=500 participants, 50 speakers.
+home.featurette3.subtitle=A un tarif incroyable&nbsp;!
+home.featurette3.text=Afin de garder une dimension conviviale, le nombre de participants est limité à 500. Nous nous \
+  battons pour vous proposer tout cela à un prix très abordable, pour que tout un chacun puisse en profiter.
+
+home.breaking.cfp.open=CFP ouvert !
+home.breaking.tickets.open=Billeterie ouverte
+home.planning=Consulter le planning détaillé
+
 # Login
+login.title=Connexion à Mix-IT
+login.with.Twitter=Se connecter via Twitter
+login.with.Google=Se connecter via Google
+login.with.LinkedIn=Se connecter via LinkedIn
+login.with.LoginPassword=Avec un login/mot de passe
 login.why=Pourquoi ouvrir un compte sur le site Mix-IT ?
 login.howto.intro=Au-delà du partage de connaissances, Mix-IT est aussi un moment pour échanger et faire de nouveaux contacts. La vocation de notre site est de vous préparer à cela.
 login.howto.part1=Vous créez un compte Mix-IT qui vous permettra de :
@@ -64,39 +108,155 @@ login.howto.part1.3=commenter les sessions
 login.howto.part1.4=de gagner des badges en fonction de votre activité sur le site (un peu de fun !)
 login.howto.part1.5=et plus encore (le site continuera à évoluer, on travaille en mode <em>agile</em>) !
 login.howto.part2=Pourquoi avoir développé cet aspect social pour notre site ? Au-delà de s'être fait plaisir techniquement (ce qui reste un facteur fort motivant, on reste des développeurs : <em>"Programming, Motherfucker"</em> !) nous espérons que cela peut être un terreau fertile pour les échanges le jour de la conférence !
+login.password.lost=Mot de passe oublié ?
+login.password.lost.email=Email :
+login.password.lost.password=Mot de passe :
+login.password.lost.password.confirm=Confirmez votre mot de passe :
+login.password.lost.title=&{login.title} : mot de passe oublié.
+login.password.lost.requestReset=Réinitialiser le mot de passe
+login.already.logged-in=Déjà connecté !
+login.email.unknown=Cet email n'est pas connu de nos services !
+login.password.lost.mail-sent=Un mail contenant un lien de réinitialisation vous a été envoyé.
+login.password.lost.mailing.content=Pour réinitialiser votre mot de passe cliquez sur le lien suivant :
+login.password.lost.password-check-failed=Les mots de passe ne correspondent pas !
+login.password.lost.no-LinkItAccount=Un compte existe pour cet email mais aucun mot de passe n'y est associé. Veuillez tenter de vous connecter via un autre mode de connexion.
+login.password.lost.password-changed=Votre mot de passe a correctement été modifié !
+login.password.lost.unknown-uuid=Ce lien n'est plus valide, merci de réessayer.
 
 # About
-mixit.short.description=Découvrez ce qu'est la conférence Mix-IT (et qui se cache derrière), un mix de Java, Agilité, Web et Innovations !
-mixit.long.description=Mix-IT est l’aboutissement de la collaboration entre <a href='http://lyonjug.org/' target='_blank'>le Lyon Java User Group</a> et <a href='http://www.clubagilerhonealpes.org/' target='_blank'>le Club Agile Rhône-Alpes</a> (première édition en 2011). Mix-it est né d’une envie commune de créer une conférence à <strong>Lyon</strong> accessible à tous, sur <strong>l’agilité</strong>, <strong>l'écosystème Java</strong> et <strong>les innovations IT</strong>, Web ou mobile. Le staff de Mix-it vous accueille pour des sessions d’expertise, des jeux et des rencontres. Entrepreneurs, Chefs de Projet, développeurs vous trouverez forcément des idées pour vos projets ! Les conférences peuvent être aussi bien en français qu'en anglais.
-mixit.whois=Mix-IT, c'est qui ?
+about.page.title=A propos de l'organisation
+about.short.description=Découvrez ce qu'est la conférence Mix-IT (et qui se cache derrière), un mix de Java, Agilité, Web et Innovations !
+about.long.description=Mix-IT est l’aboutissement de la collaboration entre <a href='http://lyonjug.org/' target='_blank'>le Lyon Java User Group</a> et <a href='http://lyon.clubagilerhonealpes.org/' target='_blank'>le Club Agile Rhône-Alpes</a> (première édition en 2011). Mix-it est né d’une envie commune de créer une conférence à <strong>Lyon</strong> accessible à tous, sur <strong>l’agilité</strong>, <strong>l'écosystème Java</strong> et <strong>les innovations IT</strong>, Web ou mobile. Le staff de Mix-it vous accueille pour des sessions d’expertise, des jeux et des rencontres. Entrepreneurs, Chefs de Projet, développeurs vous trouverez forcément des idées pour vos projets ! Les conférences peuvent être aussi bien en français qu'en anglais.
+about.whois=Mix-IT, c'est qui ?
+
+about.bio.profile.link.male=ou allez voir son <a href="%s">profil</a>
+about.bio.profile.link.female=ou allez voir son <a href="%s">profil</a>
+about.bio.agnes=Agnès Crépet est Java Champion et leader de deux Java User Groups&nbsp;: \
+                le <a href="http://www.lyonjug.org">Lyon JUG</a> et <a href="http://jduchess.org/duchess-france">Duchess France</a>. \
+                Elle est co-fondatrice, avec trois autres développeurs passionnés, de la société <a href="http://ninja-squad.fr">Ninja Squad</a>. \
+                Dans d'autres sphères, elle est présidente de l'association <a href="http://www.avataria.org/">Avataria</a>, \
+                organisatrice d'événements culturels et de FabLab dans des lieux du patrimoine industriel de sa ville&nbsp;!
+about.bio.agnes.links=Suivez-la sur <a href="http://twitter.com/agnes_crepet">Twitter</a>
+about.bio.cedric=Cédric est avant tout un passionné. Par son travail déjà et c'est une chance. \
+                 Il tire toujours satisfaction à livrer un produit non seulement fonctionnel, mais aussi de qualité, \
+                 en ayant aidé ses collègues à progresser et si possible en ayant découvert de nouvelles idées. \
+                 Car il est aussi passionné par tout ce qui apparaît et qui transforme notre métier chaque jour. \
+                 Il tient d'ailleurs un blog, <a href="http://hypedrivendev.wordpress.com/">Hype Driven Developement</a>, \
+                 où il livre ses impressions sur les derniers frameworks à la mode qu'il se fait un plaisir de tester, \
+                 et a fondé la société <a href="http://ninja-squad.fr">Ninja Squad</a> avec d'autres passionnés pour proposer leur savoir faire. \
+                 Vous pouvez aussi suivre ses découvertes sur <a href="http://twitter.com/cedric_exbrayat">Twitter</a>. \
+                 Enfin, vous avez de fortes chances de le croiser bien entouré \
+                 par d'autres passionnés de la région. Il a en effet créé, avant cette conférence, \
+                 le <a href="http://www.lyonjug.org/">Lyon JUG</a>, dont il est président.
+about.bio.cedric.links=Suivez-le sur <a href="http://twitter.com/cedric_exbrayat">Twitter</a>, \
+                       son <a href="http://hypedrivendev.wordpress.com/">blog</a>
+about.bio.AlexisHassler=Alexis est développeur et formateur Java depuis la fin du siècle dernier. \
+                        Indépendant, il essaie d'aider ses clients à améliorer leur façon de développer et de déployer leurs applications Java. \
+                        Il est co-leader du <a href="http://www.lyonjug.org/">Lyon JUG</a> et prend très à coeur son rôle de porteur d'eau dans l'organisation de Mix-IT.
+about.bio.AlexisHassler.links=Suivez-le sur <a href="http://twitter.com/AlexisHassler">Twitter</a>, \
+                              <a href="https://plus.google.com/u/0/117951061342524071088/">Google+</a>, \
+                              son <a href="http://blog.alexis-hassler.com/">blog</a>
+about.bio.clacote=Cyril a d'abord travaillé une dizaine d'années en SSII pour varier les projets, comme développeur et formateur Java. \
+                  Embauché par Google à Londres, il a tenté l'expérience, mais a finalement démissionné de cette boîte de rêve&nbsp;: \
+                  le job cantonné à l'avant-vente l'éloignait trop de la technique. \
+                  Depuis, il a monté la boîte de ses rêves avec d'autres passionnés croisés entre autres ici&nbsp;: <a href="http://ninja-squad.fr">Ninja Squad</a>, \
+                  où il est surtout développeur, mais aussi comptable amateur et <em>Community Manager</em> par défaut.
+about.bio.clacote.links=Suivez-le sur <a href="http://twitter.com/clacote">Twitter</a>, \
+                        <a href="https://plus.google.com/114128610730314333831">Google+</a>
+about.bio.romain=Romain est coach agile, et formateur. Il travaille (ou s'amuse c'est selon) avec les équipes à \
+                 créer de nouveaux cadres de travail et de collaboration pour les accompagner dans leurs projets. \
+                 Après avoir longtemps joué avec les post-its, il a enrichi sa boite à outils avec 10kg de Légos et \
+                 des marqueurs Prockey pour la facilitation graphique. Pour se détendre, il avale des bande-dessinées \
+                 et anime l'antenne lyonnaise du <a href="http://lyon.clubagilerhonealpes.org/">Club Agile Rhône-Alpes</a>.
+about.bio.romain.links=Suivez-le sur <a href="http://twitter.com/romaincouturier">Twitter</a>
+about.bio.franck=Franck fut d'abord un globe trotter en automation et depuis 10 ans se déchaîne dans la création de produit logiciel. \
+                 Passionné par le <em>Lean Startup</em>, gestion de produit en Flux, <em>design thinking</em> et \
+                 création d'espaces de confiance professionnel, Franck utilise actuellement ces principes dans son poste de \
+                 responsable d'innovation. \
+                 Afin de promouvoir les méthodes agile en Rhône-Alpes, il est membre du <a href="http://lyon.clubagilerhonealpes.org/">Club Agile Rhône-Alpes</a> \
+                 et co-animateur de <a href="https://twitter.com/xalec_">ALE Hangout</a> pour échanger sur les nouvelles tendances du développement de produit logiciel.
+about.bio.franck.links=Suivez-le sur <a href="https://twitter.com/franckdepierre">Twitter</a>, \
+                       son <a href="http://blog.lookingforanswers.me/">blog</a>
+about.bio.npelloux=Nicolas est développeur, <em>Scrum Master</em> et passionné par le développement logiciel et la sécurité informatique. \
+                  Après 5 ans passés sur les technologies C/C++ puis .Net, il fait aujourd'hui du Java \
+                  et s'essaye à transformer le monde du travail dans ses missions. \
+                  Nicolas est membre du <a href="http://lyon.clubagilerhonealpes.org/">Club Agile Rhône-Alpes</a>.
+about.bio.npelloux.links=Suivez-le sur <a href="https://twitter.com/npelloux">Twitter</a>
+about.bio.mpetitdant=Mathieu se revendique simple artisan développeur (sur les technos Java/JEE et Web). \
+                  Après plus de 6 ans en SSII à Paris, il a rejoint Lyon début 2012 et pris son envol en tant qu'indépendant un an plus tard. \
+                  Il fait aussi désormais partie du groupe <a href="http://devlyon.fr/">DevLyon</a>. \
+                  Agiliste à ses heures, il aide de son mieux son équipe à s'améliorer et s'auto organiser. \
+                  Il a rejoint l'organisation pour Mix-IT 2014.
+about.bio.mpetitdant.links=Suivez-le sur <a href="https://twitter.com/mpetitdant">Twitter</a>
+about.bio.sdeleuze=Sébastien travaille chez <a href="http://www.pivotal.io/">Pivotal</a> en tant que membre de l'équipe de développement de Spring Framework. \
+                   Il est également Google Developer Expert Dart, et a créé il y a quelques années 2 projets Open Source&nbsp;: \
+                   <a href="http://openscales.org/">OpenScales</a> (bibliothèque Flex de référence pour tout ce que est cartographie) \
+                   et <a href="http://resthub.org/">RESThub</a> (stack HTML5 basée sur Spring et Backbone.js). \
+                   Il a rejoint l'organisation pour Mix-IT 2015.
+about.bio.sdeleuze.links=Suivez-le sur <a href="https://twitter.com/sdeleuze">Twitter</a>
+about.bio.ph.charriere=Philippe a déjà (bien) dépassé la 40aine, et pourtant il continue encore à "geeker" au travail comme à la maison sur divers sujets tous liés au développement. \
+                       Il est aujourd'hui "enterprise advocate" & directeur technique chez SQLi-Lyon avec une addiction sévère pour tout ce qui touche à javascript et aux single page applications, \
+                       mais aussi pour un petit langage dynamique Gaulois du nom de Golo. \
+                       Il a rejoint l'organisation pour Mix-IT 2015.
+about.bio.ph.charriere.links=Suivez le sur <a href="https://twitter.com/k33g_org">Twitter</a>, <a href="https://plus.google.com/+PhilippeCharrière">Google+</a>, son <a href="http://k33g.github.io/">blog</a>
+about.bio.gregalexandre=Grégory a rencontré l'agilité il y a maintenant plus de 6 ans en entrant chez CLT-Services en tant que développeur ASP.NET/C# et a, \
+                        par la même occasion, découvert ce qu'était le Scrum, l'XP, le Lean, le Kanban, la vie quoi... \
+                        Vite attiré par l'aspect fonctionnel de ses projets il s'est d'abord tourné vers le Scrum Mastering puis le Product Ownership qui lui a permis de parfaire ses compétences en Business Value Management. \
+                        Après avoir été présent à la création de Coactiv, la branche Agilité de CLT-Services, Grégory accompagne désormais les entreprises et leurs équipes dans leur transformation et leur transition vers l'agilité. \
+                        Ses outils préférés : la métaphore, le jeu d'entreprise et l'humour. \
+                        Il a rejoint l'organisation pour Mix-IT 2015.
+about.bio.gregalexandre.links=Suivez le sur <a href="https://twitter.com/gregalexandre">Twitter</a>
+about.bio.guillaumeehret=Guillaume se plait dans tout ce qui tourne autour du développement logiciel et n'hésite pas à changer les casquettes&nbsp;: \
+                         développeur, chef de projet plutôt technique, architecte.... Pour simplifier il se définit comme un développeur agile indépendant. \
+                         Son site web est disponible à l'adresse <a href="http://dev-mind.fr/">http://dev-mind.fr/</a> et vous pouvez aussi suivre <a href="http://javamind-fr.blogspot.fr">son blog</a> où il parle de développement Java, Web, Android et Agilité. \
+                         Il a rejoint l'organisation pour Mix-IT 2015.
+about.bio.guillaumeehret.links=Suivez le sur <a href="https://twitter.com/guillaumeehret">Twitter</a> ou sur <a href="http://javamind-fr.blogspot.fr">son blog</a>
+
+page.codeOfConduct.title=Code de conduite
+page.codeOfConduct.description=Les principes à respecter si vous venez à Mix-IT
+page.codeOfConduct.content=Vous avez été géniaux les années précédentes, et nous espérons que cette année encore la \
+                           conférence se déroulera sans incidents. Néanmoins d'autres exemples de conférences montrent \
+                           qu'un dérapage peut toujours arriver. Nous avons donc décidé de mettre en place un \
+                           Code de Conduite et de contribuer à faire de nos communautés un endroit agréable pour tous \
+                           les participants quels que soient leur origine, sexe, age, sexualité...<br/>\
+                           Profitez de ces deux jours et continuez à faire de Mix-IT la conférence que nous aimons. \
+                           De toute évidence, ces principes nous semblent naturels, et ils devraient être appliqués \
+                           dans cette conférence comme dans la vie de tous les jours sans qu'on ait besoin de les rappeler.
+page.codeOfConduct.action=Notre code de conduite collaboratif :
+page.codeOfConduct.link=http://confcodeofconduct.com/index-fr.html
+page.codeOfConduct.url=http://confcodeofconduct.com/index-fr.html
 
 # FAQ
 faq.title=Foire aux Questions
 faq.time.question=Quelles sont les horaires de la conférence ?
-faq.time.answer=La conférence se déroule sur 2 jours cette année. Nous vous accueillons à chaque fois à partir de 8H30. La keynote du matin démarre à 9H. La keynote du soir est à 18H et dure 15 minutes.
+faq.time.answer=La conférence se déroule sur 2 jours. Nous vous accueillons pour chaque journée à partir de 8H30. Les sessions du matin débutent à 9h30. La fin de journée est entre 18h et 18h30.
 faq.login.question=Pourquoi ouvrir un compte sur le site Mix-IT ?
 faq.login.answer=Voir <a href="%s">la page de connexion</a> pour comprendre l'intérêt de la partie sociale du site !
 faq.registration.question=Comment acheter son billet ?
 faq.registration.answer=Voir <a href="%s">la page des inscriptions</a> pour acheter son billet.
-faq.dif.question=Comment puis-je utiliser mon DIF (Droit Individuel à la Formation) pour Mix-IT ?
+faq.dif.question=Est-il possible de participer à Mix-IT au titre de la formation ?
+faq.dif.answer=Cette année ce sera notre sponsor <a href="/profile/VISEO">Viseo</a> qui gèrera cet aspect. Ce partenaire vous fera signer chaque jour sur place une feuille de présence et vous remettra une attestation de formation. Lors de l'achat de vos places, une case à cocher vous permettra d'indiquer cette volonté. Nous vous invitons à <a href="mailto:mix-it@viseo.com">vous rapprocher de notre partenaire</a> pour toute question relative à ce sujet.
+faq.cpf.question=Est-il possible d'utiliser mon CPF pour m'inscrire à Mix-IT ?
+faq.cpf.answer=Mix-IT n'est pas recensée dans le référentiel des formations éligibles à l'utilisation de votre Compte Personnel de Formation (CPF). Néanmoins, notre partenaire <a href="/profile/VISEO">Viseo</a> vous délivrera sur place une attestation de formation rendant possible l'inscription au titre de la formation professionnelle. Nous vous invitons à <a href="mailto:mix-it@viseo.com">vous rapprocher de notre partenaire</a> pour toute question relative à ce sujet.
 faq.gravatar.question=Comment changer l'image de son profil ?
 faq.gravatar.answer=Les avatars sont gérés par <a href="http://www.gravatar.com" target="_blank">Gravatar</a>. Nous affichons l'avatar correspondant à l'email que vous nous indiquez sur votre profil. Connectez-vous sur le site <a href="http://www.gravatar.com" target="_blank">Gravatar</a> pour créer ou modifier votre image.
 faq.twitter.question=Twitter
-faq.twitter.answer=<a target=""blank" href="http://twitter.com/MixIT_Lyon">@MixIT_Lyon</a> est le compte Twitter de la conférence MIX-IT. Abonnez-vous au compte et utilisez le hashtag <strong>#MixIT_Lyon</strong></p>
+faq.twitter.answer=<a target=""blank" href="http://twitter.com/MixIT_Lyon">@MixIT_Lyon</a> est le compte Twitter de la conférence MIX-IT. Abonnez-vous au compte et utilisez le hashtag <strong>#mixit15</strong></p>
 faq.recording.question=Enregistrement des sessions
 faq.recording.answer=Toutes les sessions seront enregistrées au format audio (peut-être vidéo pour certaines) et seront disponibles après la conférence sur notre site !
+faq.billing.question=Comment obtenir une facture pour ma place MiX-iT ?
+faq.billing.answer=Pour obtenir votre facture, vous devez vous connecter sur le site de notre partenaire billeterie : <a href="http://yurplan.com" target="_blank">yurplan.com</a>. Dans la section 'Mes Billets', vous trouverez un bouton permettant d'éditer votre facture. <br><b>NB :</b> Cette facture ne présente pas de TVA ni de montant HT, cela est tout à fait normal : la conférence est portée par une association loi 1901 qui ne collecte pas la TVA, nous ne pouvons donc pas la faire apparaître sur la facture.
 
 # Registration
 registration.title=Ouverture d'un compte Mix-IT et paiement du billet
-registration.directives=Pour information, cette journée sera éligible au Droit Individuel à la Formation, l'un de nos sponsors fournira les certificats sur son stand, grâce à son organisme de formation. Vous pouvez donc demander à votre employeur d’assister à Mix-IT comme une formation classique, sans prendre de congé !
 registration.ticketing.signed=Vous avez un compte créé sur le site Mix-IT, il vous suffit maintenant d'acheter votre billet en cliquant sur le bouton ci-dessous :
 registration.step1.create.account=Créer-vous un compte Mix-IT
 registration.step1.create.account.why=Et profitez de la partie sociale du site Mix-IT !
-registration.step1.alternative=Si vous êtes allergique aux réseaux sociaux, achetez directement via notre partenaire 
+registration.step1.alternative=Si vous êtes allergique aux réseaux sociaux, achetez directement via notre partenaire
 registration.step2.ticketing.unsigned=Achetez votre billet en vous rendant sur votre Dashboard Mix-IT
 registration.step2.ticketing.unsigned.why=L'achat de billet se fait via notre partenaire YurPlan
-registration.warning.email=Attention: vous devez utiliser le même email entre votre compte Mix-IT et votre paiement via notre partenaire
-registration.waiting-list=Oh non, Mix-IT est complet!<br/>Mais attendez. Pour vous donner un peu d'espoir (forcément illusoire), on va tenir une liste d'attente. Des places pourraient (sans aucune garantie) se libérer si les sponsors n'utilisent pas toutes leurs place attitrées. Nous nous ferons alors une joie de les distribuer aux inscrits sur cette liste.<br/>Saisissez vos informations <strong>sur &gt; <a href="https://docs.google.com/a/mix-it.fr/spreadsheet/viewform?formkey=dHdJcW1nVlViOUItbmxsY2F3eWVjbXc6MQ" title="Liste d'attente Mix-IT 2013" target="waiting">ce formulaire</a> &lt;</strong>.
+registration.warning.email=Attention&nbsp;: utilisez le même email %s utilisé pour votre compte Mix-IT pour le paiement via notre partenaire
+registration.waiting-list=Oh non, Mix-IT est complet!<br/>Mais attendez. Pour vous donner un peu d'espoir (forcément illusoire), on va tenir une liste d'attente. Des places pourraient (sans aucune garantie) se libérer si les sponsors n'utilisent pas toutes leurs place attitrées. Nous nous ferons alors une joie de les distribuer aux inscrits sur cette liste.<br/>Saisissez vos informations <strong>sur &gt; <a href="https://docs.google.com/spreadsheet/viewform?usp=drive_web&formkey=dFRHSzAwbXRwdGVVaTJqamczX1JGbGc6MA#gid=0" title="Liste d'attente Mix-IT 2014" target="waiting">ce formulaire</a> &lt;</strong>.
 
 # Member fields
 members.speakers.none=Nous contactons actuellement nos prochains invités, avant d'ouvrir notre <em>Call For Paper</em> habituel.
@@ -121,44 +281,89 @@ longDescription.note=Une longue biographie, si vous le souhaitez (ou ce que vous
 twitterName=Twitter
 twitterName.note=Votre compte twitter si vous en avez un (ex : mix_it). Le "@" n'est pas nécessaire.
 googlePlusId=Google+
-googlePlusId.note=Votre ID Google+ si vous en avez un, i.e. celui numérique affiché dans l'URL de votre profil : https://plus.google.com/{ID}
-interests=Intérêts existants
-interests.note=Ces intérêts seront affichés sur votre profil et nous serviront à vous proposer de nouvelles connaissances.
-newInterests=Autres intérêts
-newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
+googlePlusId.note=Votre ID Google+ si vous en avez un, i.e. celui affiché dans l'URL de votre profil : https://plus.google.com/{ID} (complètement numérique, ou celui choisi "+PrenomNom")
+interests=Mot-clés existants
+interests.note=Ces mot-clés seront affichés sur votre profil et nous serviront à vous proposer de nouvelles connaissances.
+newInterests=Autres mot-clés
+newInterests.note=Vous pouvez saisir de nouveaux mot-clés (en les séparant par une virgule)
+
+profile.myTalks=Mes talks
+profile.myBiography=Ma biographie
+profile.myLightningTalks=Mes lightning talks
+profile.myPreviousTalks=Mes talks aux éditions précédentes
+profile.myInterests=Mes intérêts
+profile.myActivities=Mes activités
+profile.activities.filter=Cliquer pour filtrer le flux &{provider.%s}
+profile.myFavouriteSessions=Mes sessions favorites
+
+profile.create=Créer
+profile.update=Modifier
+profile.edit.yourProfile=votre profil
+profile.edit.signup=Création d'un nouveau profil suite à une première connexion par &{provider.%s}.
+profile.edit.avatar=Votre avatar
+profile.edit.avatar.gravatar=Les avatars sont gérés par <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a>. \
+                      Nous affichons l'avatar correspondant à l'email que vous nous indiquez. \
+                      Connectez-vous sur le site <a class="ignoredirty" href="http://www.gravatar.com" target="_blank">Gravatar</a> \
+                      pour créer ou modifier votre image.
+profile.edit.profile=Profil
+profile.edit.social=Réseaux sociaux
+profile.edit.social.1=Vos comptes sur les différents réseaux sociaux.
+profile.edit.social.2=Les données publiques des comptes que vous indiquerez seront <strong>automatiquement récupérées</strong> et <strong>publiquement affichées</strong>.
+profile.edit.social.accounts=Vos comptes sociaux
+profile.edit.links=Vos liens
+profile.edit.links.what=Des liens que vous voulez faire apparaître sur votre profil et que vous aimeriez partager.
+profile.edit.links.yours=Vos liens
+profile.edit.ticketing=Inscription
+profile.edit.ticketing.buy=Achat du billet
+profile.edit.interests=Centres d'intérêt
+profile.edit.interests.what=Les sujets qui vous intéressent, et que vous souhaitez creuser à Mix-IT et sur ce site.
+profile.edit.interests.interests=Intérêts
+profile.edit.save=Enregistrer
+profile.edit.cancel=Annuler
+profile.edit.delete=Supprimer mon compte
+
 
 # Session fields
 talks.description=Découvrez les descriptifs des sessions, et leur planning jour par jour.
+talk.ideaForNow.show=Idées pour tout de suite
+talk.edit.title=Saisie d'une session
 talk.descriptive.section=Descriptif
 talk.title=Titre
 talk.title.note=Obligatoire. Un court titre pour votre session
 talk.format=Format
-talk.format.note=Obligatoire.
+talk.format.note=Obligatoire. Une keynote "alien" est une session dans le grand amphi avec tout le monde sur un sujet ni technique ni agile/méthodologique mais ayant un lien avec nos métiers.
 talk.lang=Langage
 talk.lang.note=Obligatoire. La langue majoritairement utilisée dans cette session.
 talk.summary=Résumé
 talk.summary.note=Obligatoire. Un résumé de votre session. Il sera affiché dans les listes de sessions.
 talk.description=Description
-talk.description.note=Obligatoire. La description complète de votre session.<br/>&{markdown.note}
+talk.description.advices=<b>Le thème : </b>"Des idées pour tout de suite&nbsp;!"<br><br><b>Votre audience : </b>débutants, experts, agilistes, développeurs, entrepreneurs, managers essentiellement du milieu IT (mais pas tous).<br><br>Pensez à <b>ce qui fera dire "C'était&nbsp;génial&nbsp;!"</b> : idées, concepts, outils, apprentissages, ...<br><br><b>Soignez la forme </b>et <b>explicitez le contenu</b>, le message : pour le staff Mix-IT ... et surtout <b>pour le public !</b><br>Nous vous ferons des retours pour l'améliorer si nécessaire.<br><br>Sollicitez nous&nbsp;! Et <a href="http://speaking.io/plan/writing-a-cfp/" target="zach">inspirez-vous des meilleurs</a>.
+talk.description.note=Obligatoire. La description complète de votre session.<br/>
+talk.ideaForNow=Avec quelles \"Idées pour tout de suite\" les participants repartiront ?
+talk.ideaForNow.note=Optionnel. Listez les idées applicables rapidement par les participants, à leur retour au bureau.<br/>
 talk.level=Niveau
 talk.level.note=Obligatoire. Niveau de connaissances requis pour profiter de votre session.
 talk.maxAttendees=Participants max.
 talk.maxAttendees.note=Facultatif. Précisez le nombre maximum de participants, si vous avez une contrainte.
 talk.maxAttendees.noLimit=Pas de limite
-talk.speakers=Speaker(s)
-talk.speakers.note=Obligatoire. Choisissez le ou les speakers
+speakerIds=Speaker(s)
+speakerIds.note=Obligatoire. Choisissez le ou les speakers
 talk.track=Track Mix-IT
 talk.track.note=Obligatoire
-talk.interests=Intérêts existants
-talk.interests.note=Ces intérêts seront associés à la session, et permettront aux utilisateurs de trouver cette session en recherchant par intérêt.
-talk.newInterests=Autres intérêts
-talk.newInterests.note=Vous pouvez saisir de nouveaux intérêts (en les séparant par une virgule)
+talk.interests=Mots-clés des thèmes abordés
+talk.interests.note=Ces mot-clés seront associés à la session, et permettront aux utilisateurs de trouver cette session en recherchant par mot-clé.
+talk.newInterests=Ajouter des mots-clés
+talk.newInterests.note=Vous pouvez saisir de nouveaux mot-clés (en les séparant par une virgule)
 talk.submit=Proposer une session
 content=Votre commentaire
 content.note=&{markdown.note}
+privatelyVisible=Faire ce commentaire en privé, i.e. seulement visible du staff et des speakers
 enum.TalkFormat.Talk=Conférence
+enum.TalkFormat.Talk.duration=50 min
 enum.TalkFormat.Workshop=Atelier
+enum.TalkFormat.Workshop.duration=2h
 enum.TalkFormat.Keynote=Keynote
+enum.TalkFormat.Keynote.duration=20 min
 enum.TalkLanguage.fr=Français
 enum.TalkLanguage.en=Anglais
 enum.TalkLevel.Beginner=Débutant
@@ -172,18 +377,21 @@ sessions.callForPaper=Tout participant peut <strong>proposer une session</strong
   Vous pourrez accéder et éditer vos propositions depuis votre dashboard. Après soumission, le comité d'organisation décidera ou non de sa sélection.
 
 # Lightning Talk fields
-lightningtalk.short.description=Tout participant peut <strong>proposer</strong> un Lightning Talk et <strong>voter</strong> pour ceux qui l'intéressent. Il s'agit de sessions courtes de 5 minutes qui auront lieu entre 13 et 14H chacun des 2 jours de la conférence. 
+lightningtalk.short.description=Tout participant peut <strong>proposer</strong> un Lightning Talk et <strong>voter</strong> pour ceux qui l'intéressent. Il s'agit de sessions courtes de 5 minutes qui auront lieu entre 13 et 14H chacun des 2 jours de la conférence.
 lightningtalk.long.description=Pourquoi ne pas tenter votre chance? C'est l'occasion de synthétiser votre connaissance sur un sujet et de donner aux autres participants envie de le connaître plus ! En fonction des votes des participants, votre sujet peut être choisi. Les sujets gagnants seront annoncés les jours des conférences.
 lightningtalk.submit=Proposer un Lightning Talk
 lightningtalk.alert.login=Connectez-vous pour proposer Lightning Talk
+lightningtalk=Lightning Talk
 
 # Article fields
-article.title=Titre                          
+article.title=Titre
 article.title.note=Obligatoire. Un court titre pour cet article
 article.headline=Accroche
 article.headline.note=Obligatoire. Introduction, qui sera affichée dans les listes d'actualité<br/>&{markdown.note}
-article.content=Contenu	  	
+article.content=Contenu
 article.content.note=Obligatoire. Le contenu de votre article.<br/>&{markdown.note}
+article.previous=Billet précédent
+article.following=Billet suivant
 
 # Email LinkIT
 email.email=Votre email
@@ -192,6 +400,10 @@ email.subject=Sujet
 email.subject.note=Obligatoire
 email.message=Message
 email.message.note=Obligatoire. Le contenu de votre message.<br/>&{markdown.note}
+captcha=Prouvez-nous que vous êtes humain
+captcha.note=Saisissez les 5 lettres que vous voyez. Seules celles contenues dans "Mix-IT" sont utilisées.
+captcha.error=Désolé, ami robot, ta reconnaissance optique n'est pas encore au point.
+contact.title=Envoi d'un message à l'organisation
 
 # Mailing
 mailing.recipients=Destinataires
@@ -294,17 +506,27 @@ event.mixit12.time=8H30-18H30
 event.mixit13=Mix-IT 2013
 event.mixit13.date=25 et 26 avril 2013
 event.mixit13.time=8H30-18H30
+event.mixit14=Mix-IT 2014
+event.mixit14.date=29 et 30 avril 2014
+event.mixit14.time=8H30-18H30
+event.mixit15=Mix-IT 2015
+event.mixit15.date=16 et 17 avril 2015
+event.mixit15.time=8H30-18H30
 
 # Sponsors
-sponsors.register=Vous voulez devenir un de nos sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202013]%%20Registration">Contactez-nous</a>! Voici l'<a href="https://docs.google.com/document/d/1b46HNg5dl5q-MjIdJ8oCfe6UiI_41gFdbSnHn-P-hBU/edit" title="Offre de sponsoring Mix-IT 2013">offre de sponsoring détaillée</a>.
+sponsors.register=Vous voulez devenir un de nos sponsors? <a href="mailto:contact@mix-it.fr?subject=[Mix-IT%%202015]%%20Sponsoring">Contactez-nous</a>! Voici l'<a href="https://drive.google.com/file/d/0B43BPeaKpurvYV93R3lXM3VYNjg/view?usp=sharing" title="Offre de sponsoring Mix-IT 2015">offre de sponsoring détaillée</a>.
 sponsors.forEvent=Sponsors de &{event.%s}
 sponsors.partners=Ils nous soutiennent
-sponsors.partners.mixit12=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
-                            <hr/>\
-                            <p><a href="http://skillsmatter.com/" target="blank"><img src="/public/images/logo-skills-matter.jpg" style="float: left; margin-right: 10px; max-width: 100px" title="Skills Matter"/></a>Mix-IT est partenaire de <a href="http://skillsmatter.com/" target="blank">Skills Matter</a>. Cette société anglaise est connue pour la qualité de ses formations, animées par des experts du sujet, ainsi que pour son engagement dans l'organisation de conférences et d'événements très réguliers.</p>
-sponsors.partners.mixit13=<p><a href="http://www.cloudbees.com/" target="blank"><img src="http://www.cloudbees.com/sites/all/themes/custom/cloudbees_zen/logo-color.png" style="float: left; margin-right: 10px; max-width: 100px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>\
-                            <hr/>\
-                            <p><a href="http://lyon.supinfo.com/" target="blank"><img src="/public/images/logo-supinfo.png" style="float: left; margin-right: 10px; max-width: 100px" title="SUPINFO Lyon"/></a><a href="http://lyon.supinfo.com/" target="blank">SUPINFO Lyon</a> a la gentillesse de nous ouvrir ses locaux et de nous proposer des étudiants sympathiques et motivés pour nous assister à l'organisation le jour de l'événement. Sans eux, Mix-IT ne pourrait pas avoir lieu.</p>
+sponsors.partners.mixit12.1=<p><a href="http://www.cloudbees.com/" target="blank"><img src="/public/images/logo-cloudbees.png" style="float: left; margin-right: 30px; max-width: 200px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>
+sponsors.partners.mixit12.2=<p><a href="http://skillsmatter.com/" target="blank"><img src="/public/images/logo-skills-matter.jpg" style="float: left; margin-right: 30px; max-width: 200px" title="Skills Matter"/></a>Mix-IT est partenaire de <a href="http://skillsmatter.com/" target="blank">Skills Matter</a>. Cette société anglaise est connue pour la qualité de ses formations, animées par des experts du sujet, ainsi que pour son engagement dans l'organisation de conférences et d'événements très réguliers.</p>
+sponsors.partners.mixit13.1=<p><a href="http://www.cloudbees.com/" target="blank"><img src="/public/images/logo-cloudbees.png" style="float: left; margin-right: 30px; max-width: 200px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>
+sponsors.partners.mixit13.2=<p><a href="http://lyon.supinfo.com/" target="blank"><img src="/public/images/logo-supinfo.png" style="float: left; margin-right: 30px; max-width: 200px" title="SUPINFO Lyon"/></a><a href="http://lyon.supinfo.com/" target="blank">SUPINFO Lyon</a> a la gentillesse de nous ouvrir ses locaux et de nous proposer des étudiants sympathiques et motivés pour nous assister à l'organisation le jour de l'événement. Sans eux, Mix-IT ne pourrait pas avoir lieu.</p>
+sponsors.partners.mixit14.1=<p><a href="http://www.cpe.fr" target="blank"><img src="/public/images/logo-cpe.jpg" style="float: left; margin-right: 30px; max-width: 200px" title="CPE Lyon"/></a>Merci à <a href="http://www.cpe.fr" target="blank">CPE Lyon</a> de nous accueillir et d'être partenaire. Grâce à leur locaux, nous pouvons enfin recevoir tout le public dans un même amphithéâtre.</p>
+sponsors.partners.mixit14.2=<p><a href="http://www.cloudbees.com/" target="blank"><img src="/public/images/logo-cloudbees.png" style="float: left; margin-right: 30px; max-width: 200px" title="Powered by Cloudbees"/></a>Merci à <a href="http://www.cloudbees.com/" target="blank">Cloudbees</a> pour nous avoir mis gracieusement à disposition une plateforme Run@Cloud en mode <em>On-Demand</em> avec une base de donnnées MySQL en mode étendu et l'offre bronze de <a href="http://www.cloudbees.com/platform-service-sendgrid.cb" target="blank">Sendgrid</a>!</p>
+sponsors.partners.mixit14.3=<p><a href="http://www.cluster-edit.org/" target="blank"><img src="/public/images/logo-clusteredit.png" style="float: left; margin-right: 30px; max-width: 200px" title="Cluster Edit Lyon"/></a>Le <a href="http://www.cluster-edit.org/" target="blank">Cluster Edit</a> a pour objectif de développer la filière "logiciel et services" du territoire rhônalpin. Il fédère un écosystème d’adhérents qui oeuvrent ensemble pour la promotion de la filière, le financement de sa croissance et de ses innovations. Merci à eux pour <a href="http://www.cluster-edit.org/medias/actualites/mix-it-2014.pdf" target="_blank">leur communication</a> sur Mix-IT!</p>
+sponsors.partners.mixit14.4=<p><a href="http://lyon.afup.org/" target="blank"><img src="/public/images/logo-afup.png" style="float: left; margin-right: 30px; max-width: 200px" title="AFUP Lyon"/></a>Merci à l'<a href="http://lyon.afup.org/" target="blank">AFUP Lyon</a> de nous soutenir en communiquant sur l'évènement!</p>
+sponsors.partners.mixit15.1=<p><a href="http://www.cpe.fr" target="blank"><img src="/public/images/logo-cpe.jpg" style="float: left; margin-right: 30px; max-width: 200px" title="CPE Lyon"/></a>Merci à <a href="http://www.cpe.fr" target="blank">CPE Lyon</a> de nous accueillir et d'être partenaire. Grâce à leur locaux, nous pouvons enfin recevoir tout le public dans un même amphithéâtre.</p>
+sponsors.partners.mixit15.2=<p><a href="https://run.pivotal.io" target="blank"><img src="/public/images/logo-cloudfoundry.png" style="float: left; margin-right: 30px; max-width: 200px" title="Powered by Pivotal CloudFoundry"/></a>Merci à <a href="https://run.pivotal.io" target="blank">Pivotal</a> pour nous avoir mis gracieusement à disposition une instance CloudFoundry pour héberger ce site&nbsp;!</p>
 sponsors.supporters=Ils nous supportent
 sponsors.supporters.mixit13=<p>Mix-IT est aussi soutenu par des structures qui communiquent sur l'évènement. On les remercie beaucoup&nbsp;: sans eux, Mix-IT ne serait pas Mix-IT!\
                             <div class="row" style="text-align: center">\
@@ -315,7 +537,10 @@ sponsors.supporters.mixit13=<p>Mix-IT est aussi soutenu par des structures qui c
 planning.room=Salle %1$s
 planning.welcome=Accueil & petit-déjeuner
 planning.staff-intro=Le mot des organisateurs
+planning.staff-ending=Clôture des organisateurs
 planning.speaker-pitch=Présentations des sessions du jour par leur speaker
+planning.speaker-pitch.am=Présentations des sessions du matin par leur speaker
+planning.speaker-pitch.pm=Présentations des sessions de l'après midi par leur speaker
 planning.break=Pause
 planning.lunch=Déjeuner
 
@@ -325,3 +550,120 @@ trombinoscope.intro=Qu'est-ce que c'est?<br/>\
   Donc les gens que vous auriez envie de croiser le jour de la conférence.
 trombinoscope.noRegisteredLinks=Oh non! Vous ne suivez personne qui a acheté son ticket!
 trombinoscope.notRegistered=Vous non plus, d'ailleurs, vous n'avez pas acheté le vôtre...
+
+cfp.title=Call For Papers
+cfp.subtitle=C'est vous qui ferez le succès de cette édition
+cfp.theme.title=Thème imposé
+cfp.theme.content=Rassurez-vous, il est très ouvert. C'est le slogan de Mix-IT&nbsp;: "<strong>des idées pour tout de suite</strong>"&nbsp;!
+cfp.quality.title=Qu'est-ce qui fait que ma session sera top&nbsp;?
+cfp.quality.1=La question à vous poser est simple&nbsp;: "avec quoi je veux que mon public reparte et se dise "c'était génial&nbsp;!". \
+              Cela peut être des idées, des concepts, des outils, des apprentissages, ...<br>\
+              <strong>Votre soumission doit expliciter ce que votre public en retirera</strong>.<br>
+cfp.quality.2=Soignez la forme de votre description. Une ou deux lignes ne suffisent pas pour comprendre ce que vous avez en tête. \
+              Explicitez le contenu et le message de votre session.<br/>\
+              <strong>Votre soumission deviendra le descriptif public de votre session si elle est retenue</strong>.<br>\
+              Vous aurez le temps d'affiner d'ici-là, mais votre soumission doit faire envie à l'équipe d'organisation pour être \
+              sélectionnée, mais aussi faire envie aux participants qui auront le choix entre plusieurs sessions.
+cfp.attendees.title=L'audience
+cfp.attendees.1=Le public de Mix-IT est composé aussi bien de débutants, d'experts, d'agilistes, de développeurs, \
+                d'entrepreneurs, de managers évoluant essentiellement dans le milieu IT, mais pas tous&nbsp;!<br>\
+                Si jamais vous doutez, <a href="%s">sollicitez-nous</a>, nous sommes là pour vous aider&nbsp;!<br>
+cfp.attendees.2=Un système de <strong>commentaire privé</strong> sur la page de votre session permet également d'échanger avec l'équipe d'organisation.
+cfp.conclusion=Vous avez tout ça&nbsp;? Alors votre session est déjà en bonne position pour la sélection&nbsp;! ;)
+cfp.speaking.io=N'hésitez pas à prendre conseil auprès des meilleurs&nbsp;: \
+                Zach Holman (<a href="%s">speaker à Mix-IT 2013</a>) a publié \
+                <a href="http://speaking.io" target="zach">un site</a> (en anglais) tirant l'essence de son expérience \
+                de speaker. Il a notamment <a href="http://speaking.io/plan/writing-a-cfp/" target="zach">un article \
+                consacré à la réponse aux CFP</a>.
+cfp.action=Je suis prêt à soumettre&nbsp!
+
+warning.cfp-closed.only-for-guests=Attention, les soumissions publiques sont cloturées. Ce formulaire reste accessible uniquement pour les invités. Les sessions non invitées seront rejetées.
+
+activity.BuyTicketActivity=a acheté son billet!
+activity.CommentArticleActivity=a commenté l'article
+activity.showArticle=Consulter l'article
+activity.CommentSessionActivity=a commenté la session
+activity.EarnBadgeActivity=a reçu le badge
+activity.LinkActivity=s'est linké à
+activity.LookArticleActivity=a consulté l'article
+activity.LookProfileActivity=a consulté le profile de
+activity.LookSessionActivity=a consulté la session
+activity.NewArticleActivity.start=L'article
+activity.NewArticleActivity.end=a été publié
+activity.NewTalkActivity.start=La session
+activity.NewTalkActivity.end=a été ajoutée
+activity.NewVoteActivity.talk=a mis en favoris la session
+activity.NewVoteActivity.lightning=a voté pour le Lightning Talk
+activity.SharedLinkActivity=a partagé le lien
+activity.SignUpActivity=s'est inscrit
+activity.UpdateProfileActivity=a mis à jour son profil
+activity.UpdateSessionActivity.start=La session
+activity.UpdateSessionActivity.end=a été mise à jour
+
+# countdown
+countdown=Ouverture de la billeterie dans
+countdown.days=jours
+countdown.hours=heures
+countdown.minutes=minutes
+countdown.seconds=secondes
+
+#venue
+venue.access.how-to=Comment accéder au site ?
+venue.access.place=Lieu :
+venue.access.place.warning=Attention : ne prenez pas en compte l'adresse officielle de CPE (43, boulevard du 11 Novembre 1918)
+venue.access.car.warning=Nous vous convions à privilégier les transports en commun, les vélos ou la marche pour venir à la conférence. Votre journée n'en sera que plus verte !
+venue.access.open-map=Ouvrir la carte
+venue.access.by-bike.title=En Vélo
+venue.access.by-bike.details=Lyon possède un réseau de Vélo en libre service : <a target="blank" href="http://www.velov.grandlyon.com/">les Vélo'V</a>. Les stations les plus proches de CPE Lyon sont les stations <strong>10084 - La Doua / Avenue des Arts</strong> (Avenue des Arts, Villeurbanne) et <strong>10102 - DOUA / Gaston Berger</strong> (Avenue Gaston Berger, Villeurbanne).
+venue.access.by-public-transportation.title=En transports
+venue.access.by-public-transportation.details=Voir les itinéraires précis sur le site du <a target="_blank" href="http://www.tcl.fr/">réseau TCL</a> (Tram, Métro, Bus). La station de tram la plus proche de CPE Lyon est <strong>La Doua Gaston-Berger</strong> sur les <strong>lignes T1 et T4</strong> : <br> Descendez à <strong>La Doua Gaston-Berger</strong>, tournez à droite Rue Gaston Berger, passez l'immeuble "ASTREE" puis prenez la première à gauche, rue Victor Grignard : CPE est à quelques mètres à votre droite (environ 5 min de marche du tram, le parcours sera fléché).
+venue.access.by-train.title=En train
+venue.access.by-train.details.part-dieu=A partir de <strong>la Gare de Part-Dieu</strong>, prendre le tram T1, direction <strong>IUT - Feyssine</strong>, ou tram T4, direction <strong>La Doua G. Berger</strong>. Descendre à l'arrêt (ou terminus pour les T4) <strong>La Doua Gaston-Berger</strong>.
+venue.access.by-train.details.perrache=A partir de <strong>la Gare Perrache</strong>, prendre le métro Ligne A, direction <strong>Vaulx-en-Velin la Soie</strong>, changer à la station <strong>Charpennes</strong> et prendre le tram T1, direction <strong>IUT - Feyssine</strong>, ou tram T4, direction <strong>La Doua G. Berger</strong>. Descendre à l'arrêt (ou terminus pour les T4) <strong>La Doua Gaston-Berger</strong>.
+venue.access.by-plane.title=En avion
+venue.access.by-plane.details=<a target="_blank" href="http://www.lyonaeroports.com/">L'aéroport de Saint-Exupéry</a> est l'aéroport le plus proche de lyon. Grâce à la ligne de train express <a target="blank" href="http://www.rhonexpress.fr/">Rhône Express</a> (un train toutes les 15 minutes), vous êtes en 30 minutes au centre de Lyon, à la Gare Part-Dieu.
+venue.access.by-car.title=En voiture
+venue.access.by-car.details=Entrez l'adresse suivante dans votre GPS :<br> <strong> Rue Victor Grignard<br> Villeurbanne </strong>
+
+#speaker preferences
+profile.editSpeakerPreferences.title=Modifier vos préférences speaker
+profile.editSpeakerPreferences.save=Sauvegarder les préférences
+profile.editSpeakerPreferences.cancel=Annuler
+
+speakerPreferences.transportation.legend=Transports
+speakerPreferences.transportation.note=Connaitre votre moyen de transport et vos heures de départ/arrivée nous permet d'anticiper au mieux votre venue et d'améliorer votre accueil.
+
+preferences.transportationType=Type de transport
+enum.TransportationType.CAR=Voiture
+enum.TransportationType.PLANE=Avion
+enum.TransportationType.TRAIN=Train
+enum.TransportationType.OTHER=Autre
+preferences.arrivalTime=Date et heure d'arrivée
+datetime.format=dd/MM/yyyy hh:mm
+preferences.arrivalTime.note=Exemple de format : &{datetime.format}
+preferences.departureTime=Date et heure de départ
+preferences.departureTime.note=&{preferences.arrivalTime.note}
+preferences.arrivalPlace=Lieu d'arrivée
+preferences.departurePlace=Lieu de départ
+preferences.pickup=Je souhaite qu'on vienne me chercher.
+
+speakerPreferences.presence.legend=Présences
+speakerPreferences.presence.note=Connaitre vos présences c'est éviter les allers retours sur le travail de planification des sessions mais aussi nous permettre de réserver le bon nombre de repas et places aux soirées.
+
+preferences.conference.dayMinusOne=Jour J-1 (15 avr.)
+preferences.conference.day1=Jour 1 (16 avr.)
+preferences.conference.day2=Jour 2 (17 avr.)
+preferences.conference.am=Conférence matin
+preferences.conference.pm=Conférence après-midi
+preferences.dinner-party=Diner/Soirée
+preferences.hotel=Hôtel
+
+pickup.note=Dans la mesure du possible les orgas de Mix-IT vont chercher les speakers (en général étrangers) qui en ont besoin.
+
+speakerPreferences.other.legend=Détails supplémentaires
+preferences.additionalHotelDetails=Préférences supplémentaires hotel
+preferences.additionalHotelDetails.note=Saisissez ici toute demande ou contrainte supplémentaire par rapport à l'hotel (je viens avec mon conjoint, ma chambre doit être climatisée, je suis allergique aux plumes, ...)
+preferences.additionalDetails=Détails supplémentaires
+preferences.additionalDetails.note=Tout autre détail à ajouter.
+
+preferences.saved=Vos préférences ont été sauvegardées.

@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Comment;
 import models.Member;
 import models.Session;
 import models.Setting;
@@ -43,7 +44,7 @@ public class Mails extends Mailer {
         mailing.addActualRecipient(recipient);
     }
     
-    public static void notification(Member recipient, Setting setting, Collection<Activity> activities) {
+    public static void notification(Member recipient, Setting setting, Collection<? extends Activity> activities) {
         setSubject("[Mix-IT] - Que s'est-il passé?");
         setFrom(FROM_MIXIT);
         addRecipient(recipient.email);
@@ -55,5 +56,19 @@ public class Mails extends Mailer {
         for (Member member : members) {
             addRecipient(member.email);
         }
+    }
+
+    public static void commentNotification(Member recipient, Comment comment) {
+        setSubject(String.format("[Mix-IT] - A comment by %s is waiting for your answer!", comment.author));
+        setFrom(FROM_MIXIT);
+        addRecipient(recipient.email);
+        send(recipient, comment);
+    }
+
+    public static void resetPasswordLink(String email, String passwordResetCode) {
+        setSubject("[Mix-IT] - Password reset");
+        setFrom(FROM_MIXIT);
+        addRecipient(email);
+        send(passwordResetCode);
     }
 }

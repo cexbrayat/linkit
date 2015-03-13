@@ -4,11 +4,90 @@ import org.joda.time.*;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import static models.planning.SlotConstants.*;
+
 /**
  * A slot is a time period (start - end) when something can be planned.
  * @author Sryl <cyril.lacote@gmail.com>
  */
 public enum Slot {
+
+    /**************************************************************************/
+    /*******                     2014 slots                           *********/
+    /**************************************************************************/
+    // Mardi
+    //Talks
+    Mardi_2014_A1_Talk_1(Mardi_2014, Room.A1, _10_00, _10_50),
+    Mardi_2014_A2_Talk_1(Mardi_2014, Room.A2, _10_00, _10_50),
+    Mardi_2014_S1_Talk_1(Mardi_2014, Room.S1, _10_00, _10_50),
+    Mardi_2014_S2_Talk_1(Mardi_2014, Room.S2, _10_00, _10_50),
+    Mardi_2014_A1_Talk_2(Mardi_2014, Room.A1, _11_10, _12_00),
+    Mardi_2014_A2_Talk_2(Mardi_2014, Room.A2, _11_10, _12_00),
+    Mardi_2014_S1_Talk_2(Mardi_2014, Room.S1, _11_10, _12_00),
+    Mardi_2014_S2_Talk_2(Mardi_2014, Room.S2, _11_10, _12_00),
+    Mardi_2014_A1_Talk_3(Mardi_2014, Room.A1, _13_40, _14_30),
+    Mardi_2014_A2_Talk_3(Mardi_2014, Room.A2, _13_40, _14_30),
+    Mardi_2014_S1_Talk_3(Mardi_2014, Room.S1, _13_40, _14_30),
+    Mardi_2014_S2_Talk_3(Mardi_2014, Room.S2, _13_40, _14_30),
+    Mardi_2014_A1_Talk_4(Mardi_2014, Room.A1, _14_50, _15_40),
+    Mardi_2014_A2_Talk_4(Mardi_2014, Room.A2, _14_50, _15_40),
+    Mardi_2014_S1_Talk_4(Mardi_2014, Room.S1, _14_50, _15_40),
+    Mardi_2014_S2_Talk_4(Mardi_2014, Room.S2, _14_50, _15_40),
+    Mardi_2014_A1_Talk_5(Mardi_2014, Room.A1, _16_00, _16_50),
+    Mardi_2014_A2_Talk_5(Mardi_2014, Room.A2, _16_00, _16_50),
+    Mardi_2014_S1_Talk_5(Mardi_2014, Room.S1, _16_00, _16_50),
+    Mardi_2014_S2_Talk_5(Mardi_2014, Room.S2, _16_00, _16_50),
+    //Workshops
+    Mardi_2014_S3_Workshop_1(Mardi_2014, Room.S3, _10_00, _12_00),
+    Mardi_2014_S4_Workshop_1(Mardi_2014, Room.S4, _10_00, _12_00),
+    Mardi_2014_S3_Workshop_2(Mardi_2014, Room.S3, _12_30, _14_30),
+    Mardi_2014_S4_Workshop_2(Mardi_2014, Room.S4, _12_30, _14_30),
+    Mardi_2014_S3_Workshop_3(Mardi_2014, Room.S3, _14_50, _16_50),
+    Mardi_2014_S4_Workshop_3(Mardi_2014, Room.S4, _14_50, _16_50),
+    //Others
+    Mardi_2014_A1_Keynote_1(Mardi_2014, Room.A1, _09_15, _09_40),
+    Mardi_2014_A1_Keynote_2(Mardi_2014, Room.A1, _17_10, _17_35),
+    Mardi_2014_A1_Keynote_3(Mardi_2014, Room.A1, _17_35, _18_00),
+
+    // Mercredi
+    //Talks
+    Mercredi_2014_A1_Talk_1(Mercredi_2014, Room.A1, _10_00, _10_50),
+    Mercredi_2014_A2_Talk_1(Mercredi_2014, Room.A2, _10_00, _10_50),
+    Mercredi_2014_S1_Talk_1(Mercredi_2014, Room.S1, _10_00, _10_50),
+    Mercredi_2014_S2_Talk_1(Mercredi_2014, Room.S2, _10_00, _10_50),
+    Mercredi_2014_A1_Talk_2(Mercredi_2014, Room.A1, _11_10, _12_00),
+    Mercredi_2014_A2_Talk_2(Mercredi_2014, Room.A2, _11_10, _12_00),
+    Mercredi_2014_S1_Talk_2(Mercredi_2014, Room.S1, _11_10, _12_00),
+    Mercredi_2014_S2_Talk_2(Mercredi_2014, Room.S2, _11_10, _12_00),
+    Mercredi_2014_A1_Talk_3(Mercredi_2014, Room.A1, _13_40, _14_30),
+    Mercredi_2014_A2_Talk_3(Mercredi_2014, Room.A2, _13_40, _14_30),
+    Mercredi_2014_S1_Talk_3(Mercredi_2014, Room.S1, _13_40, _14_30),
+    Mercredi_2014_S2_Talk_3(Mercredi_2014, Room.S2, _13_40, _14_30),
+    Mercredi_2014_A1_Talk_4(Mercredi_2014, Room.A1, _14_50, _15_40),
+    Mercredi_2014_A2_Talk_4(Mercredi_2014, Room.A2, _14_50, _15_40),
+    Mercredi_2014_S1_Talk_4(Mercredi_2014, Room.S1, _14_50, _15_40),
+    Mercredi_2014_S2_Talk_4(Mercredi_2014, Room.S2, _14_50, _15_40),
+    Mercredi_2014_A1_Talk_5(Mercredi_2014, Room.A1, _16_00, _16_50),
+    Mercredi_2014_A2_Talk_5(Mercredi_2014, Room.A2, _16_00, _16_50),
+    Mercredi_2014_S1_Talk_5(Mercredi_2014, Room.S1, _16_00, _16_50),
+    Mercredi_2014_S2_Talk_5(Mercredi_2014, Room.S2, _16_00, _16_50),
+    //Workshops
+    Mercredi_2014_S3_Workshop_1(Mercredi_2014, Room.S3, _10_00, _12_00),
+    Mercredi_2014_S4_Workshop_1(Mercredi_2014, Room.S4, _10_00, _12_00),
+    Mercredi_2014_S3_Workshop_2(Mercredi_2014, Room.S3, _12_30, _14_30),
+    Mercredi_2014_S4_Workshop_2(Mercredi_2014, Room.S4, _12_30, _14_30),
+    Mercredi_2014_S3_Workshop_3(Mercredi_2014, Room.S3, _14_50, _16_50),
+    Mercredi_2014_S4_Workshop_3(Mercredi_2014, Room.S4, _14_50, _16_50),
+    //Others
+    Mercredi_2014_A1_Keynote_1(Mercredi_2014, Room.A1, _09_15, _09_40),
+    Mercredi_2014_A1_Keynote_2(Mercredi_2014, Room.A1, _13_00, _13_30),
+    Mercredi_2014_A1_Keynote_3(Mercredi_2014, Room.A1, _17_10, _17_35),
+    Mercredi_2014_A1_Keynote_4(Mercredi_2014, Room.A1, _17_35, _18_00),
+
+
+    /**************************************************************************/
+    /*******                     2013 slots                           *********/
+    /**************************************************************************/
 
     // Jeudi
     Jeudi_Keynote_AM(LocalDate.parse("2013-04-25"), Room.S1, LocalTime.parse("09:00"), LocalTime.parse("09:20")),

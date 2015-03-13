@@ -1,0 +1,21 @@
+﻿#{extends 'Mails/mail.html' /}
+#{set title:'A comment is waiting for your answer' /}
+
+<p>Dear ${recipient},</p>
+
+<p>
+    <br/>
+    A comment appeared on your stuff:<br/>
+    <div class="panel panel-default">
+        <div class="panel-heading">#{mails.comment comment /}</div>
+        <div class="panel-body">
+            #{markdown comment.content /}
+        </div>
+    </div>
+
+</p>
+
+<p>
+    <br/><br/>
+    Mix-IT's bot.
+</p>

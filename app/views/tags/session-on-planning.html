@@ -1,19 +1,34 @@
-*{ Displays _arg session }*
-#{if _arg}
-#{star _arg, class:'mini' /}
-<span id="session${_arg.id}" data-id="${_arg.id}" class="session">
-    #{if !_arg.valid}<span class="label important">non validé</span>&nbsp;#{/if}
-    #{if _arg.track}
-        <span class="label track ${_arg.track}" title="Track ${_arg.track} : ${_arg.track.getDescription()}">
-            ${_arg.track}
-        </span>&nbsp;
+*{ Displays session from :
+    - _planning
+    - _arg : the slot
+    - if _editing : switch to planning edition mode }*
+
+#{if !_editing}
+    %{
+        def session = _planning?.getTalkOn(_arg);
+    }%
+    #{if session}
+        #{star session, class:'mini' /}
+        <span id="session${session.id}" data-id="${session.id}" class="session">
+            #{if !session.valid}<span class="label label-warning">non validé</span>&nbsp;#{/if}
+            #{if session.track}
+                <span class="label track ${session.track}" title="Track ${session.track} : ${session.track.getDescription()}">
+                    ${session.track}
+                </span>&nbsp;
+            #{/if}
+            [&{'enum.TalkFormat.'+session.format}#{lang-flag session.lang /}]
+            <a href="@{Sessions.show(session.id, session.title.slugify())}" title="${session.title}" data-toggle="popover" data-content="#{markdown session.description, escapeHtmlAttr:true /}" data-original-title="${session.summary}" data-trigger="hover" data-html="true" data-placement="bottom">${session}</a>
+            <br/>
+            #{list items:session.speakers, as:'s'}
+                #{member s /}
+                #{if !s_isLast}, #{/if}
+            #{/list}
+        </span>
     #{/if}
-    [&{'enum.TalkFormat.'+_arg.format}#{lang-flag _arg.lang /}]
-    <a href="@{Sessions.show(_arg.id, _arg.title.slugify())}" title="${_arg.title}" rel="popover" data-content="#{markdown _arg.description, escapeHtmlAttr:true /}" data-original-title="${_arg.summary}" data-html="true" data-placement="below">${_arg}</a>
-    <br/>
-    #{list items:_arg.speakers, as:'s'}
-        #{member s /}
-        #{if !s_isLast}, #{/if}
-    #{/list}
-</span>
+    #{else}
+        Session
+    #{/else}
 #{/if}
+#{else}
+    #{planning.select-session _arg, planning:_planning /}
+#{/else}

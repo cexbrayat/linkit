@@ -3,20 +3,29 @@ package controllers;
 import com.google.common.collect.Maps;
 import helpers.oauth.OAuthProvider;
 import helpers.oauth.OAuthProviderFactory;
+
+import java.util.HashMap;
 import java.util.Map;
+
+import models.Account;
 import models.Member;
 import models.ProviderType;
 import models.auth.AuthAccount;
 import models.auth.LinkItAccount;
 import models.auth.OAuthAccount;
+import models.mailing.Mailing;
 import org.apache.commons.lang.StringUtils;
 import org.scribe.exceptions.OAuthException;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 import play.Logger;
+import play.cache.Cache;
+import play.data.validation.Email;
 import play.data.validation.Required;
 import play.data.validation.Validation;
+import play.i18n.Messages;
+import play.libs.Codec;
 import play.libs.OAuth;
 import play.mvc.Router;
 
@@ -30,6 +39,8 @@ public class Login extends PageController {
     private static final String TOKEN_KEY = "token";
     private static final String SECRET_KEY = "secret";
     private static final String RETURN_URL = "url";
+
+    //private static final Map<String, String> passwordResetRequests = new HashMap<String, String>();
 
     /**
      * Displays available authentication methods
@@ -46,12 +57,12 @@ public class Login extends PageController {
     public static void loginWith(@Required ProviderType provider) {
 
         flash.keep(RETURN_URL);
-        
+
         if (provider == null) {
             flash.error("Mauvaise requète, le provider d'authentification n'est pas indiqué");
             index(null);
         }
-        
+
         OAuthProvider oauthProvider = OAuthProviderFactory.getProvider(provider);
         OAuthService oauthService = oauthProvider.getService();
 
@@ -101,7 +112,7 @@ public class Login extends PageController {
 //        Router.ActionDefinition ad = Router.reverse("Login.loginWith").add("provider", provider);
 //        ad.absolute();
 //        return ad.url;
-        Map<String,Object> callbackParams = Maps.newHashMapWithExpectedSize(1);
+        Map<String, Object> callbackParams = Maps.newHashMapWithExpectedSize(1);
         callbackParams.put("provider", provider);
         return Router.getFullUrl("Login.loginWith", callbackParams);
     }
@@ -140,7 +151,7 @@ public class Login extends PageController {
 
     public static void noNetwork() {
         if (session.get("username") != null) {
-            flash.success("Déjà connecté!");
+            flash.success(Messages.get("login.already.logged-in"));
             Dashboard.index();
         }
         renderTemplate("Login/linkit.html");
@@ -176,5 +187,89 @@ public class Login extends PageController {
         Member member = new Member(login);
         member.preregister(new LinkItAccount(password));
         Profile.register(login, ProviderType.LinkIt);
+    }
+
+    /**
+     * Go to the password reset page.
+     * There the email can be set by the user.
+     */
+    public static void goToRequestPasswordReset() {
+        if (session.get("username") != null) {
+            flash.success(Messages.get("login.already.logged-in"));
+            Dashboard.index();
+        }
+        renderTemplate("Login/requestPasswordReset.html");
+    }
+
+    /**
+     * Once the email is set, find it in db and send a mail
+     * containing a link that will trigger Login.newPassword()
+     *
+     * @param email
+     */
+    public static void requestPasswordReset(@Email @Required String email) {
+        if (Validation.hasErrors()) {
+            render(email);
+        }
+
+        if (Member.findByEmail(email) == null) {
+            Validation.addError("email", Messages.get("login.email.unknown"));
+            render(email);
+        }
+
+        String passwordResetCode = Codec.UUID();
+        Cache.add(passwordResetCode, email, "1h");
+
+        //TODO : url in mail variabilisée ?
+        Mails.resetPasswordLink(email, passwordResetCode);
+
+        flash.success(Messages.get("login.password.lost.mail-sent"));
+        Application.index();
+    }
+
+    public static void newPassword(String uuid) {
+        checkUUID(uuid);
+        renderTemplate("Login/newPassword.html", uuid);
+    }
+
+    public static void doResetPassword(@Required String password, @Required String password_check, @Required String uuid) {
+        String email = checkUUID(uuid);
+
+        if (Validation.hasErrors()) {
+            renderTemplate("Login/newPassword.html", uuid);
+        }
+
+        if (!password.equals(password_check)) {
+            Validation.addError("password", Messages.get("login.password.lost.password-check-failed"));
+            renderTemplate("Login/newPassword.html", uuid);
+        }
+
+        Member member = Member.findByEmail(email);
+        LinkItAccount account = null;
+        if (member != null) {
+            account = (LinkItAccount) LinkItAccount.find(ProviderType.LinkIt, member.login);
+        }
+
+        if (account == null) {
+            Validation.addError("password", Messages.get("login.password.lost.no-LinkItAccount"));
+            renderTemplate("Login/newPassword.html", uuid);
+        } else {
+            account.updatePassword(password);
+        }
+
+        Cache.delete(uuid);
+        flash.success(Messages.get("login.password.lost.password-changed"));
+        onSuccessfulAuthentication(member.login);
+    }
+
+    private static String checkUUID(String uuid) {
+        String email = (String) Cache.get(uuid);
+
+        if (email == null) {
+            flash.error(Messages.get("login.password.lost.unknown-uuid"));
+            Application.index();
+        }
+
+        return email;
     }
 }

@@ -49,6 +49,6 @@ public class MembersSetQueryFailedSpeakersSet extends BaseDataUnitTest {
 
         final Member member1 = createMember("member1");
 
-        assertEquals(Sets.newHashSet(speaker1, speaker3), Sets.newHashSet(query.find()));
+        assertEquals(Sets.newHashSet(speaker3), Sets.newHashSet(query.find()));
     }
 }

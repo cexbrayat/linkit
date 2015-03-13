@@ -1,8 +1,11 @@
 package models;
 
+import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import controllers.Application;
 import controllers.Mails;
 import java.util.*;
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import models.activity.Activity;
 import models.activity.CommentSessionActivity;
@@ -58,6 +61,11 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
     @Field
     public String description;
 
+    @Column
+    @Lob
+    @Field
+    public String ideaForNow;
+
     @ManyToMany
     @Required
     public Set<Member> speakers = new HashSet<Member>();
@@ -82,6 +90,9 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
     @Enumerated(EnumType.STRING)
     @Required   // But nullable : must give language when editing, but not always given on old sessions.
     public TalkLanguage lang;
+
+    /* true if Staff has given feedback */
+    public boolean feedback;
 
     protected Session() {
         this.event = ConferenceEvent.CURRENT;
@@ -111,7 +122,11 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
 
     public boolean hasSpeaker(String username) {
         if (StringUtils.isBlank(username)) return false;
-        Member member = Member.findByLogin(username);
+        return hasSpeaker(Member.findByLogin(username));
+    }
+
+    public boolean hasSpeaker(Member member) {
+        if (member == null) return false;
         return speakers.contains(member);
     }
 
@@ -130,8 +145,23 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
         }
     }
 
+    public List<SessionComment> getPublicComments() {
+        List<SessionComment> result = new ArrayList<SessionComment>();
+
+        for (SessionComment comment : comments) {
+            if ( !comment.privatelyVisible ) {
+                result.add(comment);
+            }
+        }
+        return result;
+    }
+
     public static <T extends Session> List<T> findValidatedLinkedWith(Interest interest) {
         return find("valid = true and ? in elements(interests)", interest).fetch();
+    }
+
+    public static <T extends Session> List<T> findBySpeaker(Member speaker, ConferenceEvent event) {
+        return find("? in elements(speakers) and event = ?", speaker, event).fetch();
     }
 
     public static List<Session> findAllLinkedWith(Interest interest) {
@@ -222,4 +252,26 @@ public abstract class Session extends Model implements Lookable, Comparable<Sess
     public int compareTo(Session other) {
         return new CompareToBuilder().append(this.title, other.title).toComparison();
     }
+
+    private static final Function<Session,ConferenceEvent> SESSION_TO_EVENT = new Function<Session, ConferenceEvent>() {
+        @Override
+        public ConferenceEvent apply(@Nullable Session session) {
+            return session.event;
+        }
+    };
+
+    public static Function<Session,ConferenceEvent> toEvent() {
+        return SESSION_TO_EVENT;
+    }
+
+    public static List<Member> guestSpeakers(ConferenceEvent event) {
+        return find("select distinct speaker " +
+                "from Session s " +
+                "inner join s.speakers speaker " +
+                "inner join s.comments c " +
+                "where s.guest = true " +
+                "and s.event = ? " +
+                "and s.valid = true", event).fetch();
+    }
+
 }

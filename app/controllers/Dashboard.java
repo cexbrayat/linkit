@@ -21,15 +21,29 @@ public class Dashboard extends PageController {
         List<Session> suggestedSessions = Suggestion.suggestedSessionsFor(member, ConferenceEvent.CURRENT, 5);
         Set<Badge> suggestedBadges = Suggestion.missingBadgesFor(member);
 
+        // My sessions
+        List<Session> sessions = Session.findBySpeaker(member, ConferenceEvent.CURRENT);
+
         // Three recent articles
         List<Article> articles = Article.recents(1, 3);
 
         // Five recent comments
         List<Comment> comments = Comment.recentsByMember(member, 5);
 
-        render(member, setting, suggestedMembers, suggestedSessions, suggestedBadges, articles, comments);
+        boolean hasValidSessionOnCurrentEvent = hasValidSessionOnCurrentEvent(sessions);
+
+        render(member, setting, suggestedMembers, suggestedSessions, suggestedBadges, sessions, articles, comments, hasValidSessionOnCurrentEvent);
     }
-    
+
+    private static boolean hasValidSessionOnCurrentEvent(List<Session> sessions) {
+        for (Session session : sessions) {
+            if (session.valid ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void badges() {
         Member member = Member.findByLogin(Security.connected());
         Set<Badge> suggestedBadges = Suggestion.missingBadgesFor(member);

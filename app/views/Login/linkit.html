@@ -2,22 +2,22 @@
 #{set title:'Connexion à Mix-IT' /}
 
         <div class="row">
-            <div class="well span7">
-                <form action="@{loginLinkIt()}">
-                    <fieldset>
+            <div class="well col-md-5">
+                <form action="@{loginLinkIt()}" role="form">
+                    <fieldset class="form-group">
 
                     #{ifErrors}
-                        <p class="error">
+                        <p class="has-error">
                             Corrigez les erreurs.
                         </p>
                     #{/ifErrors}
 
                     #{field 'login'}
-                        <div class="clearfix">
+                        <div class="clearfix ${field.error?'has-error':''}">
                             <label for="${field.name}">Login :</label>
                             <div class="input">
                                 <input type="text" name="${field.name}"
-                                       value="${field.value}" class="${field.errorClass}" />
+                                       value="${field.value}" class="${field.errorClass} form-control">
                             </div>
                         </div>
                     #{/field}
@@ -27,20 +27,21 @@
                             <label for="${field.name}">Mot de passe :</label>
                             <div class="input">
                                 <input type="password" name="${field.name}"
-                                       value="${field.value}" class="${field.errorClass}" />
+                                       value="${field.value}" class="${field.errorClass} form-control">
                             </div>
-                        </div>
+                        </div><br/>
                     #{/field}
 
+                        <br>
                         <div class="actions">
-                            <input type="submit" class="btn primary" value="Se connecter"/>
-                            &nbsp;
-                            <input type="submit" formaction="@{signup()}" class="btn" value="S'enregistrer">
+                            <input type="submit" class="btn btn-primary" value="Se connecter"/>
+                            <input type="submit" formaction="@{signup()}" class="btn btn-default" value="S'enregistrer">
+                            <input type="submit" formaction="@{goToRequestPasswordReset()}" class="btn btn-default" value="&{'login.password.lost'}">
                         </div>
                     </fieldset>
                 </form>
             </div>
-            <div class="span8">
+            <div class="col-md-7">
                 <h1>Se connecter à Mix-IT</h1>
                 <p>
                     Pour créer un compte : cliquez sur "S'enregistrer".
